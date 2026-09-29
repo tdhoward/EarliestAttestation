@@ -2,6 +2,7 @@
   "source": "Official NTVMR API, one bounded document-set search",
   "run_id": "john-list-probe-20260929",
   "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/",
+  "http_status": 200,
   "params": {
     "detail": "document",
     "docID": "10066|10075",

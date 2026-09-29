@@ -23,7 +23,7 @@ API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
 OSIS = re.compile(r"^[1-3]?[A-Za-z][A-Za-z0-9]*\.[1-9][0-9]*\.[1-9][0-9]*$")
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=3;
+PRAGMA user_version=4;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -62,6 +62,17 @@ CREATE TABLE IF NOT EXISTS discovery_candidate (
  PRIMARY KEY(run_id,osis_ref,ga_num_query,lang_filter,doc_id),
  FOREIGN KEY(run_id,osis_ref,ga_num_query,lang_filter)
  REFERENCES discovery_job(run_id,osis_ref,ga_num,lang_filter));
+CREATE TABLE IF NOT EXISTS catalogue_scope (
+ run_id TEXT PRIMARY KEY, requested_ids_json TEXT NOT NULL,
+ index_ref TEXT, page_limit INTEGER NOT NULL CHECK(page_limit>0),
+ state TEXT NOT NULL CHECK(state IN ('pending','success','empty','incomplete','failed','blocked')),
+ response_id INTEGER REFERENCES source_response(id), reported_count INTEGER,
+ returned_count INTEGER, error TEXT, updated_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS catalogue_candidate (
+ run_id TEXT NOT NULL REFERENCES catalogue_scope(run_id),
+ doc_id INTEGER NOT NULL, response_id INTEGER NOT NULL REFERENCES source_response(id),
+ ga_num TEXT, primary_name TEXT, source_lang TEXT, raw_json TEXT NOT NULL,
+ PRIMARY KEY(run_id,doc_id));
 """
 
 
@@ -270,6 +281,8 @@ class Client:
             except (TimeoutError, URLError, OSError) as error:
                 if retry == 2:
                     raise JobFailure(f"Transport failed after three attempts: {error}") from error
+                if self.attempts >= self.budget:
+                    raise RunStopped(f"Network request budget exhausted after transport failure: {error}") from error
                 self.wait(2 ** retry + self.rng())
                 continue
             if status in (401, 403):
@@ -430,6 +443,164 @@ def discovery_report(con, run_id):
             "indexed_coverage_search_omissions": omissions}
 
 
+def catalogue_params(doc_ids, index_ref=None, page_limit=200):
+    if not doc_ids or any(type(doc) is not int or doc <= 0 for doc in doc_ids):
+        raise ValueError("Catalogue scope requires 1 to 20 positive document IDs")
+    ids = sorted(set(doc_ids))
+    if len(ids) > 20:
+        raise ValueError("Catalogue scope requires 1 to 20 positive document IDs")
+    if index_ref is not None and not OSIS.fullmatch(index_ref):
+        raise ValueError("Catalogue index filter must be one OSIS verse")
+    if type(page_limit) is not int or not 1 <= page_limit <= 200:
+        raise ValueError("Catalogue page limit must be between 1 and 200")
+    params = {"docID": "|".join(map(str, ids)), "detail": "document",
+              "format": "json", "limit": str(page_limit)}
+    if index_ref is not None:
+        params["indexContent"] = index_ref
+    return ids, params
+
+
+def collect_catalogue_scope(client, doc_ids, *, index_ref=None, page_limit=200, refresh=False):
+    """Look up a declared finite ID set; preserve its records as unreviewed candidates."""
+    ids, params = catalogue_params(doc_ids, index_ref, page_limit)
+    con = client.con
+    row = con.execute("""SELECT requested_ids_json,index_ref,page_limit,state
+        FROM catalogue_scope WHERE run_id=?""", (client.run_id,)).fetchone()
+    if row and row[:3] != (encoded(ids), index_ref, page_limit):
+        raise ValueError("Run ID already belongs to a different catalogue scope")
+    if row and row[3] in ("success", "empty") and not refresh:
+        return row[3]
+    con.execute("""INSERT INTO catalogue_scope(run_id,requested_ids_json,index_ref,
+        page_limit,state,updated_at) VALUES(?,?,?,?,?,?)
+        ON CONFLICT(run_id) DO UPDATE SET state='pending',error=NULL,
+        updated_at=excluded.updated_at""",
+        (client.run_id, encoded(ids), index_ref, page_limit, "pending", now()))
+    con.commit()
+    try:
+        payload, response_id = client.get_json("metadata/liste/search", params, refresh=refresh)
+        rows, reported = parse_search(payload)
+        returned = {record["docID"] for record in rows}
+        unexpected = returned - set(ids)
+        missing = set(ids) - returned
+        incomplete = reported != len(rows) or bool(unexpected) or (index_ref is None and bool(missing))
+        state = "incomplete" if incomplete else "success" if rows else "empty"
+        error = None
+        if incomplete:
+            error = f"count mismatch={reported != len(rows)}; missing={sorted(missing)}; unexpected={sorted(unexpected)}"
+        with con:
+            con.execute("DELETE FROM catalogue_candidate WHERE run_id=?", (client.run_id,))
+            con.executemany("""INSERT INTO catalogue_candidate(run_id,doc_id,response_id,
+                ga_num,primary_name,source_lang,raw_json) VALUES(?,?,?,?,?,?,?)""", [
+                (client.run_id, record["docID"], response_id,
+                 str(record["gaNum"]) if "gaNum" in record else None,
+                 str(record["primaryName"]) if "primaryName" in record else None,
+                 record.get("lang"), encoded(record)) for record in rows])
+            con.execute("""UPDATE catalogue_scope SET state=?,response_id=?,
+                reported_count=?,returned_count=?,error=?,updated_at=? WHERE run_id=?""",
+                (state, response_id, reported, len(rows), error, now(), client.run_id))
+        return state
+    except (ContractError, RunStopped, JobFailure) as error:
+        state = "blocked" if isinstance(error, AccessBlocked) else "pending" if isinstance(error, RunStopped) else "failed"
+        latest = con.execute("""SELECT id FROM source_response WHERE endpoint=? AND url=?
+            AND params_json=? ORDER BY id DESC LIMIT 1""",
+            ("metadata/liste/search", client.base_url + "/metadata/liste/search/",
+             encoded(params))).fetchone()
+        con.execute("""UPDATE catalogue_scope SET state=?,response_id=?,error=?,
+            updated_at=? WHERE run_id=?""",
+            (state, latest[0] if latest else None, str(error), now(), client.run_id))
+        con.commit()
+        raise
+
+
+def catalogue_report(con, run_id):
+    row = con.execute("""SELECT requested_ids_json,index_ref,page_limit,state,
+        reported_count,returned_count,error FROM catalogue_scope WHERE run_id=?""",
+        (run_id,)).fetchone()
+    if not row:
+        return None
+    requested = json.loads(row[0])
+    candidates = [dict(zip(("doc_id", "ga_num", "primary_name", "source_lang"), record))
+                  for record in con.execute("""SELECT doc_id,ga_num,primary_name,source_lang
+                  FROM catalogue_candidate WHERE run_id=? ORDER BY doc_id""", (run_id,))]
+    returned = {candidate["doc_id"] for candidate in candidates}
+    current = row[3] in ("success", "empty", "incomplete")
+    return {"run_id": run_id, "scope": "explicit catalogue document IDs",
+            "requested_doc_ids": requested, "index_ref": row[1], "page_limit": row[2],
+            "state": row[3], "reported_count": row[4], "returned_count": row[5],
+            "not_returned_doc_ids": sorted(set(requested) - returned) if current else None,
+            "unexpected_doc_ids": sorted(returned - set(requested)) if current else None,
+            "candidate_snapshot_stale": not current,
+            "catalogue_lookup_complete": row[3] == "success" and row[1] is None
+                and returned == set(requested),
+            "corpus_complete": False, "evidence_verified": False,
+            "error": row[6], "candidates": candidates}
+
+
+def scoped_index_report(con, run_id, refs):
+    """Invert completed document indexes within one declared catalogue scope."""
+    if not refs or any(not OSIS.fullmatch(ref) for ref in refs):
+        raise ValueError("Scope checks require individual OSIS verses")
+    scope = catalogue_report(con, run_id)
+    if not scope:
+        raise ValueError("No catalogue scope exists for this run")
+    ready, unready = [], []
+    if not scope["catalogue_lookup_complete"]:
+        return {"run_id": run_id, "state": "incomplete", "reason": "Catalogue ID lookup is incomplete",
+                "refs": sorted(set(refs)), "ready_doc_ids": [],
+                "unready_doc_ids": scope["requested_doc_ids"], "candidates": {},
+                "named_search_omissions": [], "discovery_complete": False}
+    for doc_id in scope["requested_doc_ids"]:
+        job = con.execute("""SELECT state,response_id FROM collection_job
+            WHERE run_id=? AND doc_id=? AND stage='coverage'""", (run_id, doc_id)).fetchone()
+        latest = con.execute("""SELECT MAX(response_id) FROM collection_job
+            WHERE doc_id=? AND stage='coverage' AND state IN ('success','empty')""",
+            (doc_id,)).fetchone()[0]
+        mismatched = bool(job and job[1] is not None and con.execute("""
+            SELECT 1 FROM coverage_index WHERE doc_id=? AND response_id!=? LIMIT 1""",
+            (doc_id, job[1])).fetchone())
+        if not job or job[0] not in ("success", "empty") or job[1] != latest or mismatched:
+            unready.append(doc_id)
+        else:
+            ready.append(doc_id)
+    candidates = {}
+    for ref in sorted(set(refs)):
+        candidates[ref] = [
+            {"doc_id": doc_id, "page_ids": [page for (page,) in con.execute("""
+                SELECT page_id FROM coverage_index WHERE doc_id=? AND osis_ref=?
+                ORDER BY page_id""", (doc_id, ref))]}
+            for doc_id in ready if con.execute("""SELECT 1 FROM coverage_index
+                WHERE doc_id=? AND osis_ref=? LIMIT 1""", (doc_id, ref)).fetchone()]
+    omissions = []
+    names = {row["doc_id"]: (row["ga_num"], row["primary_name"])
+             for row in scope["candidates"]}
+    for ref, records in candidates.items():
+        for (query_name, lang_filter, state) in con.execute("""SELECT ga_num,
+            lang_filter,state FROM discovery_job WHERE run_id=? AND osis_ref=?""",
+            (run_id, ref)):
+            if state not in ("success", "empty"):
+                continue
+            for record in records:
+                aliases = names.get(record["doc_id"], ())
+                if not any(alias is not None and
+                           (alias == query_name or
+                            (alias.isdecimal() and query_name.isdecimal()
+                             and int(alias) == int(query_name))) for alias in aliases):
+                    continue
+                hit = con.execute("""SELECT 1 FROM discovery_candidate WHERE
+                    run_id=? AND osis_ref=? AND ga_num_query=? AND lang_filter=?
+                    AND doc_id=? LIMIT 1""",
+                    (run_id, ref, query_name, lang_filter, record["doc_id"])).fetchone()
+                if not hit:
+                    omissions.append({"osis_ref": ref, "query_ga_num": query_name,
+                                      "lang_filter": lang_filter, "doc_id": record["doc_id"]})
+    return {"run_id": run_id, "state": "complete" if not unready and not omissions else "incomplete",
+            "refs": sorted(set(refs)), "ready_doc_ids": ready,
+            "unready_doc_ids": unready, "candidates": candidates,
+            "named_search_omissions": omissions,
+            "discovery_complete": False,
+            "warning": "Index candidates are not verified physical survival; missing index rows are not proof of absence"}
+
+
 def import_p52(con, fixture):
     record = json.loads(fixture.read_text(encoding="utf-8"))
     body = json.dumps(record["response"], separators=(",", ":"))
@@ -473,6 +644,27 @@ def import_language_probe(con, fixture):
     return ids
 
 
+def import_search_fixture(con, fixture):
+    record = json.loads(fixture.read_text(encoding="utf-8"))
+    body = record["raw_body"]
+    digest = hashlib.sha256(body.encode()).hexdigest()
+    if digest != record["body_sha256"]:
+        raise ValueError("Search fixture body hash mismatch")
+    args = encoded(record["params"])
+    row = con.execute("""SELECT id FROM source_response WHERE origin='fixture'
+        AND url=? AND params_json=? AND body_sha256=?""",
+        (record["source_url"], args, digest)).fetchone()
+    if row:
+        return row[0]
+    con.execute("""INSERT INTO source_response(endpoint,url,params_json,status_code,
+        headers_json,body,body_sha256,retrieved_at,origin)
+        VALUES(?,?,?,?,?,?,?,?,?)""",
+        ("metadata/liste/search", record["source_url"], args,
+         record["http_status"], "{}", body, digest, record["retrieved_at"], "fixture"))
+    con.commit()
+    return con.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
 def export_p52(con, path):
     rows = con.execute("""SELECT c.osis_ref,c.page_id,c.state,r.id,r.body_sha256,
        r.url,r.params_json,r.retrieved_at,r.origin
@@ -514,13 +706,21 @@ def main(argv=None):
     ap.add_argument("--search-ga-num", action="append", default=[])
     ap.add_argument("--search-lang", help="Optional literal API language filter")
     ap.add_argument("--refresh-search", action="store_true")
+    ap.add_argument("--catalogue-doc-id", type=int, action="append", default=[])
+    ap.add_argument("--catalogue-index-ref", help="Optional passage filter for the ID set")
+    ap.add_argument("--catalogue-limit", type=int, default=200,
+                    help="Approximate API page cap for the bounded catalogue lookup")
+    ap.add_argument("--refresh-catalogue", action="store_true")
+    ap.add_argument("--fixture-john-list", action="store_true")
+    ap.add_argument("--scope-check-ref", action="append", default=[],
+                    help="Invert completed coverage for this verse within the catalogue ID scope")
     ap.add_argument("--export-p52", type=Path)
     args = ap.parse_args(argv)
     if min(args.request_budget, args.max_run_seconds, args.min_interval, args.jitter) < 0:
         ap.error("Budgets and intervals must be nonnegative")
     if any(doc <= 0 for doc in args.doc_id):
         ap.error("Document IDs must be positive")
-    if not args.offline and (args.doc_id or args.search_ga_num) and args.request_budget == 0:
+    if not args.offline and (args.doc_id or args.search_ga_num or args.catalogue_doc_id) and args.request_budget == 0:
         ap.error("Network collection requires a positive --request-budget")
     if args.fixture_p52 and args.refresh_stage:
         ap.error("Fixture replay cannot refresh a network stage")
@@ -536,6 +736,21 @@ def main(argv=None):
         ap.error("--search-lang requires a search")
     if args.offline and args.refresh_search:
         ap.error("--refresh-search requires live mode")
+    if args.catalogue_index_ref and not args.catalogue_doc_id:
+        ap.error("--catalogue-index-ref requires --catalogue-doc-id")
+    if args.catalogue_doc_id:
+        try:
+            catalogue_params(args.catalogue_doc_id, args.catalogue_index_ref, args.catalogue_limit)
+        except ValueError as error:
+            ap.error(str(error))
+    if args.refresh_catalogue and (args.offline or not args.catalogue_doc_id):
+        ap.error("--refresh-catalogue requires a live catalogue scope")
+    if args.fixture_john_list and not args.offline:
+        ap.error("Fixture replay requires --offline")
+    if args.scope_check_ref and not args.catalogue_doc_id:
+        ap.error("--scope-check-ref requires a catalogue ID scope")
+    if any(not OSIS.fullmatch(ref) for ref in args.scope_check_ref):
+        ap.error("--scope-check-ref requires individual OSIS verses")
     try:
         if args.archive_legacy and args.dry_run:
             print(f"Would archive {args.archive_legacy} to {args.archive_to}")
@@ -547,6 +762,8 @@ def main(argv=None):
                 import_p52(con, Path(__file__).parent / "tests/fixtures/p52_coverage_probe.json")
             if args.fixture_language_probe and not args.dry_run:
                 import_language_probe(con, Path(__file__).parent / "tests/fixtures/p52_language_probe.json")
+            if args.fixture_john_list and not args.dry_run:
+                import_search_fixture(con, Path(__file__).parent / "tests/fixtures/john_list_probe.json")
             jobs = [(doc, stage) for doc in sorted(set(args.doc_id)) for stage in ("metadata", "coverage")]
             pending = []
             blocked = []
@@ -594,22 +811,56 @@ def main(argv=None):
                 if hit and not args.refresh_search:
                     search_cached.append((ref, name))
             planned_network_jobs += len(search_pending) - len(search_cached)
+            catalogue_requested = bool(args.catalogue_doc_id)
+            catalogue_pending = False
+            catalogue_blocked = False
+            catalogue_cached = False
+            if catalogue_requested:
+                catalogue_ids, catalogue_query = catalogue_params(
+                    args.catalogue_doc_id, args.catalogue_index_ref, args.catalogue_limit)
+                prior = con.execute("""SELECT requested_ids_json,index_ref,page_limit,state
+                    FROM catalogue_scope WHERE run_id=?""", (args.run_id,)).fetchone()
+                if prior and prior[:3] != (encoded(catalogue_ids), args.catalogue_index_ref, args.catalogue_limit):
+                    raise ValueError("Run ID already belongs to a different catalogue scope")
+                catalogue_blocked = bool(prior and prior[3] == "blocked" and not args.refresh_catalogue)
+                catalogue_pending = not catalogue_blocked and (
+                    args.refresh_catalogue or not prior or prior[3] not in ("success", "empty"))
+                if catalogue_pending and not args.refresh_catalogue:
+                    catalogue_cached = bool(con.execute("""SELECT 1 FROM source_response
+                        WHERE endpoint=? AND url=? AND params_json=?
+                        AND status_code BETWEEN 200 AND 299
+                        AND (origin='http' OR ?) LIMIT 1""",
+                        ("metadata/liste/search", args.base_url.rstrip("/") + "/metadata/liste/search/",
+                         encoded(catalogue_query), args.offline)).fetchone())
+                planned_network_jobs += int(catalogue_pending and not catalogue_cached)
             print(json.dumps({"run_id": args.run_id, "planned_jobs": pending,
                 "cached_jobs": cached, "blocked_jobs": blocked, "fixture_p52": args.fixture_p52,
                 "search_scope": "named gaNum and single OSIS verse lookups",
                 "search_jobs": search_pending, "cached_searches": search_cached,
                 "blocked_searches": search_blocked,
+                "catalogue_doc_ids": sorted(set(args.catalogue_doc_id)),
+                "catalogue_pending": catalogue_pending,
+                "catalogue_cached": catalogue_cached,
+                "catalogue_blocked": catalogue_blocked,
                 "prior_network_attempts": prior_attempts,
                 "maximum_network_attempts": 0 if args.offline else min(max(0, args.request_budget - prior_attempts), planned_network_jobs * 3),
                 "offline": args.offline, "refresh_stage": args.refresh_stage}))
             if args.dry_run:
                 return 0
-            if blocked or search_blocked:
+            if blocked or search_blocked or catalogue_blocked:
                 raise RunStopped("Prior access block requires explicit refresh")
             client = Client(con, args.run_id, base_url=args.base_url, offline=args.offline,
                 budget=args.request_budget, interval=args.min_interval,
                 jitter=args.jitter, duration=args.max_run_seconds)
             try:
+                if catalogue_pending:
+                    state = collect_catalogue_scope(client, args.catalogue_doc_id,
+                        index_ref=args.catalogue_index_ref, page_limit=args.catalogue_limit,
+                        refresh=args.refresh_catalogue)
+                    if state not in ("success", "empty"):
+                        raise RunStopped("Catalogue scope is incomplete")
+                if args.scope_check_ref and not catalogue_report(con, args.run_id)["catalogue_lookup_complete"]:
+                    raise RunStopped("Scoped index comparison requires a complete unfiltered ID lookup")
                 if args.fixture_p52:
                     collect_stage(client, 10052, "coverage")
                 for doc, stage in pending:
@@ -620,8 +871,20 @@ def main(argv=None):
                 if searches:
                     report = discovery_report(con, args.run_id)
                     print(json.dumps(report))
+                if catalogue_requested:
+                    scope_report = catalogue_report(con, args.run_id)
+                    if scope_report:
+                        print(json.dumps(scope_report))
+                if args.scope_check_ref and scope_report:
+                    index_report = scoped_index_report(con, args.run_id, args.scope_check_ref)
+                    print(json.dumps(index_report))
             if searches and any(job["state"] not in ("success", "empty") for job in report["jobs"]):
                 raise RunStopped("Search results are incomplete")
+            if catalogue_requested and scope_report["state"] not in ("success", "empty"):
+                raise RunStopped("Catalogue scope is incomplete")
+            if args.scope_check_ref and (index_report["state"] != "complete" or
+                                         index_report["named_search_omissions"]):
+                raise RunStopped("Scoped index comparison is incomplete or inconsistent")
             if args.export_p52:
                 export_p52(con, args.export_p52)
         return 0

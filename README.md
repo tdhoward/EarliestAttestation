@@ -41,6 +41,14 @@ P75, 01, and 02 at John 1:1. The [captured four-witness search responses](tests/
 show that codex names can be JSON numbers. These lookups do not establish complete
 discovery or verified physical coverage.
 
+A bounded catalogue lookup now accepts up to 20 explicit document IDs in one
+request, preserves every returned record, and reports IDs that were not returned.
+An unfiltered lookup is marked complete for that declared ID set only when every
+requested ID appears and the reported count matches. A passage-filtered lookup
+cannot establish that status. Unfiltered live probes for five IDs and then P52
+alone timed out on 2026-09-29 and remain checkpointed as pending; they yielded no
+completeness claim.
+
 ## Run the offline checks
 
 Python 3.10+ is required for the audit; verified with Python 3.12. The audit and
@@ -78,6 +86,7 @@ python sync_ntvmr.py --offline --fixture-p52 --db data/ntvmr-v2.sqlite --run-id 
 python sync_ntvmr.py --offline --db data/ntvmr-v2.sqlite --doc-id 10052 --run-id review --dry-run
 python sync_ntvmr.py --offline --fixture-p52 --fixture-language-probe --db data/ntvmr-v2.sqlite --run-id p52-language --search-ref John.18.31 --search-ga-num P52
 python sync_ntvmr.py --db data/ntvmr-v2.sqlite --run-id john-named-probe --search-ref John.18.31 --search-ga-num P52 --search-ga-num P66 --search-ga-num P75 --request-budget 3 --dry-run
+python sync_ntvmr.py --offline --fixture-john-list --db data/ntvmr-v2.sqlite --run-id john-list-fixture --catalogue-doc-id 10066 --catalogue-doc-id 10075 --catalogue-index-ref John.1.1 --catalogue-limit 10
 ```
 
 The legacy code is retained as [`legacy_sync_ntvmr.py`](legacy_sync_ntvmr.py) for
@@ -95,6 +104,15 @@ with a search result. `count` and returned rows are checked, but a match does no
 prove exhaustive results. `--refresh-search` explicitly reruns a selected lookup.
 If Python cannot validate the service's TLS chain, configure `SSL_CERT_FILE` to a
 trusted CA bundle; keep certificate verification enabled.
+
+Use `--catalogue-doc-id` to declare a bounded ID set. `--catalogue-index-ref` is an
+optional passage filter, and `--catalogue-limit` is an approximate page cap, not a
+document count. `--refresh-catalogue` explicitly retries that scope. After
+collecting each document's coverage with `--doc-id` under the same run ID,
+`--scope-check-ref` inverts the completed indexes for selected verses and compares
+them with any named passage searches in that run. It marks later replaced coverage
+as stale. These rows remain index candidates; a missing row is not proof that text
+was physically absent.
 
 The new collector does not yet discover all candidates, identify physical witness
 aliases, resolve NA28 verse
@@ -127,7 +145,7 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled document collection and v2 schema |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v4 schema in the v2 replacement database |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of that schema |
 | `tests/` | Audit and controlled collector tests; captured P52 API fixtures |

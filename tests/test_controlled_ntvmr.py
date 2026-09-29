@@ -7,8 +7,10 @@ import unittest
 
 from controlled_ntvmr import (
     AccessBlocked, Client, ContractError, RunStopped, collect_stage, connect,
-    collect_search, discovery_report, export_p52, import_language_probe, import_p52,
-    main, parse_coverage, parse_search, retry_after,
+    catalogue_params, catalogue_report, collect_catalogue_scope, collect_search,
+    discovery_report, export_p52, import_language_probe, import_p52,
+    import_search_fixture, main, parse_coverage, parse_search, retry_after,
+    scoped_index_report,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
@@ -83,6 +85,13 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual([call[0] for call in calls], [0, 5, 10])
         self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 3)
         self.assertEqual(self.con.execute("SELECT count(*) FROM source_response").fetchone()[0], 2)
+
+    def test_transport_failure_is_visible_when_budget_stops_retry(self):
+        client, _, _ = self.client([TimeoutError("connection timed out")], budget=1)
+        with self.assertRaisesRegex(RunStopped, "connection timed out"):
+            client.get_json("metadata/liste/search", {"docID": "10052"})
+        self.assertIn("connection timed out", self.con.execute(
+            "SELECT failure FROM request_attempt").fetchone()[0])
 
     def test_retry_after_and_budgeted_stop(self):
         self.assertEqual(retry_after("12"), 12)
@@ -265,6 +274,98 @@ class CollectorTests(unittest.TestCase):
                                "--search-ga-num", "P52"]), 0)
         self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
         self.assertEqual(discovery_report(self.con, "named")["candidates"][0]["source_lang"], "g")
+
+    def test_offline_bounded_catalogue_scope_and_resume(self):
+        import_search_fixture(self.con, Path(__file__).parent / "fixtures" / "john_list_probe.json")
+        client = Client(self.con, "batch", offline=True)
+        self.assertEqual(collect_catalogue_scope(client, [10075, 10066],
+                         index_ref="John.1.1", page_limit=10), "success")
+        report = catalogue_report(self.con, "batch")
+        self.assertEqual(report["requested_doc_ids"], [10066, 10075])
+        self.assertEqual([row["doc_id"] for row in report["candidates"]], [10066, 10075])
+        self.assertFalse(report["catalogue_lookup_complete"])
+        self.assertEqual(client.attempts, 0)
+        self.assertEqual(collect_catalogue_scope(client, [10066, 10075],
+                         index_ref="John.1.1", page_limit=10), "success")
+        self.assertEqual(self.con.execute("SELECT count(*) FROM catalogue_candidate").fetchone()[0], 2)
+        with self.assertRaises(ValueError):
+            collect_catalogue_scope(client, [10066], index_ref="John.1.1", page_limit=10)
+
+    def test_catalogue_scope_requires_all_ids_without_passage_filter(self):
+        payload = json.loads(LIST["raw_body"])
+        client, _, _ = self.client([(200, json.dumps(payload), {})])
+        self.assertEqual(collect_catalogue_scope(client, [10066, 10075], page_limit=10), "success")
+        self.assertTrue(catalogue_report(self.con, "test")["catalogue_lookup_complete"])
+        self.assertEqual(catalogue_params([10075, 10066], page_limit=10)[1]["docID"], "10066|10075")
+        with self.assertRaises(ValueError):
+            catalogue_params(list(range(1, 22)))
+        with self.assertRaises(ValueError):
+            catalogue_params([10052], page_limit=201)
+
+    def test_catalogue_incomplete_and_failed_refresh_keep_distinct_states(self):
+        payload = json.loads(LIST["raw_body"])
+        one = json.loads(json.dumps(payload))
+        one["data"]["manuscripts"]["manuscript"].pop()
+        client, _, _ = self.client([(200, json.dumps(one), {})])
+        self.assertEqual(collect_catalogue_scope(client, [10066, 10075], page_limit=10), "incomplete")
+        report = catalogue_report(self.con, "test")
+        self.assertEqual(report["not_returned_doc_ids"], [10075])
+        self.assertEqual(report["returned_count"], 1)
+        self.assertFalse(report["catalogue_lookup_complete"])
+        good, _, _ = self.client([(200, json.dumps(payload), {})])
+        self.assertEqual(collect_catalogue_scope(good, [10066, 10075],
+                         page_limit=10, refresh=True), "success")
+        malformed, _, _ = self.client([(200, '{"status":"success","data":{}}', {})])
+        with self.assertRaises(ContractError):
+            collect_catalogue_scope(malformed, [10066, 10075], page_limit=10, refresh=True)
+        report = catalogue_report(self.con, "test")
+        self.assertEqual(report["state"], "failed")
+        self.assertEqual(len(report["candidates"]), 2)
+        self.assertFalse(report["catalogue_lookup_complete"])
+
+    def test_cli_offline_catalogue_fixture(self):
+        self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-john-list",
+                               "--run-id", "fixture-batch", "--catalogue-doc-id", "10066",
+                               "--catalogue-doc-id", "10075", "--catalogue-index-ref", "John.1.1",
+                               "--catalogue-limit", "10"]), 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+        self.assertEqual(catalogue_report(self.con, "fixture-batch")["state"], "success")
+
+    def test_filtered_scope_stops_before_document_collection(self):
+        result = main(["--db", str(self.path), "--offline", "--fixture-john-list",
+                       "--run-id", "filtered", "--catalogue-doc-id", "10066",
+                       "--catalogue-doc-id", "10075", "--catalogue-index-ref", "John.1.1",
+                       "--catalogue-limit", "10", "--scope-check-ref", "John.1.1",
+                       "--doc-id", "10066"])
+        self.assertEqual(result, 1)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM collection_job").fetchone()[0], 0)
+
+    def test_scoped_index_inversion_flags_search_omission_and_stale_refresh(self):
+        p52_search = LANGUAGE["cases"][1]["response"]
+        catalogue, _, _ = self.client([(200, json.dumps(p52_search), {})], run_id="scope")
+        collect_catalogue_scope(catalogue, [10052], page_limit=10)
+        import_p52(self.con, FIXTURE)
+        import_language_probe(self.con, LANGUAGE_FIXTURE)
+        offline = Client(self.con, "scope", offline=True)
+        collect_stage(offline, 10052, "coverage")
+        collect_search(offline, "John.18.31", "P52", lang="gr")
+        collect_search(offline, "John.18.31", "P52", lang="grc")
+        report = scoped_index_report(self.con, "scope", ["John.18.31", "John.18.34"])
+        self.assertEqual(report["state"], "incomplete")
+        self.assertEqual(report["unready_doc_ids"], [])
+        self.assertEqual(report["candidates"]["John.18.31"],
+                         [{"doc_id": 10052, "page_ids": [10]}])
+        self.assertEqual(report["candidates"]["John.18.34"], [])
+        self.assertEqual(report["named_search_omissions"],
+                         [{"osis_ref": "John.18.31", "query_ga_num": "P52",
+                           "lang_filter": "gr", "doc_id": 10052}])
+        empty = {"status": "success", "data": {"indexContents": {"docID": 10052,
+                 "indexContent": []}}}
+        later, _, _ = self.client([(200, json.dumps(empty), {})], run_id="later")
+        collect_stage(later, 10052, "coverage", refresh=True)
+        stale = scoped_index_report(self.con, "scope", ["John.18.31"])
+        self.assertEqual(stale["state"], "incomplete")
+        self.assertEqual(stale["unready_doc_ids"], [10052])
 
 
 if __name__ == "__main__":

@@ -17,6 +17,17 @@ NA28 inventory, verified evidence, rankings,
 and visualization remain planned. The sample does not satisfy the later scholarly
 validation gates.
 
+The next collection increment supports one resumable catalogue lookup of up to 20
+explicit document IDs, with source-linked candidates and a report of returned
+IDs. Only an unfiltered lookup returning every requested ID can mark that bounded
+catalogue scope complete. A passage-filtered lookup remains incomplete for that
+purpose. Completed per-document indexes can be inverted for requested verses only
+when their coverage checkpoints still match the active index snapshot. The
+comparison flags named searches that miss a document with an index candidate.
+The first five-ID unfiltered live lookup and a later P52-only unfiltered lookup
+timed out on 2026-09-29; their pending jobs and transport failures are retained
+locally, and no completeness result was inferred.
+
 ## Research contract
 
 1. **Reference edition:** NA28, selected by the project owner. Store its explicit
