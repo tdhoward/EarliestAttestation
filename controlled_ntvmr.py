@@ -23,7 +23,7 @@ API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
 OSIS = re.compile(r"^[1-3]?[A-Za-z][A-Za-z0-9]*\.[1-9][0-9]*\.[1-9][0-9]*$")
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=6;
+PRAGMA user_version=7;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -96,6 +96,17 @@ CREATE TABLE IF NOT EXISTS candidate_review (
        (decision='exclude' AND source_type IN ('printed_edition','other')) OR
        (decision='uncertain' AND source_type='uncertain')));
 CREATE INDEX IF NOT EXISTS candidate_review_latest ON candidate_review(doc_id,id);
+CREATE TABLE IF NOT EXISTS physical_witness (
+ witness_id TEXT PRIMARY KEY CHECK(length(trim(witness_id))>0),
+ label TEXT NOT NULL CHECK(length(trim(label))>0), created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS witness_assignment (
+ id INTEGER PRIMARY KEY, doc_id INTEGER NOT NULL,
+ witness_id TEXT REFERENCES physical_witness(witness_id),
+ source_response_id INTEGER NOT NULL REFERENCES source_response(id),
+ reason TEXT NOT NULL CHECK(length(trim(reason))>0),
+ citation TEXT NOT NULL CHECK(length(trim(citation))>0),
+ reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0), assigned_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS witness_assignment_latest ON witness_assignment(doc_id,id);
 """
 
 
@@ -545,6 +556,98 @@ def latest_candidate_reviews(con, doc_ids):
     return reviews
 
 
+def record_witness_assignment(con, doc_id, source_response_id, witness_id, label,
+                              reason, citation, reviewer):
+    """Append a reviewed physical identity link, or an explicit unlink."""
+    if type(doc_id) is not int or doc_id <= 0 or type(source_response_id) is not int or source_response_id <= 0:
+        raise ValueError("Identity assignment requires positive document and response IDs")
+    if any(not isinstance(value, str) or not value.strip()
+           for value in (reason, citation, reviewer)):
+        raise ValueError("Identity assignment requires reason, citation, and reviewer")
+    if witness_id is not None and (not isinstance(witness_id, str) or not witness_id.strip()):
+        raise ValueError("Witness ID must be a nonempty string")
+    if label is not None and (not isinstance(label, str) or not label.strip()):
+        raise ValueError("Witness label must be a nonempty string")
+    if witness_id is None and label is not None:
+        raise ValueError("An unlink cannot create a witness label")
+    if witness_id is None and not con.execute("""SELECT 1 FROM witness_assignment
+        WHERE doc_id=? AND witness_id IS NOT NULL AND id=(
+            SELECT MAX(id) FROM witness_assignment WHERE doc_id=?)""",
+        (doc_id, doc_id)).fetchone():
+        raise ValueError("Document has no current witness link to remove")
+    review = latest_candidate_reviews(con, [doc_id]).get(doc_id)
+    if not review or review["review_source_response_id"] != source_response_id:
+        raise ValueError("Identity assignment requires a document reviewed against this response")
+    if witness_id is not None and review["review_decision"] != "retain":
+        raise ValueError("A witness link requires a retained document")
+    if witness_id is not None and review["review_source_changed"]:
+        raise ValueError("Identity assignment requires review of the latest source response")
+    if witness_id is not None:
+        witness_id = witness_id.strip()
+        existing = con.execute("SELECT label FROM physical_witness WHERE witness_id=?",
+                               (witness_id,)).fetchone()
+        if existing and label is not None and label.strip() != existing[0]:
+            raise ValueError("Witness ID already has a different label")
+        if not existing and label is None:
+            raise ValueError("A new witness ID requires a label")
+    with con:
+        if witness_id is not None and not existing:
+            con.execute("INSERT INTO physical_witness(witness_id,label,created_at) VALUES(?,?,?)",
+                        (witness_id.strip(), label.strip(), now()))
+        con.execute("""INSERT INTO witness_assignment(doc_id,witness_id,source_response_id,
+            reason,citation,reviewer,assigned_at) VALUES(?,?,?,?,?,?,?)""",
+            (doc_id, witness_id.strip() if witness_id is not None else None,
+             source_response_id, reason.strip(), citation.strip(), reviewer.strip(), now()))
+        assignment_id = con.execute("SELECT last_insert_rowid()").fetchone()[0]
+    return assignment_id
+
+
+def latest_witness_assignments(con, doc_ids, reviews=None):
+    ids = sorted(set(doc_ids))
+    if not ids:
+        return {}
+    if reviews is None:
+        reviews = latest_candidate_reviews(con, ids)
+    placeholders = ",".join("?" for _ in ids)
+    rows = con.execute(f"""SELECT a.doc_id,a.id,a.witness_id,w.label,
+        a.source_response_id,a.reason,a.citation,a.reviewer,a.assigned_at
+        FROM witness_assignment a LEFT JOIN physical_witness w ON w.witness_id=a.witness_id
+        JOIN (SELECT doc_id,MAX(id) id FROM witness_assignment
+              WHERE doc_id IN ({placeholders}) GROUP BY doc_id) latest ON latest.id=a.id""", ids)
+    fields = ("doc_id", "identity_assignment_id", "witness_id", "witness_label",
+              "identity_source_response_id", "identity_reason", "identity_citation",
+              "identity_reviewer", "identity_assigned_at")
+    assignments = {row[0]: dict(zip(fields, row)) for row in rows}
+    for assignment in assignments.values():
+        review = reviews.get(assignment["doc_id"])
+        assignment["identity_review_needed"] = bool(
+            not review or review["review_decision"] != "retain" or
+            review["review_source_changed"] or
+            review["review_source_response_id"] != assignment["identity_source_response_id"])
+    return assignments
+
+
+def witness_identity_report(con):
+    """Show current document links, including links requiring renewed review."""
+    doc_ids = [row[0] for row in con.execute(
+        "SELECT DISTINCT doc_id FROM witness_assignment ORDER BY doc_id")]
+    reviews = latest_candidate_reviews(con, doc_ids)
+    assignments = latest_witness_assignments(con, doc_ids, reviews)
+    witnesses = []
+    for witness_id, label in con.execute(
+            "SELECT witness_id,label FROM physical_witness ORDER BY witness_id"):
+        linked = [assignment for assignment in assignments.values()
+                  if assignment["witness_id"] == witness_id]
+        witnesses.append({"witness_id": witness_id, "label": label,
+                          "current_doc_ids": sorted(row["doc_id"] for row in linked),
+                          "review_needed_doc_ids": sorted(
+                              row["doc_id"] for row in linked if row["identity_review_needed"])})
+    return {"scope": "manually reviewed document-to-physical-witness links",
+            "evidence_verified": False,
+            "witnesses": witnesses,
+            "assignments": [assignments[doc_id] for doc_id in doc_ids]}
+
+
 def discovery_report(con, run_id):
     jobs = [dict(zip(("osis_ref", "ga_num", "lang_filter", "state", "reported_count",
                       "returned_count"), row)) for row in con.execute("""SELECT osis_ref,ga_num,
@@ -557,9 +660,12 @@ def discovery_report(con, run_id):
         FROM discovery_candidate WHERE run_id=?
         ORDER BY osis_ref,ga_num_query,lang_filter,doc_id""", (run_id,))]
     reviews = latest_candidate_reviews(con, (row["doc_id"] for row in candidates))
+    identities = latest_witness_assignments(con, (row["doc_id"] for row in candidates), reviews)
     for candidate in candidates:
         candidate.update(reviews.get(candidate["doc_id"],
                          {"review_decision": "unreviewed"}))
+        candidate.update(identities.get(candidate["doc_id"],
+                         {"witness_id": None, "identity_review_needed": None}))
     omissions = [dict(zip(("osis_ref", "query_ga_num", "lang_filter", "doc_id"), row)) for row in con.execute("""
         SELECT DISTINCT j.osis_ref,j.ga_num,j.lang_filter,c.doc_id FROM discovery_job j
         JOIN coverage_index c ON c.osis_ref=j.osis_ref
@@ -658,9 +764,12 @@ def catalogue_report(con, run_id):
                   for record in con.execute("""SELECT doc_id,response_id,ga_num,primary_name,source_lang
                   FROM catalogue_candidate WHERE run_id=? ORDER BY doc_id""", (run_id,))]
     reviews = latest_candidate_reviews(con, (row["doc_id"] for row in candidates))
+    identities = latest_witness_assignments(con, (row["doc_id"] for row in candidates), reviews)
     for candidate in candidates:
         candidate.update(reviews.get(candidate["doc_id"],
                          {"review_decision": "unreviewed"}))
+        candidate.update(identities.get(candidate["doc_id"],
+                         {"witness_id": None, "identity_review_needed": None}))
     returned = {candidate["doc_id"] for candidate in candidates}
     current = row[3] in ("success", "empty", "incomplete")
     return {"run_id": run_id, "scope": "explicit catalogue document IDs",
@@ -869,6 +978,16 @@ def main(argv=None):
     ap.add_argument("--review-reason")
     ap.add_argument("--review-citation")
     ap.add_argument("--reviewer")
+    ap.add_argument("--identity-doc-id", type=int,
+                    help="Assign or unlink a document from a physical witness")
+    ap.add_argument("--identity-response-id", type=int)
+    ap.add_argument("--witness-id", help="Stable, manually chosen physical witness ID")
+    ap.add_argument("--witness-label", help="Label required when creating a witness ID")
+    ap.add_argument("--identity-unlink", action="store_true")
+    ap.add_argument("--identity-reason")
+    ap.add_argument("--identity-citation")
+    ap.add_argument("--identity-reviewer")
+    ap.add_argument("--identity-report", action="store_true")
     ap.add_argument("--export-p52", type=Path)
     args = ap.parse_args(argv)
     if min(args.request_budget, args.max_run_seconds, args.min_interval, args.jitter) < 0:
@@ -914,10 +1033,30 @@ def main(argv=None):
             ap.error("Document review requires response ID, decision, source type, reason, citation, and reviewer")
         if (args.doc_id or args.search_ga_num or args.catalogue_doc_id or args.scope_check_ref or
             args.fixture_p52 or args.fixture_language_probe or args.fixture_john_list or
-            args.archive_legacy or args.export_p52):
+            args.archive_legacy or args.export_p52 or args.identity_report):
             ap.error("Record a document review in a separate invocation")
     elif any(value is not None for value in review_fields):
         ap.error("Review fields require --review-doc-id")
+    identity_fields = (args.identity_response_id, args.identity_reason,
+                       args.identity_citation, args.identity_reviewer)
+    if args.identity_doc_id is not None:
+        if any(value is None for value in identity_fields):
+            ap.error("Identity assignment requires response ID, reason, citation, and reviewer")
+        if args.identity_unlink == bool(args.witness_id) or (args.identity_unlink and args.witness_label):
+            ap.error("Supply either --identity-unlink or --witness-id, with a label only for a link")
+        if (args.review_doc_id is not None or args.doc_id or args.search_ga_num or
+            args.catalogue_doc_id or args.scope_check_ref or args.fixture_p52 or
+            args.fixture_language_probe or args.fixture_john_list or args.archive_legacy or
+            args.export_p52 or args.identity_report):
+            ap.error("Record an identity assignment in a separate invocation")
+    elif (any(value is not None for value in identity_fields) or args.witness_id is not None or
+          args.witness_label is not None or args.identity_unlink):
+        ap.error("Identity fields require --identity-doc-id")
+    if args.identity_report and (args.review_doc_id is not None or args.doc_id or
+        args.search_ga_num or args.catalogue_doc_id or args.scope_check_ref or
+        args.fixture_p52 or args.fixture_language_probe or args.fixture_john_list or
+        args.archive_legacy or args.export_p52):
+        ap.error("Request the identity report in a separate invocation")
     try:
         if args.archive_legacy and args.dry_run:
             print(f"Would archive {args.archive_legacy} to {args.archive_to}")
@@ -925,6 +1064,24 @@ def main(argv=None):
             archive_legacy(args.archive_legacy, args.archive_to)
             print(f"Archived legacy database to {args.archive_to}")
         with closing(connect(args.db)) as con:
+            if args.identity_doc_id is not None:
+                if args.dry_run:
+                    print(json.dumps({"planned_identity_doc_id": args.identity_doc_id,
+                                      "witness_id": args.witness_id, "unlink": args.identity_unlink,
+                                      "network_attempts": 0}))
+                    return 0
+                assignment_id = record_witness_assignment(
+                    con, args.identity_doc_id, args.identity_response_id,
+                    None if args.identity_unlink else args.witness_id,
+                    args.witness_label, args.identity_reason, args.identity_citation,
+                    args.identity_reviewer)
+                print(json.dumps({"identity_assignment_id": assignment_id,
+                                  "doc_id": args.identity_doc_id,
+                                  "witness_id": None if args.identity_unlink else args.witness_id}))
+                return 0
+            if args.identity_report:
+                print(json.dumps(witness_identity_report(con)))
+                return 0
             if args.review_doc_id is not None:
                 if args.dry_run:
                     print(json.dumps({"planned_review_doc_id": args.review_doc_id,

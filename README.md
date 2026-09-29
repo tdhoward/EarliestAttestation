@@ -65,6 +65,13 @@ reports show the latest decision while retaining excluded candidates in the repo
 has different content. `retain` means a Greek manuscript candidate should be kept
 for further review; it does not verify any verse or settle physical witness identity.
 
+Physical witness identity is now a separate, append-only v7 decision. A reviewed
+catalogue document can be linked to a stable, manually chosen witness ID. Multiple
+document IDs can share that identity only through explicit links with citations.
+Corrections and unlinks keep their history. Candidate reports show the
+current witness ID and flag links needing renewed review after a document
+reclassification or source change. No identity link verifies verse coverage.
+
 ## Run the offline checks
 
 Python 3.10+ is required for the audit; verified with Python 3.12. The audit and
@@ -138,6 +145,18 @@ network requests. Decisions must agree with source type: `retain` requires
 `greek_manuscript`, `exclude` requires `printed_edition` or `other`, and
 `uncertain` requires `uncertain`. Earlier decisions remain in `candidate_review`.
 
+To link a retained document to a physical witness, use its reviewed response ID:
+
+```powershell
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --identity-doc-id 10052 --identity-response-id RESPONSE_ID --witness-id p52 --witness-label "P52" --identity-reason "Physical object identified" --identity-citation "Source citation" --identity-reviewer "Reviewer name"
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --identity-report
+```
+
+An existing witness ID does not need `--witness-label`. To correct a mistaken link,
+use `--identity-unlink` in place of `--witness-id` and `--witness-label`, with a new
+reason and citation. Linking and reporting make no network requests. The database
+does not infer aliases or joins from catalogue names or numeric IDs.
+
 The new collector does not yet discover all candidates, identify physical witness
 aliases, resolve NA28 verse
 membership, or establish indexing tiers. A coverage index row is a **candidate**,
@@ -169,7 +188,7 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v6 schema in the v2 replacement database |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v7 schema in the v2 replacement database |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of that schema |
 | `tests/` | Audit and controlled collector tests; captured P52 API fixtures |

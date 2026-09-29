@@ -43,6 +43,14 @@ review history even if a refresh no longer returns a document. No classification
 is inferred from its numeric ID, and a retained document is still only a candidate
 for verse evidence review.
 
+The physical-identity increment adds manually assigned witness IDs and append-only
+document-to-witness links. A link requires a retained document reviewed against its
+current source response, plus an identity reason, citation, and reviewer. Multiple
+catalogue documents can point to one physical witness only through explicit review;
+an unlink preserves the earlier decision. Reports flag links whose document
+classification or source content has since changed. These links do not validate
+verse coverage, dating, or a joined-fragment claim on their own.
+
 ## Research contract
 
 1. **Reference edition:** NA28, selected by the project owner. Store its explicit

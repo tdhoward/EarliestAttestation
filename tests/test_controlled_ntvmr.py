@@ -11,6 +11,7 @@ from controlled_ntvmr import (
     discovery_report, export_p52, import_language_probe, import_p52,
     import_search_fixture, main, parse_coverage, parse_metadata, parse_search, retry_after,
     record_candidate_review, scoped_index_report,
+    record_witness_assignment, witness_identity_report,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
@@ -424,7 +425,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         reopened = connect(self.path)
         self.addCleanup(reopened.close)
-        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 6)
+        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 7)
         self.assertEqual(reopened.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
 
     def test_cli_review_is_offline_and_visible_in_named_report(self):
@@ -441,6 +442,101 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
         self.assertEqual(discovery_report(self.con, "named")["candidates"][0]["review_decision"],
                          "uncertain")
+
+    def test_identity_links_join_documents_and_keep_corrections(self):
+        payload = {"status": "success", "data": {"manuscripts": {
+            "count": 2, "pagecount": 1, "manuscript": [
+                {"docID": 90001, "gaNum": "A", "lang": "g"},
+                {"docID": 90002, "gaNum": "B", "lang": "g"}]}}}
+        client, _, _ = self.client([(200, json.dumps(payload), {})], run_id="identity")
+        collect_catalogue_scope(client, [90001, 90002], page_limit=10)
+        candidates = catalogue_report(self.con, "identity")["candidates"]
+        response_id = candidates[0]["response_id"]
+        for doc_id in (90001, 90002):
+            record_candidate_review(self.con, doc_id, response_id, "retain",
+                                    "greek_manuscript", "Catalogue candidate",
+                                    "captured list response", "fixture reviewer")
+            record_witness_assignment(self.con, doc_id, response_id, "physical-1",
+                                      "One physical object", "Joined pieces reviewed",
+                                      "identity source", "fixture reviewer")
+        report = witness_identity_report(self.con)
+        self.assertEqual([row["witness_id"] for row in report["assignments"]],
+                         ["physical-1", "physical-1"])
+        self.assertEqual(report["witnesses"][0]["current_doc_ids"], [90001, 90002])
+        self.assertEqual([row["witness_id"] for row in catalogue_report(self.con, "identity")["candidates"]],
+                         ["physical-1", "physical-1"])
+        self.assertEqual(self.con.execute("SELECT count(*) FROM physical_witness").fetchone()[0], 1)
+        with self.assertRaises(ValueError):
+            record_witness_assignment(self.con, 90001, response_id, "physical-1",
+                                      "Conflicting label", "reason", "source", "reviewer")
+        record_witness_assignment(self.con, 90002, response_id, None, None,
+                                  "The join was mistaken", "corrected source", "fixture reviewer")
+        self.assertIsNone(witness_identity_report(self.con)["assignments"][1]["witness_id"])
+        self.assertEqual(witness_identity_report(self.con)["witnesses"][0]["current_doc_ids"], [90001])
+        self.assertEqual(self.con.execute("SELECT count(*) FROM witness_assignment").fetchone()[0], 3)
+        record_candidate_review(self.con, 90001, response_id, "exclude", "other",
+                                "Reclassified", "corrected source", "fixture reviewer")
+        self.assertTrue(witness_identity_report(self.con)["assignments"][0]["identity_review_needed"])
+        record_witness_assignment(self.con, 90001, response_id, None, None,
+                                  "Excluded document", "corrected source", "fixture reviewer")
+        self.assertIsNone(witness_identity_report(self.con)["assignments"][0]["witness_id"])
+        self.assertEqual(client.attempts, 1)
+
+    def test_identity_requires_current_retained_source_and_cli_is_offline(self):
+        import_language_probe(self.con, LANGUAGE_FIXTURE)
+        client = Client(self.con, "named", offline=True)
+        collect_search(client, "John.18.31", "P52")
+        response_id = discovery_report(self.con, "named")["candidates"][0]["response_id"]
+        with self.assertRaises(ValueError):
+            record_witness_assignment(self.con, 10052, response_id, "p52", "P52",
+                                      "reason", "source", "reviewer")
+        record_candidate_review(self.con, 10052, response_id, "retain",
+                                "greek_manuscript", "Candidate", "captured search", "fixture reviewer")
+        self.assertEqual(main(["--db", str(self.path), "--identity-doc-id", "10052",
+                               "--identity-response-id", str(response_id),
+                               "--witness-id", "p52", "--witness-label", "P52",
+                               "--identity-reason", "Physical witness review",
+                               "--identity-citation", "identity source",
+                               "--identity-reviewer", "fixture reviewer"]), 0)
+        self.assertEqual(discovery_report(self.con, "named")["candidates"][0]["witness_id"], "p52")
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+
+    def test_identity_flags_changed_source_and_v6_database_upgrades(self):
+        original = {"status": "success", "data": {"manuscripts": {
+            "count": 1, "pagecount": 1,
+            "manuscript": {"docID": 90001, "gaNum": "A", "lang": "g"}}}}
+        changed = json.loads(json.dumps(original))
+        changed["data"]["manuscripts"]["manuscript"]["lang"] = "grc"
+        client, _, _ = self.client([(200, json.dumps(original), {}),
+                                    (200, json.dumps(changed), {})], run_id="identity")
+        collect_catalogue_scope(client, [90001], page_limit=10)
+        response_id = catalogue_report(self.con, "identity")["candidates"][0]["response_id"]
+        record_candidate_review(self.con, 90001, response_id, "retain",
+                                "greek_manuscript", "Candidate", "first response", "reviewer")
+        record_witness_assignment(self.con, 90001, response_id, "physical-1", "Object",
+                                  "Identity reviewed", "identity source", "reviewer")
+        collect_catalogue_scope(client, [90001], page_limit=10, refresh=True)
+        self.assertTrue(witness_identity_report(self.con)["assignments"][0]["identity_review_needed"])
+        with self.assertRaises(ValueError):
+            record_witness_assignment(self.con, 90001, response_id, "physical-1", None,
+                                      "Old source", "identity source", "reviewer")
+        new_response_id = catalogue_report(self.con, "identity")["candidates"][0]["response_id"]
+        record_candidate_review(self.con, 90001, new_response_id, "retain",
+                                "greek_manuscript", "Rechecked", "second response", "reviewer")
+        self.assertTrue(witness_identity_report(self.con)["assignments"][0]["identity_review_needed"])
+        record_witness_assignment(self.con, 90001, new_response_id, "physical-1", None,
+                                  "Identity rechecked", "second identity source", "reviewer")
+        self.assertFalse(witness_identity_report(self.con)["assignments"][0]["identity_review_needed"])
+
+        self.con.execute("DROP TABLE witness_assignment")
+        self.con.execute("DROP TABLE physical_witness")
+        self.con.execute("PRAGMA user_version=6")
+        self.con.commit()
+        upgraded = connect(self.path)
+        self.addCleanup(upgraded.close)
+        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 7)
+        self.assertEqual(upgraded.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
+        self.assertEqual(upgraded.execute("SELECT count(*) FROM witness_assignment").fetchone()[0], 0)
 
     def test_cli_offline_catalogue_fixture(self):
         self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-john-list",
