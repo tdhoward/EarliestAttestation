@@ -184,9 +184,28 @@ ID. Filtering by book happens before `--inventory-limit`; omitted and uncertain
 coordinates remain in the report with their status. This import makes no network
 requests and does not validate textual evidence.
 
-The new collector does not yet discover all candidates, identify physical witness
-aliases, resolve NA28 verse
-membership, or establish indexing tiers. A coverage index row is a **candidate**,
+The v9 coverage-review path records an append-only decision for one indexed page
+and one explicit inventory mapping. It requires a current retained document and
+physical witness link. A reviewer supplies a checked-image, reviewed-transcription,
+or catalogue-content-statement citation and marks the text `partial`, `full`,
+`uncertain`, or `rejected`. `withdrawn` corrects an earlier decision while retaining
+its history. The report counts current positive decisions once per physical witness
+and verse; it flags decisions whose index response or identity link has changed.
+These counts are limited to the reviewed records in that inventory, and whole-NT
+completion remains false. No real NA28 inventory or cited scholarly coverage review
+has been imported.
+
+```powershell
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --coverage-review-inventory INVENTORY_ID --coverage-review-ref John.18.31 --coverage-review-ntvmr-ref John.18.31 --coverage-review-doc-id 10052 --coverage-review-page-id 10 --coverage-review-response-id RESPONSE_ID --coverage-review-status partial --coverage-review-evidence-type reviewed_transcription --coverage-review-reason "Visible Greek text checked" --coverage-review-citation "Specific transcription and location" --coverage-review-reviewer "Reviewer name"
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --coverage-report INVENTORY_ID --coverage-report-ref John.18.31
+```
+
+The review and report commands make no network requests. Use the response ID from
+the stored coverage index; a search-response ID is a different source record.
+
+The new collector does not yet discover all candidates, resolve physical witness
+aliases automatically, resolve NA28 verse membership, or establish indexing tiers.
+A coverage index row is a **candidate**,
 not automatically verified surviving text. A live run must be separately scoped,
 budgeted, and reviewed against provider expectations before scaling.
 
@@ -215,7 +234,7 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v8 schema in the v2 replacement database |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v9 schema in the v2 replacement database |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of that schema |
 | `tests/` | Audit and controlled collector tests; captured P52 API fixtures |

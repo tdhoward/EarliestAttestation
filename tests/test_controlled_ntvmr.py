@@ -13,6 +13,7 @@ from controlled_ntvmr import (
     record_candidate_review, scoped_index_report,
     record_witness_assignment, witness_identity_report,
     edition_inventory_report, import_edition_inventory,
+    coverage_review_report, record_coverage_review,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
@@ -426,7 +427,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         reopened = connect(self.path)
         self.addCleanup(reopened.close)
-        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 8)
+        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 9)
         self.assertEqual(reopened.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
 
     def test_cli_review_is_offline_and_visible_in_named_report(self):
@@ -535,7 +536,7 @@ class CollectorTests(unittest.TestCase):
         self.con.commit()
         upgraded = connect(self.path)
         self.addCleanup(upgraded.close)
-        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 8)
+        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 9)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM witness_assignment").fetchone()[0], 0)
 
@@ -618,6 +619,70 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(main(["--db", str(self.path), "--inventory-report", "cli-sample",
                                "--inventory-book", "John", "--inventory-limit", "1"]), 0)
         self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+
+    def test_reviewed_coverage_requires_mapping_identity_and_current_index(self):
+        manifest = {"format_version": 1, "inventory_id": "evidence-test",
+                    "edition": "TEST", "scope": "synthetic", "source_citation": "fixture",
+                    "reuse_terms": "test", "mapping_citation": "synthetic mapping",
+                    "reviewer": "tester", "verses": [{
+                        "osis_ref": "John.18.31", "editorial_status": "main",
+                        "ntvmr_refs": ["John.18.31", "John.18.32"],
+                        "mapping_note": "Synthetic merged boundary"}]}
+        import_edition_inventory(self.con, manifest)
+        import_language_probe(self.con, LANGUAGE_FIXTURE)
+        collect_search(Client(self.con, "evidence", offline=True), "John.18.31", "P52")
+        source_id = discovery_report(self.con, "evidence")["candidates"][0]["response_id"]
+        record_candidate_review(self.con, 10052, source_id, "retain", "greek_manuscript",
+                                "fixture classification", "search fixture", "tester")
+        index_source = import_p52(self.con, FIXTURE)
+        collect_stage(Client(self.con, "evidence", offline=True), 10052, "coverage")
+        def review(mapped_ref, status="partial"):
+            return record_coverage_review(
+                self.con, "evidence-test", "John.18.31", mapped_ref, 10052, 10,
+                index_source, status, "reviewed_transcription", "synthetic decision",
+                "fixture citation", "tester")
+        with self.assertRaises(ValueError):
+            review("John.18.31")
+        record_witness_assignment(self.con, 10052, source_id, "p52", "P52",
+                                  "physical identity", "identity citation", "tester")
+        with self.assertRaises(ValueError):
+            review("John.18.34")
+        review("John.18.31")
+        self.assertEqual(main(["--db", str(self.path),
+            "--coverage-review-inventory", "evidence-test",
+            "--coverage-review-ref", "John.18.31",
+            "--coverage-review-ntvmr-ref", "John.18.32",
+            "--coverage-review-doc-id", "10052", "--coverage-review-page-id", "10",
+            "--coverage-review-response-id", str(index_source),
+            "--coverage-review-status", "partial",
+            "--coverage-review-evidence-type", "reviewed_transcription",
+            "--coverage-review-reason", "synthetic decision",
+            "--coverage-review-citation", "fixture citation",
+            "--coverage-review-reviewer", "tester"]), 0)
+        report = coverage_review_report(self.con, "evidence-test")
+        self.assertEqual(len(report["reviews"]), 2)
+        self.assertEqual(report["verified_witnesses"], {"John.18.31": ["p52"]})
+        self.assertFalse(report["whole_nt_complete"])
+        self.assertEqual(main(["--db", str(self.path), "--coverage-report", "evidence-test",
+                               "--coverage-report-ref", "John.18.31"]), 0)
+        review("John.18.31", "rejected")
+        self.assertEqual(coverage_review_report(self.con, "evidence-test")
+                         ["verified_witnesses"], {"John.18.31": ["p52"]})
+        changed = json.loads(json.dumps(P52))
+        entries = changed["data"]["indexContents"]["indexContent"]
+        changed["data"]["indexContents"]["indexContent"] = [
+            row for row in entries if not isinstance(row, dict) or
+            row["osisID"] != "John.18.32"]
+        client, _, _ = self.client([(200, json.dumps(changed), {})], run_id="evidence")
+        collect_stage(client, 10052, "coverage", refresh=True)
+        stale = coverage_review_report(self.con, "evidence-test")
+        self.assertTrue(all(row["review_needed"] for row in stale["reviews"]))
+        self.assertEqual(stale["verified_witnesses"], {})
+        review("John.18.32", "withdrawn")
+        self.assertEqual(coverage_review_report(self.con, "evidence-test")
+                         ["reviews"][1]["status"], "withdrawn")
+        self.assertEqual(self.con.execute("SELECT count(*) FROM coverage_review").fetchone()[0], 4)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 1)
 
     def test_cli_offline_catalogue_fixture(self):
         self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-john-list",

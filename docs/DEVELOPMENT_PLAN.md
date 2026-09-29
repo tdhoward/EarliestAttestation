@@ -59,6 +59,14 @@ unmapped coordinate stays unresolved, and every report marks whole-NT completion
 false. No NA28 inventory has been imported or certified yet; acquisition and
 editorial review of that reference list remain open.
 
+The first coverage-review increment now stores append-only, cited decisions for
+individual indexed pages against explicit inventory mappings and current physical
+witness links. Its report separates positive, uncertain, rejected, and withdrawn
+decisions, flags changed index or identity sources, and deduplicates current positive
+decisions by physical witness per edition verse. This implements an evidence-review
+boundary, not a completed NA28 evidence set: the repository has no imported NA28
+inventory, no real cited coverage reviews, and no selected scholarly date assessments.
+
 ## Research contract
 
 1. **Reference edition:** NA28, selected by the project owner. Store its explicit

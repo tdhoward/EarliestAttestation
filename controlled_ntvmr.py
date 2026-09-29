@@ -28,7 +28,7 @@ NT_BOOKS = ("Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor",
 BOOK_ORDER = {book: position for position, book in enumerate(NT_BOOKS, 1)}
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=8;
+PRAGMA user_version=9;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -136,6 +136,22 @@ CREATE TABLE IF NOT EXISTS edition_verse_map (
  ntvmr_ref TEXT NOT NULL,
  PRIMARY KEY(inventory_id,osis_ref,ntvmr_ref),
  FOREIGN KEY(inventory_id,osis_ref) REFERENCES edition_verse(inventory_id,osis_ref));
+CREATE TABLE IF NOT EXISTS coverage_review (
+ id INTEGER PRIMARY KEY, inventory_id TEXT NOT NULL, osis_ref TEXT NOT NULL,
+ ntvmr_ref TEXT NOT NULL, doc_id INTEGER NOT NULL, page_id INTEGER NOT NULL,
+ witness_id TEXT NOT NULL REFERENCES physical_witness(witness_id),
+ identity_assignment_id INTEGER NOT NULL REFERENCES witness_assignment(id),
+ index_response_id INTEGER NOT NULL REFERENCES source_response(id),
+ status TEXT NOT NULL CHECK(status IN ('partial','full','uncertain','rejected','withdrawn')),
+ evidence_type TEXT NOT NULL CHECK(evidence_type IN
+ ('checked_image','reviewed_transcription','catalogue_content_statement')),
+ reason TEXT NOT NULL CHECK(length(trim(reason))>0),
+ citation TEXT NOT NULL CHECK(length(trim(citation))>0),
+ reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0), reviewed_at TEXT NOT NULL,
+ FOREIGN KEY(inventory_id,osis_ref,ntvmr_ref)
+ REFERENCES edition_verse_map(inventory_id,osis_ref,ntvmr_ref));
+CREATE INDEX IF NOT EXISTS coverage_review_latest ON coverage_review
+ (inventory_id,osis_ref,doc_id,page_id,ntvmr_ref,id);
 """
 
 
@@ -1018,6 +1034,96 @@ def edition_inventory_report(con, inventory_id, books=None, limit=None):
             "verses": verses}
 
 
+def record_coverage_review(con, inventory_id, osis_ref, ntvmr_ref, doc_id, page_id,
+                           index_response_id, status, evidence_type, reason, citation,
+                           reviewer):
+    """Review one indexed page/verse pair; keep corrections as new decisions."""
+    if status not in ("partial", "full", "uncertain", "rejected", "withdrawn"):
+        raise ValueError("Unknown coverage review status")
+    if evidence_type not in ("checked_image", "reviewed_transcription",
+                             "catalogue_content_statement"):
+        raise ValueError("Unknown coverage evidence type")
+    if any(not isinstance(value, str) or not value.strip()
+           for value in (reason, citation, reviewer)):
+        raise ValueError("Coverage review requires reason, citation, and reviewer")
+    if any(type(value) is not int or value <= 0
+           for value in (doc_id, page_id, index_response_id)):
+        raise ValueError("Document, page, and response IDs must be positive integers")
+    if not con.execute("""SELECT 1 FROM edition_verse_map WHERE inventory_id=?
+        AND osis_ref=? AND ntvmr_ref=?""", (inventory_id, osis_ref, ntvmr_ref)).fetchone():
+        raise ValueError("Verse requires an explicit mapping in the selected inventory")
+    if status == "withdrawn":
+        prior = con.execute("""SELECT witness_id,identity_assignment_id,index_response_id
+            FROM coverage_review WHERE inventory_id=? AND osis_ref=? AND ntvmr_ref=?
+            AND doc_id=? AND page_id=? ORDER BY id DESC LIMIT 1""",
+            (inventory_id, osis_ref, ntvmr_ref, doc_id, page_id)).fetchone()
+        if not prior or prior[2] != index_response_id:
+            raise ValueError("Withdrawal requires a prior review of this indexed page")
+        witness_id, assignment_id = prior[:2]
+    else:
+        assignment = latest_witness_assignments(con, [doc_id]).get(doc_id)
+        if not assignment or not assignment["witness_id"] or assignment["identity_review_needed"]:
+            raise ValueError("Coverage review requires a current retained physical witness link")
+        index = con.execute("""SELECT response_id FROM coverage_index WHERE
+            doc_id=? AND osis_ref=? AND page_id=?""", (doc_id, ntvmr_ref, page_id)).fetchone()
+        if not index or index[0] != index_response_id:
+            raise ValueError("Coverage review requires the current indexed page and response")
+        witness_id = assignment["witness_id"]
+        assignment_id = assignment["identity_assignment_id"]
+    with con:
+        con.execute("""INSERT INTO coverage_review(inventory_id,osis_ref,ntvmr_ref,
+            doc_id,page_id,witness_id,identity_assignment_id,index_response_id,
+            status,evidence_type,reason,citation,reviewer,reviewed_at)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (inventory_id, osis_ref, ntvmr_ref, doc_id, page_id,
+             witness_id, assignment_id,
+             index_response_id, status, evidence_type, reason.strip(),
+             citation.strip(), reviewer.strip(), now()))
+        return con.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
+def coverage_review_report(con, inventory_id, osis_ref=None):
+    if not con.execute("SELECT 1 FROM edition_inventory WHERE inventory_id=?",
+                       (inventory_id,)).fetchone():
+        raise ValueError(f"Unknown inventory ID: {inventory_id}")
+    if osis_ref is not None and not con.execute("""SELECT 1 FROM edition_verse
+        WHERE inventory_id=? AND osis_ref=?""", (inventory_id, osis_ref)).fetchone():
+        raise ValueError("Verse is not in the selected inventory")
+    query = """SELECT r.id,r.osis_ref,r.ntvmr_ref,r.doc_id,r.page_id,r.witness_id,
+        r.identity_assignment_id,r.index_response_id,r.status,r.evidence_type,
+        r.reason,r.citation,r.reviewer,r.reviewed_at,s.body_sha256,s.url,s.retrieved_at
+        FROM coverage_review r JOIN source_response s ON s.id=r.index_response_id
+        WHERE r.inventory_id=? AND r.id=(SELECT MAX(x.id) FROM coverage_review x
+        WHERE x.inventory_id=r.inventory_id AND x.osis_ref=r.osis_ref
+        AND x.ntvmr_ref=r.ntvmr_ref AND x.doc_id=r.doc_id AND x.page_id=r.page_id)"""
+    params = [inventory_id]
+    if osis_ref is not None:
+        query += " AND r.osis_ref=?"
+        params.append(osis_ref)
+    query += " ORDER BY r.osis_ref,r.doc_id,r.page_id,r.ntvmr_ref"
+    fields = ("review_id", "osis_ref", "ntvmr_ref", "doc_id", "page_id", "witness_id",
+              "identity_assignment_id", "index_response_id", "status", "evidence_type",
+              "reason", "citation", "reviewer", "reviewed_at", "index_body_sha256",
+              "index_source_url", "index_retrieved_at")
+    rows = [dict(zip(fields, row)) for row in con.execute(query, params)]
+    assignments = latest_witness_assignments(con, [row["doc_id"] for row in rows])
+    verified = {}
+    for row in rows:
+        assignment = assignments.get(row["doc_id"])
+        index = con.execute("""SELECT response_id FROM coverage_index WHERE
+            doc_id=? AND osis_ref=? AND page_id=?""",
+            (row["doc_id"], row["ntvmr_ref"], row["page_id"])).fetchone()
+        row["review_needed"] = bool(
+            not assignment or assignment["identity_review_needed"] or
+            assignment["identity_assignment_id"] != row["identity_assignment_id"] or
+            index is None or index[0] != row["index_response_id"])
+        if row["status"] in ("partial", "full") and not row["review_needed"]:
+            verified.setdefault(row["osis_ref"], set()).add(row["witness_id"])
+    return {"inventory_id": inventory_id, "osis_ref": osis_ref,
+            "whole_nt_complete": False, "reviews": rows,
+            "verified_witnesses": {ref: sorted(ids) for ref, ids in sorted(verified.items())}}
+
+
 def import_p52(con, fixture):
     record = json.loads(fixture.read_text(encoding="utf-8"))
     body = json.dumps(record["response"], separators=(",", ":"))
@@ -1157,6 +1263,22 @@ def main(argv=None):
     ap.add_argument("--inventory-book", action="append", default=[],
                     help="Filter inventory report by OSIS book before applying a limit")
     ap.add_argument("--inventory-limit", type=int)
+    ap.add_argument("--coverage-review-inventory")
+    ap.add_argument("--coverage-review-ref", help="Edition OSIS coordinate")
+    ap.add_argument("--coverage-review-ntvmr-ref", help="Mapped NTVMR coordinate")
+    ap.add_argument("--coverage-review-doc-id", type=int)
+    ap.add_argument("--coverage-review-page-id", type=int)
+    ap.add_argument("--coverage-review-response-id", type=int)
+    ap.add_argument("--coverage-review-status",
+                    choices=["partial", "full", "uncertain", "rejected", "withdrawn"])
+    ap.add_argument("--coverage-review-evidence-type",
+                    choices=["checked_image", "reviewed_transcription",
+                             "catalogue_content_statement"])
+    ap.add_argument("--coverage-review-reason")
+    ap.add_argument("--coverage-review-citation")
+    ap.add_argument("--coverage-review-reviewer")
+    ap.add_argument("--coverage-report", help="Inventory ID for reviewed evidence report")
+    ap.add_argument("--coverage-report-ref", help="Optional edition verse filter")
     ap.add_argument("--export-p52", type=Path)
     args = ap.parse_args(argv)
     if min(args.request_budget, args.max_run_seconds, args.min_interval, args.jitter) < 0:
@@ -1226,6 +1348,26 @@ def main(argv=None):
         args.fixture_p52 or args.fixture_language_probe or args.fixture_john_list or
         args.archive_legacy or args.export_p52):
         ap.error("Request the identity report in a separate invocation")
+    coverage_fields = (args.coverage_review_inventory, args.coverage_review_ref,
+                       args.coverage_review_ntvmr_ref, args.coverage_review_doc_id,
+                       args.coverage_review_page_id, args.coverage_review_response_id,
+                       args.coverage_review_status, args.coverage_review_evidence_type,
+                       args.coverage_review_reason, args.coverage_review_citation,
+                       args.coverage_review_reviewer)
+    if any(value is not None for value in coverage_fields):
+        if any(value is None for value in coverage_fields):
+            ap.error("Coverage review requires all coverage-review fields")
+    if args.coverage_report_ref and not args.coverage_report:
+        ap.error("--coverage-report-ref requires --coverage-report")
+    coverage_action = any(value is not None for value in coverage_fields) or args.coverage_report is not None
+    if coverage_action and (args.review_doc_id is not None or args.identity_doc_id is not None or
+        args.identity_report or args.doc_id or args.search_ga_num or args.catalogue_doc_id or
+        args.scope_check_ref or args.fixture_p52 or args.fixture_language_probe or
+        args.fixture_john_list or args.archive_legacy or args.export_p52 or
+        args.import_inventory is not None or args.inventory_report is not None):
+        ap.error("Review or report coverage in a separate invocation")
+    if args.coverage_report is not None and any(value is not None for value in coverage_fields):
+        ap.error("Review and report coverage in separate invocations")
     inventory_action = args.import_inventory is not None or args.inventory_report is not None
     if args.import_inventory is not None and args.inventory_report is not None:
         ap.error("Import and report an inventory in separate invocations")
@@ -1243,6 +1385,27 @@ def main(argv=None):
             archive_legacy(args.archive_legacy, args.archive_to)
             print(f"Archived legacy database to {args.archive_to}")
         with closing(connect(args.db)) as con:
+            if args.coverage_review_inventory is not None:
+                if args.dry_run:
+                    print(json.dumps({"planned_coverage_review": {
+                        "inventory_id": args.coverage_review_inventory,
+                        "osis_ref": args.coverage_review_ref,
+                        "doc_id": args.coverage_review_doc_id,
+                        "page_id": args.coverage_review_page_id}, "network_attempts": 0}))
+                    return 0
+                review_id = record_coverage_review(
+                    con, args.coverage_review_inventory, args.coverage_review_ref,
+                    args.coverage_review_ntvmr_ref, args.coverage_review_doc_id,
+                    args.coverage_review_page_id, args.coverage_review_response_id,
+                    args.coverage_review_status, args.coverage_review_evidence_type,
+                    args.coverage_review_reason, args.coverage_review_citation,
+                    args.coverage_review_reviewer)
+                print(json.dumps({"coverage_review_id": review_id, "network_attempts": 0}))
+                return 0
+            if args.coverage_report is not None:
+                print(json.dumps(coverage_review_report(
+                    con, args.coverage_report, args.coverage_report_ref)))
+                return 0
             if args.import_inventory is not None:
                 manifest = json.loads(args.import_inventory.read_text(encoding="utf-8"))
                 if args.dry_run:
