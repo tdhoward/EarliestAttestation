@@ -1,0 +1,20 @@
+{
+  "review_date": "2026-09-29",
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/",
+  "method": "Three sequential GET requests, separated by at least five seconds; all returned HTTP 200. Responses preserved as parsed JSON. These are observations, not universal language mapping rules.",
+  "common_params": {"gaNum": "P52", "indexContent": "John.18.31", "detail": "document", "format": "json", "limit": "10"},
+  "cases": [
+    {
+      "lang": "gr",
+      "response": {"status":"success","data":{"manuscripts":{"pagecount":0,"count":0}}}
+    },
+    {
+      "lang": "grc",
+      "response": {"status":"success","data":{"manuscripts":{"pagecount":1,"manuscript":{"origLate":175,"gaNum":"P52","orig":"II (M)","docID":10052,"groupID":"","primaryName":"P52","lang":"g","userID":"","v11n":"","origEarly":125},"count":1}}}
+    },
+    {
+      "lang": null,
+      "response": {"status":"success","data":{"manuscripts":{"pagecount":1,"manuscript":{"origLate":175,"gaNum":"P52","orig":"II (M)","docID":10052,"groupID":"","primaryName":"P52","lang":"g","userID":"","v11n":"","origEarly":125},"count":1}}}
+    }
+  ]
+}

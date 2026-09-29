@@ -1,0 +1,26 @@
+meta {
+  name: liste/search (John1:1)
+  type: http
+  seq: 2
+  tags: [
+    smoke
+    ntvmr
+  ]
+}
+
+get {
+  url: {{BASE_URL}}/metadata/liste/search/?indexContent=John.1.1&lang=gr&detail=document&format=json
+  body: none
+  auth: none
+}
+
+params:query {
+  indexContent: John.1.1
+  lang: gr
+  detail: document
+  format: json
+}
+
+headers {
+  Accept: application/json
+}

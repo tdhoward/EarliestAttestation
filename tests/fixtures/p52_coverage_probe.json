@@ -1,0 +1,7 @@
+{
+  "review_date": "2026-09-29",
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {"docID": "10052", "detail": "long", "format": "json"},
+  "http_status": 200,
+  "response": {"status":"success","data":{"indexContents":{"docID":10052,"indexContent":["John 18:31-33; John 18:37-38",{"docID":10052,"osisID":"John.18.31","indexContent":2004018031,"pageID":10},{"docID":10052,"osisID":"John.18.32","indexContent":2004018032,"pageID":10},{"docID":10052,"osisID":"John.18.33","indexContent":2004018033,"pageID":10},{"docID":10052,"osisID":"John.18.37","indexContent":2004018037,"pageID":20},{"docID":10052,"osisID":"John.18.38","indexContent":2004018038,"pageID":20}]}}}
+}
