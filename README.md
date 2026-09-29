@@ -13,8 +13,8 @@ fill in 18:34–36. See the [coverage reference and review](docs/DATA_REVIEW.md)
 
 ## Current status
 
-This is a Python/SQLite collection prototype, with no graph or validated export
-yet. **The existing database is exploratory and should not be used to make
+This is a Python/SQLite collection prototype, with no graph or validated corpus
+export yet. **The existing database is exploratory and should not be used to make
 historical claims.** The September 2026 review found:
 
 - 7,959 seeded references, 1,326 earliest-result rows, 13 selected manuscripts,
@@ -28,9 +28,11 @@ historical claims.** The September 2026 review found:
   first five witnesses or independently ranked pessimistic results.
 - The verse seed uses KJV versification, which is not an NA28 verse inventory.
 
-The review adds documentation, source fixtures, and an offline audit. It does not
-repair the sync pipeline or rewrite the existing database. Start with the
-[data/code review](docs/DATA_REVIEW.md), then the ordered
+The first implementation slice now adds controlled document collection, an explicit
+long-response parser, separate metadata and coverage checkpoints, and an
+[offline P52 index sample](examples/p52-index-sample.json). The sample is one
+witness's indexed coordinates, not a complete set of Greek witnesses or an NA28
+ranking. Start with the [data/code review](docs/DATA_REVIEW.md), then the ordered
 [development plan and acceptance criteria](docs/DEVELOPMENT_PLAN.md).
 
 ## Run the offline checks
@@ -55,22 +57,33 @@ NA28 membership, or completeness of the source corpus.
 create their own temporary databases. The human-readable snapshot findings are
 recorded in the review document.
 
-## Existing collector
+## Controlled collection
 
-[`sync_ntvmr.py`](sync_ntvmr.py) requires `requests`. To inspect its options:
+[`sync_ntvmr.py`](sync_ntvmr.py) uses only the Python standard library. It creates
+a separate v2 database, requires explicit document IDs and a positive network
+request budget for live work, and uses the official HTTPS API by default. It has
+offline replay, immutable source responses, durable attempt records, and separate
+metadata and coverage job states. The conservative five-second spacing is a
+project default, not a confirmed NTVMR quota.
 
 ```powershell
-python -m pip install requests
 python sync_ntvmr.py --help
+python sync_ntvmr.py --offline --fixture-p52 --db data/ntvmr-v2.sqlite --run-id fixture-p52 --export-p52 examples/p52-index-sample.json
+python sync_ntvmr.py --offline --db data/ntvmr-v2.sqlite --doc-id 10052 --run-id review --dry-run
 ```
 
-Do not start a full collection run until the blocking fixes in the development
-plan are complete. The script currently points to a private HTTP proxy and
-defaults to one second between requests. Its `--subset` option only controls
-seeding, not which existing rows it processes. `--refresh` does not imply
-`--recompute`, and adding `--coverage` will not revisit already-computed verses.
-The planned official HTTPS default, offline mode, request budget, rate-limit
-handling, and checkpoint repairs are not implemented yet.
+The legacy code is retained as [`legacy_sync_ntvmr.py`](legacy_sync_ntvmr.py) for
+review, with direct execution disabled. The original `ntvmr.sqlite` is untouched;
+its local SQLite backup is `data/ntvmr-legacy-backup.sqlite`. Both local v2 and
+backup databases are ignored by Git. To make a backup from another legacy file,
+use `--archive-legacy SOURCE --archive-to DESTINATION` once. The backup checks
+integrity and table row counts.
+
+The new collector currently accepts explicit document IDs only. It does not yet
+discover all candidates, identify physical witness aliases, resolve NA28 verse
+membership, or establish indexing tiers. A coverage index row is a **candidate**,
+not automatically verified surviving text. A live run must be separately scoped,
+budgeted, and reviewed against provider expectations before scaling.
 
 The [official NTVMR API](https://ntvmr.uni-muenster.de/community/vmr/api/) is the
 initial source. INTF distinguishes the Greek Liste from its broader manuscript
@@ -97,11 +110,13 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py` | Legacy collector and schema; known limitations above |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled document collection and v2 schema |
+| `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of that schema |
-| `tests/` | Audit tests and small captured P52 API fixtures |
+| `tests/` | Audit and controlled collector tests; captured P52 API fixtures |
+| `examples/p52-index-sample.json` | Offline, single-witness index sample |
 | `ntvmr.sqlite` | Existing local exploratory snapshot, when available |
-| `NTVMR Bruno/` | Manual API examples, including the legacy filter/proxy settings |
+| `NTVMR Bruno/` | Manual API examples using the official HTTPS origin |
 | `docs/DATA_REVIEW.md` | Findings, evidence, source checks, and limitations |
 | `docs/DEVELOPMENT_PLAN.md` | Ordered implementation work and validation gates |
 

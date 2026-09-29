@@ -1,7 +1,7 @@
 meta {
-  name: liste/search (John1:1)
+  name: biblicalcontent/get (P52)
   type: http
-  seq: 2
+  seq: 3
   tags: [
     smoke
     ntvmr
@@ -9,14 +9,14 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/metadata/liste/search/?indexContent=John.1.1&detail=document&format=json
+  url: {{BASE_URL}}/biblicalcontent/get/?docID=10052&detail=long&format=json
   body: none
   auth: none
 }
 
 params:query {
-  indexContent: John.1.1
-  detail: document
+  docID: 10052
+  detail: long
   format: json
 }
 

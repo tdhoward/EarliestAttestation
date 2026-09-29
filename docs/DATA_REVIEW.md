@@ -1,7 +1,10 @@
 # Code and data review
 
 Review date: 2026-09-29. Reference edition selected by the project owner: **NA28**.
-This review covers `sync_ntvmr.py`, the local `ntvmr.sqlite`, the Bruno examples,
+This review describes the collector now preserved as
+[`legacy_sync_ntvmr.py`](../legacy_sync_ntvmr.py); the safe entry point is now
+[`sync_ntvmr.py`](../sync_ntvmr.py).
+This review covers the former sync implementation, the local `ntvmr.sqlite`, the Bruno examples,
 official API documentation, and a small set of direct P52 API checks. It does not
 certify the corpus or the dates of every manuscript.
 
@@ -144,7 +147,7 @@ No published quota or reason for the user's earlier block was established.
 
 ## Confirmed code defects and required adjustments
 
-References below identify functions in [`sync_ntvmr.py`](../sync_ntvmr.py).
+References below identify functions in [`legacy_sync_ntvmr.py`](../legacy_sync_ntvmr.py).
 
 | Priority | Finding | Consequence / required adjustment |
 | --- | --- | --- |

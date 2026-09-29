@@ -173,6 +173,12 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# Local collection snapshots and SQLite backups
+data/
+ntvmr-v2.sqlite*
+ntvmr.sqlite-wal
+ntvmr.sqlite-shm
+
 # Cursor  
 #  Cursor is an AI-powered code editor.`.cursorignore` specifies files/directories to 
 #  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data

@@ -1,0 +1,61 @@
+{
+  "dataset": "offline P52 single-witness sample",
+  "corpus_complete": false,
+  "edition_mapping": "unresolved; traditional OSIS coordinates only",
+  "evidence_state": "index candidates; see docs/DATA_REVIEW.md for independent source check",
+  "doc_id": 10052,
+  "witness": "P52",
+  "partial_coverage": true,
+  "verses": [
+    {
+      "osis_ref": "John.18.31",
+      "page_id": 10,
+      "index_state": "candidate",
+      "response_id": 1,
+      "body_sha256": "1182c76fed513af1d942f29fe8a20371f090eee7356b9b7998cfb5071ed310f2",
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/?detail=long&docID=10052&format=json",
+      "retrieved_at": "2026-09-29T00:00:00+00:00",
+      "response_origin": "fixture"
+    },
+    {
+      "osis_ref": "John.18.32",
+      "page_id": 10,
+      "index_state": "candidate",
+      "response_id": 1,
+      "body_sha256": "1182c76fed513af1d942f29fe8a20371f090eee7356b9b7998cfb5071ed310f2",
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/?detail=long&docID=10052&format=json",
+      "retrieved_at": "2026-09-29T00:00:00+00:00",
+      "response_origin": "fixture"
+    },
+    {
+      "osis_ref": "John.18.33",
+      "page_id": 10,
+      "index_state": "candidate",
+      "response_id": 1,
+      "body_sha256": "1182c76fed513af1d942f29fe8a20371f090eee7356b9b7998cfb5071ed310f2",
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/?detail=long&docID=10052&format=json",
+      "retrieved_at": "2026-09-29T00:00:00+00:00",
+      "response_origin": "fixture"
+    },
+    {
+      "osis_ref": "John.18.37",
+      "page_id": 20,
+      "index_state": "candidate",
+      "response_id": 1,
+      "body_sha256": "1182c76fed513af1d942f29fe8a20371f090eee7356b9b7998cfb5071ed310f2",
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/?detail=long&docID=10052&format=json",
+      "retrieved_at": "2026-09-29T00:00:00+00:00",
+      "response_origin": "fixture"
+    },
+    {
+      "osis_ref": "John.18.38",
+      "page_id": 20,
+      "index_state": "candidate",
+      "response_id": 1,
+      "body_sha256": "1182c76fed513af1d942f29fe8a20371f090eee7356b9b7998cfb5071ed310f2",
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/?detail=long&docID=10052&format=json",
+      "retrieved_at": "2026-09-29T00:00:00+00:00",
+      "response_origin": "fixture"
+    }
+  ]
+}

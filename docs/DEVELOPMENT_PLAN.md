@@ -1,8 +1,11 @@
 # Development plan
 
 This is the implementation plan following the [2026-09-29 review](DATA_REVIEW.md).
-The collector fixes, new schema, rankings, and visualization below are **planned**;
-the current change provides the review, offline audit, and source fixtures only.
+The first controlled-collection slice is implemented in `controlled_ntvmr.py`:
+budgeted requests, durable raw responses and stage checkpoints, explicit P52
+long-response parsing, and a single-witness offline index sample. Candidate
+discovery, NA28 inventory, verified evidence, rankings, and visualization remain
+planned. The sample does not satisfy the later scholarly validation gates.
 
 ## Research contract
 
