@@ -28,7 +28,7 @@ NT_BOOKS = ("Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor",
 BOOK_ORDER = {book: position for position, book in enumerate(NT_BOOKS, 1)}
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=9;
+PRAGMA user_version=10;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -152,6 +152,41 @@ CREATE TABLE IF NOT EXISTS coverage_review (
  REFERENCES edition_verse_map(inventory_id,osis_ref,ntvmr_ref));
 CREATE INDEX IF NOT EXISTS coverage_review_latest ON coverage_review
  (inventory_id,osis_ref,doc_id,page_id,ntvmr_ref,id);
+CREATE TABLE IF NOT EXISTS writing_unit (
+ unit_id TEXT PRIMARY KEY CHECK(length(trim(unit_id))>0),
+ witness_id TEXT NOT NULL REFERENCES physical_witness(witness_id),
+ label TEXT NOT NULL CHECK(length(trim(label))>0),
+ kind TEXT NOT NULL CHECK(kind IN ('original','correction','supplement','uncertain')),
+ reason TEXT NOT NULL CHECK(length(trim(reason))>0),
+ citation TEXT NOT NULL CHECK(length(trim(citation))>0),
+ reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0), created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS coverage_unit_assignment (
+ id INTEGER PRIMARY KEY, coverage_review_id INTEGER NOT NULL REFERENCES coverage_review(id),
+ unit_id TEXT REFERENCES writing_unit(unit_id),
+ reason TEXT NOT NULL CHECK(length(trim(reason))>0),
+ citation TEXT NOT NULL CHECK(length(trim(citation))>0),
+ reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0), assigned_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS coverage_unit_latest ON coverage_unit_assignment(coverage_review_id,id);
+CREATE TABLE IF NOT EXISTS date_assessment (
+ id INTEGER PRIMARY KEY, unit_id TEXT NOT NULL REFERENCES writing_unit(unit_id),
+ status TEXT NOT NULL CHECK(status IN ('valid','unknown','invalid')),
+ date_min INTEGER, date_max INTEGER, original_notation TEXT NOT NULL
+ CHECK(length(trim(original_notation))>0),
+ citation TEXT NOT NULL CHECK(length(trim(citation))>0),
+ consulted_on TEXT NOT NULL, reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0),
+ recorded_at TEXT NOT NULL,
+ UNIQUE(unit_id,id),
+ CHECK((status='valid' AND date_min IS NOT NULL AND date_max IS NOT NULL
+        AND date_min>0 AND date_max>=date_min) OR
+       (status!='valid' AND date_min IS NULL AND date_max IS NULL)));
+CREATE INDEX IF NOT EXISTS date_assessment_unit ON date_assessment(unit_id,id);
+CREATE TABLE IF NOT EXISTS date_selection (
+ id INTEGER PRIMARY KEY, unit_id TEXT NOT NULL REFERENCES writing_unit(unit_id),
+ policy_id TEXT NOT NULL CHECK(length(trim(policy_id))>0), assessment_id INTEGER,
+ reason TEXT NOT NULL CHECK(length(trim(reason))>0),
+ reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0), selected_at TEXT NOT NULL,
+ FOREIGN KEY(unit_id,assessment_id) REFERENCES date_assessment(unit_id,id));
+CREATE INDEX IF NOT EXISTS date_selection_latest ON date_selection(unit_id,policy_id,id);
 """
 
 
@@ -1124,6 +1159,197 @@ def coverage_review_report(con, inventory_id, osis_ref=None):
             "verified_witnesses": {ref: sorted(ids) for ref, ids in sorted(verified.items())}}
 
 
+def create_writing_unit(con, unit_id, witness_id, label, kind, reason, citation, reviewer):
+    if kind not in ("original", "correction", "supplement", "uncertain"):
+        raise ValueError("Unknown writing-unit kind")
+    if any(not isinstance(value, str) or not value.strip() for value in
+           (unit_id, witness_id, label, reason, citation, reviewer)):
+        raise ValueError("Writing unit requires ID, witness, label, reason, citation, and reviewer")
+    if not con.execute("SELECT 1 FROM physical_witness WHERE witness_id=?",
+                       (witness_id,)).fetchone():
+        raise ValueError("Writing unit requires an existing physical witness")
+    with con:
+        con.execute("""INSERT INTO writing_unit(unit_id,witness_id,label,kind,reason,
+            citation,reviewer,created_at) VALUES(?,?,?,?,?,?,?,?)""",
+            (unit_id.strip(), witness_id, label.strip(), kind, reason.strip(),
+             citation.strip(), reviewer.strip(), now()))
+    return unit_id.strip()
+
+
+def assign_coverage_unit(con, coverage_review_id, unit_id, reason, citation, reviewer):
+    if type(coverage_review_id) is not int or coverage_review_id <= 0:
+        raise ValueError("Coverage review ID must be positive")
+    if any(not isinstance(value, str) or not value.strip()
+           for value in (reason, citation, reviewer)):
+        raise ValueError("Unit assignment requires reason, citation, and reviewer")
+    review = con.execute("""SELECT inventory_id,osis_ref,ntvmr_ref,doc_id,page_id,
+        witness_id,status FROM coverage_review WHERE id=?""",
+        (coverage_review_id,)).fetchone()
+    if not review:
+        raise ValueError("Unknown coverage review ID")
+    if unit_id is None:
+        previous = con.execute("""SELECT unit_id FROM coverage_unit_assignment
+            WHERE coverage_review_id=? ORDER BY id DESC LIMIT 1""",
+            (coverage_review_id,)).fetchone()
+        if not previous or previous[0] is None:
+            raise ValueError("Coverage review has no current unit link to remove")
+    else:
+        unit = con.execute("SELECT witness_id FROM writing_unit WHERE unit_id=?",
+                           (unit_id,)).fetchone()
+        if not unit or unit[0] != review[5]:
+            raise ValueError("Writing unit must belong to the reviewed physical witness")
+        if review[6] not in ("partial", "full"):
+            raise ValueError("Only positive coverage reviews can be assigned a writing unit")
+        current = next((row for row in coverage_review_report(con, review[0], review[1])["reviews"]
+                        if row["review_id"] == coverage_review_id), None)
+        if not current or current["review_needed"]:
+            raise ValueError("Unit assignment requires a current positive coverage review")
+    with con:
+        con.execute("""INSERT INTO coverage_unit_assignment(coverage_review_id,unit_id,
+            reason,citation,reviewer,assigned_at) VALUES(?,?,?,?,?,?)""",
+            (coverage_review_id, unit_id, reason.strip(), citation.strip(),
+             reviewer.strip(), now()))
+        return con.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
+def record_date_assessment(con, unit_id, status, date_min, date_max,
+                           original_notation, citation, consulted_on, reviewer):
+    if status not in ("valid", "unknown", "invalid"):
+        raise ValueError("Unknown date assessment status")
+    if any(not isinstance(value, str) or not value.strip() for value in
+           (unit_id, original_notation, citation, consulted_on, reviewer)):
+        raise ValueError("Date assessment requires unit, notation, citation, consultation date, and reviewer")
+    try:
+        datetime.fromisoformat(consulted_on).date()
+    except ValueError as error:
+        raise ValueError("Consultation date must be ISO formatted") from error
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", consulted_on):
+        raise ValueError("Consultation date must be YYYY-MM-DD")
+    if status == "valid":
+        if (type(date_min) is not int or type(date_max) is not int or
+                date_min <= 0 or date_max < date_min):
+            raise ValueError("Valid date assessment requires an inclusive CE interval")
+    elif date_min is not None or date_max is not None:
+        raise ValueError("Unknown or invalid dates cannot have numeric bounds")
+    if not con.execute("SELECT 1 FROM writing_unit WHERE unit_id=?", (unit_id,)).fetchone():
+        raise ValueError("Date assessment requires an existing writing unit")
+    with con:
+        con.execute("""INSERT INTO date_assessment(unit_id,status,date_min,date_max,
+            original_notation,citation,consulted_on,reviewer,recorded_at)
+            VALUES(?,?,?,?,?,?,?,?,?)""",
+            (unit_id, status, date_min, date_max, original_notation.strip(),
+             citation.strip(), consulted_on, reviewer.strip(), now()))
+        return con.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
+def select_date_assessment(con, unit_id, assessment_id, policy_id, reason, reviewer):
+    if any(not isinstance(value, str) or not value.strip()
+           for value in (unit_id, policy_id, reason, reviewer)):
+        raise ValueError("Date selection requires unit, policy ID, reason, and reviewer")
+    if not con.execute("SELECT 1 FROM writing_unit WHERE unit_id=?", (unit_id,)).fetchone():
+        raise ValueError("Unknown writing unit")
+    if assessment_id is not None:
+        if type(assessment_id) is not int or assessment_id <= 0 or not con.execute(
+                "SELECT 1 FROM date_assessment WHERE id=? AND unit_id=?",
+                (assessment_id, unit_id)).fetchone():
+            raise ValueError("Selected assessment must belong to the writing unit")
+    with con:
+        con.execute("""INSERT INTO date_selection(unit_id,policy_id,assessment_id,
+            reason,reviewer,selected_at) VALUES(?,?,?,?,?,?)""",
+            (unit_id, policy_id.strip(), assessment_id, reason.strip(),
+             reviewer.strip(), now()))
+        return con.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
+def writing_unit_report(con, witness_id):
+    if not con.execute("SELECT 1 FROM physical_witness WHERE witness_id=?",
+                       (witness_id,)).fetchone():
+        raise ValueError("Unknown physical witness")
+    units = []
+    review_reports = {}
+    for unit_id, label, kind, reason, citation, reviewer, created_at in con.execute(
+            """SELECT unit_id,label,kind,reason,citation,reviewer,created_at
+            FROM writing_unit WHERE witness_id=? ORDER BY unit_id""", (witness_id,)):
+        assessments = [dict(zip(("assessment_id", "status", "date_min", "date_max",
+                                 "original_notation", "citation", "consulted_on", "reviewer",
+                                 "recorded_at"), row)) for row in con.execute(
+            """SELECT id,status,date_min,date_max,original_notation,citation,
+            consulted_on,reviewer,recorded_at FROM date_assessment
+            WHERE unit_id=? ORDER BY id""", (unit_id,))]
+        selections = [dict(zip(("selection_id", "policy_id", "assessment_id", "reason", "reviewer",
+                                "selected_at"), row)) for row in con.execute(
+            """SELECT id,policy_id,assessment_id,reason,reviewer,selected_at FROM date_selection
+            WHERE unit_id=? ORDER BY id""", (unit_id,))]
+        links = [dict(zip(("assignment_id", "coverage_review_id", "reason", "citation",
+                           "reviewer", "assigned_at", "current_assignment"), row))
+                 for row in con.execute("""SELECT a.id,a.coverage_review_id,a.reason,
+            a.citation,a.reviewer,a.assigned_at,a.id=(SELECT MAX(x.id)
+            FROM coverage_unit_assignment x WHERE x.coverage_review_id=a.coverage_review_id)
+            FROM coverage_unit_assignment a WHERE a.unit_id=? ORDER BY a.id""", (unit_id,))]
+        for link in links:
+            link["current_assignment"] = bool(link["current_assignment"])
+            inventory_id = con.execute("SELECT inventory_id FROM coverage_review WHERE id=?",
+                                       (link["coverage_review_id"],)).fetchone()[0]
+            if inventory_id not in review_reports:
+                review_reports[inventory_id] = {
+                    row["review_id"]: row for row in
+                    coverage_review_report(con, inventory_id)["reviews"]}
+            current = review_reports[inventory_id].get(link["coverage_review_id"])
+            link["current_positive"] = bool(link["current_assignment"] and current and
+                current["status"] in ("partial", "full") and not current["review_needed"])
+        by_policy = {}
+        for selection in selections:
+            selected = next((a for a in assessments
+                             if a["assessment_id"] == selection["assessment_id"]), None)
+            by_policy[selection["policy_id"]] = {
+                "selection_id": selection["selection_id"],
+                "assessment_id": selection["assessment_id"],
+                "assessment": selected,
+                "rankable": bool(selected and selected["status"] == "valid")}
+        units.append({"unit_id": unit_id, "label": label, "kind": kind,
+                      "reason": reason, "citation": citation, "reviewer": reviewer,
+                      "created_at": created_at, "assessments": assessments,
+                      "selection_history": selections,
+                      "selected_by_policy": by_policy,
+                      "coverage_links": links})
+    return {"witness_id": witness_id, "units": units,
+            "rankings_computed": False, "whole_nt_complete": False}
+
+
+def validate_dating_action(action):
+    fields = {
+        "create_unit": {"unit_id", "witness_id", "label", "kind", "reason",
+                        "citation", "reviewer"},
+        "assign_coverage": {"coverage_review_id", "unit_id", "reason",
+                            "citation", "reviewer"},
+        "assess_date": {"unit_id", "status", "date_min", "date_max",
+                        "original_notation", "citation", "consulted_on", "reviewer"},
+        "select_date": {"unit_id", "assessment_id", "policy_id", "reason", "reviewer"},
+    }
+    if not isinstance(action, dict) or action.get("action") not in fields:
+        raise ValueError("Unknown dating action")
+    kind = action["action"]
+    if set(action) != fields[kind] | {"action"}:
+        raise ValueError("Dating action has missing or unexpected fields")
+    return kind, fields[kind]
+
+
+def apply_dating_action(con, action):
+    """Apply exactly one explicit, offline writing-unit or dating decision."""
+    kind, field_names = validate_dating_action(action)
+    if kind == "create_unit":
+        result = create_writing_unit(con, **{key: action[key] for key in field_names})
+        return {"unit_id": result}
+    if kind == "assign_coverage":
+        result = assign_coverage_unit(con, **{key: action[key] for key in field_names})
+        return {"coverage_unit_assignment_id": result}
+    if kind == "assess_date":
+        result = record_date_assessment(con, **{key: action[key] for key in field_names})
+        return {"date_assessment_id": result}
+    result = select_date_assessment(con, **{key: action[key] for key in field_names})
+    return {"date_selection_id": result}
+
+
 def import_p52(con, fixture):
     record = json.loads(fixture.read_text(encoding="utf-8"))
     body = json.dumps(record["response"], separators=(",", ":"))
@@ -1279,6 +1505,9 @@ def main(argv=None):
     ap.add_argument("--coverage-review-reviewer")
     ap.add_argument("--coverage-report", help="Inventory ID for reviewed evidence report")
     ap.add_argument("--coverage-report-ref", help="Optional edition verse filter")
+    ap.add_argument("--dating-action", type=Path,
+                    help="Apply one sourced writing-unit or date decision from JSON")
+    ap.add_argument("--dating-report", help="Report writing units and date history for a witness ID")
     ap.add_argument("--export-p52", type=Path)
     args = ap.parse_args(argv)
     if min(args.request_budget, args.max_run_seconds, args.min_interval, args.jitter) < 0:
@@ -1368,6 +1597,16 @@ def main(argv=None):
         ap.error("Review or report coverage in a separate invocation")
     if args.coverage_report is not None and any(value is not None for value in coverage_fields):
         ap.error("Review and report coverage in separate invocations")
+    dating_action = args.dating_action is not None or args.dating_report is not None
+    if args.dating_action is not None and args.dating_report is not None:
+        ap.error("Apply a dating action and report in separate invocations")
+    if dating_action and (coverage_action or args.review_doc_id is not None or
+        args.identity_doc_id is not None or args.identity_report or args.doc_id or
+        args.search_ga_num or args.catalogue_doc_id or args.scope_check_ref or
+        args.fixture_p52 or args.fixture_language_probe or args.fixture_john_list or
+        args.archive_legacy or args.export_p52 or args.import_inventory is not None or
+        args.inventory_report is not None):
+        ap.error("Apply or report dating in a separate invocation")
     inventory_action = args.import_inventory is not None or args.inventory_report is not None
     if args.import_inventory is not None and args.inventory_report is not None:
         ap.error("Import and report an inventory in separate invocations")
@@ -1385,6 +1624,18 @@ def main(argv=None):
             archive_legacy(args.archive_legacy, args.archive_to)
             print(f"Archived legacy database to {args.archive_to}")
         with closing(connect(args.db)) as con:
+            if args.dating_action is not None:
+                action = json.loads(args.dating_action.read_text(encoding="utf-8"))
+                if args.dry_run:
+                    kind, _ = validate_dating_action(action)
+                    print(json.dumps({"planned_dating_action": kind,
+                                      "network_attempts": 0}))
+                    return 0
+                print(json.dumps({**apply_dating_action(con, action), "network_attempts": 0}))
+                return 0
+            if args.dating_report is not None:
+                print(json.dumps(writing_unit_report(con, args.dating_report)))
+                return 0
             if args.coverage_review_inventory is not None:
                 if args.dry_run:
                     print(json.dumps({"planned_coverage_review": {

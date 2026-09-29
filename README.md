@@ -203,6 +203,40 @@ python sync_ntvmr.py --db data/ntvmr-v2.sqlite --coverage-report INVENTORY_ID --
 The review and report commands make no network requests. Use the response ID from
 the stored coverage index; a search-response ID is a different source record.
 
+The v10 dating contract adds manually identified writing units (`original`,
+`correction`, `supplement`, or `uncertain`) under a physical witness. A reviewed
+coverage decision can be linked to one unit with a cited, append-only assignment.
+Each unit can retain competing date assessments with their original notation,
+source citation, consultation date, reviewer, and inclusive CE bounds. A separate
+selection records which complete assessment is in force under a named `policy_id`;
+selecting `null` withdraws that policy's selection. Unknown and invalid assessments
+have no numeric bounds. A later
+writing layer gets its own unit and date; it does not inherit the original hand's
+date. Superseded coverage links remain in the report as history and are marked
+`current_positive: false`.
+
+Use `--dating-action path/to/action.json` for one offline decision and
+`--dating-report WITNESS_ID` to inspect its units, competing dates, selection
+history, and coverage links. Each action must have exactly the shown fields:
+
+```powershell
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --dating-action path/to/action.json
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --dating-report example-object
+```
+
+```json
+{"action":"create_unit","unit_id":"example-original","witness_id":"example-object","label":"Original hand","kind":"original","reason":"Hand identification","citation":"Specific source citation","reviewer":"Reviewer name"}
+{"action":"assign_coverage","coverage_review_id":1,"unit_id":"example-original","reason":"Writing layer identified","citation":"Specific source citation","reviewer":"Reviewer name"}
+{"action":"assess_date","unit_id":"example-original","status":"valid","date_min":100,"date_max":200,"original_notation":"Source's original notation","citation":"Specific dating source","consulted_on":"2026-09-29","reviewer":"Reviewer name"}
+{"action":"select_date","unit_id":"example-original","assessment_id":1,"policy_id":"policy-v1","reason":"Documented dating policy","reviewer":"Reviewer name"}
+```
+
+Each line above is a separate JSON file; the IDs and dates are synthetic examples.
+For an unknown or invalid assessment, set
+both date bounds to `null`. To remove a coverage-unit link or date selection, set
+`unit_id` or `assessment_id` to `null` in the corresponding action and give a
+reason. No real scholarly date assessment has been entered into the repository.
+
 The new collector does not yet discover all candidates, resolve physical witness
 aliases automatically, resolve NA28 verse membership, or establish indexing tiers.
 A coverage index row is a **candidate**,
@@ -234,7 +268,7 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v9 schema in the v2 replacement database |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v10 schema in the v2 replacement database |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of that schema |
 | `tests/` | Audit and controlled collector tests; captured P52 API fixtures |

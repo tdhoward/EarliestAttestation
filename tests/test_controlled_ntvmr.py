@@ -14,6 +14,8 @@ from controlled_ntvmr import (
     record_witness_assignment, witness_identity_report,
     edition_inventory_report, import_edition_inventory,
     coverage_review_report, record_coverage_review,
+    apply_dating_action, assign_coverage_unit, create_writing_unit,
+    record_date_assessment, select_date_assessment, writing_unit_report,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
@@ -427,7 +429,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         reopened = connect(self.path)
         self.addCleanup(reopened.close)
-        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 9)
+        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 10)
         self.assertEqual(reopened.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
 
     def test_cli_review_is_offline_and_visible_in_named_report(self):
@@ -536,7 +538,7 @@ class CollectorTests(unittest.TestCase):
         self.con.commit()
         upgraded = connect(self.path)
         self.addCleanup(upgraded.close)
-        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 9)
+        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 10)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM witness_assignment").fetchone()[0], 0)
 
@@ -665,7 +667,33 @@ class CollectorTests(unittest.TestCase):
         self.assertFalse(report["whole_nt_complete"])
         self.assertEqual(main(["--db", str(self.path), "--coverage-report", "evidence-test",
                                "--coverage-report-ref", "John.18.31"]), 0)
+        create_writing_unit(self.con, "p52-original", "p52", "Original hand",
+                            "original", "hand review", "hand citation", "tester")
+        create_writing_unit(self.con, "p52-correction", "p52", "Later correction",
+                            "correction", "hand review", "hand citation", "tester")
+        first_review_id = next(row["review_id"] for row in report["reviews"]
+                               if row["ntvmr_ref"] == "John.18.31")
+        self.con.execute("""INSERT INTO physical_witness(witness_id,label,created_at)
+            VALUES('other','Other witness','2026-09-29T00:00:00+00:00')""")
+        self.con.commit()
+        create_writing_unit(self.con, "other-original", "other", "Other hand",
+                            "original", "separate object", "identity source", "tester")
+        with self.assertRaises(ValueError):
+            assign_coverage_unit(self.con, first_review_id, "other-original",
+                                 "wrong witness", "source", "tester")
+        assign_coverage_unit(self.con, first_review_id, "p52-original",
+                             "hand identified", "hand citation", "tester")
+        self.assertEqual(writing_unit_report(self.con, "p52")["units"][1]
+                         ["coverage_links"][0]["coverage_review_id"], first_review_id)
+        self.assertTrue(writing_unit_report(self.con, "p52")["units"][1]
+                        ["coverage_links"][0]["current_positive"])
         review("John.18.31", "rejected")
+        self.assertFalse(writing_unit_report(self.con, "p52")["units"][1]
+                         ["coverage_links"][0]["current_positive"])
+        assign_coverage_unit(self.con, first_review_id, None,
+                             "link corrected", "hand citation", "tester")
+        self.assertFalse(writing_unit_report(self.con, "p52")["units"][1]
+                         ["coverage_links"][0]["current_assignment"])
         self.assertEqual(coverage_review_report(self.con, "evidence-test")
                          ["verified_witnesses"], {"John.18.31": ["p52"]})
         changed = json.loads(json.dumps(P52))
@@ -683,6 +711,75 @@ class CollectorTests(unittest.TestCase):
                          ["reviews"][1]["status"], "withdrawn")
         self.assertEqual(self.con.execute("SELECT count(*) FROM coverage_review").fetchone()[0], 4)
         self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 1)
+
+    def test_writing_unit_dates_keep_competing_intervals_and_explicit_selection(self):
+        self.con.execute("""INSERT INTO physical_witness(witness_id,label,created_at)
+            VALUES('object-1','Synthetic witness','2026-09-29T00:00:00+00:00')""")
+        self.con.commit()
+        create_writing_unit(self.con, "original", "object-1", "Original hand",
+                            "original", "separate hand", "hand source", "tester")
+        create_writing_unit(self.con, "addition", "object-1", "Later addition",
+                            "supplement", "separate hand", "hand source", "tester")
+        early = record_date_assessment(self.con, "original", "valid", 100, 300,
+                                       "II-III CE", "scholar A", "2026-09-29", "tester")
+        late = record_date_assessment(self.con, "original", "valid", 150, 200,
+                                      "II CE", "scholar B", "2026-09-29", "tester")
+        unknown = record_date_assessment(self.con, "addition", "unknown", None, None,
+                                         "Undated addition", "scholar C", "2026-09-29", "tester")
+        with self.assertRaises(ValueError):
+            record_date_assessment(self.con, "addition", "valid", 300, 200,
+                                   "bad interval", "source", "2026-09-29", "tester")
+        with self.assertRaises(ValueError):
+            record_date_assessment(self.con, "addition", "unknown", 100, 200,
+                                   "unknown", "source", "2026-09-29", "tester")
+        with self.assertRaises(ValueError):
+            select_date_assessment(self.con, "addition", early, "policy-v1",
+                                   "wrong unit", "tester")
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.con.execute("""INSERT INTO date_selection(unit_id,policy_id,
+                assessment_id,reason,reviewer,selected_at)
+                VALUES(?,?,?,?,?,?)""",
+                ("addition", "policy-v1", early, "wrong unit", "tester",
+                 "2026-09-29T00:00:00+00:00"))
+        with self.assertRaises(ValueError):
+            apply_dating_action(self.con, {"action": "select_date", "unit_id": "original",
+                                           "assessment_id": early, "reason": "incomplete"})
+        first_selection = select_date_assessment(self.con, "original", early,
+                                                 "policy-v1", "first choice", "tester")
+        select_date_assessment(self.con, "original", late, "policy-v1",
+                               "reassessment", "tester")
+        select_date_assessment(self.con, "original", early, "policy-v2",
+                               "alternate policy", "tester")
+        select_date_assessment(self.con, "addition", unknown, "policy-v1",
+                               "unknown retained", "tester")
+        report = writing_unit_report(self.con, "object-1")
+        original = next(unit for unit in report["units"] if unit["unit_id"] == "original")
+        addition = next(unit for unit in report["units"] if unit["unit_id"] == "addition")
+        self.assertEqual(original["selected_by_policy"]["policy-v1"]["assessment"]["date_min"], 150)
+        self.assertEqual(original["selected_by_policy"]["policy-v1"]["assessment"]["date_max"], 200)
+        self.assertTrue(original["selected_by_policy"]["policy-v1"]["rankable"])
+        self.assertEqual(original["selected_by_policy"]["policy-v2"]["assessment"]["date_min"], 100)
+        self.assertEqual(len(original["selection_history"]), 3)
+        self.assertEqual(original["selection_history"][0]["selection_id"], first_selection)
+        self.assertIsNone(addition["selected_by_policy"]["policy-v1"]["assessment"]["date_min"])
+        self.assertFalse(addition["selected_by_policy"]["policy-v1"]["rankable"])
+        self.assertFalse(report["rankings_computed"])
+        action = {"action": "select_date", "unit_id": "original", "assessment_id": None,
+                  "policy_id": "policy-v1",
+                  "reason": "selection withdrawn", "reviewer": "tester"}
+        action_path = Path(self.temp.name) / "date-action.json"
+        action_path.write_text(json.dumps(action), encoding="utf-8")
+        self.assertEqual(main(["--db", str(self.path), "--dating-action", str(action_path),
+                               "--dry-run"]), 0)
+        self.assertEqual(len(writing_unit_report(self.con, "object-1")["units"][1]
+                             ["selection_history"]), 3)
+        self.assertEqual(main(["--db", str(self.path), "--dating-action", str(action_path)]), 0)
+        self.assertEqual(main(["--db", str(self.path), "--dating-report", "object-1"]), 0)
+        self.assertIsNone(writing_unit_report(self.con, "object-1")["units"][1]
+                          ["selected_by_policy"]["policy-v1"]["assessment"])
+        self.assertEqual(writing_unit_report(self.con, "object-1")["units"][1]
+                         ["selected_by_policy"]["policy-v2"]["assessment_id"], early)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
 
     def test_cli_offline_catalogue_fixture(self):
         self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-john-list",

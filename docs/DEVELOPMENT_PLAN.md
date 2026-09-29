@@ -67,6 +67,14 @@ decisions by physical witness per edition verse. This implements an evidence-rev
 boundary, not a completed NA28 evidence set: the repository has no imported NA28
 inventory, no real cited coverage reviews, and no selected scholarly date assessments.
 
+The writing-unit/date increment now records separately identified writing layers,
+append-only links from reviewed coverage to those layers, competing cited date
+assessments, and an explicit selected assessment per layer and named dating policy.
+Unknown or invalid dates
+have no numeric bounds; a later correction or supplement can receive its own date.
+The report retains selection history and marks superseded coverage links. No real
+scholarly date assessments or rankings have been entered or calculated.
+
 ## Research contract
 
 1. **Reference edition:** NA28, selected by the project owner. Store its explicit
