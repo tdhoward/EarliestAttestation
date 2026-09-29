@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 import sqlite3
 import tempfile
@@ -6,11 +7,16 @@ import unittest
 
 from controlled_ntvmr import (
     AccessBlocked, Client, ContractError, RunStopped, collect_stage, connect,
-    export_p52, import_p52, main, parse_coverage, retry_after,
+    collect_search, discovery_report, export_p52, import_language_probe, import_p52,
+    main, parse_coverage, parse_search, retry_after,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
 P52 = json.loads(FIXTURE.read_text(encoding="utf-8"))["response"]
+LANGUAGE_FIXTURE = Path(__file__).parent / "fixtures" / "p52_language_probe.json"
+LANGUAGE = json.loads(LANGUAGE_FIXTURE.read_text(encoding="utf-8"))
+NAMED = json.loads((Path(__file__).parent / "fixtures" / "john_named_probe.json").read_text(encoding="utf-8"))
+LIST = json.loads((Path(__file__).parent / "fixtures" / "john_list_probe.json").read_text(encoding="utf-8"))
 PARAMS = {"docID": "10052", "detail": "long", "format": "json"}
 
 
@@ -177,6 +183,88 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
         self.assertEqual(main(["--db", str(self.path), "--offline", "--doc-id", "10052",
                                "--run-id", "missing-metadata"]), 1)
+
+    def test_named_discovery_reproduces_language_exclusion(self):
+        import_language_probe(self.con, LANGUAGE_FIXTURE)
+        import_p52(self.con, FIXTURE)
+        client = Client(self.con, "language", offline=True)
+        collect_stage(client, 10052, "coverage")
+        self.assertEqual(collect_search(client, "John.18.31", "P52", lang="gr"), "empty")
+        self.assertEqual(collect_search(client, "John.18.31", "P52", lang="grc"), "success")
+        self.assertEqual(collect_search(client, "John.18.31", "P52"), "success")
+        self.assertEqual(client.attempts, 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM discovery_candidate").fetchone()[0], 2)
+        self.assertEqual(self.con.execute("SELECT DISTINCT source_lang FROM discovery_candidate").fetchone()[0], "g")
+        report = discovery_report(self.con, "language")
+        self.assertFalse(report["discovery_complete"])
+        self.assertEqual(report["indexed_coverage_search_omissions"],
+                         [{"osis_ref": "John.18.31", "query_ga_num": "P52",
+                           "lang_filter": "gr", "doc_id": 10052}])
+        self.assertEqual(collect_search(client, "John.18.31", "P52", lang="grc"), "success")
+        self.assertEqual(self.con.execute("SELECT count(*) FROM discovery_candidate").fetchone()[0], 2)
+
+    def test_search_contract_and_incomplete_result(self):
+        singleton = LANGUAGE["cases"][1]["response"]
+        empty = LANGUAGE["cases"][0]["response"]
+        self.assertEqual(len(parse_search(singleton)[0]), 1)
+        self.assertEqual(parse_search(empty), ([], 0))
+        numeric_name = json.loads(json.dumps(singleton))
+        numeric_name["data"]["manuscripts"]["manuscript"]["gaNum"] = 1
+        numeric_name["data"]["manuscripts"]["manuscript"]["primaryName"] = 1
+        self.assertEqual(len(parse_search(numeric_name)[0]), 1)
+        for payload in [
+            {"status": "error", "data": empty["data"]},
+            {"status": "success", "data": {"manuscripts": {"count": 1, "pagecount": 1}}},
+            {"status": "success", "data": {"manuscripts": {"count": 0, "pagecount": 0,
+                                                             "manuscript": [None]}}},
+        ]:
+            with self.assertRaises(ContractError):
+                parse_search(payload)
+        truncated = json.loads(json.dumps(singleton))
+        truncated["data"]["manuscripts"]["count"] = 2
+        client, _, calls = self.client([(200, json.dumps(truncated), {})])
+        self.assertEqual(collect_search(client, "John.18.31", "P52"), "incomplete")
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM discovery_candidate").fetchone()[0], 1)
+        self.assertEqual(discovery_report(self.con, "test")["jobs"][0]["state"], "incomplete")
+
+    def test_captured_named_john_searches(self):
+        expected = {"01": (20001, 1), "02": (20002, 2),
+                    "P66": (10066, "P66"), "P75": (10075, "P75")}
+        for case in NAMED["cases"]:
+            name = case["params"]["gaNum"]
+            self.assertEqual(hashlib.sha256(case["raw_body"].encode()).hexdigest(),
+                             case["body_sha256"])
+            rows, count = parse_search(json.loads(case["raw_body"]))
+            self.assertEqual(count, 1)
+            self.assertEqual((rows[0]["docID"], rows[0]["gaNum"]), expected[name])
+            self.assertEqual(rows[0]["lang"], "g")
+
+    def test_captured_document_set_search_is_a_list(self):
+        self.assertEqual(hashlib.sha256(LIST["raw_body"].encode()).hexdigest(),
+                         LIST["body_sha256"])
+        payload = json.loads(LIST["raw_body"])
+        self.assertIsInstance(payload["data"]["manuscripts"]["manuscript"], list)
+        rows, count = parse_search(payload)
+        self.assertEqual(count, 2)
+        self.assertEqual([row["docID"] for row in rows], [10066, 10075])
+
+    def test_search_failed_refresh_retains_previous_candidates(self):
+        good = LANGUAGE["cases"][1]["response"]
+        client, _, _ = self.client([(200, json.dumps(good), {})])
+        collect_search(client, "John.18.31", "P52", lang="grc")
+        bad, _, _ = self.client([(200, '{"status":"success","data":{}}', {})])
+        with self.assertRaises(ContractError):
+            collect_search(bad, "John.18.31", "P52", lang="grc", refresh=True)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM discovery_candidate").fetchone()[0], 1)
+        self.assertEqual(discovery_report(self.con, "test")["jobs"][0]["state"], "failed")
+
+    def test_cli_offline_named_search_uses_fixture_without_requests(self):
+        self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-language-probe",
+                               "--run-id", "named", "--search-ref", "John.18.31",
+                               "--search-ga-num", "P52"]), 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+        self.assertEqual(discovery_report(self.con, "named")["candidates"][0]["source_lang"], "g")
 
 
 if __name__ == "__main__":

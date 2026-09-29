@@ -1,0 +1,58 @@
+{
+  "source": "Official NTVMR API, four bounded sequential named searches",
+  "run_id": "john-four-named-20260929",
+  "cases": [
+    {
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/",
+      "params": {
+        "detail": "document",
+        "format": "json",
+        "gaNum": "01",
+        "indexContent": "John.1.1",
+        "limit": "10"
+      },
+      "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":1,\"manuscript\":{\"origLate\":399,\"gaNum\":1,\"orig\":\"IV\",\"docID\":20001,\"groupID\":\"\",\"primaryName\":1,\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300},\"count\":1}}}",
+      "body_sha256": "a49fe2d6ebf5f5204aa1bfa987a88b9cdbe60b3bb2b8e0d247303460bd420b59",
+      "retrieved_at": "2026-09-29T19:10:32+00:00"
+    },
+    {
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/",
+      "params": {
+        "detail": "document",
+        "format": "json",
+        "gaNum": "02",
+        "indexContent": "John.1.1",
+        "limit": "10"
+      },
+      "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":1,\"manuscript\":{\"origLate\":499,\"gaNum\":2,\"orig\":\"V\",\"docID\":20002,\"groupID\":\"\",\"primaryName\":2,\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":400},\"count\":1}}}",
+      "body_sha256": "839612e9ec7a00ee85da49409c9ffb4b593c3a036c480496f141fb76b0b6b00e",
+      "retrieved_at": "2026-09-29T19:11:08+00:00"
+    },
+    {
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/",
+      "params": {
+        "detail": "document",
+        "format": "json",
+        "gaNum": "P66",
+        "indexContent": "John.1.1",
+        "limit": "10"
+      },
+      "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":2,\"manuscript\":{\"origLate\":225,\"gaNum\":\"P66\",\"orig\":\"III (A)\",\"docID\":10066,\"groupID\":\"\",\"primaryName\":\"P66\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},\"count\":1}}}",
+      "body_sha256": "cff864c66baf816941e95a527f9ea9b05019a43b090799b8c8ff0aef6306b9f8",
+      "retrieved_at": "2026-09-29T19:11:13+00:00"
+    },
+    {
+      "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/",
+      "params": {
+        "detail": "document",
+        "format": "json",
+        "gaNum": "P75",
+        "indexContent": "John.1.1",
+        "limit": "10"
+      },
+      "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":1,\"manuscript\":{\"origLate\":225,\"gaNum\":\"P75\",\"orig\":\"III (A)\",\"docID\":10075,\"groupID\":\"\",\"primaryName\":\"P75\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},\"count\":1}}}",
+      "body_sha256": "790c7659ebfc80f2ff06b861b75af0885c00789d75a2cf4f67d57199efa60f37",
+      "retrieved_at": "2026-09-29T19:11:18+00:00"
+    }
+  ]
+}

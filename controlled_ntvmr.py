@@ -23,7 +23,7 @@ API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
 OSIS = re.compile(r"^[1-3]?[A-Za-z][A-Za-z0-9]*\.[1-9][0-9]*\.[1-9][0-9]*$")
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=2;
+PRAGMA user_version=3;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -45,6 +45,23 @@ CREATE TABLE IF NOT EXISTS coverage_index (
  response_id INTEGER NOT NULL REFERENCES source_response(id),
  state TEXT NOT NULL DEFAULT 'candidate' CHECK(state IN ('candidate','reviewed')),
  PRIMARY KEY(doc_id,osis_ref,page_id));
+CREATE TABLE IF NOT EXISTS discovery_job (
+ run_id TEXT NOT NULL, osis_ref TEXT NOT NULL, ga_num TEXT NOT NULL,
+ lang_filter TEXT NOT NULL, state TEXT NOT NULL
+ CHECK(state IN ('pending','success','empty','incomplete','failed','blocked')),
+ response_id INTEGER REFERENCES source_response(id), reported_count INTEGER,
+ returned_count INTEGER, error TEXT, updated_at TEXT NOT NULL,
+ PRIMARY KEY(run_id,osis_ref,ga_num,lang_filter));
+CREATE TABLE IF NOT EXISTS discovery_candidate (
+ run_id TEXT NOT NULL, osis_ref TEXT NOT NULL, ga_num_query TEXT NOT NULL,
+ lang_filter TEXT NOT NULL, doc_id INTEGER NOT NULL, response_id INTEGER NOT NULL
+ REFERENCES source_response(id), ga_num TEXT, primary_name TEXT, source_lang TEXT,
+ review_state TEXT NOT NULL DEFAULT 'unreviewed'
+ CHECK(review_state IN ('unreviewed','eligible','excluded','uncertain')),
+ review_reason TEXT, raw_json TEXT NOT NULL,
+ PRIMARY KEY(run_id,osis_ref,ga_num_query,lang_filter,doc_id),
+ FOREIGN KEY(run_id,osis_ref,ga_num_query,lang_filter)
+ REFERENCES discovery_job(run_id,osis_ref,ga_num,lang_filter));
 """
 
 
@@ -129,6 +146,37 @@ def parse_coverage(payload, doc_id):
 def parse_metadata(payload):
     if not isinstance(payload, dict) or payload.get("status") != "success" or not isinstance(payload.get("data"), dict):
         raise ContractError("Metadata response lacks recognized success data")
+
+
+def parse_search(payload):
+    """Return document rows and the reported count; never assert exhaustiveness."""
+    if not isinstance(payload, dict) or payload.get("status") != "success":
+        raise ContractError("Search response lacks success status")
+    data = payload.get("data")
+    manuscripts = data.get("manuscripts") if isinstance(data, dict) else None
+    if not isinstance(manuscripts, dict):
+        raise ContractError("Search response lacks manuscripts container")
+    count, pagecount = manuscripts.get("count"), manuscripts.get("pagecount")
+    if type(count) is not int or count < 0 or type(pagecount) is not int or pagecount < 0:
+        raise ContractError("Search count or pagecount is invalid")
+    rows = manuscripts.get("manuscript", [] if count == 0 else None)
+    if isinstance(rows, dict):
+        rows = [rows]
+    if not isinstance(rows, list):
+        raise ContractError("Search manuscript is not a list or singleton")
+    seen = set()
+    for row in rows:
+        if not isinstance(row, dict) or type(row.get("docID")) is not int or row["docID"] <= 0:
+            raise ContractError("Search candidate has invalid docID")
+        if row["docID"] in seen:
+            raise ContractError("Search contains duplicate docID")
+        seen.add(row["docID"])
+        for field in ("gaNum", "primaryName"):
+            if field in row and type(row[field]) not in (str, int):
+                raise ContractError(f"Search candidate has invalid {field}")
+        if "lang" in row and not isinstance(row["lang"], str):
+            raise ContractError("Search candidate has invalid lang")
+    return rows, count
 
 
 def retry_after(value, clock=time.time):
@@ -295,6 +343,93 @@ def collect_stage(client, doc_id, stage, *, refresh=False):
         con.commit()
 
 
+def search_params(ref, ga_num, lang=None):
+    params = {"gaNum": ga_num, "indexContent": ref, "detail": "document",
+              "format": "json", "limit": "10"}
+    if lang is not None:
+        params["lang"] = lang
+    return params
+
+
+def collect_search(client, ref, ga_num, *, lang=None, refresh=False):
+    """Persist a bounded named-document lookup as candidates, never verified evidence."""
+    if not OSIS.fullmatch(ref) or not ga_num.strip():
+        raise ValueError("Search requires one OSIS verse and a nonempty gaNum")
+    con = client.con
+    key = (client.run_id, ref, ga_num, lang or "")
+    prior = con.execute("""SELECT state FROM discovery_job WHERE run_id=? AND osis_ref=?
+        AND ga_num=? AND lang_filter=?""", key).fetchone()
+    if prior and prior[0] in ("success", "empty") and not refresh:
+        return prior[0]
+    params = search_params(ref, ga_num, lang)
+    con.execute("""INSERT INTO discovery_job(run_id,osis_ref,ga_num,lang_filter,state,updated_at)
+        VALUES(?,?,?,?,?,?) ON CONFLICT(run_id,osis_ref,ga_num,lang_filter)
+        DO UPDATE SET state='pending', error=NULL, updated_at=excluded.updated_at""",
+        (*key, "pending", now()))
+    con.commit()
+    try:
+        payload, response_id = client.get_json("metadata/liste/search", params, refresh=refresh)
+        rows, reported = parse_search(payload)
+        state = "incomplete" if reported != len(rows) else "success" if rows else "empty"
+        with con:
+            con.execute("""DELETE FROM discovery_candidate WHERE run_id=? AND osis_ref=?
+                AND ga_num_query=? AND lang_filter=?""", key)
+            con.executemany("""INSERT INTO discovery_candidate(run_id,osis_ref,ga_num_query,
+                lang_filter,doc_id,response_id,ga_num,primary_name,source_lang,raw_json)
+                VALUES(?,?,?,?,?,?,?,?,?,?)""", [
+                (*key, row["docID"], response_id,
+                 str(row["gaNum"]) if "gaNum" in row else None,
+                 str(row["primaryName"]) if "primaryName" in row else None,
+                 row.get("lang"), encoded(row)) for row in rows])
+            con.execute("""UPDATE discovery_job SET state=?,response_id=?,reported_count=?,
+                returned_count=?,error=?,updated_at=? WHERE run_id=? AND osis_ref=?
+                AND ga_num=? AND lang_filter=?""",
+                (state, response_id, reported, len(rows),
+                 "Returned rows differ from reported count" if state == "incomplete" else None,
+                 now(), *key))
+        return state
+    except (ContractError, RunStopped, JobFailure) as error:
+        state = "blocked" if isinstance(error, AccessBlocked) else "pending" if isinstance(error, RunStopped) else "failed"
+        latest = con.execute("""SELECT id FROM source_response WHERE endpoint=? AND url=?
+            AND params_json=? ORDER BY id DESC LIMIT 1""",
+            ("metadata/liste/search", client.base_url + "/metadata/liste/search/",
+             encoded(params))).fetchone()
+        con.execute("""UPDATE discovery_job SET state=?,response_id=?,error=?,updated_at=? WHERE
+            run_id=? AND osis_ref=? AND ga_num=? AND lang_filter=?""",
+            (state, latest[0] if latest else None, str(error), now(), *key))
+        con.commit()
+        raise
+
+
+def discovery_report(con, run_id):
+    jobs = [dict(zip(("osis_ref", "ga_num", "lang_filter", "state", "reported_count",
+                      "returned_count"), row)) for row in con.execute("""SELECT osis_ref,ga_num,
+        lang_filter,state,reported_count,returned_count FROM discovery_job
+        WHERE run_id=? ORDER BY osis_ref,ga_num,lang_filter""", (run_id,))]
+    candidates = [dict(zip(("osis_ref", "query_ga_num", "lang_filter", "doc_id",
+                            "ga_num", "primary_name", "source_lang", "review_state",
+                            "review_reason"), row)) for row in con.execute("""SELECT osis_ref,
+        ga_num_query,lang_filter,doc_id,ga_num,primary_name,source_lang,review_state,
+        review_reason FROM discovery_candidate WHERE run_id=?
+        ORDER BY osis_ref,ga_num_query,lang_filter,doc_id""", (run_id,))]
+    omissions = [dict(zip(("osis_ref", "query_ga_num", "lang_filter", "doc_id"), row)) for row in con.execute("""
+        SELECT DISTINCT j.osis_ref,j.ga_num,j.lang_filter,c.doc_id FROM discovery_job j
+        JOIN coverage_index c ON c.osis_ref=j.osis_ref
+        WHERE j.run_id=? AND j.ga_num IN (
+            SELECT COALESCE(d.ga_num,d.primary_name) FROM discovery_candidate d
+            WHERE d.run_id=j.run_id AND d.doc_id=c.doc_id
+        ) AND NOT EXISTS (
+            SELECT 1 FROM discovery_candidate d WHERE d.run_id=j.run_id
+            AND d.osis_ref=j.osis_ref AND d.doc_id=c.doc_id
+            AND d.ga_num_query=j.ga_num AND d.lang_filter=j.lang_filter)
+        ORDER BY j.osis_ref,j.ga_num,j.lang_filter,c.doc_id""", (run_id,))]
+    return {"run_id": run_id, "scope": "named gaNum and single OSIS verse lookups",
+            "corpus_complete": False, "discovery_complete": False,
+            "reason": "The API page limit and search indexing have no verified exhaustive contract",
+            "jobs": jobs, "candidates": candidates,
+            "indexed_coverage_search_omissions": omissions}
+
+
 def import_p52(con, fixture):
     record = json.loads(fixture.read_text(encoding="utf-8"))
     body = json.dumps(record["response"], separators=(",", ":"))
@@ -310,6 +445,32 @@ def import_p52(con, fixture):
         body, digest, record["review_date"] + "T00:00:00+00:00", "fixture"))
     con.commit()
     return con.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
+def import_language_probe(con, fixture):
+    record = json.loads(fixture.read_text(encoding="utf-8"))
+    ids = []
+    for case in record["cases"]:
+        params = dict(record["common_params"])
+        if case["lang"] is not None:
+            params["lang"] = case["lang"]
+        body = encoded(case["response"])
+        digest = hashlib.sha256(body.encode()).hexdigest()
+        args = encoded(params)
+        row = con.execute("""SELECT id FROM source_response WHERE origin='fixture'
+            AND url=? AND params_json=? AND body_sha256=?""",
+            (record["source_url"], args, digest)).fetchone()
+        if row:
+            ids.append(row[0])
+            continue
+        con.execute("""INSERT INTO source_response(endpoint,url,params_json,status_code,
+            headers_json,body,body_sha256,retrieved_at,origin)
+            VALUES(?,?,?,?,?,?,?,?,?)""",
+            ("metadata/liste/search", record["source_url"], args, 200, "{}", body,
+             digest, record["review_date"] + "T00:00:00+00:00", "fixture"))
+        ids.append(con.execute("SELECT last_insert_rowid()").fetchone()[0])
+    con.commit()
+    return ids
 
 
 def export_p52(con, path):
@@ -348,18 +509,33 @@ def main(argv=None):
     ap.add_argument("--refresh-stage", choices=["metadata", "coverage", "both"])
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--fixture-p52", action="store_true")
+    ap.add_argument("--fixture-language-probe", action="store_true")
+    ap.add_argument("--search-ref", help="One OSIS verse for bounded named-witness discovery")
+    ap.add_argument("--search-ga-num", action="append", default=[])
+    ap.add_argument("--search-lang", help="Optional literal API language filter")
+    ap.add_argument("--refresh-search", action="store_true")
     ap.add_argument("--export-p52", type=Path)
     args = ap.parse_args(argv)
     if min(args.request_budget, args.max_run_seconds, args.min_interval, args.jitter) < 0:
         ap.error("Budgets and intervals must be nonnegative")
     if any(doc <= 0 for doc in args.doc_id):
         ap.error("Document IDs must be positive")
-    if not args.offline and args.doc_id and args.request_budget == 0:
+    if not args.offline and (args.doc_id or args.search_ga_num) and args.request_budget == 0:
         ap.error("Network collection requires a positive --request-budget")
     if args.fixture_p52 and args.refresh_stage:
         ap.error("Fixture replay cannot refresh a network stage")
     if args.fixture_p52 and not args.offline:
         ap.error("Fixture replay requires --offline")
+    if args.fixture_language_probe and not args.offline:
+        ap.error("Fixture replay requires --offline")
+    if args.search_ref and not OSIS.fullmatch(args.search_ref):
+        ap.error("--search-ref must be one OSIS verse")
+    if bool(args.search_ref) != bool(args.search_ga_num):
+        ap.error("--search-ref and --search-ga-num must be supplied together")
+    if args.search_lang and not args.search_ref:
+        ap.error("--search-lang requires a search")
+    if args.offline and args.refresh_search:
+        ap.error("--refresh-search requires live mode")
     try:
         if args.archive_legacy and args.dry_run:
             print(f"Would archive {args.archive_legacy} to {args.archive_to}")
@@ -369,6 +545,8 @@ def main(argv=None):
         with closing(connect(args.db)) as con:
             if args.fixture_p52 and not args.dry_run:
                 import_p52(con, Path(__file__).parent / "tests/fixtures/p52_coverage_probe.json")
+            if args.fixture_language_probe and not args.dry_run:
+                import_language_probe(con, Path(__file__).parent / "tests/fixtures/p52_language_probe.json")
             jobs = [(doc, stage) for doc in sorted(set(args.doc_id)) for stage in ("metadata", "coverage")]
             pending = []
             blocked = []
@@ -394,22 +572,56 @@ def main(argv=None):
             planned_network_jobs = len(pending) - len(cached)
             prior_attempts = con.execute("SELECT count(*) FROM request_attempt WHERE run_id=?",
                                          (args.run_id,)).fetchone()[0]
+            searches = [(args.search_ref, name) for name in sorted(set(args.search_ga_num))]
+            search_pending = []
+            search_blocked = []
+            for ref, name in searches:
+                row = con.execute("""SELECT state FROM discovery_job WHERE run_id=?
+                    AND osis_ref=? AND ga_num=? AND lang_filter=?""",
+                    (args.run_id, ref, name, args.search_lang or "")).fetchone()
+                if row and row[0] == "blocked" and not args.refresh_search:
+                    search_blocked.append((ref, name))
+                elif args.refresh_search or not row or row[0] not in ("success", "empty"):
+                    search_pending.append((ref, name))
+            search_cached = []
+            for ref, name in search_pending:
+                params = search_params(ref, name, args.search_lang)
+                hit = con.execute("""SELECT 1 FROM source_response WHERE endpoint=? AND url=?
+                    AND params_json=? AND status_code BETWEEN 200 AND 299
+                    AND (origin='http' OR ?) LIMIT 1""",
+                    ("metadata/liste/search", args.base_url.rstrip("/") + "/metadata/liste/search/",
+                     encoded(params), args.offline)).fetchone()
+                if hit and not args.refresh_search:
+                    search_cached.append((ref, name))
+            planned_network_jobs += len(search_pending) - len(search_cached)
             print(json.dumps({"run_id": args.run_id, "planned_jobs": pending,
                 "cached_jobs": cached, "blocked_jobs": blocked, "fixture_p52": args.fixture_p52,
+                "search_scope": "named gaNum and single OSIS verse lookups",
+                "search_jobs": search_pending, "cached_searches": search_cached,
+                "blocked_searches": search_blocked,
                 "prior_network_attempts": prior_attempts,
                 "maximum_network_attempts": 0 if args.offline else min(max(0, args.request_budget - prior_attempts), planned_network_jobs * 3),
                 "offline": args.offline, "refresh_stage": args.refresh_stage}))
             if args.dry_run:
                 return 0
-            if blocked:
-                raise RunStopped("Prior access block requires explicit --refresh-stage")
+            if blocked or search_blocked:
+                raise RunStopped("Prior access block requires explicit refresh")
             client = Client(con, args.run_id, base_url=args.base_url, offline=args.offline,
                 budget=args.request_budget, interval=args.min_interval,
                 jitter=args.jitter, duration=args.max_run_seconds)
-            if args.fixture_p52:
-                collect_stage(client, 10052, "coverage")
-            for doc, stage in pending:
-                collect_stage(client, doc, stage, refresh=args.refresh_stage in (stage, "both"))
+            try:
+                if args.fixture_p52:
+                    collect_stage(client, 10052, "coverage")
+                for doc, stage in pending:
+                    collect_stage(client, doc, stage, refresh=args.refresh_stage in (stage, "both"))
+                for ref, name in search_pending:
+                    collect_search(client, ref, name, lang=args.search_lang, refresh=args.refresh_search)
+            finally:
+                if searches:
+                    report = discovery_report(con, args.run_id)
+                    print(json.dumps(report))
+            if searches and any(job["state"] not in ("success", "empty") for job in report["jobs"]):
+                raise RunStopped("Search results are incomplete")
             if args.export_p52:
                 export_p52(con, args.export_p52)
         return 0

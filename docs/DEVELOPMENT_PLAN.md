@@ -4,8 +4,18 @@ This is the implementation plan following the [2026-09-29 review](DATA_REVIEW.md
 The first controlled-collection slice is implemented in `controlled_ntvmr.py`:
 budgeted requests, durable raw responses and stage checkpoints, explicit P52
 long-response parsing, and a single-witness offline index sample. Candidate
-discovery, NA28 inventory, verified evidence, rankings, and visualization remain
-planned. The sample does not satisfy the later scholarly validation gates.
+discovery now has a bounded named-witness lookup and an offline P52 language
+regression. A budgeted live probe on 2026-09-29 returned P52 at John 18:31 and
+P66, P75, 01, and 02 at John 1:1; the latter four responses are captured in
+[`john_named_probe.json`](../tests/fixtures/john_named_probe.json). The codex
+responses use numeric `gaNum` and `primaryName` values. These are candidate search
+hits, not verified verse evidence or proof of exhaustive discovery. The
+[bounded document-set probe](../tests/fixtures/john_list_probe.json) confirms
+the multi-record list shape for P66 and P75 at John 1:1. It also does not prove
+that larger ranges or passage searches are complete. Exhaustive discovery, the
+NA28 inventory, verified evidence, rankings,
+and visualization remain planned. The sample does not satisfy the later scholarly
+validation gates.
 
 ## Research contract
 

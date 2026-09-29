@@ -32,8 +32,14 @@ The first implementation slice now adds controlled document collection, an expli
 long-response parser, separate metadata and coverage checkpoints, and an
 [offline P52 index sample](examples/p52-index-sample.json). The sample is one
 witness's indexed coordinates, not a complete set of Greek witnesses or an NA28
-ranking. Start with the [data/code review](docs/DATA_REVIEW.md), then the ordered
+ranking. A second slice adds bounded named-witness passage searches and a persisted
+candidate index. Search hits remain unreviewed candidates. Start with the [data/code review](docs/DATA_REVIEW.md), then the ordered
 [development plan and acceptance criteria](docs/DEVELOPMENT_PLAN.md).
+
+A small, budgeted live check on 2026-09-29 found P52 at John 18:31 and P66,
+P75, 01, and 02 at John 1:1. The [captured four-witness search responses](tests/fixtures/john_named_probe.json)
+show that codex names can be JSON numbers. These lookups do not establish complete
+discovery or verified physical coverage.
 
 ## Run the offline checks
 
@@ -70,6 +76,8 @@ project default, not a confirmed NTVMR quota.
 python sync_ntvmr.py --help
 python sync_ntvmr.py --offline --fixture-p52 --db data/ntvmr-v2.sqlite --run-id fixture-p52 --export-p52 examples/p52-index-sample.json
 python sync_ntvmr.py --offline --db data/ntvmr-v2.sqlite --doc-id 10052 --run-id review --dry-run
+python sync_ntvmr.py --offline --fixture-p52 --fixture-language-probe --db data/ntvmr-v2.sqlite --run-id p52-language --search-ref John.18.31 --search-ga-num P52
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --run-id john-named-probe --search-ref John.18.31 --search-ga-num P52 --search-ga-num P66 --search-ga-num P75 --request-budget 3 --dry-run
 ```
 
 The legacy code is retained as [`legacy_sync_ntvmr.py`](legacy_sync_ntvmr.py) for
@@ -79,8 +87,17 @@ backup databases are ignored by Git. To make a backup from another legacy file,
 use `--archive-legacy SOURCE --archive-to DESTINATION` once. The backup checks
 integrity and table row counts.
 
-The new collector currently accepts explicit document IDs only. It does not yet
-discover all candidates, identify physical witness aliases, resolve NA28 verse
+Live named searches require a positive request budget and use the same request
+spacing and durable raw-response cache as document collection. `--search-lang` can
+replay a literal language filter; the default omits it. A search report declares
+its scope, per-query state, and any known document whose indexed coverage conflicts
+with a search result. `count` and returned rows are checked, but a match does not
+prove exhaustive results. `--refresh-search` explicitly reruns a selected lookup.
+If Python cannot validate the service's TLS chain, configure `SSL_CERT_FILE` to a
+trusted CA bundle; keep certificate verification enabled.
+
+The new collector does not yet discover all candidates, identify physical witness
+aliases, resolve NA28 verse
 membership, or establish indexing tiers. A coverage index row is a **candidate**,
 not automatically verified surviving text. A live run must be separately scoped,
 budgeted, and reviewed against provider expectations before scaling.
