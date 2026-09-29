@@ -9,8 +9,8 @@ from controlled_ntvmr import (
     AccessBlocked, Client, ContractError, RunStopped, collect_stage, connect,
     catalogue_params, catalogue_report, collect_catalogue_scope, collect_search,
     discovery_report, export_p52, import_language_probe, import_p52,
-    import_search_fixture, main, parse_coverage, parse_search, retry_after,
-    scoped_index_report,
+    import_search_fixture, main, parse_coverage, parse_metadata, parse_search, retry_after,
+    record_candidate_review, scoped_index_report,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
@@ -19,7 +19,11 @@ LANGUAGE_FIXTURE = Path(__file__).parent / "fixtures" / "p52_language_probe.json
 LANGUAGE = json.loads(LANGUAGE_FIXTURE.read_text(encoding="utf-8"))
 NAMED = json.loads((Path(__file__).parent / "fixtures" / "john_named_probe.json").read_text(encoding="utf-8"))
 LIST = json.loads((Path(__file__).parent / "fixtures" / "john_list_probe.json").read_text(encoding="utf-8"))
+P134_METADATA = json.loads((Path(__file__).parent / "fixtures" / "p134_metadata_cache.json").read_text(encoding="utf-8"))
 PARAMS = {"docID": "10052", "detail": "long", "format": "json"}
+METADATA = {"status": "success", "data": {"manuscript": {
+    "docID": 10052, "gaNum": "P52", "primaryName": "P52", "lang": "grc",
+    "originYear": {"early": 125, "late": 175, "content": "II (M)"}}}}
 
 
 class FakeTime:
@@ -57,6 +61,58 @@ class CollectorTests(unittest.TestCase):
                         send=send, clock=clock.clock, sleep=clock.sleep,
                         rng=lambda: 0, **options)
         return client, clock, calls
+
+    def test_metadata_contract_and_date_status(self):
+        self.assertEqual(hashlib.sha256(P134_METADATA["raw_body"].encode()).hexdigest(),
+                         P134_METADATA["body_sha256"])
+        captured = parse_metadata(json.loads(P134_METADATA["raw_body"]), 10134)
+        self.assertEqual((captured["ga_num"], captured["source_lang"], captured["date_status"]),
+                         ("P134", "grc", "valid"))
+        parsed = parse_metadata(METADATA, 10052)
+        self.assertEqual((parsed["source_lang"], parsed["origin_notation"],
+                          parsed["date_status"], parsed["date_min"], parsed["date_max"]),
+                         ("grc", "II (M)", "valid", 125, 175))
+        numeric = json.loads(json.dumps(METADATA))
+        numeric["data"]["manuscript"]["gaNum"] = 1
+        self.assertEqual(parse_metadata(numeric, 10052)["ga_num"], "1")
+        unknown = json.loads(json.dumps(METADATA))
+        unknown["data"]["manuscript"]["originYear"] = {"early": 0, "late": 0}
+        self.assertEqual(parse_metadata(unknown, 10052)["date_status"], "unknown")
+        invalid = json.loads(json.dumps(METADATA))
+        invalid["data"]["manuscript"]["originYear"] = {"early": 200, "late": 100,
+                                                            "content": "disputed"}
+        self.assertEqual(parse_metadata(invalid, 10052)["date_status"], "invalid")
+        self.assertIsNone(parse_metadata(invalid, 10052)["date_min"])
+        for bad in [
+            {"status": "success", "data": {}},
+            {"status": "error", "data": METADATA["data"]},
+            {"status": "success", "data": {"manuscript": {"docID": 10053,
+                "gaNum": "P52", "lang": "grc"}}},
+            {"status": "success", "data": {"manuscript": {"docID": 10052,
+                "gaNum": "P52"}}},
+        ]:
+            with self.assertRaises(ContractError):
+                parse_metadata(bad, 10052)
+
+    def test_metadata_snapshot_refresh_failure_and_offline_replay(self):
+        first, _, _ = self.client([(200, json.dumps(METADATA), {})], run_id="metadata")
+        self.assertEqual(collect_stage(first, 10052, "metadata"), "success")
+        initial = self.con.execute("SELECT response_id,date_status,date_min,date_max,source_lang "
+                                   "FROM document_metadata WHERE doc_id=10052").fetchone()
+        self.assertEqual(initial[1:], ("valid", 125, 175, "grc"))
+        self.con.execute("DELETE FROM document_metadata WHERE doc_id=10052")
+        self.con.commit()
+        offline = Client(self.con, "metadata", offline=True)
+        self.assertEqual(collect_stage(offline, 10052, "metadata"), "success")
+        self.assertEqual(offline.attempts, 1)
+        self.assertEqual(self.con.execute("SELECT date_status FROM document_metadata").fetchone()[0], "valid")
+        malformed, _, _ = self.client([(200, '{"status":"success","data":{}}', {})], run_id="metadata")
+        with self.assertRaises(ContractError):
+            collect_stage(malformed, 10052, "metadata", refresh=True)
+        self.assertEqual(self.con.execute("SELECT response_id,date_status FROM document_metadata").fetchone(),
+                         initial[:2])
+        self.assertEqual(self.con.execute("SELECT state FROM collection_job WHERE run_id='metadata'").fetchone()[0],
+                         "failed")
 
     def test_p52_individual_entries_and_no_inferred_neighbors(self):
         self.assertEqual(parse_coverage(P52, 10052), [
@@ -323,6 +379,69 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(len(report["candidates"]), 2)
         self.assertFalse(report["catalogue_lookup_complete"])
 
+    def test_document_review_survives_refresh_and_keeps_history(self):
+        printed = {"status": "success", "data": {"manuscripts": {
+            "count": 1, "pagecount": 1,
+            "manuscript": {"docID": 90000, "gaNum": "NA27",
+                           "primaryName": "NA27", "lang": "grc"}}}}
+        changed = json.loads(json.dumps(printed))
+        changed["data"]["manuscripts"]["manuscript"]["lang"] = "g"
+        empty = {"status": "success", "data": {"manuscripts": {
+            "count": 0, "pagecount": 0}}}
+        client, _, _ = self.client([(200, json.dumps(printed), {}),
+                                    (200, json.dumps(changed), {}),
+                                    (200, json.dumps(empty), {})])
+        self.assertEqual(collect_catalogue_scope(client, [90000], page_limit=10), "success")
+        response_id = catalogue_report(self.con, "test")["candidates"][0]["response_id"]
+        with self.assertRaises(ValueError):
+            record_candidate_review(self.con, 90001, response_id, "exclude",
+                                    "printed_edition", "Printed edition", "test source", "reviewer")
+        with self.assertRaises(ValueError):
+            record_candidate_review(self.con, 90000, response_id, "retain",
+                                    "printed_edition", "Wrong pairing", "test source", "reviewer")
+        first_id = record_candidate_review(self.con, 90000, response_id, "exclude",
+                                           "printed_edition", "Named printed edition",
+                                           "catalogue response", "test reviewer")
+        self.assertEqual(collect_catalogue_scope(client, [90000], page_limit=10,
+                                                refresh=True), "success")
+        reviewed = catalogue_report(self.con, "test")["candidates"][0]
+        self.assertEqual((reviewed["review_decision"], reviewed["source_type"],
+                          reviewed["review_source_response_id"]),
+                         ("exclude", "printed_edition", response_id))
+        self.assertEqual(reviewed["review_reason"], "Named printed edition")
+        self.assertTrue(reviewed["review_source_changed"])
+        second_id = record_candidate_review(self.con, 90000, reviewed["response_id"],
+                                            "uncertain", "uncertain", "Needs recheck",
+                                            "new catalogue response", "test reviewer")
+        self.assertGreater(second_id, first_id)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
+        self.assertEqual(catalogue_report(self.con, "test")["candidates"][0]["review_decision"],
+                         "uncertain")
+        self.assertFalse(catalogue_report(self.con, "test")["candidates"][0]["review_source_changed"])
+        self.assertEqual(collect_catalogue_scope(client, [90000], page_limit=10,
+                                                refresh=True), "incomplete")
+        self.assertEqual(catalogue_report(self.con, "test")["candidates"], [])
+        self.assertEqual(self.con.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
+        reopened = connect(self.path)
+        self.addCleanup(reopened.close)
+        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 6)
+        self.assertEqual(reopened.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
+
+    def test_cli_review_is_offline_and_visible_in_named_report(self):
+        self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-language-probe",
+                               "--run-id", "named", "--search-ref", "John.18.31",
+                               "--search-ga-num", "P52"]), 0)
+        response_id = discovery_report(self.con, "named")["candidates"][0]["response_id"]
+        self.assertEqual(main(["--db", str(self.path), "--review-doc-id", "10052",
+                               "--review-response-id", str(response_id),
+                               "--review-decision", "uncertain", "--review-source-type", "uncertain",
+                               "--review-reason", "Source category needs review",
+                               "--review-citation", "captured P52 search response",
+                               "--reviewer", "fixture test"]), 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+        self.assertEqual(discovery_report(self.con, "named")["candidates"][0]["review_decision"],
+                         "uncertain")
+
     def test_cli_offline_catalogue_fixture(self):
         self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-john-list",
                                "--run-id", "fixture-batch", "--catalogue-doc-id", "10066",
@@ -354,7 +473,9 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(report["state"], "incomplete")
         self.assertEqual(report["unready_doc_ids"], [])
         self.assertEqual(report["candidates"]["John.18.31"],
-                         [{"doc_id": 10052, "page_ids": [10]}])
+                         [{"doc_id": 10052, "page_ids": [10],
+                           "review_decision": "unreviewed", "review_reason": None,
+                           "review_source_changed": None}])
         self.assertEqual(report["candidates"]["John.18.34"], [])
         self.assertEqual(report["named_search_omissions"],
                          [{"osis_ref": "John.18.31", "query_ga_num": "P52",

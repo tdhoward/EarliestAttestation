@@ -28,6 +28,21 @@ The first five-ID unfiltered live lookup and a later P52-only unfiltered lookup
 timed out on 2026-09-29; their pending jobs and transport failures are retained
 locally, and no completeness result was inferred.
 
+The metadata source-contract increment validates manuscript metadata before
+completing its checkpoint. It stores a source-linked document snapshot with
+catalogue names, verbatim language, original date notation, and valid/unknown/invalid
+date status. This is catalogue metadata only; physical witness identity, selected
+scholarly dates, and verse evidence still require review. An older completed metadata
+checkpoint without this snapshot is replayed from cache when requested.
+
+The document-review increment adds append-only document classification with a
+source response, source type, reason, citation, and reviewer. Discovery and catalogue
+reports show the latest decision and flag changed source content after a refresh.
+Returned excluded candidates remain visible in reports; earlier decisions stay in
+review history even if a refresh no longer returns a document. No classification
+is inferred from its numeric ID, and a retained document is still only a candidate
+for verse evidence review.
+
 ## Research contract
 
 1. **Reference edition:** NA28, selected by the project owner. Store its explicit

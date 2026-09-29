@@ -49,6 +49,22 @@ cannot establish that status. Unfiltered live probes for five IDs and then P52
 alone timed out on 2026-09-29 and remain checkpointed as pending; they yielded no
 completeness claim.
 
+The metadata stage now checks the manuscript response's nested `docID`, catalogue
+name, and language before marking it complete. Its v5 `document_metadata` snapshot
+keeps the source's language and date notation verbatim, with numeric date bounds
+only when the interval is valid. Unknown or invalid catalogue dates stay out of
+numeric bounds. These are source metadata, not selected scholarly date assessments
+or verified witness identities. A prior v4 metadata checkpoint is replayed from its
+cached response when its normalized snapshot is missing.
+
+Document classification is now a separate, append-only v6 review record. A reviewer
+can mark a discovered document `retain`, `exclude`, or `uncertain`, with source type,
+reason, citation, reviewer, and the stored response ID. Named-search and catalogue
+reports show the latest decision while retaining excluded candidates in the report.
+`review_source_changed` flags when a newer successful response to the same request
+has different content. `retain` means a Greek manuscript candidate should be kept
+for further review; it does not verify any verse or settle physical witness identity.
+
 ## Run the offline checks
 
 Python 3.10+ is required for the audit; verified with Python 3.12. The audit and
@@ -114,6 +130,14 @@ them with any named passage searches in that run. It marks later replaced covera
 as stale. These rows remain index candidates; a missing row is not proof that text
 was physically absent.
 
+For a manual document review, take `doc_id` and `response_id` from a candidate
+report and run `sync_ntvmr.py` separately with `--review-doc-id`,
+`--review-response-id`, `--review-decision`, `--review-source-type`,
+`--review-reason`, `--review-citation`, and `--reviewer`. This command makes no
+network requests. Decisions must agree with source type: `retain` requires
+`greek_manuscript`, `exclude` requires `printed_edition` or `other`, and
+`uncertain` requires `uncertain`. Earlier decisions remain in `candidate_review`.
+
 The new collector does not yet discover all candidates, identify physical witness
 aliases, resolve NA28 verse
 membership, or establish indexing tiers. A coverage index row is a **candidate**,
@@ -145,7 +169,7 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v4 schema in the v2 replacement database |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v6 schema in the v2 replacement database |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of that schema |
 | `tests/` | Audit and controlled collector tests; captured P52 API fixtures |

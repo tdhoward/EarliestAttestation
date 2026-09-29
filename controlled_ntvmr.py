@@ -23,7 +23,7 @@ API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
 OSIS = re.compile(r"^[1-3]?[A-Za-z][A-Za-z0-9]*\.[1-9][0-9]*\.[1-9][0-9]*$")
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=4;
+PRAGMA user_version=6;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -40,6 +40,15 @@ CREATE TABLE IF NOT EXISTS collection_job (
  state TEXT NOT NULL CHECK(state IN ('pending','success','empty','failed','blocked')),
  response_id INTEGER REFERENCES source_response(id), attempts INTEGER NOT NULL DEFAULT 0,
  error TEXT, updated_at TEXT NOT NULL, PRIMARY KEY(run_id,doc_id,stage));
+CREATE TABLE IF NOT EXISTS document_metadata (
+ doc_id INTEGER PRIMARY KEY, response_id INTEGER NOT NULL REFERENCES source_response(id),
+ ga_num TEXT, primary_name TEXT, source_lang TEXT NOT NULL,
+ origin_date_json TEXT, origin_notation TEXT,
+ date_status TEXT NOT NULL CHECK(date_status IN ('valid','unknown','invalid')),
+ date_min INTEGER, date_max INTEGER,
+ CHECK((date_status='valid' AND date_min IS NOT NULL AND date_max IS NOT NULL
+        AND date_min>0 AND date_max>=date_min) OR
+       (date_status!='valid' AND date_min IS NULL AND date_max IS NULL)));
 CREATE TABLE IF NOT EXISTS coverage_index (
  doc_id INTEGER NOT NULL, osis_ref TEXT NOT NULL, page_id INTEGER NOT NULL,
  response_id INTEGER NOT NULL REFERENCES source_response(id),
@@ -73,6 +82,20 @@ CREATE TABLE IF NOT EXISTS catalogue_candidate (
  doc_id INTEGER NOT NULL, response_id INTEGER NOT NULL REFERENCES source_response(id),
  ga_num TEXT, primary_name TEXT, source_lang TEXT, raw_json TEXT NOT NULL,
  PRIMARY KEY(run_id,doc_id));
+CREATE TABLE IF NOT EXISTS candidate_review (
+ id INTEGER PRIMARY KEY, doc_id INTEGER NOT NULL,
+ source_response_id INTEGER NOT NULL REFERENCES source_response(id),
+ decision TEXT NOT NULL CHECK(decision IN ('retain','exclude','uncertain')),
+ source_type TEXT NOT NULL CHECK(source_type IN
+ ('greek_manuscript','printed_edition','other','uncertain')),
+ reason TEXT NOT NULL CHECK(length(trim(reason))>0),
+ citation TEXT NOT NULL CHECK(length(trim(citation))>0),
+ reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0),
+ reviewed_at TEXT NOT NULL,
+ CHECK((decision='retain' AND source_type='greek_manuscript') OR
+       (decision='exclude' AND source_type IN ('printed_edition','other')) OR
+       (decision='uncertain' AND source_type='uncertain')));
+CREATE INDEX IF NOT EXISTS candidate_review_latest ON candidate_review(doc_id,id);
 """
 
 
@@ -154,9 +177,43 @@ def parse_coverage(payload, doc_id):
     return list(dict.fromkeys(result))
 
 
-def parse_metadata(payload):
-    if not isinstance(payload, dict) or payload.get("status") != "success" or not isinstance(payload.get("data"), dict):
-        raise ContractError("Metadata response lacks recognized success data")
+def parse_metadata(payload, doc_id):
+    """Validate the observed manuscript/get shape without treating its date as selected."""
+    if not isinstance(payload, dict) or payload.get("status") != "success":
+        raise ContractError("Metadata response lacks success status")
+    data = payload.get("data")
+    manuscript = data.get("manuscript") if isinstance(data, dict) else None
+    if not isinstance(manuscript, dict) or type(manuscript.get("docID")) is not int or manuscript["docID"] != doc_id:
+        raise ContractError("Metadata response has missing or wrong manuscript docID")
+    for field in ("gaNum", "primaryName"):
+        if field in manuscript and type(manuscript[field]) not in (str, int):
+            raise ContractError(f"Metadata manuscript has invalid {field}")
+    if not any(manuscript.get(field) not in (None, "") for field in ("gaNum", "primaryName")):
+        raise ContractError("Metadata manuscript has no catalogue name")
+    if not isinstance(manuscript.get("lang"), str):
+        raise ContractError("Metadata manuscript has no language string")
+    origin = manuscript.get("originYear")
+    notation = origin.get("content") if isinstance(origin, dict) else None
+    if notation is not None and not isinstance(notation, str):
+        raise ContractError("Metadata originYear content is not a string")
+    early = origin.get("early") if isinstance(origin, dict) else None
+    late = origin.get("late") if isinstance(origin, dict) else None
+    if origin is None or (early in (None, 0) and late in (None, 0)):
+        date_status = "unknown"
+    elif type(early) is int and type(late) is int and 0 < early <= late:
+        date_status = "valid"
+    else:
+        date_status = "invalid"
+    return {
+        "ga_num": str(manuscript["gaNum"]) if "gaNum" in manuscript else None,
+        "primary_name": str(manuscript["primaryName"]) if "primaryName" in manuscript else None,
+        "source_lang": manuscript["lang"],
+        "origin_date_json": encoded(origin) if origin is not None else None,
+        "origin_notation": notation,
+        "date_status": date_status,
+        "date_min": early if date_status == "valid" else None,
+        "date_max": late if date_status == "valid" else None,
+    }
 
 
 def parse_search(payload):
@@ -318,11 +375,18 @@ def set_job(con, run_id, doc_id, stage, state, response_id=None, error=None):
     con.commit()
 
 
+def metadata_checkpoint_ready(con, doc_id, response_id):
+    return response_id is not None and bool(con.execute(
+        "SELECT 1 FROM document_metadata WHERE doc_id=? AND response_id=?",
+        (doc_id, response_id)).fetchone())
+
+
 def collect_stage(client, doc_id, stage, *, refresh=False):
     con = client.con
-    row = con.execute("SELECT state FROM collection_job WHERE run_id=? AND doc_id=? AND stage=?",
+    row = con.execute("SELECT state,response_id FROM collection_job WHERE run_id=? AND doc_id=? AND stage=?",
                       (client.run_id, doc_id, stage)).fetchone()
-    if row and row[0] in ("success", "empty") and not refresh:
+    metadata_ready = stage != "metadata" or (row and metadata_checkpoint_ready(con, doc_id, row[1]))
+    if row and row[0] in ("success", "empty") and metadata_ready and not refresh:
         return row[0]
     set_job(con, client.run_id, doc_id, stage, "pending")
     endpoint = "metadata/manuscript/get" if stage == "metadata" else "biblicalcontent/get"
@@ -331,7 +395,20 @@ def collect_stage(client, doc_id, stage, *, refresh=False):
     try:
         payload, response_id = client.get_json(endpoint, params, refresh=refresh)
         if stage == "metadata":
-            parse_metadata(payload)
+            metadata = parse_metadata(payload, doc_id)
+            with con:
+                con.execute("""INSERT INTO document_metadata(doc_id,response_id,ga_num,
+                    primary_name,source_lang,origin_date_json,origin_notation,date_status,
+                    date_min,date_max) VALUES(?,?,?,?,?,?,?,?,?,?)
+                    ON CONFLICT(doc_id) DO UPDATE SET response_id=excluded.response_id,
+                    ga_num=excluded.ga_num,primary_name=excluded.primary_name,
+                    source_lang=excluded.source_lang,origin_date_json=excluded.origin_date_json,
+                    origin_notation=excluded.origin_notation,date_status=excluded.date_status,
+                    date_min=excluded.date_min,date_max=excluded.date_max""",
+                    (doc_id, response_id, metadata["ga_num"], metadata["primary_name"],
+                     metadata["source_lang"], metadata["origin_date_json"],
+                     metadata["origin_notation"], metadata["date_status"],
+                     metadata["date_min"], metadata["date_max"]))
             state = "success"
         else:
             entries = parse_coverage(payload, doc_id)
@@ -414,17 +491,75 @@ def collect_search(client, ref, ga_num, *, lang=None, refresh=False):
         raise
 
 
+def record_candidate_review(con, doc_id, source_response_id, decision, source_type,
+                            reason, citation, reviewer):
+    """Append a document classification; never convert it to verse evidence."""
+    if type(doc_id) is not int or doc_id <= 0 or type(source_response_id) is not int or source_response_id <= 0:
+        raise ValueError("Review requires positive document and source response IDs")
+    allowed = {"retain": "greek_manuscript", "uncertain": "uncertain"}
+    if (decision not in ("retain", "exclude", "uncertain") or
+        source_type not in ("greek_manuscript", "printed_edition", "other", "uncertain") or
+        (decision in allowed and source_type != allowed[decision]) or
+        (decision == "exclude" and source_type not in ("printed_edition", "other"))):
+        raise ValueError("Review decision and source type are inconsistent")
+    if any(not isinstance(value, str) or not value.strip()
+           for value in (reason, citation, reviewer)):
+        raise ValueError("Review requires a reason, citation, and reviewer")
+    linked = con.execute("""SELECT 1 FROM document_metadata WHERE doc_id=? AND response_id=?
+        UNION SELECT 1 FROM discovery_candidate WHERE doc_id=? AND response_id=?
+        UNION SELECT 1 FROM catalogue_candidate WHERE doc_id=? AND response_id=? LIMIT 1""",
+        (doc_id, source_response_id) * 3).fetchone()
+    if not linked:
+        raise ValueError("Review source response is not linked to this document")
+    with con:
+        con.execute("""INSERT INTO candidate_review(doc_id,source_response_id,decision,
+            source_type,reason,citation,reviewer,reviewed_at) VALUES(?,?,?,?,?,?,?,?)""",
+            (doc_id, source_response_id, decision, source_type, reason.strip(),
+             citation.strip(), reviewer.strip(), now()))
+        review_id = con.execute("SELECT last_insert_rowid()").fetchone()[0]
+    return review_id
+
+
+def latest_candidate_reviews(con, doc_ids):
+    ids = sorted(set(doc_ids))
+    if not ids:
+        return {}
+    placeholders = ",".join("?" for _ in ids)
+    rows = con.execute(f"""SELECT r.doc_id,r.id,r.source_response_id,r.decision,
+        r.source_type,r.reason,r.citation,r.reviewer,r.reviewed_at
+        FROM candidate_review r JOIN (
+          SELECT doc_id,MAX(id) AS id FROM candidate_review
+          WHERE doc_id IN ({placeholders}) GROUP BY doc_id
+        ) latest ON latest.id=r.id""", ids)
+    fields = ("doc_id", "review_id", "review_source_response_id", "review_decision",
+              "source_type", "review_reason", "review_citation", "reviewer", "reviewed_at")
+    reviews = {row[0]: dict(zip(fields, row)) for row in rows}
+    for review in reviews.values():
+        source = con.execute("""SELECT endpoint,url,params_json,body_sha256
+            FROM source_response WHERE id=?""",
+            (review["review_source_response_id"],)).fetchone()
+        latest = con.execute("""SELECT body_sha256 FROM source_response WHERE
+            endpoint=? AND url=? AND params_json=? AND status_code BETWEEN 200 AND 299
+            ORDER BY id DESC LIMIT 1""", source[:3]).fetchone()
+        review["review_source_changed"] = latest is not None and latest[0] != source[3]
+    return reviews
+
+
 def discovery_report(con, run_id):
     jobs = [dict(zip(("osis_ref", "ga_num", "lang_filter", "state", "reported_count",
                       "returned_count"), row)) for row in con.execute("""SELECT osis_ref,ga_num,
         lang_filter,state,reported_count,returned_count FROM discovery_job
         WHERE run_id=? ORDER BY osis_ref,ga_num,lang_filter""", (run_id,))]
     candidates = [dict(zip(("osis_ref", "query_ga_num", "lang_filter", "doc_id",
-                            "ga_num", "primary_name", "source_lang", "review_state",
-                            "review_reason"), row)) for row in con.execute("""SELECT osis_ref,
-        ga_num_query,lang_filter,doc_id,ga_num,primary_name,source_lang,review_state,
-        review_reason FROM discovery_candidate WHERE run_id=?
+                            "response_id", "ga_num", "primary_name", "source_lang"), row))
+                  for row in con.execute("""SELECT osis_ref,
+        ga_num_query,lang_filter,doc_id,response_id,ga_num,primary_name,source_lang
+        FROM discovery_candidate WHERE run_id=?
         ORDER BY osis_ref,ga_num_query,lang_filter,doc_id""", (run_id,))]
+    reviews = latest_candidate_reviews(con, (row["doc_id"] for row in candidates))
+    for candidate in candidates:
+        candidate.update(reviews.get(candidate["doc_id"],
+                         {"review_decision": "unreviewed"}))
     omissions = [dict(zip(("osis_ref", "query_ga_num", "lang_filter", "doc_id"), row)) for row in con.execute("""
         SELECT DISTINCT j.osis_ref,j.ga_num,j.lang_filter,c.doc_id FROM discovery_job j
         JOIN coverage_index c ON c.osis_ref=j.osis_ref
@@ -519,9 +654,13 @@ def catalogue_report(con, run_id):
     if not row:
         return None
     requested = json.loads(row[0])
-    candidates = [dict(zip(("doc_id", "ga_num", "primary_name", "source_lang"), record))
-                  for record in con.execute("""SELECT doc_id,ga_num,primary_name,source_lang
+    candidates = [dict(zip(("doc_id", "response_id", "ga_num", "primary_name", "source_lang"), record))
+                  for record in con.execute("""SELECT doc_id,response_id,ga_num,primary_name,source_lang
                   FROM catalogue_candidate WHERE run_id=? ORDER BY doc_id""", (run_id,))]
+    reviews = latest_candidate_reviews(con, (row["doc_id"] for row in candidates))
+    for candidate in candidates:
+        candidate.update(reviews.get(candidate["doc_id"],
+                         {"review_decision": "unreviewed"}))
     returned = {candidate["doc_id"] for candidate in candidates}
     current = row[3] in ("success", "empty", "incomplete")
     return {"run_id": run_id, "scope": "explicit catalogue document IDs",
@@ -563,13 +702,19 @@ def scoped_index_report(con, run_id, refs):
         else:
             ready.append(doc_id)
     candidates = {}
+    scope_by_doc = {row["doc_id"]: row for row in scope["candidates"]}
     for ref in sorted(set(refs)):
-        candidates[ref] = [
-            {"doc_id": doc_id, "page_ids": [page for (page,) in con.execute("""
-                SELECT page_id FROM coverage_index WHERE doc_id=? AND osis_ref=?
-                ORDER BY page_id""", (doc_id, ref))]}
-            for doc_id in ready if con.execute("""SELECT 1 FROM coverage_index
-                WHERE doc_id=? AND osis_ref=? LIMIT 1""", (doc_id, ref)).fetchone()]
+        candidates[ref] = []
+        for doc_id in ready:
+            page_ids = [page for (page,) in con.execute("""SELECT page_id FROM
+                coverage_index WHERE doc_id=? AND osis_ref=? ORDER BY page_id""",
+                (doc_id, ref))]
+            if page_ids:
+                review = scope_by_doc.get(doc_id, {})
+                candidates[ref].append({"doc_id": doc_id, "page_ids": page_ids,
+                    "review_decision": review.get("review_decision", "unreviewed"),
+                    "review_reason": review.get("review_reason"),
+                    "review_source_changed": review.get("review_source_changed")})
     omissions = []
     names = {row["doc_id"]: (row["ga_num"], row["primary_name"])
              for row in scope["candidates"]}
@@ -714,6 +859,16 @@ def main(argv=None):
     ap.add_argument("--fixture-john-list", action="store_true")
     ap.add_argument("--scope-check-ref", action="append", default=[],
                     help="Invert completed coverage for this verse within the catalogue ID scope")
+    ap.add_argument("--review-doc-id", type=int,
+                    help="Record a manual document classification without network requests")
+    ap.add_argument("--review-response-id", type=int,
+                    help="Source response ID shown in a candidate report")
+    ap.add_argument("--review-decision", choices=["retain", "exclude", "uncertain"])
+    ap.add_argument("--review-source-type",
+                    choices=["greek_manuscript", "printed_edition", "other", "uncertain"])
+    ap.add_argument("--review-reason")
+    ap.add_argument("--review-citation")
+    ap.add_argument("--reviewer")
     ap.add_argument("--export-p52", type=Path)
     args = ap.parse_args(argv)
     if min(args.request_budget, args.max_run_seconds, args.min_interval, args.jitter) < 0:
@@ -751,6 +906,18 @@ def main(argv=None):
         ap.error("--scope-check-ref requires a catalogue ID scope")
     if any(not OSIS.fullmatch(ref) for ref in args.scope_check_ref):
         ap.error("--scope-check-ref requires individual OSIS verses")
+    review_fields = (args.review_response_id, args.review_decision,
+                     args.review_source_type, args.review_reason,
+                     args.review_citation, args.reviewer)
+    if args.review_doc_id is not None:
+        if any(value is None for value in review_fields):
+            ap.error("Document review requires response ID, decision, source type, reason, citation, and reviewer")
+        if (args.doc_id or args.search_ga_num or args.catalogue_doc_id or args.scope_check_ref or
+            args.fixture_p52 or args.fixture_language_probe or args.fixture_john_list or
+            args.archive_legacy or args.export_p52):
+            ap.error("Record a document review in a separate invocation")
+    elif any(value is not None for value in review_fields):
+        ap.error("Review fields require --review-doc-id")
     try:
         if args.archive_legacy and args.dry_run:
             print(f"Would archive {args.archive_legacy} to {args.archive_to}")
@@ -758,6 +925,22 @@ def main(argv=None):
             archive_legacy(args.archive_legacy, args.archive_to)
             print(f"Archived legacy database to {args.archive_to}")
         with closing(connect(args.db)) as con:
+            if args.review_doc_id is not None:
+                if args.dry_run:
+                    print(json.dumps({"planned_review_doc_id": args.review_doc_id,
+                                      "source_response_id": args.review_response_id,
+                                      "decision": args.review_decision,
+                                      "source_type": args.review_source_type,
+                                      "network_attempts": 0}))
+                    return 0
+                review_id = record_candidate_review(
+                    con, args.review_doc_id, args.review_response_id,
+                    args.review_decision, args.review_source_type,
+                    args.review_reason, args.review_citation, args.reviewer)
+                print(json.dumps({"review_id": review_id, "doc_id": args.review_doc_id,
+                                  "decision": args.review_decision,
+                                  "source_type": args.review_source_type}))
+                return 0
             if args.fixture_p52 and not args.dry_run:
                 import_p52(con, Path(__file__).parent / "tests/fixtures/p52_coverage_probe.json")
             if args.fixture_language_probe and not args.dry_run:
@@ -768,12 +951,14 @@ def main(argv=None):
             pending = []
             blocked = []
             for doc, stage in jobs:
-                row = con.execute("SELECT state FROM collection_job WHERE run_id=? AND doc_id=? AND stage=?",
+                row = con.execute("SELECT state,response_id FROM collection_job WHERE run_id=? AND doc_id=? AND stage=?",
                                   (args.run_id, doc, stage)).fetchone()
                 if row and row[0] == "blocked" and args.refresh_stage not in (stage, "both"):
                     blocked.append((doc, stage))
                     continue
-                if args.refresh_stage in (stage, "both") or not row or row[0] not in ("success", "empty"):
+                if (args.refresh_stage in (stage, "both") or not row or
+                    row[0] not in ("success", "empty") or
+                    (stage == "metadata" and not metadata_checkpoint_ready(con, doc, row[1]))):
                     pending.append((doc, stage))
             cached = []
             for doc, stage in pending:
