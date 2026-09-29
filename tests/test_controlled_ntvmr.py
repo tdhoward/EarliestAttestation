@@ -12,6 +12,7 @@ from controlled_ntvmr import (
     import_search_fixture, main, parse_coverage, parse_metadata, parse_search, retry_after,
     record_candidate_review, scoped_index_report,
     record_witness_assignment, witness_identity_report,
+    edition_inventory_report, import_edition_inventory,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
@@ -425,7 +426,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         reopened = connect(self.path)
         self.addCleanup(reopened.close)
-        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 7)
+        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 8)
         self.assertEqual(reopened.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
 
     def test_cli_review_is_offline_and_visible_in_named_report(self):
@@ -534,9 +535,89 @@ class CollectorTests(unittest.TestCase):
         self.con.commit()
         upgraded = connect(self.path)
         self.addCleanup(upgraded.close)
-        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 7)
+        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 8)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM witness_assignment").fetchone()[0], 0)
+
+    def test_cited_inventory_import_and_subset_before_limit(self):
+        manifest = {"format_version": 1, "inventory_id": "synthetic-1",
+                    "edition": "TEST", "scope": "synthetic selected coordinates",
+                    "source_citation": "Synthetic test inventory", "reuse_terms": "Test data",
+                    "mapping_citation": "Synthetic mapping review", "reviewer": "fixture reviewer",
+                    "verses": [
+                        {"osis_ref": "Matt.1.1", "editorial_status": "main",
+                         "ntvmr_refs": ["Matt.1.1"]},
+                        {"osis_ref": "John.18.2", "editorial_status": "main",
+                         "ntvmr_refs": ["John.18.2"]},
+                        {"osis_ref": "John.18.10", "editorial_status": "bracketed",
+                         "editorial_note": "Synthetic bracket example",
+                         "ntvmr_refs": ["John.18.10", "John.18.11"],
+                         "mapping_note": "Synthetic boundary difference"},
+                        {"osis_ref": "Rev.1.1", "editorial_status": "omitted",
+                         "editorial_note": "Synthetic omission example",
+                         "ntvmr_refs": [], "mapping_note": "No mapping reviewed"}]}
+        self.assertEqual(import_edition_inventory(self.con, manifest), 4)
+        self.assertEqual(import_edition_inventory(self.con, manifest), 4)
+        report = edition_inventory_report(self.con, "synthetic-1", books=["John"], limit=1)
+        self.assertEqual([row["osis_ref"] for row in report["verses"]], ["John.18.2"])
+        self.assertFalse(report["whole_nt_complete"])
+        self.assertEqual(edition_inventory_report(self.con, "synthetic-1")["verses"][2]["ntvmr_refs"],
+                         ["John.18.10", "John.18.11"])
+        self.assertEqual(edition_inventory_report(self.con, "synthetic-1")["verses"][-1]["ntvmr_refs"], [])
+        self.assertEqual(self.con.execute("SELECT count(*) FROM edition_verse").fetchone()[0], 4)
+        changed = json.loads(json.dumps(manifest))
+        changed["verses"][0]["editorial_status"] = "uncertain"
+        changed["verses"][0]["editorial_note"] = "Correction"
+        with self.assertRaises(ValueError):
+            import_edition_inventory(self.con, changed)
+        changed["inventory_id"] = "synthetic-2"
+        changed["edition"] = "OTHER"
+        import_edition_inventory(self.con, changed)
+        self.assertEqual(edition_inventory_report(self.con, "synthetic-1")["edition"], "TEST")
+        self.assertEqual(self.con.execute("SELECT count(*) FROM edition_verse").fetchone()[0], 8)
+
+    def test_inventory_rejects_ranges_unordered_and_unsourced_mapping(self):
+        base = {"format_version": 1, "inventory_id": "bad", "edition": "TEST",
+                "scope": "synthetic", "source_citation": "fixture",
+                "reuse_terms": "test", "mapping_citation": "fixture mapping", "reviewer": "tester",
+                "verses": [{"osis_ref": "John.18.2", "editorial_status": "main",
+                            "ntvmr_refs": ["John.18.2"]}]}
+        changes = []
+        for ref in ("John.18.2-John.18.3", "John.18.2a", "Unknown.1.1"):
+            case = json.loads(json.dumps(base))
+            case["verses"][0]["osis_ref"] = ref
+            changes.append(case)
+        case = json.loads(json.dumps(base))
+        case["verses"].append({"osis_ref": "John.18.1", "editorial_status": "main",
+                               "ntvmr_refs": ["John.18.1"]})
+        changes.append(case)
+        case = json.loads(json.dumps(base))
+        case["mapping_citation"] = None
+        changes.append(case)
+        case = json.loads(json.dumps(base))
+        case["verses"][0]["ntvmr_refs"] = []
+        changes.append(case)
+        for case in changes:
+            with self.assertRaises(ValueError):
+                import_edition_inventory(self.con, case)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM edition_inventory").fetchone()[0], 0)
+
+    def test_inventory_cli_import_and_report_have_no_network(self):
+        manifest = {"format_version": 1, "inventory_id": "cli-sample", "edition": "TEST",
+                    "scope": "synthetic", "source_citation": "fixture", "reuse_terms": "test",
+                    "mapping_citation": None, "reviewer": "tester",
+                    "verses": [{"osis_ref": "John.18.31", "editorial_status": "uncertain",
+                                "editorial_note": "Synthetic example", "ntvmr_refs": [],
+                                "mapping_note": "Unresolved"}]}
+        source = Path(self.temp.name) / "inventory.json"
+        source.write_text(json.dumps(manifest), encoding="utf-8")
+        self.assertEqual(main(["--db", str(self.path), "--import-inventory", str(source),
+                               "--dry-run"]), 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM edition_inventory").fetchone()[0], 0)
+        self.assertEqual(main(["--db", str(self.path), "--import-inventory", str(source)]), 0)
+        self.assertEqual(main(["--db", str(self.path), "--inventory-report", "cli-sample",
+                               "--inventory-book", "John", "--inventory-limit", "1"]), 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
 
     def test_cli_offline_catalogue_fixture(self):
         self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-john-list",

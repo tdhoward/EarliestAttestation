@@ -51,6 +51,14 @@ an unlink preserves the earlier decision. Reports flag links whose document
 classification or source content has since changed. These links do not validate
 verse coverage, dating, or a joined-fragment claim on their own.
 
+The inventory-contract increment adds immutable, source-identified edition
+snapshots with numeric canonical order, editorial status, and explicit zero-to-many
+NTVMR coordinate mappings. Its importer rejects ranges, unordered or duplicate
+verses, unsourced mappings, and silent replacement under one inventory ID. An
+unmapped coordinate stays unresolved, and every report marks whole-NT completion
+false. No NA28 inventory has been imported or certified yet; acquisition and
+editorial review of that reference list remain open.
+
 ## Research contract
 
 1. **Reference edition:** NA28, selected by the project owner. Store its explicit

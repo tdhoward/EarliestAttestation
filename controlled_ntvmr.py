@@ -21,9 +21,14 @@ from urllib.request import Request, urlopen
 
 API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
 OSIS = re.compile(r"^[1-3]?[A-Za-z][A-Za-z0-9]*\.[1-9][0-9]*\.[1-9][0-9]*$")
+NT_BOOKS = ("Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor",
+            "Gal", "Eph", "Phil", "Col", "1Thess", "2Thess", "1Tim", "2Tim",
+            "Titus", "Phlm", "Heb", "Jas", "1Pet", "2Pet", "1John", "2John",
+            "3John", "Jude", "Rev")
+BOOK_ORDER = {book: position for position, book in enumerate(NT_BOOKS, 1)}
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=7;
+PRAGMA user_version=8;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -107,6 +112,30 @@ CREATE TABLE IF NOT EXISTS witness_assignment (
  citation TEXT NOT NULL CHECK(length(trim(citation))>0),
  reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0), assigned_at TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS witness_assignment_latest ON witness_assignment(doc_id,id);
+CREATE TABLE IF NOT EXISTS edition_inventory (
+ inventory_id TEXT PRIMARY KEY CHECK(length(trim(inventory_id))>0),
+ edition TEXT NOT NULL CHECK(length(trim(edition))>0),
+ scope TEXT NOT NULL CHECK(length(trim(scope))>0),
+ source_citation TEXT NOT NULL CHECK(length(trim(source_citation))>0),
+ reuse_terms TEXT NOT NULL CHECK(length(trim(reuse_terms))>0),
+ mapping_citation TEXT, reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0),
+ manifest_sha256 TEXT NOT NULL, manifest_json TEXT NOT NULL,
+ imported_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS edition_verse (
+ inventory_id TEXT NOT NULL REFERENCES edition_inventory(inventory_id),
+ osis_ref TEXT NOT NULL, ordinal INTEGER NOT NULL CHECK(ordinal>0),
+ book TEXT NOT NULL, book_order INTEGER NOT NULL CHECK(book_order BETWEEN 1 AND 27),
+ chapter INTEGER NOT NULL CHECK(chapter>0), verse INTEGER NOT NULL CHECK(verse>0),
+ editorial_status TEXT NOT NULL CHECK(editorial_status IN
+ ('main','bracketed','omitted','uncertain')),
+ editorial_note TEXT, mapping_note TEXT,
+ PRIMARY KEY(inventory_id,osis_ref), UNIQUE(inventory_id,ordinal),
+ UNIQUE(inventory_id,book,chapter,verse));
+CREATE TABLE IF NOT EXISTS edition_verse_map (
+ inventory_id TEXT NOT NULL, osis_ref TEXT NOT NULL,
+ ntvmr_ref TEXT NOT NULL,
+ PRIMARY KEY(inventory_id,osis_ref,ntvmr_ref),
+ FOREIGN KEY(inventory_id,osis_ref) REFERENCES edition_verse(inventory_id,osis_ref));
 """
 
 
@@ -855,6 +884,140 @@ def scoped_index_report(con, run_id, refs):
             "warning": "Index candidates are not verified physical survival; missing index rows are not proof of absence"}
 
 
+def inventory_ref_parts(ref):
+    if not isinstance(ref, str) or not OSIS.fullmatch(ref):
+        raise ValueError(f"Inventory requires one OSIS verse, got {ref!r}")
+    book, chapter, verse = ref.split(".")
+    if book not in BOOK_ORDER:
+        raise ValueError(f"Inventory has unknown New Testament book: {book}")
+    return book, int(chapter), int(verse)
+
+
+def validate_inventory(manifest):
+    """Validate a cited coordinate list without inferring edition membership."""
+    required = {"format_version", "inventory_id", "edition", "scope",
+                "source_citation", "reuse_terms", "mapping_citation", "reviewer", "verses"}
+    if not isinstance(manifest, dict) or set(manifest) != required or \
+            type(manifest.get("format_version")) is not int or manifest["format_version"] != 1:
+        raise ValueError("Inventory manifest has an unsupported shape or format version")
+    for field in ("inventory_id", "edition", "scope", "source_citation",
+                  "reuse_terms", "reviewer"):
+        if not isinstance(manifest[field], str) or not manifest[field].strip():
+            raise ValueError(f"Inventory requires {field}")
+    mapping_citation = manifest["mapping_citation"]
+    if mapping_citation is not None and (not isinstance(mapping_citation, str) or
+                                         not mapping_citation.strip()):
+        raise ValueError("Inventory mapping citation must be nonempty or null")
+    verses = manifest["verses"]
+    if not isinstance(verses, list) or not verses:
+        raise ValueError("Inventory requires a nonempty explicit verse list")
+    validated = []
+    prior = None
+    seen = set()
+    for row in verses:
+        if not isinstance(row, dict) or not {"osis_ref", "editorial_status", "ntvmr_refs"} <= set(row) or \
+                set(row) - {"osis_ref", "editorial_status", "ntvmr_refs", "editorial_note", "mapping_note"}:
+            raise ValueError("Inventory verse has an unsupported shape")
+        ref = row["osis_ref"]
+        book, chapter, verse = inventory_ref_parts(ref)
+        key = (BOOK_ORDER[book], chapter, verse)
+        if ref in seen or (prior is not None and key <= prior):
+            raise ValueError("Inventory verses must be unique and in numeric canonical order")
+        seen.add(ref)
+        prior = key
+        status = row["editorial_status"]
+        if status not in ("main", "bracketed", "omitted", "uncertain"):
+            raise ValueError(f"Invalid editorial status at {ref}")
+        editorial_note = row.get("editorial_note")
+        if editorial_note is not None and (not isinstance(editorial_note, str) or
+                                           not editorial_note.strip()):
+            raise ValueError(f"Invalid editorial note at {ref}")
+        if status != "main" and editorial_note is None:
+            raise ValueError(f"Non-main verse requires an editorial note: {ref}")
+        refs = row["ntvmr_refs"]
+        if not isinstance(refs, list) or len(refs) != len(set(
+                item for item in refs if isinstance(item, str))):
+            raise ValueError(f"NTVMR mappings must be a distinct list at {ref}")
+        for mapped_ref in refs:
+            inventory_ref_parts(mapped_ref)
+        mapping_note = row.get("mapping_note")
+        if mapping_note is not None and (not isinstance(mapping_note, str) or
+                                         not mapping_note.strip()):
+            raise ValueError(f"Invalid mapping note at {ref}")
+        if refs and mapping_citation is None:
+            raise ValueError("Mapped verses require a mapping citation")
+        if refs != [ref] and mapping_note is None:
+            raise ValueError(f"Unresolved or changed mapping requires a note: {ref}")
+        validated.append((ref, book, BOOK_ORDER[book], chapter, verse, status,
+                          editorial_note, mapping_note, refs))
+    return validated
+
+
+def import_edition_inventory(con, manifest):
+    """Insert an immutable inventory snapshot; corrections use a new ID."""
+    rows = validate_inventory(manifest)
+    body = encoded(manifest)
+    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+    inventory_id = manifest["inventory_id"]
+    existing = con.execute("SELECT manifest_sha256 FROM edition_inventory WHERE inventory_id=?",
+                           (inventory_id,)).fetchone()
+    if existing:
+        if existing[0] != digest:
+            raise ValueError("Inventory ID already exists with different content; use a new ID")
+        return len(rows)
+    with con:
+        con.execute("""INSERT INTO edition_inventory(inventory_id,edition,scope,
+            source_citation,reuse_terms,mapping_citation,reviewer,manifest_sha256,
+            manifest_json,imported_at) VALUES(?,?,?,?,?,?,?,?,?,?)""",
+            (inventory_id, manifest["edition"], manifest["scope"],
+             manifest["source_citation"], manifest["reuse_terms"],
+             manifest["mapping_citation"], manifest["reviewer"], digest, body, now()))
+        for ordinal, (ref, book, book_order, chapter, verse, status,
+                      editorial_note, mapping_note, refs) in enumerate(rows, 1):
+            con.execute("""INSERT INTO edition_verse(inventory_id,osis_ref,ordinal,
+                book,book_order,chapter,verse,editorial_status,editorial_note,mapping_note)
+                VALUES(?,?,?,?,?,?,?,?,?,?)""",
+                (inventory_id, ref, ordinal, book, book_order, chapter, verse,
+                 status, editorial_note, mapping_note))
+            con.executemany("""INSERT INTO edition_verse_map(inventory_id,osis_ref,ntvmr_ref)
+                VALUES(?,?,?)""", [(inventory_id, ref, mapped) for mapped in refs])
+    return len(rows)
+
+
+def edition_inventory_report(con, inventory_id, books=None, limit=None):
+    row = con.execute("""SELECT edition,scope,source_citation,reuse_terms,
+        mapping_citation,reviewer,manifest_sha256 FROM edition_inventory
+        WHERE inventory_id=?""", (inventory_id,)).fetchone()
+    if row is None:
+        raise ValueError(f"Unknown inventory ID: {inventory_id}")
+    if books is not None and (not books or any(book not in BOOK_ORDER for book in books)):
+        raise ValueError("Inventory book filter requires New Testament OSIS book names")
+    if limit is not None and (type(limit) is not int or limit <= 0):
+        raise ValueError("Inventory limit must be positive")
+    query = """SELECT osis_ref,ordinal,book,chapter,verse,editorial_status,
+        editorial_note,mapping_note FROM edition_verse WHERE inventory_id=?"""
+    params = [inventory_id]
+    if books is not None:
+        query += " AND book IN (" + ",".join("?" for _ in books) + ")"
+        params.extend(books)
+    query += " ORDER BY ordinal"
+    if limit is not None:
+        query += " LIMIT ?"
+        params.append(limit)
+    fields = ("osis_ref", "ordinal", "book", "chapter", "verse",
+              "editorial_status", "editorial_note", "mapping_note")
+    verses = [dict(zip(fields, record)) for record in con.execute(query, params)]
+    for verse in verses:
+        verse["ntvmr_refs"] = [mapped for (mapped,) in con.execute("""SELECT ntvmr_ref
+            FROM edition_verse_map WHERE inventory_id=? AND osis_ref=? ORDER BY ntvmr_ref""",
+            (inventory_id, verse["osis_ref"]))]
+    return {"inventory_id": inventory_id, "edition": row[0], "scope": row[1],
+            "source_citation": row[2], "reuse_terms": row[3],
+            "mapping_citation": row[4], "reviewer": row[5],
+            "manifest_sha256": row[6], "whole_nt_complete": False,
+            "verses": verses}
+
+
 def import_p52(con, fixture):
     record = json.loads(fixture.read_text(encoding="utf-8"))
     body = json.dumps(record["response"], separators=(",", ":"))
@@ -988,6 +1151,12 @@ def main(argv=None):
     ap.add_argument("--identity-citation")
     ap.add_argument("--identity-reviewer")
     ap.add_argument("--identity-report", action="store_true")
+    ap.add_argument("--import-inventory", type=Path,
+                    help="Import a cited, reviewed verse-inventory JSON manifest")
+    ap.add_argument("--inventory-report", help="Report a stored inventory ID")
+    ap.add_argument("--inventory-book", action="append", default=[],
+                    help="Filter inventory report by OSIS book before applying a limit")
+    ap.add_argument("--inventory-limit", type=int)
     ap.add_argument("--export-p52", type=Path)
     args = ap.parse_args(argv)
     if min(args.request_budget, args.max_run_seconds, args.min_interval, args.jitter) < 0:
@@ -1057,6 +1226,16 @@ def main(argv=None):
         args.fixture_p52 or args.fixture_language_probe or args.fixture_john_list or
         args.archive_legacy or args.export_p52):
         ap.error("Request the identity report in a separate invocation")
+    inventory_action = args.import_inventory is not None or args.inventory_report is not None
+    if args.import_inventory is not None and args.inventory_report is not None:
+        ap.error("Import and report an inventory in separate invocations")
+    if (args.inventory_book or args.inventory_limit is not None) and args.inventory_report is None:
+        ap.error("Inventory book and limit options require --inventory-report")
+    if inventory_action and (args.review_doc_id is not None or args.identity_doc_id is not None or
+        args.identity_report or args.doc_id or args.search_ga_num or args.catalogue_doc_id or
+        args.scope_check_ref or args.fixture_p52 or args.fixture_language_probe or
+        args.fixture_john_list or args.archive_legacy or args.export_p52):
+        ap.error("Import or report an inventory in a separate invocation")
     try:
         if args.archive_legacy and args.dry_run:
             print(f"Would archive {args.archive_legacy} to {args.archive_to}")
@@ -1064,6 +1243,22 @@ def main(argv=None):
             archive_legacy(args.archive_legacy, args.archive_to)
             print(f"Archived legacy database to {args.archive_to}")
         with closing(connect(args.db)) as con:
+            if args.import_inventory is not None:
+                manifest = json.loads(args.import_inventory.read_text(encoding="utf-8"))
+                if args.dry_run:
+                    rows = validate_inventory(manifest)
+                    print(json.dumps({"planned_inventory_id": manifest["inventory_id"],
+                                      "verse_count": len(rows), "network_attempts": 0}))
+                    return 0
+                count = import_edition_inventory(con, manifest)
+                print(json.dumps({"inventory_id": manifest["inventory_id"],
+                                  "verse_count": count, "network_attempts": 0}))
+                return 0
+            if args.inventory_report is not None:
+                print(json.dumps(edition_inventory_report(
+                    con, args.inventory_report,
+                    books=args.inventory_book or None, limit=args.inventory_limit)))
+                return 0
             if args.identity_doc_id is not None:
                 if args.dry_run:
                     print(json.dumps({"planned_identity_doc_id": args.identity_doc_id,

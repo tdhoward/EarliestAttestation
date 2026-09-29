@@ -72,6 +72,14 @@ Corrections and unlinks keep their history. Candidate reports show the
 current witness ID and flag links needing renewed review after a document
 reclassification or source change. No identity link verifies verse coverage.
 
+The v8 inventory importer stores a coordinate list as an immutable snapshot and
+requires a source citation and reviewer. It keeps numeric Matthew-to-Revelation
+order, editorial status, and
+explicit NTVMR mappings, including unresolved coordinates. It rejects verse ranges
+and does not derive NA28 membership from KJV chapter maxima. **No NA28 inventory
+has been imported or certified yet.** The inventory report always leaves whole-NT
+completion unconfirmed. Book IDs follow the [OSIS New Testament list](https://wiki.crosswire.org/OSIS_Book_Abbreviations).
+
 ## Run the offline checks
 
 Python 3.10+ is required for the audit; verified with Python 3.12. The audit and
@@ -157,6 +165,25 @@ use `--identity-unlink` in place of `--witness-id` and `--witness-label`, with a
 reason and citation. Linking and reporting make no network requests. The database
 does not infer aliases or joins from catalogue names or numeric IDs.
 
+To import a reference-only inventory manifest and inspect a stored subset:
+
+```powershell
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --import-inventory path/to/reviewed-inventory.json --dry-run
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --import-inventory path/to/reviewed-inventory.json
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --inventory-report INVENTORY_ID --inventory-book John --inventory-limit 20
+```
+
+The JSON manifest needs `format_version: 1`, a unique `inventory_id`, `edition`,
+`scope`, `source_citation`, `reuse_terms`, `mapping_citation` (or `null` if no verse
+is mapped), `reviewer`, and a `verses` array in numeric canonical order. Each verse
+needs one `osis_ref`, `editorial_status` (`main`, `bracketed`, `omitted`, or
+`uncertain`), and an explicit `ntvmr_refs` list. An empty mapping list means
+unresolved, not absent; it needs a `mapping_note`. Non-main coordinates need an
+`editorial_note`. Changed mappings also need a note. Corrections use a new inventory
+ID. Filtering by book happens before `--inventory-limit`; omitted and uncertain
+coordinates remain in the report with their status. This import makes no network
+requests and does not validate textual evidence.
+
 The new collector does not yet discover all candidates, identify physical witness
 aliases, resolve NA28 verse
 membership, or establish indexing tiers. A coverage index row is a **candidate**,
@@ -188,7 +215,7 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v7 schema in the v2 replacement database |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v8 schema in the v2 replacement database |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of that schema |
 | `tests/` | Audit and controlled collector tests; captured P52 API fixtures |
