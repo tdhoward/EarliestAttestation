@@ -73,7 +73,16 @@ assessments, and an explicit selected assessment per layer and named dating poli
 Unknown or invalid dates
 have no numeric bounds; a later correction or supplement can receive its own date.
 The report retains selection history and marks superseded coverage links. No real
-scholarly date assessments or rankings have been entered or calculated.
+scholarly date assessments have been entered.
+
+The ranking increment now materializes both date scenarios for one inventory verse
+and named dating policy from current positive coverage, writing-unit assignments,
+and valid selected dates. It deduplicates physical witnesses, keeps the source and
+decision IDs with each result, and marks stored rankings stale when inputs change.
+A failed coverage refresh preserves the prior snapshot and reports failure; an
+empty valid recomputation clears its entries. This is a ranking of reviewed records
+within a declared inventory and policy, not a complete or validated NT graph. No
+real NA28 ranking has been calculated.
 
 ## Research contract
 

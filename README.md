@@ -243,6 +243,29 @@ A coverage index row is a **candidate**,
 not automatically verified surviving text. A live run must be separately scoped,
 budgeted, and reviewed against provider expectations before scaling.
 
+The v11 ranking snapshot computes the optimistic and pessimistic first five
+physical witnesses for one inventory verse and dating policy from current positive
+coverage reviews with selected valid writing-unit dates. It retains date intervals,
+event years, evidence and dating citations, and their source IDs. Multiple pages or
+catalogue documents linked to one witness count once; multiple dated writing units
+are resolved independently for each scenario. A report flags changed inputs as
+`stale`, and a failed coverage refresh as `failed` while preserving the prior
+snapshot. Changed index or identity evidence also holds the earlier snapshot as
+`stale` until it is reviewed again. An `empty` result means no eligible dated
+witness among reviewed records
+for that verse; it does not establish physical absence or complete discovery.
+
+```powershell
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --ranking-inventory INVENTORY_ID --ranking-ref John.18.31 --ranking-policy POLICY_ID --dry-run
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --ranking-inventory INVENTORY_ID --ranking-ref John.18.31 --ranking-policy POLICY_ID --compute-ranking
+python sync_ntvmr.py --db data/ntvmr-v2.sqlite --ranking-inventory INVENTORY_ID --ranking-ref John.18.31 --ranking-policy POLICY_ID
+```
+
+These commands make no network requests. Ranking reports return a nonzero exit
+status for `uncomputed`, `stale`, or `failed` results. No NA28 inventory, real
+scholarly date assessments, or real cited coverage decisions have been imported,
+so the repository has no historical ranking to publish.
+
 The [official NTVMR API](https://ntvmr.uni-muenster.de/community/vmr/api/) is the
 initial source. INTF distinguishes the Greek Liste from its broader manuscript
 catalogue; source type and language must be validated explicitly. See
@@ -268,7 +291,7 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v10 schema in the v2 replacement database |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v11 schema in the v2 replacement database |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of that schema |
 | `tests/` | Audit and controlled collector tests; captured P52 API fixtures |

@@ -28,7 +28,7 @@ NT_BOOKS = ("Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor",
 BOOK_ORDER = {book: position for position, book in enumerate(NT_BOOKS, 1)}
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=10;
+PRAGMA user_version=11;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -187,6 +187,25 @@ CREATE TABLE IF NOT EXISTS date_selection (
  reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0), selected_at TEXT NOT NULL,
  FOREIGN KEY(unit_id,assessment_id) REFERENCES date_assessment(unit_id,id));
 CREATE INDEX IF NOT EXISTS date_selection_latest ON date_selection(unit_id,policy_id,id);
+CREATE TABLE IF NOT EXISTS ranking_snapshot (
+ inventory_id TEXT NOT NULL, osis_ref TEXT NOT NULL, policy_id TEXT NOT NULL,
+ input_sha256 TEXT NOT NULL, state TEXT NOT NULL CHECK(state IN ('success','empty')),
+ candidate_count INTEGER NOT NULL CHECK(candidate_count>=0), computed_at TEXT NOT NULL,
+ PRIMARY KEY(inventory_id,osis_ref,policy_id),
+ FOREIGN KEY(inventory_id,osis_ref) REFERENCES edition_verse(inventory_id,osis_ref));
+CREATE TABLE IF NOT EXISTS ranking_entry (
+ inventory_id TEXT NOT NULL, osis_ref TEXT NOT NULL, policy_id TEXT NOT NULL,
+ scenario TEXT NOT NULL CHECK(scenario IN ('optimistic','pessimistic')),
+ rank INTEGER NOT NULL CHECK(rank>0), witness_id TEXT NOT NULL REFERENCES physical_witness(witness_id),
+ unit_id TEXT NOT NULL REFERENCES writing_unit(unit_id),
+ assessment_id INTEGER NOT NULL REFERENCES date_assessment(id),
+ selection_id INTEGER NOT NULL REFERENCES date_selection(id),
+ coverage_review_id INTEGER NOT NULL REFERENCES coverage_review(id),
+ date_min INTEGER NOT NULL, date_max INTEGER NOT NULL, event_year INTEGER NOT NULL,
+ PRIMARY KEY(inventory_id,osis_ref,policy_id,scenario,rank),
+ UNIQUE(inventory_id,osis_ref,policy_id,scenario,witness_id),
+ FOREIGN KEY(inventory_id,osis_ref,policy_id)
+ REFERENCES ranking_snapshot(inventory_id,osis_ref,policy_id));
 """
 
 
@@ -1316,6 +1335,161 @@ def writing_unit_report(con, witness_id):
             "rankings_computed": False, "whole_nt_complete": False}
 
 
+def ranking_input(con, inventory_id, osis_ref, policy_id):
+    """Resolve current cited evidence and selected dates for one edition verse."""
+    if not isinstance(policy_id, str) or not policy_id.strip():
+        raise ValueError("Ranking requires a dating policy ID")
+    reviews = coverage_review_report(con, inventory_id, osis_ref)["reviews"]
+    inputs = []
+    eligible = []
+    excluded = []
+    failures = []
+    for review in reviews:
+        doc_id = review["doc_id"]
+        jobs = [dict(zip(("run_id", "state", "response_id", "error", "updated_at"), row))
+                for row in con.execute("""SELECT run_id,state,response_id,error,updated_at
+                    FROM collection_job WHERE doc_id=? AND stage='coverage' ORDER BY run_id""",
+                    (doc_id,))]
+        for job in jobs:
+            if (job["state"] in ("failed", "blocked") and
+                    job["updated_at"] >= review["index_retrieved_at"]):
+                failures.append({"doc_id": doc_id, "run_id": job["run_id"],
+                                 "state": job["state"], "error": job["error"]})
+        assignment = con.execute("""SELECT id,unit_id FROM coverage_unit_assignment
+            WHERE coverage_review_id=? ORDER BY id DESC LIMIT 1""",
+            (review["review_id"],)).fetchone()
+        unit_id = assignment[1] if assignment else None
+        selection = None
+        assessment = None
+        if unit_id is not None:
+            selection = con.execute("""SELECT id,assessment_id FROM date_selection
+                WHERE unit_id=? AND policy_id=? ORDER BY id DESC LIMIT 1""",
+                (unit_id, policy_id)).fetchone()
+            if selection and selection[1] is not None:
+                assessment = con.execute("""SELECT status,date_min,date_max,
+                    original_notation,citation,consulted_on FROM date_assessment
+                    WHERE id=? AND unit_id=?""", (selection[1], unit_id)).fetchone()
+        inputs.append({"review": review, "unit_assignment": assignment,
+                       "date_selection": selection, "date_assessment": assessment,
+                       "coverage_jobs": jobs})
+        if review["status"] not in ("partial", "full"):
+            reason = "nonpositive_review"
+        elif review["review_needed"]:
+            reason = "review_needed"
+        elif unit_id is None:
+            reason = "missing_writing_unit"
+        elif not selection or selection[1] is None:
+            reason = "missing_selected_date"
+        elif not assessment or assessment[0] != "valid":
+            reason = "invalid_or_unknown_date"
+        else:
+            reason = None
+        if reason:
+            excluded.append({"coverage_review_id": review["review_id"],
+                             "witness_id": review["witness_id"], "reason": reason})
+            continue
+        eligible.append({"witness_id": review["witness_id"], "unit_id": unit_id,
+                         "assessment_id": selection[1], "selection_id": selection[0],
+                         "coverage_review_id": review["review_id"],
+                         "date_min": assessment[1], "date_max": assessment[2]})
+    digest = hashlib.sha256(encoded(inputs).encode("utf-8")).hexdigest()
+    return digest, eligible, excluded, failures
+
+
+def rank_candidates(candidates, scenario):
+    if scenario == "optimistic":
+        key = lambda row: (row["date_min"], row["date_max"], row["witness_id"],
+                           row["unit_id"], row["coverage_review_id"])
+        event = "date_min"
+    elif scenario == "pessimistic":
+        key = lambda row: (row["date_max"], row["date_min"], row["witness_id"],
+                           row["unit_id"], row["coverage_review_id"])
+        event = "date_max"
+    else:
+        raise ValueError("Unknown ranking scenario")
+    # The first qualifying event for each physical object is selected independently.
+    per_witness = {}
+    for row in sorted(candidates, key=key):
+        per_witness.setdefault(row["witness_id"], row)
+    return [{**row, "rank": rank, "event_year": row[event]}
+            for rank, row in enumerate(sorted(per_witness.values(), key=key), 1)]
+
+
+def ranking_report(con, inventory_id, osis_ref, policy_id):
+    digest, candidates, excluded, failures = ranking_input(
+        con, inventory_id, osis_ref, policy_id)
+    unresolved = any(row["reason"] == "review_needed" for row in excluded)
+    snapshot = con.execute("""SELECT input_sha256,state,candidate_count,computed_at
+        FROM ranking_snapshot WHERE inventory_id=? AND osis_ref=? AND policy_id=?""",
+        (inventory_id, osis_ref, policy_id)).fetchone()
+    if failures:
+        state = "failed"
+    elif unresolved:
+        state = "stale" if snapshot else "incomplete"
+    elif not snapshot:
+        state = "uncomputed"
+    else:
+        state = "stale" if snapshot[0] != digest else snapshot[1]
+    entries = {}
+    for scenario in ("optimistic", "pessimistic"):
+        fields = ("rank", "witness_id", "unit_id", "assessment_id", "selection_id",
+                  "coverage_review_id", "date_min", "date_max", "event_year",
+                  "coverage_status", "evidence_type", "coverage_citation",
+                  "index_response_id", "index_source_url", "date_citation",
+                  "original_notation", "consulted_on")
+        entries[scenario] = [dict(zip(fields, row)) for row in con.execute("""SELECT
+            e.rank,e.witness_id,e.unit_id,e.assessment_id,e.selection_id,
+            e.coverage_review_id,e.date_min,e.date_max,e.event_year,
+            r.status,r.evidence_type,r.citation,r.index_response_id,s.url,
+            a.citation,a.original_notation,a.consulted_on
+            FROM ranking_entry e JOIN coverage_review r ON r.id=e.coverage_review_id
+            JOIN source_response s ON s.id=r.index_response_id
+            JOIN date_assessment a ON a.id=e.assessment_id
+            WHERE e.inventory_id=? AND e.osis_ref=? AND e.policy_id=?
+            AND e.scenario=? ORDER BY e.rank LIMIT 5""",
+            (inventory_id, osis_ref, policy_id, scenario))]
+    return {"inventory_id": inventory_id, "osis_ref": osis_ref,
+            "policy_id": policy_id, "state": state,
+            "computed_at": snapshot[3] if snapshot else None,
+            "candidate_count": snapshot[2] if snapshot else None,
+            "current_eligible_witness_count": len({r["witness_id"] for r in candidates}),
+            "excluded_reviews": excluded, "failed_coverage_jobs": failures,
+            "scenarios": entries, "scope": "reviewed evidence in selected inventory",
+            "whole_nt_complete": False}
+
+
+def compute_ranking(con, inventory_id, osis_ref, policy_id):
+    """Atomically replace both scenarios; retain an earlier snapshot on failure."""
+    digest, candidates, excluded, failures = ranking_input(
+        con, inventory_id, osis_ref, policy_id)
+    if failures or any(row["reason"] == "review_needed" for row in excluded):
+        return ranking_report(con, inventory_id, osis_ref, policy_id)
+    ranked = {scenario: rank_candidates(candidates, scenario)
+              for scenario in ("optimistic", "pessimistic")}
+    witness_count = len(ranked["optimistic"])
+    with con:
+        con.execute("""DELETE FROM ranking_entry WHERE inventory_id=? AND osis_ref=?
+            AND policy_id=?""", (inventory_id, osis_ref, policy_id))
+        con.execute("""INSERT INTO ranking_snapshot(inventory_id,osis_ref,policy_id,
+            input_sha256,state,candidate_count,computed_at) VALUES(?,?,?,?,?,?,?)
+            ON CONFLICT(inventory_id,osis_ref,policy_id) DO UPDATE SET
+            input_sha256=excluded.input_sha256,state=excluded.state,
+            candidate_count=excluded.candidate_count,computed_at=excluded.computed_at""",
+            (inventory_id, osis_ref, policy_id, digest,
+             "success" if witness_count else "empty", witness_count, now()))
+        for scenario, rows in ranked.items():
+            for row in rows[:5]:
+                con.execute("""INSERT INTO ranking_entry(inventory_id,osis_ref,
+                    policy_id,scenario,rank,witness_id,unit_id,assessment_id,
+                    selection_id,coverage_review_id,date_min,date_max,event_year)
+                    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    (inventory_id, osis_ref, policy_id, scenario, row["rank"],
+                     row["witness_id"], row["unit_id"], row["assessment_id"],
+                     row["selection_id"], row["coverage_review_id"],
+                     row["date_min"], row["date_max"], row["event_year"]))
+    return ranking_report(con, inventory_id, osis_ref, policy_id)
+
+
 def validate_dating_action(action):
     fields = {
         "create_unit": {"unit_id", "witness_id", "label", "kind", "reason",
@@ -1508,6 +1682,11 @@ def main(argv=None):
     ap.add_argument("--dating-action", type=Path,
                     help="Apply one sourced writing-unit or date decision from JSON")
     ap.add_argument("--dating-report", help="Report writing units and date history for a witness ID")
+    ap.add_argument("--ranking-inventory", help="Inventory ID for one verse ranking")
+    ap.add_argument("--ranking-ref", help="Edition OSIS verse to rank")
+    ap.add_argument("--ranking-policy", help="Selected dating policy ID")
+    ap.add_argument("--compute-ranking", action="store_true",
+                    help="Atomically refresh both ranking scenarios offline")
     ap.add_argument("--export-p52", type=Path)
     args = ap.parse_args(argv)
     if min(args.request_budget, args.max_run_seconds, args.min_interval, args.jitter) < 0:
@@ -1607,6 +1786,20 @@ def main(argv=None):
         args.archive_legacy or args.export_p52 or args.import_inventory is not None or
         args.inventory_report is not None):
         ap.error("Apply or report dating in a separate invocation")
+    ranking_action = any((args.ranking_inventory, args.ranking_ref,
+                          args.ranking_policy, args.compute_ranking))
+    if ranking_action:
+        if not all((args.ranking_inventory, args.ranking_ref, args.ranking_policy)):
+            ap.error("Ranking requires inventory, verse, and dating policy")
+        if not OSIS.fullmatch(args.ranking_ref):
+            ap.error("--ranking-ref must be one OSIS verse")
+        if (dating_action or coverage_action or args.review_doc_id is not None or
+            args.identity_doc_id is not None or args.identity_report or args.doc_id or
+            args.search_ga_num or args.catalogue_doc_id or args.scope_check_ref or
+            args.fixture_p52 or args.fixture_language_probe or args.fixture_john_list or
+            args.archive_legacy or args.export_p52 or args.import_inventory is not None or
+            args.inventory_report is not None):
+            ap.error("Compute or report a ranking in a separate invocation")
     inventory_action = args.import_inventory is not None or args.inventory_report is not None
     if args.import_inventory is not None and args.inventory_report is not None:
         ap.error("Import and report an inventory in separate invocations")
@@ -1624,6 +1817,21 @@ def main(argv=None):
             archive_legacy(args.archive_legacy, args.archive_to)
             print(f"Archived legacy database to {args.archive_to}")
         with closing(connect(args.db)) as con:
+            if ranking_action:
+                if args.dry_run:
+                    digest, candidates, excluded, failures = ranking_input(
+                        con, args.ranking_inventory, args.ranking_ref,
+                        args.ranking_policy)
+                    print(json.dumps({"planned_ranking": args.ranking_ref,
+                                      "eligible_records": len(candidates),
+                                      "excluded_reviews": len(excluded),
+                                      "failed_coverage_jobs": failures,
+                                      "input_sha256": digest, "network_attempts": 0}))
+                    return 0
+                report = (compute_ranking if args.compute_ranking else ranking_report)(
+                    con, args.ranking_inventory, args.ranking_ref, args.ranking_policy)
+                print(json.dumps(report))
+                return 0 if report["state"] in ("success", "empty") else 1
             if args.dating_action is not None:
                 action = json.loads(args.dating_action.read_text(encoding="utf-8"))
                 if args.dry_run:

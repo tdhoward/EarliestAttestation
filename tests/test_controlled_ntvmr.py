@@ -16,6 +16,7 @@ from controlled_ntvmr import (
     coverage_review_report, record_coverage_review,
     apply_dating_action, assign_coverage_unit, create_writing_unit,
     record_date_assessment, select_date_assessment, writing_unit_report,
+    compute_ranking, rank_candidates, ranking_report,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
@@ -429,7 +430,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         reopened = connect(self.path)
         self.addCleanup(reopened.close)
-        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 10)
+        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 11)
         self.assertEqual(reopened.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
 
     def test_cli_review_is_offline_and_visible_in_named_report(self):
@@ -538,7 +539,7 @@ class CollectorTests(unittest.TestCase):
         self.con.commit()
         upgraded = connect(self.path)
         self.addCleanup(upgraded.close)
-        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 10)
+        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 11)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM witness_assignment").fetchone()[0], 0)
 
@@ -780,6 +781,151 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(writing_unit_report(self.con, "object-1")["units"][1]
                          ["selected_by_policy"]["policy-v2"]["assessment_id"], early)
         self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+
+    def test_ranking_snapshot_reverses_scenarios_and_tracks_changes(self):
+        manifest = {"format_version": 1, "inventory_id": "ranking-test", "edition": "TEST",
+                    "scope": "synthetic", "source_citation": "fixture", "reuse_terms": "test",
+                    "mapping_citation": "fixture", "reviewer": "tester", "verses": [
+                        {"osis_ref": ref, "editorial_status": "main", "ntvmr_refs": [ref]}
+                        for ref in ("John.18.31", "John.18.32")]}
+        import_edition_inventory(self.con, manifest)
+        intervals = {"A": (100, 300), "B": (150, 200), "C": (180, 250),
+                     "D": (190, 240), "E": (210, 260), "F": (220, 230),
+                     "G": (None, None)}
+        reviews = {}
+        assessments = {}
+        for number, (witness, (lower, upper)) in enumerate(intervals.items(), 1):
+            doc_id = 20000 + number
+            body = json.dumps({"docID": doc_id, "witness": witness})
+            self.con.execute("""INSERT INTO source_response(endpoint,url,params_json,
+                status_code,headers_json,body,body_sha256,retrieved_at,origin)
+                VALUES(?,?,?,?,?,?,?,?,?)""", ("synthetic/index", f"fixture/{doc_id}",
+                "{}", 200, "{}", body, hashlib.sha256(body.encode()).hexdigest(),
+                "2026-09-29T00:00:00+00:00", "fixture"))
+            response_id = self.con.execute("SELECT last_insert_rowid()").fetchone()[0]
+            self.con.execute("""INSERT INTO document_metadata(doc_id,response_id,
+                source_lang,date_status) VALUES(?,?,'g','unknown')""",
+                (doc_id, response_id))
+            for page_id in ((10, 20) if witness == "A" else (10,)):
+                self.con.execute("""INSERT INTO coverage_index(doc_id,osis_ref,page_id,
+                    response_id) VALUES(?,'John.18.31',?,?)""",
+                    (doc_id, page_id, response_id))
+            self.con.commit()
+            record_candidate_review(self.con, doc_id, response_id, "retain",
+                                    "greek_manuscript", "synthetic classification",
+                                    "fixture", "tester")
+            record_witness_assignment(self.con, doc_id, response_id, witness, witness,
+                                      "synthetic identity", "fixture", "tester")
+            create_writing_unit(self.con, f"{witness}-unit", witness, "Original",
+                                "original", "synthetic hand", "fixture", "tester")
+            assessments[witness] = record_date_assessment(
+                self.con, f"{witness}-unit", "unknown" if lower is None else "valid",
+                lower, upper, "synthetic CE",
+                "fixture", "2026-09-29", "tester")
+            select_date_assessment(self.con, f"{witness}-unit", assessments[witness],
+                                   "policy-test", "synthetic choice", "tester")
+            for page_id in ((10, 20) if witness == "A" else (10,)):
+                review_id = record_coverage_review(
+                    self.con, "ranking-test", "John.18.31", "John.18.31",
+                    doc_id, page_id, response_id, "partial", "reviewed_transcription",
+                    "synthetic surviving text", "fixture", "tester")
+                assign_coverage_unit(self.con, review_id, f"{witness}-unit",
+                                     "synthetic hand", "fixture", "tester")
+                reviews.setdefault(witness, []).append(review_id)
+        report = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
+        self.assertEqual(report["state"], "success")
+        self.assertEqual(report["candidate_count"], 6)
+        self.assertIn("invalid_or_unknown_date",
+                      [row["reason"] for row in report["excluded_reviews"]])
+        self.assertEqual([r["witness_id"] for r in report["scenarios"]["optimistic"]],
+                         ["A", "B", "C", "D", "E"])
+        self.assertEqual([r["witness_id"] for r in report["scenarios"]["pessimistic"]],
+                         ["B", "F", "D", "C", "E"])
+        self.assertEqual(report["scenarios"]["pessimistic"][0]["event_year"], 200)
+        self.assertEqual(compute_ranking(self.con, "ranking-test", "John.18.32",
+                                         "policy-test")["state"], "empty")
+        later = record_date_assessment(self.con, "A-unit", "valid", 90, 190,
+                                       "revised synthetic CE", "fixture", "2026-09-29", "tester")
+        select_date_assessment(self.con, "A-unit", later, "policy-test",
+                               "revised choice", "tester")
+        self.assertEqual(ranking_report(self.con, "ranking-test", "John.18.31",
+                                        "policy-test")["state"], "stale")
+        revised = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
+        self.assertEqual(revised["scenarios"]["pessimistic"][0]["witness_id"], "A")
+        create_writing_unit(self.con, "A-later", "A", "Later hand", "supplement",
+                            "synthetic hand", "fixture", "tester")
+        alternate = record_date_assessment(self.con, "A-later", "valid", 80, 400,
+                                           "synthetic interval", "fixture", "2026-09-29", "tester")
+        select_date_assessment(self.con, "A-later", alternate, "policy-test",
+                               "synthetic choice", "tester")
+        assign_coverage_unit(self.con, reviews["A"][1], "A-later",
+                             "later hand on second page", "fixture", "tester")
+        revised = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
+        self.assertEqual(revised["scenarios"]["optimistic"][0]["unit_id"], "A-later")
+        self.assertEqual(revised["scenarios"]["pessimistic"][0]["unit_id"], "A-unit")
+        self.assertEqual(revised["scenarios"]["optimistic"][0]["date_citation"], "fixture")
+        original_index = self.con.execute("""SELECT response_id FROM coverage_index
+            WHERE doc_id=20001 LIMIT 1""").fetchone()[0]
+        self.con.execute("""INSERT INTO source_response(endpoint,url,params_json,
+            status_code,headers_json,body,body_sha256,retrieved_at,origin)
+            SELECT endpoint,url || '/refresh',params_json,status_code,headers_json,'changed','changed',
+            '2026-09-30T00:00:00+00:00',origin FROM source_response WHERE id=?""",
+            (original_index,))
+        changed_index = self.con.execute("SELECT last_insert_rowid()").fetchone()[0]
+        self.con.execute("UPDATE coverage_index SET response_id=? WHERE doc_id=20001",
+                         (changed_index,))
+        self.con.commit()
+        stale = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
+        self.assertEqual(stale["state"], "stale")
+        self.assertEqual(stale["scenarios"], revised["scenarios"])
+        self.con.execute("UPDATE coverage_index SET response_id=? WHERE doc_id=20001",
+                         (original_index,))
+        self.con.commit()
+        self.con.execute("""INSERT INTO collection_job(run_id,doc_id,stage,state,
+            error,updated_at) VALUES('failed-refresh',20001,'coverage','failed',
+            'synthetic timeout','2026-09-30T00:00:00+00:00')""")
+        self.con.commit()
+        failed = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
+        self.assertEqual(failed["state"], "failed")
+        self.assertEqual(failed["scenarios"], revised["scenarios"])
+        self.con.execute("""UPDATE collection_job SET state='success',error=NULL
+            WHERE run_id='failed-refresh'""")
+        self.con.commit()
+        record_coverage_review(self.con, "ranking-test", "John.18.31", "John.18.31",
+                               20002, 10, self.con.execute("""SELECT response_id FROM
+                               coverage_index WHERE doc_id=20002""").fetchone()[0],
+                               "withdrawn", "reviewed_transcription", "corrected",
+                               "fixture", "tester")
+        withdrawn = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
+        self.assertEqual(withdrawn["candidate_count"], 5)
+        self.assertNotIn("B", [r["witness_id"] for r in
+                              withdrawn["scenarios"]["optimistic"]])
+        self.assertEqual(main(["--db", str(self.path), "--ranking-inventory", "ranking-test",
+                               "--ranking-ref", "John.18.31", "--ranking-policy",
+                               "policy-test"]), 0)
+        for witness, review_ids in reviews.items():
+            for review_id in review_ids:
+                row = self.con.execute("""SELECT doc_id,page_id,index_response_id FROM
+                    coverage_review WHERE id=?""", (review_id,)).fetchone()
+                record_coverage_review(self.con, "ranking-test", "John.18.31",
+                                       "John.18.31", *row, "withdrawn",
+                                       "reviewed_transcription", "synthetic withdrawal",
+                                       "fixture", "tester")
+        empty = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
+        self.assertEqual(empty["state"], "empty")
+        self.assertEqual(empty["scenarios"], {"optimistic": [], "pessimistic": []})
+        self.assertEqual(self.con.execute("SELECT count(*) FROM ranking_entry").fetchone()[0], 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+
+    def test_ranking_ties_are_deterministic_and_events_are_simultaneous(self):
+        rows = [{"witness_id": witness, "unit_id": witness,
+                 "coverage_review_id": number, "date_min": 150, "date_max": 200}
+                for number, witness in enumerate(("C", "A", "B"), 1)]
+        for scenario, expected_year in (("optimistic", 150), ("pessimistic", 200)):
+            ranked = rank_candidates(rows + [dict(rows[1], coverage_review_id=9)], scenario)
+            self.assertEqual([row["witness_id"] for row in ranked], ["A", "B", "C"])
+            self.assertEqual([row["event_year"] for row in ranked], [expected_year] * 3)
+            self.assertEqual([row["rank"] for row in ranked], [1, 2, 3])
 
     def test_cli_offline_catalogue_fixture(self):
         self.assertEqual(main(["--db", str(self.path), "--offline", "--fixture-john-list",
