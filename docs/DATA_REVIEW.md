@@ -8,6 +8,13 @@ This review covers the former sync implementation, the local `ntvmr.sqlite`, the
 official API documentation, and a small set of direct P52 API checks. It does not
 certify the corpus or the dates of every manuscript.
 
+**Historical baseline:** the findings and 12-test verification count below describe
+the original legacy review. The replacement collector's current progress,
+remaining source-validation work, and next steps are tracked in the
+[development plan](DEVELOPMENT_PLAN.md); current commands are in the
+[README](../README.md). Do not use the legacy defect list as a checklist of missing
+features in the replacement collector.
+
 ## Conclusion
 
 Keep NTVMR as the initial catalogue/index source, but rebuild the derived results

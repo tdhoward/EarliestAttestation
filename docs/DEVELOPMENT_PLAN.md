@@ -1,117 +1,86 @@
 # Development plan
 
-This is the implementation plan following the [2026-09-29 review](DATA_REVIEW.md).
-The first controlled-collection slice is implemented in `controlled_ntvmr.py`:
-budgeted requests, durable raw responses and stage checkpoints, explicit P52
-long-response parsing, and a single-witness offline index sample. Candidate
-discovery now has a bounded named-witness lookup and an offline P52 language
-regression. A budgeted live probe on 2026-09-29 returned P52 at John 18:31 and
-P66, P75, 01, and 02 at John 1:1; the latter four responses are captured in
-[`john_named_probe.json`](../tests/fixtures/john_named_probe.json). The codex
-responses use numeric `gaNum` and `primaryName` values. These are candidate search
-hits, not verified verse evidence or proof of exhaustive discovery. The
-[bounded document-set probe](../tests/fixtures/john_list_probe.json) confirms
-the multi-record list shape for P66 and P75 at John 1:1. It also does not prove
-that larger ranges or passage searches are complete. Exhaustive discovery, the
-NA28 inventory, verified evidence, rankings,
-and visualization remain planned. The sample does not satisfy the later scholarly
-validation gates.
+This plan tracks the replacement collector and its validation gates. The
+[2026-09-29 code/data review](DATA_REVIEW.md) is the historical baseline for the
+disabled legacy collector; its defects are not a current implementation checklist.
+The [README](../README.md) contains command syntax and reproducibility instructions.
 
-The next collection increment supports one resumable catalogue lookup of up to 20
-explicit document IDs, with source-linked candidates and a report of returned
-IDs. Only an unfiltered lookup returning every requested ID can mark that bounded
-catalogue scope complete. A passage-filtered lookup remains incomplete for that
-purpose. Completed per-document indexes can be inverted for requested verses only
-when their coverage checkpoints still match the active index snapshot. The
-comparison flags named searches that miss a document with an index candidate.
-The first five-ID unfiltered live lookup and a later P52-only unfiltered lookup
-timed out on 2026-09-29; their pending jobs and transport failures are retained
-locally, and no completeness result was inferred.
+## Progress reviewed on 2026-09-29
 
-The metadata source-contract increment validates manuscript metadata before
-completing its checkpoint. It stores a source-linked document snapshot with
-catalogue names, verbatim language, original date notation, and valid/unknown/invalid
-date status. This is catalogue metadata only; physical witness identity, selected
-scholarly dates, and verse evidence still require review. An older completed metadata
-checkpoint without this snapshot is replayed from cache when requested.
+The replacement database filename remains `ntvmr-v2.sqlite`; the current schema is
+**v11**. Implementation and scholarly validation have separate completion criteria.
 
-The document-review increment adds append-only document classification with a
-source response, source type, reason, citation, and reviewer. Discovery and catalogue
-reports show the latest decision and flag changed source content after a refresh.
-Returned excluded candidates remain visible in reports; earlier decisions stay in
-review history even if a refresh no longer returns a document. No classification
-is inferred from its numeric ID, and a retained document is still only a candidate
-for verse evidence review.
+| Area | Implemented and checked | Still required |
+| --- | --- | --- |
+| Controlled collection | Budgeted single-worker HTTP, immutable responses, durable attempts, metadata/coverage checkpoints, offline fixtures and explicit P52 parsing | Provider expectations before bulk access; broader live contract coverage |
+| Candidate discovery | Named-witness searches, resumable lookups for up to 20 explicit IDs, scoped index inversion and omission reports | Exhaustive discovery beyond a declared ID set; unresolved unfiltered catalogue probes |
+| Source type and physical identity | Source-linked metadata and append-only classification, identity links, corrections and change flags | Review additional documents and joined fragments; no automatic identity inference |
+| Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; append-only page/verse review and witness deduplication | Whole-NT NA28 inventory, editorial/mapping review, independent physical-evidence checks |
+| Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections | A real P52 writing-unit review and sourced dating policy; no date assessment or selection in the inspected database |
+| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots | A dated real-witness benchmark; no ranking snapshot in the inspected database |
+| Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls | Wider independently checked scholarly benchmark, versioned corpus export and graph |
 
-The physical-identity increment adds manually assigned witness IDs and append-only
-document-to-witness links. A link requires a retained document reviewed against its
-current source response, plus an identity reason, citation, and reviewer. Multiple
-catalogue documents can point to one physical witness only through explicit review;
-an unlink preserves the earlier decision. Reports flag links whose document
-classification or source content has since changed. These links do not validate
-verse coverage, dating, or a joined-fragment claim on their own.
+The offline suite passes **54 tests on Python 3.12.6**. The combined reviewed audit
+reports zero findings: five of five P52 evidence cases pass, and both source
+controls pass. The local reviewed database contains one inventory with ten
+coordinates (John 18:30–39), five explicit NTVMR mappings, one physical witness,
+and five `partial` coverage reviews. It contains zero date assessments, selections,
+or ranking snapshots. `historical_validation_complete` remains false; a clean
+structural audit does not complete the scholarly validation gate.
 
-The inventory-contract increment adds immutable, source-identified edition
-snapshots with numeric canonical order, editorial status, and explicit zero-to-many
-NTVMR coordinate mappings. Its importer rejects ranges, unordered or duplicate
-verses, unsourced mappings, and silent replacement under one inventory ID. An
-unmapped coordinate stays unresolved, and every report marks whole-NT completion
-false. A bounded, source-identified John 18:30–39 NA28 subset is now imported for
-P52; acquisition and editorial review of the whole-NT reference list remain open.
+The [P52 replay](../replay_p52_benchmark.py) records a Codex source review citing
+the library catalogue and Hurtado. It does not represent an independent human
+check. Neighboring coordinates are negative **index controls**, not rejected
+physical-evidence reviews. The [catalogue-date control](../benchmarks/p52-date-source-v1.json)
+pins source notation and numeric bounds; it does not create a selected date.
+Competing dating cautions remain separate from numeric assessments.
 
-The first coverage-review increment now stores append-only, cited decisions for
-individual indexed pages against explicit inventory mappings and current physical
-witness links. Its report separates positive, uncertain, rejected, and withdrawn
-decisions, flags changed index or identity sources, and deduplicates current positive
-decisions by physical witness per edition verse. This implements an evidence-review
-boundary, not a completed NA28 evidence set. A bounded P52 replay now adds five
-cited partial-coverage reviews against the NA28 John 18 subset. No selected
-scholarly date assessment or broader witness set has been added.
+The small 2026-09-29 live probes found P52 at John 18:31 and P66, P75, 01, and 02
+at John 1:1. Captured [named searches](../tests/fixtures/john_named_probe.json)
+and the [P66/P75 list response](../tests/fixtures/john_list_probe.json) cover numeric
+catalogue names and the multi-record response shape. These are candidate hits.
+Unfiltered lookups for five IDs and then P52 alone timed out and remain pending
+locally. Neither the successful passage probes nor those timeouts establish
+exhaustive discovery. An unfiltered lookup can establish completeness only for its
+explicit ID set, when every requested ID is returned and the reported count agrees.
 
-The writing-unit/date increment now records separately identified writing layers,
-append-only links from reviewed coverage to those layers, competing cited date
-assessments, and an explicit selected assessment per layer and named dating policy.
-Unknown or invalid dates
-have no numeric bounds; a later correction or supplement can receive its own date.
-The report retains selection history and marks superseded coverage links. No real
-scholarly date assessments have been entered.
+## Next development work
 
-The ranking increment now materializes both date scenarios for one inventory verse
-and named dating policy from current positive coverage, writing-unit assignments,
-and valid selected dates. It deduplicates physical witnesses, keeps the source and
-decision IDs with each result, and marks stored rankings stale when inputs change.
-A failed coverage refresh preserves the prior snapshot and reports failure; an
-empty valid recomputation clears its entries. This is a ranking of reviewed records
-within a declared inventory and policy, not a complete or validated NT graph. No
-real NA28 ranking has been calculated.
+1. **Complete the bounded P52 source and dating review.** Independently check the
+   inventory coordinates, mappings, physical identity, five partial attestations,
+   and actual writing layer against the cited sources. Record the reviewer and
+   source locations accurately. Read the dating sources before entering competing
+   assessments; preserve original notation and use numeric bounds only when the
+   source supports them. Document the choice under a named dating policy. Do not
+   automatically promote the catalogue observation into a selected scholarly date
+   or infer a new interval from an abstract. If unresolved, retain that status.
+2. **Exercise the existing ranking path with real reviewed inputs.** After a
+   usable date is selected, link each current P52 coverage review to its writing
+   unit, version the benchmark with cited date expectations, and compute both
+   scenarios for the five positive verses. Reproduce the results offline from a
+   fresh database and pass the combined audit. This is a bounded P52 demonstration;
+   it cannot establish the earliest witness in the broader corpus.
+3. **Expand the scholarly benchmark in small increments.** Add P66/P75, a Pauline
+   papyrus, a major codex, a later supplement, and a witness with a substantial
+   gap. Cover positive and rejected claims, competing dates, and duplicate
+   physical identities. The current coverage-review path requires an indexed
+   page and explicit mapping: an absent index row cannot simply be entered as a
+   rejected review. Define and test any additional representation needed for
+   independently observed absence before treating such a case as implemented.
+4. **Complete the inventory and discovery gates before scaling.** Curate and
+   review the NA28 reference list and mappings; resolve the unfiltered catalogue
+   contract with a separately scoped, budgeted check when needed. Record the
+   inclusion policy and completeness of each declared scope. Preserve pending or
+   failed work explicitly. Increase request volume only after these checks and
+   provider expectations are established.
+5. **Export and graph only after the validation gates below.** Keep the legacy
+   results, candidate index samples, synthetic ranking fixtures, and historically
+   reviewed outputs explicitly labeled. A green test suite or P52 source control
+   alone is not publication readiness.
 
-The first validation increment adds a read-only audit for the reviewed database.
-It recomputes stored ranking rows from current evidence, flags stale snapshots,
-checks database integrity, and evaluates strictly cited positive, rejected, and
-dated benchmark cases. Synthetic ranking cases and five cited P52 coverage cases
-now exercise this layer. The wider, independently checked scholarly sample and
-dating assessments remain required before historical publication.
-
-A first cited P52 source control now pins the captured NTVMR index response and
-checks its five page/verse entries against Hurtado's description of the surviving
-fragment. Neighboring coordinates are explicit negative index controls, and a
-failed or changed collection snapshot fails the check. This validates alignment
-of one candidate index, not physical verse evidence or a selected date. The
-full reviewed benchmark and wider witness sample remain open.
-
-The P52 review replay now uses the publisher's NA28 John 18 coordinates and
-only the five directly matched NTVMR refs. It records P52 as one physical Greek
-papyrus and cites the holding library's catalogue description and Hurtado for
-five partial attestations. It is offline, idempotent, and stops on conflicting
-prior decisions. The reviewer is identified as a Codex source review; independent
-human review, negative physical-evidence decisions, a selected dating policy,
-and broader witnesses are still outstanding.
-
-The P52 catalogue-date control now checks the captured `II (M)` and 125–175 CE
-source observation against its pinned search response. Nongbri's published
-dating caution is recorded separately, without inventing a numeric interval or
-selecting either assessment for rankings. A reviewed dating policy still awaits
-source assessment and a real writing-unit review.
+The numbered sections below retain the research requirements and acceptance
+criteria, including those already implemented. Use the status table and next-work
+list above to choose work; do not restart completed collection or ranking slices.
 
 ## Research contract
 
@@ -369,11 +338,22 @@ data are visible; both scenarios can be traced back to their evidence. Use stati
 tests and production builds for frontend verification. Do not start a development
 server or probe localhost unless the project owner asks.
 
-## Recommended first implementation slice
+## Working and documentation rules
 
-Deliver the controlled HTTP/cache client, explicit P52 long-response parser,
-independent stage checkpoints, and an offline P52 evidence export first. Keep the
-export labeled as a single-witness sample. Then expand to a reviewed set of John
-witnesses, establish complete discovery within a declared scope, implement both
-rankings, and finally scale to the whole NA28 inventory. Each step should pass its
-offline acceptance checks before increasing request volume.
+- Keep the current status and next-work list in this plan aligned with the actual
+  schema, commands, fixtures, and observed database contents. Update the README's
+  summary when a milestone changes; retain the original data review as history.
+- Keep source observations, automated checks, and independent human review
+  distinguishable. Record who actually reviewed a claim; do not present a replay
+  or an agent's source review as human approval.
+- Use temporary or separate replay databases for verification. The two audit
+  scripts are read-only; collector reports and collector `--dry-run` can create
+  or upgrade the schema. The P52 replay's `--dry-run` validates manifests without
+  inspecting the target database. Back up an existing database with SQLite backup
+  before migrations or replay, and preserve immutable sources and review history.
+- Run offline tests and the relevant declared benchmarks for changed behavior.
+  Report expected legacy-audit findings separately from replacement-database
+  failures. Do not use a live request as a routine verification step.
+- Keep live collection explicitly scoped and budgeted. Request budgets include
+  prior attempts under the same run ID; cache replay needs no new requests. Honor
+  blocked or pending states and the collection rules in section 1.

@@ -13,9 +13,11 @@ fill in 18:34–36. See the [coverage reference and review](docs/DATA_REVIEW.md)
 
 ## Current status
 
-This is a Python/SQLite collection prototype, with no graph or validated corpus
-export yet. **The existing database is exploratory and should not be used to make
-historical claims.** The September 2026 review found:
+This is a Python/SQLite research prototype. Controlled collection, append-only
+reviews, writing-unit dating, and both first-five ranking scenarios are implemented
+through schema version 11. There is no graph or validated corpus export yet.
+**The legacy `ntvmr.sqlite` is exploratory and should not be used to make historical
+claims.** The [original review](docs/DATA_REVIEW.md) found:
 
 - 7,959 seeded references, 1,326 earliest-result rows, 13 selected manuscripts,
   and zero stored manuscript-to-verse coverage rows.
@@ -28,13 +30,26 @@ historical claims.** The September 2026 review found:
   first five witnesses or independently ranked pessimistic results.
 - The verse seed uses KJV versification, which is not an NA28 verse inventory.
 
-The first implementation slice now adds controlled document collection, an explicit
-long-response parser, separate metadata and coverage checkpoints, and an
-[offline P52 index sample](examples/p52-index-sample.json). The sample is one
-witness's indexed coordinates, not a complete set of Greek witnesses or an NA28
-ranking. A second slice adds bounded named-witness passage searches and a persisted
-candidate index. Search hits remain unreviewed candidates. Start with the [data/code review](docs/DATA_REVIEW.md), then the ordered
-[development plan and acceptance criteria](docs/DEVELOPMENT_PLAN.md).
+The replacement collector addresses those collection and data-model defects with
+explicit parsing, separate checkpoints, retained candidates, and reviewed inventory,
+identity, coverage, and date records. This does not repair or certify the legacy
+results. The [offline P52 index sample](examples/p52-index-sample.json) remains a
+single-witness candidate index.
+
+The progress check on 2026-09-29 passed **54 offline tests** on Python 3.12.6.
+The local reviewed database has ten John 18 inventory coordinates, five explicit
+NTVMR mappings, one physical witness, and five cited partial-coverage decisions.
+Its combined audit passes all five evidence cases and both source controls with
+zero findings. It has **no date assessments, selected dates, or ranking snapshots**;
+`historical_validation_complete` remains false. These counts describe the inspected
+local snapshot, which is not distributed with the repository.
+
+The next milestone is independent review of the P52 sources, writing unit, and
+competing dating assessments, followed by a reproducible bounded ranking if a
+usable date can be selected. Broader witnesses, discovery completeness, and a
+whole-NT inventory remain open. Use the [development plan](docs/DEVELOPMENT_PLAN.md)
+for current priorities and acceptance criteria; the original review is the legacy
+baseline.
 
 A small, budgeted live check on 2026-09-29 found P52 at John 18:31 and P66,
 P75, 01, and 02 at John 1:1. The [captured four-witness search responses](tests/fixtures/john_named_probe.json)
@@ -84,8 +99,9 @@ completion unconfirmed. Book IDs follow the [OSIS New Testament list](https://wi
 
 ## Run the offline checks
 
-Python 3.10+ is required for the audit; verified with Python 3.12. The audit and
-its tests use only the standard library and make no network requests.
+Python 3.10+ is required; verification currently uses Python 3.12.6. The active
+collector, audits, and tests use only the standard library. The test suite makes no network
+requests and creates temporary databases; it does not need a local snapshot.
 
 ```powershell
 python -m unittest discover -s tests -v
@@ -100,18 +116,30 @@ the audit could not run. **Exit code 1 is expected for the current database.**
 A passing audit alone does not verify historical dates, physical survival,
 NA28 membership, or completeness of the source corpus.
 
-`ntvmr.sqlite` is a local snapshot and may not be present in a fresh clone. Tests
-create their own temporary databases. The human-readable snapshot findings are
-recorded in the review document.
+`ntvmr.sqlite` is a local snapshot and may not be present in a fresh clone. Run its
+audit only when the file is available. The human-readable snapshot findings are
+recorded in the review document. To check an existing reviewed database, use the
+[reviewed-data audit commands](#reviewed-data-audit-and-p52-replay) below. Use the
+auditors for read-only inspection; collector report commands also open the schema
+for additive upgrades.
 
 ## Controlled collection
 
 [`sync_ntvmr.py`](sync_ntvmr.py) uses only the Python standard library. It creates
-a separate v2 database, requires explicit document IDs and a positive network
-request budget for live work, and uses the official HTTPS API by default. It has
-offline replay, immutable source responses, durable attempt records, and separate
+a separate replacement database, requires explicit document IDs or named search
+scope and a positive network request budget for live work, and uses the official
+HTTPS API by default. It has offline replay, immutable source responses, durable
+attempt records, and separate
 metadata and coverage job states. The conservative five-second spacing is a
 project default, not a confirmed NTVMR quota.
+
+`data/ntvmr-v2.sqlite` names the replacement database; its current SQLite
+`user_version` is **11**. This filename is not the schema version. Always pass
+`--db` explicitly: the CLI default is `ntvmr-v2.sqlite` in the working directory.
+`--offline` prevents network requests but still permits local writes. Collector
+`--dry-run` skips the requested collection or review writes but opens the database
+and creates or upgrades its schema. It is not a read-only preflight or proof that
+a later decision will satisfy every database constraint.
 
 ```powershell
 python sync_ntvmr.py --help
@@ -137,6 +165,12 @@ with a search result. `count` and returned rows are checked, but a match does no
 prove exhaustive results. `--refresh-search` explicitly reruns a selected lookup.
 If Python cannot validate the service's TLS chain, configure `SSL_CERT_FILE` to a
 trusted CA bundle; keep certificate verification enabled.
+
+`--request-budget` caps total recorded attempts for a `--run-id`, including earlier
+invocations and retries; it is not a fresh allowance on resume. Check the dry-run
+summary's prior attempts before choosing the total cap. `--max-run-seconds` is an
+optional time budget for the current invocation. Keep live checks separately
+scoped; the offline test and benchmark workflow needs no live calls.
 
 Use `--catalogue-doc-id` to declare a bounded ID set. `--catalogue-index-ref` is an
 optional passage filter, and `--catalogue-limit` is an approximate page cap, not a
@@ -265,9 +299,11 @@ python sync_ntvmr.py --db data/ntvmr-v2.sqlite --ranking-inventory INVENTORY_ID 
 ```
 
 These commands make no network requests. Ranking reports return a nonzero exit
-status for `uncomputed`, `stale`, or `failed` results. The bounded P52 coverage
-review has no selected scholarly date, and there is no whole-NT inventory or
+status for `uncomputed`, `incomplete`, `stale`, or `failed` results. The bounded P52
+coverage review has no selected scholarly date, and there is no whole-NT inventory or
 complete discovery, so the repository has no historical ranking to publish.
+
+## Reviewed-data audit and P52 replay
 
 The read-only reviewed-data audit checks SQLite integrity and foreign keys,
 recomputes stored first-five ranking entries, and flags stale snapshots. It reports
@@ -286,15 +322,17 @@ A benchmark JSON file uses `format_version: 1`, a `benchmark_id`, `inventory_id`
 `policy_id`, and a nonempty `cases` array. Each case has `osis_ref`, `witness_id`,
 `expected_coverage` (`positive` or `rejected`), `coverage_citation`, `reviewed_on`
 (ISO date), and `expected_date` and `date_citation` (both `null` when no date is
-asserted). A date is an inclusive two-year CE bound, for example `[100, 200]`.
+asserted). A date is a two-element inclusive CE interval, for example `[100, 200]`.
 The audit requires the cited current review and, when supplied, a selected valid
 date interval with the same citation. It exits `1` on findings and `2` if the
-audit cannot run. Format version 2 allows one shared `coverage_citation` and
-`reviewed_on` for all cases and an `expected_status` per case. The checked-in P52 benchmark has five positive, explicitly `partial`
-partial-coverage cases and no selected date; it is not a complete scholarly
-validation gate. An older local v2 snapshot may need the collector's additive
-schema upgrade before this audit can run:
-`python sync_ntvmr.py --db data/ntvmr-v2.sqlite --dry-run`.
+audit cannot run. Format version 2 requires shared `coverage_citation` and
+`reviewed_on` fields and an `expected_status` field per case. The checked-in P52
+benchmark has five positive, explicitly `partial` coverage cases and no selected
+date; it is not a complete scholarly validation gate. An older replacement
+database may need the collector's additive schema upgrade before this audit can
+run. Back it up with SQLite backup first, then run
+`python sync_ntvmr.py --offline --db data/ntvmr-v2.sqlite --dry-run`.
+That command changes the schema; it is not part of a read-only audit.
 
 The [P52 source controls](benchmarks/p52-source-controls-v1.json) compare the
 stored, pinned NTVMR index response with the surviving portions identified in
@@ -306,18 +344,25 @@ It does not validate an NA28 inventory, physical text, date, or earliest ranking
 If the source response changes, review it and version the controls instead of
 silently replacing the pinned snapshot.
 
-To replay the [cited P52 review](benchmarks/p52-reviewed-v1.json) into a v2
-database, including its bounded NA28 inventory, physical identity, and five
-partial-coverage decisions, run:
+To reproduce the [cited P52 review](benchmarks/p52-reviewed-v1.json) from a fresh
+clone, use a separate database path. The replay imports the captured index and
+date sources, bounded NA28 inventory, physical identity, and five partial-coverage
+decisions. The final command audits that same replay database:
 
 ```powershell
-python replay_p52_benchmark.py --db data/ntvmr-v2.sqlite --dry-run
-python replay_p52_benchmark.py --db data/ntvmr-v2.sqlite
+python replay_p52_benchmark.py --db data/p52-review-replay.sqlite --dry-run
+python replay_p52_benchmark.py --db data/p52-review-replay.sqlite
+python audit_reviewed.py --db data/p52-review-replay.sqlite --benchmark benchmarks/p52-evidence-benchmark-v1.json --source-controls benchmarks/p52-source-controls-v1.json --date-source benchmarks/p52-date-source-v1.json
 ```
 
-The replay is offline and idempotent. It stops on conflicting prior decisions
-instead of overwriting them. Its reviewer is identified as a Codex source review;
-an independent human check of the library and published source remains necessary
+The replay is offline and idempotent for matching records. Its `--dry-run`
+validates the checked-in manifests without opening the target database, so it
+cannot detect conflicts with existing decisions. A real replay stops on conflicting
+prior decisions, but fixture and collection writes can already have occurred;
+the whole replay is not one transaction. Use a separate path for a reproducibility
+check and back up an existing reviewed database before applying a replay to it.
+Its reviewer is identified as a Codex source review; an independent human check
+of the library and published source remains necessary
 before using these records for a historical publication. The five missing
 neighboring verses remain source controls, not invented negative page reviews.
 
@@ -327,7 +372,9 @@ the captured catalogue search response and checks its verbatim `II (M)` notation
 [Nongbri's dating study](https://www.cambridge.org/core/journals/new-testament-studies/article/abs/palaeography-precision-and-publicity-further-thoughts-on-pryliii457-p52/1D4E56BF0E9D4DDDA313D0C2754E2F28)
 without assigning numeric bounds to that argument. Passing the source check does
 not create a `date_assessment` or select a date for ranking. To replay the
-captured date source into a local v2 database without a network request, use:
+captured date source separately into a local replacement database without a
+network request, use the command below. The full P52 review replay already imports
+this source, so it does not need this extra step:
 
 ```powershell
 python sync_ntvmr.py --offline --fixture-p52 --fixture-language-probe --db data/ntvmr-v2.sqlite --run-id p52-date-source --search-ref John.18.31 --search-ga-num P52
