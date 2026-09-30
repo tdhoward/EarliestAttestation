@@ -266,6 +266,29 @@ status for `uncomputed`, `stale`, or `failed` results. No NA28 inventory, real
 scholarly date assessments, or real cited coverage decisions have been imported,
 so the repository has no historical ranking to publish.
 
+The read-only reviewed-data audit checks SQLite integrity and foreign keys,
+recomputes stored first-five ranking entries, and flags stale snapshots. It reports
+counts by inventory book, review and index state, latest document source type,
+collection-job state, and the start century of valid date assessments. This is a
+structural check; a clean result does not certify historical evidence.
+
+```powershell
+python audit_reviewed.py --db data/ntvmr-v2.sqlite --json
+python audit_reviewed.py --db data/ntvmr-v2.sqlite --benchmark path/to/reviewed-benchmark.json
+```
+
+A benchmark JSON file uses `format_version: 1`, a `benchmark_id`, `inventory_id`,
+`policy_id`, and a nonempty `cases` array. Each case has `osis_ref`, `witness_id`,
+`expected_coverage` (`positive` or `rejected`), `coverage_citation`, `reviewed_on`
+(ISO date), and `expected_date` and `date_citation` (both `null` when no date is
+asserted). A date is an inclusive two-year CE bound, for example `[100, 200]`.
+The audit requires the cited current review and, when supplied, a selected valid
+date interval with the same citation. It exits `1` on findings and `2` if the
+audit cannot run. The tests use synthetic cases; no real scholarly benchmark has
+been certified yet. An older local v2 snapshot may need the collector's additive
+schema upgrade before this audit can run:
+`python sync_ntvmr.py --db data/ntvmr-v2.sqlite --dry-run`.
+
 The [official NTVMR API](https://ntvmr.uni-muenster.de/community/vmr/api/) is the
 initial source. INTF distinguishes the Greek Liste from its broader manuscript
 catalogue; source type and language must be validated explicitly. See
@@ -293,7 +316,8 @@ intervals or proof of a verse's date of composition.
 | --- | --- |
 | `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v11 schema in the v2 replacement database |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
-| `audit_ntvmr.py` | Read-only offline audit of that schema |
+| `audit_ntvmr.py` | Read-only offline audit of the legacy database |
+| `audit_reviewed.py` | Read-only audit of the reviewed database and cited benchmarks |
 | `tests/` | Audit and controlled collector tests; captured P52 API fixtures |
 | `examples/p52-index-sample.json` | Offline, single-witness index sample |
 | `ntvmr.sqlite` | Existing local exploratory snapshot, when available |

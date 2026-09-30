@@ -5,6 +5,8 @@ import sqlite3
 import tempfile
 import unittest
 
+from audit_reviewed import audit_database as audit_reviewed_database, load_benchmark
+
 from controlled_ntvmr import (
     AccessBlocked, Client, ContractError, RunStopped, collect_stage, connect,
     catalogue_params, catalogue_report, collect_catalogue_scope, collect_search,
@@ -834,6 +836,34 @@ class CollectorTests(unittest.TestCase):
                 reviews.setdefault(witness, []).append(review_id)
         report = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
         self.assertEqual(report["state"], "success")
+        benchmark_path = Path(self.temp.name) / "benchmark.json"
+        benchmark_path.write_text(json.dumps({
+            "format_version": 1, "benchmark_id": "synthetic-ranking",
+            "inventory_id": "ranking-test", "policy_id": "policy-test",
+            "cases": [{"osis_ref": "John.18.31", "witness_id": "A",
+                       "expected_coverage": "positive", "expected_date": [100, 300],
+                       "coverage_citation": "fixture", "date_citation": "fixture",
+                       "reviewed_on": "2026-09-29"}]}), encoding="utf-8")
+        audited = audit_reviewed_database(self.path, benchmark_path)
+        self.assertEqual(audited["findings"], [])
+        self.assertEqual(audited["benchmark"]["passed"], 1)
+        bad_benchmark = json.loads(benchmark_path.read_text(encoding="utf-8"))
+        bad_benchmark["cases"][0]["coverage_citation"] = "different source"
+        benchmark_path.write_text(json.dumps(bad_benchmark), encoding="utf-8")
+        self.assertIn("benchmark_coverage_mismatch", [finding["code"] for finding in
+                      audit_reviewed_database(self.path, benchmark_path)["findings"]])
+        bad_benchmark["cases"][0]["coverage_citation"] = "fixture"
+        benchmark_path.write_text(json.dumps(bad_benchmark), encoding="utf-8")
+        self.con.execute("""UPDATE ranking_entry SET event_year=999
+            WHERE inventory_id='ranking-test' AND osis_ref='John.18.31'
+            AND scenario='optimistic' AND rank=1""")
+        self.con.commit()
+        self.assertIn("ranking_entry_mismatch", [finding["code"] for finding in
+                                      audit_reviewed_database(self.path)["findings"]])
+        self.con.execute("""UPDATE ranking_entry SET event_year=100
+            WHERE inventory_id='ranking-test' AND osis_ref='John.18.31'
+            AND scenario='optimistic' AND rank=1""")
+        self.con.commit()
         self.assertEqual(report["candidate_count"], 6)
         self.assertIn("invalid_or_unknown_date",
                       [row["reason"] for row in report["excluded_reviews"]])
@@ -850,6 +880,10 @@ class CollectorTests(unittest.TestCase):
                                "revised choice", "tester")
         self.assertEqual(ranking_report(self.con, "ranking-test", "John.18.31",
                                         "policy-test")["state"], "stale")
+        self.assertIn("ranking_not_current", [finding["code"] for finding in
+                                      audit_reviewed_database(self.path)["findings"]])
+        self.assertIn("benchmark_date_mismatch", [finding["code"] for finding in
+                                      audit_reviewed_database(self.path, benchmark_path)["findings"]])
         revised = compute_ranking(self.con, "ranking-test", "John.18.31", "policy-test")
         self.assertEqual(revised["scenarios"]["pessimistic"][0]["witness_id"], "A")
         create_writing_unit(self.con, "A-later", "A", "Later hand", "supplement",
@@ -916,6 +950,32 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(empty["scenarios"], {"optimistic": [], "pessimistic": []})
         self.assertEqual(self.con.execute("SELECT count(*) FROM ranking_entry").fetchone()[0], 0)
         self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+        record_coverage_review(self.con, "ranking-test", "John.18.31", "John.18.31",
+                               20001, 10, original_index, "rejected", "reviewed_transcription",
+                               "synthetic negative review", "fixture", "tester")
+        negative = json.loads(benchmark_path.read_text(encoding="utf-8"))
+        negative["cases"][0]["expected_coverage"] = "rejected"
+        negative["cases"][0]["expected_date"] = None
+        negative["cases"][0]["date_citation"] = None
+        benchmark_path.write_text(json.dumps(negative), encoding="utf-8")
+        self.assertEqual(audit_reviewed_database(self.path, benchmark_path)["benchmark"]["passed"], 1)
+
+    def test_reviewed_audit_is_read_only_and_requires_cited_cases(self):
+        before = self.path.stat().st_size
+        report = audit_reviewed_database(self.path)
+        self.assertEqual(report["findings"], [])
+        self.assertEqual(report["counts"]["ranking_snapshot"], 0)
+        self.assertEqual(self.path.stat().st_size, before)
+        absent = Path(self.temp.name) / "absent.sqlite"
+        with self.assertRaises(sqlite3.OperationalError):
+            audit_reviewed_database(absent)
+        self.assertFalse(absent.exists())
+        invalid = Path(self.temp.name) / "invalid.json"
+        invalid.write_text(json.dumps({"format_version": 1, "benchmark_id": "x",
+                                       "inventory_id": "x", "policy_id": "x",
+                                       "cases": [{"osis_ref": "John.18.31"}]}), encoding="utf-8")
+        with self.assertRaises(ValueError):
+            load_benchmark(invalid)
 
     def test_ranking_ties_are_deterministic_and_events_are_simultaneous(self):
         rows = [{"witness_id": witness, "unit_id": witness,

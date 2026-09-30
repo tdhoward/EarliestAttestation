@@ -84,6 +84,13 @@ empty valid recomputation clears its entries. This is a ranking of reviewed reco
 within a declared inventory and policy, not a complete or validated NT graph. No
 real NA28 ranking has been calculated.
 
+The first validation increment adds a read-only audit for the reviewed database.
+It recomputes stored ranking rows from current evidence, flags stale snapshots,
+checks database integrity, and evaluates strictly cited positive, rejected, and
+dated benchmark cases. The test benchmark is synthetic. Real cited cases still
+need to be researched and reviewed against an NA28 inventory before this gate can
+support historical publication.
+
 ## Research contract
 
 1. **Reference edition:** NA28, selected by the project owner. Store its explicit
