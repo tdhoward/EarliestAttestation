@@ -37,7 +37,7 @@ Completing this supplementary dataset is not a prerequisite for completing the
 core NA28 dataset. See the [inventory policy](docs/NA28_INVENTORY.md#supplementary-collection-and-display-policy).
 
 ```powershell
-python export_attestation.py --db data/na28-inventory-v1.sqlite --inventory na28-nt-reference-provisional-v1 --policy example-policy --dataset-output data/attestation-complete.json --graph-output data/attestation-graph.json
+python export_attestation.py --db data/na28-inventory-v3.sqlite --inventory na28-nt-reference-provisional-v3 --policy example-policy --dataset-output data/attestation-complete.json --graph-output data/attestation-graph.json
 ```
 
 Add `--include-omitted` to show skipped coordinates in graph data, or
@@ -104,14 +104,16 @@ single-witness candidate index.
 A [provisional whole-New-Testament NA28 coordinate inventory](docs/NA28_INVENTORY.md)
 now covers all 27 books and 260 chapters. It contains 7,957 reference coordinates:
 7,941 numbered markers from publisher displays plus 16 skipped traditional
-numbers retained as `omitted`. One chapter, 1 Corinthians 4, uses a flagged
-UBS5 coordinate fallback pending direct NA28 confirmation. Only five John 18
+numbers retained as `omitted`. The v2 snapshot confirms 1 Corinthians 4's 21
+numbered markers against the publisher's direct NA28 display, clearing the v1
+UBS5 fallback flag. V3 adds publisher cited traditional-passage identifications
+for all 16 skipped coordinates while keeping their NTVMR mappings unresolved. Only five John 18
 coordinates have source-checked NTVMR mappings; 7,952 remain explicitly
-unmapped. The inventory has been imported into a separate local database and
-verified, but it is not yet editorially certified or ready for whole-NT
-attestation claims.
+unmapped. V3 was imported into a separate local database and verified; it is
+reproducible from its pinned review record, but the inventory is not yet
+editorially certified or ready for whole-NT attestation claims.
 
-The progress check on 2026-09-29 passed **64 offline tests** on Python 3.12.6.
+The progress check on 2026-09-30 passed **70 offline tests** on Python 3.12.6.
 The local reviewed database has ten John 18 inventory coordinates, five explicit
 NTVMR mappings, one physical witness, and five cited partial-coverage decisions.
 Its combined audit passes all five evidence cases and both source controls with
@@ -176,8 +178,8 @@ order, editorial status, and
 explicit NTVMR mappings, including unresolved coordinates. It rejects verse ranges
 and does not derive NA28 membership from KJV chapter maxima. A cited, reference-only
 [John 18:30–39 NA28 subset](benchmarks/p52-na28-john18-subset-v1.json) is now imported
-for the P52 benchmark. The [provisional whole-NT manifest](benchmarks/na28-nt-reference-provisional-v1.json)
-has also been imported separately; editorial status and most NTVMR mappings
+for the P52 benchmark. The [v3 provisional whole-NT manifest](benchmarks/na28-nt-reference-provisional-v3.json)
+has also been imported separately; remaining editorial cases and most NTVMR mappings
 need further review. The inventory report leaves whole-NT certification
 unconfirmed. Book IDs follow the [OSIS New Testament list](https://wiki.crosswire.org/OSIS_Book_Abbreviations).
 
@@ -185,7 +187,9 @@ To check and import the full coordinate manifest offline:
 
 ```powershell
 python build_na28_inventory.py --check
-python sync_ntvmr.py --offline --db data/na28-inventory-v1.sqlite --import-inventory benchmarks/na28-nt-reference-provisional-v1.json
+python build_na28_inventory.py --review benchmarks/na28-coordinate-review-v2.json --check
+python build_na28_inventory.py --review benchmarks/na28-coordinate-review-v2.json --passage-review benchmarks/na28-passage-identifications-v1.json --check
+python sync_ntvmr.py --offline --db data/na28-inventory-v3.sqlite --import-inventory benchmarks/na28-nt-reference-provisional-v3.json
 ```
 
 ## Run the offline checks

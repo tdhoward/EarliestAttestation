@@ -5,7 +5,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from build_na28_inventory import OUTPUT, SOURCE, build, render
+from build_na28_inventory import (OUTPUT, OUTPUT_V2, OUTPUT_V3, PASSAGE_REVIEW,
+                                  REVIEW, SOURCE, build, render)
 from controlled_ntvmr import connect, import_edition_inventory
 from export_attestation import build_exports
 
@@ -59,6 +60,53 @@ class Na28InventoryTests(unittest.TestCase):
                 self.assertEqual(complete["counts"]["verse_count"], 7957)
                 self.assertEqual(default_graph["counts"]["verse_count"], 7941)
                 self.assertEqual(default_graph["counts"]["by_editorial_status"]["omitted"], 0)
+            finally:
+                con.close()
+
+    def test_direct_na28_review_creates_new_snapshot_without_changing_v1(self):
+        review = json.loads(REVIEW.read_text(encoding="utf-8"))
+        reviewed = build(self.source, review)
+        self.assertEqual(OUTPUT_V2.read_text(encoding="utf-8"), render(reviewed))
+        self.assertEqual(OUTPUT.read_text(encoding="utf-8"), render(self.manifest))
+        old_rows = {row["osis_ref"]: row for row in self.manifest["verses"]}
+        new_rows = {row["osis_ref"]: row for row in reviewed["verses"]}
+        changed = {ref for ref in old_rows if old_rows[ref] != new_rows[ref]}
+        self.assertEqual(changed, {f"1Cor.4.{verse}" for verse in range(1, 22)})
+        self.assertTrue(all(new_rows[ref]["editorial_status"] == "main" for ref in changed))
+        self.assertTrue(all(new_rows[ref]["ntvmr_refs"] == [] for ref in changed))
+        with tempfile.TemporaryDirectory() as directory:
+            con = connect(Path(directory) / "inventory.sqlite")
+            try:
+                self.assertEqual(import_edition_inventory(con, self.manifest), 7957)
+                self.assertEqual(import_edition_inventory(con, reviewed), 7957)
+                self.assertEqual(con.execute("SELECT count(*) FROM edition_inventory").fetchone()[0], 2)
+                self.assertEqual(con.execute("PRAGMA foreign_key_check").fetchall(), [])
+            finally:
+                con.close()
+
+    def test_traditional_passage_identification_preserves_unmapped_status(self):
+        review = json.loads(REVIEW.read_text(encoding="utf-8"))
+        passage_review = json.loads(PASSAGE_REVIEW.read_text(encoding="utf-8"))
+        v2 = build(self.source, review)
+        v3 = build(self.source, review, passage_review)
+        self.assertEqual(OUTPUT_V3.read_text(encoding="utf-8"), render(v3))
+        v2_rows = {row["osis_ref"]: row for row in v2["verses"]}
+        v3_rows = {row["osis_ref"]: row for row in v3["verses"]}
+        identified = {row["osis_ref"] for row in passage_review["passages"]}
+        self.assertEqual({ref for ref in v2_rows if v2_rows[ref] != v3_rows[ref]},
+                         identified)
+        self.assertEqual(identified, set(self.source["skipped_coordinates"]))
+        self.assertTrue(all(v3_rows[ref]["editorial_status"] == "omitted" and
+                            not v3_rows[ref]["ntvmr_refs"] and
+                            v3_rows[ref]["passage_citation"] for ref in identified))
+        self.assertEqual(v3_rows["John.5.4"]["editorial_status"], "omitted")
+        self.assertEqual(v3_rows["John.5.4"]["ntvmr_refs"], [])
+        self.assertIn("LU12/JHN.5", v3_rows["John.5.4"]["passage_citation"])
+        with tempfile.TemporaryDirectory() as directory:
+            con = connect(Path(directory) / "inventory.sqlite")
+            try:
+                self.assertEqual(import_edition_inventory(con, v3), 7957)
+                self.assertEqual(con.execute("PRAGMA foreign_key_check").fetchall(), [])
             finally:
                 con.close()
 

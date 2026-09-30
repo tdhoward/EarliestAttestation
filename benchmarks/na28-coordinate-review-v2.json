@@ -1,0 +1,12 @@
+{
+  "format_version": 1,
+  "base_inventory_id": "na28-nt-reference-provisional-v1",
+  "inventory_id": "na28-nt-reference-provisional-v2",
+  "source_url": "https://www.die-bibel.de/en/bible/NA28/1CO.4",
+  "reviewed_on": "2026-09-30",
+  "reviewer": "Codex direct publisher page check",
+  "osis_book": "1Cor",
+  "chapter": 4,
+  "verse_numbers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+  "note": "The publisher's NA28 1 Corinthians 4 page displays each numbered marker from 1 through 21; this directly confirms the coordinates previously copied from its UBS5 page. This is a coordinate check, not a manuscript coverage or NTVMR mapping review."
+}

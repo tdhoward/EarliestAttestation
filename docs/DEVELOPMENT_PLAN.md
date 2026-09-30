@@ -12,7 +12,7 @@ qualified to adjudicate manuscript dating disputes. Validation checks faithful
 use of sources, not resolution of those disputes. P52 is an example and test
 fixture, and its dating uncertainty does not block broader project work.
 
-## Progress reviewed on 2026-09-29
+## Progress reviewed on 2026-09-30
 
 The replacement database filename remains `ntvmr-v2.sqlite`; the current schema is
 **v12**. Implementation and scholarly validation have separate completion criteria.
@@ -22,12 +22,12 @@ The replacement database filename remains `ntvmr-v2.sqlite`; the current schema 
 | Controlled collection | Budgeted single-worker HTTP, immutable responses, durable attempts, metadata/coverage checkpoints, offline fixtures and explicit P52 parsing | Provider expectations before bulk access; broader live contract coverage |
 | Candidate discovery | Named-witness searches, resumable lookups for up to 20 explicit IDs, scoped index inversion and omission reports | Exhaustive discovery beyond a declared ID set; unresolved unfiltered catalogue probes |
 | Source type and physical identity | Source-linked metadata and append-only classification, identity links, corrections and change flags | Review additional documents and joined fragments; no automatic identity inference |
-| Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; provisional 27-book, 260-chapter NA28 coordinate inventory with 7,957 rows imported separately; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Confirm flagged editorial cases, review 7,952 pending NTVMR mappings, independently check real absence cases; whole-NT inventory is not certified |
+| Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; provisional 27-book, 260-chapter NA28 coordinate inventory with 7,957 rows; v2 directly confirms 1 Corinthians 4 coordinates, and v3 cites all 16 traditional skipped passages; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Confirm remaining flagged editorial cases, review 7,952 pending NTVMR mappings, independently check real absence cases; whole-NT inventory is not certified |
 | Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 example with four dating observations and a null selection | Record documented consensus where known and retain equal alternatives otherwise; check source fidelity; no date assessment or selection in the inspected local database |
 | Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; test-only P52 scenario exercises both rankings with one sourced assessment | Carry equal dating alternatives through results and benchmark them with real witnesses; no ranking snapshot in the inspected database |
 | Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls; offline complete-inventory and filtered graph-data export | Wider independently checked scholarly benchmark, validated corpus export and graph UI |
 
-The offline suite passes **64 tests on Python 3.12.6**. The combined reviewed audit
+The offline suite passes **70 tests on Python 3.12.6**. The combined reviewed audit
 reports zero findings: five of five P52 evidence cases pass, and both source
 controls pass. The local reviewed database contains one inventory with ten
 coordinates (John 18:30–39), five explicit NTVMR mappings, one physical witness,
@@ -59,8 +59,10 @@ explicit ID set, when every requested ID is returned and the reported count agre
 
 1. **Review the provisional inventory and broaden manuscript discovery.** The
    [coordinate inventory](NA28_INVENTORY.md) now covers all 27 books and 260 chapters
-   with 7,957 rows. Confirm its flagged 1 Corinthians 4 fallback, skipped numbers,
-   and double-bracketed passages; establish source-checked NTVMR mappings in a new
+   with 7,957 rows. The v2 snapshot resolves the 1 Corinthians 4 fallback through
+   the publisher's direct NA28 chapter display. V3 identifies all 16 traditional
+   skipped passages with publisher citations. Confirm double-bracketed passages;
+   establish source-checked NTVMR mappings in a new
    versioned snapshot. Five John 18 mappings are checked and 7,952 remain pending.
    Retain skipped coordinates as supplementary collection targets under the
    [inventory policy](NA28_INVENTORY.md#supplementary-collection-and-display-policy),
@@ -209,13 +211,16 @@ corrected corpus.
 
 ## 3. Build the NA28 inventory and evidence schema
 
-The [provisional coordinate manifest](../benchmarks/na28-nt-reference-provisional-v1.json)
+The [v3 provisional coordinate manifest](../benchmarks/na28-nt-reference-provisional-v3.json)
 and [publisher source ledger](../benchmarks/na28-coordinate-source-v1.json) now
 cover all New Testament chapters without reproducing edition text. Its 7,952
 unreviewed NTVMR mappings remain empty by design. Confirm editorial cases and
 source-identify the mapping to the NTVMR versification in a new snapshot. Avoid
 assuming an API v11n ID named `NA28` exists; verify supported values or supply a
-reviewed mapping.
+reviewed mapping. The [1 Corinthians 4 review](../benchmarks/na28-coordinate-review-v2.json)
+records the direct publisher check; v1 retains the original UBS5 fallback. The
+[skipped-passage review](../benchmarks/na28-passage-identifications-v1.json)
+identifies all 16 traditional passages without asserting NTVMR mappings or witness coverage.
 
 Suggested logical entities (names can change during implementation):
 

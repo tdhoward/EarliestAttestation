@@ -1,0 +1,89 @@
+{
+  "format_version": 1,
+  "base_inventory_id": "na28-nt-reference-provisional-v2",
+  "inventory_id": "na28-nt-reference-provisional-v3",
+  "reviewed_on": "2026-09-30",
+  "reviewer": "Codex publisher page comparison",
+  "passages": [
+    {
+      "osis_ref": "Matt.17.21",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Matthew 17:21, https://www.die-bibel.de/bibel/LU12/MAT.17 (viewed 2026-09-30).",
+      "passage_note": "Traditional verse about prayer and fasting after the boy's healing; NA28 skips number 21. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Matt.18.11",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Matthew 18:11, https://www.die-bibel.de/bibel/LU12/MAT.18 (viewed 2026-09-30).",
+      "passage_note": "Traditional verse about the Son of Man saving the lost, between the warning about little ones and the lost sheep; NA28 skips number 11. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Matt.23.14",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Matthew 23:14, https://www.die-bibel.de/bibel/LU12/MAT.23 (viewed 2026-09-30).",
+      "passage_note": "Traditional woe about widows' houses and long prayers; NA28 skips number 14. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Mark.7.16",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Mark 7:16, https://www.die-bibel.de/bibel/LU12/MRK.7 (viewed 2026-09-30).",
+      "passage_note": "Traditional call to hear, between the teaching about what defiles and the private explanation; NA28 skips number 16. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Mark.9.44",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Mark 9:44, https://www.die-bibel.de/bibel/LU12/MRK.9 (viewed 2026-09-30).",
+      "passage_note": "Traditional warning about the undying worm and unquenched fire after the saying about the hand; NA28 skips number 44. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Mark.9.46",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Mark 9:46, https://www.die-bibel.de/bibel/LU12/MRK.9 (viewed 2026-09-30).",
+      "passage_note": "Traditional repetition of the warning about the undying worm and unquenched fire after the saying about the foot; NA28 skips number 46. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Mark.11.26",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Mark 11:26, https://www.die-bibel.de/bibel/LU12/MRK.11 (viewed 2026-09-30).",
+      "passage_note": "Traditional warning about forgiveness following the prayer instruction; NA28 skips number 26. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Mark.15.28",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Mark 15:28, https://www.die-bibel.de/bibel/LU12/MRK.15 (viewed 2026-09-30).",
+      "passage_note": "Traditional scripture-fulfillment statement between the two people crucified alongside Jesus and the mockery by passersby; NA28 skips number 28. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Luke.17.36",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Luke 17:36, https://www.die-bibel.de/bibel/LU12/LUK.17 (viewed 2026-09-30).",
+      "passage_note": "Traditional parallel about two people in a field, one taken and one left; NA28 skips number 36. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Luke.23.17",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Luke 23:17, https://www.die-bibel.de/bibel/LU12/LUK.23 (viewed 2026-09-30).",
+      "passage_note": "Traditional parenthetical explanation of a festival release between Pilate's proposed release and the crowd's request for Barabbas; NA28 skips number 17. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "John.5.4",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, John 5:4, https://www.die-bibel.de/bibel/LU12/JHN.5 (viewed 2026-09-30).",
+      "passage_note": "Traditional account of an angel stirring the pool and the first person entering it being healed; NA28 skips number 4. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Acts.8.37",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Acts 8:37, https://www.die-bibel.de/bibel/LU12/ACT.8 (viewed 2026-09-30).",
+      "passage_note": "Traditional exchange between Philip and the official about faith before baptism; NA28 skips number 37. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Acts.15.34",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Acts 15:34, https://www.die-bibel.de/bibel/LU12/ACT.15 (viewed 2026-09-30).",
+      "passage_note": "Traditional statement that Silas remained after the messengers' departure; NA28 skips number 34. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Acts.24.7",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Acts 24:7, https://www.die-bibel.de/bibel/LU12/ACT.24 (viewed 2026-09-30).",
+      "passage_note": "Traditional account of commander Lysias taking Paul from his accusers, between the accusation and the order to appear before Felix; NA28 skips number 7. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Acts.28.29",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Acts 28:29, https://www.die-bibel.de/bibel/LU12%2CNA28/ACT.28?ebc=true&scrollPositionRestoration=disabled&slug=auferstehung-aufwerweckung (viewed 2026-09-30).",
+      "passage_note": "Traditional statement that the Jewish listeners departed and disputed after Paul's speech, between the message to the Gentiles and Paul's two years in Rome; NA28 skips number 29. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    },
+    {
+      "osis_ref": "Rom.16.24",
+      "passage_citation": "Deutsche Bibelgesellschaft, Lutherbibel 1912, Romans 16:24, https://www.die-bibel.de/bibel/LU12%2CNA28/ROM.16?ebc=true&scrollPositionRestoration=disabled&slug=amen (indexed publisher display checked 2026-09-30).",
+      "passage_note": "Traditional grace blessing between the greetings and the closing doxology; NA28 skips number 24. The publisher's indexed combined display identified this verse, but the direct page did not load during review. Passage identification only; manuscript indexing and physical evidence remain unreviewed."
+    }
+  ]
+}
