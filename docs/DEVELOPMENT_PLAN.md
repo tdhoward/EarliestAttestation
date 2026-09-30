@@ -56,16 +56,17 @@ snapshots with numeric canonical order, editorial status, and explicit zero-to-m
 NTVMR coordinate mappings. Its importer rejects ranges, unordered or duplicate
 verses, unsourced mappings, and silent replacement under one inventory ID. An
 unmapped coordinate stays unresolved, and every report marks whole-NT completion
-false. No NA28 inventory has been imported or certified yet; acquisition and
-editorial review of that reference list remain open.
+false. A bounded, source-identified John 18:30–39 NA28 subset is now imported for
+P52; acquisition and editorial review of the whole-NT reference list remain open.
 
 The first coverage-review increment now stores append-only, cited decisions for
 individual indexed pages against explicit inventory mappings and current physical
 witness links. Its report separates positive, uncertain, rejected, and withdrawn
 decisions, flags changed index or identity sources, and deduplicates current positive
 decisions by physical witness per edition verse. This implements an evidence-review
-boundary, not a completed NA28 evidence set: the repository has no imported NA28
-inventory, no real cited coverage reviews, and no selected scholarly date assessments.
+boundary, not a completed NA28 evidence set. A bounded P52 replay now adds five
+cited partial-coverage reviews against the NA28 John 18 subset. No selected
+scholarly date assessment or broader witness set has been added.
 
 The writing-unit/date increment now records separately identified writing layers,
 append-only links from reviewed coverage to those layers, competing cited date
@@ -87,9 +88,30 @@ real NA28 ranking has been calculated.
 The first validation increment adds a read-only audit for the reviewed database.
 It recomputes stored ranking rows from current evidence, flags stale snapshots,
 checks database integrity, and evaluates strictly cited positive, rejected, and
-dated benchmark cases. The test benchmark is synthetic. Real cited cases still
-need to be researched and reviewed against an NA28 inventory before this gate can
-support historical publication.
+dated benchmark cases. Synthetic ranking cases and five cited P52 coverage cases
+now exercise this layer. The wider, independently checked scholarly sample and
+dating assessments remain required before historical publication.
+
+A first cited P52 source control now pins the captured NTVMR index response and
+checks its five page/verse entries against Hurtado's description of the surviving
+fragment. Neighboring coordinates are explicit negative index controls, and a
+failed or changed collection snapshot fails the check. This validates alignment
+of one candidate index, not physical verse evidence or a selected date. The
+full reviewed benchmark and wider witness sample remain open.
+
+The P52 review replay now uses the publisher's NA28 John 18 coordinates and
+only the five directly matched NTVMR refs. It records P52 as one physical Greek
+papyrus and cites the holding library's catalogue description and Hurtado for
+five partial attestations. It is offline, idempotent, and stops on conflicting
+prior decisions. The reviewer is identified as a Codex source review; independent
+human review, negative physical-evidence decisions, a selected dating policy,
+and broader witnesses are still outstanding.
+
+The P52 catalogue-date control now checks the captured `II (M)` and 125–175 CE
+source observation against its pinned search response. Nongbri's published
+dating caution is recorded separately, without inventing a numeric interval or
+selecting either assessment for rankings. A reviewed dating policy still awaits
+source assessment and a real writing-unit review.
 
 ## Research contract
 

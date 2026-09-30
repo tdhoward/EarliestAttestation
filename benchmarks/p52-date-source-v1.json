@@ -1,0 +1,14 @@
+{
+  "format_version": 1,
+  "control_id": "p52-catalogue-date-v1",
+  "doc_id": 10052,
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/",
+  "source_citation": "NTVMR metadata/liste/search, gaNum=P52, indexContent=John.18.31, lang=grc, detail=document, captured 2026-09-29 in tests/fixtures/p52_language_probe.json",
+  "captured_on": "2026-09-29",
+  "search_params": {"gaNum": "P52", "indexContent": "John.18.31", "detail": "document", "format": "json", "limit": "10", "lang": "grc"},
+  "response_sha256": "24a8c3d5a9ab237d15bf325cc08779b1e9121830fe2ed2de5902cf5d99cb7b3d",
+  "observed": {"original_notation": "II (M)", "date_min": 125, "date_max": 175, "source_language": "g"},
+  "dating_caveat_citation": "Brent Nongbri, 'Palaeography, Precision and Publicity: Further Thoughts on P.Ryl.iii.457 (P52)', New Testament Studies (2020), abstract, https://www.cambridge.org/core/journals/new-testament-studies/article/abs/palaeography-precision-and-publicity-further-thoughts-on-pryliii457-p52/1D4E56BF0E9D4DDDA313D0C2754E2F28",
+  "dating_caveat": "The published abstract argues that the possible palaeographic dating range extends into the third century; it provides no numeric bounds to import from this source.",
+  "usage": "catalogue_observation_only"
+}

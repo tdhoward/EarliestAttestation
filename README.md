@@ -76,8 +76,10 @@ The v8 inventory importer stores a coordinate list as an immutable snapshot and
 requires a source citation and reviewer. It keeps numeric Matthew-to-Revelation
 order, editorial status, and
 explicit NTVMR mappings, including unresolved coordinates. It rejects verse ranges
-and does not derive NA28 membership from KJV chapter maxima. **No NA28 inventory
-has been imported or certified yet.** The inventory report always leaves whole-NT
+and does not derive NA28 membership from KJV chapter maxima. A cited, reference-only
+[John 18:30–39 NA28 subset](benchmarks/p52-na28-john18-subset-v1.json) is now imported
+for the P52 benchmark. **No whole-NT NA28 inventory has been imported or certified.**
+The inventory report always leaves whole-NT
 completion unconfirmed. Book IDs follow the [OSIS New Testament list](https://wiki.crosswire.org/OSIS_Book_Abbreviations).
 
 ## Run the offline checks
@@ -192,8 +194,9 @@ or catalogue-content-statement citation and marks the text `partial`, `full`,
 its history. The report counts current positive decisions once per physical witness
 and verse; it flags decisions whose index response or identity link has changed.
 These counts are limited to the reviewed records in that inventory, and whole-NT
-completion remains false. No real NA28 inventory or cited scholarly coverage review
-has been imported.
+completion remains false. The local benchmark database now has five cited P52
+partial-coverage reviews in the bounded NA28 subset; independent human source
+review and broader witness coverage remain open.
 
 ```powershell
 python sync_ntvmr.py --db data/ntvmr-v2.sqlite --coverage-review-inventory INVENTORY_ID --coverage-review-ref John.18.31 --coverage-review-ntvmr-ref John.18.31 --coverage-review-doc-id 10052 --coverage-review-page-id 10 --coverage-review-response-id RESPONSE_ID --coverage-review-status partial --coverage-review-evidence-type reviewed_transcription --coverage-review-reason "Visible Greek text checked" --coverage-review-citation "Specific transcription and location" --coverage-review-reviewer "Reviewer name"
@@ -262,9 +265,9 @@ python sync_ntvmr.py --db data/ntvmr-v2.sqlite --ranking-inventory INVENTORY_ID 
 ```
 
 These commands make no network requests. Ranking reports return a nonzero exit
-status for `uncomputed`, `stale`, or `failed` results. No NA28 inventory, real
-scholarly date assessments, or real cited coverage decisions have been imported,
-so the repository has no historical ranking to publish.
+status for `uncomputed`, `stale`, or `failed` results. The bounded P52 coverage
+review has no selected scholarly date, and there is no whole-NT inventory or
+complete discovery, so the repository has no historical ranking to publish.
 
 The read-only reviewed-data audit checks SQLite integrity and foreign keys,
 recomputes stored first-five ranking entries, and flags stale snapshots. It reports
@@ -274,7 +277,9 @@ structural check; a clean result does not certify historical evidence.
 
 ```powershell
 python audit_reviewed.py --db data/ntvmr-v2.sqlite --json
-python audit_reviewed.py --db data/ntvmr-v2.sqlite --benchmark path/to/reviewed-benchmark.json
+python audit_reviewed.py --db data/ntvmr-v2.sqlite --benchmark benchmarks/p52-evidence-benchmark-v1.json --source-controls benchmarks/p52-source-controls-v1.json --date-source benchmarks/p52-date-source-v1.json
+python audit_reviewed.py --db data/ntvmr-v2.sqlite --source-controls benchmarks/p52-source-controls-v1.json
+python audit_reviewed.py --db data/ntvmr-v2.sqlite --date-source benchmarks/p52-date-source-v1.json
 ```
 
 A benchmark JSON file uses `format_version: 1`, a `benchmark_id`, `inventory_id`,
@@ -284,10 +289,49 @@ A benchmark JSON file uses `format_version: 1`, a `benchmark_id`, `inventory_id`
 asserted). A date is an inclusive two-year CE bound, for example `[100, 200]`.
 The audit requires the cited current review and, when supplied, a selected valid
 date interval with the same citation. It exits `1` on findings and `2` if the
-audit cannot run. The tests use synthetic cases; no real scholarly benchmark has
-been certified yet. An older local v2 snapshot may need the collector's additive
+audit cannot run. Format version 2 allows one shared `coverage_citation` and
+`reviewed_on` for all cases and an `expected_status` per case. The checked-in P52 benchmark has five positive, explicitly `partial`
+partial-coverage cases and no selected date; it is not a complete scholarly
+validation gate. An older local v2 snapshot may need the collector's additive
 schema upgrade before this audit can run:
 `python sync_ntvmr.py --db data/ntvmr-v2.sqlite --dry-run`.
+
+The [P52 source controls](benchmarks/p52-source-controls-v1.json) compare the
+stored, pinned NTVMR index response with the surviving portions identified in
+[Hurtado's description of the fragment](https://era.ed.ac.uk/bitstream/1842/648/2/P52_TB_article.pdf)
+(introduction, p. 1). They require five indexed coordinates on the recorded pages
+and flag unexpected neighboring coordinates or a changed source response. A pass
+means this captured **candidate index** aligns with that bounded source check.
+It does not validate an NA28 inventory, physical text, date, or earliest ranking.
+If the source response changes, review it and version the controls instead of
+silently replacing the pinned snapshot.
+
+To replay the [cited P52 review](benchmarks/p52-reviewed-v1.json) into a v2
+database, including its bounded NA28 inventory, physical identity, and five
+partial-coverage decisions, run:
+
+```powershell
+python replay_p52_benchmark.py --db data/ntvmr-v2.sqlite --dry-run
+python replay_p52_benchmark.py --db data/ntvmr-v2.sqlite
+```
+
+The replay is offline and idempotent. It stops on conflicting prior decisions
+instead of overwriting them. Its reviewer is identified as a Codex source review;
+an independent human check of the library and published source remains necessary
+before using these records for a historical publication. The five missing
+neighboring verses remain source controls, not invented negative page reviews.
+
+The separate [P52 date-source control](benchmarks/p52-date-source-v1.json) pins
+the captured catalogue search response and checks its verbatim `II (M)` notation,
+125–175 CE bounds, and `g` language code. It records the competing caution in
+[Nongbri's dating study](https://www.cambridge.org/core/journals/new-testament-studies/article/abs/palaeography-precision-and-publicity-further-thoughts-on-pryliii457-p52/1D4E56BF0E9D4DDDA313D0C2754E2F28)
+without assigning numeric bounds to that argument. Passing the source check does
+not create a `date_assessment` or select a date for ranking. To replay the
+captured date source into a local v2 database without a network request, use:
+
+```powershell
+python sync_ntvmr.py --offline --fixture-p52 --fixture-language-probe --db data/ntvmr-v2.sqlite --run-id p52-date-source --search-ref John.18.31 --search-ga-num P52
+```
 
 The [official NTVMR API](https://ntvmr.uni-muenster.de/community/vmr/api/) is the
 initial source. INTF distinguishes the Greek Liste from its broader manuscript
@@ -315,6 +359,7 @@ intervals or proof of a verse's date of composition.
 | Path | Purpose |
 | --- | --- |
 | `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v11 schema in the v2 replacement database |
+| `replay_p52_benchmark.py`, `benchmarks/` | Offline, cited P52 subset inventory and review replay |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of the legacy database |
 | `audit_reviewed.py` | Read-only audit of the reviewed database and cited benchmarks |

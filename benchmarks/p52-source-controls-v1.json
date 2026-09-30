@@ -1,0 +1,20 @@
+{
+  "format_version": 1,
+  "benchmark_id": "p52-source-controls-v1",
+  "doc_id": 10052,
+  "witness_label": "P52 (P. Rylands Gk. 457)",
+  "source_citation": "L. W. Hurtado, 'P52 (P. Rylands Gk. 457) and the Nomina Sacra: Method and Probability', Tyndale Bulletin 54.1 (2003), introduction, p. 1, https://era.ed.ac.uk/bitstream/1842/648/2/P52_TB_article.pdf",
+  "source_consulted_on": "2026-09-29",
+  "index_citation": "NTVMR biblicalcontent/get, docID=10052, detail=long, format=json, captured 2026-09-29 in tests/fixtures/p52_coverage_probe.json",
+  "index_source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "index_response_sha256": "1182c76fed513af1d942f29fe8a20371f090eee7356b9b7998cfb5071ed310f2",
+  "indexed_refs_expected": [
+    {"osis_ref": "John.18.31", "page_id": 10},
+    {"osis_ref": "John.18.32", "page_id": 10},
+    {"osis_ref": "John.18.33", "page_id": 10},
+    {"osis_ref": "John.18.37", "page_id": 20},
+    {"osis_ref": "John.18.38", "page_id": 20}
+  ],
+  "neighbor_refs_not_indexed": ["John.18.30", "John.18.34", "John.18.35", "John.18.36", "John.18.39"],
+  "scope_note": "Checks source-index coordinates for this bounded P52 snapshot. A matching index is not a reviewed physical-text claim, an NA28 mapping, or a selected date assessment."
+}

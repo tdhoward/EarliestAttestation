@@ -5,7 +5,8 @@ import sqlite3
 import tempfile
 import unittest
 
-from audit_reviewed import audit_database as audit_reviewed_database, load_benchmark
+from audit_reviewed import (audit_database as audit_reviewed_database, load_benchmark,
+                            load_date_source, load_source_controls)
 
 from controlled_ntvmr import (
     AccessBlocked, Client, ContractError, RunStopped, collect_stage, connect,
@@ -28,6 +29,8 @@ LANGUAGE = json.loads(LANGUAGE_FIXTURE.read_text(encoding="utf-8"))
 NAMED = json.loads((Path(__file__).parent / "fixtures" / "john_named_probe.json").read_text(encoding="utf-8"))
 LIST = json.loads((Path(__file__).parent / "fixtures" / "john_list_probe.json").read_text(encoding="utf-8"))
 P134_METADATA = json.loads((Path(__file__).parent / "fixtures" / "p134_metadata_cache.json").read_text(encoding="utf-8"))
+P52_CONTROLS = Path(__file__).parent.parent / "benchmarks" / "p52-source-controls-v1.json"
+P52_DATE_SOURCE = Path(__file__).parent.parent / "benchmarks" / "p52-date-source-v1.json"
 PARAMS = {"docID": "10052", "detail": "long", "format": "json"}
 METADATA = {"status": "success", "data": {"manuscript": {
     "docID": 10052, "gaNum": "P52", "primaryName": "P52", "lang": "grc",
@@ -976,6 +979,67 @@ class CollectorTests(unittest.TestCase):
                                        "cases": [{"osis_ref": "John.18.31"}]}), encoding="utf-8")
         with self.assertRaises(ValueError):
             load_benchmark(invalid)
+
+    def test_cited_p52_source_controls_flag_missing_extra_and_failed_refresh(self):
+        controls = load_source_controls(P52_CONTROLS)
+        self.assertEqual(controls["doc_id"], 10052)
+        import_p52(self.con, FIXTURE)
+        self.assertEqual(collect_stage(Client(self.con, "source-control", offline=True),
+                                       10052, "coverage"), "success")
+        report = audit_reviewed_database(self.path, source_controls=P52_CONTROLS)
+        self.assertEqual(report["source_controls"]["state"], "pass")
+        self.assertEqual(report["findings"], [])
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+        response_id = self.con.execute("""SELECT response_id FROM coverage_index
+            WHERE doc_id=10052 LIMIT 1""").fetchone()[0]
+        self.con.execute("UPDATE source_response SET body_sha256='changed' WHERE id=?",
+                         (response_id,))
+        self.con.commit()
+        self.assertIn("source_control_source_changed", [row["code"] for row in
+                      audit_reviewed_database(self.path, source_controls=P52_CONTROLS)["findings"]])
+        self.con.execute("UPDATE source_response SET body_sha256=? WHERE id=?",
+                         (controls["index_response_sha256"], response_id))
+        self.con.commit()
+        self.con.execute("""DELETE FROM coverage_index WHERE doc_id=10052
+            AND osis_ref='John.18.33'""")
+        self.con.execute("""INSERT INTO coverage_index(doc_id,osis_ref,page_id,response_id)
+            VALUES(10052,'John.18.34',10,?)""", (response_id,))
+        self.con.commit()
+        codes = {row["code"] for row in audit_reviewed_database(
+            self.path, source_controls=P52_CONTROLS)["findings"]}
+        self.assertEqual(codes, {"source_control_index_mismatch",
+                                 "source_control_neighbor_indexed"})
+        self.con.execute("""INSERT INTO collection_job(run_id,doc_id,stage,state,
+            error,updated_at) VALUES('later',10052,'coverage','failed','timeout',
+            '2099-01-01T00:00:00+00:00')""")
+        self.con.commit()
+        codes = {row["code"] for row in audit_reviewed_database(
+            self.path, source_controls=P52_CONTROLS)["findings"]}
+        self.assertIn("source_control_collection_not_current", codes)
+
+    def test_p52_catalogue_date_observation_keeps_selected_date_separate(self):
+        control = load_date_source(P52_DATE_SOURCE)
+        self.assertEqual(control["usage"], "catalogue_observation_only")
+        self.assertEqual(audit_reviewed_database(
+            self.path, date_source=P52_DATE_SOURCE)["date_source"]["state"], "finding")
+        import_language_probe(self.con, LANGUAGE_FIXTURE)
+        report = audit_reviewed_database(self.path, date_source=P52_DATE_SOURCE)
+        self.assertEqual(report["date_source"]["state"], "pass")
+        self.assertEqual(report["counts"]["date_assessment"], 0)
+        self.assertEqual(report["counts"]["date_selection"], 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
+        wrong = json.loads(P52_DATE_SOURCE.read_text(encoding="utf-8"))
+        wrong["observed"]["date_min"] = 100
+        wrong_path = Path(self.temp.name) / "wrong-date.json"
+        wrong_path.write_text(json.dumps(wrong), encoding="utf-8")
+        self.assertIn("date_source_observation_mismatch", [row["code"] for row in
+                      audit_reviewed_database(self.path, date_source=wrong_path)["findings"]])
+        self.con.execute("""UPDATE source_response SET body_sha256='changed'
+            WHERE endpoint='metadata/liste/search' AND params_json=?""",
+            (json.dumps(control["search_params"], sort_keys=True, separators=(",", ":")),))
+        self.con.commit()
+        self.assertIn("date_source_changed", [row["code"] for row in
+                      audit_reviewed_database(self.path, date_source=P52_DATE_SOURCE)["findings"]])
 
     def test_ranking_ties_are_deterministic_and_events_are_simultaneous(self):
         rows = [{"witness_id": witness, "unit_id": witness,

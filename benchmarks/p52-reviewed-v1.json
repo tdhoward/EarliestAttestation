@@ -1,0 +1,22 @@
+{
+  "format_version": 1,
+  "benchmark_id": "p52-reviewed-v1",
+  "inventory_id": "na28-john18-p52-subset-v1",
+  "policy_id": "no-date-selected",
+  "doc_id": 10052,
+  "witness_id": "p52-rylands-gk-457",
+  "witness_label": "P52 (P. Rylands Gk. 457)",
+  "reviewer": "Codex source review, 2026-09-29",
+  "reviewed_on": "2026-09-29",
+  "classification_citation": "CSNTM, Manuscript P52, https://manuscripts.csntm.org/manuscript/Group/GA_P52, consulted 2026-09-29; Greek papyrus, Manchester shelf Gr. P. 457",
+  "identity_citation": "CSNTM, Manuscript P52, https://manuscripts.csntm.org/manuscript/Group/GA_P52; L. W. Hurtado, Tyndale Bulletin 54.1 (2003), introduction, p. 1, https://era.ed.ac.uk/bitstream/1842/648/2/P52_TB_article.pdf",
+  "coverage_citation": "University of Manchester Digital Collections, Greek P 457 catalogue description, https://www.digitalviewer.manchester.ac.uk/search?keyword=Manchester&facetDate=0200s+C.E.; L. W. Hurtado, 'P52 (P. Rylands Gk. 457) and the Nomina Sacra', Tyndale Bulletin 54.1 (2003), introduction, p. 1, https://era.ed.ac.uk/bitstream/1842/648/2/P52_TB_article.pdf; consulted 2026-09-29",
+  "coverage_reason": "The library catalogue and Hurtado identify surviving partial lines on this side of the fragment; the NTVMR page entry is a matching index candidate. This establishes partial verse survival, not full wording.",
+  "coverage": [
+    {"osis_ref": "John.18.31", "ntvmr_ref": "John.18.31", "page_id": 10, "status": "partial"},
+    {"osis_ref": "John.18.32", "ntvmr_ref": "John.18.32", "page_id": 10, "status": "partial"},
+    {"osis_ref": "John.18.33", "ntvmr_ref": "John.18.33", "page_id": 10, "status": "partial"},
+    {"osis_ref": "John.18.37", "ntvmr_ref": "John.18.37", "page_id": 20, "status": "partial"},
+    {"osis_ref": "John.18.38", "ntvmr_ref": "John.18.38", "page_id": 20, "status": "partial"}
+  ]
+}
