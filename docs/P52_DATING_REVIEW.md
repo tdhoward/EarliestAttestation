@@ -1,5 +1,13 @@
 # Bounded P52 source and dating review
 
+P52 is an example manuscript and regression-test fixture. This document preserves
+the existing source review; it is not an active task to resolve P52's date.
+The [project dating policy](../README.md#manuscript-dating-policy) supersedes the
+former requirement to choose a preferred P52 interval after human adjudication.
+Contributors are not qualified to settle manuscript dating disputes. Defer to
+documented scholarly consensus where known; otherwise treat the sourced ranges
+as equally valid possibilities. This review does not establish a consensus.
+
 Reviewed by Codex on 2026-09-29. This is a fresh agent check of cited sources,
 not independent human approval or a complete examination of the papyrus. The
 machine-readable source review is
@@ -58,25 +66,28 @@ comparanda, not to P52. The new assessment preserves Barker's `II or III`
 notation and its source location alongside the numeric normalization.
 
 Under `p52-cautious-source-v1`, the date selection remains explicitly `null`.
-No P52 ranking is computed. Selecting a rankable scholarly date would require
-a documented policy decision after independent human review of the physical
-evidence and dating interpretation. Barker's interval is a defensible candidate
-for that review, not an approved project date.
-The five coverage reviews are not yet linked to the writing unit; that link is
-reserved for the dated ranking replay once the selection is resolved. A separate
-human check of the physical evidence and dating interpretation remains open.
+No P52 ranking is computed by this replay, and its five coverage reviews are not
+yet linked to the writing unit. These describe the saved example's implementation
+state, not a requirement to settle its dating before continuing the project.
+The existing test-only ranking uses Barker's interval to exercise the engine; it
+does not give that interval preference over the catalogue range. Sourced ranges
+remain equally valid possibilities unless documented consensus is known. Source
+descriptions without usable numeric bounds remain visible without invented dates.
 
-## Independent review handoff
+## Scope of any future source check
 
-A human reviewer should record their name, review date, consulted source locations,
-and any disagreement in a new versioned manifest. In particular, they should:
+No further P52-specific dating investigation is a development milestone. If these
+records are checked for reuse, record the reviewer, review date, source locations,
+and any recording corrections in a new versioned manifest. The check covers:
 
-1. Check the fragment image or a reliable transcription against the five partial
-   John 18 claims, and confirm whether the recto and verso belong to one writing
-   unit. The current review cites descriptions; it did not inspect the object.
-2. Read Barker's P52 discussion on pp. 573-574 and its conclusion on p. 582,
-   check the `II or III` wording and the 101-300 CE normalization, and compare
-   that assessment with the NTVMR catalogue and Nongbri's dating caution.
-3. Record an explicit policy choice and reason, including why its selected bounds
-   suit the project's ranking scenarios. If the evidence remains unresolved,
-   leave the selection `null` and keep ranking pending.
+1. Source support for the five partial John 18 coverage claims and the writing
+   unit assignment. The existing review cites descriptions; it did not inspect
+   the object.
+2. Faithful transcription of each source's date notation and qualifications,
+   with any numeric conversion documented. This is a check of source recording,
+   not an evaluation of which palaeographic argument is correct.
+3. Preservation of all sourced alternatives on equal terms unless a cited source
+   establishes scholarly consensus. The current single-assessment ranking
+   interface must not turn a technical selection into a scholarly preference.
+   Future outputs must expose the alternatives and their effects as described
+   in the [development plan](DEVELOPMENT_PLAN.md#5-rank-independently-for-both-date-scenarios).

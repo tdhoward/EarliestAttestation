@@ -15,6 +15,14 @@ remaining source-validation work, and next steps are tracked in the
 [README](../README.md). Do not use the legacy defect list as a checklist of missing
 features in the replacement collector.
 
+**Current dating policy:** the [project policy](../README.md#manuscript-dating-policy)
+now explicitly defers to documented scholarly consensus when known and treats
+the various sourced date ranges as equally valid possibilities otherwise.
+Contributors are not qualified to resolve dating disputes. The historical
+recommendations below to preserve separate, selectable assessments do not call
+for selecting a preferred scholar or resolving P52's date. P52 remains an example
+and regression test; its uncertainty does not block broader development.
+
 ## Conclusion
 
 Keep NTVMR as the initial catalogue/index source, but rebuild the derived results

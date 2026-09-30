@@ -5,6 +5,13 @@ This plan tracks the replacement collector and its validation gates. The
 disabled legacy collector; its defects are not a current implementation checklist.
 The [README](../README.md) contains command syntax and reproducibility instructions.
 
+The [manuscript dating policy](../README.md#manuscript-dating-policy) governs this
+plan: defer to documented scholarly consensus when known; otherwise preserve
+sourced date ranges as equally valid possibilities. Contributors are not
+qualified to adjudicate manuscript dating disputes. Validation checks faithful
+use of sources, not resolution of those disputes. P52 is an example and test
+fixture, and its dating uncertainty does not block broader project work.
+
 ## Progress reviewed on 2026-09-29
 
 The replacement database filename remains `ntvmr-v2.sqlite`; the current schema is
@@ -16,8 +23,8 @@ The replacement database filename remains `ntvmr-v2.sqlite`; the current schema 
 | Candidate discovery | Named-witness searches, resumable lookups for up to 20 explicit IDs, scoped index inversion and omission reports | Exhaustive discovery beyond a declared ID set; unresolved unfiltered catalogue probes |
 | Source type and physical identity | Source-linked metadata and append-only classification, identity links, corrections and change flags | Review additional documents and joined fragments; no automatic identity inference |
 | Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Whole-NT NA28 inventory, editorial/mapping review, independently checked real absence cases |
-| Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 original-unit review with four distinct dating observations, including Barker's full argument, and an explicit unresolved policy selection | Independent human check and a defensible selected scholarly interval; no date assessment or selection in the inspected local database |
-| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; test-only P52 scenario exercises both rankings with reviewed coverage and Barker's assessment | Human-approved dated real-witness benchmark; no ranking snapshot in the inspected database |
+| Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 example with four dating observations and a null selection | Record documented consensus where known and retain equal alternatives otherwise; check source fidelity; no date assessment or selection in the inspected local database |
+| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; test-only P52 scenario exercises both rankings with one sourced assessment | Carry equal dating alternatives through results and benchmark them with real witnesses; no ranking snapshot in the inspected database |
 | Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls | Wider independently checked scholarly benchmark, versioned corpus export and graph |
 
 The offline suite passes **61 tests on Python 3.12.6**. The combined reviewed audit
@@ -50,24 +57,13 @@ explicit ID set, when every requested ID is returned and the reported count agre
 
 ## Next development work
 
-1. **Resolve the bounded P52 dating review and obtain independent human review.**
-   The [Codex source check](P52_DATING_REVIEW.md) records the inventory, identity,
-   partial coverage, original writing unit, four competing dating observations,
-   and an unresolved choice under `p52-cautious-source-v1`. Barker's full argument
-   supports a broad second-or-third-century assessment, normalized to 101-300 CE.
-   An independent human should check the physical evidence, that normalization,
-   and the scholarly dating sources before a policy selects a rankable date. Keep
-   the captured 125-175 catalogue interval unselected unless the policy explicitly
-   justifies it; do not derive bounds from an abstract.
-2. **Exercise the existing ranking path with real reviewed inputs.** After a
-   usable date is selected, link each current P52 coverage review to its writing
-   unit, version the benchmark with cited date expectations, and compute both
-   scenarios for the five positive verses. Reproduce the results offline from a
-   fresh database and pass the combined audit. This is a bounded P52 demonstration;
-   it cannot establish the earliest witness in the broader corpus. A test-only
-   replay now checks the technical path with Barker's broad interval in a temporary
-   database; it is not a scholarly selection or a publishable ranking snapshot.
-3. **Expand the scholarly benchmark in small increments.** Add P66/P75, a Pauline
+1. **Broaden the verse inventory and manuscript discovery.** Curate and review
+   the NA28 reference list and mappings; resolve the unfiltered catalogue contract
+   with a separately scoped, budgeted check when needed. Record the inclusion
+   policy and completeness of each declared scope. Preserve pending or failed
+   work explicitly. Increase request volume only after these checks and provider
+   expectations are established. This work does not depend on resolving P52's date.
+2. **Expand the source-based benchmark in small increments.** Add P66/P75, a Pauline
    papyrus, a major codex, a later supplement, and a witness with a substantial
    gap. Cover positive and rejected claims, competing dates, and duplicate
    physical identities. The indexed coverage-review path still requires an
@@ -75,16 +71,24 @@ explicit ID set, when every requested ID is returned and the reported count agre
    records a checked image or reviewed transcription at an inventory verse without
    an index row, and flags contradictions with positive coverage. Its tests are
    synthetic; independently checked real absence cases remain to be added.
-4. **Complete the inventory and discovery gates before scaling.** Curate and
-   review the NA28 reference list and mappings; resolve the unfiltered catalogue
-   contract with a separately scoped, budgeted check when needed. Record the
-   inclusion policy and completeness of each declared scope. Preserve pending or
-   failed work explicitly. Increase request volume only after these checks and
-   provider expectations are established.
+3. **Carry dating uncertainty through the general ranking workflow.** Record
+   cited consensus where known. Otherwise retain each sourced range as an equally
+   valid possibility and expose its effect on both endpoint rankings. The current
+   interface selects one assessment per writing unit under a named policy;
+   complete handling and presentation of alternatives remain implementation work.
+   Do not make contributors choose which scholar is correct to satisfy that
+   interface. Preserve original notation, citations, and documented conversions.
+4. **Exercise rankings with representative sourced inputs.** Check both endpoint
+   scenarios for documented consensus and for competing ranges, including changed
+   first-five membership. Reproduce results offline and check source fidelity,
+   coverage, and witness deduplication. Keep existing P52 regression tests and
+   manifests; its test-only ranking is sufficient for its role as an example.
+   Further P52 research or a preferred P52 date is not an acceptance criterion.
 5. **Export and graph only after the validation gates below.** Keep the legacy
    results, candidate index samples, synthetic ranking fixtures, and historically
    reviewed outputs explicitly labeled. A green test suite or P52 source control
-   alone is not publication readiness.
+   alone is not publication readiness. Validation must preserve dating uncertainty;
+   it must not require scholarly disputes to be settled.
 
 The numbered sections below retain the research requirements and acceptance
 criteria, including those already implemented. Use the status table and next-work
@@ -108,9 +112,15 @@ list above to choose work; do not restart completed collection or ranking slices
    Translations and dates of an author's composition must not silently enter the
    Greek manuscript series. Broader witness types can be separate later views.
 4. **Dates:** retain inclusive lower and upper CE bounds, original source notation,
-   citation, and assessment identity. Unknown/invalid dates remain unknown and
-   are excluded from date ranking. A later correction or addition uses the date
-   of that writing layer, not automatically the host manuscript's original date.
+   citation, and assessment identity. Defer to cited scholarly consensus when
+   known. Otherwise treat the various sourced scholarly ranges as equally valid
+   possibilities, without project preferences or assigned probabilities. Preserve
+   complete ranges rather than averaging, narrowing, or merging them. Record
+   unknown consensus explicitly; a catalogue entry alone does not establish it.
+   Unknown/invalid bounds remain unavailable for numeric ranking; disagreement
+   between usable intervals does not make those intervals unusable. A later
+   correction or addition uses the sourced date of that writing layer, not
+   automatically the host manuscript's original date.
 5. **Counting:** count distinct physical witnesses once per verse. Joined fragments,
    alternate catalogue IDs, duplicate photos, multiple pages, and repeated verse
    occurrences must not inflate the count. Five witnesses do not imply five
@@ -209,8 +219,11 @@ Keep candidate index entries separate from verified `coverage_evidence` (or use 
 explicit validation state). Keep multiple pages/sources for a verse; expose a
 deduplicated witness/verse view for counting. Enforce foreign keys and valid
 interval constraints. Keep unknown dates with explicit status, not zero or an
-invented year. Preserve competing assessments; select one policy coherently rather
-than taking the lowest bound from one scholar and the highest from another.
+invented year. Preserve competing assessments as complete, separately cited
+ranges. Record the evidence for any known consensus; otherwise retain equal
+alternatives. A policy identifies calculation inputs, not a project judgment
+about which scholar is correct. Do not combine bounds from different assessments
+into a new manuscript date.
 
 Store numeric canonical order explicitly. Resolve examples such as John 5:4,
 John 7:53–8:11, Mark 16:9–20, and terminal verse numbering in 2 Corinthians and
@@ -255,9 +268,15 @@ payloads have explicit tests. Unknown indexing is not equated with physical abse
 
 ## 5. Rank independently for both date scenarios
 
-For each verse, start with **all** eligible verified witnesses with a valid selected
-date interval `[a_i, b_i]` for the attesting writing unit. If one physical witness
-has multiple qualifying dated units for that verse, derive its earliest event in
+For each explicitly identified dating alternative and verse, start with **all**
+eligible verified witnesses with a sourced date interval `[a_i, b_i]` for the
+attesting writing unit. Use documented consensus where known and preserve the
+various sourced ranges as equally valid possibilities otherwise. Each calculation
+uses complete assessments and records which ones it uses. The existing engine
+handles one assessment per unit per policy; exposing alternatives across results
+remains required implementation work, not a reason to resolve scholarly disputes.
+If one physical witness has multiple qualifying dated units for that verse,
+derive its earliest event in
 each scenario first; it still contributes only once to the witness count.
 
 - Optimistic: sort by `(date_min, date_max, stable_witness_id)` and take five.
@@ -266,6 +285,11 @@ each scenario first; it still contributes only once to the witness count.
 Tie-breaks make exports deterministic, not historically certain. Store the entire
 interval and provenance with every result. Preserve witnesses outside these top
 five so a new dating assessment can be applied without new downloads.
+
+The two endpoint scenarios must be evaluated within each dating alternative;
+neither scenario selects the correct scholar. Results must expose how alternatives
+change event years, membership, or order, without assigning preferences or
+probabilities. Multiple assessments never count as multiple physical witnesses.
 
 Example using fictional witnesses:
 
@@ -289,17 +313,28 @@ count_s(verse, y) = min(5, number of distinct eligible witnesses with event_year
 **Acceptance:** tests cover the ranking reversal above, different top-five
 membership with at least six witnesses, ties/simultaneous events, fewer than five,
 duplicate fragments/pages, invalid dates, and recomputation after a date change or
-withdrawn attestation. A valid empty result clears stale rankings atomically;
+withdrawn attestation. Include documented-consensus inputs and competing ranges
+with no known consensus; verify equal treatment, source traceability, and no
+double-counting of a witness across its assessments. A valid empty result clears
+stale rankings atomically;
 a failed refresh is reported as stale/failed instead of pretending to be empty.
 
-## 6. Establish scholarly validation before graphing
+## 6. Validate source fidelity and coverage before graphing
 
 Create a small reviewed benchmark with stable citations, recorded source dates,
-positive and negative verse coverage, and expected date assessments. Begin with
-P52, then add P66/P75, one Pauline papyrus, one major codex, a late supplement,
-and a witness with a substantial gap. Do not hardcode their dates from memory.
+positive and negative verse coverage, and expected sourced date assessments.
+Retain P52 as an existing example; expand to P66/P75, one Pauline papyrus, one
+major codex, a late supplement, and a witness with a substantial gap. Do not
+hardcode their dates from memory.
 The benchmark should test individual evidence claims rather than asserting one
 famous manuscript must always win.
+
+Dating validation establishes that source ranges, qualifications, conversions,
+and any documented consensus are faithfully represented. Where consensus is
+unknown, it checks preservation of equal alternatives. Neither human reviewers
+nor agents are tasked with deciding which dating argument is correct. A disputed
+date is not a benchmark failure or a publication blocker when its uncertainty is
+represented faithfully; missing citations or concealed alternatives are defects.
 
 Require these layers:
 
@@ -308,7 +343,7 @@ Require these layers:
 | Unit/fixture tests | Parser contracts, mapping, identity, intervals, scenario ranking |
 | Temporary-DB integration tests | Transactions, resume, updates/removals, constraints, offline replay |
 | Structural audits | Dangling references, stale dates, unsupported winners, missing processing |
-| Scholarly benchmark | Cited surviving text and date assessments for representative real witnesses |
+| Source-based benchmark | Cited surviving text, faithfully recorded date assessments, and preservation of dating uncertainty for representative real witnesses |
 | Optional live contract test | Small, explicitly budgeted check for upstream schema/filter changes |
 
 Report counts by book, century, source type, indexing/review state, and collection
@@ -324,7 +359,10 @@ Only after the above gates, export a versioned dataset containing every NA28
 inventory coordinate in canonical order, zero-to-five witnesses per scenario,
 event years, full date intervals, source/evidence links, and completeness status.
 An export should identify its edition, source snapshot, inclusion/dating policy,
-and validation version. It must support reproduction without fresh API requests.
+and validation version. Include consensus status and its supporting citation where
+known; otherwise expose equally valid alternative ranges and their ranking
+outcomes. Preserve original notation and conversions as well as numeric bounds.
+It must support reproduction without fresh API requests.
 
 Plot verse positions horizontally and CE years vertically, **newer at the top**.
 Moving upward from earlier to later years, show no witness color before the first
@@ -336,13 +374,17 @@ series. Show omitted/bracketed coordinates according to the edition policy.
 
 Provide book/chapter navigation, zoom, and a tooltip/table with the ranked
 witnesses, both date bounds, partial coverage status, and source links. A static
+chart or interactive view must identify the dating inputs it depicts and make
+alternative outcomes available without implying a preferred range. A static
 export and a tabular alternative make results inspectable without relying on
 hover or color. Title the chart as surviving verse evidence, not exact wording or
 date of composition.
 
 **Acceptance:** graph samples match benchmark tables; higher CE years appear
 above lower ones; color counts never decrease going forward in time; missing
-data are visible; both scenarios can be traced back to their evidence. Use static
+data are visible; both endpoint scenarios and competing dating alternatives can
+be traced back to their evidence. Unresolved scholarly disagreement remains
+visible and does not require project adjudication. Use static
 tests and production builds for frontend verification. Do not start a development
 server or probe localhost unless the project owner asks.
 
@@ -354,6 +396,10 @@ server or probe localhost unless the project owner asks.
 - Keep source observations, automated checks, and independent human review
   distinguishable. Record who actually reviewed a claim; do not present a replay
   or an agent's source review as human approval.
+- Apply the manuscript dating policy consistently. Do not schedule dispute
+  resolution or further P52-specific dating research as a development prerequisite.
+  Source checks establish faithful recording; contributors do not approve or
+  reject scholars' dating arguments.
 - Use temporary or separate replay databases for verification. The two audit
   scripts are read-only; collector reports and collector `--dry-run` can create
   or upgrade the schema. The P52 replay's `--dry-run` validates manifests without

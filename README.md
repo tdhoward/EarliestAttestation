@@ -11,6 +11,34 @@ that the whole verse, its exact NA28 wording, or neighboring verses survived. Fo
 example, P52 preserves portions of John 18:31–33 and 18:37–38; this project must not
 fill in 18:34–36. See the [coverage reference and review](docs/DATA_REVIEW.md).
 
+## Manuscript dating policy
+
+This project records scholarly dating assessments and preserves their uncertainty.
+Project contributors are not qualified to resolve manuscript dating disputes, and
+resolving them is outside the project's scope.
+
+- Defer to scholarly consensus whenever it is known, citing the source that
+  establishes that consensus and preserving its stated range and qualifications.
+  A single catalogue entry or the project's own count of opinions does not by
+  itself establish consensus.
+- Where consensus is unknown or disputed, treat the various sourced scholarly
+  date ranges as equally valid possibilities. Retain each complete range with its
+  citation; do not choose a preferred scholar, narrow or average the ranges, or
+  merge their endpoints into a new manuscript date. Equal treatment does not
+  assign numerical probabilities to the alternatives.
+- Preserve original date notation and document any conversion to numeric years.
+  If bounds cannot be represented faithfully, retain the assessment as unknown
+  for numeric ranking rather than inventing precision. Disagreement between
+  usable ranges is not the same as having no usable date information.
+- Review checks faithful source recording and application to the relevant
+  manuscript or writing layer. It does not authorize contributors to adjudicate
+  the underlying dating arguments. Resolving dating disputes is not a
+  prerequisite for continuing collection, coverage work, or development.
+
+P52 remains an illustrative manuscript and regression-test fixture. Its existing
+source notes are retained, but settling its date or extending its dedicated
+dating review is not a project milestone.
+
 ## Current status
 
 This is a Python/SQLite research prototype. Controlled collection, append-only
@@ -50,8 +78,10 @@ The [bounded P52 dating review](docs/P52_DATING_REVIEW.md) checks cited sources 
 a Codex review and records an original writing unit, four competing dating
 observations, and an explicit unresolved selection under
 `p52-cautious-source-v1`. It replays into a separate database; the local reviewed
-snapshot counts above have not changed. An independent human review and a
-policy selection of a scholarly interval are still needed before a bounded ranking.
+snapshot counts above have not changed. Its null selection is a legacy replay
+state, not a requirement to resolve P52's date. The current ranking path uses one
+assessment per writing unit under each policy; presenting competing ranges on
+equal terms across rankings, exports, and charts remains implementation work.
 Broader witnesses, discovery completeness, and a whole-NT inventory remain open.
 Use the [development plan](docs/DEVELOPMENT_PLAN.md)
 for current priorities and acceptance criteria; the original review is the legacy
@@ -283,6 +313,13 @@ writing layer gets its own unit and date; it does not inherit the original hand'
 date. Superseded coverage links remain in the report as history and are marked
 `current_positive: false`.
 
+These commands describe the existing storage interface. A `select_date` action
+identifies the input to a particular calculation; it does not establish scholarly
+consensus or make that assessment preferable to other sourced alternatives.
+Without known consensus, any calculation using a single range must be labeled
+as conditional on that range. Complete output must preserve the alternatives
+and their effects on rankings, as required by the dating policy above.
+
 Use `--dating-action path/to/action.json` for one offline decision and
 `--dating-report WITNESS_ID` to inspect its units, competing dates, selection
 history, and coverage links. Each action must have exactly the shown fields:
@@ -335,7 +372,9 @@ python sync_ntvmr.py --db data/ntvmr-v2.sqlite --ranking-inventory INVENTORY_ID 
 These commands make no network requests. Ranking reports return a nonzero exit
 status for `uncomputed`, `incomplete`, `stale`, or `failed` results. The bounded P52
 coverage review has no selected scholarly date, and there is no whole-NT inventory or
-complete discovery, so the repository has no historical ranking to publish.
+complete discovery. The repository has no historical ranking to publish. P52's
+unselected date is a limitation of that replay, not a project-wide blocker or a
+request for contributors to settle the dating dispute.
 
 ## Reviewed-data audit and P52 replay
 
@@ -410,8 +449,9 @@ check and back up an existing reviewed database before applying a replay to it.
 Replaying v2 over an unchanged v1 dating review appends Barker's assessment and
 a new null selection while preserving the prior entries.
 Its reviewer is identified as a Codex source review; an independent human check
-of the library and published source remains necessary
-before using these records for a historical publication. The five missing
+of coverage and faithful recording of the library and published sources remains
+necessary before using these records for a historical publication. This check
+does not require resolving competing dating assessments. The five missing
 neighboring verses remain source controls, not invented negative page reviews.
 
 The separate [P52 date-source control](benchmarks/p52-date-source-v1.json) pins
@@ -438,10 +478,19 @@ access blocks; a proxy or VPN should not be used to evade a block.
 
 ## Date scenarios and chart semantics
 
-For each verse, retain every eligible, verified witness with its sourced
-`date_min` and `date_max`. Rank all candidates twice: by `date_min` for the
+For each verse, retain every eligible, verified witness and its sourced date
+assessments. Use the documented consensus range when consensus is known; otherwise
+carry the competing ranges as equally valid alternatives. Within each explicitly
+identified dating alternative, rank all candidates twice: by `date_min` for the
 optimistic view, and by `date_max` for the pessimistic view. Select the first five
 separately in each view; their membership and order may differ.
+
+The optimistic/pessimistic pair describes the two ends of the ranges used in a
+calculation; it does not resolve differences between scholars. Exports and charts
+must identify those inputs and expose alternative ranges and resulting changes
+in membership or order without silently favoring one. A manuscript still counts
+once per verse in each result, however many dating assessments it has. This
+presentation of alternatives is required behavior, not yet a completed feature.
 
 Moving from older to newer years, a verse becomes colored at its first witness's
 scenario date and changes shade at witnesses two through five. Unknown or
