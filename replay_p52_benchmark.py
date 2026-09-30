@@ -26,7 +26,7 @@ COVERAGE_FIXTURE = ROOT / "tests" / "fixtures" / "p52_coverage_probe.json"
 LANGUAGE_FIXTURE = ROOT / "tests" / "fixtures" / "p52_language_probe.json"
 SOURCE_CONTROLS = ROOT / "benchmarks" / "p52-source-controls-v1.json"
 DATE_SOURCE = ROOT / "benchmarks" / "p52-date-source-v1.json"
-DATING_REVIEW = ROOT / "benchmarks" / "p52-dating-review-v1.json"
+DATING_REVIEW = ROOT / "benchmarks" / "p52-dating-review-v2.json"
 RUN_ID = "p52-reviewed-v1"
 
 
@@ -79,7 +79,7 @@ def load_dating_review(witness_id):
             set(review["unit"]) != {"unit_id", "label", "kind", "reason", "citation"} or
             review["unit"]["kind"] != "original" or
             not isinstance(review["assessments"], list) or
-            len(review["assessments"]) != 3 or
+            len(review["assessments"]) not in (3, 4) or
             not isinstance(review["selection"], dict) or
             set(review["selection"]) != {"policy_id", "assessment_id", "reason"} or
             review["selection"]["assessment_id"] is not None):
@@ -100,12 +100,21 @@ def load_dating_review(witness_id):
     if any(not isinstance(value, str) or not value.strip()
            for value in required_text):
         raise ValueError("P52 dating review requires source and policy text")
-    if (review["assessments"][0]["status"] != "valid" or
+    if (review["review_id"] not in ("p52-dating-review-v1", "p52-dating-review-v2") or
+            len(review["assessments"]) !=
+            (3 if review["review_id"].endswith("v1") else 4) or
+            review["assessments"][0]["status"] != "valid" or
             (review["assessments"][0]["date_min"],
              review["assessments"][0]["date_max"],
              review["assessments"][0]["original_notation"]) != (125, 175, "II (M)") or
             any(a["status"] != "unknown" or a["date_min"] is not None or
-                a["date_max"] is not None for a in review["assessments"][1:])):
+                a["date_max"] is not None for a in review["assessments"][1:3]) or
+            (len(review["assessments"]) == 4 and
+             (review["assessments"][3]["status"],
+              review["assessments"][3]["date_min"],
+              review["assessments"][3]["date_max"],
+              review["assessments"][3]["original_notation"]) !=
+             ("valid", 101, 300, "II or III"))):
         raise ValueError("P52 dating review differs from the bounded source claims")
     return review
 
@@ -130,23 +139,22 @@ def apply_dating_review(con, review):
     existing = con.execute("""SELECT status,date_min,date_max,original_notation,
         citation,consulted_on,reviewer FROM date_assessment WHERE unit_id=? ORDER BY id""",
         (unit_id,)).fetchall()
-    if existing and existing != expected_assessments:
+    if existing != expected_assessments[:len(existing)]:
         raise ValueError("Existing P52 date assessments differ; review them manually")
-    if not existing:
-        for a in review["assessments"]:
-            record_date_assessment(con, unit_id, a["status"], a["date_min"],
-                                   a["date_max"], a["original_notation"],
-                                   a["citation"], review["reviewed_on"],
-                                   review["reviewer"])
     selection = review["selection"]
     expected_selection = (selection["policy_id"], None, selection["reason"],
                           review["reviewer"])
     prior = con.execute("""SELECT policy_id,assessment_id,reason,reviewer
         FROM date_selection WHERE unit_id=? AND policy_id=? ORDER BY id DESC LIMIT 1""",
         (unit_id, selection["policy_id"])).fetchone()
-    if prior is not None and prior != expected_selection:
+    if prior is not None and prior[1] is not None:
         raise ValueError("Existing P52 date selection differs; review it manually")
-    if prior is None:
+    for a in review["assessments"][len(existing):]:
+        record_date_assessment(con, unit_id, a["status"], a["date_min"],
+                               a["date_max"], a["original_notation"],
+                               a["citation"], review["reviewed_on"],
+                               review["reviewer"])
+    if prior != expected_selection:
         select_date_assessment(con, unit_id, None, selection["policy_id"],
                                selection["reason"], review["reviewer"])
 

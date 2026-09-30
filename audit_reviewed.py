@@ -12,7 +12,8 @@ import sqlite3
 import sys
 
 from controlled_ntvmr import (coverage_review_report, encoded, inventory_ref_parts,
-                              parse_search, rank_candidates, ranking_input, ranking_report)
+                              parse_search, physical_absence_report, rank_candidates,
+                              ranking_input, ranking_report)
 
 
 def load_benchmark(path):
@@ -61,12 +62,13 @@ def load_benchmark(path):
             date.fromisoformat(case["reviewed_on"])
         except ValueError as error:
             raise ValueError("Benchmark reviewed_on must be YYYY-MM-DD") from error
-        if case["expected_coverage"] not in ("positive", "rejected"):
-            raise ValueError("Expected coverage must be positive or rejected")
+        if case["expected_coverage"] not in ("positive", "rejected", "absent"):
+            raise ValueError("Expected coverage must be positive, rejected, or absent")
         expected_status = case.get("expected_status")
         if expected_status is not None and expected_status not in (
                 ("partial", "full") if case["expected_coverage"] == "positive"
-                else ("rejected",)):
+                else ("rejected",) if case["expected_coverage"] == "rejected"
+                else ("absent",)):
             raise ValueError("Expected status conflicts with coverage expectation")
         interval = case["expected_date"]
         if interval is not None:
@@ -253,7 +255,8 @@ def audit_database(db_path, benchmark=None, source_controls=None, date_source=No
     try:
         con.execute("PRAGMA query_only=ON")
         con.execute("BEGIN")
-        required = {"edition_inventory", "edition_verse", "coverage_review", "ranking_snapshot",
+        required = {"edition_inventory", "edition_verse", "coverage_review",
+                    "physical_absence_review", "ranking_snapshot",
                     "ranking_entry", "date_assessment", "date_selection", "physical_witness"}
         tables = {row[0] for row in con.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         if required - tables:
@@ -274,6 +277,15 @@ def audit_database(db_path, benchmark=None, source_controls=None, date_source=No
             "GROUP BY inventory_id,book ORDER BY inventory_id,book_order")]
         review_counts = [dict(zip(("status", "count"), row)) for row in con.execute(
             "SELECT status,count(*) FROM coverage_review GROUP BY status ORDER BY status")]
+        absence_counts = [dict(zip(("decision", "count"), row)) for row in con.execute(
+            "SELECT decision,count(*) FROM physical_absence_review GROUP BY decision ORDER BY decision")]
+        for (inventory_id,) in con.execute("SELECT inventory_id FROM edition_inventory ORDER BY inventory_id"):
+            for absence in physical_absence_report(con, inventory_id)["reviews"]:
+                if absence["conflicts_with_positive"]:
+                    findings.append(_finding("absence_positive_conflict", {
+                        "inventory_id": inventory_id, "osis_ref": absence["osis_ref"],
+                        "witness_id": absence["witness_id"],
+                        "physical_absence_review_id": absence["review_id"]}))
         job_counts = [dict(zip(("stage", "state", "count"), row)) for row in con.execute(
             "SELECT stage,state,count(*) FROM collection_job "
             "GROUP BY stage,state ORDER BY stage,state")]
@@ -323,7 +335,19 @@ def audit_database(db_path, benchmark=None, source_controls=None, date_source=No
                                not row["review_needed"] for row in matching)
                 any_positive = any(row["status"] in ("partial", "full") and
                                    not row["review_needed"] for row in matching)
-                if not (positive if case["expected_coverage"] == "positive" else rejected and not any_positive):
+                current_absences = [row for row in
+                                    physical_absence_report(con, manifest["inventory_id"],
+                                                            case["osis_ref"])["reviews"]
+                                    if row["witness_id"] == case["witness_id"] and
+                                    row["decision"] == "absent"]
+                absent = any(row["citation"] == case["coverage_citation"] and
+                             not row["conflicts_with_positive"] for row in current_absences)
+                matched = (positive and not current_absences if
+                           case["expected_coverage"] == "positive"
+                           else rejected and not any_positive if
+                           case["expected_coverage"] == "rejected"
+                           else absent and not any_positive)
+                if not matched:
                     findings.append(_finding("benchmark_coverage_mismatch", key))
                     continue
                 expected_date = case["expected_date"]
@@ -350,7 +374,9 @@ def audit_database(db_path, benchmark=None, source_controls=None, date_source=No
             findings.extend(date_result["findings"])
         return {"scope": "reviewed database; structural and declared benchmark checks",
                 "counts": counts, "verses_by_book": books,
-                "coverage_reviews_by_status": review_counts, "collection_jobs": job_counts,
+                "coverage_reviews_by_status": review_counts,
+                "physical_absence_reviews_by_decision": absence_counts,
+                "collection_jobs": job_counts,
                 "index_entries_by_state": [dict(zip(("state", "count"), row)) for row in
                     con.execute("SELECT state,count(*) FROM coverage_index GROUP BY state ORDER BY state")],
                 "documents_by_latest_source_type": [dict(zip(("source_type", "count"), row))

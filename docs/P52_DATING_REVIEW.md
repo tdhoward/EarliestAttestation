@@ -2,8 +2,10 @@
 
 Reviewed by Codex on 2026-09-29. This is a fresh agent check of cited sources,
 not independent human approval or a complete examination of the papyrus. The
-machine-readable decision is
-[`p52-dating-review-v1.json`](../benchmarks/p52-dating-review-v1.json).
+machine-readable source review is
+[`p52-dating-review-v2.json`](../benchmarks/p52-dating-review-v2.json).
+The [v1 manifest](../benchmarks/p52-dating-review-v1.json) remains unchanged as
+the record of the earlier three-source review.
 
 ## Inventory, identity, and surviving text
 
@@ -35,6 +37,7 @@ machine-readable decision is
 | [NTVMR captured metadata](../tests/fixtures/p52_language_probe.json), `lang=grc` response | `II (M)` | 125-175, as supplied by the API | Valid catalogue observation, unselected |
 | [CSNTM manuscript details](https://manuscripts.csntm.org/manuscript/Group/GA_P52) | `2nd Century` | Unknown | Broad label; no inclusive bounds supplied |
 | [Nongbri, *New Testament Studies* 66.4 (2020), abstract](https://doi.org/10.1017/S0028688520000089) | `extends into the third century` | Unknown | Widening caution; the accessible abstract supplies no numeric interval |
+| [Barker, *New Testament Studies* 57.4 (2011), pp. 573-574](https://research-management.mq.edu.au/ws/portalfiles/portal/62382986/Publisher%2Bversion%2B%28open%2Baccess%29.pdf) | `II or III` | 101-300 | Full palaeographic argument; broad, valid assessment, unselected |
 
 Nongbri's [author account](https://brentnongbri.com/2020/09/25/a-new-article-on-p52-in-new-testament-studies/)
 also explains why some of Roberts's palaeographic comparisons need caution.
@@ -43,9 +46,37 @@ neither provides a complete inclusive interval to enter. The NTVMR range was
 recorded verbatim with its supplied bounds, without treating its narrower
 catalogue observation as a consensus dating assessment.
 
-Under `p52-cautious-source-v1`, the date selection is explicitly `null`.
+Barker compares P52 with dated documentary hands across a long-lived script
+tradition. His P52 discussion rejects a narrow placement and concludes that
+second or third century is supportable; the article's conclusion reiterates the
+limits of close palaeographic dating. The interval 101-300 CE is this project's
+inclusive normalization of those two complete CE centuries. It is not a
+statistical confidence interval, a claim that the endpoints were measured, or a
+date derived from Nongbri's abstract. Barker discusses several dated comparanda,
+including examples in 184, 190, 200, and 218-225 CE; those dates belong to the
+comparanda, not to P52. The new assessment preserves Barker's `II or III`
+notation and its source location alongside the numeric normalization.
+
+Under `p52-cautious-source-v1`, the date selection remains explicitly `null`.
 No P52 ranking is computed. Selecting a rankable scholarly date would require
-a defensible complete interval and a documented source and policy decision.
+a documented policy decision after independent human review of the physical
+evidence and dating interpretation. Barker's interval is a defensible candidate
+for that review, not an approved project date.
 The five coverage reviews are not yet linked to the writing unit; that link is
 reserved for the dated ranking replay once the selection is resolved. A separate
 human check of the physical evidence and dating interpretation remains open.
+
+## Independent review handoff
+
+A human reviewer should record their name, review date, consulted source locations,
+and any disagreement in a new versioned manifest. In particular, they should:
+
+1. Check the fragment image or a reliable transcription against the five partial
+   John 18 claims, and confirm whether the recto and verso belong to one writing
+   unit. The current review cites descriptions; it did not inspect the object.
+2. Read Barker's P52 discussion on pp. 573-574 and its conclusion on p. 582,
+   check the `II or III` wording and the 101-300 CE normalization, and compare
+   that assessment with the NTVMR catalogue and Nongbri's dating caution.
+3. Record an explicit policy choice and reason, including why its selected bounds
+   suit the project's ranking scenarios. If the evidence remains unresolved,
+   leave the selection `null` and keep ranking pending.

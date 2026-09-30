@@ -15,7 +15,7 @@ fill in 18:34–36. See the [coverage reference and review](docs/DATA_REVIEW.md)
 
 This is a Python/SQLite research prototype. Controlled collection, append-only
 reviews, writing-unit dating, and both first-five ranking scenarios are implemented
-through schema version 11. There is no graph or validated corpus export yet.
+through schema version 12. There is no graph or validated corpus export yet.
 **The legacy `ntvmr.sqlite` is exploratory and should not be used to make historical
 claims.** The [original review](docs/DATA_REVIEW.md) found:
 
@@ -36,20 +36,22 @@ identity, coverage, and date records. This does not repair or certify the legacy
 results. The [offline P52 index sample](examples/p52-index-sample.json) remains a
 single-witness candidate index.
 
-The progress check on 2026-09-29 passed **55 offline tests** on Python 3.12.6.
+The progress check on 2026-09-29 passed **61 offline tests** on Python 3.12.6.
 The local reviewed database has ten John 18 inventory coordinates, five explicit
 NTVMR mappings, one physical witness, and five cited partial-coverage decisions.
 Its combined audit passes all five evidence cases and both source controls with
 zero findings. It has **no date assessments, selected dates, or ranking snapshots**;
 `historical_validation_complete` remains false. These counts describe the inspected
-local snapshot, which is not distributed with the repository.
+local snapshot, which is not distributed with the repository. That snapshot was
+inspected before v12 and needs a backed-up additive schema upgrade before the
+current read-only audit can run.
 
-The [bounded P52 dating review](docs/P52_DATING_REVIEW.md) independently checks the
-existing source claims as a Codex review and records an original writing unit,
-three competing dating observations, and an explicit unresolved selection under
+The [bounded P52 dating review](docs/P52_DATING_REVIEW.md) checks cited sources as
+a Codex review and records an original writing unit, four competing dating
+observations, and an explicit unresolved selection under
 `p52-cautious-source-v1`. It replays into a separate database; the local reviewed
 snapshot counts above have not changed. An independent human review and a
-defensible selected scholarly interval are still needed before a bounded ranking.
+policy selection of a scholarly interval are still needed before a bounded ranking.
 Broader witnesses, discovery completeness, and a whole-NT inventory remain open.
 Use the [development plan](docs/DEVELOPMENT_PLAN.md)
 for current priorities and acceptance criteria; the original review is the legacy
@@ -138,7 +140,7 @@ metadata and coverage job states. The conservative five-second spacing is a
 project default, not a confirmed NTVMR quota.
 
 `data/ntvmr-v2.sqlite` names the replacement database; its current SQLite
-`user_version` is **11**. This filename is not the schema version. Always pass
+`user_version` is **12**. This filename is not the schema version. Always pass
 `--db` explicitly: the CLI default is `ntvmr-v2.sqlite` in the working directory.
 `--offline` prevents network requests but still permits local writes. Collector
 `--dry-run` skips the requested collection or review writes but opens the database
@@ -244,6 +246,31 @@ python sync_ntvmr.py --db data/ntvmr-v2.sqlite --coverage-report INVENTORY_ID --
 The review and report commands make no network requests. Use the response ID from
 the stored coverage index; a search-response ID is a different source record.
 
+The v12 [physical absence review](review_absence.py) records a directly checked
+gap or other absence at a physical witness and inventory verse, including a
+specific source location, citation, reason, and reviewer. It does not require an
+NTVMR index row or verse mapping. Accepted evidence types are `checked_image` and
+`reviewed_transcription`; absence cannot be inferred from a missing API hit.
+Decisions are append-only: `absent`, `uncertain`, or `withdrawn`. A withdrawal
+requires a current prior decision. A current `absent` decision that conflicts
+with positive coverage is flagged by the report and audit, and holds ranking for
+that verse until reviewed. No real physical absence has been recorded for the
+five neighboring P52 index controls.
+
+```json
+{"format_version":1,"inventory_id":"INVENTORY_ID","osis_ref":"John.18.34","witness_id":"WITNESS_ID","decision":"absent","evidence_type":"checked_image","source_locator":"Specific folio and gap","reason":"What the checked source shows","citation":"Specific image or transcription citation","reviewer":"Reviewer name"}
+```
+
+```powershell
+python review_absence.py --db data/ntvmr-v2.sqlite --action path/to/absence.json --dry-run
+python review_absence.py --db data/ntvmr-v2.sqlite --action path/to/absence.json
+python review_absence.py --db data/ntvmr-v2.sqlite --report INVENTORY_ID --ref John.18.34
+```
+
+The absence action's dry run validates JSON without opening the database. A real
+action or report opens the schema and can upgrade an older replacement database;
+back it up first. These commands make no network requests.
+
 The v10 dating contract adds manually identified writing units (`original`,
 `correction`, `supplement`, or `uncertain`) under a physical witness. A reviewed
 coverage decision can be linked to one unit with a cited, append-only assignment.
@@ -276,10 +303,10 @@ Each line above is a separate JSON file; the IDs and dates are synthetic example
 For an unknown or invalid assessment, set
 both date bounds to `null`. To remove a coverage-unit link or date selection, set
 `unit_id` or `assessment_id` to `null` in the corresponding action and give a
-reason. The [P52 dating manifest](benchmarks/p52-dating-review-v1.json) records
-the captured NTVMR 125-175 catalogue interval with its original notation and two
-broader, unbounded source descriptions. Its policy selects `null`, so none of
-these observations currently provides a rankable scholarly date.
+reason. The [P52 dating manifest](benchmarks/p52-dating-review-v2.json) preserves
+the captured NTVMR 125-175 catalogue interval, two unbounded source descriptions,
+and Barker's second-or-third-century assessment normalized to 101-300 CE. Its
+policy selects `null`, so none currently provides a rankable project date.
 
 The new collector does not yet discover all candidates, resolve physical witness
 aliases automatically, resolve NA28 verse membership, or establish indexing tiers.
@@ -314,7 +341,7 @@ complete discovery, so the repository has no historical ranking to publish.
 
 The read-only reviewed-data audit checks SQLite integrity and foreign keys,
 recomputes stored first-five ranking entries, and flags stale snapshots. It reports
-counts by inventory book, review and index state, latest document source type,
+counts by inventory book, review, physical absence and index state, latest document source type,
 collection-job state, and the start century of valid date assessments. This is a
 structural check; a clean result does not certify historical evidence.
 
@@ -327,12 +354,15 @@ python audit_reviewed.py --db data/ntvmr-v2.sqlite --date-source benchmarks/p52-
 
 A benchmark JSON file uses `format_version: 1`, a `benchmark_id`, `inventory_id`,
 `policy_id`, and a nonempty `cases` array. Each case has `osis_ref`, `witness_id`,
-`expected_coverage` (`positive` or `rejected`), `coverage_citation`, `reviewed_on`
+`expected_coverage` (`positive`, `rejected`, or `absent`), `coverage_citation`,
+`reviewed_on`
 (ISO date), and `expected_date` and `date_citation` (both `null` when no date is
 asserted). A date is a two-element inclusive CE interval, for example `[100, 200]`.
 The audit requires the cited current review and, when supplied, a selected valid
-date interval with the same citation. It exits `1` on findings and `2` if the
-audit cannot run. Format version 2 requires shared `coverage_citation` and
+date interval with the same citation. An `absent` case requires a current direct
+physical absence review and no conflicting positive coverage. It exits `1` on
+findings and `2` if the audit cannot run. Format version 2 requires shared
+`coverage_citation` and
 `reviewed_on` fields and an `expected_status` field per case. The checked-in P52
 benchmark has five positive, explicitly `partial` coverage cases and no selected
 date; it is not a complete scholarly validation gate. An older replacement
@@ -354,8 +384,8 @@ silently replacing the pinned snapshot.
 To reproduce the [cited P52 review](benchmarks/p52-reviewed-v1.json) from a fresh
 clone, use a separate database path. The replay imports the captured index and
 date sources, bounded NA28 inventory, physical identity, five partial-coverage
-decisions, and the [writing-unit and dating review](benchmarks/p52-dating-review-v1.json).
-The latter has three date assessments and a null policy selection. The final
+decisions, and the [writing-unit and dating review](benchmarks/p52-dating-review-v2.json).
+The latter has four date assessments and a null policy selection. The final
 command audits that same replay database:
 
 ```powershell
@@ -364,12 +394,21 @@ python replay_p52_benchmark.py --db data/p52-review-replay.sqlite
 python audit_reviewed.py --db data/p52-review-replay.sqlite --benchmark benchmarks/p52-evidence-benchmark-v1.json --source-controls benchmarks/p52-source-controls-v1.json --date-source benchmarks/p52-date-source-v1.json
 ```
 
+An offline integration test uses a temporary database and a test-only policy to
+link the five coverage reviews to the original unit and select Barker's broad
+101-300 CE assessment. It verifies both scenario years for all five verses, the
+cited benchmark and source controls, and detection of a corrupted ranking entry.
+The test database is discarded; the checked-in P52 policy remains unselected and
+the replay above creates no ranking snapshots.
+
 The replay is offline and idempotent for matching records. Its `--dry-run`
 validates the checked-in manifests without opening the target database, so it
 cannot detect conflicts with existing decisions. A real replay stops on conflicting
 prior decisions, but fixture and collection writes can already have occurred;
 the whole replay is not one transaction. Use a separate path for a reproducibility
 check and back up an existing reviewed database before applying a replay to it.
+Replaying v2 over an unchanged v1 dating review appends Barker's assessment and
+a new null selection while preserving the prior entries.
 Its reviewer is identified as a Codex source review; an independent human check
 of the library and published source remains necessary
 before using these records for a historical publication. The five missing
@@ -414,7 +453,8 @@ intervals or proof of a verse's date of composition.
 
 | Path | Purpose |
 | --- | --- |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v11 schema in the v2 replacement database |
+| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v12 schema in the v2 replacement database |
+| `review_absence.py` | Offline cited physical absence decisions and reports |
 | `replay_p52_benchmark.py`, `benchmarks/` | Offline, cited P52 subset inventory and review replay |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of the legacy database |

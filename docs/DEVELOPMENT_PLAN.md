@@ -8,25 +8,27 @@ The [README](../README.md) contains command syntax and reproducibility instructi
 ## Progress reviewed on 2026-09-29
 
 The replacement database filename remains `ntvmr-v2.sqlite`; the current schema is
-**v11**. Implementation and scholarly validation have separate completion criteria.
+**v12**. Implementation and scholarly validation have separate completion criteria.
 
 | Area | Implemented and checked | Still required |
 | --- | --- | --- |
 | Controlled collection | Budgeted single-worker HTTP, immutable responses, durable attempts, metadata/coverage checkpoints, offline fixtures and explicit P52 parsing | Provider expectations before bulk access; broader live contract coverage |
 | Candidate discovery | Named-witness searches, resumable lookups for up to 20 explicit IDs, scoped index inversion and omission reports | Exhaustive discovery beyond a declared ID set; unresolved unfiltered catalogue probes |
 | Source type and physical identity | Source-linked metadata and append-only classification, identity links, corrections and change flags | Review additional documents and joined fragments; no automatic identity inference |
-| Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; append-only page/verse review and witness deduplication | Whole-NT NA28 inventory, editorial/mapping review, independent physical-evidence checks |
-| Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 original-unit review with three distinct dating observations and an explicit unresolved policy selection | Independent human check and a defensible selected scholarly interval; no date assessment or selection in the inspected local database |
-| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots | A dated real-witness benchmark; no ranking snapshot in the inspected database |
+| Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Whole-NT NA28 inventory, editorial/mapping review, independently checked real absence cases |
+| Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 original-unit review with four distinct dating observations, including Barker's full argument, and an explicit unresolved policy selection | Independent human check and a defensible selected scholarly interval; no date assessment or selection in the inspected local database |
+| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; test-only P52 scenario exercises both rankings with reviewed coverage and Barker's assessment | Human-approved dated real-witness benchmark; no ranking snapshot in the inspected database |
 | Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls | Wider independently checked scholarly benchmark, versioned corpus export and graph |
 
-The offline suite passes **55 tests on Python 3.12.6**. The combined reviewed audit
+The offline suite passes **61 tests on Python 3.12.6**. The combined reviewed audit
 reports zero findings: five of five P52 evidence cases pass, and both source
 controls pass. The local reviewed database contains one inventory with ten
 coordinates (John 18:30–39), five explicit NTVMR mappings, one physical witness,
 and five `partial` coverage reviews. It contains zero date assessments, selections,
-or ranking snapshots. The separate [P52 dating review](P52_DATING_REVIEW.md) replays
-three assessments and a null selection into a fresh database; it has not been
+or ranking snapshots. This inspected v11 database needs a backed-up additive v12
+upgrade before the current read-only audit can run. The separate
+[P52 dating review](P52_DATING_REVIEW.md) replays
+four assessments and a null selection into a fresh database; it has not been
 applied to that inspected local snapshot. `historical_validation_complete` remains
 false; a clean structural audit does not complete the scholarly validation gate.
 
@@ -50,25 +52,29 @@ explicit ID set, when every requested ID is returned and the reported count agre
 
 1. **Resolve the bounded P52 dating review and obtain independent human review.**
    The [Codex source check](P52_DATING_REVIEW.md) records the inventory, identity,
-   partial coverage, original writing unit, three competing dating observations,
-   and an unresolved choice under `p52-cautious-source-v1`. An independent human
-   should check the physical evidence and scholarly dating sources. Read a full
-   dating argument and document a defensible complete interval before selecting a
-   rankable date. Keep the captured 125-175 catalogue interval unselected unless
-   the policy explicitly justifies it; do not derive bounds from an abstract.
+   partial coverage, original writing unit, four competing dating observations,
+   and an unresolved choice under `p52-cautious-source-v1`. Barker's full argument
+   supports a broad second-or-third-century assessment, normalized to 101-300 CE.
+   An independent human should check the physical evidence, that normalization,
+   and the scholarly dating sources before a policy selects a rankable date. Keep
+   the captured 125-175 catalogue interval unselected unless the policy explicitly
+   justifies it; do not derive bounds from an abstract.
 2. **Exercise the existing ranking path with real reviewed inputs.** After a
    usable date is selected, link each current P52 coverage review to its writing
    unit, version the benchmark with cited date expectations, and compute both
    scenarios for the five positive verses. Reproduce the results offline from a
    fresh database and pass the combined audit. This is a bounded P52 demonstration;
-   it cannot establish the earliest witness in the broader corpus.
+   it cannot establish the earliest witness in the broader corpus. A test-only
+   replay now checks the technical path with Barker's broad interval in a temporary
+   database; it is not a scholarly selection or a publishable ranking snapshot.
 3. **Expand the scholarly benchmark in small increments.** Add P66/P75, a Pauline
    papyrus, a major codex, a later supplement, and a witness with a substantial
    gap. Cover positive and rejected claims, competing dates, and duplicate
-   physical identities. The current coverage-review path requires an indexed
-   page and explicit mapping: an absent index row cannot simply be entered as a
-   rejected review. Define and test any additional representation needed for
-   independently observed absence before treating such a case as implemented.
+   physical identities. The indexed coverage-review path still requires an
+   indexed page and explicit mapping. A separate v12 physical-absence path now
+   records a checked image or reviewed transcription at an inventory verse without
+   an index row, and flags contradictions with positive coverage. Its tests are
+   synthetic; independently checked real absence cases remain to be added.
 4. **Complete the inventory and discovery gates before scaling.** Curate and
    review the NA28 reference list and mappings; resolve the unfiltered catalogue
    contract with a separately scoped, budgeted check when needed. Record the

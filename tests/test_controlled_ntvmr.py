@@ -435,7 +435,7 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         reopened = connect(self.path)
         self.addCleanup(reopened.close)
-        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 11)
+        self.assertEqual(reopened.execute("PRAGMA user_version").fetchone()[0], 12)
         self.assertEqual(reopened.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
 
     def test_cli_review_is_offline_and_visible_in_named_report(self):
@@ -544,7 +544,7 @@ class CollectorTests(unittest.TestCase):
         self.con.commit()
         upgraded = connect(self.path)
         self.addCleanup(upgraded.close)
-        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 11)
+        self.assertEqual(upgraded.execute("PRAGMA user_version").fetchone()[0], 12)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM candidate_review").fetchone()[0], 2)
         self.assertEqual(upgraded.execute("SELECT count(*) FROM witness_assignment").fetchone()[0], 0)
 

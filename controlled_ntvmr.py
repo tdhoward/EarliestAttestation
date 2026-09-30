@@ -28,7 +28,7 @@ NT_BOOKS = ("Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor",
 BOOK_ORDER = {book: position for position, book in enumerate(NT_BOOKS, 1)}
 SCHEMA = """
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=11;
+PRAGMA user_version=12;
 CREATE TABLE IF NOT EXISTS source_response (
  id INTEGER PRIMARY KEY, endpoint TEXT NOT NULL, url TEXT NOT NULL,
  params_json TEXT NOT NULL, status_code INTEGER NOT NULL, headers_json TEXT NOT NULL,
@@ -152,6 +152,19 @@ CREATE TABLE IF NOT EXISTS coverage_review (
  REFERENCES edition_verse_map(inventory_id,osis_ref,ntvmr_ref));
 CREATE INDEX IF NOT EXISTS coverage_review_latest ON coverage_review
  (inventory_id,osis_ref,doc_id,page_id,ntvmr_ref,id);
+CREATE TABLE IF NOT EXISTS physical_absence_review (
+ id INTEGER PRIMARY KEY, inventory_id TEXT NOT NULL, osis_ref TEXT NOT NULL,
+ witness_id TEXT NOT NULL REFERENCES physical_witness(witness_id),
+ decision TEXT NOT NULL CHECK(decision IN ('absent','uncertain','withdrawn')),
+ evidence_type TEXT NOT NULL CHECK(evidence_type IN
+ ('checked_image','reviewed_transcription')),
+ source_locator TEXT NOT NULL CHECK(length(trim(source_locator))>0),
+ reason TEXT NOT NULL CHECK(length(trim(reason))>0),
+ citation TEXT NOT NULL CHECK(length(trim(citation))>0),
+ reviewer TEXT NOT NULL CHECK(length(trim(reviewer))>0), reviewed_at TEXT NOT NULL,
+ FOREIGN KEY(inventory_id,osis_ref) REFERENCES edition_verse(inventory_id,osis_ref));
+CREATE INDEX IF NOT EXISTS physical_absence_latest ON physical_absence_review
+ (inventory_id,osis_ref,witness_id,id);
 CREATE TABLE IF NOT EXISTS writing_unit (
  unit_id TEXT PRIMARY KEY CHECK(length(trim(unit_id))>0),
  witness_id TEXT NOT NULL REFERENCES physical_witness(witness_id),
@@ -1178,6 +1191,62 @@ def coverage_review_report(con, inventory_id, osis_ref=None):
             "verified_witnesses": {ref: sorted(ids) for ref, ids in sorted(verified.items())}}
 
 
+def record_physical_absence_review(con, inventory_id, osis_ref, witness_id, decision,
+                                   evidence_type, source_locator, reason, citation,
+                                   reviewer):
+    """Record a cited physical-text check without requiring an API index row."""
+    if decision not in ("absent", "uncertain", "withdrawn"):
+        raise ValueError("Unknown physical absence decision")
+    if evidence_type not in ("checked_image", "reviewed_transcription"):
+        raise ValueError("Physical absence needs a checked image or reviewed transcription")
+    if any(not isinstance(value, str) or not value.strip() for value in
+           (inventory_id, osis_ref, witness_id, source_locator, reason,
+            citation, reviewer)):
+        raise ValueError("Physical absence review requires identity, location, reason, citation, and reviewer")
+    if not con.execute("""SELECT 1 FROM edition_verse WHERE inventory_id=? AND osis_ref=?""",
+                       (inventory_id, osis_ref)).fetchone():
+        raise ValueError("Physical absence requires a verse in the selected inventory")
+    if not con.execute("SELECT 1 FROM physical_witness WHERE witness_id=?",
+                       (witness_id,)).fetchone():
+        raise ValueError("Physical absence requires an existing physical witness")
+    previous = con.execute("""SELECT decision FROM physical_absence_review
+        WHERE inventory_id=? AND osis_ref=? AND witness_id=? ORDER BY id DESC LIMIT 1""",
+        (inventory_id, osis_ref, witness_id)).fetchone()
+    if decision == "withdrawn" and (not previous or previous[0] == "withdrawn"):
+        raise ValueError("Withdrawal requires a current physical absence review")
+    with con:
+        con.execute("""INSERT INTO physical_absence_review(inventory_id,osis_ref,
+            witness_id,decision,evidence_type,source_locator,reason,citation,
+            reviewer,reviewed_at) VALUES(?,?,?,?,?,?,?,?,?,?)""",
+            (inventory_id, osis_ref, witness_id, decision, evidence_type,
+             source_locator.strip(), reason.strip(), citation.strip(),
+             reviewer.strip(), now()))
+        return con.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
+def physical_absence_report(con, inventory_id, osis_ref=None):
+    """Show current direct absence decisions and contradictions with positive reviews."""
+    coverage = coverage_review_report(con, inventory_id, osis_ref)
+    query = """SELECT r.id,r.osis_ref,r.witness_id,r.decision,r.evidence_type,
+        r.source_locator,r.reason,r.citation,r.reviewer,r.reviewed_at
+        FROM physical_absence_review r WHERE r.inventory_id=? AND r.id=(
+        SELECT MAX(x.id) FROM physical_absence_review x WHERE x.inventory_id=r.inventory_id
+        AND x.osis_ref=r.osis_ref AND x.witness_id=r.witness_id)"""
+    params = [inventory_id]
+    if osis_ref is not None:
+        query += " AND r.osis_ref=?"
+        params.append(osis_ref)
+    query += " ORDER BY r.osis_ref,r.witness_id"
+    fields = ("review_id", "osis_ref", "witness_id", "decision", "evidence_type",
+              "source_locator", "reason", "citation", "reviewer", "reviewed_at")
+    rows = [dict(zip(fields, row)) for row in con.execute(query, params)]
+    for row in rows:
+        row["conflicts_with_positive"] = (row["decision"] == "absent" and
+            row["witness_id"] in coverage["verified_witnesses"].get(row["osis_ref"], []))
+    return {"inventory_id": inventory_id, "osis_ref": osis_ref,
+            "whole_nt_complete": False, "reviews": rows}
+
+
 def create_writing_unit(con, unit_id, witness_id, label, kind, reason, citation, reviewer):
     if kind not in ("original", "correction", "supplement", "uncertain"):
         raise ValueError("Unknown writing-unit kind")
@@ -1340,6 +1409,9 @@ def ranking_input(con, inventory_id, osis_ref, policy_id):
     if not isinstance(policy_id, str) or not policy_id.strip():
         raise ValueError("Ranking requires a dating policy ID")
     reviews = coverage_review_report(con, inventory_id, osis_ref)["reviews"]
+    absences = {row["witness_id"]: row for row in
+                physical_absence_report(con, inventory_id, osis_ref)["reviews"]
+                if row["decision"] == "absent"}
     inputs = []
     eligible = []
     excluded = []
@@ -1369,13 +1441,17 @@ def ranking_input(con, inventory_id, osis_ref, policy_id):
                 assessment = con.execute("""SELECT status,date_min,date_max,
                     original_notation,citation,consulted_on FROM date_assessment
                     WHERE id=? AND unit_id=?""", (selection[1], unit_id)).fetchone()
-        inputs.append({"review": review, "unit_assignment": assignment,
+        absence = absences.get(review["witness_id"])
+        inputs.append({"review": review, "physical_absence_review": absence,
+                       "unit_assignment": assignment,
                        "date_selection": selection, "date_assessment": assessment,
                        "coverage_jobs": jobs})
         if review["status"] not in ("partial", "full"):
             reason = "nonpositive_review"
         elif review["review_needed"]:
             reason = "review_needed"
+        elif absence is not None:
+            reason = "conflicting_absence"
         elif unit_id is None:
             reason = "missing_writing_unit"
         elif not selection or selection[1] is None:
@@ -1418,7 +1494,8 @@ def rank_candidates(candidates, scenario):
 def ranking_report(con, inventory_id, osis_ref, policy_id):
     digest, candidates, excluded, failures = ranking_input(
         con, inventory_id, osis_ref, policy_id)
-    unresolved = any(row["reason"] == "review_needed" for row in excluded)
+    unresolved = any(row["reason"] in ("review_needed", "conflicting_absence")
+                     for row in excluded)
     snapshot = con.execute("""SELECT input_sha256,state,candidate_count,computed_at
         FROM ranking_snapshot WHERE inventory_id=? AND osis_ref=? AND policy_id=?""",
         (inventory_id, osis_ref, policy_id)).fetchone()
@@ -1462,7 +1539,8 @@ def compute_ranking(con, inventory_id, osis_ref, policy_id):
     """Atomically replace both scenarios; retain an earlier snapshot on failure."""
     digest, candidates, excluded, failures = ranking_input(
         con, inventory_id, osis_ref, policy_id)
-    if failures or any(row["reason"] == "review_needed" for row in excluded):
+    if failures or any(row["reason"] in ("review_needed", "conflicting_absence")
+                       for row in excluded):
         return ranking_report(con, inventory_id, osis_ref, policy_id)
     ranked = {scenario: rank_candidates(candidates, scenario)
               for scenario in ("optimistic", "pessimistic")}
