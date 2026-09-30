@@ -25,7 +25,7 @@ The replacement database filename remains `ntvmr-v2.sqlite`; the current schema 
 | Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; provisional 27-book, 260-chapter NA28 coordinate inventory with 7,957 rows imported separately; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Confirm flagged editorial cases, review 7,952 pending NTVMR mappings, independently check real absence cases; whole-NT inventory is not certified |
 | Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 example with four dating observations and a null selection | Record documented consensus where known and retain equal alternatives otherwise; check source fidelity; no date assessment or selection in the inspected local database |
 | Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; test-only P52 scenario exercises both rankings with one sourced assessment | Carry equal dating alternatives through results and benchmark them with real witnesses; no ranking snapshot in the inspected database |
-| Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls | Wider independently checked scholarly benchmark, versioned corpus export and graph |
+| Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls; offline complete-inventory and filtered graph-data export | Wider independently checked scholarly benchmark, validated corpus export and graph UI |
 
 The offline suite passes **64 tests on Python 3.12.6**. The combined reviewed audit
 reports zero findings: five of five P52 evidence cases pass, and both source
@@ -389,7 +389,9 @@ known; otherwise expose equally valid alternative ranges and their ranking
 outcomes. Preserve original notation and conversions as well as numeric bounds.
 It must support reproduction without fresh API requests.
 
-Keep the complete dataset separate from filtered graph exports. Default graphs
+Keep the complete dataset separate from filtered graph exports. The offline
+[`export_attestation.py`](../export_attestation.py) command implements these data
+filters; the graph UI and historical validation remain future work. Default graphs
 exclude `omitted` coordinates and provide an **Include verses omitted from NA28**
 option; bracketed passages have a separate inclusion control. Record active
 filters and the resulting verse population in every graph export and summary.

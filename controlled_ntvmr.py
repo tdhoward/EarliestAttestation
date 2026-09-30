@@ -999,7 +999,7 @@ def validate_inventory(manifest):
     seen = set()
     for row in verses:
         if not isinstance(row, dict) or not {"osis_ref", "editorial_status", "ntvmr_refs"} <= set(row) or \
-                set(row) - {"osis_ref", "editorial_status", "ntvmr_refs", "editorial_note", "mapping_note"}:
+                set(row) - {"osis_ref", "editorial_status", "ntvmr_refs", "editorial_note", "mapping_note", "passage_citation"}:
             raise ValueError("Inventory verse has an unsupported shape")
         ref = row["osis_ref"]
         book, chapter, verse = inventory_ref_parts(ref)
@@ -1017,6 +1017,10 @@ def validate_inventory(manifest):
             raise ValueError(f"Invalid editorial note at {ref}")
         if status != "main" and editorial_note is None:
             raise ValueError(f"Non-main verse requires an editorial note: {ref}")
+        passage_citation = row.get("passage_citation")
+        if passage_citation is not None and (status != "omitted" or
+                not isinstance(passage_citation, str) or not passage_citation.strip()):
+            raise ValueError(f"Passage citation must identify an omitted coordinate: {ref}")
         refs = row["ntvmr_refs"]
         if not isinstance(refs, list) or len(refs) != len(set(
                 item for item in refs if isinstance(item, str))):
@@ -1090,7 +1094,12 @@ def edition_inventory_report(con, inventory_id, books=None, limit=None):
     fields = ("osis_ref", "ordinal", "book", "chapter", "verse",
               "editorial_status", "editorial_note", "mapping_note")
     verses = [dict(zip(fields, record)) for record in con.execute(query, params)]
+    manifest = json.loads(con.execute("SELECT manifest_json FROM edition_inventory WHERE inventory_id=?",
+                                      (inventory_id,)).fetchone()[0])
+    passage_citations = {item["osis_ref"]: item.get("passage_citation")
+                         for item in manifest["verses"]}
     for verse in verses:
+        verse["passage_citation"] = passage_citations.get(verse["osis_ref"])
         verse["ntvmr_refs"] = [mapped for (mapped,) in con.execute("""SELECT ntvmr_ref
             FROM edition_verse_map WHERE inventory_id=? AND osis_ref=? ORDER BY ntvmr_ref""",
             (inventory_id, verse["osis_ref"]))]
@@ -1119,6 +1128,13 @@ def record_coverage_review(con, inventory_id, osis_ref, ntvmr_ref, doc_id, page_
     if not con.execute("""SELECT 1 FROM edition_verse_map WHERE inventory_id=?
         AND osis_ref=? AND ntvmr_ref=?""", (inventory_id, osis_ref, ntvmr_ref)).fetchone():
         raise ValueError("Verse requires an explicit mapping in the selected inventory")
+    if status in ("partial", "full"):
+        inventory = con.execute("SELECT manifest_json FROM edition_inventory WHERE inventory_id=?",
+                                (inventory_id,)).fetchone()
+        verse = next((item for item in json.loads(inventory[0])["verses"]
+                      if item["osis_ref"] == osis_ref), None)
+        if verse["editorial_status"] == "omitted" and not verse.get("passage_citation"):
+            raise ValueError("Positive coverage of an omitted coordinate requires a cited traditional passage in a new inventory snapshot")
     if status == "withdrawn":
         prior = con.execute("""SELECT witness_id,identity_assignment_id,index_response_id
             FROM coverage_review WHERE inventory_id=? AND osis_ref=? AND ntvmr_ref=?

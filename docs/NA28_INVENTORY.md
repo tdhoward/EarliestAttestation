@@ -96,7 +96,11 @@ manuscript absence, a physical lacuna, and unreviewed or missing indexing. A
 filtered-out coordinate is not a zero-attestation result.
 
 The current inventory supplies the coordinate tags only; it does not establish
-manuscript coverage or implement graph controls. Supplementary collection can
+manuscript coverage. The offline exporter implements the graph-data filters, but
+there is no graph UI. A future inventory snapshot can add `passage_citation` to
+an `omitted` verse entry after review; the positive coverage-review path requires
+that field and an explicit mapping. Existing immutable inventory snapshots remain
+unchanged. Supplementary collection can
 proceed alongside core collection, but its completion is not a prerequisite for
 core NA28 dataset completion or publication. Report completeness separately for
 the core and supplementary scopes, and apply the same validation requirements to

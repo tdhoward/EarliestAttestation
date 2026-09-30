@@ -28,10 +28,25 @@ the resulting verse population. Filtering a view must preserve the underlying
 evidence. Edition omission, verified manuscript absence, physical damage, and
 unreviewed or missing indexing are separate states.
 
-The inventory already retains the 16 skipped coordinates; supplementary evidence
-collection and graph controls are planned behavior, not completed features.
+The inventory already retains the 16 skipped coordinates. The offline
+[`export_attestation.py`](export_attestation.py) command implements the default
+filter and optional inclusion for graph data; there is no graph UI yet. A positive
+coverage review for an `omitted` coordinate requires a cited traditional-passage
+identification in a new, immutable inventory snapshot and an explicit NTVMR mapping.
 Completing this supplementary dataset is not a prerequisite for completing the
 core NA28 dataset. See the [inventory policy](docs/NA28_INVENTORY.md#supplementary-collection-and-display-policy).
+
+```powershell
+python export_attestation.py --db data/na28-inventory-v1.sqlite --inventory na28-nt-reference-provisional-v1 --policy example-policy --dataset-output data/attestation-complete.json --graph-output data/attestation-graph.json
+```
+
+Add `--include-omitted` to show skipped coordinates in graph data, or
+`--exclude-bracketed` to filter bracketed passages independently. Both outputs
+record inventory and dating policy IDs; the graph output records its filters and
+counts. Uncomputed or stale rankings have no graph events. The complete export
+retains their status and any prior ranking entries for audit.
+The example inventory database has no rankings, so its exported verses will be
+`uncomputed` until reviewed evidence and rankings are added to that database.
 
 ## Manuscript dating policy
 
@@ -65,7 +80,7 @@ dating review is not a project milestone.
 
 This is a Python/SQLite research prototype. Controlled collection, append-only
 reviews, writing-unit dating, and both first-five ranking scenarios are implemented
-through schema version 12. There is no graph or validated corpus export yet.
+through schema version 12. There is no graph UI or validated whole-corpus export yet.
 **The legacy `ntvmr.sqlite` is exploratory and should not be used to make historical
 claims.** The [original review](docs/DATA_REVIEW.md) found:
 
@@ -547,6 +562,7 @@ as a verse with no attestation.
 | Path | Purpose |
 | --- | --- |
 | `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v12 schema in the v2 replacement database |
+| `export_attestation.py` | Offline complete-inventory and filtered graph-data export |
 | `review_absence.py` | Offline cited physical absence decisions and reports |
 | `replay_p52_benchmark.py`, `benchmarks/` | Offline, cited P52 subset inventory and review replay |
 | `build_na28_inventory.py`, `benchmarks/na28-coordinate-source-v1.json` | Reproducible publisher-coordinate ledger and provisional whole-NT inventory builder |

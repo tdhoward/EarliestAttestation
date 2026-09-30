@@ -7,6 +7,7 @@ import unittest
 
 from build_na28_inventory import OUTPUT, SOURCE, build, render
 from controlled_ntvmr import connect, import_edition_inventory
+from export_attestation import build_exports
 
 
 class Na28InventoryTests(unittest.TestCase):
@@ -53,6 +54,11 @@ class Na28InventoryTests(unittest.TestCase):
                 self.assertEqual(con.execute("SELECT count(DISTINCT book) FROM edition_verse").fetchone()[0], 27)
                 self.assertEqual(con.execute("SELECT count(*) FROM (SELECT DISTINCT book,chapter FROM edition_verse)").fetchone()[0], 260)
                 self.assertEqual(con.execute("PRAGMA foreign_key_check").fetchall(), [])
+                complete, default_graph = build_exports(
+                    con, self.manifest["inventory_id"], "unselected")
+                self.assertEqual(complete["counts"]["verse_count"], 7957)
+                self.assertEqual(default_graph["counts"]["verse_count"], 7941)
+                self.assertEqual(default_graph["counts"]["by_editorial_status"]["omitted"], 0)
             finally:
                 con.close()
 
