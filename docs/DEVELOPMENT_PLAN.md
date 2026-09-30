@@ -16,17 +16,19 @@ The replacement database filename remains `ntvmr-v2.sqlite`; the current schema 
 | Candidate discovery | Named-witness searches, resumable lookups for up to 20 explicit IDs, scoped index inversion and omission reports | Exhaustive discovery beyond a declared ID set; unresolved unfiltered catalogue probes |
 | Source type and physical identity | Source-linked metadata and append-only classification, identity links, corrections and change flags | Review additional documents and joined fragments; no automatic identity inference |
 | Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; append-only page/verse review and witness deduplication | Whole-NT NA28 inventory, editorial/mapping review, independent physical-evidence checks |
-| Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections | A real P52 writing-unit review and sourced dating policy; no date assessment or selection in the inspected database |
+| Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 original-unit review with three distinct dating observations and an explicit unresolved policy selection | Independent human check and a defensible selected scholarly interval; no date assessment or selection in the inspected local database |
 | Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots | A dated real-witness benchmark; no ranking snapshot in the inspected database |
 | Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls | Wider independently checked scholarly benchmark, versioned corpus export and graph |
 
-The offline suite passes **54 tests on Python 3.12.6**. The combined reviewed audit
+The offline suite passes **55 tests on Python 3.12.6**. The combined reviewed audit
 reports zero findings: five of five P52 evidence cases pass, and both source
 controls pass. The local reviewed database contains one inventory with ten
 coordinates (John 18:30–39), five explicit NTVMR mappings, one physical witness,
 and five `partial` coverage reviews. It contains zero date assessments, selections,
-or ranking snapshots. `historical_validation_complete` remains false; a clean
-structural audit does not complete the scholarly validation gate.
+or ranking snapshots. The separate [P52 dating review](P52_DATING_REVIEW.md) replays
+three assessments and a null selection into a fresh database; it has not been
+applied to that inspected local snapshot. `historical_validation_complete` remains
+false; a clean structural audit does not complete the scholarly validation gate.
 
 The [P52 replay](../replay_p52_benchmark.py) records a Codex source review citing
 the library catalogue and Hurtado. It does not represent an independent human
@@ -46,14 +48,14 @@ explicit ID set, when every requested ID is returned and the reported count agre
 
 ## Next development work
 
-1. **Complete the bounded P52 source and dating review.** Independently check the
-   inventory coordinates, mappings, physical identity, five partial attestations,
-   and actual writing layer against the cited sources. Record the reviewer and
-   source locations accurately. Read the dating sources before entering competing
-   assessments; preserve original notation and use numeric bounds only when the
-   source supports them. Document the choice under a named dating policy. Do not
-   automatically promote the catalogue observation into a selected scholarly date
-   or infer a new interval from an abstract. If unresolved, retain that status.
+1. **Resolve the bounded P52 dating review and obtain independent human review.**
+   The [Codex source check](P52_DATING_REVIEW.md) records the inventory, identity,
+   partial coverage, original writing unit, three competing dating observations,
+   and an unresolved choice under `p52-cautious-source-v1`. An independent human
+   should check the physical evidence and scholarly dating sources. Read a full
+   dating argument and document a defensible complete interval before selecting a
+   rankable date. Keep the captured 125-175 catalogue interval unselected unless
+   the policy explicitly justifies it; do not derive bounds from an abstract.
 2. **Exercise the existing ranking path with real reviewed inputs.** After a
    usable date is selected, link each current P52 coverage review to its writing
    unit, version the benchmark with cited date expectations, and compute both

@@ -8,7 +8,8 @@ import tempfile
 import unittest
 
 from audit_reviewed import audit_database, load_benchmark
-from controlled_ntvmr import connect, record_coverage_review
+from controlled_ntvmr import (connect, record_coverage_review,
+                              select_date_assessment, writing_unit_report)
 from replay_p52_benchmark import apply_review, main
 
 
@@ -39,13 +40,28 @@ class P52BenchmarkTests(unittest.TestCase):
         self.assertFalse(report["historical_validation_complete"])
         self.assertEqual(report["counts"]["edition_verse"], 10)
         self.assertEqual(report["counts"]["coverage_review"], 5)
-        self.assertEqual(report["counts"]["date_assessment"], 0)
-        self.assertEqual(report["counts"]["date_selection"], 0)
+        self.assertEqual(report["counts"]["date_assessment"], 3)
+        self.assertEqual(report["counts"]["date_selection"], 1)
+        self.assertEqual(report["counts"]["ranking_snapshot"], 0)
         with closing(sqlite3.connect(self.path)) as con:
+            self.assertEqual(con.execute("SELECT count(*) FROM writing_unit").fetchone()[0], 1)
             self.assertEqual(con.execute("SELECT count(*) FROM request_attempt").fetchone()[0], 0)
             mapped = [row[0] for row in con.execute("""SELECT osis_ref FROM edition_verse_map
                 WHERE inventory_id='na28-john18-p52-subset-v1' ORDER BY osis_ref""")]
             self.assertEqual(mapped, first["reviewed_verses"])
+            dates = con.execute("""SELECT status,date_min,date_max,original_notation
+                FROM date_assessment ORDER BY id""").fetchall()
+            self.assertEqual(dates, [("valid", 125, 175, "II (M)"),
+                                     ("unknown", None, None, "2nd Century"),
+                                     ("unknown", None, None,
+                                      "extends into the third century")])
+            selection = con.execute("""SELECT policy_id,assessment_id
+                FROM date_selection""").fetchone()
+            self.assertEqual(selection, ("p52-cautious-source-v1", None))
+            unit = writing_unit_report(con, first["witness_id"])["units"][0]
+            self.assertEqual(unit["kind"], "original")
+            self.assertFalse(unit["selected_by_policy"]["p52-cautious-source-v1"]["rankable"])
+            self.assertEqual(unit["coverage_links"], [])
 
     def test_withdrawal_breaks_benchmark_without_erasing_history(self):
         apply_review(self.path)
@@ -85,6 +101,20 @@ class P52BenchmarkTests(unittest.TestCase):
         invalid.write_text(json.dumps(manifest), encoding="utf-8")
         with self.assertRaises(ValueError):
             load_benchmark(invalid)
+
+    def test_replay_preserves_a_later_manual_date_selection(self):
+        apply_review(self.path)
+        con = connect(self.path)
+        try:
+            assessment_id = con.execute("""SELECT id FROM date_assessment
+                WHERE original_notation='II (M)'""").fetchone()[0]
+            select_date_assessment(con, "p52-rylands-gk-457-original",
+                                   assessment_id, "p52-cautious-source-v1",
+                                   "manual choice for conflict test", "tester")
+        finally:
+            con.close()
+        with self.assertRaisesRegex(ValueError, "date selection differs"):
+            apply_review(self.path)
 
 
 if __name__ == "__main__":

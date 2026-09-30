@@ -1,0 +1,42 @@
+{
+  "format_version": 1,
+  "review_id": "p52-dating-review-v1",
+  "reviewer": "Codex source review, 2026-09-29",
+  "reviewed_on": "2026-09-29",
+  "witness_id": "p52-rylands-gk-457",
+  "unit": {
+    "unit_id": "p52-rylands-gk-457-original",
+    "label": "Extant copying on the P52 leaf",
+    "kind": "original",
+    "reason": "Hurtado describes the extant recto and verso as one fragment and discusses the scribe of both sides as a single copyist; no separate correction or supplement is identified in this bounded review.",
+    "citation": "L. W. Hurtado, 'P52 (P. Rylands Gk. 457) and the Nomina Sacra', Tyndale Bulletin 54.1 (2003), pp. 1, 3, 11, https://era.ed.ac.uk/bitstream/1842/648/2/P52_TB_article.pdf; consulted 2026-09-29"
+  },
+  "assessments": [
+    {
+      "status": "valid",
+      "date_min": 125,
+      "date_max": 175,
+      "original_notation": "II (M)",
+      "citation": "NTVMR metadata/liste/search, gaNum=P52, indexContent=John.18.31, lang=grc, detail=document; orig='II (M)', origEarly=125, origLate=175; captured 2026-09-29 in tests/fixtures/p52_language_probe.json. Catalogue observation, not a selected scholarly date."
+    },
+    {
+      "status": "unknown",
+      "date_min": null,
+      "date_max": null,
+      "original_notation": "2nd Century",
+      "citation": "CSNTM, Manuscript P52, manuscript details, https://manuscripts.csntm.org/manuscript/Group/GA_P52; consulted 2026-09-29. Broad century label without an explicitly stated inclusive interval."
+    },
+    {
+      "status": "unknown",
+      "date_min": null,
+      "date_max": null,
+      "original_notation": "extends into the third century",
+      "citation": "Brent Nongbri, 'Palaeography, Precision and Publicity: Further Thoughts on P.Ryl. iii.457 (P52)', New Testament Studies 66.4 (2020), pp. 471-499, abstract, https://doi.org/10.1017/S0028688520000089; consulted 2026-09-29. The accessible abstract argues for a wider possible range but supplies no inclusive numeric bounds."
+    }
+  ],
+  "selection": {
+    "policy_id": "p52-cautious-source-v1",
+    "assessment_id": null,
+    "reason": "No complete scholarly interval is selected. The NTVMR 125-175 catalogue interval is retained as an observation; CSNTM gives a broad century and Nongbri's abstract allows dates into the third century without numeric bounds. Resolve the dating source and policy before ranking."
+  }
+}

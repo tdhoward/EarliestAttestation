@@ -36,7 +36,7 @@ identity, coverage, and date records. This does not repair or certify the legacy
 results. The [offline P52 index sample](examples/p52-index-sample.json) remains a
 single-witness candidate index.
 
-The progress check on 2026-09-29 passed **54 offline tests** on Python 3.12.6.
+The progress check on 2026-09-29 passed **55 offline tests** on Python 3.12.6.
 The local reviewed database has ten John 18 inventory coordinates, five explicit
 NTVMR mappings, one physical witness, and five cited partial-coverage decisions.
 Its combined audit passes all five evidence cases and both source controls with
@@ -44,10 +44,14 @@ zero findings. It has **no date assessments, selected dates, or ranking snapshot
 `historical_validation_complete` remains false. These counts describe the inspected
 local snapshot, which is not distributed with the repository.
 
-The next milestone is independent review of the P52 sources, writing unit, and
-competing dating assessments, followed by a reproducible bounded ranking if a
-usable date can be selected. Broader witnesses, discovery completeness, and a
-whole-NT inventory remain open. Use the [development plan](docs/DEVELOPMENT_PLAN.md)
+The [bounded P52 dating review](docs/P52_DATING_REVIEW.md) independently checks the
+existing source claims as a Codex review and records an original writing unit,
+three competing dating observations, and an explicit unresolved selection under
+`p52-cautious-source-v1`. It replays into a separate database; the local reviewed
+snapshot counts above have not changed. An independent human review and a
+defensible selected scholarly interval are still needed before a bounded ranking.
+Broader witnesses, discovery completeness, and a whole-NT inventory remain open.
+Use the [development plan](docs/DEVELOPMENT_PLAN.md)
 for current priorities and acceptance criteria; the original review is the legacy
 baseline.
 
@@ -272,7 +276,10 @@ Each line above is a separate JSON file; the IDs and dates are synthetic example
 For an unknown or invalid assessment, set
 both date bounds to `null`. To remove a coverage-unit link or date selection, set
 `unit_id` or `assessment_id` to `null` in the corresponding action and give a
-reason. No real scholarly date assessment has been entered into the repository.
+reason. The [P52 dating manifest](benchmarks/p52-dating-review-v1.json) records
+the captured NTVMR 125-175 catalogue interval with its original notation and two
+broader, unbounded source descriptions. Its policy selects `null`, so none of
+these observations currently provides a rankable scholarly date.
 
 The new collector does not yet discover all candidates, resolve physical witness
 aliases automatically, resolve NA28 verse membership, or establish indexing tiers.
@@ -346,8 +353,10 @@ silently replacing the pinned snapshot.
 
 To reproduce the [cited P52 review](benchmarks/p52-reviewed-v1.json) from a fresh
 clone, use a separate database path. The replay imports the captured index and
-date sources, bounded NA28 inventory, physical identity, and five partial-coverage
-decisions. The final command audits that same replay database:
+date sources, bounded NA28 inventory, physical identity, five partial-coverage
+decisions, and the [writing-unit and dating review](benchmarks/p52-dating-review-v1.json).
+The latter has three date assessments and a null policy selection. The final
+command audits that same replay database:
 
 ```powershell
 python replay_p52_benchmark.py --db data/p52-review-replay.sqlite --dry-run
