@@ -11,6 +11,28 @@ that the whole verse, its exact NA28 wording, or neighboring verses survived. Fo
 example, P52 preserves portions of John 18:31–33 and 18:37–38; this project must not
 fill in 18:34–36. See the [coverage reference and review](docs/DATA_REVIEW.md).
 
+## Skipped verses and graph inclusion
+
+Collect and retain evidence for traditional verse numbers skipped by NA28 as
+supplementary data, tagged `omitted` in the inventory. Apply the same coverage,
+writing-layer dating, and distinct-witness counting rules as for other verses;
+do not presume that their witnesses are later or assign dates from edition status.
+For each coordinate, cite a reference identifying the traditional passage and
+verify its manuscript-index mappings, since NA28 main-text wording cannot anchor
+that identification.
+
+The default graph will exclude `omitted` coordinates, with an **Include verses
+omitted from NA28** option. Bracketed passages will have a separate inclusion
+control. Graphs, exports, and summary counts must identify the active filters and
+the resulting verse population. Filtering a view must preserve the underlying
+evidence. Edition omission, verified manuscript absence, physical damage, and
+unreviewed or missing indexing are separate states.
+
+The inventory already retains the 16 skipped coordinates; supplementary evidence
+collection and graph controls are planned behavior, not completed features.
+Completing this supplementary dataset is not a prerequisite for completing the
+core NA28 dataset. See the [inventory policy](docs/NA28_INVENTORY.md#supplementary-collection-and-display-policy).
+
 ## Manuscript dating policy
 
 This project records scholarly dating assessments and preserves their uncertainty.
@@ -64,7 +86,17 @@ identity, coverage, and date records. This does not repair or certify the legacy
 results. The [offline P52 index sample](examples/p52-index-sample.json) remains a
 single-witness candidate index.
 
-The progress check on 2026-09-29 passed **61 offline tests** on Python 3.12.6.
+A [provisional whole-New-Testament NA28 coordinate inventory](docs/NA28_INVENTORY.md)
+now covers all 27 books and 260 chapters. It contains 7,957 reference coordinates:
+7,941 numbered markers from publisher displays plus 16 skipped traditional
+numbers retained as `omitted`. One chapter, 1 Corinthians 4, uses a flagged
+UBS5 coordinate fallback pending direct NA28 confirmation. Only five John 18
+coordinates have source-checked NTVMR mappings; 7,952 remain explicitly
+unmapped. The inventory has been imported into a separate local database and
+verified, but it is not yet editorially certified or ready for whole-NT
+attestation claims.
+
+The progress check on 2026-09-29 passed **64 offline tests** on Python 3.12.6.
 The local reviewed database has ten John 18 inventory coordinates, five explicit
 NTVMR mappings, one physical witness, and five cited partial-coverage decisions.
 Its combined audit passes all five evidence cases and both source controls with
@@ -129,9 +161,17 @@ order, editorial status, and
 explicit NTVMR mappings, including unresolved coordinates. It rejects verse ranges
 and does not derive NA28 membership from KJV chapter maxima. A cited, reference-only
 [John 18:30–39 NA28 subset](benchmarks/p52-na28-john18-subset-v1.json) is now imported
-for the P52 benchmark. **No whole-NT NA28 inventory has been imported or certified.**
-The inventory report always leaves whole-NT
-completion unconfirmed. Book IDs follow the [OSIS New Testament list](https://wiki.crosswire.org/OSIS_Book_Abbreviations).
+for the P52 benchmark. The [provisional whole-NT manifest](benchmarks/na28-nt-reference-provisional-v1.json)
+has also been imported separately; editorial status and most NTVMR mappings
+need further review. The inventory report leaves whole-NT certification
+unconfirmed. Book IDs follow the [OSIS New Testament list](https://wiki.crosswire.org/OSIS_Book_Abbreviations).
+
+To check and import the full coordinate manifest offline:
+
+```powershell
+python build_na28_inventory.py --check
+python sync_ntvmr.py --offline --db data/na28-inventory-v1.sqlite --import-inventory benchmarks/na28-nt-reference-provisional-v1.json
+```
 
 ## Run the offline checks
 
@@ -498,6 +538,10 @@ unprocessed verses remain explicitly marked as unknown. These are scenarios
 within the collected evidence and chosen date assessments, not confidence
 intervals or proof of a verse's date of composition.
 
+Apply the [verse inclusion policy](#skipped-verses-and-graph-inclusion) to each
+graph and its summary counts. A coordinate excluded by a filter must not appear
+as a verse with no attestation.
+
 ## Files
 
 | Path | Purpose |
@@ -505,6 +549,7 @@ intervals or proof of a verse's date of composition.
 | `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v12 schema in the v2 replacement database |
 | `review_absence.py` | Offline cited physical absence decisions and reports |
 | `replay_p52_benchmark.py`, `benchmarks/` | Offline, cited P52 subset inventory and review replay |
+| `build_na28_inventory.py`, `benchmarks/na28-coordinate-source-v1.json` | Reproducible publisher-coordinate ledger and provisional whole-NT inventory builder |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of the legacy database |
 | `audit_reviewed.py` | Read-only audit of the reviewed database and cited benchmarks |
@@ -514,6 +559,7 @@ intervals or proof of a verse's date of composition.
 | `NTVMR Bruno/` | Manual API examples using the official HTTPS origin |
 | `docs/DATA_REVIEW.md` | Findings, evidence, source checks, and limitations |
 | `docs/DEVELOPMENT_PLAN.md` | Ordered implementation work and validation gates |
+| `docs/NA28_INVENTORY.md` | Full coordinate inventory report, exceptions, and unresolved mappings |
 
 Project code is licensed under [GPL-3.0](LICENSE). Source metadata, images,
 transcriptions, and edition text have their own terms; the code license does not

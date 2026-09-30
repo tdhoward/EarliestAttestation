@@ -22,12 +22,12 @@ The replacement database filename remains `ntvmr-v2.sqlite`; the current schema 
 | Controlled collection | Budgeted single-worker HTTP, immutable responses, durable attempts, metadata/coverage checkpoints, offline fixtures and explicit P52 parsing | Provider expectations before bulk access; broader live contract coverage |
 | Candidate discovery | Named-witness searches, resumable lookups for up to 20 explicit IDs, scoped index inversion and omission reports | Exhaustive discovery beyond a declared ID set; unresolved unfiltered catalogue probes |
 | Source type and physical identity | Source-linked metadata and append-only classification, identity links, corrections and change flags | Review additional documents and joined fragments; no automatic identity inference |
-| Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Whole-NT NA28 inventory, editorial/mapping review, independently checked real absence cases |
+| Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; provisional 27-book, 260-chapter NA28 coordinate inventory with 7,957 rows imported separately; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Confirm flagged editorial cases, review 7,952 pending NTVMR mappings, independently check real absence cases; whole-NT inventory is not certified |
 | Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 example with four dating observations and a null selection | Record documented consensus where known and retain equal alternatives otherwise; check source fidelity; no date assessment or selection in the inspected local database |
 | Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; test-only P52 scenario exercises both rankings with one sourced assessment | Carry equal dating alternatives through results and benchmark them with real witnesses; no ranking snapshot in the inspected database |
 | Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls | Wider independently checked scholarly benchmark, versioned corpus export and graph |
 
-The offline suite passes **61 tests on Python 3.12.6**. The combined reviewed audit
+The offline suite passes **64 tests on Python 3.12.6**. The combined reviewed audit
 reports zero findings: five of five P52 evidence cases pass, and both source
 controls pass. The local reviewed database contains one inventory with ten
 coordinates (John 18:30–39), five explicit NTVMR mappings, one physical witness,
@@ -57,8 +57,16 @@ explicit ID set, when every requested ID is returned and the reported count agre
 
 ## Next development work
 
-1. **Broaden the verse inventory and manuscript discovery.** Curate and review
-   the NA28 reference list and mappings; resolve the unfiltered catalogue contract
+1. **Review the provisional inventory and broaden manuscript discovery.** The
+   [coordinate inventory](NA28_INVENTORY.md) now covers all 27 books and 260 chapters
+   with 7,957 rows. Confirm its flagged 1 Corinthians 4 fallback, skipped numbers,
+   and double-bracketed passages; establish source-checked NTVMR mappings in a new
+   versioned snapshot. Five John 18 mappings are checked and 7,952 remain pending.
+   Retain skipped coordinates as supplementary collection targets under the
+   [inventory policy](NA28_INVENTORY.md#supplementary-collection-and-display-policy),
+   with cited passage identification and reviewed mappings. Track supplementary
+   completeness separately; it must not block core NA28 dataset completion.
+   Resolve the unfiltered catalogue contract
    with a separately scoped, budgeted check when needed. Record the inclusion
    policy and completeness of each declared scope. Preserve pending or failed
    work explicitly. Increase request volume only after these checks and provider
@@ -100,6 +108,10 @@ list above to choose work; do not restart completed collection or ranking slices
    verse inventory and an edition identifier; do not equate KJV chapter maxima
    with edition membership. Preserve traditional coordinates, with explicit
    policies for omitted numbers, brackets, and verse-boundary differences.
+   Collect skipped traditional verses as supplementary evidence tagged `omitted`.
+   Default graphs exclude them, with an explicit inclusion option and a separate
+   bracketed-passage control. Edition status never determines manuscript coverage
+   or dating. Apply the same evidence standards to both collection scopes.
 2. **Attestation:** identifiable surviving Greek text from any part of that verse.
    Record partial/full/uncertain status. Exact agreement with all NA28 words is
    outside the initial scope. Physical lacunae, reconstructed text, inferred
@@ -197,10 +209,13 @@ corrected corpus.
 
 ## 3. Build the NA28 inventory and evidence schema
 
-Acquire or curate a source-identified NA28 reference inventory, with its reuse
-terms and mapping to the NTVMR versification. Reproducing copyrighted edition text
-is unnecessary for a reference-only inventory. Avoid assuming an API v11n ID
-named `NA28` exists; verify supported values or supply a reviewed mapping.
+The [provisional coordinate manifest](../benchmarks/na28-nt-reference-provisional-v1.json)
+and [publisher source ledger](../benchmarks/na28-coordinate-source-v1.json) now
+cover all New Testament chapters without reproducing edition text. Its 7,952
+unreviewed NTVMR mappings remain empty by design. Confirm editorial cases and
+source-identify the mapping to the NTVMR versification in a new snapshot. Avoid
+assuming an API v11n ID named `NA28` exists; verify supported values or supply a
+reviewed mapping.
 
 Suggested logical entities (names can change during implementation):
 
@@ -230,10 +245,19 @@ John 7:53–8:11, Mark 16:9–20, and terminal verse numbering in 2 Corinthians 
 3 John against the selected NA28 inventory. These are mapping/review cases, not
 instructions to assume their editorial status from this plan.
 
+For skipped coordinates, retain a cited identification of the traditional passage
+and any relevant boundary or wording notes alongside the reviewed index mappings.
+These identify the supplementary target without claiming NA28 main-text membership.
+Keep edition omission, verified physical absence, damage, and unknown or unreviewed
+coverage distinct. Collect evidence irrespective of the default display filter.
+
 **Acceptance:** stable order from Matthew to Revelation with numeric chapters and
 verses; no invented verse from a range string; no accidental mixing of editions;
 unknown/omitted/bracketed coordinates have defined export behavior. Changing the
 requested subset filters an existing database before applying a verse limit.
+Skipped-coordinate evidence survives display exclusion, and every supplementary
+coordinate accepted for coverage has a cited passage identification and reviewed
+mapping.
 
 ## 4. Normalize and verify actual verse coverage
 
@@ -355,8 +379,9 @@ retain the prior expectations with citations.
 
 ## 7. Export and build the graph
 
-Only after the above gates, export a versioned dataset containing every NA28
-inventory coordinate in canonical order, zero-to-five witnesses per scenario,
+Only after the above gates, export a versioned dataset retaining every inventory
+coordinate, including supplementary `omitted` coordinates, in canonical order,
+with edition status, zero-to-five witnesses per scenario,
 event years, full date intervals, source/evidence links, and completeness status.
 An export should identify its edition, source snapshot, inclusion/dating policy,
 and validation version. Include consensus status and its supporting citation where
@@ -364,13 +389,23 @@ known; otherwise expose equally valid alternative ranges and their ranking
 outcomes. Preserve original notation and conversions as well as numeric bounds.
 It must support reproduction without fresh API requests.
 
+Keep the complete dataset separate from filtered graph exports. Default graphs
+exclude `omitted` coordinates and provide an **Include verses omitted from NA28**
+option; bracketed passages have a separate inclusion control. Record active
+filters and the resulting verse population in every graph export and summary.
+Recompute aggregate counts and denominators for that population without deleting
+underlying evidence or treating excluded coordinates as unattested. Report core
+and supplementary collection completeness separately. Unfinished supplementary
+collection does not block publication of the validated core scope; supplementary
+evidence shown in a graph must pass the same applicable validation gates.
+
 Plot verse positions horizontally and CE years vertically, **newer at the top**.
 Moving upward from earlier to later years, show no witness color before the first
 event, then one-through-five colors; after the fifth event retain the fifth color.
 Equal-year events occur together, with no invented visible interval between them.
 Use the same axis bounds and color legend for both scenarios. Show unknown or
 unfinished evidence separately from the pre-first-witness portion of a completed
-series. Show omitted/bracketed coordinates according to the edition policy.
+series. Identify included omitted/bracketed coordinates by their edition status.
 
 Provide book/chapter navigation, zoom, and a tooltip/table with the ranked
 witnesses, both date bounds, partial coverage status, and source links. A static
@@ -385,6 +420,10 @@ above lower ones; color counts never decrease going forward in time; missing
 data are visible; both endpoint scenarios and competing dating alternatives can
 be traced back to their evidence. Unresolved scholarly disagreement remains
 visible and does not require project adjudication. Use static
+checks to verify default omission exclusion, optional inclusion, independent
+bracketed-passage filtering, preserved stored evidence, and consistent exported
+filters and summary denominators. Verify that unknown evidence and excluded
+coordinates remain distinguishable. Use static
 tests and production builds for frontend verification. Do not start a development
 server or probe localhost unless the project owner asks.
 
