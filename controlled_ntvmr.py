@@ -22,6 +22,7 @@ from urllib.request import Request, urlopen
 
 API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
 OSIS = re.compile(r"^[1-3]?[A-Za-z][A-Za-z0-9]*\.[1-9][0-9]*\.[1-9][0-9]*$")
+OSIS_CHAPTER = re.compile(r"^[1-3]?[A-Za-z][A-Za-z0-9]*\.[1-9][0-9]*$")
 NT_BOOKS = ("Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor",
             "Gal", "Eph", "Phil", "Col", "1Thess", "2Thess", "1Tim", "2Tim",
             "Titus", "Phlm", "Heb", "Jas", "1Pet", "2Pet", "1John", "2John",
@@ -293,10 +294,13 @@ def parse_coverage(payload, doc_id):
         if not isinstance(entry, dict) or entry.get("docID") != doc_id:
             raise ContractError("Malformed coverage entry")
         ref, page = entry.get("osisID"), entry.get("pageID")
-        if not isinstance(ref, str) or not OSIS.fullmatch(ref):
+        if not isinstance(ref, str) or not (OSIS.fullmatch(ref) or OSIS_CHAPTER.fullmatch(ref)):
             raise ContractError(f"Invalid OSIS reference: {ref!r}")
         if type(page) is not int or page <= 0:
             raise ContractError(f"Invalid page ID: {page!r}")
+        if OSIS_CHAPTER.fullmatch(ref):
+            # Chapter markers remain in the raw response; never infer their verses.
+            continue
         result.append((ref, page))
     return list(dict.fromkeys(result))
 
@@ -1536,6 +1540,23 @@ def dating_alternatives_report(con, inventory_id, osis_ref, policy_id,
     _, candidates, excluded, failures = ranking_input(
         con, inventory_id, osis_ref, policy_id, alternatives=True)
     units = sorted({row["unit_id"] for row in candidates})
+    review_ids = sorted({row["coverage_review_id"] for row in candidates} |
+                        {row["coverage_review_id"] for row in excluded})
+    assigned_units = set(units)
+    for review_id in review_ids:
+        assignment = con.execute("""SELECT unit_id FROM coverage_unit_assignment
+            WHERE coverage_review_id=? ORDER BY id DESC LIMIT 1""",
+            (review_id,)).fetchone()
+        if assignment and assignment[0]:
+            assigned_units.add(assignment[0])
+    unrankable = []
+    for unit_id in sorted(assigned_units):
+        unrankable.extend(dict(zip(("unit_id", "assessment_id", "status",
+                                    "original_notation", "citation", "consulted_on",
+                                    "reviewer", "reason"), (*row, "not_valid_for_ranking")))
+            for row in con.execute("""SELECT unit_id,id,status,original_notation,
+                citation,consulted_on,reviewer FROM date_assessment
+                WHERE unit_id=? AND status!='valid' ORDER BY id""", (unit_id,)))
     choices = {unit: sorted({row["assessment_id"] for row in candidates
                             if row["unit_id"] == unit}) for unit in units}
     count = 1
@@ -1551,24 +1572,39 @@ def dating_alternatives_report(con, inventory_id, osis_ref, policy_id,
               "combination_count": count if units else 0,
               "max_combinations": max_combinations, "unit_count": len(units),
               "eligible_witness_count": len({row["witness_id"] for row in candidates}),
+              "unrankable_assessments": unrankable,
               "excluded_reviews": excluded, "failed_coverage_jobs": failures,
               "combinations": []}
     if state != "complete":
         return report
+    review_provenance = {row[0]: row[1:] for row in con.execute("""SELECT
+        r.id,r.status,r.evidence_type,r.citation,s.url,r.reviewer
+        FROM coverage_review r JOIN source_response s ON s.id=r.index_response_id
+        WHERE r.id IN (""" + ",".join("?" for _ in
+            {item["coverage_review_id"] for item in candidates}) + ")",
+        sorted({item["coverage_review_id"] for item in candidates}))}
     for selected in product(*(choices[unit] for unit in units)):
         by_unit = dict(zip(units, selected))
         rows = [row for row in candidates
                 if row["assessment_id"] == by_unit[row["unit_id"]]]
         provenance = [dict(zip(("unit_id", "assessment_id", "date_min", "date_max",
-                                "original_notation", "citation", "consulted_on"), item))
+                                "original_notation", "citation", "consulted_on",
+                                "reviewer"), item))
                       for item in con.execute("""SELECT unit_id,id,date_min,date_max,
-                          original_notation,citation,consulted_on FROM date_assessment
+                          original_notation,citation,consulted_on,reviewer FROM date_assessment
                           WHERE id IN (""" + ",".join("?" for _ in selected) + ") ORDER BY unit_id",
                           selected)]
+        scenarios = {scenario: rank_candidates(rows, scenario)[:5]
+                     for scenario in ("optimistic", "pessimistic")}
+        for entries in scenarios.values():
+            for entry in entries:
+                (entry["coverage_status"], entry["evidence_type"],
+                 entry["coverage_citation"], entry["index_source_url"],
+                 entry["coverage_reviewer"]) = \
+                    review_provenance[entry["coverage_review_id"]]
         report["combinations"].append({
             "assessments": provenance,
-            "scenarios": {scenario: rank_candidates(rows, scenario)[:5]
-                          for scenario in ("optimistic", "pessimistic")}})
+            "scenarios": scenarios})
     return report
 
 
@@ -1727,7 +1763,8 @@ def import_language_probe(con, fixture):
 
 
 def import_search_fixture(con, fixture):
-    record = json.loads(fixture.read_text(encoding="utf-8"))
+    record = (json.loads(fixture.read_text(encoding="utf-8"))
+              if isinstance(fixture, Path) else fixture)
     body = record["raw_body"]
     digest = hashlib.sha256(body.encode()).hexdigest()
     if digest != record["body_sha256"]:

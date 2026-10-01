@@ -66,21 +66,19 @@ comparanda, not to P52. The new assessment preserves Barker's `II or III`
 notation and its source location alongside the numeric normalization.
 
 Under `p52-cautious-source-v1`, the date selection remains explicitly `null`.
-No P52 ranking is computed by this replay, and its five coverage reviews are not
-yet linked to the writing unit. These describe the saved example's implementation
-state, not a requirement to settle its dating before continuing the project.
-The existing integration test adds coverage-unit links, checks conditional
-rankings for both usable intervals through the alternative-date exporter, and
-also exercises a selected-policy snapshot using Barker's interval. Those links
-are test setup; the normal replay still does not create them. Neither calculation
-gives an interval scholarly preference. Sourced ranges remain equally valid
+The normal replay links all five coverage reviews to the original writing unit,
+but creates no selected-policy ranking snapshot. The offline exporter calculates
+conditional rankings for both usable intervals. The integration test also
+exercises a test-only selected-policy snapshot using Barker's interval.
+Neither calculation gives an interval scholarly preference. Sourced ranges remain equally valid
 possibilities unless documented consensus is known. Source descriptions without
 usable numeric bounds remain visible without invented dates.
 
 Keep this fixture as regression coverage. The next development effort is the
 [bounded graph with several real witnesses](DEVELOPMENT_PLAN.md#next-development-work).
-Its reproducible inputs must supply coverage-unit assignments through the normal
-workflow. That requirement does not reopen P52 dating research or require a
+The P52 example now demonstrates coverage-unit assignments through the normal
+workflow; additional witnesses still need their own cited inputs. This does not
+reopen P52 dating research or require a
 preferred P52 date. Prototype work may proceed before the independent source
 checks required for historical publication, with its review status explicit.
 

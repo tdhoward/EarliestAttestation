@@ -36,7 +36,7 @@ import requests
 
 
 #API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
-API_BASE = "http://192.168.0.135:8889/community/vmr/api"
+API_BASE = "http://192.168.0.146:8889/community/vmr/api"
 # might also try ntvmr2.uni-muenster.de ??
 
 

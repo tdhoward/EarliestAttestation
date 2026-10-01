@@ -24,6 +24,8 @@ from controlled_ntvmr import (
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
 P52 = json.loads(FIXTURE.read_text(encoding="utf-8"))["response"]
+P66_COVERAGE = json.loads((Path(__file__).parent / "fixtures" /
+                           "p66_coverage_probe.json").read_text(encoding="utf-8"))
 LANGUAGE_FIXTURE = Path(__file__).parent / "fixtures" / "p52_language_probe.json"
 LANGUAGE = json.loads(LANGUAGE_FIXTURE.read_text(encoding="utf-8"))
 NAMED = json.loads((Path(__file__).parent / "fixtures" / "john_named_probe.json").read_text(encoding="utf-8"))
@@ -140,6 +142,55 @@ class CollectorTests(unittest.TestCase):
         altered["data"]["indexContents"]["indexContent"][1]["osisID"] = "John.18.31-John.18.33"
         with self.assertRaises(ContractError):
             parse_coverage(altered, 10052)
+
+    def test_p66_captured_index_skips_chapter_marker_and_replays_offline(self):
+        raw = P66_COVERAGE["raw_body"]
+        self.assertEqual(hashlib.sha256(raw.encode("utf-8")).hexdigest(),
+                         P66_COVERAGE["body_sha256"])
+        entries = parse_coverage(json.loads(raw), 10066)
+        self.assertEqual(len(entries), 970)
+        self.assertEqual([ref for ref, page in entries if page == 70], [
+            "John.1.48", "John.1.49", "John.1.50", "John.1.51",
+            "John.2.1", "John.2.2", "John.2.3"])
+        self.assertEqual({pair for pair in entries if pair[0] in
+                          {f"John.1.{n}" for n in range(1, 6)}},
+                         {(f"John.1.{n}", page) for n in range(1, 6)
+                          for page in (3, 10)})
+        base_url = P66_COVERAGE["source_url"].removesuffix("/biblicalcontent/get/")
+        client, _, _ = self.client([(200, raw, {})], base_url=base_url)
+        self.assertEqual(collect_stage(client, 10066, "coverage"), "success")
+        offline = Client(self.con, "p66-offline", base_url=base_url, offline=True)
+        self.assertEqual(collect_stage(offline, 10066, "coverage"), "success")
+        self.assertEqual(offline.attempts, 0)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM coverage_index").fetchone()[0], 970)
+        self.assertEqual(self.con.execute("SELECT count(*) FROM coverage_review").fetchone()[0], 0)
+        self.assertEqual(self.con.execute("SELECT body FROM source_response").fetchone()[0], raw)
+
+    def test_chapter_only_index_creates_no_verse_candidates(self):
+        payload = {"status": "success", "data": {"indexContents": {
+            "docID": 10066, "indexContent": ["John 2", {
+                "docID": 10066, "osisID": "John.2", "pageID": 70,
+                "indexContent": 2004002000}]}}}
+        self.assertEqual(parse_coverage(payload, 10066), [])
+        raw = json.dumps(payload)
+        client, _, _ = self.client([(200, raw, {})])
+        self.assertEqual(collect_stage(client, 10066, "coverage"), "empty")
+        self.assertEqual(self.con.execute("SELECT count(*) FROM coverage_index").fetchone()[0], 0)
+        self.assertEqual(self.con.execute("SELECT body FROM source_response").fetchone()[0], raw)
+
+    def test_chapter_marker_does_not_hide_malformed_entries(self):
+        entry = {"docID": 10066, "osisID": "John.2", "pageID": 70}
+        changes = [{"docID": 10075}, {"pageID": None}, {"pageID": 0},
+                   {"pageID": True}, {"pageID": "70"}] + [
+                       {"osisID": ref} for ref in
+                       (None, "John", "John.0", "John.2.0", "John.2-John.3",
+                        "John.2.1-John.2.3", "John.2.garbage")]
+        for change in changes:
+            with self.subTest(change=change):
+                payload = {"status": "success", "data": {"indexContents": {
+                    "docID": 10066, "indexContent": [{**entry, **change}]}}}
+                with self.assertRaises(ContractError):
+                    parse_coverage(payload, 10066)
 
     def test_success_and_exception_both_space_attempts(self):
         client, clock, calls = self.client([

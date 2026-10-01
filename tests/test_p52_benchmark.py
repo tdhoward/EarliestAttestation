@@ -9,7 +9,7 @@ import unittest
 from unittest.mock import patch
 
 from audit_reviewed import audit_database, load_benchmark
-from controlled_ntvmr import (assign_coverage_unit, compute_ranking, connect,
+from controlled_ntvmr import (compute_ranking, connect,
                               dating_alternatives_report,
                               record_coverage_review, select_date_assessment,
                               writing_unit_report)
@@ -67,7 +67,7 @@ class P52BenchmarkTests(unittest.TestCase):
             unit = writing_unit_report(con, first["witness_id"])["units"][0]
             self.assertEqual(unit["kind"], "original")
             self.assertFalse(unit["selected_by_policy"]["p52-cautious-source-v1"]["rankable"])
-            self.assertEqual(unit["coverage_links"], [])
+            self.assertEqual(len(unit["coverage_links"]), 5)
 
     def test_v2_replay_appends_to_v1_review_without_changing_its_history(self):
         old_manifest = ROOT / "benchmarks" / "p52-dating-review-v1.json"
@@ -109,10 +109,6 @@ class P52BenchmarkTests(unittest.TestCase):
             self.assertEqual([ref for _, ref in reviews], replay["reviewed_verses"])
             assessment_id = con.execute("""SELECT id FROM date_assessment
                 WHERE unit_id=? AND original_notation='II or III'""", (unit,)).fetchone()[0]
-            for review_id, _ in reviews:
-                assign_coverage_unit(con, review_id, unit,
-                                     "Test-only original-unit link",
-                                     manifest["unit"]["citation"], "offline test")
             alternatives = dating_alternatives_report(
                 con, replay["inventory_id"], reviews[0][1], "p52-cautious-source-v1")
             self.assertEqual(alternatives["state"], "complete")
@@ -128,6 +124,8 @@ class P52BenchmarkTests(unittest.TestCase):
             self.assertEqual(graph_verse["ranking_state"], "uncomputed")
             self.assertEqual(graph_verse["dating_alternatives"]["combination_count"], 2)
             self.assertIsNone(graph_verse["scenarios"])
+            self.assertEqual(graph_verse["dating_alternatives"]["combinations"][0]
+                             ["scenarios"]["optimistic"][0]["coverage_status"], "partial")
             select_date_assessment(con, unit, assessment_id, policy,
                                    "Test-only Barker scenario", "offline test")
             for _, ref in reviews:

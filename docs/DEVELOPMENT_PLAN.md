@@ -25,8 +25,8 @@ The replacement database filename remains `ntvmr-v2.sqlite`; the current schema 
 | Source type and physical identity | Source-linked metadata and append-only classification, identity links, corrections and change flags | Review additional documents and joined fragments; no automatic identity inference |
 | Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; provisional 27-book, 260-chapter NA28 coordinate inventory with 7,957 rows; v2 directly confirms 1 Corinthians 4 coordinates, and v3 cites all 16 traditional skipped passages; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Confirm remaining flagged editorial cases, review 7,952 pending NTVMR mappings, independently check real absence cases; whole-NT inventory is not certified |
 | Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 example with four dating observations and a null selection | Record documented consensus where known and retain equal alternatives otherwise; check source fidelity; no date assessment or selection in the inspected local database |
-| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; offline export enumerates conditional rankings for stored valid date combinations, including the cited P52 replay after test-only unit assignment | Add documented-consensus status, a wider independently checked benchmark, and a graph UI; no ranking snapshot in the inspected database |
-| Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls; offline complete-inventory and filtered graph-data export | Wider independently checked scholarly benchmark, validated corpus export and graph UI |
+| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; offline export enumerates conditional rankings for stored valid date combinations, including the cited P52 replay with normal writing-unit links | Add documented-consensus status and a wider independently checked benchmark; no ranking snapshot in the inspected local database |
+| Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls; offline complete-inventory and filtered graph-data export; bounded static chart and source table | Several-witness prototype, wider independently checked scholarly benchmark and validated corpus export |
 
 The 2026-09-30 progress review reran all **70 offline tests on Python 3.12.6**
 successfully and inspected the local databases read-only. The earlier combined
@@ -47,6 +47,17 @@ inputs, not proof that a local database has been updated.
 `historical_validation_complete` remains false; a clean structural audit does not
 complete the historical-publication requirements.
 
+The 2026-09-30 graph increment passed **72 offline tests**. A fresh, separate
+`data/p52-graph-preview.sqlite` replay has ten John 18 coordinates, five positive
+P52 coverage reviews linked to one original writing unit, four date assessments
+(two numerically rankable), and no selected-policy rankings. Its structural and
+source audit had zero findings, five of five evidence cases passed, and both
+source controls passed. The offline export and static renderer produce
+two conditional endpoint charts with a source table; the five neighboring
+coordinates remain unresolved. This one-witness preview does not complete the
+several-witness prototype. The older local databases described above were not
+modified by that fresh replay.
+
 The [P52 replay](../replay_p52_benchmark.py) records a Codex source review citing
 the library catalogue and Hurtado. It does not represent an independent human
 check. Neighboring coordinates are negative **index controls**, not rejected
@@ -63,12 +74,23 @@ locally. Neither the successful passage probes nor those timeouts establish
 exhaustive discovery. An unfiltered lookup can establish completeness only for its
 explicit ID set, when every requested ID is returned and the reported count agrees.
 
+The 2026-10-01 proxy access check captured a [P66 index response](../tests/fixtures/p66_coverage_probe.json)
+with a chapter-level `John.2` marker that previously stopped parsing. The parser
+now retains that marker in the raw response and imports only the 970 explicit
+verse/page pairs. A cached retry on a temporary SQLite backup of
+`data/proxy-access-check-20261001.sqlite` succeeded with zero new requests and
+unchanged raw responses. All **75 offline tests** passed, including chapter-only
+and malformed-entry checks. This clears the P66 parsing obstacle for John 1;
+the index still requires physical coverage and mapping review before graph use.
+
 ## Next development work
 
 **The next milestone is one reproducible prototype graph of a short passage with
 several real witnesses.** Complete the path from cited evidence to a usable graph
 before expanding the infrastructure or attempting whole-NT completion. A small
 static chart and accompanying table are sufficient for the first visual result.
+The [declared target](PROTOTYPE_SCOPE.md) is John 1:1–5, beginning with P75,
+01, and P66 source review while retaining 02 as a discovered candidate.
 
 1. **Declare a bounded passage and witness set.** Aim for roughly 5–10 verses and
    at least three distinct real witnesses, with overlapping reviewed coverage so
@@ -483,7 +505,9 @@ It must support reproduction without fresh API requests.
 
 Keep the complete dataset separate from filtered graph exports. The offline
 [`export_attestation.py`](../export_attestation.py) command implements these data
-filters; the graph UI and historical validation remain future work. Default graphs
+filters; [`render_attestation.py`](../render_attestation.py) now builds a bounded
+static chart and table from its graph input. The several-witness prototype and
+historical validation remain future work. Default graphs
 exclude `omitted` coordinates and provide an **Include verses omitted from NA28**
 option; bracketed passages have a separate inclusion control. Record active
 filters and the resulting verse population in every graph export and summary.

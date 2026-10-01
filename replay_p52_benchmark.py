@@ -13,6 +13,7 @@ from audit_reviewed import (date_source_report, load_date_source, load_source_co
                             source_control_report)
 from controlled_ntvmr import (Client, collect_search, collect_stage, connect,
                               coverage_review_report, create_writing_unit,
+                              assign_coverage_unit,
                               import_edition_inventory, record_date_assessment,
                               import_language_probe, import_p52, record_candidate_review,
                               record_coverage_review, record_witness_assignment,
@@ -234,6 +235,24 @@ def apply_review(db_path):
                 ids != [config["witness_id"]] for ids in verified.values()):
             raise ValueError("P52 review did not yield the five expected partial attestations")
         apply_dating_review(con, dating_review)
+        unit = dating_review["unit"]
+        assignment_reason = "The reviewed recto and verso belong to the original copying on this leaf."
+        for row in config["coverage"]:
+            review_id = con.execute("""SELECT id FROM coverage_review WHERE inventory_id=?
+                AND osis_ref=? AND ntvmr_ref=? AND doc_id=? AND page_id=?
+                ORDER BY id DESC LIMIT 1""", (config["inventory_id"], row["osis_ref"],
+                row["ntvmr_ref"], doc_id, row["page_id"])).fetchone()[0]
+            current = con.execute("""SELECT unit_id,reason,citation,reviewer
+                FROM coverage_unit_assignment WHERE coverage_review_id=?
+                ORDER BY id DESC LIMIT 1""", (review_id,)).fetchone()
+            expected = (unit["unit_id"], assignment_reason, unit["citation"],
+                        dating_review["reviewer"])
+            if current is not None and current != expected:
+                raise ValueError(f"Existing P52 writing-unit link differs at {row['osis_ref']}")
+            if current is None:
+                assign_coverage_unit(con, review_id, unit["unit_id"],
+                                     assignment_reason, unit["citation"],
+                                     dating_review["reviewer"])
         return {"benchmark_id": config["benchmark_id"],
                 "inventory_id": config["inventory_id"], "witness_id": config["witness_id"],
                 "reviewed_verses": sorted(verified), "selected_date": False,

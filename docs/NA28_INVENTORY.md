@@ -135,7 +135,8 @@ that a Greek manuscript preserves any of the passages. A one-request named NTVMR
 
 The current inventory supplies coordinate tags and 16 passage identifications;
 it does not establish manuscript coverage. The offline exporter implements the
-graph-data filters, but there is no graph UI. Positive coverage review for an
+graph-data filters; a bounded static chart renderer now consumes its output.
+Positive coverage review for an
 `omitted` coordinate requires its cited `passage_citation` and an explicit NTVMR
 mapping. Existing immutable inventory snapshots remain
 unchanged. Supplementary collection can

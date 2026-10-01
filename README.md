@@ -19,7 +19,8 @@ assignment, dating, export, and graph workflow for that scope. A small static
 chart with a source-linked table is sufficient for the first visual result.
 The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) defines the
 scope, acceptance criteria, and subsequent expansion; it is the source of current
-development priorities.
+development priorities. The [bounded scope and development log](docs/PROTOTYPE_SCOPE.md)
+records the John 1:1–5 several-witness target and the P52 chart increment.
 
 Build and inspect this labeled prototype while data review continues. Whole-NT
 mapping completion, exhaustive discovery, the full representative benchmark, and
@@ -54,7 +55,9 @@ unreviewed or missing indexing are separate states.
 
 The inventory already retains the 16 skipped coordinates. The offline
 [`export_attestation.py`](export_attestation.py) command implements the default
-filter and optional inclusion for graph data; there is no graph UI yet. A positive
+filter and optional inclusion for graph data. The bounded offline
+[`render_attestation.py`](render_attestation.py) command renders a static chart and
+source table from that output. A positive
 coverage review for an `omitted` coordinate requires a cited traditional-passage
 identification in a new, immutable inventory snapshot and an explicit NTVMR mapping.
 Completing this supplementary dataset is not a prerequisite for completing the
@@ -122,7 +125,8 @@ dating review is not a project milestone.
 
 This is a Python/SQLite research prototype. Controlled collection, append-only
 reviews, writing-unit dating, and both first-five ranking scenarios are implemented
-through schema version 12. There is no graph UI or validated whole-corpus export yet.
+through schema version 12. A bounded static chart renderer exists; a validated
+whole-corpus export and the several-witness prototype are still open.
 **The legacy `ntvmr.sqlite` is exploratory and should not be used to make historical
 claims.** The [original review](docs/DATA_REVIEW.md) found:
 
@@ -156,6 +160,9 @@ reproducible from its pinned review record, but the inventory is not yet
 editorially certified or ready for whole-NT attestation claims.
 
 The progress check on 2026-09-30 passed **70 offline tests** on Python 3.12.6.
+The subsequent graph increment passed **72 offline tests** and a fresh P52
+replay audit with zero findings; the older local database counts below are
+read-only observations, not changes made by that replay.
 Read-only inspection of `data/ntvmr-v2.sqlite` found ten John 18 inventory
 coordinates, five explicit NTVMR mappings, one physical witness, and five cited
 partial-coverage decisions.
@@ -175,12 +182,13 @@ observations, and an explicit unresolved selection under
 snapshot counts above have not changed. Its null selection is a legacy replay
 state, not a requirement to resolve P52's date. Stored ranking snapshots still
 use one selected assessment per writing unit under each policy. The offline export
-now enumerates conditional rankings over stored valid alternatives, but recording
-known consensus and a graph UI remain implementation work. The normal P52 replay
-does not assign its coverage reviews to the writing unit; the ranking test adds
-those links explicitly. A successful integration test therefore does not mean
-the ordinary replay already produces graphable evidence. The next milestone must
-close that workflow gap for its chosen witnesses through reproducible inputs.
+now enumerates conditional rankings over stored valid alternatives. The normal
+P52 replay now assigns its five coverage reviews to the cited original writing
+unit, so a fresh replay and export produce two conditional date cases without
+manual SQL or a test-only assignment. The static chart renders those cases and
+marks the five neighboring coordinates as unresolved. It is a one-witness
+workflow check, not the planned several-witness prototype. Documented consensus
+and additional reviewed witnesses remain implementation work.
 Broader witness coverage, discovery completeness, and certification and mapping
 of the existing provisional whole-NT inventory remain open.
 Use the [development plan](docs/DEVELOPMENT_PLAN.md)
@@ -191,6 +199,13 @@ A small, budgeted live check on 2026-09-29 found P52 at John 18:31 and P66,
 P75, 01, and 02 at John 1:1. The [captured four-witness search responses](tests/fixtures/john_named_probe.json)
 show that codex names can be JSON numbers. These lookups do not establish complete
 discovery or verified physical coverage.
+
+The [P66 coverage response captured on 2026-10-01](tests/fixtures/p66_coverage_probe.json)
+contains 970 explicit verse/page pairs and a chapter-level `John.2` marker.
+The coverage parser validates chapter markers and preserves them in the raw
+response, but creates index candidates only for explicit verse entries. It never
+expands a chapter marker into verses. An index containing only chapter markers
+has no individual verse candidates; that does not establish physical absence.
 
 A bounded catalogue lookup now accepts up to 20 explicit document IDs in one
 request, preserves every returned record, and reports IDs that were not returned.
@@ -483,7 +498,7 @@ python sync_ntvmr.py --db data/ntvmr-v2.sqlite --ranking-inventory INVENTORY_ID 
 
 These commands make no network requests. Ranking reports return a nonzero exit
 status for `uncomputed`, `incomplete`, `stale`, or `failed` results. The bounded P52
-coverage replay has no selected date or coverage-unit assignments. A provisional
+coverage replay has no selected date. A provisional
 whole-NT coordinate inventory exists, but most mappings, broader witness evidence,
 and discovery completeness remain unresolved. A validated historical ranking is
 not yet available. Prototype graph development can proceed for a declared scope
@@ -547,8 +562,27 @@ python replay_p52_benchmark.py --db data/p52-review-replay.sqlite
 python audit_reviewed.py --db data/p52-review-replay.sqlite --benchmark benchmarks/p52-evidence-benchmark-v1.json --source-controls benchmarks/p52-source-controls-v1.json --date-source benchmarks/p52-date-source-v1.json
 ```
 
+The [P52 static chart preview](examples/p52-graph-preview.html) is generated
+offline from the same checked-in inputs. Starting with a new database path:
+
+```powershell
+python replay_p52_benchmark.py --db data/p52-graph-preview.sqlite
+python export_attestation.py --db data/p52-graph-preview.sqlite --inventory na28-john18-p52-subset-v1 --policy p52-cautious-source-v1 --dataset-output data/p52-graph-preview-complete.json --graph-output data/p52-graph-preview-input.json
+python render_attestation.py --graph-input data/p52-graph-preview-input.json --output examples/p52-graph-preview.html
+```
+
+The chart covers ten John 18 coordinates. Five have reviewed partial P52
+coverage and two rankable conditional date ranges; five remain uncomputed.
+Each conditional chart shows both date endpoints, and the table cites the
+coverage and dating sources, including observations unsuitable for numeric
+ranking. The preview does not meet the several-witness milestone. The renderer
+accepts at most 20 included verses and shows an explicit overflow state if
+global dating combinations exceed 256; it does not pick an arbitrary case.
+Run the export with `--include-omitted` or `--exclude-bracketed` to change the
+graph population before rendering.
+
 An offline integration test uses a temporary database and a test-only policy to
-link the five coverage reviews to the original unit and select Barker's broad
+select Barker's broad
 101-300 CE assessment. It verifies both scenario years for all five verses, the
 cited benchmark and source controls, and detection of a corrupted ranking entry.
 The test database is discarded; the checked-in P52 policy remains unselected and
@@ -623,6 +657,7 @@ as a verse with no attestation.
 | --- | --- |
 | `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v12 schema in the v2 replacement database |
 | `export_attestation.py` | Offline complete-inventory and filtered graph-data export |
+| `render_attestation.py`, `examples/p52-graph-preview.html` | Bounded offline chart renderer and generated P52 preview |
 | `review_absence.py` | Offline cited physical absence decisions and reports |
 | `replay_p52_benchmark.py`, `benchmarks/` | Offline, cited P52 subset inventory and review replay |
 | `build_na28_inventory.py`, `benchmarks/na28-coordinate-source-v1.json` | Reproducible publisher-coordinate ledger and provisional whole-NT inventory builder |
@@ -635,6 +670,7 @@ as a verse with no attestation.
 | `NTVMR Bruno/` | Manual API examples using the official HTTPS origin |
 | `docs/DATA_REVIEW.md` | Findings, evidence, source checks, and limitations |
 | `docs/DEVELOPMENT_PLAN.md` | Ordered implementation work and validation gates |
+| `docs/PROTOTYPE_SCOPE.md` | Declared John 1 scope, source leads, and graph development measures |
 | `docs/NA28_INVENTORY.md` | Full coordinate inventory report, exceptions, and unresolved mappings |
 
 Project code is licensed under [GPL-3.0](LICENSE). Source metadata, images,

@@ -8,6 +8,7 @@ from contextlib import closing
 import json
 from pathlib import Path
 import sqlite3
+from urllib.parse import urlencode
 
 from controlled_ntvmr import (dating_alternatives_report, edition_inventory_report,
                               ranking_report)
@@ -27,6 +28,25 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
     rows = []
     for verse in inventory["verses"]:
         ref = verse["osis_ref"]
+        discovery = [dict(zip(("run_id", "query_ga_num", "lang_filter", "doc_id",
+                               "ga_num", "primary_name", "source_lang",
+                               "review_state", "source_response_id", "source_url",
+                               "source_params", "retrieved_at", "search_state"), candidate))
+                     for candidate in con.execute("""SELECT c.run_id,c.ga_num_query,
+                         c.lang_filter,c.doc_id,c.ga_num,c.primary_name,c.source_lang,
+                         c.review_state,c.response_id,s.url,s.params_json,
+                         s.retrieved_at,j.state
+                         FROM discovery_candidate c
+                         JOIN source_response s ON s.id=c.response_id
+                         JOIN discovery_job j ON j.run_id=c.run_id
+                           AND j.osis_ref=c.osis_ref AND j.ga_num=c.ga_num_query
+                           AND j.lang_filter=c.lang_filter
+                         WHERE c.osis_ref=? ORDER BY c.doc_id,c.run_id,c.ga_num_query""",
+                         (ref,))]
+        for candidate in discovery:
+            candidate["source_params"] = json.loads(candidate["source_params"])
+            candidate["source_request_url"] = (candidate["source_url"] + "?" +
+                urlencode(candidate["source_params"]))
         ranking = (ranking_report(con, inventory_id, ref, policy_id)
                    if ref in ranked_refs else None)
         alternatives = (dating_alternatives_report(con, inventory_id, ref, policy_id)
@@ -36,7 +56,8 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
                      "scenarios": ranking["scenarios"] if ranking else
                      {"optimistic": [], "pessimistic": []},
                      "scenarios_basis": "selected_policy_assessments",
-                     "dating_alternatives": alternatives})
+                     "dating_alternatives": alternatives,
+                     "discovery_candidates": discovery})
     filters = {"include_omitted": include_omitted,
                "include_bracketed": include_bracketed}
     shown = [{**row, "scenarios": row["scenarios"] if
@@ -48,6 +69,10 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
 
     def counts(items):
         return {"verse_count": len(items),
+                "verses_with_discovery_candidates": sum(
+                    bool(row["discovery_candidates"]) for row in items),
+                "discovered_document_count": len({candidate["doc_id"]
+                    for row in items for candidate in row["discovery_candidates"]}),
                 "verses_with_complete_date_alternatives": sum(
                     row["dating_alternatives"] is not None and
                     row["dating_alternatives"]["state"] == "complete"
