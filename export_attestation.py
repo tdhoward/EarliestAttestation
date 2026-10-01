@@ -9,7 +9,8 @@ import json
 from pathlib import Path
 import sqlite3
 
-from controlled_ntvmr import edition_inventory_report, ranking_report
+from controlled_ntvmr import (dating_alternatives_report, edition_inventory_report,
+                              ranking_report)
 
 
 def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
@@ -20,25 +21,37 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
     ranked_refs = {row[0] for row in con.execute(
         "SELECT osis_ref FROM ranking_snapshot WHERE inventory_id=? AND policy_id=?",
         (inventory_id, policy_id))}
+    reviewed_refs = {row[0] for row in con.execute(
+        "SELECT DISTINCT osis_ref FROM coverage_review WHERE inventory_id=?",
+        (inventory_id,))}
     rows = []
     for verse in inventory["verses"]:
         ref = verse["osis_ref"]
         ranking = (ranking_report(con, inventory_id, ref, policy_id)
                    if ref in ranked_refs else None)
+        alternatives = (dating_alternatives_report(con, inventory_id, ref, policy_id)
+                        if ref in reviewed_refs else None)
         rows.append({**verse,
                      "ranking_state": ranking["state"] if ranking else "uncomputed",
                      "scenarios": ranking["scenarios"] if ranking else
-                     {"optimistic": [], "pessimistic": []}})
+                     {"optimistic": [], "pessimistic": []},
+                     "scenarios_basis": "selected_policy_assessments",
+                     "dating_alternatives": alternatives})
     filters = {"include_omitted": include_omitted,
                "include_bracketed": include_bracketed}
-    shown = [{**row, "scenarios": row["scenarios"] if row["ranking_state"] in
-              ("success", "empty") else None}
+    shown = [{**row, "scenarios": row["scenarios"] if
+              row["ranking_state"] in ("success", "empty") and
+              row["dating_alternatives"] is None else None}
              for row in rows
              if (include_omitted or row["editorial_status"] != "omitted")
              and (include_bracketed or row["editorial_status"] != "bracketed")]
 
     def counts(items):
         return {"verse_count": len(items),
+                "verses_with_complete_date_alternatives": sum(
+                    row["dating_alternatives"] is not None and
+                    row["dating_alternatives"]["state"] == "complete"
+                    for row in items),
                 "by_editorial_status": {status: sum(row["editorial_status"] == status
                                                    for row in items)
                                         for status in ("main", "bracketed", "omitted", "uncertain")},
@@ -47,7 +60,7 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
                                      for state in ("uncomputed", "success", "empty",
                                                    "stale", "incomplete", "failed")}}
 
-    common = {"format_version": 1, "inventory_id": inventory_id,
+    common = {"format_version": 2, "inventory_id": inventory_id,
               "edition": inventory["edition"], "inventory_scope": inventory["scope"],
               "inventory_source_citation": inventory["source_citation"],
               "inventory_mapping_citation": inventory["mapping_citation"],

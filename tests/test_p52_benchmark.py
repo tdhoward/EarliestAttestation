@@ -10,8 +10,10 @@ from unittest.mock import patch
 
 from audit_reviewed import audit_database, load_benchmark
 from controlled_ntvmr import (assign_coverage_unit, compute_ranking, connect,
+                              dating_alternatives_report,
                               record_coverage_review, select_date_assessment,
                               writing_unit_report)
+from export_attestation import build_exports
 import replay_p52_benchmark
 from replay_p52_benchmark import apply_review, main
 
@@ -111,6 +113,21 @@ class P52BenchmarkTests(unittest.TestCase):
                 assign_coverage_unit(con, review_id, unit,
                                      "Test-only original-unit link",
                                      manifest["unit"]["citation"], "offline test")
+            alternatives = dating_alternatives_report(
+                con, replay["inventory_id"], reviews[0][1], "p52-cautious-source-v1")
+            self.assertEqual(alternatives["state"], "complete")
+            self.assertEqual(alternatives["combination_count"], 2)
+            self.assertEqual({(case["scenarios"]["optimistic"][0]["event_year"],
+                               case["scenarios"]["pessimistic"][0]["event_year"])
+                              for case in alternatives["combinations"]},
+                             {(125, 175), (101, 300)})
+            self.assertEqual(con.execute("SELECT count(*) FROM ranking_snapshot").fetchone()[0], 0)
+            _, graph = build_exports(con, replay["inventory_id"], "p52-cautious-source-v1")
+            graph_verse = next(verse for verse in graph["verses"]
+                               if verse["osis_ref"] == reviews[0][1])
+            self.assertEqual(graph_verse["ranking_state"], "uncomputed")
+            self.assertEqual(graph_verse["dating_alternatives"]["combination_count"], 2)
+            self.assertIsNone(graph_verse["scenarios"])
             select_date_assessment(con, unit, assessment_id, policy,
                                    "Test-only Barker scenario", "offline test")
             for _, ref in reviews:

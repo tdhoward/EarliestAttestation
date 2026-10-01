@@ -35,6 +35,8 @@ class AttestationExportTests(unittest.TestCase):
 
     def test_complete_dataset_and_independent_graph_filters(self):
         dataset, graph = build_exports(self.con, "filter-test", "policy")
+        self.assertEqual(dataset["format_version"], 2)
+        self.assertEqual(graph["format_version"], 2)
         self.assertEqual(dataset["counts"]["verse_count"], 4)
         self.assertEqual(graph["counts"]["verse_count"], 3)
         self.assertEqual(graph["filters"], {"include_omitted": False,

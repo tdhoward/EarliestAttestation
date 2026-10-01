@@ -11,6 +11,30 @@ that the whole verse, its exact NA28 wording, or neighboring verses survived. Fo
 example, P52 preserves portions of John 18:31–33 and 18:37–38; this project must not
 fill in 18:34–36. See the [coverage reference and review](docs/DATA_REVIEW.md).
 
+## Development direction
+
+The next milestone is a **reproducible prototype graph of a short passage with
+several real witnesses**. Complete the ordinary collection, review, writing-unit
+assignment, dating, export, and graph workflow for that scope. A small static
+chart with a source-linked table is sufficient for the first visual result.
+The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) defines the
+scope, acceptance criteria, and subsequent expansion; it is the source of current
+development priorities.
+
+Build and inspect this labeled prototype while data review continues. Whole-NT
+mapping completion, exhaustive discovery, the full representative benchmark, and
+independent human publication review are not prerequisites for prototype work.
+Displayed evidence still needs citations and faithful recording, with unknowns,
+competing dates, discovery limits, and review status visible. Historical releases
+must meet the separate [publication requirements](docs/DEVELOPMENT_PLAN.md#prototype-and-historical-publication-expectations).
+
+Measure progress by usable graph output, reviewed witnesses and verses, and the
+effort needed to add them. Use that experience to justify targeted batch imports
+or mapping automation before scaling. New infrastructure must address a concrete
+need in the active milestone. Preserve the existing P52 regression cases;
+additional P52 dating research is outside this milestone. Supplementary collection
+remains part of the project but must not block the core prototype.
+
 ## Skipped verses and graph inclusion
 
 Collect and retain evidence for traditional verse numbers skipped by NA28 as
@@ -43,10 +67,28 @@ python export_attestation.py --db data/na28-inventory-v3.sqlite --inventory na28
 Add `--include-omitted` to show skipped coordinates in graph data, or
 `--exclude-bracketed` to filter bracketed passages independently. Both outputs
 record inventory and dating policy IDs; the graph output records its filters and
-counts. Uncomputed or stale rankings have no graph events. The complete export
-retains their status and any prior ranking entries for audit.
+counts. Uncomputed or stale selected-policy rankings have no selected-policy graph
+events. The complete export retains their status and any prior ranking entries for
+audit; current alternative-date calculations can still be available separately.
 The example inventory database has no rankings, so its exported verses will be
 `uncomputed` until reviewed evidence and rankings are added to that database.
+Format v2 also carries `dating_alternatives` for coordinates with coverage reviews.
+It enumerates combinations of stored valid date assessments by writing unit and
+computes both endpoint rankings for each combination without choosing a scholar.
+Each combination lists assessment IDs, complete intervals, original notation, and
+citations. It uses at most 256 combinations per verse; larger sets report
+`too_many_combinations` and contain no partial results. `complete` means all
+combinations of the currently stored, rankable assessments were enumerated, not
+that source discovery or historical validation is complete. Unknown or invalid
+dates remain excluded with an explicit reason. The graph input sets the older
+selected-policy `scenarios` field to `null` when alternative results exist;
+consumers should use `dating_alternatives.combinations` in that case. The complete
+dataset retains selected-policy snapshots for audit. The 256-combination cap is
+an implementation limit, not a dating policy: nine units with two assessments
+each already exceed it. Future development should support bounded exploration of
+explicit combinations when needed, keeping all assessments accessible and
+uncomputed outcomes visible. On-demand calculation is not implemented. See the
+[ranking direction](docs/DEVELOPMENT_PLAN.md#5-rank-independently-for-both-date-scenarios).
 
 ## Manuscript dating policy
 
@@ -114,24 +156,33 @@ reproducible from its pinned review record, but the inventory is not yet
 editorially certified or ready for whole-NT attestation claims.
 
 The progress check on 2026-09-30 passed **70 offline tests** on Python 3.12.6.
-The local reviewed database has ten John 18 inventory coordinates, five explicit
-NTVMR mappings, one physical witness, and five cited partial-coverage decisions.
-Its combined audit passes all five evidence cases and both source controls with
-zero findings. It has **no date assessments, selected dates, or ranking snapshots**;
+Read-only inspection of `data/ntvmr-v2.sqlite` found ten John 18 inventory
+coordinates, five explicit NTVMR mappings, one physical witness, and five cited
+partial-coverage decisions.
+An earlier combined audit passed all five evidence cases and both source controls
+with zero findings. It has **no writing units, coverage-unit assignments, date
+assessments, selected dates, or ranking snapshots**;
 `historical_validation_complete` remains false. These counts describe the inspected
-local snapshot, which is not distributed with the repository. That snapshot was
-inspected before v12 and needs a backed-up additive schema upgrade before the
-current read-only audit can run.
+local snapshot, which is not distributed with the repository. It is still on v11
+and needs a backed-up additive schema upgrade before the current read-only audit
+can run. The separate full-inventory databases have coordinates and mappings but
+no witness evidence; the inventory alone cannot produce attestation events.
 
 The [bounded P52 dating review](docs/P52_DATING_REVIEW.md) checks cited sources as
 a Codex review and records an original writing unit, four competing dating
 observations, and an explicit unresolved selection under
 `p52-cautious-source-v1`. It replays into a separate database; the local reviewed
 snapshot counts above have not changed. Its null selection is a legacy replay
-state, not a requirement to resolve P52's date. The current ranking path uses one
-assessment per writing unit under each policy; presenting competing ranges on
-equal terms across rankings, exports, and charts remains implementation work.
-Broader witnesses, discovery completeness, and a whole-NT inventory remain open.
+state, not a requirement to resolve P52's date. Stored ranking snapshots still
+use one selected assessment per writing unit under each policy. The offline export
+now enumerates conditional rankings over stored valid alternatives, but recording
+known consensus and a graph UI remain implementation work. The normal P52 replay
+does not assign its coverage reviews to the writing unit; the ranking test adds
+those links explicitly. A successful integration test therefore does not mean
+the ordinary replay already produces graphable evidence. The next milestone must
+close that workflow gap for its chosen witnesses through reproducible inputs.
+Broader witness coverage, discovery completeness, and certification and mapping
+of the existing provisional whole-NT inventory remain open.
 Use the [development plan](docs/DEVELOPMENT_PLAN.md)
 for current priorities and acceptance criteria; the original review is the legacy
 baseline.
@@ -402,7 +453,9 @@ both date bounds to `null`. To remove a coverage-unit link or date selection, se
 reason. The [P52 dating manifest](benchmarks/p52-dating-review-v2.json) preserves
 the captured NTVMR 125-175 catalogue interval, two unbounded source descriptions,
 and Barker's second-or-third-century assessment normalized to 101-300 CE. Its
-policy selects `null`, so none currently provides a rankable project date.
+policy selects `null`, so it supplies no selected-policy ranking. Its valid
+assessments remain usable as conditional alternatives once coverage-unit links
+are recorded; the null selection does not make those ranges unusable.
 
 The new collector does not yet discover all candidates, resolve physical witness
 aliases automatically, resolve NA28 verse membership, or establish indexing tiers.
@@ -430,10 +483,12 @@ python sync_ntvmr.py --db data/ntvmr-v2.sqlite --ranking-inventory INVENTORY_ID 
 
 These commands make no network requests. Ranking reports return a nonzero exit
 status for `uncomputed`, `incomplete`, `stale`, or `failed` results. The bounded P52
-coverage review has no selected scholarly date, and there is no whole-NT inventory or
-complete discovery. The repository has no historical ranking to publish. P52's
-unselected date is a limitation of that replay, not a project-wide blocker or a
-request for contributors to settle the dating dispute.
+coverage replay has no selected date or coverage-unit assignments. A provisional
+whole-NT coordinate inventory exists, but most mappings, broader witness evidence,
+and discovery completeness remain unresolved. A validated historical ranking is
+not yet available. Prototype graph development can proceed for a declared scope
+with sourced conditional dates and explicit limitations. P52's unselected date
+does not require contributors to settle the dating dispute.
 
 ## Reviewed-data audit and P52 replay
 
@@ -548,8 +603,9 @@ The optimistic/pessimistic pair describes the two ends of the ranges used in a
 calculation; it does not resolve differences between scholars. Exports and charts
 must identify those inputs and expose alternative ranges and resulting changes
 in membership or order without silently favoring one. A manuscript still counts
-once per verse in each result, however many dating assessments it has. This
-presentation of alternatives is required behavior, not yet a completed feature.
+once per verse in each result, however many dating assessments it has. The offline
+export now supplies these conditional combinations for reviewed coordinates with
+rankable dates. A chart UI and a model for documented consensus are still needed.
 
 Moving from older to newer years, a verse becomes colored at its first witness's
 scenario date and changes shade at witnesses two through five. Unknown or

@@ -69,10 +69,20 @@ Under `p52-cautious-source-v1`, the date selection remains explicitly `null`.
 No P52 ranking is computed by this replay, and its five coverage reviews are not
 yet linked to the writing unit. These describe the saved example's implementation
 state, not a requirement to settle its dating before continuing the project.
-The existing test-only ranking uses Barker's interval to exercise the engine; it
-does not give that interval preference over the catalogue range. Sourced ranges
-remain equally valid possibilities unless documented consensus is known. Source
-descriptions without usable numeric bounds remain visible without invented dates.
+The existing integration test adds coverage-unit links, checks conditional
+rankings for both usable intervals through the alternative-date exporter, and
+also exercises a selected-policy snapshot using Barker's interval. Those links
+are test setup; the normal replay still does not create them. Neither calculation
+gives an interval scholarly preference. Sourced ranges remain equally valid
+possibilities unless documented consensus is known. Source descriptions without
+usable numeric bounds remain visible without invented dates.
+
+Keep this fixture as regression coverage. The next development effort is the
+[bounded graph with several real witnesses](DEVELOPMENT_PLAN.md#next-development-work).
+Its reproducible inputs must supply coverage-unit assignments through the normal
+workflow. That requirement does not reopen P52 dating research or require a
+preferred P52 date. Prototype work may proceed before the independent source
+checks required for historical publication, with its review status explicit.
 
 ## Scope of any future source check
 
@@ -87,7 +97,9 @@ and any recording corrections in a new versioned manifest. The check covers:
    with any numeric conversion documented. This is a check of source recording,
    not an evaluation of which palaeographic argument is correct.
 3. Preservation of all sourced alternatives on equal terms unless a cited source
-   establishes scholarly consensus. The current single-assessment ranking
-   interface must not turn a technical selection into a scholarly preference.
-   Future outputs must expose the alternatives and their effects as described
+   establishes scholarly consensus. Stored single-assessment snapshots must not
+   turn a technical selection into a scholarly preference. The offline exporter
+   now calculates conditional alternatives where valid dates and coverage-unit
+   links exist; the graph must expose those alternatives and their effects as
+   described
    in the [development plan](DEVELOPMENT_PLAN.md#5-rank-independently-for-both-date-scenarios).

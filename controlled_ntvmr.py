@@ -8,6 +8,7 @@ from contextlib import closing
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 import hashlib
+from itertools import product
 import json
 from pathlib import Path
 import random
@@ -1420,8 +1421,8 @@ def writing_unit_report(con, witness_id):
             "rankings_computed": False, "whole_nt_complete": False}
 
 
-def ranking_input(con, inventory_id, osis_ref, policy_id):
-    """Resolve current cited evidence and selected dates for one edition verse."""
+def ranking_input(con, inventory_id, osis_ref, policy_id, *, alternatives=False):
+    """Resolve current evidence with selected dates or all valid unit dates."""
     if not isinstance(policy_id, str) or not policy_id.strip():
         raise ValueError("Ranking requires a dating policy ID")
     reviews = coverage_review_report(con, inventory_id, osis_ref)["reviews"]
@@ -1449,18 +1450,25 @@ def ranking_input(con, inventory_id, osis_ref, policy_id):
         unit_id = assignment[1] if assignment else None
         selection = None
         assessment = None
+        assessments = []
         if unit_id is not None:
-            selection = con.execute("""SELECT id,assessment_id FROM date_selection
-                WHERE unit_id=? AND policy_id=? ORDER BY id DESC LIMIT 1""",
-                (unit_id, policy_id)).fetchone()
-            if selection and selection[1] is not None:
-                assessment = con.execute("""SELECT status,date_min,date_max,
+            if alternatives:
+                assessments = list(con.execute("""SELECT id,date_min,date_max,
                     original_notation,citation,consulted_on FROM date_assessment
-                    WHERE id=? AND unit_id=?""", (selection[1], unit_id)).fetchone()
+                    WHERE unit_id=? AND status='valid' ORDER BY id""", (unit_id,)))
+            else:
+                selection = con.execute("""SELECT id,assessment_id FROM date_selection
+                    WHERE unit_id=? AND policy_id=? ORDER BY id DESC LIMIT 1""",
+                    (unit_id, policy_id)).fetchone()
+                if selection and selection[1] is not None:
+                    assessment = con.execute("""SELECT status,date_min,date_max,
+                        original_notation,citation,consulted_on FROM date_assessment
+                        WHERE id=? AND unit_id=?""", (selection[1], unit_id)).fetchone()
         absence = absences.get(review["witness_id"])
         inputs.append({"review": review, "physical_absence_review": absence,
                        "unit_assignment": assignment,
                        "date_selection": selection, "date_assessment": assessment,
+                       **({"valid_alternatives": assessments} if alternatives else {}),
                        "coverage_jobs": jobs})
         if review["status"] not in ("partial", "full"):
             reason = "nonpositive_review"
@@ -1470,9 +1478,11 @@ def ranking_input(con, inventory_id, osis_ref, policy_id):
             reason = "conflicting_absence"
         elif unit_id is None:
             reason = "missing_writing_unit"
-        elif not selection or selection[1] is None:
+        elif alternatives and not assessments:
+            reason = "no_valid_date_alternative"
+        elif not alternatives and (not selection or selection[1] is None):
             reason = "missing_selected_date"
-        elif not assessment or assessment[0] != "valid":
+        elif not alternatives and (not assessment or assessment[0] != "valid"):
             reason = "invalid_or_unknown_date"
         else:
             reason = None
@@ -1480,10 +1490,17 @@ def ranking_input(con, inventory_id, osis_ref, policy_id):
             excluded.append({"coverage_review_id": review["review_id"],
                              "witness_id": review["witness_id"], "reason": reason})
             continue
-        eligible.append({"witness_id": review["witness_id"], "unit_id": unit_id,
-                         "assessment_id": selection[1], "selection_id": selection[0],
-                         "coverage_review_id": review["review_id"],
-                         "date_min": assessment[1], "date_max": assessment[2]})
+        if alternatives:
+            for item in assessments:
+                eligible.append({"witness_id": review["witness_id"], "unit_id": unit_id,
+                                 "assessment_id": item[0], "selection_id": None,
+                                 "coverage_review_id": review["review_id"],
+                                 "date_min": item[1], "date_max": item[2]})
+        else:
+            eligible.append({"witness_id": review["witness_id"], "unit_id": unit_id,
+                             "assessment_id": selection[1], "selection_id": selection[0],
+                             "coverage_review_id": review["review_id"],
+                             "date_min": assessment[1], "date_max": assessment[2]})
     digest = hashlib.sha256(encoded(inputs).encode("utf-8")).hexdigest()
     return digest, eligible, excluded, failures
 
@@ -1505,6 +1522,54 @@ def rank_candidates(candidates, scenario):
         per_witness.setdefault(row["witness_id"], row)
     return [{**row, "rank": rank, "event_year": row[event]}
             for rank, row in enumerate(sorted(per_witness.values(), key=key), 1)]
+
+
+def dating_alternatives_report(con, inventory_id, osis_ref, policy_id,
+                               *, max_combinations=256):
+    """Calculate conditional rankings for every combination of valid unit dates.
+
+    This does not pick a preferred assessment or alter stored policy snapshots.
+    The cap prevents a partial list from masquerading as complete alternatives.
+    """
+    if type(max_combinations) is not int or max_combinations < 1:
+        raise ValueError("Alternative combination cap must be a positive integer")
+    _, candidates, excluded, failures = ranking_input(
+        con, inventory_id, osis_ref, policy_id, alternatives=True)
+    units = sorted({row["unit_id"] for row in candidates})
+    choices = {unit: sorted({row["assessment_id"] for row in candidates
+                            if row["unit_id"] == unit}) for unit in units}
+    count = 1
+    for unit in units:
+        count *= len(choices[unit])
+    unresolved = any(row["reason"] in ("review_needed", "conflicting_absence")
+                     for row in excluded)
+    state = ("failed" if failures else "incomplete" if unresolved else
+             "no_rankable_dates" if not units else
+             "too_many_combinations" if count > max_combinations else "complete")
+    report = {"inventory_id": inventory_id, "osis_ref": osis_ref,
+              "policy_id": policy_id, "state": state,
+              "combination_count": count if units else 0,
+              "max_combinations": max_combinations, "unit_count": len(units),
+              "eligible_witness_count": len({row["witness_id"] for row in candidates}),
+              "excluded_reviews": excluded, "failed_coverage_jobs": failures,
+              "combinations": []}
+    if state != "complete":
+        return report
+    for selected in product(*(choices[unit] for unit in units)):
+        by_unit = dict(zip(units, selected))
+        rows = [row for row in candidates
+                if row["assessment_id"] == by_unit[row["unit_id"]]]
+        provenance = [dict(zip(("unit_id", "assessment_id", "date_min", "date_max",
+                                "original_notation", "citation", "consulted_on"), item))
+                      for item in con.execute("""SELECT unit_id,id,date_min,date_max,
+                          original_notation,citation,consulted_on FROM date_assessment
+                          WHERE id IN (""" + ",".join("?" for _ in selected) + ") ORDER BY unit_id",
+                          selected)]
+        report["combinations"].append({
+            "assessments": provenance,
+            "scenarios": {scenario: rank_candidates(rows, scenario)[:5]
+                          for scenario in ("optimistic", "pessimistic")}})
+    return report
 
 
 def ranking_report(con, inventory_id, osis_ref, policy_id):

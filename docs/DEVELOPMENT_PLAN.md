@@ -1,6 +1,7 @@
 # Development plan
 
-This plan tracks the replacement collector and its validation gates. The
+This plan directs development toward a usable graph of surviving Greek verse
+evidence, supported by reproducible collection and review. The
 [2026-09-29 code/data review](DATA_REVIEW.md) is the historical baseline for the
 disabled legacy collector; its defects are not a current implementation checklist.
 The [README](../README.md) contains command syntax and reproducibility instructions.
@@ -24,20 +25,27 @@ The replacement database filename remains `ntvmr-v2.sqlite`; the current schema 
 | Source type and physical identity | Source-linked metadata and append-only classification, identity links, corrections and change flags | Review additional documents and joined fragments; no automatic identity inference |
 | Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; provisional 27-book, 260-chapter NA28 coordinate inventory with 7,957 rows; v2 directly confirms 1 Corinthians 4 coordinates, and v3 cites all 16 traditional skipped passages; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Confirm remaining flagged editorial cases, review 7,952 pending NTVMR mappings, independently check real absence cases; whole-NT inventory is not certified |
 | Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 example with four dating observations and a null selection | Record documented consensus where known and retain equal alternatives otherwise; check source fidelity; no date assessment or selection in the inspected local database |
-| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; test-only P52 scenario exercises both rankings with one sourced assessment | Carry equal dating alternatives through results and benchmark them with real witnesses; no ranking snapshot in the inspected database |
+| Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; offline export enumerates conditional rankings for stored valid date combinations, including the cited P52 replay after test-only unit assignment | Add documented-consensus status, a wider independently checked benchmark, and a graph UI; no ranking snapshot in the inspected database |
 | Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls; offline complete-inventory and filtered graph-data export | Wider independently checked scholarly benchmark, validated corpus export and graph UI |
 
-The offline suite passes **70 tests on Python 3.12.6**. The combined reviewed audit
-reports zero findings: five of five P52 evidence cases pass, and both source
-controls pass. The local reviewed database contains one inventory with ten
-coordinates (John 18:30–39), five explicit NTVMR mappings, one physical witness,
-and five `partial` coverage reviews. It contains zero date assessments, selections,
-or ranking snapshots. This inspected v11 database needs a backed-up additive v12
-upgrade before the current read-only audit can run. The separate
+The 2026-09-30 progress review reran all **70 offline tests on Python 3.12.6**
+successfully and inspected the local databases read-only. The earlier combined
+reviewed audit reported zero findings: five of five P52 evidence cases passed,
+and both source controls passed. The local `data/ntvmr-v2.sqlite` contains one
+inventory with ten coordinates (John 18:30–39), five explicit NTVMR mappings, one physical witness,
+and five `partial` coverage reviews. It contains zero writing units, coverage-unit
+assignments, date assessments, selections, or ranking snapshots. This v11 database
+needs a backed-up additive v12 upgrade before the current read-only audit can run. The separate
 [P52 dating review](P52_DATING_REVIEW.md) replays
 four assessments and a null selection into a fresh database; it has not been
-applied to that inspected local snapshot. `historical_validation_complete` remains
-false; a clean structural audit does not complete the scholarly validation gate.
+applied to that inspected local snapshot. The existing local
+`data/p52-review-replay.sqlite` still contains the earlier three assessments and
+no coverage-unit assignments or rankings. The three local whole-NT inventory
+databases contain coordinates and five mappings each, but no witness evidence.
+These local files are not distributed; checked-in manifests describe reproducible
+inputs, not proof that a local database has been updated.
+`historical_validation_complete` remains false; a clean structural audit does not
+complete the historical-publication requirements.
 
 The [P52 replay](../replay_p52_benchmark.py) records a Codex source review citing
 the library catalogue and Hurtado. It does not represent an independent human
@@ -57,52 +65,106 @@ explicit ID set, when every requested ID is returned and the reported count agre
 
 ## Next development work
 
-1. **Review the provisional inventory and broaden manuscript discovery.** The
-   [coordinate inventory](NA28_INVENTORY.md) now covers all 27 books and 260 chapters
-   with 7,957 rows. The v2 snapshot resolves the 1 Corinthians 4 fallback through
-   the publisher's direct NA28 chapter display. V3 identifies all 16 traditional
-   skipped passages with publisher citations. Confirm double-bracketed passages;
-   establish source-checked NTVMR mappings in a new
-   versioned snapshot. Five John 18 mappings are checked and 7,952 remain pending.
-   Retain skipped coordinates as supplementary collection targets under the
-   [inventory policy](NA28_INVENTORY.md#supplementary-collection-and-display-policy),
-   with cited passage identification and reviewed mappings. Track supplementary
-   completeness separately; it must not block core NA28 dataset completion.
-   Resolve the unfiltered catalogue contract
-   with a separately scoped, budgeted check when needed. Record the inclusion
-   policy and completeness of each declared scope. Preserve pending or failed
-   work explicitly. Increase request volume only after these checks and provider
-   expectations are established. This work does not depend on resolving P52's date.
-2. **Expand the source-based benchmark in small increments.** Add P66/P75, a Pauline
-   papyrus, a major codex, a later supplement, and a witness with a substantial
-   gap. Cover positive and rejected claims, competing dates, and duplicate
-   physical identities. The indexed coverage-review path still requires an
-   indexed page and explicit mapping. A separate v12 physical-absence path now
-   records a checked image or reviewed transcription at an inventory verse without
-   an index row, and flags contradictions with positive coverage. Its tests are
-   synthetic; independently checked real absence cases remain to be added.
-3. **Carry dating uncertainty through the general ranking workflow.** Record
-   cited consensus where known. Otherwise retain each sourced range as an equally
-   valid possibility and expose its effect on both endpoint rankings. The current
-   interface selects one assessment per writing unit under a named policy;
-   complete handling and presentation of alternatives remain implementation work.
-   Do not make contributors choose which scholar is correct to satisfy that
-   interface. Preserve original notation, citations, and documented conversions.
-4. **Exercise rankings with representative sourced inputs.** Check both endpoint
-   scenarios for documented consensus and for competing ranges, including changed
-   first-five membership. Reproduce results offline and check source fidelity,
-   coverage, and witness deduplication. Keep existing P52 regression tests and
-   manifests; its test-only ranking is sufficient for its role as an example.
-   Further P52 research or a preferred P52 date is not an acceptance criterion.
-5. **Export and graph only after the validation gates below.** Keep the legacy
-   results, candidate index samples, synthetic ranking fixtures, and historically
-   reviewed outputs explicitly labeled. A green test suite or P52 source control
-   alone is not publication readiness. Validation must preserve dating uncertainty;
-   it must not require scholarly disputes to be settled.
+**The next milestone is one reproducible prototype graph of a short passage with
+several real witnesses.** Complete the path from cited evidence to a usable graph
+before expanding the infrastructure or attempting whole-NT completion. A small
+static chart and accompanying table are sufficient for the first visual result.
 
-The numbered sections below retain the research requirements and acceptance
-criteria, including those already implemented. Use the status table and next-work
-list above to choose work; do not restart completed collection or ranking slices.
+1. **Declare a bounded passage and witness set.** Aim for roughly 5–10 verses and
+   at least three distinct real witnesses, with overlapping reviewed coverage so
+   the graph exercises increasing counts. John 1 is a practical starting candidate
+   because named probes already returned P66, P75, 01, and 02 at John 1:1; those
+   hits still require coverage review. Choose the exact scope from accessible
+   sources, document it, and keep unresolved work visible. Do not wait for all
+   7,952 pending mappings or exhaustive corpus discovery. Any additional live
+   requests remain explicitly scoped and budgeted.
+2. **Finish the ordinary data path for that scope.** Record source-checked
+   mappings, identities, coverage, writing units, coverage-unit assignments, and
+   cited date assessments in reproducible inputs. A replay must create the links
+   needed for rankings without manual SQL or test-only setup. Record cited
+   consensus where known and explicitly unknown consensus otherwise; preserve
+   applicable alternatives and source qualifications. Unknown consensus does not
+   require an open-ended literature search or a preferred date. Reuse the existing
+   collector and review interfaces; add only what this workflow demonstrates is
+   missing.
+3. **Build and inspect the graph alongside the data work.** Show both endpoint
+   scenarios, conditional dating inputs, source links, and missing-work states.
+   Keep source review by an agent identifiable. An explicitly labeled synthetic
+   preview can establish chart behavior while real evidence is collected, but it
+   does not satisfy the real-witness milestone. Whole-corpus certification and
+   independent human publication review do not block prototype implementation.
+4. **Measure the effort before widening scope.** Record reviewed coordinates,
+   distinct witnesses, positive witness/verse pairs, graphable verses, pending
+   mappings and assignments, source-review time, manual actions, and network
+   attempts for the declared scope. Identify the largest repeated cost. Introduce
+   targeted batch imports or reusable, source-supported mapping rules only where
+   the example justifies them. Preserve individual provenance, immutable inputs,
+   and review of exceptions; a coordinate mapping never establishes coverage.
+   A brief development log is sufficient for these measurements; no reporting
+   subsystem is needed for this milestone.
+
+### Prototype acceptance
+
+- A documented command sequence rebuilds a fresh database, exports its data, and
+  generates the graph and table offline from checked-in, cited inputs. It does
+  not depend on ignored local databases or test-only assignments.
+- The declared passage has several real, distinct witnesses with overlapping
+  sourced coverage and usable date assessments. All coordinates in the chosen
+  scope remain accounted for; unavailable evidence is explicit. Retain all
+  discovered candidates, even when fewer than five can be ranked.
+- The graph follows canonical verse order, places newer years at the top, and
+  matches the table's independent optimistic/pessimistic counts, capped at five.
+  Sources, full ranges, partial coverage, active filters, and the included verse
+  population are inspectable. Preserve the omission and bracket controls; use
+  labeled fixtures to check cases outside the chosen passage.
+- Every displayed dating combination is identified as conditional unless it
+  follows documented consensus. Stored alternatives are accessible without a
+  preferred scholar or assigned probabilities. Uncomputed combinations and
+  overflow are visible. Existing synthetic tests can exercise competing dates,
+  six-candidate membership changes, and edge cases absent from the real passage;
+  do not invent real evidence to satisfy a test shape.
+- The ordinary replay/export path passes applicable offline tests and structural
+  audits. The graph is labeled **prototype: incomplete discovery and validation**
+  and describes results as earliest among its reviewed, dated witnesses. It does
+  not claim exhaustive historical earliest attestation. Passing these checks
+  completes this milestone, not historical validation.
+
+### Expansion after the prototype
+
+Use the measured workflow to broaden inventory mappings and manuscript coverage
+in bounded increments. Expand the source benchmark to P66/P75, a Pauline papyrus,
+a major codex, a later supplement, and a substantial gap as coverage grows;
+completing all these cases is not a prerequisite for the first graph. The current
+positive review path requires an indexed page and explicit mapping. The separate
+v12 physical-absence path supports direct evidence without an index row, but its
+tests are synthetic and independently checked real absence cases remain open.
+
+Keep the existing P52 fixtures and manifests. Further dedicated P52 dating
+research, exact-wording attestation, new witness categories, and general review
+platform features are outside the next milestone. Supplementary omitted-verse
+collection remains required but separately tracked; it cannot block the core
+prototype or a validated core release. Full navigation and zoom can follow the
+bounded graph. Increase collection volume only after the relevant API contract
+and provider expectations are established.
+
+The sections below define continuing correctness and publication requirements,
+including already implemented behavior. They are not a sequential prerequisite
+list for prototype development. This next-work section controls task selection;
+do not restart completed collection or ranking work.
+
+## Prototype and historical-publication expectations
+
+| Output | Required before use |
+| --- | --- |
+| Synthetic chart preview | Clearly identified fictional inputs, correct chart semantics, and no historical claims |
+| Bounded real-data prototype | Cited evidence and faithful date recording for displayed witnesses; explicit scope, review status, incomplete discovery, and unresolved work; reproducible offline results |
+| Historical release for a declared scope | Applicable source-based benchmarks and audits pass with no unexplained failures; independent human checks of coverage and source fidelity; versioned evidence and dating inputs, explicit discovery limitations, and claims restricted to the reviewed scope |
+| Whole-NT attestation claims | The historical-release requirements across the claimed corpus, reviewed edition/mapping coverage, and a defensible discovery-completeness basis for those claims |
+
+Prototype labeling does not permit invented coverage, suppressed alternatives,
+unsupported dates, or misrepresented human approval. Publication review checks
+source fidelity and coverage; it does not settle dating disputes. Unfinished
+supplementary collection does not block publication of a validated core scope.
 
 ## Research contract
 
@@ -301,9 +363,10 @@ For each explicitly identified dating alternative and verse, start with **all**
 eligible verified witnesses with a sourced date interval `[a_i, b_i]` for the
 attesting writing unit. Use documented consensus where known and preserve the
 various sourced ranges as equally valid possibilities otherwise. Each calculation
-uses complete assessments and records which ones it uses. The existing engine
-handles one assessment per unit per policy; exposing alternatives across results
-remains required implementation work, not a reason to resolve scholarly disputes.
+uses complete assessments and records which ones it uses. Stored snapshots use one
+assessment per unit per policy. The offline export also calculates both endpoint
+rankings for every combination of stored valid unit dates up to its explicit cap;
+it does not resolve scholarly disputes.
 If one physical witness has multiple qualifying dated units for that verse,
 derive its earliest event in
 each scenario first; it still contributes only once to the witness count.
@@ -319,6 +382,23 @@ The two endpoint scenarios must be evaluated within each dating alternative;
 neither scenario selects the correct scholar. Results must expose how alternatives
 change event years, membership, or order, without assigning preferences or
 probabilities. Multiple assessments never count as multiple physical witnesses.
+
+Preserving and exposing alternatives is required; eagerly enumerating their
+entire Cartesian product is an implementation choice. The current exporter caps
+enumeration at 256 combinations per verse and returns `too_many_combinations`
+with no combinations above that limit. Nine writing units with two assessments
+each already require 512 combinations. Do not silently truncate, fall back to a
+preferred assessment, average ranges, or interpret overflow as no evidence.
+
+Exercise this limit in the prototype's presentation. Before expanding to data
+that exceeds it, provide a bounded way to inspect outcomes, such as calculating
+explicitly identified combinations on demand with equal access to every stored
+assessment. Distinguish results computed for chosen inputs from exhaustive
+enumeration; never label a partial exploration complete. On-demand calculation
+and a consensus representation are future work, not existing exporter features.
+The first bounded graph can use the current complete enumeration where it fits
+and an explicit overflow display elsewhere. Do not build a general scenario
+framework before the example demonstrates a need.
 
 Example using fictional witnesses:
 
@@ -348,15 +428,17 @@ double-counting of a witness across its assessments. A valid empty result clears
 stale rankings atomically;
 a failed refresh is reported as stale/failed instead of pretending to be empty.
 
-## 6. Validate source fidelity and coverage before graphing
+## 6. Validate source fidelity and coverage for historical publication
 
-Create a small reviewed benchmark with stable citations, recorded source dates,
-positive and negative verse coverage, and expected sourced date assessments.
+Build the prototype while developing a reviewed benchmark with stable citations,
+recorded source dates, positive and negative verse coverage, and expected sourced
+date assessments.
 Retain P52 as an existing example; expand to P66/P75, one Pauline papyrus, one
 major codex, a late supplement, and a witness with a substantial gap. Do not
 hardcode their dates from memory.
 The benchmark should test individual evidence claims rather than asserting one
-famous manuscript must always win.
+famous manuscript must always win. Expand this benchmark incrementally; the whole
+representative set is not required before drawing the first bounded graph.
 
 Dating validation establishes that source ranges, qualifications, conversions,
 and any documented consensus are faithfully represented. Where consensus is
@@ -365,7 +447,9 @@ nor agents are tasked with deciding which dating argument is correct. A disputed
 date is not a benchmark failure or a publication blocker when its uncertainty is
 represented faithfully; missing citations or concealed alternatives are defects.
 
-Require these layers:
+Apply these validation layers to the relevant behavior and evidence. Independent
+human checking is required for historical publication, not to begin implementing
+or inspecting a labeled prototype. Record which checks have actually occurred.
 
 | Layer | What it establishes |
 | --- | --- |
@@ -384,8 +468,11 @@ retain the prior expectations with citations.
 
 ## 7. Export and build the graph
 
-Only after the above gates, export a versioned dataset retaining every inventory
-coordinate, including supplementary `omitted` coordinates, in canonical order,
+Develop exports and the graph during the bounded prototype milestone. Apply the
+historical-publication requirements before presenting results as a validated
+historical release. Export a versioned dataset retaining every inventory
+coordinate in its declared scope, including supplementary `omitted` coordinates,
+in canonical order,
 with edition status, zero-to-five witnesses per scenario,
 event years, full date intervals, source/evidence links, and completeness status.
 An export should identify its edition, source snapshot, inclusion/dating policy,
@@ -403,8 +490,10 @@ filters and the resulting verse population in every graph export and summary.
 Recompute aggregate counts and denominators for that population without deleting
 underlying evidence or treating excluded coordinates as unattested. Report core
 and supplementary collection completeness separately. Unfinished supplementary
-collection does not block publication of the validated core scope; supplementary
-evidence shown in a graph must pass the same applicable validation gates.
+collection does not block publication of the validated core scope. Apply the same
+evidence standard to core and supplementary records within each output's declared
+review status; supplementary evidence in a historical release must pass the same
+applicable publication checks.
 
 Plot verse positions horizontally and CE years vertically, **newer at the top**.
 Moving upward from earlier to later years, show no witness color before the first
@@ -414,8 +503,9 @@ Use the same axis bounds and color legend for both scenarios. Show unknown or
 unfinished evidence separately from the pre-first-witness portion of a completed
 series. Identify included omitted/bracketed coordinates by their edition status.
 
-Provide book/chapter navigation, zoom, and a tooltip/table with the ranked
-witnesses, both date bounds, partial coverage status, and source links. A static
+Start with the bounded chart and an accompanying table of ranked witnesses, both
+date bounds, partial coverage status, and source links. Add book/chapter navigation
+and zoom when expanding to a larger scope. A static
 chart or interactive view must identify the dating inputs it depicts and make
 alternative outcomes available without implying a preferred range. A static
 export and a tabular alternative make results inspectable without relying on
@@ -439,6 +529,18 @@ server or probe localhost unless the project owner asks.
 - Keep the current status and next-work list in this plan aligned with the actual
   schema, commands, fixtures, and observed database contents. Update the README's
   summary when a milestone changes; retain the original data review as history.
+- Treat this plan as the source of current development priorities; the README
+  summarizes them and documents commands. Distinguish implementation, replayable
+  inputs, inspected local data, and historical validation. Date observations and
+  identify the database inspected; an updated manifest does not update local data.
+- Report each development increment against the prototype or a declared expansion:
+  what became graphable, what evidence was added, what obstacle was removed, and
+  what remains. Schema versions and test counts alone do not measure delivery.
+  Include the review-effort measurements before recommending a larger collection.
+- Tie each new schema, audit, abstraction, or feature to a concrete failure or
+  unmet requirement in the active milestone. Prefer completing the existing path;
+  defer speculative generalization and broad refactoring. Do not create a new
+  research or approval prerequisite from an unresolved scholarly disagreement.
 - Keep source observations, automated checks, and independent human review
   distinguishable. Record who actually reviewed a claim; do not present a replay
   or an agent's source review as human approval.

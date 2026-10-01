@@ -15,6 +15,12 @@ remaining source-validation work, and next steps are tracked in the
 [README](../README.md). Do not use the legacy defect list as a checklist of missing
 features in the replacement collector.
 
+**Current development direction:** build the
+[bounded prototype graph](DEVELOPMENT_PLAN.md#next-development-work) while
+expanding reviewed evidence. The historical findings below do not require
+whole-corpus validation before developing a labeled prototype. Historical
+publication retains the plan's source-fidelity and coverage requirements.
+
 **Current dating policy:** the [project policy](../README.md#manuscript-dating-policy)
 now explicitly defers to documented scholarly consensus when known and treats
 the various sourced date ranges as equally valid possibilities otherwise.

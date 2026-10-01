@@ -19,7 +19,7 @@ from controlled_ntvmr import (
     coverage_review_report, record_coverage_review,
     apply_dating_action, assign_coverage_unit, create_writing_unit,
     record_date_assessment, select_date_assessment, writing_unit_report,
-    compute_ranking, rank_candidates, ranking_report,
+    compute_ranking, rank_candidates, ranking_report, dating_alternatives_report,
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "p52_coverage_probe.json"
@@ -875,6 +875,30 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual([r["witness_id"] for r in report["scenarios"]["pessimistic"]],
                          ["B", "F", "D", "C", "E"])
         self.assertEqual(report["scenarios"]["pessimistic"][0]["event_year"], 200)
+        competing = record_date_assessment(
+            self.con, "B-unit", "valid", 50, 400, "alternative synthetic CE",
+            "second fixture citation", "2026-09-29", "tester")
+        alternatives = dating_alternatives_report(
+            self.con, "ranking-test", "John.18.31", "policy-test")
+        self.assertEqual(alternatives["state"], "complete")
+        self.assertEqual(alternatives["combination_count"], 2)
+        self.assertEqual(alternatives["eligible_witness_count"], 6)
+        self.assertEqual([case["scenarios"]["optimistic"][0]["witness_id"]
+                          for case in alternatives["combinations"]], ["A", "B"])
+        self.assertEqual([case["scenarios"]["pessimistic"][0]["witness_id"]
+                          for case in alternatives["combinations"]], ["B", "F"])
+        self.assertEqual(alternatives["combinations"][1]["assessments"][1]["assessment_id"],
+                         competing)
+        self.assertEqual(alternatives["combinations"][1]["assessments"][1]["citation"],
+                         "second fixture citation")
+        self.assertEqual(dating_alternatives_report(
+            self.con, "ranking-test", "John.18.31", "policy-test",
+            max_combinations=1)["state"], "too_many_combinations")
+        from export_attestation import build_exports
+        dataset, graph = build_exports(self.con, "ranking-test", "policy-test")
+        self.assertEqual(dataset["verses"][0]["dating_alternatives"]["combination_count"], 2)
+        self.assertIsNone(graph["verses"][0]["scenarios"])
+        self.assertEqual(len(graph["verses"][0]["dating_alternatives"]["combinations"]), 2)
         self.assertEqual(compute_ranking(self.con, "ranking-test", "John.18.32",
                                          "policy-test")["state"], "empty")
         later = record_date_assessment(self.con, "A-unit", "valid", 90, 190,

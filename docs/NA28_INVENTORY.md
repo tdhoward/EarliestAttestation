@@ -81,6 +81,24 @@ In particular, omitted or bracketed edition coordinates are not physical
 absence claims. The importer's `whole_nt_complete` report field is currently
 always false; edition and mapping review are still outstanding.
 
+## Development priority and mapping workload
+
+The whole-NT coordinate inventory already exists. The immediate task is to map
+and review the short passage chosen for the
+[prototype graph milestone](DEVELOPMENT_PLAN.md#next-development-work), then
+connect it to real witness evidence. Completing all 7,952 pending mappings or
+independent editorial certification of the whole inventory is not a prerequisite
+for that prototype. Check the coordinates and editorial cases used in its scope;
+keep all other mappings explicitly unresolved.
+
+Measure mapping and source-review effort for the first passage before expanding.
+Where sources support a shared mapping rule, a versioned batch import can record
+its scope, citation, reviewer, and exceptions rather than requiring repetitive
+manual commands. Do not infer equivalence from matching verse numbers alone or
+infer surviving text from a coordinate mapping. Preserve explicit per-coordinate
+mappings and provenance in new immutable snapshots. Broader automation should
+address measured work; it must not lower the evidence standard.
+
 ## Supplementary collection and display policy
 
 Retain the 16 skipped traditional coordinates and collect their manuscript
@@ -122,8 +140,8 @@ graph-data filters, but there is no graph UI. Positive coverage review for an
 mapping. Existing immutable inventory snapshots remain
 unchanged. Supplementary collection can
 proceed alongside core collection, but its completion is not a prerequisite for
-core NA28 dataset completion or publication. Report completeness separately for
-the core and supplementary scopes, and apply the same validation requirements to
+the core prototype, core NA28 dataset completion, or publication. Report
+completeness separately for the core and supplementary scopes, and apply the same validation requirements to
 any supplementary evidence included in a published graph.
 
 ## Reproduce the inventory
@@ -140,7 +158,9 @@ python sync_ntvmr.py --offline --db data/na28-inventory-v3.sqlite --inventory-re
 ```
 
 The importer is idempotent for each exact manifest. Corrections require new
-inventory IDs because imported snapshots are immutable. The next work is to
-check the other flagged editorial cases, identify the remaining skipped
-traditional passages, and establish NTVMR mappings in a
-separately reviewed, versioned snapshot. No manuscript dating judgment is involved.
+inventory IDs because imported snapshots are immutable. All 16 skipped
+traditional passages already have cited identifications in v3; their NTVMR
+mappings remain unresolved. Next, establish mappings and check editorial cases
+for the prototype's declared passage in a new versioned snapshot. Extend the
+remaining core and supplementary mappings in measured increments after that
+workflow is demonstrated. No manuscript dating judgment is involved.
