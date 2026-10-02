@@ -10,16 +10,17 @@ It does not change the schema, collector, dating policy, or legacy databases.
 
 ## Evidence and limits
 
-| Coordinate | P66 | Alexandrinus (02) |
-| --- | --- | --- |
-| John 6:49 | Surviving base text, P40 C1 lines 15–17 | Surviving base text, P70v C2 lines 48–50 |
-| John 6:50 | Surviving base text, P40 C1 lines 17–19 | Surviving beginning, P70v C2 lines 50–51; ending lost |
-| John 6:51 | Surviving beginning, P40 C1 lines 20–21 | Inside physical lacuna |
-| John 6:52 | Surviving base text, P41 C1 lines 4–7 | Inside physical lacuna |
-| John 6:53 | Surviving base text, P41 C1 lines 7–11 | Inside physical lacuna |
+| Coordinate | P66 | Alexandrinus (02) | P75 (added in v2) |
+| --- | --- | --- | --- |
+| John 6:49 | Surviving base text, P40 C1 lines 15–17 | Surviving base text, P70v C2 lines 48–50 | Partial base text, P52r C1 lines 27–29 |
+| John 6:50 | Surviving base text, P40 C1 lines 17–19 | Surviving beginning, P70v C2 lines 50–51; ending lost | Partial base text, P52r C1 lines 29–31 |
+| John 6:51 | Surviving beginning, P40 C1 lines 20–21 | Inside physical lacuna | Partial base text, P52r C1 lines 31–36 |
+| John 6:52 | Surviving base text, P41 C1 lines 4–7 | Inside physical lacuna | Partial base text, P52r C1 lines 36–39 |
+| John 6:53 | Surviving base text, P41 C1 lines 7–11 | Inside physical lacuna | Partial base text, P52r C1 lines 39–43 |
 
 The direct sources are the IGNTP transcriptions of
-[P66](https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml)
+[P66](https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml),
+[P75](https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P75_John.xml),
 and [Alexandrinus](https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_02_John.xml).
 The [transcription viewer](https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/)
 explains supplied text, corrections, and other display conventions. The current
@@ -41,25 +42,38 @@ page evidence. At 6:52 the XML has a firsthand correction; surviving base text
 outside that apparatus suffices for the positive decision. That correction is
 neither dated separately nor used to establish survival.
 
-The captured NTVMR metadata links P66 pages 360/370 to folios 40/41 and
-Alexandrinus page 531 to folio 70v. Individual index entries confirm the seven
+P75's folio 52r includes many supplied or uncertain letters. Each positive claim
+uses identifiable surviving base text: `εφαγον` at 6:49 (line 28), `και` at 6:50
+(line 31), `τις` and `εκ` at 6:51 (line 33), `προς` at 6:52 (line 37), and
+`αυτου`, `αιμα`, `ουκ`, `εχετε` at 6:53 (line 42). These anchors lie outside
+supplied and unclear spans. The five verse elements contain no correction
+apparatus. This is an agent reading of the scholarly transcription, not a fresh
+image examination or certification of all its letters.
+
+The captured NTVMR metadata links P66 pages 360/370 to folios 40/41,
+Alexandrinus page 531 to folio 70v, and P75 page 790 to folio 52r (indexed
+John 6:38–54). Individual index entries confirm the twelve
 positive verse/page pairs. Five direct coordinate mappings are imported into a
 new bounded inventory; the provisional whole-NT inventory remains unchanged.
 All positive decisions are conservatively `partial`.
 
-The two attributed, contiguous XML excerpts are retained under the sources'
+The three attributed, contiguous XML excerpts are retained under the sources'
 CC BY 4.0 terms, with original-source and excerpt SHA-256 values:
 
 - [P66 excerpt](../tests/fixtures/p66-john6-transcription.json), John 6:48–53.
 - [Alexandrinus excerpt](../tests/fixtures/alexandrinus-john6-transcription.json),
   the contiguous sequence John 6:48–50, 8:52–53, including the gap transition.
+- [P75 excerpt](../tests/fixtures/p75-john6-transcription.json), John 6:47–53;
+  the preceding verses retain the initial line-location context.
 
 New writing-unit records identify the original copying at these locations.
-They preserve the already recorded P66 and Alexandrinus catalogue assessments
+They preserve the already recorded P66, P75, and Alexandrinus catalogue assessments
 from [John 1 review v3](../benchmarks/john1-reviewed-v3.json), including P66's
 unrankable qualitative date. Applicability to the base writing is a new Codex
 review; the cited dates were not independently re-researched. The numeric ranges
-remain conditional: P66 101–300 CE, Alexandrinus 400–499 CE. Consensus remains
+remain conditional: P66 101–300 CE, P75 201–300 CE, Alexandrinus 400–499 CE.
+P75's qualitative “early third century” observation also remains unrankable.
+Consensus remains
 unknown. Separate units describe the reviewed locations without asserting a
 different scribe or copying period.
 
@@ -70,6 +84,8 @@ The replay creates a fresh database, first rebuilding the fixed John 1 v3 inputs
 to reuse their identities and cached indexes, then importing the John 6 inventory
 and review. It refuses an existing destination. John 1 evidence remains in its
 own inventory; the John 6 export contains only the five new coordinates.
+
+The original v1 increment measured:
 
 | Measure | Result |
 | --- | ---: |
@@ -126,15 +142,62 @@ settle a manuscript's date. Greek/transcription expertise is useful for question
    assessments in [John 1 v3](../benchmarks/john1-reviewed-v3.json). Are the
    inherited ranges, qualitative uncertainty, and original-writing applicability
    recorded faithfully? No preference among scholars is requested.
+6. In the [P75 XML](https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P75_John.xml),
+   inspect John 6:49–53 at P52r C1 lines 27–43. Do the surviving anchors listed
+   above establish partial coverage without relying on supplied or uncertain
+   letters? Greek/transcription expertise is useful; this is not a complete
+   transcription check.
+7. Compare the [P75 metadata](../tests/fixtures/p75_metadata_probe.json), page
+   790, folio 52r, and its `John 6:38-54` content with the XML line labels and
+   [captured verse index](../tests/fixtures/p75_coverage_probe.json). Does the
+   mapping faithfully link all five reviews to that page?
 
 Record eventual human answers separately from the Codex manifest, with reviewer,
 date, question number, answer, correction/source, and unresolved points. This
 packet is a document, not a new review application or a completed review.
 
+## Third witness increment (v2), 2026-10-02 UTC
+
+The [v2 review](../benchmarks/john6-gap-reviewed-v2.json) adds P75 using the same
+interfaces. The original v1 manifest and ten-case benchmark are unchanged and
+remain replayable with `--review`. The new default replay and chart use v2.
+
+| Measure | v2 result |
+| --- | ---: |
+| Reviewed physical witnesses in this passage | 3 |
+| Positive / physical-absence pairs | 12 / 3 |
+| Added P75 coverage decisions and unit assignments | 5 each |
+| Added writing units / carried-forward date observations | 1 / 2 |
+| Graphable coordinates / new coordinate mappings | 5 / 0 |
+| Witness counts in both endpoint scenarios | 3, 3, 2, 2, 2 |
+| Pending mappings / positive unit assignments in this scope | 0 / 0 |
+| New NTVMR collector attempts / offline replay attempts | 2 / 0 |
+| Successful transcription downloads | 1 |
+| Source retrieval, reading, and page reconciliation | Approximately 5 minutes |
+| Cited benchmark cases / fresh audit findings | 15 / 0 |
+| Offline tests passing | 91 |
+
+The direct NTVMR attempt timed out and remains pending in the ignored
+`data/p75-john6-collection.sqlite`. One separately budgeted attempt through the
+existing local access proxy succeeded; the fixture preserves that provenance
+and the canonical endpoint. A web-tool metadata navigation was unavailable.
+The XML web preview did not support its content type; one sandbox socket attempt
+was denied, then the permitted direct download succeeded. No bulk collection or
+protected-image access occurred. Timing is approximate agent/tool elapsed time,
+not human review speed; implementation and testing are excluded.
+
+Source interpretation and page reconciliation remain the repeated costs. Five
+explicit review rows, one source excerpt, and one metadata capture were sufficient;
+no schema change, new importer, or manual SQL evidence inserts were needed.
+Tests reject supplied-only verse material, altered transcription page labels,
+wrong metadata foliation, and wrong manuscript identity before creating a database.
+The retained John 1 benchmark still passes all 20 cases. Dates remain conditional,
+and independent human answers to all seven questions remain pending.
+
 ## Next useful increment
 
-Add a third source-reviewed witness to these same five coordinates, then broaden
-to a representative Pauline or supplement case. Reuse pinned source excerpts
+Broaden to a representative Pauline or supplement case, starting with an explicit
+5–10 verse scope and accessible primary sources. Reuse pinned source excerpts
 and the existing review APIs; measure source reading and page reconciliation
 before introducing batch automation. Independent checks of both this packet
 and John 1 remain open. Exhaustive discovery and whole-NT mapping certification

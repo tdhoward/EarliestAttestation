@@ -138,10 +138,12 @@ than another collection framework. The next increment should:
    establishes it; preserve other dates as conditional alternatives.
 2. Review one additional bounded passage or witness set with varying survival.
    The [John 6:49–53 increment](JOHN6_GAP_REVIEW.md) now supplies a directly
-   reviewed transcription boundary: seven positive pairs and three physical
-   absences for P66 and Alexandrinus, with ten cited benchmark cases. Add a third
-   source-reviewed witness to these same coordinates, then broaden to a Pauline
-   papyrus or later supplement. The ready human-review questions remain
+   reviewed transcription boundary: twelve positive pairs and three physical
+   absences for P66, P75, and Alexandrinus, with fifteen cited benchmark cases.
+   The third-witness milestone is complete. Next, declare a 5–10 verse Pauline
+   papyrus or later-supplement case with accessible primary evidence; verify
+   its page links and writing-layer applicability before expanding collection.
+   The ready human-review questions remain
    unanswered. Continue bounded, budgeted collection without claiming exhaustive
    discovery.
 3. Expand source-checked NTVMR mappings and reviewed witness coverage in small
@@ -151,13 +153,15 @@ than another collection framework. The next increment should:
 
 The John 6 increment reuses the existing review interfaces and adds no schema or
 collection framework. Its offline replay, export, and
-[chart](../examples/john6-gap-prototype.html) show counts of 2, 2, 1, 1, 1 across
+[chart](../examples/john6-gap-prototype.html) show counts of 3, 3, 2, 2, 2 across
 the five verses in both endpoint scenarios. The 2026-10-02 UTC verification
-passes **88 tests**, all ten new benchmark cases, and all 20 retained John 1
-cases. The fresh structural audit has zero findings. Two bounded scholarly
-transcription downloads and approximately four minutes of source retrieval and
-reading support this increment; no new NTVMR requests were needed. Historical
-validation remains incomplete.
+passes **91 tests**, all fifteen John 6 benchmark cases, and all 20 retained John 1
+cases. The fresh structural audit has zero findings. The original two-witness
+increment used two transcription downloads and about four minutes of source work.
+Adding P75 used one transcription download, two budgeted metadata attempts (one
+timeout, one success), and about five minutes of retrieval and page reconciliation.
+Its five partial reviews exclude supplied text as evidence. Earlier manifests
+remain reproducible. Historical validation remains incomplete.
 
 ### Prototype implementation checklist (completed for the bounded scope)
 
@@ -231,8 +235,9 @@ in bounded increments. Expand the source benchmark to P66/P75, a Pauline papyrus
 a major codex, a later supplement, and a substantial gap as coverage grows;
 completing all these cases is not a prerequisite for the first graph. The current
 positive review path requires an indexed page and explicit mapping. The separate
-v12 physical-absence path supports direct evidence without an index row, but its
-tests are synthetic and independently checked real absence cases remain open.
+v12 physical-absence path supports direct evidence without an index row. It now
+has source-reviewed Alexandrinus lacuna cases as well as synthetic regressions;
+independent human checking of the real cases remains open.
 
 Keep the existing P52 fixtures and manifests. Further dedicated P52 dating
 research, exact-wording attestation, new witness categories, and general review

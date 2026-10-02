@@ -19,11 +19,11 @@ and a source-linked table from checked-in inputs. Its five verses each have P66,
 P75, 01, and 02 in the conditional rankings. Alexandrinus (02) now has five
 image-checked verse reviews tied to captured NTVMR page metadata. A cited
 20-case coverage benchmark guards the replay. The new
-[John 6:49–53 boundary chart](examples/john6-gap-prototype.html) adds seven positive
-and three physical-absence decisions for P66 and Alexandrinus, with ten cited
-benchmark cases. Its witness counts vary across a directly reviewed lacuna.
-The next work is independent source checking and adding a third witness to that
-passage before expanding to other representative manuscript types.
+[John 6:49–53 boundary chart](examples/john6-gap-prototype.html) now has twelve
+positive and three physical-absence decisions for P66, P75, and Alexandrinus,
+with fifteen cited benchmark cases. Its witness counts vary across a directly
+reviewed lacuna. The next work is a bounded Pauline papyrus or later supplement
+case, alongside independent source checking of the existing evidence.
 The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) defines the
 scope, acceptance criteria, and subsequent expansion; it is the source of current
 development priorities. The [bounded scope and development log](docs/PROTOTYPE_SCOPE.md)
@@ -620,10 +620,10 @@ locator; the IGNTP transcription supplies the physical verse evidence.
 
 ## John 6 survival-boundary prototype
 
-The [John 6:49–53 chart](examples/john6-gap-prototype.html) shows P66 throughout
+The [John 6:49–53 chart](examples/john6-gap-prototype.html) shows P66 and P75 throughout
 the five verses and Alexandrinus at 6:49–50, followed by three directly reviewed
 physical absences. A surviving beginning counts for 6:50 despite its lost ending.
-Both endpoint scenarios therefore show witness counts of **2, 2, 1, 1, 1**.
+Both endpoint scenarios therefore show witness counts of **3, 3, 2, 2, 2**.
 Dates remain conditional on the stored catalogue assessments.
 
 The [source review and human-review packet](docs/JOHN6_GAP_REVIEW.md) explains
@@ -634,17 +634,22 @@ to reuse its reviewed identities and indexes; the John 6 export selects only
 the new five-verse inventory.
 
 ```powershell
-python replay_john6_gap.py --db data/john6-gap-review.sqlite
-python audit_reviewed.py --db data/john6-gap-review.sqlite --benchmark benchmarks/john6-gap-evidence-benchmark-v1.json
-python export_attestation.py --db data/john6-gap-review.sqlite --inventory na28-john6-gap-subset-v1 --policy john6-conditional-source-v1 --dataset-output data/john6-gap-complete.json --graph-output data/john6-gap-input.json
-python render_attestation.py --graph-input data/john6-gap-input.json --output examples/john6-gap-prototype.html
+python replay_john6_gap.py --db data/john6-gap-review-v2.sqlite
+python audit_reviewed.py --db data/john6-gap-review-v2.sqlite --benchmark benchmarks/john6-gap-evidence-benchmark-v2.json
+python export_attestation.py --db data/john6-gap-review-v2.sqlite --inventory na28-john6-gap-subset-v1 --policy john6-conditional-source-v1 --dataset-output data/john6-gap-complete-v2.json --graph-output data/john6-gap-input-v2.json
+python render_attestation.py --graph-input data/john6-gap-input-v2.json --output examples/john6-gap-prototype.html
 ```
 
-The increment passes ten cited evidence cases with zero audit findings and zero
-replay network attempts. All **88 offline tests** pass. The two-witness scope is
-incomplete; P75, Sinaiticus, and other witnesses have no coverage decisions in
+The increment passes fifteen cited evidence cases with zero audit findings and zero
+replay network attempts. All **91 offline tests** pass. The three-witness scope is
+incomplete; Sinaiticus and other witnesses have no coverage decisions in
 this new inventory. Their lack of review is not physical absence. The provisional
 whole-NT inventory and existing local databases are unchanged.
+
+The default manifest is `benchmarks/john6-gap-reviewed-v2.json`. To reproduce the
+earlier two-witness increment, pass `--review benchmarks/john6-gap-reviewed-v1.json`
+with a fresh destination and audit using its v1 benchmark. Both review versions
+retain the same coordinate inventory and conditional dating policy.
 
 ## Reviewed-data audit and P52 replay
 

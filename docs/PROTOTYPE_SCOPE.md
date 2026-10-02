@@ -222,3 +222,20 @@ direct mappings without changing the provisional whole-NT snapshot. The source
 review includes measured effort and a five-question independent human-review
 packet. Human answers remain pending. A third witness at this boundary is the
 next bounded expansion.
+
+## John 6 third witness, 2026-10-02 UTC
+
+The [v2 review](../benchmarks/john6-gap-reviewed-v2.json) adds five partial P75
+decisions on folio 52r, linked to NTVMR page 790. Surviving base text establishes
+the positives independently of supplied or uncertain letters. Its inherited
+201–300 CE interval is conditional; the qualitative date remains unrankable.
+The chart now shows counts of 3, 3, 2, 2, 2, with twelve positives and the same
+three Alexandrinus physical absences. The v1 replay remains available.
+
+All 91 offline tests and the fifteen-case John 6 benchmark pass. The retained
+20-case John 1 benchmark passes, with zero fresh audit findings. One transcription
+download, two budgeted metadata attempts, and approximately five minutes of
+source retrieval and page reconciliation supported this increment; the
+[source review](JOHN6_GAP_REVIEW.md) records access outcomes and adds two specific
+human-review questions. Independent answers remain pending. The next bounded
+expansion is a Pauline papyrus or later supplement, using existing review APIs.
