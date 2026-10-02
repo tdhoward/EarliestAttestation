@@ -6,6 +6,10 @@ evidence, supported by reproducible collection and review. The
 disabled legacy collector; its defects are not a current implementation checklist.
 The [README](../README.md) contains command syntax and reproducibility instructions.
 
+The [witness scope](../README.md#witness-scope) governs all development: only
+surviving copies of the New Testament texts qualify. Quotations and allusions in
+other works are outside the current corpus, including direct patristic quotations.
+
 The [manuscript dating policy](../README.md#manuscript-dating-policy) governs this
 plan: defer to documented scholarly consensus when known; otherwise preserve
 sourced date ranges as equally valid possibilities. Contributors are not
@@ -143,9 +147,12 @@ than another collection framework. The next increment should:
    The third-witness milestone is complete. The first bounded Pauline case,
    [P46 at Galatians 1:1–5](GAL1_P46_REVIEW.md), now has five cited partial reviews,
    explicit page/folio links, an original-writing unit, and two conditional dates.
-   Add source-reviewed overlapping witnesses to that passage next; verify each
-   page link and writing-layer applicability. A Pauline boundary or later-supplement
-   case remains useful for the wider representative benchmark.
+   The [Galatians overlap increment](GAL1_OVERLAP_REVIEW.md) adds Alexandrinus with
+   five further partial reviews, reconciled page/folio links, and a separate original
+   writing unit. The chart now has two witnesses per verse and preserves both P46
+   date alternatives. Next, review another overlapping witness (the retrieved
+   Sinaiticus transcription still needs page and writing-layer checks), or add a
+   Pauline boundary or later-supplement case for the wider representative benchmark.
    The ready human-review questions remain
    unanswered. Continue bounded, budgeted collection without claiming exhaustive
    discovery.
@@ -177,6 +184,20 @@ two successes through the existing proxy) and one successful transcription
 download supplied the new fixtures. Source work took approximately five minutes;
 the replay uses no network or schema changes. Five specific human-review questions
 are ready in the source review document, with no answers recorded.
+
+The 2026-10-02 [Galatians overlap review](GAL1_OVERLAP_REVIEW.md) adds five
+Alexandrinus decisions using the existing page metadata and index plus a newly
+pinned university transcription. The [two-witness replay](../replay_gal1_prototype.py)
+has zero structural findings, passes ten cited evidence cases, and produces two
+conditional date combinations for each of five verses. All **102 offline tests**
+pass. This adds one physical witness, one original-writing unit, five assignments,
+and one catalogue date assessment without new coordinates or schema changes.
+Two university transcriptions were downloaded; only Alexandrinus was incorporated.
+There were no new NTVMR requests and no replay network attempts. Manual review
+covered five anchors, one page reconciliation, and one date-source check; elapsed
+source-review time was not reliably measured across the interrupted session.
+The remaining cost is per-verse source/layer review. Nine specific human-review
+questions are prepared and unanswered; discovery remains incomplete.
 
 ### Prototype implementation checklist (completed for the bounded scope)
 
@@ -291,17 +312,26 @@ supplementary collection does not block publication of a validated core scope.
    Default graphs exclude them, with an explicit inclusion option and a separate
    bracketed-passage control. Edition status never determines manuscript coverage
    or dating. Apply the same evidence standards to both collection scopes.
-2. **Attestation:** identifiable surviving Greek text from any part of that verse.
+2. **Attestation:** identifiable surviving Greek text from any part of that verse
+   in an eligible manuscript copy of the New Testament text itself.
    Record partial/full/uncertain status. Exact agreement with all NA28 words is
    outside the initial scope. Physical lacunae, reconstructed text, inferred
-   neighbors, and inferred complete books do not qualify.
-3. **Initial corpus:** direct Greek manuscript witnesses, including eligible
-   fragments and lectionaries. Classify multilingual witnesses by their Greek
+   neighbors, and inferred complete books do not qualify. A quotation or allusion
+   in another work does not establish verse coverage within this project.
+3. **Initial corpus:** surviving Greek manuscript copies of the New Testament
+   texts themselves, including eligible fragments and lectionaries.
+   Classify multilingual witnesses by their Greek
    content. Printed editions are reference resources, not ancient witnesses.
-   Keep amulets, ostraca, quotations, and other source categories explicit; their
-   inclusion policy must be settled and versioned before a combined graph.
-   Translations and dates of an author's composition must not silently enter the
-   Greek manuscript series. Broader witness types can be separate later views.
+   Quotations, paraphrases, and allusions in other works are excluded, including
+   verbatim quotations by Justin Martyr or other patristic authors. A manuscript
+   preserving such a work is not an eligible copy of the quoted New Testament
+   text. Neither the date of that manuscript nor the author's composition date
+   makes it eligible for coverage, witness counts, or rankings.
+   Keep amulets, ostraca, and other source categories explicit and outside the
+   combined graph until an inclusion policy is settled and versioned; their
+   contents must also satisfy the direct-copy requirement. Translations remain
+   outside the Greek manuscript series. Adding indirect evidence requires an
+   explicit future scope change and is not a planned expansion of this corpus.
 4. **Dates:** retain inclusive lower and upper CE bounds, original source notation,
    citation, and assessment identity. Defer to cited scholarly consensus when
    known. Otherwise treat the various sourced scholarly ranges as equally valid
@@ -376,13 +406,18 @@ after a simulated interruption. No test should contact the live service by defau
 - Distinguish catalogue identity, physical witness identity, language, source type,
   original hands, later additions, and associated date assessments. Resolve joined
   fragments before counting. Do not infer source type solely from a numeric ID.
+- Apply the direct-copy scope during document review. A Greek manuscript of a
+  different work containing a biblical quotation is `other`, with decision
+  `exclude` and a cited reason; Greek language or an exact wording match alone
+  cannot justify `greek_manuscript` and `retain`.
 - Validate `status=success` and explicit endpoint structures. Unknown JSON shapes
   are contract errors, never silently empty lists. Add captured list, singleton,
   empty, error, and truncated/malformed fixtures.
 
 **Acceptance:** known eligible early witnesses are discoverable; print editions
-are excluded from the manuscript series; duplicates do not increase witness
-counts; every run reports a declared discovery scope and completeness status.
+and quotations/allusions in other works are excluded from the manuscript series;
+duplicates do not increase witness counts; every run reports a declared discovery
+scope and completeness status.
 The old 37-candidate cache is retained for comparison, not used as the complete
 corrected corpus.
 

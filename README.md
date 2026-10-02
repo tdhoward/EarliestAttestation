@@ -1,15 +1,37 @@
 # EarliestAttestation
 
-Collect the earliest surviving Greek evidence for each verse of **NA28**, with up
-to five distinct witnesses per verse and both ends of each witness's proposed date
-range. The intended chart follows traditional New Testament book/chapter/verse
+Collect the earliest surviving evidence from Greek manuscript copies for each
+verse of **NA28**, with up to five distinct witnesses per verse and both ends of
+each witness's proposed date range. The intended chart follows traditional New Testament book/chapter/verse
 order, places more recent years at the top, and changes color as the witness count
 increases from one to five.
 
-A surviving part of a verse counts as evidence for that verse. It does not establish
-that the whole verse, its exact NA28 wording, or neighboring verses survived. For
-example, P52 preserves portions of John 18:31–33 and 18:37–38; this project must not
-fill in 18:34–36. See the [coverage reference and review](docs/DATA_REVIEW.md).
+A surviving part of a verse in an eligible manuscript copy counts as evidence for
+that verse. It does not establish that the whole verse, its exact NA28 wording, or
+neighboring verses survived. For example, P52 preserves portions of John 18:31–33
+and 18:37–38; this project must not fill in 18:34–36. See the
+[coverage reference and review](docs/DATA_REVIEW.md).
+
+## Witness scope
+
+The current corpus is limited to surviving Greek manuscript copies of the New
+Testament texts themselves, including eligible fragments and lectionaries. A copy
+need not preserve a complete book or verse, and eligibility does not require exact
+agreement with NA28 wording. "Copies" does not mean that the author's original
+manuscript must survive.
+
+Quotations, paraphrases, and allusions in other works are outside the current
+scope, even when they reproduce a verse verbatim. For example, a direct quotation
+by Justin Martyr does not qualify as a witness to that verse. A surviving manuscript
+of Justin's work remains a copy of that work; neither its physical survival nor
+the date of Justin's composition makes the quotation eligible. Such material must
+not contribute verse coverage, witness counts, or earliest-attestation rankings.
+
+Catalogues, scholarly publications, images, and transcriptions may document an
+eligible manuscript and its surviving text; they are supporting references, not
+additional witnesses. The same witness-scope rule applies to prototypes, the core
+NA28 dataset, and supplementary skipped verses. Any future inclusion of indirect
+evidence requires an explicit scope change; it is not part of the current plan.
 
 ## Development direction
 
@@ -25,8 +47,12 @@ with fifteen cited benchmark cases. Its witness counts vary across a directly
 reviewed lacuna. The first [Pauline papyrus increment](docs/GAL1_P46_REVIEW.md)
 now adds P46 at Galatians 1:1–5, five cited coverage decisions, and two equal
 conditional date alternatives in a [reproducible chart](examples/gal1-p46-prototype.html).
-The next work is overlapping witnesses in that passage, alongside independent
-source checking of the existing evidence and a later supplement or boundary case.
+The [Galatians overlap increment](docs/GAL1_OVERLAP_REVIEW.md) now adds Alexandrinus,
+bringing that passage to two reviewed witnesses and ten positive witness/verse
+pairs in a [two-witness chart](examples/gal1-overlap-prototype.html). Both P46 date
+alternatives remain available. The next work is another overlapping witness with
+explicit writing-layer review, alongside independent source checking and a later
+supplement or boundary case.
 The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) defines the
 scope, acceptance criteria, and subsequent expansion; it is the source of current
 development priorities. The [bounded scope and development log](docs/PROTOTYPE_SCOPE.md)
@@ -161,6 +187,14 @@ source notes are retained, but settling its date or extending its dedicated
 dating review is not a project milestone.
 
 ## Current status
+
+The 2026-10-02 Galatians overlap increment passes **102 offline tests**. A fresh
+P46/Alexandrinus replay has zero audit findings, passes all ten cited benchmark
+cases, and renders two witnesses for each of Galatians 1:1–5 with zero replay
+network attempts. Its [source review and commands](docs/GAL1_OVERLAP_REVIEW.md)
+record the page/folio reconciliation, intact text anchors, conditional dates,
+review effort, and unanswered human-review questions. The original P46-only
+replay remains available. Discovery and independent validation remain incomplete.
 
 The 2026-10-02 UTC Pauline increment passes **96 offline tests**. A fresh P46
 Galatians 1:1–5 replay has zero audit findings, passes all five cited benchmark
@@ -299,6 +333,12 @@ reports show the latest decision while retaining excluded candidates in the repo
 `review_source_changed` flags when a newer successful response to the same request
 has different content. `retain` means a Greek manuscript candidate should be kept
 for further review; it does not verify any verse or settle physical witness identity.
+
+Under the [witness scope](#witness-scope), `greek_manuscript` means a manuscript
+copy of the New Testament text, not any Greek manuscript containing a quotation.
+Record documents offered only as quotations or allusions in other works as
+`exclude` with source type `other` and a cited reason. Unresolved source identity
+remains `uncertain` until reviewed; it is not grounds for inclusion.
 
 Physical witness identity is now a separate, append-only v7 decision. A reviewed
 catalogue document can be linked to a stable, manually chosen witness ID. Multiple

@@ -1,5 +1,11 @@
 # Bounded graph scope and development log
 
+All prototypes follow the project's [witness scope](../README.md#witness-scope):
+only surviving Greek manuscript copies of the New Testament texts qualify,
+including eligible fragments and lectionaries. Quotations and allusions in other
+works, including direct quotations by Justin Martyr, are outside the current
+scope and must not contribute verse coverage, witness counts, or date rankings.
+
 ## Several-witness target
 
 Use **John 1:1–5** as the first several-witness passage. These five coordinates

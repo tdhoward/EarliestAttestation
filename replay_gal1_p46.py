@@ -63,12 +63,12 @@ def checked_transcription(fixture):
     return verses
 
 
-def checked_capture(fixture, endpoint, detail):
+def checked_capture(fixture, endpoint, detail, doc_id=10046):
     if (fixture.get("canonical_source_url", fixture["source_url"]) !=
             f"{API_BASE}/{endpoint}/" or
             not fixture["source_url"].endswith(f"/{endpoint}/") or
             fixture["http_status"] != 200 or
-            fixture["params"] != {"docID": "10046", "detail": detail, "format": "json"} or
+            fixture["params"] != {"docID": str(doc_id), "detail": detail, "format": "json"} or
             hashlib.sha256(fixture["raw_body"].encode()).hexdigest() != fixture["body_sha256"]):
         raise ValueError("Captured source, scope, or hash mismatch")
     datetime.fromisoformat(fixture["retrieved_at"])
