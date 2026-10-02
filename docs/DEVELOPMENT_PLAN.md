@@ -140,9 +140,12 @@ than another collection framework. The next increment should:
    The [John 6:49–53 increment](JOHN6_GAP_REVIEW.md) now supplies a directly
    reviewed transcription boundary: twelve positive pairs and three physical
    absences for P66, P75, and Alexandrinus, with fifteen cited benchmark cases.
-   The third-witness milestone is complete. Next, declare a 5–10 verse Pauline
-   papyrus or later-supplement case with accessible primary evidence; verify
-   its page links and writing-layer applicability before expanding collection.
+   The third-witness milestone is complete. The first bounded Pauline case,
+   [P46 at Galatians 1:1–5](GAL1_P46_REVIEW.md), now has five cited partial reviews,
+   explicit page/folio links, an original-writing unit, and two conditional dates.
+   Add source-reviewed overlapping witnesses to that passage next; verify each
+   page link and writing-layer applicability. A Pauline boundary or later-supplement
+   case remains useful for the wider representative benchmark.
    The ready human-review questions remain
    unanswered. Continue bounded, budgeted collection without claiming exhaustive
    discovery.
@@ -162,6 +165,18 @@ Adding P75 used one transcription download, two budgeted metadata attempts (one
 timeout, one success), and about five minutes of retrieval and page reconciliation.
 Its five partial reviews exclude supplied text as evidence. Earlier manifests
 remain reproducible. Historical validation remains incomplete.
+
+The 2026-10-02 UTC P46 increment passes **96 offline tests** and all five new
+benchmark cases with zero structural audit findings. Its offline
+[replay](../replay_gal1_p46.py) produces a
+[five-verse chart](../examples/gal1-p46-prototype.html) from pinned sources.
+The NTVMR 200–225 CE and Michigan third-century (201–300 CE) assessments remain
+separate equal alternatives, with consensus unknown. The codex's two holding
+institutions count as one witness. Four budgeted NTVMR attempts (two timeouts,
+two successes through the existing proxy) and one successful transcription
+download supplied the new fixtures. Source work took approximately five minutes;
+the replay uses no network or schema changes. Five specific human-review questions
+are ready in the source review document, with no answers recorded.
 
 ### Prototype implementation checklist (completed for the bounded scope)
 

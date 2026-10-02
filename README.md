@@ -22,8 +22,11 @@ image-checked verse reviews tied to captured NTVMR page metadata. A cited
 [John 6:49–53 boundary chart](examples/john6-gap-prototype.html) now has twelve
 positive and three physical-absence decisions for P66, P75, and Alexandrinus,
 with fifteen cited benchmark cases. Its witness counts vary across a directly
-reviewed lacuna. The next work is a bounded Pauline papyrus or later supplement
-case, alongside independent source checking of the existing evidence.
+reviewed lacuna. The first [Pauline papyrus increment](docs/GAL1_P46_REVIEW.md)
+now adds P46 at Galatians 1:1–5, five cited coverage decisions, and two equal
+conditional date alternatives in a [reproducible chart](examples/gal1-p46-prototype.html).
+The next work is overlapping witnesses in that passage, alongside independent
+source checking of the existing evidence and a later supplement or boundary case.
 The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) defines the
 scope, acceptance criteria, and subsequent expansion; it is the source of current
 development priorities. The [bounded scope and development log](docs/PROTOTYPE_SCOPE.md)
@@ -158,6 +161,14 @@ source notes are retained, but settling its date or extending its dedicated
 dating review is not a project milestone.
 
 ## Current status
+
+The 2026-10-02 UTC Pauline increment passes **96 offline tests**. A fresh P46
+Galatians 1:1–5 replay has zero audit findings, passes all five cited benchmark
+cases, and exports two conditional date alternatives for each verse with zero
+network attempts. Its [source review and replay commands](docs/GAL1_P46_REVIEW.md)
+include exact locations and five unanswered human-review questions. P46 counts
+as one physical witness across its two holding institutions. Discovery and
+independent historical validation remain incomplete.
 
 This is a Python/SQLite research prototype. Controlled collection, append-only
 reviews, writing-unit dating, and both first-five ranking scenarios are implemented

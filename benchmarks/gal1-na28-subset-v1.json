@@ -1,0 +1,47 @@
+{
+  "format_version": 1,
+  "inventory_id": "na28-gal1-p46-subset-v1",
+  "edition": "NA28",
+  "scope": "Galatians 1:1-5, one Pauline papyrus; incomplete discovery and independent validation",
+  "source_citation": "Deutsche Bibelgesellschaft, NA28 (2012), Galatians 1, https://www.die-bibel.de/en/bible/NA28/GAL.1, numbered markers 1-5 checked 2026-10-02 UTC; same coordinates as benchmarks/na28-nt-reference-provisional-v3.json.",
+  "reuse_terms": "Coordinates only; no NA28 edition wording reproduced.",
+  "mapping_citation": "Explicit Gal.1.1-Gal.1.5 entries on page 1421 in tests/fixtures/p46_coverage_probe.json; INTF/ITSEE transcription independently labels the same passage at folio 81r. Matching passage anchors were compared with the publisher display; textual variants do not invalidate verse identification. Mapping alone is not physical evidence.",
+  "reviewer": "Codex source-coordinate review, 2026-10-02",
+  "verses": [
+    {
+      "osis_ref": "Gal.1.1",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "Gal.1.1"
+      ]
+    },
+    {
+      "osis_ref": "Gal.1.2",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "Gal.1.2"
+      ]
+    },
+    {
+      "osis_ref": "Gal.1.3",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "Gal.1.3"
+      ]
+    },
+    {
+      "osis_ref": "Gal.1.4",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "Gal.1.4"
+      ]
+    },
+    {
+      "osis_ref": "Gal.1.5",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "Gal.1.5"
+      ]
+    }
+  ]
+}
