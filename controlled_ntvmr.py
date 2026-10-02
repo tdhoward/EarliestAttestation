@@ -294,12 +294,17 @@ def parse_coverage(payload, doc_id):
         if not isinstance(entry, dict) or entry.get("docID") != doc_id:
             raise ContractError("Malformed coverage entry")
         ref, page = entry.get("osisID"), entry.get("pageID")
-        if not isinstance(ref, str) or not (OSIS.fullmatch(ref) or OSIS_CHAPTER.fullmatch(ref)):
+        book_marker = (isinstance(ref, str) and ref in BOOK_ORDER and
+                       type(entry.get("indexContent")) is int and
+                       entry["indexContent"] % 1000000 == 0)
+        if not isinstance(ref, str) or not (OSIS.fullmatch(ref) or
+                                            OSIS_CHAPTER.fullmatch(ref) or
+                                            book_marker):
             raise ContractError(f"Invalid OSIS reference: {ref!r}")
         if type(page) is not int or page <= 0:
             raise ContractError(f"Invalid page ID: {page!r}")
-        if OSIS_CHAPTER.fullmatch(ref):
-            # Chapter markers remain in the raw response; never infer their verses.
+        if book_marker or OSIS_CHAPTER.fullmatch(ref):
+            # Book and chapter markers remain in the raw response; never infer verses.
             continue
         result.append((ref, page))
     return list(dict.fromkeys(result))
@@ -1780,6 +1785,45 @@ def import_search_fixture(con, fixture):
         VALUES(?,?,?,?,?,?,?,?,?)""",
         ("metadata/liste/search", record["source_url"], args,
          record["http_status"], "{}", body, digest, record["retrieved_at"], "fixture"))
+    con.commit()
+    return con.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
+def import_coverage_fixture(con, fixture):
+    """Store a captured complete coverage response for offline replay."""
+    record = (json.loads(fixture.read_text(encoding="utf-8"))
+              if isinstance(fixture, Path) else fixture)
+    if (not isinstance(record, dict) or
+            not {"source_url", "params", "http_status", "raw_body",
+                 "body_sha256", "retrieved_at"} <= set(record) or
+            not isinstance(record["source_url"], str) or
+            not record["source_url"].endswith("/biblicalcontent/get/") or
+            record["http_status"] != 200 or
+            not isinstance(record["params"], dict)):
+        raise ValueError("Coverage fixture has an unsupported shape")
+    params = record["params"]
+    try:
+        doc_id = int(params["docID"])
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError("Coverage fixture requires a document ID") from error
+    if params != {"docID": str(doc_id), "detail": "long", "format": "json"}:
+        raise ValueError("Coverage fixture has unexpected request parameters")
+    body = record["raw_body"]
+    if not isinstance(body, str) or hashlib.sha256(body.encode("utf-8")).hexdigest() != record["body_sha256"]:
+        raise ValueError("Coverage fixture body hash mismatch")
+    parse_coverage(json.loads(body), doc_id)
+    datetime.fromisoformat(record["retrieved_at"])
+    args = encoded(params)
+    row = con.execute("""SELECT id FROM source_response WHERE origin='fixture'
+        AND url=? AND params_json=? AND body_sha256=?""",
+        (record["source_url"], args, record["body_sha256"])).fetchone()
+    if row:
+        return row[0]
+    con.execute("""INSERT INTO source_response(endpoint,url,params_json,status_code,
+        headers_json,body,body_sha256,retrieved_at,origin)
+        VALUES(?,?,?,?,?,?,?,?,?)""",
+        ("biblicalcontent/get", record["source_url"], args, 200, "{}", body,
+         record["body_sha256"], record["retrieved_at"], "fixture"))
     con.commit()
     return con.execute("SELECT last_insert_rowid()").fetchone()[0]
 

@@ -1,0 +1,108 @@
+{
+  "format_version": 1,
+  "benchmark_id": "john6-gap-evidence-benchmark-v1",
+  "inventory_id": "na28-john6-gap-subset-v1",
+  "policy_id": "john6-conditional-source-v1",
+  "cases": [
+    {
+      "osis_ref": "John.6.49",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in P66, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/p66-john6-transcription.json (CC BY 4.0). Location: P40 C1 lines 15-17",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.50",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in P66, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/p66-john6-transcription.json (CC BY 4.0). Location: P40 C1 lines 17-19",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.51",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in P66, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/p66-john6-transcription.json (CC BY 4.0). Location: P40 C1 lines 20-21 (verse continues on P41; this review counts only the P40 portion)",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.52",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in P66, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/p66-john6-transcription.json (CC BY 4.0). Location: P41 C1 lines 4-7, base text outside the correction apparatus",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.53",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in P66, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/p66-john6-transcription.json (CC BY 4.0). Location: P41 C1 lines 7-11",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.49",
+      "witness_id": "02-alexandrinus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in 02, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_02_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/alexandrinus-john6-transcription.json (CC BY 4.0). Location: P70v C2 lines 48-50",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.50",
+      "witness_id": "02-alexandrinus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in 02, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_02_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/alexandrinus-john6-transcription.json (CC BY 4.0). Location: P70v C2 lines 50-51, before the explicit lacuna",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.51",
+      "witness_id": "02-alexandrinus",
+      "expected_coverage": "absent",
+      "expected_status": "absent",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in 02, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_02_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/alexandrinus-john6-transcription.json (CC BY 4.0). Location: TEI John.6.50, P70v C2 line 51: gap reason=lacuna, extent=rest; immediately followed by P73r and John.8.52 with an opening lacuna.",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.52",
+      "witness_id": "02-alexandrinus",
+      "expected_coverage": "absent",
+      "expected_status": "absent",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in 02, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_02_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/alexandrinus-john6-transcription.json (CC BY 4.0). Location: TEI John.6.50, P70v C2 line 51: gap reason=lacuna, extent=rest; immediately followed by P73r and John.8.52 with an opening lacuna.",
+      "reviewed_on": "2026-10-02"
+    },
+    {
+      "osis_ref": "John.6.53",
+      "witness_id": "02-alexandrinus",
+      "expected_coverage": "absent",
+      "expected_status": "absent",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP, A Transcription of John in 02, version 2.1, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_02_John.xml; source consulted 2026-10-02; contiguous excerpt pinned in tests/fixtures/alexandrinus-john6-transcription.json (CC BY 4.0). Location: TEI John.6.50, P70v C2 line 51: gap reason=lacuna, extent=rest; immediately followed by P73r and John.8.52 with an opening lacuna.",
+      "reviewed_on": "2026-10-02"
+    }
+  ]
+}

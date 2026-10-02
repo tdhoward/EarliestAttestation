@@ -13,21 +13,44 @@ fill in 18:34–36. See the [coverage reference and review](docs/DATA_REVIEW.md)
 
 ## Development direction
 
-The next milestone is a **reproducible prototype graph of a short passage with
-several real witnesses**. Complete the ordinary collection, review, writing-unit
-assignment, dating, export, and graph workflow for that scope. A small static
-chart with a source-linked table is sufficient for the first visual result.
+The [John 1:1–5 prototype chart](examples/john1-prototype.html) now replays four
+source-reviewed physical witnesses, writing-unit links, conditional date inputs,
+and a source-linked table from checked-in inputs. Its five verses each have P66,
+P75, 01, and 02 in the conditional rankings. Alexandrinus (02) now has five
+image-checked verse reviews tied to captured NTVMR page metadata. A cited
+20-case coverage benchmark guards the replay. The new
+[John 6:49–53 boundary chart](examples/john6-gap-prototype.html) adds seven positive
+and three physical-absence decisions for P66 and Alexandrinus, with ten cited
+benchmark cases. Its witness counts vary across a directly reviewed lacuna.
+The next work is independent source checking and adding a third witness to that
+passage before expanding to other representative manuscript types.
 The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) defines the
 scope, acceptance criteria, and subsequent expansion; it is the source of current
 development priorities. The [bounded scope and development log](docs/PROTOTYPE_SCOPE.md)
 records the John 1:1–5 several-witness target and the P52 chart increment.
 
-Build and inspect this labeled prototype while data review continues. Whole-NT
-mapping completion, exhaustive discovery, the full representative benchmark, and
-independent human publication review are not prerequisites for prototype work.
-Displayed evidence still needs citations and faithful recording, with unknowns,
-competing dates, discovery limits, and review status visible. Historical releases
+The next-passage workflow now carries physical coverage and absence reviews into
+the export and chart, including witnesses with no usable dates. Conflicts,
+withdrawals, and coordinates without a review remain visible. The John 6 increment
+now exercises this workflow with cited positive and physical-absence reviews.
+
+Continue to inspect and expand this labeled prototype while data review continues.
+Whole-NT mapping completion, exhaustive discovery, the full representative
+benchmark, and independent human publication review remain open. Displayed
+evidence needs citations and faithful recording, with unknowns, competing dates,
+discovery limits, and review status visible. Historical releases
 must meet the separate [publication requirements](docs/DEVELOPMENT_PLAN.md#prototype-and-historical-publication-expectations).
+
+When a bounded evidence set is ready for human review, Codex will prepare
+[specific review questions](docs/DEVELOPMENT_PLAN.md#human-review-question-packets)
+with source links, exact locations, and the claims to check. The project owner can
+answer **agree**, **disagree**, or **unable to assess**, and add corrections.
+Checks needing specialist expertise will be identified. Human answers will be
+recorded separately from agent reviews, with unresolved points kept explicit;
+reviewers need not settle scholarly dating disputes. The first
+[bounded review packet](docs/JOHN6_GAP_REVIEW.md#independent-review-questions)
+is now written for the John 6 increment. Human answers and automated packet
+generation remain pending; this does not block ongoing prototype development.
 
 Measure progress by usable graph output, reviewed witnesses and verses, and the
 effort needed to add them. Use that experience to justify targeted batch imports
@@ -93,6 +116,19 @@ explicit combinations when needed, keeping all assessments accessible and
 uncomputed outcomes visible. On-demand calculation is not implemented. See the
 [ranking direction](docs/DEVELOPMENT_PLAN.md#5-rank-independently-for-both-date-scenarios).
 
+Version 2 exports also include an additive per-verse `evidence` object, independent
+of dates and the first-five ranking cutoff. It carries the latest coverage review
+per indexed page and latest physical-absence decision per witness, with citations,
+source locations, reviewers, timestamps, and change/conflict flags. Earlier review
+history remains in the database. `positive_witness_ids` and `absent_witness_ids`
+exclude conflicts; `conflicting_witness_ids` lists those separately. A stale positive
+review, uncertain or withdrawn absence, or rejected index entry does not count as
+verified absence. Absence-only coordinates need neither an NTVMR mapping nor a
+ranking. An empty evidence list means no recorded review, not physical absence.
+Both exports count positive, absent, and conflicting witness/verse pairs for their
+own verse population. The chart lists these reviews even without dated events;
+older version 2 inputs remain readable but label their missing review details.
+
 ## Manuscript dating policy
 
 This project records scholarly dating assessments and preserves their uncertainty.
@@ -125,8 +161,8 @@ dating review is not a project milestone.
 
 This is a Python/SQLite research prototype. Controlled collection, append-only
 reviews, writing-unit dating, and both first-five ranking scenarios are implemented
-through schema version 12. A bounded static chart renderer exists; a validated
-whole-corpus export and the several-witness prototype are still open.
+through schema version 12. A bounded static chart renderer and the four-witness
+John 1 prototype are reproducible; a validated whole-corpus export remains open.
 **The legacy `ntvmr.sqlite` is exploratory and should not be used to make historical
 claims.** The [original review](docs/DATA_REVIEW.md) found:
 
@@ -159,6 +195,22 @@ unmapped. V3 was imported into a separate local database and verified; it is
 reproducible from its pinned review record, but the inventory is not yet
 editorially certified or ready for whole-NT attestation claims.
 
+The subsequent 2026-10-01 evidence-export review passed **84 offline tests**.
+A fresh offline John 1 replay still has 20 positive witness/verse pairs, zero
+audit findings, and all 20 benchmark cases passing. The regenerated chart adds
+physical-review details; the historical evidence and conditional dates are unchanged.
+
+The 2026-10-01 fourth-witness increment passed **81 offline tests** on Python 3.12.6.
+Its replay creates 20 cited partial witness/verse decisions,
+20 writing-unit assignments, seven date observations, and one conditional ranking
+combination for each of five coordinates. Its fresh structural audit has zero
+findings, and all 20 cited coverage benchmark cases pass. The conditional
+optimistic years are 101, 201, 301, and 400 CE; pessimistic years are 300, 300,
+400, and 499 CE, drawn from broad source date ranges. These are
+possible chart inputs, not settled manuscript dates or claims of exhaustive
+earliest attestation. The [replay commands](#john-1-four-witness-prototype)
+use no network; the local collection attempts and databases are ignored by Git.
+
 The progress check on 2026-09-30 passed **70 offline tests** on Python 3.12.6.
 The subsequent graph increment passed **72 offline tests** and a fresh P52
 replay audit with zero findings; the older local database counts below are
@@ -186,9 +238,9 @@ now enumerates conditional rankings over stored valid alternatives. The normal
 P52 replay now assigns its five coverage reviews to the cited original writing
 unit, so a fresh replay and export produce two conditional date cases without
 manual SQL or a test-only assignment. The static chart renders those cases and
-marks the five neighboring coordinates as unresolved. It is a one-witness
-workflow check, not the planned several-witness prototype. Documented consensus
-and additional reviewed witnesses remain implementation work.
+marks the five neighboring coordinates as unresolved. It remains a one-witness
+workflow check. The John 1 replay supplies the first several-witness prototype.
+Documented consensus and broader witness review remain implementation work.
 Broader witness coverage, discovery completeness, and certification and mapping
 of the existing provisional whole-NT inventory remain open.
 Use the [development plan](docs/DEVELOPMENT_PLAN.md)
@@ -206,6 +258,12 @@ The coverage parser validates chapter markers and preserves them in the raw
 response, but creates index candidates only for explicit verse entries. It never
 expands a chapter marker into verses. An index containing only chapter markers
 has no individual verse candidates; that does not establish physical absence.
+
+The [P75](tests/fixtures/p75_coverage_probe.json) and
+[01](tests/fixtures/sinaiticus_coverage_probe.json) captures include valid
+book-level markers such as `John`. The parser retains those markers in the raw
+response and imports only explicit verse/page pairs. All three index responses
+are replayable offline.
 
 A bounded catalogue lookup now accepts up to 20 explicit document IDs in one
 request, preserves every returned record, and reports IDs that were not returned.
@@ -505,6 +563,89 @@ not yet available. Prototype graph development can proceed for a declared scope
 with sourced conditional dates and explicit limitations. P52's unselected date
 does not require contributors to settle the dating dispute.
 
+## John 1 four-witness prototype
+
+The [review manifest](benchmarks/john1-reviewed-v3.json) cites the physical
+transcriptions and image, witness identities, writing units, and date observations
+for P66, P75, Codex Sinaiticus (01), and Codex Alexandrinus (02). The
+[v2 subset inventory](benchmarks/john1-na28-subset-v2.json) cites direct NTVMR
+coordinate mappings. The captured complete index responses and earlier named
+searches are checked-in fixtures. Alexandrinus coverage comes from inspection of
+the [public INTF image](https://ntmss.info/images/webfriendly/20002/20002x00490XX_INTF.jpg),
+right column, lines 1–10, linked to page 490 by captured metadata. The
+[British Library catalogue](https://searcharchives.bl.uk/catalog/040-002353500)
+supplies its identity and date fields. Use an unused database path; the replay
+rejects an existing destination before making changes:
+
+```powershell
+python replay_john1_prototype.py --db data/john1-prototype-v3.sqlite --dry-run
+python replay_john1_prototype.py --db data/john1-prototype-v3.sqlite
+python audit_reviewed.py --db data/john1-prototype-v3.sqlite --benchmark benchmarks/john1-evidence-benchmark-v1.json
+python export_attestation.py --db data/john1-prototype-v3.sqlite --inventory na28-john1-prototype-subset-v2 --policy john1-conditional-source-v1 --dataset-output data/john1-prototype-complete-v3.json --graph-output data/john1-prototype-input-v3.json
+python render_attestation.py --graph-input data/john1-prototype-input-v3.json --output examples/john1-prototype.html
+```
+
+The resulting [static chart](examples/john1-prototype.html) is the bounded
+four-witness prototype. Its dates are conditional on broad source intervals:
+P66 101–300, P75 201–300, 01 301–400, and 02 400–499 CE. The last interval
+preserves the British Library's explicit numeric fields; it is not a conversion
+of its fifth-century label to 401–500. Qualitative dating observations
+without stated endpoints remain visible but unrankable. Each writing unit has a
+null policy selection because no preferred scholar or documented consensus was
+established; the exporter computes conditional combinations from the stored valid
+assessments. The chart is labelled incomplete discovery and validation. It does
+not claim the earliest extant manuscript in the full corpus, independent human
+review, or exact NA28 wording.
+
+The [coverage benchmark](benchmarks/john1-evidence-benchmark-v1.json) checks all
+20 cited partial-coverage decisions. It asserts no selected-policy dates because
+the graph uses conditional assessments. Automated tests separately check both
+endpoint rankings and confirm that withdrawing evidence removes the witness.
+These are reproducibility checks, not an independent scholarly review. Add
+`--review benchmarks/john1-reviewed-v2.json` with a fresh database path to rebuild
+the earlier three-witness scope. Earlier manifests are preserved.
+
+Alexandrinus's image bears both the numbers 66 and 42. NTVMR labels page 490
+`66r`; the British Library uses `42r` for the John opening. The review preserves
+these source-specific labels and the image hash without asserting a general
+foliation conversion. The image itself remains an external source; replay uses
+the checked-in review and captured metadata without downloading it again.
+
+The P66 transcription directly shows surviving Greek in John 1:1–5 without a
+separate correction reading in those verse elements. Its captured NTVMR index
+lists each verse on both page IDs 3 and 10. The [captured manuscript metadata](tests/fixtures/p66_metadata_probe.json)
+identifies page ID 10 as folio 1 with John 1:1–14; page ID 3 lacks a folio label.
+The replay verifies this link from the checked-in response. The index remains a
+locator; the IGNTP transcription supplies the physical verse evidence.
+
+## John 6 survival-boundary prototype
+
+The [John 6:49–53 chart](examples/john6-gap-prototype.html) shows P66 throughout
+the five verses and Alexandrinus at 6:49–50, followed by three directly reviewed
+physical absences. A surviving beginning counts for 6:50 despite its lost ending.
+Both endpoint scenarios therefore show witness counts of **2, 2, 1, 1, 1**.
+Dates remain conditional on the stored catalogue assessments.
+
+The [source review and human-review packet](docs/JOHN6_GAP_REVIEW.md) explains
+the explicit transcription lacuna, page links, correction handling, source
+licenses, measurements, and remaining checks. The replay uses checked-in inputs
+and refuses an existing destination. It rebuilds John 1 v3 in the new database
+to reuse its reviewed identities and indexes; the John 6 export selects only
+the new five-verse inventory.
+
+```powershell
+python replay_john6_gap.py --db data/john6-gap-review.sqlite
+python audit_reviewed.py --db data/john6-gap-review.sqlite --benchmark benchmarks/john6-gap-evidence-benchmark-v1.json
+python export_attestation.py --db data/john6-gap-review.sqlite --inventory na28-john6-gap-subset-v1 --policy john6-conditional-source-v1 --dataset-output data/john6-gap-complete.json --graph-output data/john6-gap-input.json
+python render_attestation.py --graph-input data/john6-gap-input.json --output examples/john6-gap-prototype.html
+```
+
+The increment passes ten cited evidence cases with zero audit findings and zero
+replay network attempts. All **88 offline tests** pass. The two-witness scope is
+incomplete; P75, Sinaiticus, and other witnesses have no coverage decisions in
+this new inventory. Their lack of review is not physical absence. The provisional
+whole-NT inventory and existing local databases are unchanged.
+
 ## Reviewed-data audit and P52 replay
 
 The read-only reviewed-data audit checks SQLite integrity and foreign keys,
@@ -639,7 +780,8 @@ must identify those inputs and expose alternative ranges and resulting changes
 in membership or order without silently favoring one. A manuscript still counts
 once per verse in each result, however many dating assessments it has. The offline
 export now supplies these conditional combinations for reviewed coordinates with
-rankable dates. A chart UI and a model for documented consensus are still needed.
+rankable dates. The bounded static chart renders them; a data model for documented
+consensus is still needed.
 
 Moving from older to newer years, a verse becomes colored at its first witness's
 scenario date and changes shade at witnesses two through five. Unknown or
@@ -657,9 +799,10 @@ as a verse with no attestation.
 | --- | --- |
 | `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v12 schema in the v2 replacement database |
 | `export_attestation.py` | Offline complete-inventory and filtered graph-data export |
-| `render_attestation.py`, `examples/p52-graph-preview.html` | Bounded offline chart renderer and generated P52 preview |
+| `render_attestation.py`, `examples/john1-prototype.html` | Bounded offline chart renderer and four-witness John 1 prototype, with physical-review provenance |
 | `review_absence.py` | Offline cited physical absence decisions and reports |
 | `replay_p52_benchmark.py`, `benchmarks/` | Offline, cited P52 subset inventory and review replay |
+| `replay_john1_prototype.py`, `benchmarks/john1-reviewed-v2.json` | Offline, cited John 1 review replay with three covered witnesses and 02 identity |
 | `build_na28_inventory.py`, `benchmarks/na28-coordinate-source-v1.json` | Reproducible publisher-coordinate ledger and provisional whole-NT inventory builder |
 | `legacy_sync_ntvmr.py` | Disabled legacy collector retained for review |
 | `audit_ntvmr.py` | Read-only offline audit of the legacy database |

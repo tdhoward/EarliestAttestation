@@ -178,6 +178,24 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(self.con.execute("SELECT count(*) FROM coverage_index").fetchone()[0], 0)
         self.assertEqual(self.con.execute("SELECT body FROM source_response").fetchone()[0], raw)
 
+    def test_book_marker_does_not_create_verse_candidates(self):
+        payload = {"status": "success", "data": {"indexContents": {
+            "docID": 10075, "indexContent": ["John 1:1-5", {
+                "docID": 10075, "osisID": "John", "pageID": 620,
+                "indexContent": 2004000000}, {
+                "docID": 10075, "osisID": "John.1.1", "pageID": 620,
+                "indexContent": 2004001001}]}}}
+        self.assertEqual(parse_coverage(payload, 10075), [("John.1.1", 620)])
+        payload["data"]["indexContents"]["indexContent"].pop()
+        self.assertEqual(parse_coverage(payload, 10075), [])
+        marker = payload["data"]["indexContents"]["indexContent"][1]
+        for change in ({"indexContent": 2004001001}, {"pageID": 0},
+                       {"osisID": "NotABook"}):
+            with self.subTest(change=change):
+                with self.assertRaises(ContractError):
+                    parse_coverage({"status": "success", "data": {"indexContents": {
+                        "docID": 10075, "indexContent": [{**marker, **change}]}}}, 10075)
+
     def test_chapter_marker_does_not_hide_malformed_entries(self):
         entry = {"docID": 10066, "osisID": "John.2", "pageID": 70}
         changes = [{"docID": 10075}, {"pageID": None}, {"pageID": 0},

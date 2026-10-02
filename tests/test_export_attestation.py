@@ -6,8 +6,10 @@ import tempfile
 import unittest
 
 from controlled_ntvmr import (connect, edition_inventory_report,
-                              import_edition_inventory, record_coverage_review)
+                              import_edition_inventory, now, record_coverage_review,
+                              record_physical_absence_review)
 from export_attestation import build_exports, main
+from render_attestation import render
 
 
 class AttestationExportTests(unittest.TestCase):
@@ -69,6 +71,60 @@ class AttestationExportTests(unittest.TestCase):
                          "Reviewed traditional passage source")
         with self.assertRaisesRegex(ValueError, "current|index|witness|identity"):
             record_coverage_review(self.con, "filter-test-cited", *args[2:])
+
+    def test_absence_only_unmapped_and_filtered_coordinates_keep_evidence(self):
+        self.con.execute("INSERT INTO physical_witness VALUES (?,?,?)",
+                         ("synthetic-object", "Synthetic object", now()))
+        self.con.commit()
+        for ref in ("Matt.17.21", "Luke.1.1"):
+            record_physical_absence_review(
+                self.con, "filter-test", ref, "synthetic-object", "absent",
+                "checked_image", "Synthetic folio <1r>", "Synthetic physical gap",
+                "Synthetic source https://example.org/folio", "Test reviewer")
+        changes = self.con.total_changes
+        dataset, graph = build_exports(self.con, "filter-test", "policy")
+        self.assertEqual(self.con.total_changes, changes)
+        self.assertEqual(dataset["counts"]["absent_witness_verse_pairs"], 2)
+        self.assertEqual(graph["counts"]["absent_witness_verse_pairs"], 1)
+        self.assertEqual(graph["counts"]["positive_witness_verse_pairs"], 0)
+        verse = graph["verses"][-1]
+        self.assertEqual(verse["osis_ref"], "Luke.1.1")
+        self.assertEqual(verse["ntvmr_refs"], [])
+        self.assertIsNone(verse["dating_alternatives"])
+        self.assertIsNone(verse["scenarios"])
+        self.assertEqual(verse["ranking_state"], "uncomputed")
+        self.assertEqual(verse["evidence"]["absent_witness_ids"], ["synthetic-object"])
+        self.assertEqual(verse["evidence"]["coverage_reviews"], [])
+        html = render(graph)
+        self.assertIn("Reviewed physical absence", html)
+        self.assertIn("Synthetic folio &lt;1r&gt;", html)
+        self.assertIn('href="https://example.org/folio"', html)
+        self.assertIn("Test reviewer", html)
+        self.assertIn("No physical coverage review recorded", html)
+        _, included = build_exports(self.con, "filter-test", "policy", include_omitted=True)
+        self.assertEqual(included["counts"]["absent_witness_verse_pairs"], 2)
+
+    def test_uncertain_and_withdrawn_absence_are_not_counted_as_absent(self):
+        self.con.execute("INSERT INTO physical_witness VALUES (?,?,?)",
+                         ("synthetic-object", "Synthetic object", now()))
+        self.con.commit()
+        for decision, label in (("absent", "Reviewed physical absence"),
+                                ("uncertain", "Physical absence uncertain"),
+                                ("withdrawn", "Physical absence review withdrawn")):
+            with self.subTest(decision=decision):
+                record_physical_absence_review(
+                    self.con, "filter-test", "Luke.1.1", "synthetic-object", decision,
+                    "checked_image", "Synthetic folio", "Synthetic revised decision",
+                    "Synthetic source", "tester")
+                _, graph = build_exports(self.con, "filter-test", "policy")
+                self.assertEqual(graph["counts"]["absent_witness_verse_pairs"],
+                                 int(decision == "absent"))
+                reviews = graph["verses"][-1]["evidence"]["physical_absence_reviews"]
+                self.assertEqual(len(reviews), 1)
+                self.assertEqual(reviews[0]["decision"], decision)
+                self.assertIn(label, render(graph))
+        self.assertEqual(self.con.execute("SELECT count(*) FROM physical_absence_review")
+                         .fetchone()[0], 3)
 
     def test_stale_snapshot_has_no_graph_events(self):
         self.con.execute("""INSERT INTO ranking_snapshot

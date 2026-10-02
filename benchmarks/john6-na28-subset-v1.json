@@ -1,0 +1,47 @@
+{
+  "format_version": 1,
+  "inventory_id": "na28-john6-gap-subset-v1",
+  "edition": "NA28",
+  "scope": "John 6:49-53; bounded P66 and Alexandrinus survival review, incomplete discovery and validation",
+  "source_citation": "Deutsche Bibelgesellschaft, NA28 (2012), John 6 publisher display, https://www.die-bibel.de/en/bible/NA28/JHN.6; coordinates retained from benchmarks/na28-nt-reference-provisional-v3.json, captured 2026-09-29. Reference coordinates only; no edition text reproduced.",
+  "reuse_terms": "Reference coordinates only; no NA28 edition text reproduced.",
+  "mapping_citation": "Direct John.6.49-John.6.53 coordinate matches in the captured P66 NTVMR index, tests/fixtures/p66_coverage_probe.json; IGNTP P66 transcription verse labels independently locate the passage. Alexandrinus index confirms John.6.49 and John.6.50 on page 531. These mappings do not establish physical survival.",
+  "reviewer": "Codex source-coordinate review, 2026-10-02",
+  "verses": [
+    {
+      "osis_ref": "John.6.49",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "John.6.49"
+      ]
+    },
+    {
+      "osis_ref": "John.6.50",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "John.6.50"
+      ]
+    },
+    {
+      "osis_ref": "John.6.51",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "John.6.51"
+      ]
+    },
+    {
+      "osis_ref": "John.6.52",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "John.6.52"
+      ]
+    },
+    {
+      "osis_ref": "John.6.53",
+      "editorial_status": "main",
+      "ntvmr_refs": [
+        "John.6.53"
+      ]
+    }
+  ]
+}

@@ -27,6 +27,54 @@ def source(text):
             escape(text[match.start() + len(url):]))
 
 
+def evidence_detail(verse):
+    """Show current source reviews even when no witness can be dated."""
+    evidence = verse.get("evidence")
+    if evidence is None:
+        return '<p>Coverage review details unavailable in this older export.</p>'
+    coverage = evidence["coverage_reviews"]
+    absences = evidence["physical_absence_reviews"]
+    if not coverage and not absences:
+        return '<p>No physical coverage review recorded for this coordinate.</p>'
+    parts = ['<p><strong>Physical evidence:</strong> '
+             f'{len(evidence["positive_witness_ids"])} reviewed positive witnesses; '
+             f'{len(evidence["absent_witness_ids"])} reviewed absent witnesses; '
+             f'{len(evidence["conflicting_witness_ids"])} conflicting witnesses. '
+             'Counts describe the reviewed witnesses only.</p>']
+    if evidence["conflicting_witness_ids"]:
+        parts.append('<p class="notice">Conflicting survival and absence reviews for '
+                     + escape(', '.join(evidence["conflicting_witness_ids"])) +
+                     '; dated results are held pending review.</p>')
+    for review in absences:
+        label = {"absent": "Reviewed physical absence",
+                 "uncertain": "Physical absence uncertain",
+                 "withdrawn": "Physical absence review withdrawn"}[review["decision"]]
+        parts.append(f'<p><strong>{label}:</strong> {escape(review["witness_id"])}. '
+                     f'{escape(review["source_locator"])}. '
+                     f'{escape(review["reason"])} '
+                     f'Evidence: {escape(review["evidence_type"])}. '
+                     f'Reviewed by {escape(review["reviewer"])} '
+                     f'({escape(review["reviewed_at"])}); '
+                     f'{source(review["citation"])}</p>')
+    if coverage:
+        parts.append('<details><summary>Coverage source reviews '
+                     f'({len(coverage)})</summary>')
+        for review in coverage:
+            status = escape(review["status"])
+            if review["review_needed"]:
+                status += '; renewed review needed'
+            parts.append(f'<p><strong>{escape(review["witness_id"])}: {status}</strong>. '
+                         f'Document {review["doc_id"]}, page {review["page_id"]}, '
+                         f'{escape(review["ntvmr_ref"])}. '
+                         f'{escape(review["reason"])} '
+                         f'Evidence: {escape(review["evidence_type"])}. '
+                         f'Reviewed by {escape(review["reviewer"])} '
+                         f'({escape(review["reviewed_at"])}); '
+                         f'{source(review["citation"])}</p>')
+        parts.append('</details>')
+    return ''.join(parts)
+
+
 def cases_for(graph):
     if graph.get("format_version") != 2 or graph.get("kind") != "graph_input":
         raise ValueError("Expected a version 2 graph-input export")
@@ -169,21 +217,24 @@ def render(graph):
                                f'unknown-{case_number}-{side}') + '</div>')
         parts.append('</div></section>')
     parts.append('<h2>Evidence and unresolved work</h2><table><thead><tr><th>Verse</th>'
-                 '<th>State</th><th>Dating inputs and ranked witnesses</th></tr></thead><tbody>')
+                 '<th>State</th><th>Physical evidence, dating inputs and ranked witnesses</th></tr></thead><tbody>')
     for verse in verses:
         alt = verse.get("dating_alternatives")
         state = alt["state"] if alt else verse["ranking_state"]
-        detail = []
+        detail = [evidence_detail(verse)]
         if verse.get("discovery_candidates"):
-            detail.append('<p><strong>Unverified search candidates:</strong> ')
+            detail.append('<p><strong>Named search candidates:</strong> ')
             detail.append('; '.join(
                 f'{escape(candidate["query_ga_num"])} (document '
-                f'{candidate["doc_id"]}, {escape(candidate["review_state"])}, '
+                f'{candidate["doc_id"]}, '
+                f'{escape(candidate.get("review_decision", "unreviewed"))}'
+                + (f', witness {escape(candidate["witness_id"])}'
+                   if candidate.get("witness_id") else '') + ', '
                 f'{escape(candidate["search_state"])} search; '
                 f'<a href="{escape(candidate["source_url"], quote=True)}">'
                 f'source response {candidate["source_response_id"]}</a>)'
                 for candidate in verse["discovery_candidates"]))
-            detail.append('. A search hit does not establish physical verse coverage.</p>')
+            detail.append('. Search evidence alone does not establish physical verse coverage.</p>')
         if alt:
             detail.append(f'{alt["combination_count"]} possible combinations; '
                           f'{alt["eligible_witness_count"]} eligible physical witnesses. '

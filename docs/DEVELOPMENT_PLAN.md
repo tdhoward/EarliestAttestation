@@ -26,7 +26,7 @@ The replacement database filename remains `ntvmr-v2.sqlite`; the current schema 
 | Edition inventory and coverage | Immutable inventory imports with numeric canonical order and explicit mappings; provisional 27-book, 260-chapter NA28 coordinate inventory with 7,957 rows; v2 directly confirms 1 Corinthians 4 coordinates, and v3 cites all 16 traditional skipped passages; append-only indexed page/verse and direct physical absence reviews; witness deduplication | Confirm remaining flagged editorial cases, review 7,952 pending NTVMR mappings, independently check real absence cases; whole-NT inventory is not certified |
 | Writing units and dates | Separate writing layers, coverage assignments, competing cited assessments and policy selections; reproducible P52 example with four dating observations and a null selection | Record documented consensus where known and retain equal alternatives otherwise; check source fidelity; no date assessment or selection in the inspected local database |
 | Both ranking scenarios | Independent first-five selection per physical witness, deterministic ties, provenance, change detection and atomic snapshots; offline export enumerates conditional rankings for stored valid date combinations, including the cited P52 replay with normal writing-unit links | Add documented-consensus status and a wider independently checked benchmark; no ranking snapshot in the inspected local database |
-| Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls; offline complete-inventory and filtered graph-data export; bounded static chart and source table | Several-witness prototype, wider independently checked scholarly benchmark and validated corpus export |
+| Validation and publication | Read-only reviewed audit, cited P52 replay, index and catalogue-date controls; offline complete-inventory and filtered graph-data export; bounded static chart and source table; cited four-witness John 1 prototype; physical review provenance independent of dating | Wider independently checked scholarly benchmark and validated corpus export |
 
 The 2026-09-30 progress review reran all **70 offline tests on Python 3.12.6**
 successfully and inspected the local databases read-only. The earlier combined
@@ -80,17 +80,90 @@ now retains that marker in the raw response and imports only the 970 explicit
 verse/page pairs. A cached retry on a temporary SQLite backup of
 `data/proxy-access-check-20261001.sqlite` succeeded with zero new requests and
 unchanged raw responses. All **75 offline tests** passed, including chapter-only
-and malformed-entry checks. This clears the P66 parsing obstacle for John 1;
-the index still requires physical coverage and mapping review before graph use.
+and malformed-entry checks. This cleared the P66 parsing obstacle for John 1;
+physical coverage and mapping review followed in the next increment.
+
+The 2026-10-01 [John 1 replay](../replay_john1_prototype.py) supplies that
+bounded physical review. Its checked-in inputs cite the IGNTP P66 transcription,
+the Vatican Library P75 transcription, and the Codex Sinaiticus Project
+transcription. Two additional official NTVMR coverage responses are pinned as
+fixtures. Book-level markers in those responses are retained without inventing
+verse entries. A fresh replay has five mapped John 1 coordinates, three linked
+physical witnesses, 15 partial coverage decisions, 15 writing-unit assignments,
+six date observations, and one conditional ranking combination per verse. Its
+reviewed-data audit has zero findings, and all **78 offline tests** passed. The
+chart includes the unreviewed 02
+search candidate and labels the limits of discovery and validation. This
+completes the bounded prototype milestone, not historical publication review.
+
+The 2026-10-01 source and identity check records 02 as Codex Alexandrinus from
+the British Library's Royal MS 1 D VIII catalogue. It remains a coverage-pending
+candidate; the catalogue's John folio range does not prove verse-level survival.
+The P66 IGNTP transcription supports surviving Greek in John 1:1–5 without a
+separate correction reading in those verse elements, but the captured NTVMR index
+lists each verse on both page IDs 3 and 10. The [captured NTVMR metadata](../tests/fixtures/p66_metadata_probe.json)
+labels page ID 10 as folio 1 containing John 1:1–14, resolving that index-page
+choice for the replay. The [v2 review manifest](../benchmarks/john1-reviewed-v2.json)
+replays the 02 identity without adding coverage or a ranked date.
+
+The subsequent fourth-witness increment adds five Alexandrinus image reviews
+and writing-unit links through the [v3 manifest](../benchmarks/john1-reviewed-v3.json).
+All **81 offline tests** pass. A fresh replay has zero audit findings and passes
+all **20 cited coverage benchmark cases**. It exports and renders four witnesses
+per verse with zero replay network attempts. The v2 replay remains available;
+existing databases are not migrated or overwritten by this increment. See the
+[source review and measurements](PROTOTYPE_SCOPE.md#fourth-witness-and-regression-benchmark-2026-10-01).
 
 ## Next development work
 
-**The next milestone is one reproducible prototype graph of a short passage with
-several real witnesses.** Complete the path from cited evidence to a usable graph
-before expanding the infrastructure or attempting whole-NT completion. A small
-static chart and accompanying table are sufficient for the first visual result.
-The [declared target](PROTOTYPE_SCOPE.md) is John 1:1–5, beginning with P75,
-01, and P66 source review while retaining 02 as a discovered candidate.
+The [John 1:1–5 prototype](PROTOTYPE_SCOPE.md) now includes four reviewed witnesses
+and 20 positive witness/verse pairs. The v3 review adds image-checked Alexandrinus
+coverage, a captured page link, and the British Library's explicit 400–499 CE
+catalogue bounds. A cited 20-case coverage benchmark checks reproducibility;
+earlier manifests remain available.
+
+The follow-up code review found and closed a gap before passage expansion:
+physical-absence reviews were available to audits and ranking exclusions but were
+missing from exports and charts. The export now retains current coverage and
+absence decisions with their provenance, regardless of dating eligibility. The
+chart identifies absent, uncertain, withdrawn, conflicting, stale, and unreviewed
+evidence separately. Synthetic regressions exercise these cases; they do not add
+a physically reviewed historical gap. Continue with the source work below rather
+than another collection framework. The next increment should:
+
+1. Check source fidelity independently for the displayed John 1 evidence and
+   date applicability, including any distinct
+   writing layers. Keep the existing Codex source review identifiable until that
+   check occurs. Record documented dating consensus only where a cited source
+   establishes it; preserve other dates as conditional alternatives.
+2. Review one additional bounded passage or witness set with varying survival.
+   The [John 6:49–53 increment](JOHN6_GAP_REVIEW.md) now supplies a directly
+   reviewed transcription boundary: seven positive pairs and three physical
+   absences for P66 and Alexandrinus, with ten cited benchmark cases. Add a third
+   source-reviewed witness to these same coordinates, then broaden to a Pauline
+   papyrus or later supplement. The ready human-review questions remain
+   unanswered. Continue bounded, budgeted collection without claiming exhaustive
+   discovery.
+3. Expand source-checked NTVMR mappings and reviewed witness coverage in small
+   batches. Measure the repeated review effort first; preserve individual
+   provenance and exception review. Keep the provisional whole-NT inventory's
+   certification separate from the John 1 subset.
+
+The John 6 increment reuses the existing review interfaces and adds no schema or
+collection framework. Its offline replay, export, and
+[chart](../examples/john6-gap-prototype.html) show counts of 2, 2, 1, 1, 1 across
+the five verses in both endpoint scenarios. The 2026-10-02 UTC verification
+passes **88 tests**, all ten new benchmark cases, and all 20 retained John 1
+cases. The fresh structural audit has zero findings. Two bounded scholarly
+transcription downloads and approximately four minutes of source retrieval and
+reading support this increment; no new NTVMR requests were needed. Historical
+validation remains incomplete.
+
+### Prototype implementation checklist (completed for the bounded scope)
+
+The following work produced the first static chart and source table. The
+[declared target](PROTOTYPE_SCOPE.md) was John 1:1–5, beginning with P75, 01,
+and P66 while retaining 02 as a discovered candidate.
 
 1. **Declare a bounded passage and witness set.** Aim for roughly 5–10 verses and
    at least three distinct real witnesses, with overlapping reviewed coverage so
@@ -488,6 +561,47 @@ that invent earlier dates. Require zero unexplained benchmark failures before
 publishing historical claims. Version benchmarks when scholarship changes and
 retain the prior expectations with citations.
 
+### Human review question packets
+
+When a bounded evidence set is ready for independent human checking, Codex will
+prepare a small review packet for the project owner. Prepare the sources and
+specific questions before requesting answers. Continued development and source
+collection do not require the owner to review unfinished evidence. This is the
+planned review workflow; packet generation and answer import are not currently
+implemented features.
+
+Each item should identify the verse, physical witness, writing unit where
+relevant, and versioned claim or review record being checked. Supply the source
+link, precise page/folio/line or transcription location, the recorded claim, and
+any source qualifications. Make the evidence accessible without requiring the
+reviewer to reconstruct the collection process.
+
+Use specific questions adapted to the evidence, for example:
+
+| Check | Question to the human reviewer |
+| --- | --- |
+| Verse survival | Can you identify surviving text from this verse at the cited location? |
+| Extent or absence | Does the cited evidence support the recorded partial survival or physical absence? Is the apparent gap physical damage, a textual omission, or unresolved? |
+| Date-source fidelity | Does the recorded range reproduce the source's notation and qualifications, with any numeric conversion explained faithfully? |
+| Writing-layer applicability | Does the source support applying that date to the writing layer containing the reviewed text? |
+| Physical identity | Do the cited records describe distinct manuscripts, or parts of the same physical witness? |
+
+For each proposed claim, offer **agree**, **disagree**, and **unable to assess**,
+with space for notes and corrections. Label checks that can be made directly
+from a catalogue or quoted source separately from checks requiring Greek,
+palaeographic, or codicological expertise. An owner response is human review of
+the checks actually performed; it does not automatically establish specialist
+validation. Route specialist questions for qualified review when needed.
+
+Record the human reviewer's identity, review date, answers, notes, and exact
+claim/source versions separately from Codex reviews and automated checks.
+Retain prior decisions when recording corrections. Unanswered questions,
+disagreements, and inability to assess remain explicit; silence is not approval.
+Report which claims were checked and which remain unresolved before evaluating
+the publication requirements for that scope. Neither the owner nor a specialist
+is asked to settle competing scholarly dating arguments: the check is faithful
+recording and applicability, preserving sourced alternatives and uncertainty.
+
 ## 7. Export and build the graph
 
 Develop exports and the graph during the bounded prototype milestone. Apply the
@@ -506,8 +620,8 @@ It must support reproduction without fresh API requests.
 Keep the complete dataset separate from filtered graph exports. The offline
 [`export_attestation.py`](../export_attestation.py) command implements these data
 filters; [`render_attestation.py`](../render_attestation.py) now builds a bounded
-static chart and table from its graph input. The several-witness prototype and
-historical validation remain future work. Default graphs
+static chart and table from its graph input. The John 1 several-witness prototype
+now uses this path; historical validation remains future work. Default graphs
 exclude `omitted` coordinates and provide an **Include verses omitted from NA28**
 option; bracketed passages have a separate inclusion control. Record active
 filters and the resulting verse population in every graph export and summary.

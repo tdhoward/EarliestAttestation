@@ -11,6 +11,8 @@ from controlled_ntvmr import (compute_ranking, connect, import_edition_inventory
                               now, physical_absence_report,
                               record_physical_absence_review)
 from replay_p52_benchmark import apply_review
+from export_attestation import build_exports
+from render_attestation import cases_for, render
 from review_absence import main
 
 
@@ -116,6 +118,19 @@ class PhysicalAbsenceTests(unittest.TestCase):
             self.assertEqual(ranking["state"], "incomplete")
             self.assertIn("conflicting_absence",
                           [item["reason"] for item in ranking["excluded_reviews"]])
+            _, graph = build_exports(con, replay["inventory_id"], "p52-cautious-source-v1")
+            verse = next(v for v in graph["verses"] if v["osis_ref"] == "John.18.31")
+            self.assertEqual(verse["evidence"]["conflicting_witness_ids"], [replay["witness_id"]])
+            self.assertEqual(verse["evidence"]["positive_witness_ids"], [])
+            self.assertEqual(verse["evidence"]["absent_witness_ids"], [])
+            self.assertTrue(verse["evidence"]["physical_absence_reviews"][0]
+                            ["conflicts_with_positive"])
+            self.assertEqual(graph["counts"]["conflicting_witness_verse_pairs"], 1)
+            self.assertEqual(graph["counts"]["positive_witness_verse_pairs"], 4)
+            for _, rows in cases_for(graph)[0]:
+                self.assertIsNone(next(row[2] for row in rows
+                                       if row[0]["osis_ref"] == "John.18.31"))
+            self.assertIn("Conflicting survival and absence reviews", render(graph))
             findings = audit_database(other_db, ROOT / "benchmarks" /
                                       "p52-evidence-benchmark-v1.json")["findings"]
             codes = [item["code"] for item in findings]
@@ -126,6 +141,10 @@ class PhysicalAbsenceTests(unittest.TestCase):
                 "withdrawn", "checked_image", "synthetic folio", "conflict corrected",
                 "synthetic correction", "tester")
             self.assertEqual(audit_database(other_db)["findings"], [])
+            _, restored = build_exports(con, replay["inventory_id"], "p52-cautious-source-v1")
+            self.assertEqual(restored["counts"]["positive_witness_verse_pairs"], 5)
+            self.assertEqual(restored["counts"]["conflicting_witness_verse_pairs"], 0)
+            self.assertIn("Physical absence review withdrawn", render(restored))
         finally:
             con.close()
 

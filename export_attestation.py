@@ -4,13 +4,16 @@
 from __future__ import annotations
 
 import argparse
+from collections import defaultdict
 from contextlib import closing
 import json
 from pathlib import Path
 import sqlite3
 from urllib.parse import urlencode
 
-from controlled_ntvmr import (dating_alternatives_report, edition_inventory_report,
+from controlled_ntvmr import (coverage_review_report, dating_alternatives_report,
+                              edition_inventory_report, physical_absence_report,
+                              latest_candidate_reviews, latest_witness_assignments,
                               ranking_report)
 
 
@@ -25,9 +28,29 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
     reviewed_refs = {row[0] for row in con.execute(
         "SELECT DISTINCT osis_ref FROM coverage_review WHERE inventory_id=?",
         (inventory_id,))}
+    # Export evidence independently of dates and the first-five ranking cutoff.
+    # Read each inventory-wide report once, including absence-only coordinates
+    # which need not have an NTVMR mapping or a coverage_review row.
+    coverage = coverage_review_report(con, inventory_id)
+    coverage_by_ref = defaultdict(list)
+    absence_by_ref = defaultdict(list)
+    for review in coverage["reviews"]:
+        coverage_by_ref[review["osis_ref"]].append(review)
+    for review in physical_absence_report(con, inventory_id)["reviews"]:
+        absence_by_ref[review["osis_ref"]].append(review)
     rows = []
     for verse in inventory["verses"]:
         ref = verse["osis_ref"]
+        positive_ids = set(coverage["verified_witnesses"].get(ref, []))
+        absent_ids = {review["witness_id"] for review in absence_by_ref[ref]
+                      if review["decision"] == "absent"}
+        evidence = {
+            "coverage_reviews": coverage_by_ref[ref],
+            "physical_absence_reviews": absence_by_ref[ref],
+            "positive_witness_ids": sorted(positive_ids - absent_ids),
+            "absent_witness_ids": sorted(absent_ids - positive_ids),
+            "conflicting_witness_ids": sorted(positive_ids & absent_ids),
+        }
         discovery = [dict(zip(("run_id", "query_ga_num", "lang_filter", "doc_id",
                                "ga_num", "primary_name", "source_lang",
                                "review_state", "source_response_id", "source_url",
@@ -47,11 +70,26 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
             candidate["source_params"] = json.loads(candidate["source_params"])
             candidate["source_request_url"] = (candidate["source_url"] + "?" +
                 urlencode(candidate["source_params"]))
+        doc_ids = [candidate["doc_id"] for candidate in discovery]
+        reviews = latest_candidate_reviews(con, doc_ids)
+        identities = latest_witness_assignments(con, doc_ids, reviews)
+        for candidate in discovery:
+            doc_id = candidate["doc_id"]
+            review = reviews.get(doc_id)
+            identity = identities.get(doc_id)
+            candidate["review_decision"] = (review["review_decision"] if review
+                                            else "unreviewed")
+            candidate["review_source_changed"] = (review["review_source_changed"]
+                                                   if review else None)
+            candidate["witness_id"] = identity["witness_id"] if identity else None
+            candidate["identity_review_needed"] = (identity["identity_review_needed"]
+                                                   if identity else None)
         ranking = (ranking_report(con, inventory_id, ref, policy_id)
                    if ref in ranked_refs else None)
         alternatives = (dating_alternatives_report(con, inventory_id, ref, policy_id)
                         if ref in reviewed_refs else None)
         rows.append({**verse,
+                     "evidence": evidence,
                      "ranking_state": ranking["state"] if ranking else "uncomputed",
                      "scenarios": ranking["scenarios"] if ranking else
                      {"optimistic": [], "pessimistic": []},
@@ -69,6 +107,12 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
 
     def counts(items):
         return {"verse_count": len(items),
+                "positive_witness_verse_pairs": sum(
+                    len(row["evidence"]["positive_witness_ids"]) for row in items),
+                "absent_witness_verse_pairs": sum(
+                    len(row["evidence"]["absent_witness_ids"]) for row in items),
+                "conflicting_witness_verse_pairs": sum(
+                    len(row["evidence"]["conflicting_witness_ids"]) for row in items),
                 "verses_with_discovery_candidates": sum(
                     bool(row["discovery_candidates"]) for row in items),
                 "discovered_document_count": len({candidate["doc_id"]
