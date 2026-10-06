@@ -486,6 +486,16 @@ canvas {
   min-height:21px;
 }
 
+.discovery-summary {
+  font-size:12px;
+  line-height:1.5;
+  color:var(--muted);
+  background:#f2f5f2;
+  border-left:3px solid #a4cbbc;
+  padding:9px 12px;
+  margin:0 0 15px;
+}
+
 .witness-list {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -830,3 +840,6 @@ summary {
   }
 }
 
+[hidden] { display: none !important; }
+.collection-loader { max-width: 42rem; margin: 12vh auto; padding: 2rem; }
+.collection-loader label { display: block; margin-top: 1rem; }

@@ -6,14 +6,10 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
-import re
 
 from controlled_ntvmr import connect, rank_candidates
 from export_attestation import main as export_main
-from render_attestation import render
 from report_explorer import build_explorer_data
-from replay_source_reports import main as replay_main
 from source_reports import (CONTRACT, build_report_exports, coverage_state, digest,
                             import_batch)
 
@@ -104,10 +100,9 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(len(pairs[0]["claims"]), 4)
         events = graph["verses"][0]["dating_alternatives"]["combinations"][0]["scenarios"]["optimistic"]
         self.assertEqual([e["witness_id"] for e in events], ["ntvmr:20001"])
-        html = render(graph)
-        self.assertIn("Explicit incompatible source claims retained", html)
-        self.assertIn("A portion of the verse survives.", html)
-        self.assertNotIn("coverage reviewed by", html)
+        data = build_explorer_data(graph)
+        self.assertEqual(data["observations"]["Gal.1.1"]["reported_coverage"][0]["state"], "contested")
+        self.assertTrue(any(c["reported"] == "A portion of the verse survives." for c in data["claims"].values()))
 
     def test_explicit_absence_unknown_and_unmapped_stay_distinct(self):
         self.inventory["verses"][2].update(ntvmr_refs=[], mapping_note="Unresolved synthetic mapping")
@@ -244,78 +239,8 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(alt["state"], "too_many_combinations")
         self.assertEqual(alt["combination_count"], 257)
         self.assertEqual(alt["combinations"], [])
-        self.assertIn("too_many_combinations", render(graph))
+        self.assertEqual(build_explorer_data(graph)["observations"]["Gal.1.1"]["dating_alternatives"]["state"], "too_many_combinations")
 
-
-class BoundedReplayTests(unittest.TestCase):
-    def test_whole_galatians_reuses_six_captures_in_full_gnt_explorer(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            artifacts = []
-            for number in (1, 2):
-                args = ["--manifest", str(ROOT / "benchmarks/galatians-source-reports-v1.json"),
-                        "--db", str(root / f"new-{number}.sqlite"),
-                        "--dataset-output", str(root / f"dataset-{number}.json"),
-                        "--graph-output", str(root / f"graph-{number}.json"),
-                        "--html-output", str(root / f"chart-{number}.html")]
-                with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")), redirect_stdout(StringIO()):
-                    self.assertEqual(replay_main(args), 0)
-                artifacts.append(tuple((root / f"{name}-{number}.{suffix}").read_text(encoding="utf-8")
-                                       for name, suffix in (("dataset", "json"), ("graph", "json"), ("chart", "html"))))
-            self.assertEqual(artifacts[0], artifacts[1])
-            graph = json.loads(artifacts[0][1])
-            self.assertEqual(graph["counts"]["witness_verse_pairs"], {"present": 437, "absent": 0, "unknown": 10, "contested": 0})
-            self.assertEqual(graph["counts"]["graphable_coordinates"], 149)
-            self.assertEqual(graph["counts"]["mapping_gaps"], 0)
-            self.assertEqual(graph["collection_cost"]["reused_response_count"], 6)
-            self.assertEqual(graph["collection_cost"]["replay_network_requests"], 0)
-            publisher = json.loads((ROOT / "benchmarks/na28-nt-reference-provisional-v3.json").read_text(encoding="utf-8"))
-            expected = [v for v in publisher["verses"] if v["osis_ref"].startswith("Gal.")]
-            self.assertEqual([v["osis_ref"] for v in graph["verses"]], [v["osis_ref"] for v in expected])
-            for verse in graph["verses"]:
-                pairs = verse["reported_coverage"]
-                self.assertEqual([p["state"] for p in pairs[1:]], ["present", "present"])
-                for pair in pairs:
-                    self.assertEqual({d["status"] for d in pair["date_assessments"]}, {"valid"})
-                    if pair["state"] == "unknown":
-                        self.assertEqual(pair["witness_id"], "ntvmr:10046")
-                        self.assertEqual(pair["claims"], [])
-                        self.assertEqual(pair["unknown_reason"], "no_explicit_mapped_report")
-                combo = verse["dating_alternatives"]["combinations"][0]
-                present_ids = [p["witness_id"] for p in pairs if p["state"] == "present"]
-                for side in ("optimistic", "pessimistic"):
-                    self.assertEqual([e["witness_id"] for e in combo["scenarios"][side]], present_ids)
-            html = artifacts[0][2]
-            self.assertEqual(html.count('<canvas '), 1)
-            payload = json.loads(re.search(r'<script id="attestation-data" type="application/json">(.*?)</script>', html, re.S).group(1))
-            self.assertEqual(len(payload["coordinates"]), 7957)
-            self.assertEqual(len(payload["observations"]), 149)
-            self.assertEqual(payload["metadata"]["counts"], graph["counts"])
-            self.assertIn('name="scenario" value="pessimistic"', html)
-
-    def test_real_captures_replay_without_network_and_render_explorer(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            args = ["--manifest", str(ROOT / "benchmarks/gal1-source-reports-v1.json"), "--db", str(root / "new.sqlite"),
-                    "--dataset-output", str(root / "dataset.json"), "--graph-output", str(root / "graph.json"),
-                    "--html-output", str(root / "chart.html")]
-            with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")), redirect_stdout(StringIO()):
-                self.assertEqual(replay_main(args), 0)
-            graph = json.loads((root / "graph.json").read_text(encoding="utf-8"))
-            self.assertEqual(graph["counts"]["witness_verse_pairs"], {"present": 29, "absent": 0, "unknown": 1, "contested": 0})
-            self.assertEqual(graph["counts"]["graphable_coordinates"], 10)
-            self.assertEqual(graph["collection_cost"]["replay_network_requests"], 0)
-            self.assertEqual(graph["collection_cost"]["reused_response_count"], 6)
-            html = (root / "chart.html").read_text(encoding="utf-8")
-            self.assertEqual(html.count('<canvas '), 1)
-            self.assertIn("Source snapshots", html)
-            data = build_explorer_data(graph)
-            combo = data["observations"]["Gal.1.1"]["dating_alternatives"]["combinations"][0]
-            self.assertEqual(combo["scenarios"]["optimistic"][0]["event_year"], 200)
-            self.assertEqual(combo["scenarios"]["pessimistic"][0]["event_year"], 225)
-            self.assertIn("unknown", html)
-            with redirect_stdout(StringIO()), redirect_stderr(StringIO()), self.assertRaises(SystemExit):
-                replay_main(args)
 
 
 if __name__ == "__main__":

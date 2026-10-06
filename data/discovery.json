@@ -1,0 +1,60 @@
+[
+  {
+    "format_version": 1,
+    "definition": {
+      "format_version": 1,
+      "scope_id": "galatians-docids-10000-19999-v4",
+      "book": "Gal",
+      "doc_id_min": 10000,
+      "doc_id_max": 19999,
+      "page_limit": 200,
+      "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/en_US/intfblog/-/blogs/1695852; catalogue membership and Greek language are checked from explicit document metadata before contents import.",
+      "access_expectations": "Three-attempt completion batch for the already captured Galatians book/range search. Reuse the terminal search and P51 metadata, then collect P51 contents and P135 metadata/contents once. The initial twelve-attempt pilot is preserved separately. No broader discovery or source refresh is authorized by this batch. Keep one worker, fixed project identity, five-second spacing, Retry-After, and blocked-state stops. Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and actual transport URL are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed.",
+      "request_budget": 3,
+      "minimum_interval_seconds": 5,
+      "maximum_run_seconds": 180,
+      "transport_base_url": "http://192.168.0.119:8889/community/vmr/api",
+      "prior_pilot_attempts": 12,
+      "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and actual transport URL are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+    },
+    "run_state": "complete",
+    "run_error": null,
+    "search_captures": [
+      {
+        "source_url": "http://192.168.0.119:8889/community/vmr/api/metadata/liste/search/",
+        "params": {
+          "detail": "document",
+          "docID": "10000-19999",
+          "format": "json",
+          "indexContent": "Gal",
+          "limit": "200"
+        },
+        "http_status": 200,
+        "headers": {
+          "Date": "Tue, 06 Oct 2026 20:13:00 GMT",
+          "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+          "X-Request-Received-Epoch": "1791317580077",
+          "X-Request-Post-Validation-Epoch": "1791317580078",
+          "X-Request-Response-Epoch": "1791317580088",
+          "X-Response-Time": "11ms",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "Content-Type": "application/json;charset=UTF-8",
+          "Content-Length": "516",
+          "Connection": "close"
+        },
+        "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":17,\"manuscript\":[{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":425,\"gaNum\":\"P51\",\"orig\":\"V (A)\",\"docID\":10051,\"groupID\":\"\",\"primaryName\":\"P51\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":400},{\"origLate\":499,\"gaNum\":\"P135\",\"orig\":\"IV/V\",\"docID\":10135,\"groupID\":\"\",\"primaryName\":\"P135\",\"lang\":\"grc\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":301}],\"count\":3}}}",
+        "body_sha256": "c95222cf486091b62a6758346501bf45ac33f2d79f36b5492f1fd6ece7ab239f",
+        "retrieved_at": "2026-10-06T20:13:00+00:00"
+      }
+    ],
+    "collection_cost": {
+      "request_attempts": 3,
+      "http_responses_recorded": 3,
+      "reused_seed_document_responses": 6,
+      "request_budget": 3,
+      "collection_errors": []
+    }
+  }
+]

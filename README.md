@@ -1,295 +1,101 @@
 # EarliestAttestation
 
-Collect and graph **what scholarly sources report** about the estimated ages
-and verse contents of surviving Greek New Testament manuscripts. For each verse
-of **NA28**, show up to five distinct witnesses using both ends of the reported
-date ranges. The chart follows traditional book/chapter/verse order, places
-newer years at the top, and changes color as the witness count increases.
+Collect and visualize what scholarly sources report about the dates and verse
+contents of Greek New Testament manuscripts. One central collection supports one
+web app: [Attestation Explorer](web/attestation-explorer/index.html).
 
-The [interactive explorer](examples/galatians-source-reports.html) displays the
-entire GNT on one horizontal chart, with an optimistic/pessimistic toggle,
-hover/tap source summaries, zoom, and verse navigation. Open the HTML directly.
-Only Galatians currently has collected reports in this example; other coordinates
-remain visibly uncollected. See the [explorer guide](docs/ATTESTATION_EXPLORER.md)
-for controls, reusable components, and offline checks.
+## Use the app
 
-## Project boundary
+Run `npm start` from the repository, then open
+<http://localhost:8000/web/attestation-explorer/>. Python 3 is the only server
+dependency; the browser app uses plain HTML, CSS, and JavaScript.
 
-This is a data collection and visualization project. Neither the project owner
-nor AI agents are undertaking manuscript scholarship. **Never download or inspect
-manuscript images, read Greek transcriptions to determine surviving words, or
-independently identify contents, hands, corrections, damage, or dates.** A source's
-image or transcription link does not authorize examination.
+The app automatically loads [data/attestations.json](data/attestations.json).
+You can also open the HTML directly and select that JSON file when prompted;
+browsers generally restrict automatic reads of neighboring files under `file://`.
 
-Prefer explicit catalogue metadata and verse-content reports from NTVMR, using
-its documented API semantics. Other scholarly catalogues and publications may
-supply explicit claims where needed. One usable scholarly report is sufficient;
-independent corroboration of every witness is not required. Preserve the source,
-reported fields or statement, citation, retrieval date, and qualifications.
-Do not turn missing information into a manuscript research task.
+Navigate the full New Testament timeline, zoom into a book, enter a verse, and
+switch between the lower and upper endpoints of reported date ranges. Source
+claims, complete date alternatives, unknown and contested states, and discovery
+scope remain inspectable. Rankings describe **earliest collected witnesses**.
 
-If a scholarly source reports that **any portion of a verse is present, count
-that verse as present** for that witness. No complete verse, minimum number of
-letters, exact NA28 wording, or independent survival check is required. This
-counting rule does not extend a source's report to neighboring verses.
+## One collection, one app
 
-If scholarly sources explicitly disagree about a witness's verse contents, mark
-that witness/verse **contested**, retain both reports, and defer the case while
-continuing collection. Missing or ambiguous reports are **unknown**. A missing
-index entry alone is neither absence nor disagreement; absence requires an
-explicit scholarly report. Broad ranges are interpreted only according to the
-source's documented meaning, without filling gaps independently.
-
-These rules were clarified on **2026-10-05**. They are enforced as agent
-instructions in [AGENTS.md](AGENTS.md) and supersede examination requirements in
-older notes. The bounded source-report path now implements these rules as
-described in the [source-field contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md).
-
-## Witness scope
-
-The corpus covers surviving Greek manuscript copies of the New Testament texts
-themselves, including eligible fragments and lectionaries. Classification,
-identity, and fragment joins come from scholarly sources. Multiple catalogue IDs,
-pages, or holdings of the same reported physical witness must not inflate counts.
-
-Quotations, paraphrases, and allusions in other works are outside the corpus,
-including verbatim patristic quotations. A manuscript of Justin Martyr's work is
-not an eligible copy of the quoted New Testament text. Printed editions,
-catalogues, and scholarly publications are references, not additional witnesses.
-Other witness categories require an explicit scope change.
-
-## Development direction
-
-The first **reproducible NTVMR report-to-chart path** is implemented for a bounded
-Galatians example, with unknown and contested handling, and now covers the whole
-book using the same six captures. The next milestone is expanding document
-batches and supported mappings efficiently.
-The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) is the
-source of current priorities and acceptance criteria:
-
-1. Extend the [documented bounded contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md)
-   to additional coordinate subsets and source-reported applicability as needed.
-2. Expand document batches, fetching each manuscript's metadata and contents once
-   where possible and ranking locally. Documented search continuation is now
-   implemented and tested offline; establish provider expectations and a bounded
-   scope before broader discovery.
-3. Re-source or exclude agent-derived claims from further historical examples,
-   preserving their history. Only explicit reports enter active results.
-
-Measure progress by manuscripts collected, reported witness/verse pairs,
-graphable coordinates, unresolved records, and collection efficiency. An
-unresolved manuscript or disagreement does not block the rest of the dataset.
-Manual examination, specialist certification, and general review-platform work
-are outside the milestone. Human checks, when useful, verify faithful copying
-and citation of published claims only.
-
-## Manuscript dating policy
-
-Preserve each source's estimated date range, original notation, qualifications,
-and applicability. Use explicit numeric API bounds when supplied. Any conversion
-of a complete century label to years must be documented; qualitative wording
-without defensible bounds stays numerically unknown. Do not infer precision.
-
-Defer to documented scholarly consensus where a cited source establishes it.
-Otherwise retain sourced ranges as equally valid alternatives: do not choose a
-preferred scholar, average or narrow ranges, merge endpoints, or assign
-probabilities. Unknown consensus does not make an otherwise usable date unusable
-and is not a reason to launch a dating investigation.
-
-Record a different date for a portion, supplement, or hand only when a scholarly
-source explicitly identifies that distinction and its applicability. Do not
-create a requirement to examine or independently classify writing layers.
-Ambiguous applicability remains unresolved. P52 is an existing example, not a
-standing manuscript-research assignment.
-
-## Skipped verses and graph inclusion
-
-Retain traditional verse numbers skipped by NA28 as supplementary coordinates
-tagged `omitted`. The default graph excludes them, with an **Include verses
-omitted from NA28** option; bracketed passages have a separate inclusion control.
-Edition status does not determine a manuscript's reported contents or age.
-
-Apply the same scholarly-report and counting rules to core and supplementary
-coordinates. Identify traditional passages from published references and map
-source coordinates through documented versification rules. Keep unclear mappings
-unresolved. Do not use Greek manuscript examination to settle a mapping.
-
-Graphs, exports, and summary counts must identify active filters and their verse
-population. Filtering preserves underlying reports. Unknown, contested, explicitly
-reported absent, and filtered-out coordinates are distinct. Supplementary
-collection must not block the core pipeline. See the
-[inventory documentation](docs/NA28_INVENTORY.md).
-
-## Current status
-
-This is a Python/SQLite prototype. The existing collector supports scoped,
-budgeted requests, immutable response capture, caching, and offline replay.
-Schema version **12** also contains review and writing-unit interfaces from the
-previous approach. The offline exporter and static renderer already implement
-both endpoint scenarios and conditional date alternatives.
-
-The active [`source_reports.py`](source_reports.py) path adds three batch/claim
-tables without changing legacy v12 behavior. Its version 3 exports use catalogue
-contents and dates directly, with no image, transcription, writing-unit, or
-manual-review inputs. Explicit conflicts are `contested`, retained and deferred;
-missing entries remain unknown. Full source intervals and provenance are kept.
-
-The provisional whole-NT inventory contains 7,957 coordinates across 27 books and
-260 chapters, including 16 skipped traditional numbers. It is not a completed
-manuscript collection or a complete source-to-NA28 mapping.
-
-The documentation scope reset itself did not migrate data. The subsequent
-bounded report path is implemented separately; old review tables, gates, and
-conflict flags are unchanged and are not used by active report batches.
-
-Earlier John/Galatians charts, review manifests, and tests include agent judgments
-from images or transcriptions. They remain historical prototypes pending an
-attribution audit; their replay success does not establish compliance with the
-current scope. The unfinished John 5 overlap drafts likewise are not approved
-inputs. Do not continue their examination work or present their conclusions as
-scholarly reports. Historical fixtures, databases, and charts remain preserved.
-
-The new [Galatians 1:1–10 source-report chart](examples/gal1-source-reports.html)
-uses three witnesses and six captured catalogue responses: **29 present pairs,
-one unknown, zero contested or explicitly absent pairs, and 10 graphable
-coordinates**. P46 at 1:9 stays unknown. Replay makes zero network requests.
-Only catalogue claims and publisher coordinates were admitted in this increment;
-the wider historical attribution audit remains unfinished.
-
-The [whole-Galatians chart](examples/galatians-source-reports.html) expands this
-same three-witness scope to **149 graphable coordinates, 437 present pairs, and
-ten unknown pairs**, with no contested or explicitly absent pairs and no mapping
-gaps. It reuses the same six captures and makes zero replay network requests.
-Separate chapter panels share a CE scale, with scrollable verse columns. Version
-3 rendering supports up to 200 coordinates; the date-combination cap is unchanged.
-
-Named and finite document-set lookups now follow documented `partial` /
-`nextAfterDocID` continuation within the existing request budget. Failed refreshes
-retain the previous candidate snapshot; resume reuses captured pages. Search
-completion remains distinct from exhaustive discovery and reported verse contents.
-
-The [historical implementation and replay guide](docs/HISTORICAL_REPLAY_GUIDE.md)
-preserves prior commands and observations. The
-[historical development plan](docs/HISTORICAL_DEVELOPMENT_PLAN.md) preserves the
-old milestones. Both are superseded, not task lists. Historical test success
-establishes software reproducibility, not source authority.
-
-## Reproduce the active chart offline
-
-Use a fresh database destination; existing databases are never replayed over.
-
-```powershell
-python replay_source_reports.py --db data/gal1-source-reports.sqlite --dataset-output data/gal1-source-reports-complete.json --graph-output examples/gal1-source-reports-graph-input.json --html-output examples/gal1-source-reports.html
-```
-
-Open the HTML file directly. The complete dataset retains raw source responses;
-the graph carries the selected coordinates, claims, date alternatives, and hashes.
-Existing batches can be exported with `export_attestation.py --report-batch`.
-See the [contract and replay guide](docs/NTVMR_SOURCE_REPORT_CONTRACT.md) for
-field semantics, attribution, limitations, and commands.
-
-Reproduce the larger chart with a fresh database path:
-
-```powershell
-python replay_source_reports.py --manifest benchmarks/galatians-source-reports-v1.json --db data/galatians-source-reports.sqlite --dataset-output data/galatians-source-reports-complete.json --graph-output examples/galatians-source-reports-graph-input.json --html-output examples/galatians-source-reports.html
-```
-
-## Controlled collection
-
-[`sync_ntvmr.py`](sync_ntvmr.py) and [`controlled_ntvmr.py`](controlled_ntvmr.py)
-use the standard library. The official HTTPS API is the default. Live work
-requires an explicit scope and positive request budget. Attempts, including
-retries and previous attempts under the same run ID, count toward that budget.
-The minimum five-second interval is a project default, not a confirmed provider
-quota. Establish provider expectations before bulk access, honor blocked states,
-and keep TLS verification enabled.
-
-Prefer existing captures and document batches over repeated requests per verse.
-Keep search results distinct from explicit contents reports until the endpoint
-contract establishes what each field means. Failed or incomplete collection is
-not a report of empty contents. Do not claim exhaustive discovery from a bounded
-list of chosen manuscripts.
-
-```powershell
-python sync_ntvmr.py --help
-python sync_ntvmr.py --offline --fixture-p52 --db data/source-report-fixture.sqlite --run-id fixture-p52 --export-p52 examples/p52-index-sample.json
-python sync_ntvmr.py --offline --db data/source-report-fixture.sqlite --doc-id 10052 --run-id contract-review --dry-run
-```
-
-These collector commands demonstrate collection and index extraction. The active
-report-to-chart replay above imports captured responses separately. Always pass
-`--db` explicitly.
-`--offline` prevents network requests but permits writes. Collector `--dry-run`
-and report commands can create or upgrade the schema; they are not read-only.
-Use fresh destinations or SQLite backup before modifying existing databases.
-
-[`legacy_sync_ntvmr.py`](legacy_sync_ntvmr.py) is preserved with direct execution
-disabled. Its exploratory `ntvmr.sqlite` must not be used as an authoritative
-ranking dataset. The [original data review](docs/DATA_REVIEW.md) remains a
-historical account of collection defects, not current examination instructions.
-
-## Run the offline checks
-
-Python 3.10+ is required. The collector, audits, and tests use the standard
-library. The test suite uses temporary databases and makes no network requests.
-
-```powershell
-python -m unittest discover -s tests -v
-python build_na28_inventory.py --review benchmarks/na28-coordinate-review-v2.json --passage-review benchmarks/na28-passage-identifications-v1.json --check
-```
-
-Run relevant tests when changing code. The new workflow's checks must establish
-faithful extraction, source provenance, reference mapping, deduplication, coverage
-states, date alternatives, rankings, and display. Retained historical tests do
-not authorize image or transcription examination. No local development server or
-localhost probe is needed or permitted unless requested by the owner.
-
-The audit scripts open existing databases read-only; collection report commands
-may upgrade them. Audits check structure and stored expectations. They do not
-certify a manuscript's age or contents. Historical replay and audit commands are
-available in the [archived guide](docs/HISTORICAL_REPLAY_GUIDE.md).
-
-## Date scenarios and chart semantics
-
-For each verse and identified date alternative, rank all eligible reported
-witnesses twice: lower endpoints for the optimistic view, upper endpoints for
-the pessimistic view. Select up to five separately in each view; their order
-and membership may differ. Retain the complete intervals and their citations.
-A physical witness counts once per verse regardless of pages, portions, or date
-assessments. Any reported portion supplies one full verse-presence count.
-
-In the active source-report workflow, contested coverage stays visible separately and does
-not enter the ordinary presence count while deferred. Unknown dates do not
-produce invented event years. Exports must distinguish this from absence or a
-coordinate excluded by an edition filter.
-
-Place newer years above older ones and use the same scale for both scenarios.
-Counts rise from zero through five as events occur, with simultaneous events
-handled together. Label the result as the earliest witnesses **reported in the
-collected sources and declared scope**; neither scenario dates composition or
-claims exhaustive discovery.
-
-The existing version 2 exporter retains full and filtered outputs and enumerates
-at most 256 conditional date combinations per verse. Overflow is explicit
-(`too_many_combinations`), not silently truncated. On-demand exploration and a
-structured consensus representation remain future work. Existing outputs still
-use the older review inputs; version 3 batch exports use scholarly claims.
-
-## Files
-
-| Path | Purpose |
+| Location | Purpose |
 | --- | --- |
-| [AGENTS.md](AGENTS.md) | Binding scope boundary and working instructions |
-| [Development plan](docs/DEVELOPMENT_PLAN.md) | Current priorities, data semantics, and acceptance criteria |
-| [Inventory notes](docs/NA28_INVENTORY.md) | Publisher coordinates and pending source mappings |
-| `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and current v12 storage |
-| `source_reports.py`, `replay_source_reports.py` | Active immutable scholarly claims and fresh offline report-to-chart replay |
-| [Source contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md) | Implemented field meanings, attribution, bounded result, and replay guide |
-| `export_attestation.py`, `render_attestation.py` | Version 3 source-report export/chart and retained version 2 historical export/chart |
-| `audit_ntvmr.py`, `audit_reviewed.py`, `tests/` | Structural and software checks, including historical fixtures |
-| `replay_*.py`, `review_absence.py`, `benchmarks/`, `examples/` | Existing review interfaces and historical prototypes; require attribution audit before reuse as active results |
-| [Historical replay guide](docs/HISTORICAL_REPLAY_GUIDE.md) | Superseded implementation notes and reproducibility commands |
-| [Historical development plan](docs/HISTORICAL_DEVELOPMENT_PLAN.md) | Preserved milestones and withdrawn examination requirements |
+| `data/collection.json` | Current document register, books, explicit additional reports, and filters |
+| `data/sources/` | Scholarly source captures, including raw responses and retrieval metadata |
+| `data/discovery.json` | Current independent bounded discovery scopes and search captures |
+| `data/reference/` | Cited verse coordinates and API field contracts |
+| `data/attestations.json` | Current derived data read by the app |
+| `web/attestation-explorer/` | The single maintained HTML/JS/CSS app |
+| `data/.cache/` | Ignored temporary databases, local scratch, and backups; never app inputs |
 
-Project code is licensed under [GPL-3.0](LICENSE). Source materials have their
-own reuse terms; the code license does not grant redistribution rights to them.
+The source register and captures are the collection's inputs. The browser data
+file is a reproducible view of those inputs. Tests have their own small regression
+fixtures; they do not supply an alternate production collection.
+
+After changing collected reports or scope, refresh the data:
+
+```powershell
+python build_collection.py
+```
+
+This offline command validates captures, derives exact reference mappings, computes
+rankings in a temporary database, and replaces `data/attestations.json`. Refresh
+the browser to see the result. It creates no HTML, book-specific export, persistent
+replay database, or numbered revision file. `npm run data` is equivalent.
+
+The current collection contains five witnesses across nine books, with 2,020
+default graphable verses, 5,617 reported-present witness/verse pairs, and 4,483
+unknown pairs. Unknown includes missing reports for fragmentary witnesses; it
+does not mean absence. Galatians has one completed bounded indexed search;
+discovery across the wider catalogue remains incomplete.
+
+## Collect more data
+
+`collect_source_discovery.py` conducts a declared, budgeted book/range search,
+reuses existing document captures, saves new reports to `data/sources/`, updates
+the central registers, and refreshes the app data. It does not generate charts.
+See [bounded discovery](docs/BOUNDED_WITNESS_DISCOVERY.md) for the definition
+format, limits, resume behavior, and transport qualifications.
+
+Reuse each manuscript's metadata and contents locally, while discovering
+candidates independently of previously selected witnesses. A report for one
+verse does not prove that the candidate pool is sufficient for adjacent verses.
+One usable scholarly report is enough; unresolved cases do not block collection.
+
+## Scholarly scope
+
+The project organizes published scholarship; it does not examine manuscripts.
+Never determine contents, dates, hands, damage, or identity from manuscript images,
+Greek transcription text, or apparatus interpretation. Prefer documented NTVMR
+catalogue fields and explicit published assertions. Preserve the provider,
+reported field or statement, citation, retrieval date, and qualifications.
+
+Any reported surviving portion counts once for a witness/verse. Missing entries
+are unknown; absence requires an explicit scholarly report. Incompatible explicit
+reports are contested, retained, and deferred. Preserve complete competing date
+intervals equally; never average, narrow, or merge endpoints. Count aliases or
+joined fragments as one witness only when a source explicitly reports the identity.
+Quotations and allusions in other works are outside the manuscript-copy corpus.
+
+The reference axis uses provisional NA28 coordinates, retaining skipped traditional
+verses as supplementary `omitted` coordinates. Default views exclude those verses;
+bracketed passages have an independent collection filter. Edition status does not
+determine manuscript contents. See [the source contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md),
+[coordinate inventory](docs/NA28_INVENTORY.md), and [working rules](AGENTS.md).
+
+## Development
+
+```powershell
+python build_collection.py --check
+python build_na28_inventory.py --check
+python -m unittest discover -s tests -v
+npm test
+```
+
+Checks are offline. Do not start servers or make live source requests as routine
+verification. The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work)
+describes current priorities. Software revision history belongs in Git; the
+working project maintains current data and a single app.

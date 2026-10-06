@@ -41,24 +41,25 @@ examination or specialist-review tasks in older project documents.
   specialist manuscript examination nor independent scholarly certification is
   a prerequisite for this project's collection, graph, or release.
 
-## Current work and historical material
+## Project layout and current work
 
 Use [the development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) for
-current priorities. The next milestone is a reproducible NTVMR collection-to-chart
-path based on reported dates and verse contents, with unknown and contested cases
-visible. Prefer completing that path over more research or review infrastructure.
+current priorities. Maintain one central collection under `data/` and one HTML/JS
+app under `web/attestation-explorer/`. The app loads `data/attestations.json`;
+`python build_collection.py` updates that file from the central source register.
+Collection updates must not regenerate HTML or create book-specific datasets,
+charts, numbered revision files, replay databases, or milestone reports.
 
-Older review notes, replays, benchmarks, and charts preserve development history;
-they do not authorize examination. Agent-derived coverage judgments must be
-replaced by explicit scholarly reports or excluded from active results. Do not
-relabel those judgments as scholarly claims or as disagreements between scholars.
-A passing historical benchmark establishes reproducibility, not source authority.
-The unfinished John 5 overlap drafts are not approved inputs for a new increment.
+Keep scholarly source provenance (claims, citations, captures, dates, qualifications)
+with the collection. Git handles software revision history. Temporary experiments,
+backups, and databases belong in ignored `data/.cache/` and are not product inputs.
+Tests may retain fixtures needed to verify behavior; they are not alternate datasets.
 
-Keep documentation of existing behavior separate from planned changes. The scope
-reset does not itself implement `contested` storage or remove old review gates.
-Preserve source and decision history when correcting records, and use fresh
-databases or SQLite backups before migrations or replays.
+Agent-derived coverage judgments are excluded from active results. Do not relabel
+them as scholarly claims or as disagreements between scholars. The build uses a
+fresh temporary database and disposes of it after producing the current data file.
+Back up persistent databases before migrations. Keep documentation focused on
+current behavior and next priorities, with planned features clearly identified.
 
 ## Verification and collection
 

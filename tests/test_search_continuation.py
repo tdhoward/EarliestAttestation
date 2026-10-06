@@ -48,7 +48,7 @@ class SearchContinuationTests(unittest.TestCase):
                       sleep=waits.append, clock=lambda: 0, jitter=0), calls, waits
 
     def test_captured_help_and_bounded_terminal_search(self):
-        fixtures = ROOT / "tests/fixtures/source_contract"
+        fixtures = ROOT / "data/reference/contracts"
         help_record = json.loads((fixtures / "metadata_liste_search_help.json").read_text(encoding="utf-8"))
         self.assertEqual(hashlib.sha256(help_record["raw_body"].encode()).hexdigest(), help_record["body_sha256"])
         self.assertIn("nextAfterDocID", help_record["raw_body"])

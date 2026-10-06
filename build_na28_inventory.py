@@ -11,13 +11,11 @@ from pathlib import Path
 from controlled_ntvmr import NT_BOOKS, validate_inventory
 
 
-ROOT = Path(__file__).parent
-SOURCE = ROOT / "benchmarks/na28-coordinate-source-v1.json"
-OUTPUT = ROOT / "benchmarks/na28-nt-reference-provisional-v1.json"
-REVIEW = ROOT / "benchmarks/na28-coordinate-review-v2.json"
-OUTPUT_V2 = ROOT / "benchmarks/na28-nt-reference-provisional-v2.json"
-PASSAGE_REVIEW = ROOT / "benchmarks/na28-passage-identifications-v1.json"
-OUTPUT_V3 = ROOT / "benchmarks/na28-nt-reference-provisional-v3.json"
+ROOT = Path(__file__).resolve().parent
+SOURCE = ROOT / "data/reference/publisher-coordinates.json"
+OUTPUT = ROOT / "data/reference/na28.json"
+REVIEW = ROOT / "data/reference/coordinate-clarifications.json"
+PASSAGE_REVIEW = ROOT / "data/reference/passage-identifications.json"
 INVENTORY_ID = "na28-nt-reference-provisional-v1"
 PUBLISHER_CODES = (
     "MAT", "MRK", "LUK", "JHN", "ACT", "ROM", "1CO", "2CO", "GAL",
@@ -103,11 +101,6 @@ def build(source: dict, review: dict | None = None,
     if len(skipped) != len(source["skipped_coordinates"]):
         raise ValueError("Duplicate skipped coordinate")
     mappings = {}
-    for row in source["verified_ntvmr_mappings"]:
-        ref = row["osis_ref"]
-        if ref in mappings:
-            raise ValueError(f"Duplicate reviewed mapping: {ref}")
-        mappings[ref] = row["ntvmr_ref"]
 
     bracketed = set()
     for passage in source["double_bracketed_passages"]:
@@ -185,7 +178,7 @@ def build(source: dict, review: dict | None = None,
                 entry["ntvmr_refs"] = [mappings[ref]]
                 seen_mappings.add(ref)
             else:
-                entry["mapping_note"] = "NTVMR mapping has not been source-checked."
+                entry["mapping_note"] = "Reference coordinate only; source mappings are derived from collected reports."
             verses.append(entry)
     if len({book for book, _ in seen_chapters}) != 27 or len(seen_chapters) != 260:
         raise ValueError("Incomplete New Testament chapter coverage")
@@ -206,12 +199,12 @@ def build(source: dict, review: dict | None = None,
                   if passage_review else
                   "Provisional whole-New-Testament reference coordinates from 27 books and 260 chapters; direct NA28 publisher displays checked; remaining editorial and NTVMR mapping review pending."
                   if review else "Provisional whole-New-Testament reference coordinates from 27 books and 260 chapters; publisher display checked except 1 Cor 4 UBS5 fallback; editorial and NTVMR mapping review pending."),
-        "source_citation": ("Deutsche Bibelgesellschaft, Novum Testamentum Graece, 28th revised edition (2012), public chapter pages enumerated in benchmarks/na28-coordinate-source-v1.json, captured 2026-09-29. The 1 Corinthians 4 direct NA28 check is recorded in benchmarks/na28-coordinate-review-v2.json. Traditional passage identification is recorded in benchmarks/na28-passage-identifications-v1.json. Reference numbers only; no Greek text reproduced."
+        "source_citation": ("Deutsche Bibelgesellschaft, Novum Testamentum Graece, 28th revised edition (2012), public chapter pages enumerated in data/reference/publisher-coordinates.json, captured 2026-09-29. The 1 Corinthians 4 direct NA28 check is recorded in data/reference/coordinate-clarifications.json. Traditional passage identification is recorded in data/reference/passage-identifications.json. Reference numbers only; no Greek text reproduced."
                             if passage_review else
-                            "Deutsche Bibelgesellschaft, Novum Testamentum Graece, 28th revised edition (2012), public chapter pages enumerated in benchmarks/na28-coordinate-source-v1.json, captured 2026-09-29. The 1 Corinthians 4 direct NA28 check is recorded in benchmarks/na28-coordinate-review-v2.json. Reference numbers only; no Greek text reproduced."
-                            if review else "Deutsche Bibelgesellschaft, Novum Testamentum Graece, 28th revised edition (2012), public chapter pages enumerated in benchmarks/na28-coordinate-source-v1.json, captured 2026-09-29. One chapter uses the publisher's UBS5 coordinate display as a flagged fallback. Reference numbers only; no Greek text reproduced."),
+                            "Deutsche Bibelgesellschaft, Novum Testamentum Graece, 28th revised edition (2012), public chapter pages enumerated in data/reference/publisher-coordinates.json, captured 2026-09-29. The 1 Corinthians 4 direct NA28 check is recorded in data/reference/coordinate-clarifications.json. Reference numbers only; no Greek text reproduced."
+                            if review else "Deutsche Bibelgesellschaft, Novum Testamentum Graece, 28th revised edition (2012), public chapter pages enumerated in data/reference/publisher-coordinates.json, captured 2026-09-29. One chapter uses the publisher's UBS5 coordinate display as a flagged fallback. Reference numbers only; no Greek text reproduced."),
         "reuse_terms": "Reference coordinates only; no NA28 or UBS5 edition text reproduced. Source text copyright Deutsche Bibelgesellschaft; this manifest asserts no right to republish it.",
-        "mapping_citation": source["ntvmr_mapping_source"],
+        "mapping_citation": "Reference inventory only. Exact reported OSIS matches are mapped by build_collection.py.",
         "reviewer": (f"Codex automated source-coordinate review, 2026-09-29; {review['reviewer']}, {review['reviewed_on']} for 1 Cor 4; {passage_review['reviewer']}, {passage_review['reviewed_on']} for omitted passage identification; independent editorial and mapping review pending"
                      if passage_review else
                      f"Codex automated source-coordinate review, 2026-09-29; {review['reviewer']}, {review['reviewed_on']} for 1 Cor 4; independent editorial and mapping review pending"
@@ -239,21 +232,17 @@ def render(manifest: dict) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=SOURCE)
-    parser.add_argument("--review", type=Path, help="Cited coordinate review for the v2 snapshot")
-    parser.add_argument("--passage-review", type=Path, help="Cited omitted-passage review for the v3 snapshot")
-    parser.add_argument("--output", type=Path, help="Manifest path (defaults to the selected version)")
-    parser.add_argument("--check", action="store_true", help="Verify output matches the pinned source without writing")
+    parser.add_argument("--check", action="store_true", help="Verify the current reference file without writing")
     args = parser.parse_args(argv)
-    review = json.loads(args.review.read_text(encoding="utf-8")) if args.review else None
-    passage_review = json.loads(args.passage_review.read_text(encoding="utf-8")) if args.passage_review else None
-    output = args.output or (OUTPUT_V3 if passage_review else OUTPUT_V2 if review else OUTPUT)
-    manifest = build(json.loads(args.source.read_text(encoding="utf-8")), review, passage_review)
-    rendered = render(manifest)
+    manifest = build(json.loads(args.source.read_text(encoding="utf-8")),
+                     json.loads(REVIEW.read_text(encoding="utf-8")),
+                     json.loads(PASSAGE_REVIEW.read_text(encoding="utf-8")))
     if args.check:
-        if not output.exists() or output.read_text(encoding="utf-8") != rendered:
-            raise SystemExit("Inventory output differs from the pinned source; rebuild and review it")
+        if json.loads(OUTPUT.read_text(encoding="utf-8")) != manifest:
+            raise SystemExit("Reference inventory differs; rebuild with python build_na28_inventory.py")
     else:
-        output.write_text(rendered, encoding="utf-8")
+        from build_collection import write_json
+        write_json(OUTPUT, manifest)
     counts = {status: sum(row["editorial_status"] == status for row in manifest["verses"])
               for status in ("main", "bracketed", "omitted", "uncertain")}
     print(json.dumps({"inventory_id": manifest["inventory_id"], "coordinates": len(manifest["verses"]),

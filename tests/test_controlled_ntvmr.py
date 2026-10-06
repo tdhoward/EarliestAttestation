@@ -31,8 +31,8 @@ LANGUAGE = json.loads(LANGUAGE_FIXTURE.read_text(encoding="utf-8"))
 NAMED = json.loads((Path(__file__).parent / "fixtures" / "john_named_probe.json").read_text(encoding="utf-8"))
 LIST = json.loads((Path(__file__).parent / "fixtures" / "john_list_probe.json").read_text(encoding="utf-8"))
 P134_METADATA = json.loads((Path(__file__).parent / "fixtures" / "p134_metadata_cache.json").read_text(encoding="utf-8"))
-P52_CONTROLS = Path(__file__).parent.parent / "benchmarks" / "p52-source-controls-v1.json"
-P52_DATE_SOURCE = Path(__file__).parent.parent / "benchmarks" / "p52-date-source-v1.json"
+P52_CONTROLS = Path(__file__).parent / "fixtures" / "p52-source-controls.json"
+P52_DATE_SOURCE = Path(__file__).parent / "fixtures" / "p52-date-source.json"
 PARAMS = {"docID": "10052", "detail": "long", "format": "json"}
 METADATA = {"status": "success", "data": {"manuscript": {
     "docID": 10052, "gaNum": "P52", "primaryName": "P52", "lang": "grc",

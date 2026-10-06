@@ -1,0 +1,27 @@
+{
+  "source_url": "http://192.168.0.119:8889/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10135",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 20:14:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791317691239",
+    "X-Request-Post-Validation-Epoch": "1791317691240",
+    "X-Request-Response-Epoch": "1791317691244",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2012",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10135,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P135\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":5,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Coptic Museum\",\"place\":\"Cairo\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":2,\"shelfID\":6986,\"originYearDescription\":\"IV/V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"s.n.\",\"contentOverview\":\"Gal 3,21-22.28-29; 4,31-5,6.10-15\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":301,\"content\":\"IV/V\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"Gal 4:31; Gal 5:1-6\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10135/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10135/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6986,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"2r\",\"indexContent\":\"Gal 4:31; Gal 5:1-6\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"acm\"},{\"biblicalContent\":\"Gal 5:10-15\",\"shelfID\":6986,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"2v\",\"indexContent\":\"Gal 5:10-15\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"acm\"},{\"biblicalContent\":\"Gal 3:28-29\",\"shelfID\":6986,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"1v\",\"indexContent\":\"Gal 3:28-29\",\"indexTier\":3,\"pageID\":30,\"indexedBy\":\"acm\"},{\"biblicalContent\":\"Gal 3:21-22\",\"shelfID\":6986,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"1r\",\"indexContent\":\"Gal 3:21-22\",\"indexTier\":3,\"pageID\":40,\"indexedBy\":\"acm\"}]},\"gaNum\":\"P135\",\"leaves\":{\"leavesCount\":0,\"content\":2},\"lang\":\"grc\",\"contentOverview\":\"p: G\",\"lineCount\":{\"lineCountMin\":18,\"content\":\"frg.1r: 5, 1v: 3; frg. 2: 18\"}}}}",
+  "body_sha256": "47731d08fc1495a17c95a2ee66e5c12a2bd0363da6b5dfbba7aa33f9a5860fed",
+  "retrieved_at": "2026-10-06T20:14:51+00:00",
+  "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and actual transport URL are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+}

@@ -1,4 +1,4 @@
-"""Package version 3 reports as an offline, reusable New Testament explorer.
+"""Prepare data for the single New Testament explorer app.
 
 Only coordinate metadata is read from the full inventory. Coverage, dates and
 rankings always come from the supplied scholarly-report export.
@@ -8,12 +8,10 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-import re
 
 
 ROOT = Path(__file__).resolve().parent
-ASSETS = ROOT / "web" / "attestation-explorer"
-INVENTORY = ROOT / "benchmarks" / "na28-nt-reference-provisional-v3.json"
+INVENTORY = ROOT / "data" / "reference" / "na28.json"
 
 
 def build_explorer_data(graph, inventory=None):
@@ -69,6 +67,7 @@ def build_explorer_data(graph, inventory=None):
             "mapping_note": verse.get("mapping_note"),
             "passage_citation": verse.get("passage_citation"),
             "ranking_state": verse["ranking_state"],
+            "discovery": verse.get("discovery", {"state": "not_searched", "ranking_scope": "collected_witnesses_only"}),
             "reported_coverage": pairs,
             "dating_alternatives": {**{k: v for k, v in alternatives.items()
                                        if k not in ("combinations", "unrankable_assessments")},
@@ -82,19 +81,3 @@ def build_explorer_data(graph, inventory=None):
         "documents": graph["documents"], "sources": graph["sources"],
         "claims": claims, "dates": dates, "observations": observations,
     }
-
-
-def render_report_explorer(graph):
-    data = build_explorer_data(graph)
-    # Escape HTML delimiters even inside application/json script elements.
-    payload = json.dumps(data, ensure_ascii=True, separators=(",", ":"))
-    payload = payload.replace("&", "\\u0026").replace("<", "\\u003c").replace(">", "\\u003e")
-    template = (ASSETS / "index.html").read_text(encoding="utf-8")
-    replacements = {
-        "/* EXPLORER_STYLES */": (ASSETS / "explorer.css").read_text(encoding="utf-8"),
-        "/* EXPLORER_SCRIPT */": (ASSETS / "explorer.js").read_text(encoding="utf-8"),
-        "EXPLORER_DATA": payload,
-    }
-    # One pass: source strings cannot be interpreted as template placeholders.
-    return re.sub("|".join(re.escape(k) for k in replacements),
-                  lambda match: replacements[match.group()], template)

@@ -571,7 +571,7 @@ def fetch_and_store_coverage(api: ApiClient, con: sqlite3.Connection, doc_id: in
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Sync Greek NT verse attestation data from NTVMR into SQLite.")
-    ap.add_argument("--db", default="ntvmr.sqlite", help="SQLite DB path (default: ntvmr.sqlite)")
+    ap.add_argument("--db", default="data/.cache/local/ntvmr.sqlite", help="Legacy SQLite cache; not an input to the explorer")
     ap.add_argument("--subset", default="John", help='Versification subset for seeding verses (e.g., "John" or "NT")')
     ap.add_argument("--v11n", default="KJV", help='Versification ID (default: "KJV")')
     ap.add_argument("--max-verses", type=int, default=0, help="Process only first N verses (0 = all seeded)")

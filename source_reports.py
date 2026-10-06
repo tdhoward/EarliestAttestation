@@ -16,6 +16,7 @@ from controlled_ntvmr import (API_BASE, encoded, edition_inventory_report,
                               import_edition_inventory, inventory_ref_parts,
                               parse_coverage, parse_metadata, rank_candidates,
                               validate_inventory)
+from source_discovery import prepare_discovery, verse_discovery
 
 
 CONTRACT = "ntvmr-source-reports-v1"
@@ -72,10 +73,14 @@ def capture(path, doc_id, stage):
               "retrieved_at": timestamp(required_text(record, "retrieved_at")),
               "provider": PROVIDER, "capture_path": path.as_posix(),
               "citation": API_BASE + "/" + endpoint + "/?" + urlencode(params)}
+    if record.get("transport_qualification"):
+        result["transport_qualification"] = record["transport_qualification"]
     return result, payload, parsed
 
 
 def provenance(snapshot, locator, reported, qualifications=""):
+    if snapshot.get("transport_qualification"):
+        qualifications += " " + snapshot["transport_qualification"]
     return {"provider": snapshot["provider"], "citation": snapshot["citation"],
             "retrieved_at": snapshot["retrieved_at"], "source_locator": locator,
             "reported": reported, "qualifications": qualifications,
@@ -97,7 +102,9 @@ def prepare_batch(manifest, root):
         raise ValueError("Unsupported source-report manifest contract")
     required_text(manifest, "batch_id")
     required_text(manifest, "scope")
-    inventory = json.loads((root / manifest["inventory"]).read_text(encoding="utf-8"))
+    inventory = manifest["inventory"]
+    if not isinstance(inventory, dict):
+        inventory = json.loads((root / inventory).read_text(encoding="utf-8"))
     validate_inventory(inventory)
     for coordinate in inventory["verses"]:
         if coordinate["ntvmr_refs"] not in ([], [coordinate["osis_ref"]]):
@@ -213,6 +220,18 @@ def prepare_batch(manifest, root):
 
 def import_batch(con, manifest, root=Path(".")):
     inventory, snapshots, coverage, dates, documents = prepare_batch(manifest, root)
+    discovery = None
+    discoveries = []
+    for record in manifest.get("discovery_records", []):
+        summary, search_snapshots = prepare_discovery(record, documents)
+        if any(item["scope_id"] == summary["scope_id"] for item in discoveries):
+            raise ValueError("Duplicate discovery scope")
+        discoveries.append(summary)
+        snapshots.extend(search_snapshots)
+    if manifest.get("discovery_fixture"):
+        record = json.loads((root / manifest["discovery_fixture"]).read_text(encoding="utf-8"))
+        discovery, search_snapshots = prepare_discovery(record, documents)
+        snapshots.extend(search_snapshots)
     con.executescript(SCHEMA)
     batch_id = manifest["batch_id"]
     # Hash actual captures as well as the manifest, so changed files cannot replay as the same batch.
@@ -223,6 +242,10 @@ def import_batch(con, manifest, root=Path(".")):
                                                       for c in coverage])),
                   "dates_sha256": digest(encoded([{k: v for k, v in d.items() if k != "snapshot"}
                                                    for d in dates]))}
+    if discovery is not None:
+        normalized["discovery"] = discovery
+    if discoveries:
+        normalized["discoveries"] = discoveries
     body = encoded(normalized)
     existing = con.execute("SELECT manifest_sha256 FROM scholarly_report_batch WHERE batch_id=?", (batch_id,)).fetchone()
     if existing:
@@ -235,15 +258,16 @@ def import_batch(con, manifest, root=Path(".")):
                     (batch_id, digest(body), body, inventory["inventory_id"]))
         response_ids = []
         for snap in snapshots:
-            row = con.execute("SELECT id FROM source_response WHERE url=? AND params_json=? AND body_sha256=? AND retrieved_at=?",
-                              (snap["url"], encoded(snap["params"]), snap["body_sha256"], snap["retrieved_at"])).fetchone()
+            headers = encoded(snap.get("headers", {}))
+            row = con.execute("SELECT id FROM source_response WHERE url=? AND params_json=? AND body_sha256=? AND retrieved_at=? AND headers_json=?",
+                              (snap["url"], encoded(snap["params"]), snap["body_sha256"], snap["retrieved_at"], headers)).fetchone()
             if row:
                 response_ids.append(row[0])
             else:
                 cur = con.execute("""INSERT INTO source_response
                     (endpoint,url,params_json,status_code,headers_json,body,body_sha256,retrieved_at,origin)
-                    VALUES (?,?,?,200,'{}',?,?,?,'fixture')""",
-                    (snap["endpoint"], snap["url"], encoded(snap["params"]), snap["body"], snap["body_sha256"], snap["retrieved_at"]))
+                    VALUES (?,?,?,200,?,?,?,?,'fixture')""",
+                    (snap["endpoint"], snap["url"], encoded(snap["params"]), headers, snap["body"], snap["body_sha256"], snap["retrieved_at"]))
                 response_ids.append(cur.lastrowid)
         for table, claims in (("scholarly_coverage_claim", coverage), ("scholarly_date_claim", dates)):
             for claim in claims:
@@ -299,6 +323,29 @@ def alternatives(pairs, dates, max_combinations=256):
     return result
 
 
+def export_discovery(con, discovery):
+    discovery_sources = []
+    for snap in discovery.get("source_snapshots", []):
+        source = con.execute("""SELECT id,body,headers_json FROM source_response WHERE url=?
+          AND params_json=? AND body_sha256=? AND retrieved_at=? AND headers_json=?""",
+          (snap["url"], encoded(snap["params"]), snap["body_sha256"], snap["retrieved_at"], encoded(snap.get("headers", {})))).fetchone()
+        if source is None or digest(source[1]) != snap["body_sha256"]:
+            raise ValueError("Discovery source response missing or changed")
+        discovery_sources.append({"source_response_id": source[0],
+                                  **{k: v for k, v in snap.items() if k not in ("body", "headers")}})
+    discovery = {k: v for k, v in discovery.items() if k != "source_snapshots"}
+    cost = dict(discovery.get("collection_cost", {}))
+    if "request_attempts" in cost:
+        cost["prior_pilot_attempts"] = discovery["definition"].get("prior_pilot_attempts", 0)
+        cost["increment_attempts_to_date"] = cost["prior_pilot_attempts"] + cost["request_attempts"]
+        discovery["collection_cost"] = cost
+    discovery["sources"] = discovery_sources
+    discovery["candidates"] = [{**{k: v for k, v in candidate.items() if k != "snapshot"},
+                                 "source_response_id": discovery_sources[candidate["snapshot"]]["source_response_id"]}
+                                for candidate in discovery.get("candidates", [])]
+    return discovery
+
+
 def build_report_exports(con, batch_id, *, include_omitted=False, include_bracketed=True):
     row = con.execute("SELECT manifest_json,inventory_id,manifest_sha256 FROM scholarly_report_batch WHERE batch_id=?", (batch_id,)).fetchone()
     if row is None:
@@ -306,6 +353,11 @@ def build_report_exports(con, batch_id, *, include_omitted=False, include_bracke
     batch, inventory_id, batch_sha = json.loads(row[0]), row[1], row[2]
     if digest(row[0]) != batch_sha:
         raise ValueError("Report batch manifest checksum mismatch")
+    discoveries = batch.get("discoveries", [batch.get("discovery") or prepare_discovery(None, [])[0]])
+    discoveries = [export_discovery(con, item) for item in discoveries]
+    discovery = discoveries[0] if len(discoveries) == 1 else {"scopes": discoveries, "corpus_complete": False,
+                                                            "ranking_scope": "collected_witnesses_only"}
+    discovery_sources = [source for item in discoveries for source in item["sources"]]
     inventory = edition_inventory_report(con, inventory_id)
     inventory_body = con.execute("SELECT manifest_json FROM edition_inventory WHERE inventory_id=?", (inventory_id,)).fetchone()[0]
     if digest(inventory_body) != batch["inventory_sha256"]:
@@ -357,10 +409,12 @@ def build_report_exports(con, batch_id, *, include_omitted=False, include_bracke
                                              else "unresolved_reference_mapping") if not reports else None,
                           "date_assessments": dates[witness]})
         alt = alternatives(pairs, dates)
-        verses.append({**coordinate, "reported_coverage": pairs, "dating_alternatives": alt,
+        verses.append({**coordinate, "discovery": verse_discovery(discovery, coordinate["osis_ref"]),
+                       "reported_coverage": pairs, "dating_alternatives": alt,
                        "ranking_state": alt["state"], "scenarios": None})
     response_ids = sorted({c["source_response_id"] for c in claims} |
-                          {d["source_response_id"] for values in dates.values() for d in values})
+                          {d["source_response_id"] for values in dates.values() for d in values} |
+                          {s["source_response_id"] for s in discovery_sources})
     sources = []
     source_hashes = {}
     for response_id in response_ids:
@@ -381,6 +435,7 @@ def build_report_exports(con, batch_id, *, include_omitted=False, include_bracke
                 "witness_verse_pairs": {state: states[state] for state in ("present", "absent", "unknown", "contested")},
                 "graphable_coordinates": sum(v["dating_alternatives"]["state"] == "complete" for v in rows),
                 "mapping_gaps": sum(not v["ntvmr_refs"] for v in rows),
+                "by_discovery_state": dict(sorted(Counter(v["discovery"]["state"] for v in rows).items())),
                 "by_ranking_state": dict(sorted(Counter(v["ranking_state"] for v in rows).items()))}
     common = {"format_version": 3, "evidence_policy": "scholarly_reports_only",
               "batch_id": batch_id, "batch_sha256": batch_sha, "contract_id": CONTRACT,
@@ -388,10 +443,12 @@ def build_report_exports(con, batch_id, *, include_omitted=False, include_bracke
               "inventory_source_citation": inventory["source_citation"],
               "mapping_citation": inventory["mapping_citation"],
               "collection_scope": batch["manifest"]["scope"], "documents": batch["documents"],
+              "discovery": discovery,
               "catalogue_citation": batch["manifest"].get("catalogue_citation"),
               "dating_policy_id": "all_complete_reported_intervals_equally",
               "collection_cost": {"replay_network_requests": 0, "reused_response_count": len(sources),
-                                  "document_response_count": sum(s["endpoint"] != "scholarly/report" for s in sources),
+                                  "document_response_count": sum(s["endpoint"] in ("metadata/manuscript/get", "biblicalcontent/get") for s in sources),
+                                  "discovery_response_count": len(discovery_sources),
                                   "historical_request_attempts": "not measured by this replay"}}
     dataset = {**common, "kind": "complete_dataset", "filters": None,
                "sources": sources, "source_claims": claims,

@@ -1,0 +1,52 @@
+{
+  "format_version": 1,
+  "coordinate_inventory": "reference/na28.json",
+  "books": [
+    "Rom",
+    "1Cor",
+    "2Cor",
+    "Gal",
+    "Eph",
+    "Phil",
+    "Col",
+    "1Thess",
+    "Heb"
+  ],
+  "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+  "documents": [
+    {
+      "doc_id": 10046,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10046-metadata.json",
+      "coverage_fixture": "sources/ntvmr-10046-contents.json"
+    },
+    {
+      "doc_id": 20001,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-20001-metadata.json",
+      "coverage_fixture": "sources/ntvmr-20001-contents.json"
+    },
+    {
+      "doc_id": 20002,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-20002-metadata.json",
+      "coverage_fixture": "sources/ntvmr-20002-contents.json"
+    },
+    {
+      "doc_id": 10051,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10051-metadata.json",
+      "coverage_fixture": "sources/ntvmr-10051-contents.json"
+    },
+    {
+      "doc_id": 10135,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10135-metadata.json",
+      "coverage_fixture": "sources/ntvmr-10135-contents.json"
+    }
+  ],
+  "additional_reports": [],
+  "include_omitted": false,
+  "include_bracketed": true,
+  "discovery": "discovery.json"
+}

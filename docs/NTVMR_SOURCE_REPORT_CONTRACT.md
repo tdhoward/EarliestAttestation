@@ -1,11 +1,8 @@
-# NTVMR source-report contract v1
+# NTVMR source-report contract
 
-Implemented on 2026-10-05. This is the active bounded report-to-chart path;
-historical image/transcription reviews are not its inputs. The contract ID is
-`ntvmr-source-reports-v1`, the manifest format is 1, and its dataset/graph format
-is 3. It uses the existing collector's response storage, inventory, endpoint
-ranking function, and the source-report explorer. Three additive `scholarly_*` tables preserve
-immutable report batches and claims alongside the unchanged legacy v12 tables.
+The central collection uses `ntvmr-source-reports-v1`. `build_collection.py` normalizes
+captured reports in a temporary SQLite database, verifies source and claim integrity,
+and updates `data/attestations.json` for the single explorer app. No HTML is generated.
 
 ## Field meanings and limits
 
@@ -13,7 +10,7 @@ The official [contents endpoint documentation](https://ntvmr.uni-muenster.de/com
 and [metadata endpoint documentation](https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/)
 were captured with TLS verification on 2026-10-05 Pacific. Their raw HTML,
 retrieval timestamps, URLs, and SHA-256 hashes are retained in
-[`tests/fixtures/source_contract/`](../tests/fixtures/source_contract/).
+[`data/reference/contracts/`](../data/reference/contracts/).
 Documentation collection was bounded to those two pages, with five-second
 spacing. No manuscript response, image, or transcription was requested.
 
@@ -61,13 +58,14 @@ manuscript discovery or provide an absence assertion.
 
 This version accepts explicit direct OSIS-to-NA28 coordinate matches and
 unmapped coordinates. Changed or multi-reference mappings are rejected pending
-a supported contract. The new Galatians manifest copies only publisher reference
-coordinates from the existing provisional inventory and cites the long contents
-entries; it contains no Greek wording, textual anchors, or image examination.
+a supported contract. The collection builder copies publisher reference coordinates from
+`data/reference/na28.json` and maps only exact references in explicit collected reports.
+Unmatched coordinates remain unresolved.
 
 ## Storage, disagreement, and dates
 
-Each batch fixes its manifest, inventory, documents, and raw source snapshots.
+Each normalization build fixes its input register, coordinate inventory, documents,
+and raw source snapshots. The database is temporary; only the current app data is published.
 Coverage claims retain provider, citation, retrieval date, exact field/statement,
 qualifications, and source response/hash. Date claims retain the complete
 interval, original notation, and document applicability. The exporter checks
@@ -107,117 +105,33 @@ years. The existing 256-combination export limit remains explicit per verse;
 overflow does not select or truncate an alternative. The explorer chooses among
 exported combinations on demand without enumerating a corpus-wide product.
 
-## First active bounded result
+## Central data and discovery
 
-The manifest [`gal1-source-reports-v1.json`](../benchmarks/gal1-source-reports-v1.json)
-reuses six captured responses for P46, GA 01, and GA 02 across Galatians 1:1–10.
-All page entries counted in this passage have source-reported indexing tier 3.
-The catalogue date intervals are respectively 200–225, 300–399, and 400–499 CE.
-These are catalogue alternatives in the collected scope, not a consensus claim.
+`data/collection.json` lists the documents, capture paths, coordinate scope, and
+additional published claims. Source captures live in `data/sources/`; the current
+bounded search records live together in `data/discovery.json`. Each capture retains
+its raw response, URL, parameters, timestamp, hash, and transport qualifications.
+These records support scholarly attribution without keeping a series of chart revisions.
 
-| Measure | Result |
-| --- | ---: |
-| Declared documents / distinct witnesses | 3 / 3 |
-| Coordinates / graphable coordinates | 10 / 10 |
-| Reported-present witness/verse pairs | 29 |
-| Unknown witness/verse pairs | 1 |
-| Explicitly absent / contested pairs | 0 / 0 |
-| Reference mapping gaps within this subset | 0 |
-| Captured document responses reused | 6 |
-| Replay network requests | 0 |
+Candidate discovery is independent of the existing witness pool. Multiple bounded
+book/range searches can coexist in the discovery register. Search rows supply no
+contents assertions. Per-verse discovery states and the app's **earliest collected**
+labels distinguish usable reports from completeness of the witness search. See
+[the discovery guide](BOUNDED_WITNESS_DISCOVERY.md).
 
-P46 at Galatians 1:9 is unknown because its captured long report contains no
-entry. No absence or source disagreement has been invented. Synthetic tests
-exercise actual explicit conflicts, absence, partial presence, alias joins,
-date alternatives, ranking reversal, and overflow; those fictional inputs are
-not part of this chart. Original collection retry costs were not measured by
-this replay and are not presented as six total historical attempts.
+The current collection combines five witnesses across nine books. Four document
+captures and the Galatians search used an existing HTTP relay; upstream TLS
+verification was not established. This qualification remains on the affected
+source claims and discovery record. Canonical citations and transport URLs are
+kept separately.
 
-Attribution audit for this increment: only the six catalogue captures and
-publisher coordinates are admitted. Old Galatians word-anchor decisions, image
-checks, writing-layer judgments, absence reviews, and dating selections are
-excluded. Their files and databases remain preserved. This is not a repository-
-wide attribution audit or an endorsement of old charts.
-
-## Offline reproduction
-
-Use a new database path on each replay. No network option exists in this command.
+Refresh or verify the one app data file offline:
 
 ```powershell
-python replay_source_reports.py --db data/gal1-source-reports.sqlite --dataset-output data/gal1-source-reports-complete.json --graph-output examples/gal1-source-reports-graph-input.json --html-output examples/gal1-source-reports.html
+python build_collection.py
+python build_collection.py --check
+python -m unittest discover -s tests -v
 ```
 
-Open [`examples/gal1-source-reports.html`](../examples/gal1-source-reports.html)
-directly. It displays a full-GNT chart with an endpoint toggle, contents states,
-date inputs, source citations, exact reported contents fields, and source snapshots. The
-complete dataset retains document-wide source claims and raw responses; the
-graph output includes only the filtered inventory coordinates and source hashes.
-
-Existing report batches can be exported read-only:
-
-```powershell
-python export_attestation.py --db data/gal1-source-reports.sqlite --report-batch gal1-source-reports-v1 --dataset-output data/gal1-reexport.json --graph-output data/gal1-reexport-graph.json
-python render_attestation.py --graph-input data/gal1-reexport-graph.json --output data/gal1-reexport.html
-python -m unittest discover -s tests -p test_source_reports.py -v
-```
-
-Next expansion: add documented document batches and supported coordinate subsets,
-reusing each document's metadata and contents locally. Keep unsupported mappings,
-unknown dates, provider qualifications, and explicit conflicts visible. Update
-provider access expectations and bound the next discovery run before bulk access.
-
-## Whole-Galatians expansion
-
-Implemented on 2026-10-06. The new immutable batch
-[`galatians-source-reports-v1.json`](../benchmarks/galatians-source-reports-v1.json)
-reuses the same six document captures across all six Galatians chapters. Its
-149 reference-only coordinates are copied from the provisional publisher
-inventory v3; each direct mapping also occurs in a captured long contents
-report. It admits no historical review, writing-unit, or dating-selection input.
-The original 1:1–10 batch remains preserved; both active HTML examples now use
-the reusable explorer, with their original report data unchanged.
-
-| Measure | Result |
-| --- | ---: |
-| Declared documents / distinct witnesses | 3 / 3 |
-| Coordinates / graphable coordinates | 149 / 149 |
-| Reported-present witness/verse pairs | 437 |
-| Unknown witness/verse pairs | 10 |
-| Explicitly absent / contested pairs | 0 / 0 |
-| Reference mapping gaps within this subset | 0 |
-| Captured document responses reused | 6 |
-| New document collection / replay network requests | 0 / 0 |
-
-All 444 admitted page-level entries have catalogue indexing tier 3. Multiple
-page reports collapse to 437 distinct witness/verse pairs. The ten unknown pairs
-are P46 at Galatians 1:9; 2:10–11; 3:1; 4:1, 18–19; 5:18–19; and 6:9.
-Missing entries are not absence claims. The complete reported date intervals
-remain 200–225, 300–399, and 400–499 CE for P46, GA 01, and GA 02 respectively.
-This is a bounded three-witness dataset, not exhaustive discovery.
-
-The first expansion used separate chapter panels and a 200-coordinate rendering
-limit. The subsequent [explorer update](ATTESTATION_EXPLORER.md), also on
-2026-10-06, replaces those panels with one continuous, responsive full-GNT chart.
-All 7,957 provisional coordinates have stable horizontal positions; only the 149
-collected coordinates receive source reports. Uncollected and edition-filtered
-coordinates are distinct. Hover/tap summaries, keyboard navigation, reference
-entry, zoom, and a top-right endpoint toggle keep the thin bars usable.
-Version 3 rendering supports the full inventory. Per-verse export overflow remains
-explicit; the UI no longer enumerates a global date product. Legacy version 2
-retains its existing renderer and limits.
-
-```powershell
-python replay_source_reports.py --manifest benchmarks/galatians-source-reports-v1.json --db data/galatians-source-reports.sqlite --dataset-output data/galatians-source-reports-complete.json --graph-output examples/galatians-source-reports-graph-input.json --html-output examples/galatians-source-reports.html
-python -m unittest discover -s tests -p test_search_continuation.py -v
-python -m unittest discover -s tests -p test_source_reports.py -v
-```
-
-Choose a new database path if the example destination already exists. Open
-[`examples/galatians-source-reports.html`](../examples/galatians-source-reports.html)
-directly. Two fresh offline replays produce identical dataset, graph, and HTML
-outputs. Tests verify publisher coordinate order, retained unknowns, deduplicated
-rankings, full-corpus coordinate order, compact provenance, shared year bounds,
-interaction geometry, safe embedding, and response reuse. SQLite integrity and foreign-key
-checks pass; the fresh batch contains no legacy review records. The two search
-contract-check requests are separate from this chart's zero-cost document reuse;
-historical capture attempts remain unmeasured.
+The app reads the updated file when loaded. Its HTML, JavaScript, and CSS do not
+change when documents, books, or source reports are added.

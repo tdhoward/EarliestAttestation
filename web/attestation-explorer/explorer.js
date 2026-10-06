@@ -1,4 +1,4 @@
-/* Reusable offline explorer. No framework, network, or generated DOM per verse. */
+/* Reusable explorer view. Data loading lives in app.js. */
 (function (global) {
   "use strict";
   const BOOKS = [
@@ -95,8 +95,26 @@
         (!combo && alternatives.combinations.length ? "unavailable_combination" : events.length ? "dated" : "no_date"),
         events, observation, contested: observation.reported_coverage.some(pair => pair.state === "contested")};
     }
+    function discovery(index) {
+      const ref = data.coordinates[index][0], meta = data.metadata.discovery;
+      const reported = data.observations[ref]?.discovery;
+      const scopes = (meta?.scopes || [meta]).filter(item => item?.definition?.book === ref.split(".")[0]);
+      if (!scopes.length) {
+        return {state: "not_searched", text: "Witness discovery has not been assessed for this verse. Rankings cover collected witnesses only."};
+      }
+      const incomplete = scopes.find(item => item.search_state !== "complete");
+      const state = reported?.state || (incomplete ? "search_incomplete" :
+        scopes.some(item => item.candidate_collection_state !== "complete") ? "candidate_collection_incomplete" : "bounded_search_complete");
+      const count = new Set(scopes.flatMap(item => item.candidate_ids)).size;
+      const pending = new Set(scopes.flatMap(item => item.pending_candidate_ids)).size;
+      const pool = "Other catalogue ranges and unindexed witnesses remain outside this search. Rankings cover collected witnesses only.";
+      const text = state === "bounded_search_complete" ? `Bounded book search complete; all ${count} search candidates collected. ${pool}` :
+        state === "candidate_collection_incomplete" ? `Bounded book search complete; ${pending} of ${count} search candidates await metadata or contents collection. ${pool}` :
+        `Bounded book search ${(incomplete?.search_state || "incomplete").replaceAll("_", " ")}; ${count} candidates identified so far. ${pool}`;
+      return {state, text};
+    }
     return {data, indices, books, choices, selection, minimum, maximum, hasEvents, label, lookup, cell,
-      witness: id => witnesses.get(id) || id};
+      discovery, witness: id => witnesses.get(id) || id};
   }
 
   function mount(root, data, options = {}) {
@@ -293,6 +311,7 @@
     function renderSelection() {
       const cell = cachedCells[selected], ref = model.label(selected);
       el("selected-heading").textContent = ref;
+      el("discovery-summary").textContent = model.discovery(selected).text;
       el("selection-label").textContent = ref;
       el("previous").disabled = selected === 0;
       el("next").disabled = selected === data.coordinates.length - 1;
@@ -314,7 +333,7 @@
         for (const pair of pairs) totals[pair.state]++;
         const first = cell.events[0];
         summary = `${totals.present} reported present · ${totals.unknown} unknown · ${totals.contested} contested · ${totals.absent} reported absent.`;
-        summary += first ? ` Earliest ${scenario} endpoint: ${first.event_year} CE (${model.witness(first.witness_id)}).` : " No dated presence event for this selection.";
+        summary += first ? ` Earliest collected ${scenario} endpoint: ${first.event_year} CE (${model.witness(first.witness_id)}).` : " No dated presence event for this selection.";
         if (cell.state === "too_many_combinations") summary += ` ${cell.observation.dating_alternatives.combination_count} date combinations exceed the export limit; no alternative selected.`;
         if (cell.state === "unavailable_combination") summary += " This combination of date choices is unavailable for this verse.";
         const order = [...pairs].sort((a, b) => {
@@ -385,10 +404,24 @@
     }
     if (!model.choices.size) appendText(el("date-choices"), "p", "No usable numeric date intervals in this export.");
     const scope = el("scope"), meta = data.metadata;
+    const discoveries = (meta.discovery?.scopes || [meta.discovery]).filter(item => item?.definition);
+    el("discovery-tag").textContent = discoveries.length ? "COLLECTED WITNESSES · BOUNDED DISCOVERY" :
+      "COLLECTED WITNESSES · DISCOVERY NOT ASSESSED";
     appendText(scope, "p", meta.collection_scope);
+    appendText(scope, "h3", "Witness discovery");
+    for (const discovery of discoveries) {
+      appendText(scope, "p", `${discovery.definition.book}: document IDs ${discovery.definition.doc_id_min}–${discovery.definition.doc_id_max}. Search ${discovery.search_state}; candidate collection ${discovery.candidate_collection_state}.`);
+      appendText(scope, "p", `Search candidates: ${discovery.candidate_ids.join(", ") || (discovery.search_state === "complete" ? "none returned" : "not established")}. Awaiting collection: ${discovery.pending_candidate_ids.join(", ") || (discovery.search_state === "complete" ? "none" : "not established")}.`);
+      appendText(scope, "p", discovery.limitation);
+      if (discovery.definition.transport_qualification) appendText(scope, "p", discovery.definition.transport_qualification);
+      appendText(scope, "p", `Discovery collection cost: ${JSON.stringify(discovery.collection_cost)}`);
+      if (discovery.run_error) appendText(scope, "p", discovery.run_error);
+      for (const source of discovery.sources || []) link(scope, source.citation, `Search source · ${source.retrieved_at.slice(0, 10)} ↗`);
+    }
+    if (!discoveries.length) appendText(scope, "p", "No candidate discovery run is attached to this dataset. Verse reports and graphable counts do not establish completeness of the witness pool.");
     appendText(scope, "p", `${meta.counts.graphable_coordinates} graphable coordinates · ${meta.counts.mapping_gaps} mapping gaps. Witness/verse pairs: ${Object.entries(meta.counts.witness_verse_pairs).map(([key, value]) => `${value} ${key}`).join(" · ")}.`);
     appendText(scope, "p", `Filters: omitted ${meta.filters.include_omitted ? "included" : "excluded"}; bracketed ${meta.filters.include_bracketed ? "included" : "excluded"}. Filtered coordinates retain their horizontal positions.`);
-    appendText(scope, "p", `Batch: ${meta.batch_id} · ${meta.inventory_scope}`);
+    appendText(scope, "p", meta.inventory_scope);
     appendText(scope, "p", `Collection cost: ${JSON.stringify(meta.collection_cost)}`);
     appendText(scope, "p", `Axis inventory: ${data.coordinate_inventory.inventory_id}. ${data.coordinate_inventory.scope}`);
     link(scope, data.coordinate_inventory.source_citation);

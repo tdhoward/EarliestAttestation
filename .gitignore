@@ -173,8 +173,10 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Local collection snapshots and SQLite backups
-data/
+# Central collection inputs and current app data are maintained.
+# Temporary databases, backups, and experiments are excluded from the product.
+data/.cache/
+*.tmp
 ntvmr-v2.sqlite*
 ntvmr.sqlite-wal
 ntvmr.sqlite-shm

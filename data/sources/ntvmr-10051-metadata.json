@@ -1,0 +1,27 @@
+{
+  "source_url": "http://192.168.0.119:8889/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10051",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 20:13:04 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791317584524",
+    "X-Request-Post-Validation-Epoch": "1791317584525",
+    "X-Request-Response-Epoch": "1791317584530",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3036",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10051,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P51\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":499,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Art, Archaeology and Ancient World Library\",\"place\":\"Oxford\",\"logoURL\":\"https://pbs.twimg.com/profile_images/1789959363588763648/0XlnKdqo_400x400.png\",\"url\":\"https://www.bodleian.ox.ac.uk/libraries/art\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":6097,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Oxy. 2157\",\"contentOverview\":\"G 1,2-10.13.16-20\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":425,\"early\":400,\"content\":\"V (A)\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Gal 1:2-10\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10051/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10051/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10051/POxy.v0018.n2157.a.01.hires.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10051/POxy.v0018.n2157.a.01.hires.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6097,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Gal 1:2-10\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10051&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Gal 1:13; Gal 1:16-19\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10051/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10051/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10051/POxy.v0018.n2157.b.01.hires.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10051/POxy.v0018.n2157.b.01.hires.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6097,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Gal 1:13; Gal 1:16-19\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10051&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P51\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":130,\"widthMax\":140},\"lang\":\"g\",\"contentOverview\":\"p: G\",\"lineCount\":{\"lineCountMax\":38,\"lineCountMin\":16,\"content\":\"25r, 16v (37-38)\"},\"height\":{\"heightMax\":260,\"heightMin\":250}}}}",
+  "body_sha256": "a0b9e7c7ae01db83043ea9d3e0b423c2b6b9f40c7b49b7c700cf048f2108931f",
+  "retrieved_at": "2026-10-06T20:13:04+00:00",
+  "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and actual transport URL are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+}

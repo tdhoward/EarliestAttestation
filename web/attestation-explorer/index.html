@@ -5,22 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>Earliest Attestation · Greek New Testament</title>
-  <style>/* EXPLORER_STYLES */</style>
+  <link rel="stylesheet" href="./explorer.css">
+  <script src="./explorer.js" defer></script>
+  <script src="./app.js" defer></script>
 </head>
 <body>
-  <main id="attestation-app" class="explorer">
+  <section id="collection-loader" class="collection-loader" aria-labelledby="load-heading">
+    <h1 id="load-heading">Earliest Attestation</h1>
+    <p data-load="status" role="status">Loading the collection…</p>
+    <button type="button" data-load="retry" hidden>Try again</button>
+    <label data-load="file-label" hidden>Open the collection data <input type="file" data-load="file" accept=".json,application/json"></label>
+    <noscript><p>Enable JavaScript to explore the collection.</p></noscript>
+  </section>
+  <main id="attestation-app" class="explorer" hidden>
     <header class="app-header">
       <div class="brand"><span class="brand-mark" aria-hidden="true">ea<span>·</span></span><div><strong>Earliest Attestation</strong><span class="eyebrow">GREEK NEW TESTAMENT</span></div></div>
       <fieldset class="scenario-control"><legend>Date scenario</legend><label><input type="radio" name="scenario" value="optimistic" checked><span>Optimistic</span></label><label><input type="radio" name="scenario" value="pessimistic"><span>Pessimistic</span></label></fieldset>
     </header>
 
     <section class="intro" aria-labelledby="page-title">
-      <div><p class="eyebrow">THE MANUSCRIPT RECORD</p><h1 id="page-title">Every verse. One timeline.</h1><p class="intro-copy">Explore the earliest witnesses reported in the collected scholarly sources.</p></div>
+      <div><p class="eyebrow">THE MANUSCRIPT RECORD</p><h1 id="page-title">Every verse. One timeline.</h1><p class="intro-copy">Compare the earliest reported dates among the collected witnesses.</p></div>
       <div class="scope-stats" data-el="stats"></div>
     </section>
 
     <section class="chart-card" aria-labelledby="chart-title">
-      <div class="chart-heading"><div><h2 id="chart-title">The Greek New Testament</h2><p data-el="scenario-note">Optimistic · lower endpoints of reported date ranges</p></div><span class="scope-tag">COLLECTED SOURCES · INCOMPLETE DISCOVERY</span></div>
+      <div class="chart-heading"><div><h2 id="chart-title">The Greek New Testament</h2><p data-el="scenario-note">Optimistic · lower endpoints of reported date ranges</p></div><span class="scope-tag" data-el="discovery-tag">COLLECTED WITNESSES · DISCOVERY NOT ASSESSED</span></div>
       <div class="toolbar">
         <label class="book-control">Navigate <select data-el="book" aria-label="Navigate to a book"><option value="">Entire New Testament</option></select></label>
         <form data-el="jump-form" class="jump-form"><label class="sr-only" for="verse-reference">Go to verse</label><input id="verse-reference" data-el="reference" placeholder="Go to verse, e.g. Gal 1:9" autocomplete="off" spellcheck="false"><button type="submit">Go <span aria-hidden="true">↗</span></button></form>
@@ -40,16 +49,13 @@
     <section class="verse-panel" aria-labelledby="selected-heading">
       <div class="verse-heading"><div><p class="eyebrow">VERSE IN FOCUS</p><h2 id="selected-heading" data-el="selected-heading"></h2></div><div class="verse-actions"><button type="button" data-el="previous" aria-label="Previous verse">←</button><button type="button" data-el="next" aria-label="Next verse">→</button><button type="button" data-el="pin" aria-pressed="false">Hold verse</button></div></div>
       <p class="verse-summary" data-el="summary" role="status" aria-live="polite" aria-atomic="true"></p>
+      <p class="discovery-summary" data-el="discovery-summary"></p>
       <div class="witness-list" data-el="witnesses"></div>
       <details class="source-details" data-el="source-details"><summary>Source details &amp; reported claims</summary><div data-el="claims"></div></details>
     </section>
 
     <details class="method-panel"><summary>About this view &amp; date alternatives</summary><div class="method-grid"><div><h3>Reading the chart</h3><p>Each thin column is one verse, from Matthew to Revelation. Newer years are above older years. Color deepens as up to five distinct reported witnesses accumulate. Both date scenarios use the same year scale.</p><p>Optimistic uses the lower endpoint; pessimistic uses the upper endpoint of each complete reported date interval. These dates describe manuscript estimates, not the composition of the text.</p><p>Any reported surviving portion counts once. Contested witness/verse pairs are deferred and excluded from presence counts. Unknowns and missing entries do not establish absence.</p><h3>Complete reported date alternatives</h3><p>Selections below are conditional illustrations in assessment-ID order. No alternative is preferred; intervals are never averaged or merged. Choose alternatives to update the same chart. A verse exceeding the export’s combination limit remains unranked.</p><div data-el="date-choices"></div></div><div><h3>Dataset &amp; scope</h3><div data-el="scope"></div><details><summary>Source snapshots</summary><div data-el="snapshots"></div></details></div></div></details>
     <footer class="app-footer"><span>EARLIEST ATTESTATION</span><span>Reported scholarship. Preserved uncertainty.</span></footer>
-    <noscript><p class="form-error">Enable JavaScript to explore the chart and source details. This self-contained file works offline.</p></noscript>
   </main>
-  <script id="attestation-data" type="application/json">EXPLORER_DATA</script>
-  <script>/* EXPLORER_SCRIPT */</script>
-  <script>AttestationExplorer.mount(document.getElementById('attestation-app'), JSON.parse(document.getElementById('attestation-data').textContent));</script>
 </body>
 </html>
