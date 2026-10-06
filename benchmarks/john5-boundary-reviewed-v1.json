@@ -1,0 +1,137 @@
+{
+  "format_version": 1,
+  "review_id": "john5-boundary-reviewed-v1",
+  "inventory_fixture": "benchmarks/john5-na28-subset-v1.json",
+  "inventory_id": "na28-john5-boundary-subset-v1",
+  "policy_id": "john5-boundary-conditional-v1",
+  "reviewed_on": "2026-10-05",
+  "reviewer": "Codex source review, 2026-10-05; independent human validation pending",
+  "independent_human_validation": false,
+  "doc_id": 20032,
+  "witness_id": "032-washingtonianus",
+  "witness_label": "032 (Codex Washingtonianus; supplement and original John writing)",
+  "classification_citation": "IGNTP/ITSEE, GA 032S transcription header, title key 20032 and shelfmark Smithsonian Institution, Freer Gallery of Art, 06.274, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; NTVMR docID 20032 (GA 32), https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json. Smithsonian collection record F1906.274, https://collections.si.edu/search/detail/edanmdm%3Afsg_F1906.274. Consulted 2026-10-05.",
+  "identity_citation": "IGNTP GA 032S header and folios 64v Suppl and 65r, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; NTVMR page 1130, https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json; J. Bruce Prior, BBR 11.2 (2001), p. 233, The Freer Gospels, first paragraph, https://www.galaxie.com/article/bbr11-2-05; checked 2026-10-05. Original GA 032 transcription: https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml, opening at folio 65r, John.5.11.",
+  "metadata_fixture": "tests/fixtures/washingtonianus_metadata_probe.json",
+  "index_fixture": "tests/fixtures/washingtonianus_coverage_probe.json",
+  "date_source_fixture": "tests/fixtures/washingtonianus-supplement-date-source.json",
+  "consensus_status": "unknown",
+  "consensus_note": "No documented current consensus or preferred source is asserted. The supplement's qualified 601-800 range and original writing's explicit catalogue 400-499 bounds apply to separate layers, not alternative dates for the same writing. Stored selections remain null; each scenario takes the earliest qualifying part per physical witness independently.",
+  "discovery_note": "One chosen codex reviewed at five new coordinates; not exhaustive discovery. Four positive witness/verse pairs, including one verse with both layers; John 5:12 unresolved. Human validation pending.",
+  "units": [
+    {
+      "unit_id": "032-john-opening-supplement",
+      "kind": "supplement",
+      "siglum": "032S",
+      "folio": "64v",
+      "page_id": 1280,
+      "label": "Later replacement quire at the John opening of Washingtonianus",
+      "transcription_fixture": "tests/fixtures/washingtonianus-john5-032s-transcription.json",
+      "reason": "The explicitly identified 032S replacement quire ends within John.5.11 on 64v Suppl. Direct surviving anchors on this page belong to that later quire; they do not receive the original codex catalogue date.",
+      "citation": "IGNTP GA 032S header and folios 64v Suppl and 65r, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; NTVMR page 1130, https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json; J. Bruce Prior, BBR 11.2 (2001), p. 233, The Freer Gospels, first paragraph, https://www.galaxie.com/article/bbr11-2-05; checked 2026-10-05. Original GA 032 transcription: https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml, opening at folio 65r, John.5.11.",
+      "assessments": [
+        {
+          "status": "valid",
+          "date_min": 601,
+          "date_max": 800,
+          "original_notation": "perhaps to the seventh or eighth century",
+          "citation": "J. Bruce Prior, Who Is Full of Grace and Truth in the Ws Text of John 1:14?, Bulletin for Biblical Research 11.2 (2001), p. 233, The Freer Gospels, first paragraph, https://www.galaxie.com/article/bbr11-2-05; checked 2026-10-05, pinned short quotation in tests/fixtures/washingtonianus-supplement-date-source.json. The replacement quire is dated perhaps to the seventh or eighth century. Complete-century conversion is 601-800 CE inclusive, conditional and retaining perhaps. Applied only to the reviewed supplement; not the original codex date, not a current consensus or probability claim."
+        }
+      ]
+    },
+    {
+      "unit_id": "032-john-original",
+      "kind": "original",
+      "siglum": "032",
+      "folio": "65r",
+      "page_id": 1290,
+      "label": "Original Washingtonianus John writing after the replacement quire",
+      "transcription_fixture": "tests/fixtures/washingtonianus-john5-032-transcription.json",
+      "reason": "GA 032 begins with the surviving end of John.5.11 on folio 65r, immediately after the documented replacement quire. NTVMR labels this page 65r without Suppl. Only the reviewed surviving base text is assigned here, without inferring a named scribe or dating a correction.",
+      "citation": "IGNTP GA 032S header and folios 64v Suppl and 65r, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; NTVMR page 1130, https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json; J. Bruce Prior, BBR 11.2 (2001), p. 233, The Freer Gospels, first paragraph, https://www.galaxie.com/article/bbr11-2-05; checked 2026-10-05. Original GA 032 transcription: https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml, opening at folio 65r, John.5.11.",
+      "assessments": [
+        {
+          "status": "valid",
+          "date_min": 400,
+          "date_max": 499,
+          "original_notation": "V",
+          "citation": "NTVMR manuscript metadata docID 20032, originYear content V, explicit early 400 and late 499, https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json; pinned tests/fixtures/washingtonianus_metadata_probe.json, checked 2026-10-05. Copied numerical catalogue bounds applied conditionally only to reviewed original writing on 65r, not the 64v supplement. Consensus unknown; not exhaustive date-source discovery."
+        }
+      ]
+    }
+  ],
+  "coverage_reviews": [
+    {
+      "osis_ref": "John.5.9",
+      "page_id": 1280,
+      "folio": "64v",
+      "unit_id": "032-john-opening-supplement",
+      "status": "partial",
+      "anchor": "υγιης",
+      "line": 22,
+      "source_locator": "TEI folio 64v, column 1, John.5.9, direct word υγιης, line marker P64vC1L22-032S; NTVMR page 1280.",
+      "citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.9, direct word υγιης, line marker P64vC1L22-032S; NTVMR page 1280.",
+      "reason": "A direct intact Greek word outside unclear, supplied, expanded, corrected, or marginal text supports partial survival only, without claiming whole-verse preservation or exact NA28 wording. The two John.5.11 page reviews belong to separate writing units of one physical codex; they count as one witness."
+    },
+    {
+      "osis_ref": "John.5.10",
+      "page_id": 1280,
+      "folio": "64v",
+      "unit_id": "032-john-opening-supplement",
+      "status": "partial",
+      "anchor": "ιουδεοι",
+      "line": 27,
+      "source_locator": "TEI folio 64v, column 1, John.5.10, direct word ιουδεοι, line marker P64vC1L27-032S; NTVMR page 1280.",
+      "citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.10, direct word ιουδεοι, line marker P64vC1L27-032S; NTVMR page 1280.",
+      "reason": "A direct intact Greek word outside unclear, supplied, expanded, corrected, or marginal text supports partial survival only, without claiming whole-verse preservation or exact NA28 wording. The two John.5.11 page reviews belong to separate writing units of one physical codex; they count as one witness."
+    },
+    {
+      "osis_ref": "John.5.11",
+      "page_id": 1280,
+      "folio": "64v",
+      "unit_id": "032-john-opening-supplement",
+      "status": "partial",
+      "anchor": "απεκρινατο",
+      "line": 30,
+      "source_locator": "TEI folio 64v, column 1, John.5.11, direct word απεκρινατο, line marker P64vC1L30-032S; NTVMR page 1280.",
+      "citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.11, direct word απεκρινατο, line marker P64vC1L30-032S; NTVMR page 1280.",
+      "reason": "A direct intact Greek word outside unclear, supplied, expanded, corrected, or marginal text supports partial survival only, without claiming whole-verse preservation or exact NA28 wording. The two John.5.11 page reviews belong to separate writing units of one physical codex; they count as one witness."
+    },
+    {
+      "osis_ref": "John.5.11",
+      "page_id": 1290,
+      "folio": "65r",
+      "unit_id": "032-john-original",
+      "status": "partial",
+      "anchor": "κραβαττον",
+      "line": 1,
+      "source_locator": "TEI folio 65r, column 1, John.5.11, direct word κραβαττον, line marker P65rC1L1-032; NTVMR page 1290.",
+      "citation": "IGNTP/ITSEE, GA 032 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml; pinned tests/fixtures/washingtonianus-john5-032-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 65r, column 1, John.5.11, direct word κραβαττον, line marker P65rC1L1-032; NTVMR page 1290.",
+      "reason": "A direct intact Greek word outside unclear, supplied, expanded, corrected, or marginal text supports partial survival only, without claiming whole-verse preservation or exact NA28 wording. The two John.5.11 page reviews belong to separate writing units of one physical codex; they count as one witness."
+    },
+    {
+      "osis_ref": "John.5.12",
+      "page_id": 1290,
+      "folio": "65r",
+      "unit_id": null,
+      "status": "uncertain",
+      "anchor": null,
+      "line": 1,
+      "source_locator": "TEI folio 65r, column 1, John.5.12, empty ab element between the surviving John.5.11 ending and John.5.13 opening; physical absence and scribal omission remain unverified.",
+      "citation": "IGNTP/ITSEE, GA 032 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml; pinned tests/fixtures/washingtonianus-john5-032-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 65r, column 1, John.5.12, empty ab element between the surviving John.5.11 ending and John.5.13 opening; physical absence and scribal omission remain unverified.",
+      "reason": "The index lists this verse but its TEI element is empty, with no text or explicit gap cause. There is no positive survival anchor. Keep coverage uncertain pending image or independent source review; no physical-absence, omission, dating, or ranking inference is made."
+    },
+    {
+      "osis_ref": "John.5.13",
+      "page_id": 1290,
+      "folio": "65r",
+      "unit_id": "032-john-original",
+      "status": "partial",
+      "anchor": "ουκ",
+      "line": 2,
+      "source_locator": "TEI folio 65r, column 1, John.5.13, direct word ουκ, line marker P65rC1L2-032; NTVMR page 1290.",
+      "citation": "IGNTP/ITSEE, GA 032 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml; pinned tests/fixtures/washingtonianus-john5-032-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 65r, column 1, John.5.13, direct word ουκ, line marker P65rC1L2-032; NTVMR page 1290.",
+      "reason": "A direct intact Greek word outside unclear, supplied, expanded, corrected, or marginal text supports partial survival only, without claiming whole-verse preservation or exact NA28 wording. The two John.5.11 page reviews belong to separate writing units of one physical codex; they count as one witness."
+    }
+  ]
+}

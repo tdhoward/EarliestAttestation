@@ -50,9 +50,20 @@ conditional date alternatives in a [reproducible chart](examples/gal1-p46-protot
 The [Galatians overlap increment](docs/GAL1_OVERLAP_REVIEW.md) now adds Alexandrinus,
 bringing that passage to two reviewed witnesses and ten positive witness/verse
 pairs in a [two-witness chart](examples/gal1-overlap-prototype.html). Both P46 date
-alternatives remain available. The next work is another overlapping witness with
-explicit writing-layer review, alongside independent source checking and a later
-supplement or boundary case.
+alternatives remain available. The [Sinaiticus writing-layer increment](docs/GAL1_SINAITICUS_REVIEW.md)
+adds a third witness and five partial reviews in a [new chart](examples/gal1-three-witness-prototype.html).
+Its original-text anchors exclude the explicitly recorded corrections, and four
+equal conditional combinations retain both P46 dates and both Sinaiticus source
+intervals. The [Washingtonianus supplement increment](docs/JOHN1_SUPPLEMENT_REVIEW.md)
+now adds the fifth witness at John 1:1–5 in a [new chart](examples/john1-five-witness-prototype.html),
+with 25 cited coverage cases. Its replacement quire receives a separate,
+qualified 601–800 CE assessment rather than the earlier manuscript catalogue date.
+The [John 5:9–13 boundary batch](docs/JOHN5_BOUNDARY_REVIEW.md) now reviews that
+codex across the supplement/original division in a
+[new chart](examples/john5-boundary-prototype.html). John 5:11 retains two dated
+writing portions but counts as one witness; the empty John 5:12 transcription
+remains uncertain. Next, check that unresolved source question and add an
+overlapping witness to the same mapped passage, alongside independent review.
 The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) defines the
 scope, acceptance criteria, and subsequent expansion; it is the source of current
 development priorities. The [bounded scope and development log](docs/PROTOTYPE_SCOPE.md)
@@ -187,6 +198,34 @@ source notes are retained, but settling its date or extending its dedicated
 dating review is not a project milestone.
 
 ## Current status
+
+The 2026-10-05 Washingtonianus boundary increment passes **121 offline tests**.
+Its fresh John 5 replay has zero audit findings, passes **5/5 cited coverage
+cases**, and makes zero replay network attempts. Five positive page reviews
+produce four positive witness/verse pairs across five new mapped coordinates;
+one review remains uncertain. The
+[source notes and commands](docs/JOHN5_BOUNDARY_REVIEW.md) retain both writing
+layers, conditional dates, measured effort, and five unanswered human-review
+questions. The shared benchmark checker now supports cited uncertain coverage
+without inferring survival or physical absence.
+
+The 2026-10-05 Washingtonianus increment passes **114 offline tests**. Its fresh
+five-witness John 1 replay has zero audit findings, passes **25/25 cited coverage
+cases**, and makes zero replay network attempts. The
+[source review and replay commands](docs/JOHN1_SUPPLEMENT_REVIEW.md) retain five
+transcription anchors, the explicit `57r Suppl` page link, separate supplement
+dating, measured retrieval effort, and five unanswered human-review questions.
+Earlier charts and replays remain available. Discovery and independent historical
+validation remain incomplete.
+
+The 2026-10-02 Sinaiticus increment passes **108 offline tests**. Its fresh
+three-witness Galatians replay has zero audit findings, passes **15/15 cited
+coverage cases**, and renders four conditional date combinations per verse with
+zero replay network attempts. The [source review and commands](docs/GAL1_SINAITICUS_REVIEW.md)
+record original-text anchors, correction exclusion, folio/page reconciliation,
+separate source date bounds, and five unanswered human-review questions. Earlier
+one- and two-witness replays remain available. Discovery and independent
+historical validation remain incomplete.
 
 The 2026-10-02 Galatians overlap increment passes **102 offline tests**. A fresh
 P46/Alexandrinus replay has zero audit findings, passes all ten cited benchmark
@@ -702,6 +741,28 @@ earlier two-witness increment, pass `--review benchmarks/john6-gap-reviewed-v1.j
 with a fresh destination and audit using its v1 benchmark. Both review versions
 retain the same coordinate inventory and conditional dating policy.
 
+## John 5 supplement/original boundary prototype
+
+The [John 5:9–13 chart](examples/john5-boundary-prototype.html) reviews one
+Washingtonianus codex across its later replacement quire and original writing.
+John 5:11 survives on both pages but counts once, using its original ending's
+conditional 400–499 CE assessment. The supplement's separately qualified
+601–800 CE interval remains available, including when the original review is
+withdrawn. John 5:12 is indexed but has an empty transcription element; its
+coverage stays uncertain, with no date or physical-absence inference.
+
+The [source review](docs/JOHN5_BOUNDARY_REVIEW.md) includes six page decisions,
+five explicit mappings, replay commands, measurements, and independent-review
+questions. The replay requires a fresh destination and uses pinned sources
+without network requests:
+
+```powershell
+python replay_john5_boundary.py --db data/john5-boundary-replay.sqlite
+python audit_reviewed.py --db data/john5-boundary-replay.sqlite --benchmark benchmarks/john5-boundary-evidence-benchmark-v1.json
+python export_attestation.py --db data/john5-boundary-replay.sqlite --inventory na28-john5-boundary-subset-v1 --policy john5-boundary-conditional-v1 --dataset-output data/john5-boundary-complete.json --graph-output examples/john5-boundary-graph-input.json
+python render_attestation.py --graph-input examples/john5-boundary-graph-input.json --output examples/john5-boundary-prototype.html
+```
+
 ## Reviewed-data audit and P52 replay
 
 The read-only reviewed-data audit checks SQLite integrity and foreign keys,
@@ -719,13 +780,16 @@ python audit_reviewed.py --db data/ntvmr-v2.sqlite --date-source benchmarks/p52-
 
 A benchmark JSON file uses `format_version: 1`, a `benchmark_id`, `inventory_id`,
 `policy_id`, and a nonempty `cases` array. Each case has `osis_ref`, `witness_id`,
-`expected_coverage` (`positive`, `rejected`, or `absent`), `coverage_citation`,
+`expected_coverage` (`positive`, `rejected`, `absent`, or `uncertain`), `coverage_citation`,
 `reviewed_on`
 (ISO date), and `expected_date` and `date_citation` (both `null` when no date is
 asserted). A date is a two-element inclusive CE interval, for example `[100, 200]`.
 The audit requires the cited current review and, when supplied, a selected valid
 date interval with the same citation. An `absent` case requires a current direct
-physical absence review and no conflicting positive coverage. It exits `1` on
+physical absence review and no conflicting positive coverage. An `uncertain`
+case requires a current cited uncertain coverage review with neither positive
+coverage nor a recorded physical absence, and cannot assert a numeric date.
+It exits `1` on
 findings and `2` if the audit cannot run. Format version 2 requires shared
 `coverage_citation` and
 `reviewed_on` fields and an `expected_status` field per case. The checked-in P52
@@ -856,6 +920,8 @@ as a verse with no attestation.
 | `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and additive v12 schema in the v2 replacement database |
 | `export_attestation.py` | Offline complete-inventory and filtered graph-data export |
 | `render_attestation.py`, `examples/john1-prototype.html` | Bounded offline chart renderer and four-witness John 1 prototype, with physical-review provenance |
+| `replay_gal1_sinaiticus.py`, `examples/gal1-three-witness-prototype.html` | Offline three-witness Galatians replay and chart with explicit correction review and four conditional combinations |
+| `replay_john5_boundary.py`, `examples/john5-boundary-prototype.html` | Offline five-coordinate Washingtonianus boundary replay with two writing layers, one codex, and an explicitly uncertain verse |
 | `review_absence.py` | Offline cited physical absence decisions and reports |
 | `replay_p52_benchmark.py`, `benchmarks/` | Offline, cited P52 subset inventory and review replay |
 | `replay_john1_prototype.py`, `benchmarks/john1-reviewed-v2.json` | Offline, cited John 1 review replay with three covered witnesses and 02 identity |

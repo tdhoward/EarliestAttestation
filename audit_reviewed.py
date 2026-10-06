@@ -62,12 +62,13 @@ def load_benchmark(path):
             date.fromisoformat(case["reviewed_on"])
         except ValueError as error:
             raise ValueError("Benchmark reviewed_on must be YYYY-MM-DD") from error
-        if case["expected_coverage"] not in ("positive", "rejected", "absent"):
-            raise ValueError("Expected coverage must be positive, rejected, or absent")
+        if case["expected_coverage"] not in ("positive", "rejected", "absent", "uncertain"):
+            raise ValueError("Expected coverage must be positive, rejected, absent, or uncertain")
         expected_status = case.get("expected_status")
         if expected_status is not None and expected_status not in (
                 ("partial", "full") if case["expected_coverage"] == "positive"
                 else ("rejected",) if case["expected_coverage"] == "rejected"
+                else ("uncertain",) if case["expected_coverage"] == "uncertain"
                 else ("absent",)):
             raise ValueError("Expected status conflicts with coverage expectation")
         interval = case["expected_date"]
@@ -333,6 +334,9 @@ def audit_database(db_path, benchmark=None, source_controls=None, date_source=No
                                 row["status"] == case["expected_status"]) and
                                row["citation"] == case["coverage_citation"] and
                                not row["review_needed"] for row in matching)
+                uncertain = any(row["status"] == "uncertain" and
+                                row["citation"] == case["coverage_citation"] and
+                                not row["review_needed"] for row in matching)
                 any_positive = any(row["status"] in ("partial", "full") and
                                    not row["review_needed"] for row in matching)
                 current_absences = [row for row in
@@ -346,6 +350,8 @@ def audit_database(db_path, benchmark=None, source_controls=None, date_source=No
                            case["expected_coverage"] == "positive"
                            else rejected and not any_positive if
                            case["expected_coverage"] == "rejected"
+                           else uncertain and not any_positive and not current_absences if
+                           case["expected_coverage"] == "uncertain"
                            else absent and not any_positive)
                 if not matched:
                     findings.append(_finding("benchmark_coverage_mismatch", key))

@@ -150,9 +150,25 @@ than another collection framework. The next increment should:
    The [Galatians overlap increment](GAL1_OVERLAP_REVIEW.md) adds Alexandrinus with
    five further partial reviews, reconciled page/folio links, and a separate original
    writing unit. The chart now has two witnesses per verse and preserves both P46
-   date alternatives. Next, review another overlapping witness (the retrieved
-   Sinaiticus transcription still needs page and writing-layer checks), or add a
-   Pauline boundary or later-supplement case for the wider representative benchmark.
+   date alternatives. The [Sinaiticus increment](GAL1_SINAITICUS_REVIEW.md) now
+   completes another overlapping-witness review: five original-base-text anchors,
+   explicit exclusion of recorded corrections, reconciled folio 278v/page 1580,
+   and two separate valid date inputs plus a qualified unknown observation. Its
+   three-witness chart has fifteen positive pairs and four equal conditional
+   combinations. The [Washingtonianus supplement increment](JOHN1_SUPPLEMENT_REVIEW.md)
+   now supplies a source-documented later replacement quire at John 1:1–5,
+   extending that chart to five witnesses and 25 positive pairs. Its separate
+   conditional 601–800 CE assessment preserves the source's qualification and
+   avoids applying the manuscript's earlier catalogue date to replacement text.
+   The [John 5:9–13 boundary batch](JOHN5_BOUNDARY_REVIEW.md) now reviews that
+   supplement/original division: five positive page decisions yield four positive
+   witness/verse pairs, while the empty John 5:12 transcription remains uncertain.
+   John 5:11 retains separately dated portions on both pages but counts as one
+   codex, with a tested fallback to its supplement if the original review is
+   withdrawn. Next, check the John 5:12 image/source question and add an overlapping
+   witness to the same mapped passage. Time source reading separately from
+   implementation; retain per-verse exceptions rather than inferring survival
+   from indexing or empty transcription elements.
    The ready human-review questions remain
    unanswered. Continue bounded, budgeted collection without claiming exhaustive
    discovery.
@@ -198,6 +214,55 @@ covered five anchors, one page reconciliation, and one date-source check; elapse
 source-review time was not reliably measured across the interrupted session.
 The remaining cost is per-verse source/layer review. Nine specific human-review
 questions are prepared and unanswered; discovery remains incomplete.
+
+The 2026-10-02 [Sinaiticus writing-layer review](GAL1_SINAITICUS_REVIEW.md) passes
+**108 offline tests** and all **15 cited Galatians evidence cases**, with zero
+structural findings and zero replay network attempts. The separate
+[three-witness replay](../replay_gal1_sinaiticus.py) reuses both earlier manifests
+and leaves their replays and charts available. It adds one original-writing unit,
+five coverage assignments, two valid conditional date assessments, and one
+qualified unknown observation. Source-specific 300–399 and 301–400 CE inputs
+remain separate; corrected readings do not supply anchors or acquire the
+original-writing date. One metadata response was retrieved through the existing
+configured proxy after a direct timeout, and a university-source verification
+matched the already retrieved transcription. Source and implementation work took
+approximately ten minutes after the first metadata attempt; isolated review time
+was not measured. Five specific independent-review questions are ready and
+unanswered. Historical validation and discovery remain incomplete.
+
+The 2026-10-05 [Washingtonianus supplement review](JOHN1_SUPPLEMENT_REVIEW.md)
+passes **114 offline tests**, with **25/25 cited John 1 coverage cases**, zero
+fresh audit findings, and zero replay network attempts. Its separate
+[five-witness replay](../replay_john1_supplement.py) adds one physical witness,
+one supplement writing unit, five coverage assignments, and one qualified
+conditional date assessment. The five verses reach five witnesses at 601 CE in
+the optimistic scenario and 800 CE in the pessimistic scenario. The manuscript's
+400–499 CE catalogue fields remain in captured metadata and are not applied to
+the replacement quire. Two budgeted NTVMR requests succeeded through the project's
+configured proxy; the original and supplement transcriptions were downloaded
+separately. About 30 seconds elapsed from the supplement capture to the final
+index capture, excluding source reading and earlier scouting. Manual review
+covered five anchors/lines, one page/identity link, and one layer/date source
+check; total review time was not separately measured. No schema or collection
+framework changed. Five specific independent-review questions are ready and
+unanswered; discovery and historical validation remain incomplete.
+
+The 2026-10-05 [Washingtonianus boundary review](JOHN5_BOUNDARY_REVIEW.md) passes
+**121 offline tests** and **5/5 cited benchmark cases**, with zero fresh audit
+findings and zero replay network attempts. Its [chart](../examples/john5-boundary-prototype.html)
+adds five source-mapped coordinates, six page reviews (five positive, one
+uncertain), two writing units, and two separate conditional date assessments for
+one codex. The original 400–499 CE input applies only to reviewed text on 65r;
+the qualified 601–800 CE input applies to the replacement quire on 64v. An empty
+John 5:12 element is retained as uncertain without a physical-absence claim.
+Two university downloads matched the cached full sources; existing NTVMR captures
+were reused with no new NTVMR requests. A recorded 6-minute-16-second interval
+includes source reconciliation, fixture/replay implementation, and the first
+audit/export/render, excluding initial inspection and later tests/documentation.
+It does not measure isolated reading or total effort. Five independent-review
+questions are ready and unanswered. Existing schema, review APIs, exporter, and
+renderer suffice; the shared benchmark gains an explicit uncertain expectation
+for this real exception. Discovery and historical validation remain incomplete.
 
 ### Prototype implementation checklist (completed for the bounded scope)
 

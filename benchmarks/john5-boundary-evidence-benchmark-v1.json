@@ -1,0 +1,58 @@
+{
+  "format_version": 1,
+  "benchmark_id": "john5-boundary-evidence-benchmark-v1",
+  "inventory_id": "na28-john5-boundary-subset-v1",
+  "policy_id": "john5-boundary-conditional-v1",
+  "cases": [
+    {
+      "osis_ref": "John.5.9",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.9, direct word υγιης, line marker P64vC1L22-032S; NTVMR page 1280.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.10",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.10, direct word ιουδεοι, line marker P64vC1L27-032S; NTVMR page 1280.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.11",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.11, direct word απεκρινατο, line marker P64vC1L30-032S; NTVMR page 1280.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.12",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "uncertain",
+      "expected_status": "uncertain",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml; pinned tests/fixtures/washingtonianus-john5-032-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 65r, column 1, John.5.12, empty ab element between the surviving John.5.11 ending and John.5.13 opening; physical absence and scribal omission remain unverified.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.13",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml; pinned tests/fixtures/washingtonianus-john5-032-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 65r, column 1, John.5.13, direct word ουκ, line marker P65rC1L2-032; NTVMR page 1290.",
+      "reviewed_on": "2026-10-05"
+    }
+  ]
+}

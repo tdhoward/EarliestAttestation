@@ -1,0 +1,98 @@
+{
+  "format_version": 1,
+  "review_id": "gal1-sinaiticus-reviewed-v1",
+  "base_review": "benchmarks/gal1-overlap-reviewed-v1.json",
+  "inventory_id": "na28-gal1-p46-subset-v1",
+  "policy_id": "gal1-three-witness-conditional-v1",
+  "reviewed_on": "2026-10-02",
+  "reviewer": "Codex source review; independent human validation pending",
+  "independent_human_validation": false,
+  "discovery_note": "Three explicitly chosen witnesses: P46, Sinaiticus, and Alexandrinus. Discovery is incomplete beyond this set; no exhaustive earliest-attestation claim.",
+  "doc_id": 20001,
+  "ga_num": "01",
+  "witness_id": "01-sinaiticus",
+  "witness_label": "01 (Codex Sinaiticus)",
+  "classification_citation": "INTF/ITSEE, Sinaiticus Galatians TEI title n=01 key=20001, sourceDesc British Library Add. 43725, https://itseeweb.cal.bham.ac.uk/epistulae/transcriptions/greek/Gal/NT_GRC_01_Gal.xml; captured NTVMR metadata identifies the same manuscript. Consulted 2026-10-02.",
+  "identity_citation": "INTF/ITSEE, Sinaiticus Galatians TEI title n=01 key=20001, sourceDesc British Library Add. 43725, https://itseeweb.cal.bham.ac.uk/epistulae/transcriptions/greek/Gal/NT_GRC_01_Gal.xml; captured NTVMR metadata identifies the same manuscript. Consulted 2026-10-02.",
+  "unit_id": "01-sinaiticus-gal1-original",
+  "unit_label": "Reviewed main writing on the Sinaiticus Galatians opening folio",
+  "unit_reason": "Only intact direct base-text words outside apparatus, supplied or unclear text, and abbreviation expansions support these partial reviews. The transcription separately marks orig/firsthand and corr/corrector1 or corr/corrector2 readings in Gal.1.1 and Gal.1.4. Those corrections and the corrected marginal inscription supply no coverage anchor or date. Original writing applies only to the reviewed base-text portions; no specific scribe is inferred.",
+  "unit_citation": "INTF transcription converted to XML by ITSEE, University of Birmingham, Sinaiticus Galatians, published 13.5.2024, proofread 2021-10-19, https://itseeweb.cal.bham.ac.uk/epistulae/transcriptions/greek/Gal/NT_GRC_01_Gal.xml; folio 278v, column 3, Gal.1.1-Gal.1.5. Captured NTVMR metadata https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20001&detail=10&format=json links folio 278v to pageID 1580. Consulted 2026-10-02.",
+  "coverage_citation": "INTF transcription converted to XML by ITSEE, University of Birmingham, Sinaiticus Galatians, published 13.5.2024, proofread 2021-10-19, https://itseeweb.cal.bham.ac.uk/epistulae/transcriptions/greek/Gal/NT_GRC_01_Gal.xml; folio 278v, column 3, Gal.1.1-Gal.1.5. Captured NTVMR metadata https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20001&detail=10&format=json links folio 278v to pageID 1580. Consulted 2026-10-02.",
+  "consensus_status": "unknown",
+  "consensus_note": "Source descriptions remain conditional, with no independently established consensus or selected date. Catalogue numeric bounds and the project century conversion are preserved separately. Both P46 alternatives remain available; corrections receive no original-writing date.",
+  "metadata_fixture": "tests/fixtures/sinaiticus_metadata_probe.json",
+  "index_fixture": "tests/fixtures/sinaiticus_coverage_probe.json",
+  "transcription_fixture": "tests/fixtures/sinaiticus-gal1-transcription.json",
+  "date_source_fixture": "tests/fixtures/sinaiticus-date-source.json",
+  "assessments": [
+    {
+      "status": "valid",
+      "date_min": 300,
+      "date_max": 399,
+      "original_notation": "IV",
+      "citation": "INTF, NTVMR Sinaiticus metadata, originYear.content IV, originYear.early 300, originYear.late 399, https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20001&detail=10&format=json; pinned in tests/fixtures/sinaiticus_metadata_probe.json; checked 2026-10-02. Numeric bounds copied directly; applied conditionally to reviewed original base text, not later corrections."
+    },
+    {
+      "status": "valid",
+      "date_min": 301,
+      "date_max": 400,
+      "original_notation": "fourth century",
+      "citation": "Codex Sinaiticus Project, Date, https://www.codexsinaiticus.org/en/codex/date.aspx; consulted 2026-10-02. Its fourth-century description is converted to the complete century 301-400 CE; retained separately from NTVMR explicit 300-399 bounds. Applied conditionally to the reviewed original base text, not later corrections."
+    },
+    {
+      "status": "unknown",
+      "date_min": null,
+      "date_max": null,
+      "original_notation": "middle of that century",
+      "citation": "Codex Sinaiticus Project, Date, https://www.codexsinaiticus.org/en/codex/date.aspx; consulted 2026-10-02. The qualified middle-of-century description states no inclusive numerical endpoints, so no numeric precision is inferred."
+    }
+  ],
+  "positive_reviews": [
+    {
+      "osis_ref": "Gal.1.1",
+      "page_id": 1580,
+      "folio": "278v",
+      "anchor": "παυλος",
+      "relative_line": 1,
+      "source_locator": "TEI folio 278v, column 3, Gal.1.1, intact direct base-text word παυλος; relative line 1 counted from the start of Gal.1.1, not an absolute manuscript line number.",
+      "reason": "Identifiable surviving main-text Greek supports partial verse coverage. Correction readings, supplied or unclear text, expanded abbreviations, and the corrected marginal inscription do not supply this anchor. No claim of complete preservation or exact NA28 wording. The separate orig/firsthand αυτων and corr/corrector1 αυτον apparatus is retained for review; the direct παυλος anchor uses neither reading."
+    },
+    {
+      "osis_ref": "Gal.1.2",
+      "page_id": 1580,
+      "folio": "278v",
+      "anchor": "αδελφοι",
+      "relative_line": 8,
+      "source_locator": "TEI folio 278v, column 3, Gal.1.2, intact direct base-text word αδελφοι; relative line 8 counted from the start of Gal.1.1, not an absolute manuscript line number.",
+      "reason": "Identifiable surviving main-text Greek supports partial verse coverage. Correction readings, supplied or unclear text, expanded abbreviations, and the corrected marginal inscription do not supply this anchor. No claim of complete preservation or exact NA28 wording."
+    },
+    {
+      "osis_ref": "Gal.1.3",
+      "page_id": 1580,
+      "folio": "278v",
+      "anchor": "ειρηνη",
+      "relative_line": 11,
+      "source_locator": "TEI folio 278v, column 3, Gal.1.3, intact direct base-text word ειρηνη; relative line 11 counted from the start of Gal.1.1, not an absolute manuscript line number.",
+      "reason": "Identifiable surviving main-text Greek supports partial verse coverage. Correction readings, supplied or unclear text, expanded abbreviations, and the corrected marginal inscription do not supply this anchor. No claim of complete preservation or exact NA28 wording."
+    },
+    {
+      "osis_ref": "Gal.1.4",
+      "page_id": 1580,
+      "folio": "278v",
+      "anchor": "αμαρτιων",
+      "relative_line": 15,
+      "source_locator": "TEI folio 278v, column 3, Gal.1.4, intact direct base-text word αμαρτιων; relative line 15 counted from the start of Gal.1.1, not an absolute manuscript line number.",
+      "reason": "Identifiable surviving main-text Greek supports partial verse coverage. Correction readings, supplied or unclear text, expanded abbreviations, and the corrected marginal inscription do not supply this anchor. No claim of complete preservation or exact NA28 wording. Three orig/firsthand and corr/corrector2 apparatus entries mark a substitution, transposition, and addition. The direct αμαρτιων anchor lies outside all three."
+    },
+    {
+      "osis_ref": "Gal.1.5",
+      "page_id": 1580,
+      "folio": "278v",
+      "anchor": "δοξα",
+      "relative_line": 21,
+      "source_locator": "TEI folio 278v, column 3, Gal.1.5, intact direct base-text word δοξα; relative line 21 counted from the start of Gal.1.1, not an absolute manuscript line number.",
+      "reason": "Identifiable surviving main-text Greek supports partial verse coverage. Correction readings, supplied or unclear text, expanded abbreviations, and the corrected marginal inscription do not supply this anchor. No claim of complete preservation or exact NA28 wording."
+    }
+  ]
+}

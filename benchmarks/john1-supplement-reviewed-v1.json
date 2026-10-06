@@ -1,0 +1,86 @@
+{
+  "format_version": 1,
+  "review_id": "john1-supplement-reviewed-v1",
+  "base_review": "benchmarks/john1-reviewed-v3.json",
+  "inventory_id": "na28-john1-prototype-subset-v2",
+  "policy_id": "john1-supplement-conditional-v1",
+  "reviewed_on": "2026-10-05",
+  "reviewer": "Codex source review, 2026-10-05; independent human validation pending",
+  "independent_human_validation": false,
+  "discovery_note": "Five explicitly chosen physical witnesses, P66, P75, 01, 02, and 032. The 032S supplement belongs to 032 and counts once. No exhaustive discovery or earliest-attestation claim. Existing immutable five-verse coordinate mappings are reused.",
+  "doc_id": 20032,
+  "ga_num": "032",
+  "witness_id": "032-washingtonianus",
+  "witness_label": "032 (Codex Washingtonianus; John opening supplement)",
+  "classification_citation": "IGNTP/ITSEE, GA 032S transcription header, title key 20032 and shelfmark Smithsonian Institution, Freer Gallery of Art, 06.274, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; NTVMR docID 20032 (GA 32), https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json. Smithsonian collection record F1906.274, https://collections.si.edu/search/detail/edanmdm%3Afsg_F1906.274. Consulted 2026-10-05.",
+  "identity_citation": "IGNTP/ITSEE, GA 032S transcription header, title key 20032 and shelfmark Smithsonian Institution, Freer Gallery of Art, 06.274, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; NTVMR docID 20032 (GA 32), https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json. Smithsonian collection record F1906.274, https://collections.si.edu/search/detail/edanmdm%3Afsg_F1906.274. Consulted 2026-10-05.",
+  "unit_id": "032-john-opening-supplement",
+  "unit_label": "Later replacement quire at the John opening of Washingtonianus",
+  "unit_kind": "supplement",
+  "unit_reason": "The transcription is explicitly GA 032S (same physical document key 20032), and NTVMR labels folio 57r Suppl. Prior identifies John 1:1-5:11a as a replacement quire. Here firsthand labels refer to that quire, not the earlier original codex writing. Only five direct surviving words outside unclear, supplied, expanded, corrected, or marginal text are assigned to the supplement.",
+  "unit_citation": "IGNTP GA 032S header and folio 57r, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; NTVMR page 1130, https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json; J. Bruce Prior, BBR 11.2 (2001), p. 233, The Freer Gospels, first paragraph, https://www.galaxie.com/article/bbr11-2-05; checked 2026-10-05.",
+  "coverage_citation": "IGNTP/ITSEE, Washingtonianus Supplement John transcription (GA 032S), version 2.1 with 2024 revision, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; folio 57r, column 1, John.1.1-John.1.5, direct base text. NTVMR https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=20032&detail=10&format=json, pageID 1130, labels folio 57r Suppl, John 1:1-15. Consulted 2026-10-05.",
+  "consensus_status": "unknown",
+  "consensus_note": "Current scholarly consensus is unknown. Each sourced usable range remains a conditional input; no scholar is selected and no ranges are narrowed, averaged, or merged. Earlier witnesses retain their existing assessments.",
+  "catalogue_date_exclusion": "NTVMR originYear V, 400-499 CE, is retained in raw manuscript metadata but is not applied to the opening replacement quire. The reviewed layer has its own qualified scholarly assessment.",
+  "metadata_fixture": "tests/fixtures/washingtonianus_metadata_probe.json",
+  "index_fixture": "tests/fixtures/washingtonianus_coverage_probe.json",
+  "transcription_fixture": "tests/fixtures/washingtonianus-john1-transcription.json",
+  "date_source_fixture": "tests/fixtures/washingtonianus-supplement-date-source.json",
+  "assessments": [
+    {
+      "status": "valid",
+      "date_min": 601,
+      "date_max": 800,
+      "original_notation": "perhaps to the seventh or eighth century",
+      "citation": "J. Bruce Prior, Who Is Full of Grace and Truth in the Ws Text of John 1:14?, Bulletin for Biblical Research 11.2 (2001), p. 233, The Freer Gospels, first paragraph, https://www.galaxie.com/article/bbr11-2-05; checked 2026-10-05, pinned short quotation in tests/fixtures/washingtonianus-supplement-date-source.json. The replacement quire is dated perhaps to the seventh or eighth century. Complete-century conversion is 601-800 CE inclusive, conditional and retaining perhaps. Applied only to the reviewed supplement; not the original codex date, not a current consensus or probability claim."
+    }
+  ],
+  "positive_reviews": [
+    {
+      "osis_ref": "John.1.1",
+      "page_id": 1130,
+      "folio": "57r",
+      "anchor": "αρχη",
+      "line": 2,
+      "source_locator": "TEI folio 57r, column 1, John.1.1, direct word αρχη, line marker P57rC1L2-032S; NTVMR page 1130, folio label 57r Suppl.",
+      "reason": "Identifiable surviving Greek in the replacement quire supports conservatively partial coverage. Supplied or unclear letters, expanded abbreviations, inscriptions, margins, and corrections do not supply the anchor. No claim of complete survival or exact NA28 wording; the original manuscript catalogue date does not date this supplement."
+    },
+    {
+      "osis_ref": "John.1.2",
+      "page_id": 1130,
+      "folio": "57r",
+      "anchor": "ουτος",
+      "line": 3,
+      "source_locator": "TEI folio 57r, column 1, John.1.2, direct word ουτος, line marker P57rC1L3-032S; NTVMR page 1130, folio label 57r Suppl.",
+      "reason": "Identifiable surviving Greek in the replacement quire supports conservatively partial coverage. Supplied or unclear letters, expanded abbreviations, inscriptions, margins, and corrections do not supply the anchor. No claim of complete survival or exact NA28 wording; the original manuscript catalogue date does not date this supplement."
+    },
+    {
+      "osis_ref": "John.1.3",
+      "page_id": 1130,
+      "folio": "57r",
+      "anchor": "παντα",
+      "line": 4,
+      "source_locator": "TEI folio 57r, column 1, John.1.3, direct word παντα, line marker P57rC1L4-032S; NTVMR page 1130, folio label 57r Suppl.",
+      "reason": "Identifiable surviving Greek in the replacement quire supports conservatively partial coverage. Supplied or unclear letters, expanded abbreviations, inscriptions, margins, and corrections do not supply the anchor. No claim of complete survival or exact NA28 wording; the original manuscript catalogue date does not date this supplement."
+    },
+    {
+      "osis_ref": "John.1.4",
+      "page_id": 1130,
+      "folio": "57r",
+      "anchor": "αυτω",
+      "line": 6,
+      "source_locator": "TEI folio 57r, column 1, John.1.4, direct word αυτω, line marker P57rC1L6-032S; NTVMR page 1130, folio label 57r Suppl.",
+      "reason": "Identifiable surviving Greek in the replacement quire supports conservatively partial coverage. Supplied or unclear letters, expanded abbreviations, inscriptions, margins, and corrections do not supply the anchor. No claim of complete survival or exact NA28 wording; the original manuscript catalogue date does not date this supplement."
+    },
+    {
+      "osis_ref": "John.1.5",
+      "page_id": 1130,
+      "folio": "57r",
+      "anchor": "κατελαβεν",
+      "line": 8,
+      "source_locator": "TEI folio 57r, column 1, John.1.5, direct word κατελαβεν, line marker P57rC1L8-032S; NTVMR page 1130, folio label 57r Suppl.",
+      "reason": "Identifiable surviving Greek in the replacement quire supports conservatively partial coverage. Supplied or unclear letters, expanded abbreviations, inscriptions, margins, and corrections do not supply the anchor. No claim of complete survival or exact NA28 wording; the original manuscript catalogue date does not date this supplement."
+    }
+  ]
+}
