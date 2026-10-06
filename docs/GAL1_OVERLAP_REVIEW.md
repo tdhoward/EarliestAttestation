@@ -1,5 +1,15 @@
 # Galatians 1:1–5 overlapping-witness review
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 Reviewed 2026-10-02 by Codex. Independent human validation: **pending**.
 
 The [two-witness chart](../examples/gal1-overlap-prototype.html) adds Alexandrinus
@@ -114,6 +124,12 @@ increment does not justify bulk collection or an automated survival classifier.
 
 ## Independent review questions
 
+> **Withdrawn packet.** The questions below are preserved solely as historical
+> context. Do not carry out their image, Greek-text, survival, or hand-identification
+> checks, and do not ask the owner or a specialist to complete them for this
+> project. Optional human checks now concern accurate copying of explicit
+> published reports only.
+
 All answers are **unanswered**. For each item, record **agree**, **disagree**, or
 **unable to assess**, plus corrections, reviewer identity, and date. Answers belong
 in a separate human review record tied to `gal1-overlap-reviewed-v1`, the pinned
@@ -131,6 +147,6 @@ source hashes, and the indicated row; they must not overwrite this agent review.
 | Date-source fidelity | Does metadata reproduce notation V and numeric bounds 400–499 without converting or narrowing them? | Catalogue comparison |
 | Writing-layer applicability | Does the source support assigning only these anchors to original main writing, excluding the marginal inscription and later additions, and applying the codex assessment conditionally to them? | Greek and codicological expertise |
 
-These checks do not ask reviewers to resolve manuscript dating disputes. Unanswered
-questions remain open while prototype development continues. The next bounded
-work is Sinaiticus page/layer review or a Pauline boundary/later-supplement case.
+These historical questions and the former page/layer-examination follow-ups are
+withdrawn. Optional checks now concern faithful copying of explicit scholarly
+reports only. Use the [current development plan](DEVELOPMENT_PLAN.md#next-development-work).

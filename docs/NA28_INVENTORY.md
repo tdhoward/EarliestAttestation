@@ -1,5 +1,12 @@
 # Provisional NA28 New Testament reference inventory
 
+**Current scope, clarified 2026-10-05:** this inventory records published edition
+coordinates and mappings to scholarly sources' reference systems. Manuscript
+contents and dates come exclusively from explicit scholarly reports, preferably
+NTVMR. Mapping work must not involve manuscript images or Greek transcription
+examination. Follow [AGENTS.md](../AGENTS.md) and the
+[current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 The current [v3 inventory manifest](../benchmarks/na28-nt-reference-provisional-v3.json)
 contains reference coordinates for all 27 New Testament books and 260 chapters.
 The [coordinate ledger](../benchmarks/na28-coordinate-source-v1.json) records the
@@ -10,8 +17,9 @@ The [v2 review record](../benchmarks/na28-coordinate-review-v2.json) replaces th
 and its source ledger remain unchanged. The [v3 passage review](../benchmarks/na28-passage-identifications-v1.json)
 identifies all 16 traditional skipped passages while leaving their NTVMR mappings unresolved.
 Only verse coordinates and source metadata are retained; no edition text is copied.
-This is a machine-checked, provisional inventory, not an independent editorial
-certification of every NA28 verse or a complete NTVMR mapping.
+This is a machine-checked, provisional compilation of published coordinates;
+source-to-inventory mappings remain incomplete. The project does not undertake
+independent editorial certification of NA28.
 
 The source is Deutsche Bibelgesellschaft's online *Novum Testamentum Graece*,
 28th revised edition (2012). For example, its pages for
@@ -71,7 +79,8 @@ about whether a manuscript contains text associated with that number.
 The 26 `bracketed` coordinates are Mark 16:9–20, Luke 22:43–44, and
 John 7:53–8:11. Luke 23:34 remains `main` with a note that the publisher
 double-brackets only part of that verse. These status choices describe the
-displayed edition and remain subject to independent editorial review.
+displayed edition and can be corrected if comparison with the publisher's
+reported markers finds a recording error. No manuscript examination is involved.
 
 The five NTVMR mappings are John 18:31–33 and 18:37–38, checked against the
 [captured P52 response](../tests/fixtures/p52_coverage_probe.json). Every other
@@ -83,43 +92,43 @@ always false; edition and mapping review are still outstanding.
 
 ## Development priority and mapping workload
 
-The whole-NT coordinate inventory already exists. The immediate task is to map
-and review the short passage chosen for the
-[prototype graph milestone](DEVELOPMENT_PLAN.md#next-development-work), then
-connect it to real witness evidence. Completing all 7,952 pending mappings or
-independent editorial certification of the whole inventory is not a prerequisite
-for that prototype. Check the coordinates and editorial cases used in its scope;
-keep all other mappings explicitly unresolved.
+The whole-NT coordinate inventory already exists. Map the bounded scope chosen
+for the [collection-to-chart milestone](DEVELOPMENT_PLAN.md#next-development-work)
+using documented versification and published reference metadata, then connect
+it to scholarly reports of manuscript contents. Completion of all 7,952 pending
+mappings is not a prerequisite for that chart.
 
-Measure mapping and source-review effort for the first passage before expanding.
-Where sources support a shared mapping rule, a versioned batch import can record
-its scope, citation, reviewer, and exceptions rather than requiring repetitive
-manual commands. Do not infer equivalence from matching verse numbers alone or
-infer surviving text from a coordinate mapping. Preserve explicit per-coordinate
-mappings and provenance in new immutable snapshots. Broader automation should
-address measured work; it must not lower the evidence standard.
+Where a source contract supports a shared mapping rule, record its scope,
+citation, and exceptions in a versioned batch import. Preserve explicit mappings
+and provenance in immutable snapshots; keep unresolved cases visible. A coordinate
+mapping alone does not assert presence, but an explicit scholarly contents report
+can support it without independent physical verification. Do not use Greek text
+or images to resolve ambiguous boundaries. Measure mapping and collection effort
+and expand supported batches without creating per-verse examination tasks.
 
 ## Supplementary collection and display policy
 
 Retain the 16 skipped traditional coordinates and collect their manuscript
 evidence as supplementary data. `omitted` is an edition-status tag, not a reason
-to discard a candidate or its reviewed evidence. Apply the same coverage,
-writing-layer dating, and distinct-witness counting standards as for the core
-inventory. Establish dates and witness support individually; edition status does
-not imply a late date or any particular amount of surviving evidence.
+to discard a source report. Apply the same reported-contents, sourced-dating,
+and distinct-witness counting rules as for the core inventory. Any reported
+portion counts as the verse being present; explicit scholarly disagreement is
+contested and can be deferred. Edition status implies neither a date nor presence.
 
-Before accepting coverage, cite a reference identifying the traditional passage
-represented by each skipped coordinate and review its NTVMR mappings. A matching
-verse number alone is insufficient, and the skipped NA28 number supplies no
-main-text wording for comparison. Preserve relevant passage-boundary and wording
-notes without expanding the project into exact-wording attestation.
+Use a published reference identifying the traditional passage represented by each
+skipped coordinate and a documented mapping to the source's reference system.
+Preserve source-supplied boundary notes; do not independently compare Greek
+wording. An unresolved mapping stays unknown rather than triggering manuscript
+research. Existing inventory constraints are described below as implementation
+behavior, not permission to examine a manuscript.
 
 The planned default graph excludes `omitted` coordinates and offers an **Include
 verses omitted from NA28** option. Bracketed passages have a separate inclusion
 control. Keep editorial uncertainty explicit. Record inclusion settings and the
 resulting verse population in graph exports and summary counts; filtering a view
-never deletes stored evidence. Distinguish edition omission from verified
-manuscript absence, a physical lacuna, and unreviewed or missing indexing. A
+never deletes stored reports. Distinguish edition omission from explicitly
+reported absence, contested contents, and unknown or missing indexing. Record a
+physical lacuna only as a source's explicit claim, never our own inference. A
 filtered-out coordinate is not a zero-attestation result.
 
 V3 cites the publisher's Lutherbibel 1912 displays for all 16 skipped
@@ -143,7 +152,8 @@ unchanged. Supplementary collection can
 proceed alongside core collection, but its completion is not a prerequisite for
 the core prototype, core NA28 dataset completion, or publication. Report
 completeness separately for the core and supplementary scopes, and apply the same validation requirements to
-any supplementary evidence included in a published graph.
+any supplementary reports included in a published graph. Validation checks
+faithful extraction and mapping, not independent manuscript or scholarly review.
 
 ## Reproduce the inventory
 
@@ -161,7 +171,7 @@ python sync_ntvmr.py --offline --db data/na28-inventory-v3.sqlite --inventory-re
 The importer is idempotent for each exact manifest. Corrections require new
 inventory IDs because imported snapshots are immutable. All 16 skipped
 traditional passages already have cited identifications in v3; their NTVMR
-mappings remain unresolved. Next, establish mappings and check editorial cases
-for the prototype's declared passage in a new versioned snapshot. Extend the
-remaining core and supplementary mappings in measured increments after that
-workflow is demonstrated. No manuscript dating judgment is involved.
+mappings remain unresolved. Next, apply documented mapping rules to the
+collection-to-chart milestone's declared scope in a new versioned snapshot.
+Extend supported core and supplementary batches after that workflow is
+demonstrated. Neither manuscript examination nor dating judgments are involved.

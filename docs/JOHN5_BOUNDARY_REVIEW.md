@@ -1,5 +1,15 @@
 # Washingtonianus at the John 5:9–13 writing boundary
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 Reviewed 2026-10-05 by Codex. Independent human validation: **pending**.
 
 The [boundary chart](../examples/john5-boundary-prototype.html) adds five mapped
@@ -179,6 +189,12 @@ numbers do not justify whole-corpus automation or a general TEI classifier.
 
 ## Independent review questions
 
+> **Withdrawn packet.** The questions below are preserved solely as historical
+> context. Do not carry out their image, Greek-text, survival, or hand-identification
+> checks, and do not ask the owner or a specialist to complete them for this
+> project. Optional human checks now concern accurate copying of explicit
+> published reports only.
+
 All answers are **unanswered**. Record **agree**, **disagree**, or **unable to
 assess**, with reviewer identity, date, corrections, and notes. Keep human
 answers separate from Codex reviews and automated checks.
@@ -207,8 +223,7 @@ answers separate from Codex reviews and automated checks.
    and show John 5:12 as uncertain? Are incomplete discovery and pending human
    validation clearly stated?
 
-Next, check the John 5:12 image/source question and add an overlapping witness
-to this same five-coordinate passage, timing source reading separately from
-implementation. This will reuse the new mappings and exercise comparison at a
-layer boundary. Whole-NT mappings, exhaustive discovery, and independent
-historical publication review remain open.
+The former John 5:12 image-examination task and overlapping-witness examination
+increment are withdrawn. Seek only explicit scholarly contents reports; preserve
+unknowns or disagreements without interpreting the manuscript or its transcription.
+Use the [current collection-to-chart plan](DEVELOPMENT_PLAN.md#next-development-work).

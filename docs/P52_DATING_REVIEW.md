@@ -1,5 +1,15 @@
 # Bounded P52 source and dating review
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 P52 is an example manuscript and regression-test fixture. This document preserves
 the existing source review; it is not an active task to resolve P52's date.
 The [project dating policy](../README.md#manuscript-dating-policy) supersedes the
@@ -74,30 +84,22 @@ Neither calculation gives an interval scholarly preference. Sourced ranges remai
 possibilities unless documented consensus is known. Source descriptions without
 usable numeric bounds remain visible without invented dates.
 
-Keep this fixture as regression coverage. The next development effort is the
-[bounded graph with several real witnesses](DEVELOPMENT_PLAN.md#next-development-work).
-The P52 example now demonstrates coverage-unit assignments through the normal
-workflow; additional witnesses still need their own cited inputs. This does not
-reopen P52 dating research or require a
-preferred P52 date. Prototype work may proceed before the independent source
-checks required for historical publication, with its review status explicit.
+This fixture remains available for historical regression checks. Before reusing
+its claims in active results, check attribution to explicit scholarly reports,
+not the manuscript itself. The next work is the
+[collection-to-chart pipeline](DEVELOPMENT_PLAN.md#next-development-work).
+Neither a preferred P52 date nor independent manuscript certification is required.
 
 ## Scope of any future source check
 
-No further P52-specific dating investigation is a development milestone. If these
-records are checked for reuse, record the reviewer, review date, source locations,
-and any recording corrections in a new versioned manifest. The check covers:
+No further P52-specific manuscript or dating investigation is a development
+milestone. To reuse a record, identify the explicit scholarly assertion it copies
+and preserve its citation, date notation, qualifications, and any documented
+conversion. Verify copying and mapping only. Do not inspect images, read Greek
+transcription text for survival, or infer a writing-unit assignment.
 
-1. Source support for the five partial John 18 coverage claims and the writing
-   unit assignment. The existing review cites descriptions; it did not inspect
-   the object.
-2. Faithful transcription of each source's date notation and qualifications,
-   with any numeric conversion documented. This is a check of source recording,
-   not an evaluation of which palaeographic argument is correct.
-3. Preservation of all sourced alternatives on equal terms unless a cited source
-   establishes scholarly consensus. Stored single-assessment snapshots must not
-   turn a technical selection into a scholarly preference. The offline exporter
-   now calculates conditional alternatives where valid dates and coverage-unit
-   links exist; the graph must expose those alternatives and their effects as
-   described
-   in the [development plan](DEVELOPMENT_PLAN.md#5-rank-independently-for-both-date-scenarios).
+Preserve sourced date alternatives equally unless a cited source establishes
+consensus. If explicit scholarly coverage reports disagree, mark the case
+contested and defer it. An unsupported prior agent inference should be re-sourced
+or excluded from active results, not treated as a scholarly disagreement. Follow
+the [current development plan](DEVELOPMENT_PLAN.md#next-development-work).

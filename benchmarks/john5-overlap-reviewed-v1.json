@@ -1,0 +1,141 @@
+{
+  "format_version": 1,
+  "review_id": "john5-overlap-reviewed-v1",
+  "base_review": "benchmarks/john5-boundary-reviewed-v1.json",
+  "inventory_id": "na28-john5-boundary-subset-v1",
+  "policy_id": "john5-overlap-conditional-v1",
+  "reviewed_on": "2026-10-05",
+  "reviewer": "Codex source review, 2026-10-05; independent human validation pending",
+  "independent_human_validation": false,
+  "doc_id": 10066,
+  "witness_id": "p66-bodmer-ii",
+  "witness_label": "P66 (P. Bodmer II)",
+  "metadata_fixture": "tests/fixtures/p66_metadata_probe.json",
+  "index_fixture": "tests/fixtures/p66_coverage_probe.json",
+  "transcription_fixture": "tests/fixtures/p66-john5-transcription.json",
+  "date_source_fixture": "tests/fixtures/p66-date-source.json",
+  "image_review_fixture": "tests/fixtures/washingtonianus-john5-65r-image-review.json",
+  "classification_citation": "IGNTP P66 transcription header, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, title key 10066, shelf P. Bodmer II; CSNTM catalogue, https://manuscripts.csntm.org/Manuscript/Group/GA_P66_Bodmer, Greek papyrus / Gospels. Checked 2026-10-05.",
+  "identity_citation": "IGNTP P66 header identifies 10066 / P66 / P. Bodmer II, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml; captured NTVMR metadata, https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=10066&detail=10&format=json, pages 260 and 270 label pages 26 and 27. Checked 2026-10-05; these pages are portions of one physical P66 witness, distinct from Washingtonianus 20032.",
+  "unit_id": "p66-bodmer-ii-original",
+  "unit_label": "Reviewed P66 original base text at John 5:9-13",
+  "unit_reason": "Only direct base-text anchors outside correction readings are assigned to the original writing unit; no correction text inherits the manuscript catalogue date.",
+  "unit_citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05.",
+  "consensus_status": "unknown",
+  "consensus_note": "No documented consensus or preferred scholar is asserted. Both valid P66 catalogue intervals are retained as equal conditional possibilities; late/early wording stays numerically unknown. Washingtonianus supplement and original dates still apply to separate layers. No policy selection is made.",
+  "discovery_note": "Two deliberately chosen witnesses at five already mapped coordinates; not exhaustive discovery. Nine positive pairs and one image-reviewed absence. Independent human validation and exhaustive date-source discovery remain incomplete.",
+  "assessments": [
+    {
+      "status": "valid",
+      "date_min": 101,
+      "date_max": 300,
+      "original_notation": "2nd-3rd Century",
+      "citation": "CSNTM P66 catalogue, https://manuscripts.csntm.org/Manuscript/Group/GA_P66_Bodmer, Date field 2nd-3rd Century, checked 2026-10-05, pinned tests/fixtures/p66-date-source.json. Complete-century conversion 101-300 CE inclusive; conditional catalogue range, not consensus."
+    },
+    {
+      "status": "valid",
+      "date_min": 200,
+      "date_max": 225,
+      "original_notation": "III (A)",
+      "citation": "NTVMR P66 metadata, https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/?docID=10066&detail=10&format=json, originYear content III (A), explicit early 200 and late 225, pinned tests/fixtures/p66_metadata_probe.json, checked 2026-10-05. Numeric bounds copied directly, not reconstructed from notation. Applied conditionally to reviewed original base text, not corrections; retained equally with the CSNTM interval, not consensus."
+    },
+    {
+      "status": "unknown",
+      "date_min": null,
+      "date_max": null,
+      "original_notation": "Late second or early third century",
+      "citation": "CSNTM P66 catalogue, https://manuscripts.csntm.org/Manuscript/Group/GA_P66_Bodmer, beginning of Description, checked 2026-10-05, pinned tests/fixtures/p66-date-source.json. Late/early have no stated numeric bounds; no precision invented. Retained as an unknown observation alongside valid intervals."
+    }
+  ],
+  "positive_reviews": [
+    {
+      "osis_ref": "John.5.9",
+      "page_id": 260,
+      "folio": "26",
+      "status": "partial",
+      "anchor": "εγενετο",
+      "line": 17,
+      "source_locator": "TEI page 26, column 1, John.5.9, intact direct word εγενετο, preceding line marker P26C1L17-P66; NTVMR page 260.",
+      "citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 26, column 1, John.5.9, intact direct word εγενετο, preceding line marker P26C1L17-P66; NTVMR page 260.",
+      "reason": "An intact direct Greek base-text word supports partial survival. Supplied/unclear letters, expanded abbreviations, and apparatus corrections do not supply the anchor. No complete-verse or exact-NA28-wording claim. Both page portions of John 5:9 count as one P66 witness."
+    },
+    {
+      "osis_ref": "John.5.9",
+      "page_id": 270,
+      "folio": "27",
+      "status": "partial",
+      "anchor": "εκεινη",
+      "line": 1,
+      "source_locator": "TEI page 27, column 1, John.5.9, intact direct word εκεινη, preceding line marker P27C1L1-P66; NTVMR page 270.",
+      "citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.9, intact direct word εκεινη, preceding line marker P27C1L1-P66; NTVMR page 270.",
+      "reason": "An intact direct Greek base-text word supports partial survival. Supplied/unclear letters, expanded abbreviations, and apparatus corrections do not supply the anchor. No complete-verse or exact-NA28-wording claim. Both page portions of John 5:9 count as one P66 witness."
+    },
+    {
+      "osis_ref": "John.5.10",
+      "page_id": 270,
+      "folio": "27",
+      "status": "partial",
+      "anchor": "σαββατον",
+      "line": 3,
+      "source_locator": "TEI page 27, column 1, John.5.10, intact direct word σαββατον, preceding line marker P27C1L3-P66; NTVMR page 270.",
+      "citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.10, intact direct word σαββατον, preceding line marker P27C1L3-P66; NTVMR page 270.",
+      "reason": "An intact direct Greek base-text word supports partial survival. Supplied/unclear letters, expanded abbreviations, and apparatus corrections do not supply the anchor. No complete-verse or exact-NA28-wording claim. Both page portions of John 5:9 count as one P66 witness."
+    },
+    {
+      "osis_ref": "John.5.11",
+      "page_id": 270,
+      "folio": "27",
+      "status": "partial",
+      "anchor": "απεκριθη",
+      "line": 5,
+      "source_locator": "TEI page 27, column 1, John.5.11, intact direct word απεκριθη, preceding line marker P27C1L5-P66; NTVMR page 270.",
+      "citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.11, intact direct word απεκριθη, preceding line marker P27C1L5-P66; NTVMR page 270.",
+      "reason": "An intact direct Greek base-text word supports partial survival. Supplied/unclear letters, expanded abbreviations, and apparatus corrections do not supply the anchor. No complete-verse or exact-NA28-wording claim. Both page portions of John 5:9 count as one P66 witness."
+    },
+    {
+      "osis_ref": "John.5.12",
+      "page_id": 270,
+      "folio": "27",
+      "status": "partial",
+      "anchor": "ηρωτησαν",
+      "line": 8,
+      "source_locator": "TEI page 27, column 1, John.5.12, intact direct word ηρωτησαν, preceding line marker P27C1L8-P66; NTVMR page 270.",
+      "citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.12, intact direct word ηρωτησαν, preceding line marker P27C1L8-P66; NTVMR page 270.",
+      "reason": "An intact direct Greek base-text word supports partial survival. Supplied/unclear letters, expanded abbreviations, and apparatus corrections do not supply the anchor. No complete-verse or exact-NA28-wording claim. Both page portions of John 5:9 count as one P66 witness."
+    },
+    {
+      "osis_ref": "John.5.13",
+      "page_id": 270,
+      "folio": "27",
+      "status": "partial",
+      "anchor": "ουκ",
+      "line": 11,
+      "source_locator": "TEI page 27, column 1, John.5.13, intact direct word ουκ, preceding line marker P27C1L11-P66; NTVMR page 270.",
+      "citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.13, intact direct word ουκ, preceding line marker P27C1L11-P66; NTVMR page 270.",
+      "reason": "An intact direct Greek base-text word supports partial survival. Supplied/unclear letters, expanded abbreviations, and apparatus corrections do not supply the anchor. No complete-verse or exact-NA28-wording claim. Both page portions of John 5:9 count as one P66 witness."
+    }
+  ],
+  "absence_review": {
+    "osis_ref": "John.5.12",
+    "witness_id": "032-washingtonianus",
+    "doc_id": 20032,
+    "page_id": 1290,
+    "folio": "65r",
+    "decision": "absent",
+    "evidence_type": "checked_image",
+    "source_locator": "Washingtonianus folio 65r, NTVMR page 1290, first two physical text lines: John 5:11 ends with κραβαττον σου και περιπατει and is immediately followed by ο δε ιαθεις ουκ ηδει τις εστιν (John 5:13). No intervening verse 12 text or physical gap is visible at that junction.",
+    "reason": "The checked image shows continuous writing from the surviving John 5:11 ending to John 5:13, supporting absence of John 5:12 from this sequence. This is a textual omission in the extant sequence, not damage inferred from an empty TEI element. Its cause and any correction history are not established; independent human/Greek review remains pending.",
+    "citation": "NTVMR-linked Washingtonianus image, Smithsonian/Freer F1906.274, https://ntmss.info/images/webfriendly/20032/F1906.274.129.jpg; docID 20032 metadata labels page 1290 as 65r. Image SHA-256 fbc2ae201f39c99e20111de2e690690871fd81e922d0c4bafe418fa2131c845c, 12247410 bytes, inspected 2026-10-05 by Codex. Location: Washingtonianus folio 65r, NTVMR page 1290, first two physical text lines: John 5:11 ends with κραβαττον σου και περιπατει and is immediately followed by ο δε ιαθεις ουκ ηδει τις εστιν (John 5:13). No intervening verse 12 text or physical gap is visible at that junction."
+  },
+  "effort": {
+    "source_phase_start_utc": "2026-10-06T01:17:11+00:00",
+    "source_phase_end_utc": "2026-10-06T01:20:08+00:00",
+    "source_phase_seconds": 177,
+    "source_phase_note": "Bounded retrieval, reading, page/date reconciliation, and image inspection, with brief helper inspection; excludes implementation and later checks. Not pure reading time or total task time.",
+    "direct_download_attempts": 4,
+    "successful_downloads": 2,
+    "sandbox_socket_failures": 2,
+    "new_ntvmr_api_requests": 0,
+    "web_checks": "Two source open attempts were inaccessible; CSNTM catalogue open succeeded."
+  }
+}

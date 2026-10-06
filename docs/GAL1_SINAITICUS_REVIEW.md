@@ -1,12 +1,22 @@
 # Galatians 1:1–5 third-witness and writing-layer review
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 Reviewed 2026-10-02 by Codex. Independent human validation: **pending**.
 
 The [three-witness chart](../examples/gal1-three-witness-prototype.html) adds
 Sinaiticus to P46 and Alexandrinus at all five coordinates. It has fifteen cited
 partial-coverage decisions and four equal conditional dating combinations per
 verse. The [two-witness replay](GAL1_OVERLAP_REVIEW.md) and its chart remain
-available. This increment follows the next overlapping-witness priority in the
+available. This increment followed the former overlapping-witness priority in the
 [development plan](DEVELOPMENT_PLAN.md#next-development-work).
 
 ## Source identity and page reconciliation
@@ -151,6 +161,12 @@ increment adds no schema or bulk-collection framework.
 
 ## Independent review questions
 
+> **Withdrawn packet.** The questions below are preserved solely as historical
+> context. Do not carry out their image, Greek-text, survival, or hand-identification
+> checks, and do not ask the owner or a specialist to complete them for this
+> project. Optional human checks now concern accurate copying of explicit
+> published reports only.
+
 All answers are **unanswered**. Record **agree**, **disagree**, or **unable to
 assess**, with corrections, reviewer name, and review date. These questions
 check source fidelity; they do not ask the reviewer to resolve dating disputes.
@@ -180,7 +196,7 @@ check source fidelity; they do not ask the reviewer to resolve dating disputes.
    count P46, 01, and 02 once each, and clearly retain partial-coverage, incomplete
    discovery, and pending-human-validation status?
 
-The next representative source case is a documented later supplement or a
-Pauline survival boundary, alongside independent review of the ready packets.
-Whole-NT mapping, exhaustive discovery, and publication certification remain
-separate open work.
+The former examination and specialist-review follow-ups are withdrawn. Use the
+[current collection-to-chart plan](DEVELOPMENT_PLAN.md#next-development-work)
+and capture explicit scholarly reports without interpreting writing layers or
+requiring completion of these historical review packets.

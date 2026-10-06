@@ -1,12 +1,22 @@
 # John 6:49–53 survival-boundary review
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 Source review: 2026-10-02 UTC (2026-10-01 in the project owner's timezone).
 Reviewer: Codex. Independent human validation: **pending**.
 
-The project has a working collection, review, ranking, export, and chart path.
-Its next constraint is the breadth and fidelity of reviewed evidence. This
-increment exercises a real survival boundary using the existing interfaces.
-It does not change the schema, collector, dating policy, or legacy databases.
+At the time of this increment, the project had a collection, review, ranking,
+export, and chart path built around the now-superseded examination workflow.
+The increment exercised a transcription interpretation using those interfaces;
+it did not change the schema, collector, dating policy, or legacy databases.
 
 ## Evidence and limits
 
@@ -79,7 +89,7 @@ different scribe or copying period.
 
 ## Reproduction and measurements
 
-Use the [README commands](../README.md#john-6-survival-boundary-prototype).
+Use the [README commands](HISTORICAL_REPLAY_GUIDE.md#john-6-survival-boundary-prototype).
 The replay creates a fresh database, first rebuilding the fixed John 1 v3 inputs
 to reuse their identities and cached indexes, then importing the John 6 inventory
 and review. It refuses an existing destination. John 1 evidence remains in its
@@ -118,6 +128,12 @@ existing destination. All **88 offline tests** pass, and the retained John 1
 benchmark still passes all 20 cases.
 
 ## Independent review questions
+
+> **Withdrawn packet.** The questions below are preserved solely as historical
+> context. Do not carry out their image, Greek-text, survival, or hand-identification
+> checks, and do not ask the owner or a specialist to complete them for this
+> project. Optional human checks now concern accurate copying of explicit
+> published reports only.
 
 These questions are ready for a human reviewer, but no answers or approval are
 recorded. Answer each **agree**, **disagree**, or **unable to assess**, with any
@@ -196,9 +212,7 @@ and independent human answers to all seven questions remain pending.
 
 ## Next useful increment
 
-Broaden to a representative Pauline or supplement case, starting with an explicit
-5–10 verse scope and accessible primary sources. Reuse pinned source excerpts
-and the existing review APIs; measure source reading and page reconciliation
-before introducing batch automation. Independent checks of both this packet
-and John 1 remain open. Exhaustive discovery and whole-NT mapping certification
-are still separate requirements for broader historical claims.
+The former examination increment is withdrawn. Use the
+[current collection-to-chart plan](DEVELOPMENT_PLAN.md#next-development-work).
+Capture explicit scholarly contents/date reports, defer unknown and contested
+cases, and do not extend this document's manuscript-examination workflow.

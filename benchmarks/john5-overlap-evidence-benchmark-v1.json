@@ -1,0 +1,108 @@
+{
+  "format_version": 1,
+  "benchmark_id": "john5-overlap-evidence-benchmark-v1",
+  "inventory_id": "na28-john5-boundary-subset-v1",
+  "policy_id": "john5-overlap-conditional-v1",
+  "cases": [
+    {
+      "osis_ref": "John.5.9",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.9, direct word υγιης, line marker P64vC1L22-032S; NTVMR page 1280.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.10",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.10, direct word ιουδεοι, line marker P64vC1L27-032S; NTVMR page 1280.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.11",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032S John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032S_John.xml; pinned tests/fixtures/washingtonianus-john5-032s-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 64v, column 1, John.5.11, direct word απεκρινατο, line marker P64vC1L30-032S; NTVMR page 1280.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.12",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "absent",
+      "expected_status": "absent",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "NTVMR-linked Washingtonianus image, Smithsonian/Freer F1906.274, https://ntmss.info/images/webfriendly/20032/F1906.274.129.jpg; docID 20032 metadata labels page 1290 as 65r. Image SHA-256 fbc2ae201f39c99e20111de2e690690871fd81e922d0c4bafe418fa2131c845c, 12247410 bytes, inspected 2026-10-05 by Codex. Location: Washingtonianus folio 65r, NTVMR page 1290, first two physical text lines: John 5:11 ends with κραβαττον σου και περιπατει and is immediately followed by ο δε ιαθεις ουκ ηδει τις εστιν (John 5:13). No intervening verse 12 text or physical gap is visible at that junction.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.13",
+      "witness_id": "032-washingtonianus",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE, GA 032 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_032_John.xml; pinned tests/fixtures/washingtonianus-john5-032-transcription.json. NTVMR metadata and coverage captures for docID 20032. Checked 2026-10-05. Location: TEI folio 65r, column 1, John.5.13, direct word ουκ, line marker P65rC1L2-032; NTVMR page 1290.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.9",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 26, column 1, John.5.9, intact direct word εγενετο, preceding line marker P26C1L17-P66; NTVMR page 260. | IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.9, intact direct word εκεινη, preceding line marker P27C1L1-P66; NTVMR page 270.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.10",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.10, intact direct word σαββατον, preceding line marker P27C1L3-P66; NTVMR page 270.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.11",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.11, intact direct word απεκριθη, preceding line marker P27C1L5-P66; NTVMR page 270.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.12",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.12, intact direct word ηρωτησαν, preceding line marker P27C1L8-P66; NTVMR page 270.",
+      "reviewed_on": "2026-10-05"
+    },
+    {
+      "osis_ref": "John.5.13",
+      "witness_id": "p66-bodmer-ii",
+      "expected_coverage": "positive",
+      "expected_status": "partial",
+      "expected_date": null,
+      "date_citation": null,
+      "coverage_citation": "IGNTP/ITSEE P66 John transcription, https://itseeweb.cal.bham.ac.uk/iohannes/transcriptions/greek/NT_GRC_P66_John.xml, TEI pages 26-27, column 1, John.5.9-John.5.13; source header identifies 10066 / P. Bodmer II. Base-text anchors outside app/rdg or supplied/unclear spans; corrections at John.5.10 and John.5.11 retained but not used as anchors. Checked 2026-10-05. Location: TEI page 27, column 1, John.5.13, intact direct word ουκ, preceding line marker P27C1L11-P66; NTVMR page 270.",
+      "reviewed_on": "2026-10-05"
+    }
+  ]
+}

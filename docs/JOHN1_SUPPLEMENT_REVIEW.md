@@ -1,5 +1,15 @@
 # John 1:1–5 fifth-witness and later-supplement review
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 Reviewed 2026-10-05 by Codex. Independent human validation: **pending**.
 
 The [five-witness chart](../examples/john1-five-witness-prototype.html) adds
@@ -152,6 +162,12 @@ schema, review APIs, exporter, and renderer.
 
 ## Independent review questions
 
+> **Withdrawn packet.** The questions below are preserved solely as historical
+> context. Do not carry out their image, Greek-text, survival, or hand-identification
+> checks, and do not ask the owner or a specialist to complete them for this
+> project. Optional human checks now concern accurate copying of explicit
+> published reports only.
+
 All answers are **unanswered**. Record **agree**, **disagree**, or **unable to
 assess**, with reviewer identity, date, notes, and corrections. Keep human answers
 separate from Codex reviews and automated results. These questions check faithful
@@ -184,8 +200,8 @@ recording, not which scholar's dating argument should win.
    partial survival, conditional dating, incomplete discovery, and pending human
    validation? Check all five verse rows.
 
-The next useful source increment is a timed, small batch around the same codex's
-John 5:11 supplement/original boundary, using both retrieved transcriptions and
-explicit page links. No boundary claim is established here. Whole-NT mappings,
-exhaustive discovery, broader benchmark coverage, and independent historical
-publication review remain open.
+The former transcription-based John 5 boundary assignment is withdrawn as a
+development task. Future contents, portion distinctions, and dates must come
+from explicit scholarly reports. Use the
+[current collection-to-chart plan](DEVELOPMENT_PLAN.md#next-development-work);
+no manuscript examination or specialist publication review is required.

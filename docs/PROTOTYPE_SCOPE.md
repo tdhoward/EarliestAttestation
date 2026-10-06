@@ -1,5 +1,15 @@
 # Bounded graph scope and development log
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 All prototypes follow the project's [witness scope](../README.md#witness-scope):
 only surviving Greek manuscript copies of the New Testament texts qualify,
 including eligible fragments and lectionaries. Quotations and allusions in other
@@ -34,7 +44,7 @@ reviews for this scope; discovery beyond those names remains incomplete.
 ## Measured graph increment, 2026-09-30
 
 The first chart used the existing cited P52 replay to exercise the ordinary path.
-Its input and output are reproducible by the [README commands](../README.md#reviewed-data-audit-and-p52-replay).
+Its input and output are reproducible by the [README commands](HISTORICAL_REPLAY_GUIDE.md#reviewed-data-audit-and-p52-replay).
 The fresh `data/p52-graph-preview.sqlite` replay is separate from previously
 inspected databases.
 
@@ -99,7 +109,7 @@ Codex Alexandrinus (GA 02), a fifth-century Greek parchment codex, and lists
 John on folios 42r–55v. Its catalogue says the digital images are currently
 unavailable. [CSNTM's GA 02 viewer](https://manuscripts.csntm.org/manuscript/Group/GA_02)
 lists a John 1:1 facsimile image from the British Museum's older photographic
-edition; that image is a lead for the next physical review. A book-level folio
+edition; it was formerly proposed for physical review, now prohibited. A book-level folio
 range or image label does not establish physical survival in
 each of John 1:1–5, so 02 has no coverage review, writing unit, or ranked date.
 The replay remains offline and the chart still has three reviewed verse witnesses.
@@ -176,10 +186,10 @@ rankings. Duplicate witnesses and mismatched page/image links are rejected befor
 database creation. The replay refuses an existing destination, and `--review`
 can rebuild v2's three-witness result into a separate database.
 
-These changes expand the reviewed prototype, not historical certification.
-Independent human checking remains open. The next useful expansion is a small
-passage with a physically reviewed gap or correction, followed by a measured
-batch of mappings and coverage; no new collection framework is needed for that.
+These changes expanded the historical prototype. The proposed follow-up of
+examining gaps or corrections and seeking independent manuscript review is
+withdrawn. Current work captures explicit scholarly reports through the
+[collection-to-chart pipeline](DEVELOPMENT_PLAN.md#next-development-work).
 
 ## Evidence export review, 2026-10-01
 
@@ -206,15 +216,14 @@ The [example chart](../examples/john1-prototype.html) was rebuilt from that repl
 Existing local collection databases were not changed. Static verification was
 used; no local server was started.
 
-The next source increment remains a small passage with varying survival,
-including a directly checked gap or correction. Use the existing review and
-replay interfaces, record the source-reading time, and add cited positive and
-negative expectations to the benchmark. The new synthetic absence checks verify
-software behavior only and must not be counted as historical gap reviews.
+The former next increment called for directly examining a gap or correction;
+that task is withdrawn. The synthetic absence checks still describe software
+behavior, but they are not scholarly contents reports. Future active claims
+must be captured from explicit scholarly statements without examination.
 
 ## John 6 survival boundary, 2026-10-02 UTC
 
-The next source increment is now implemented as the
+The subsequent historical source increment was implemented as the
 [John 6:49–53 replay](../replay_john6_gap.py) and
 [chart](../examples/john6-gap-prototype.html). The
 [source review](JOHN6_GAP_REVIEW.md) records seven positive decisions and three
@@ -226,8 +235,8 @@ All 88 offline tests pass; the new ten-case benchmark and retained 20-case John 
 benchmark pass with zero findings on a fresh replay. The new inventory adds five
 direct mappings without changing the provisional whole-NT snapshot. The source
 review includes measured effort and a five-question independent human-review
-packet. Human answers remain pending. A third witness at this boundary is the
-next bounded expansion.
+packet. No human answers were recorded; the examination packet is now withdrawn.
+A third witness at this boundary was the former next expansion.
 
 ## John 6 third witness, 2026-10-02 UTC
 
@@ -243,5 +252,6 @@ All 91 offline tests and the fifteen-case John 6 benchmark pass. The retained
 download, two budgeted metadata attempts, and approximately five minutes of
 source retrieval and page reconciliation supported this increment; the
 [source review](JOHN6_GAP_REVIEW.md) records access outcomes and adds two specific
-human-review questions. Independent answers remain pending. The next bounded
-expansion is a Pauline papyrus or later supplement, using existing review APIs.
+human-review questions. No independent answers were recorded; the examination
+questions are now withdrawn. The former expansion to more manuscript examination
+is superseded by the [current plan](DEVELOPMENT_PLAN.md#next-development-work).

@@ -1,5 +1,15 @@
 # Code and data review
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 Review date: 2026-09-29. Reference edition selected by the project owner: **NA28**.
 This review describes the collector now preserved as
 [`legacy_sync_ntvmr.py`](../legacy_sync_ntvmr.py); the safe entry point is now
@@ -16,10 +26,10 @@ remaining source-validation work, and next steps are tracked in the
 features in the replacement collector.
 
 **Current development direction:** build the
-[bounded prototype graph](DEVELOPMENT_PLAN.md#next-development-work) while
-expanding reviewed evidence. The historical findings below do not require
-whole-corpus validation before developing a labeled prototype. Historical
-publication retains the plan's source-fidelity and coverage requirements.
+[collection-to-chart pipeline](DEVELOPMENT_PLAN.md#next-development-work) from
+explicit scholarly reports. The historical source-examination and publication
+requirements below are superseded; software checks concern faithful capture and
+presentation. No independent manuscript review is required.
 
 **Current dating policy:** the [project policy](../README.md#manuscript-dating-policy)
 now explicitly defers to documented scholarly consensus when known and treats
@@ -255,6 +265,7 @@ collector or prove that all surviving witnesses have been discovered. The P52
 coverage fixture supports the next parser implementation; the auditor itself does
 not parse coverage responses or validate indexing tiers.
 
-Run the commands in the [README](../README.md). The next implementation work and
-its scientific acceptance tests are specified in the
-[development plan](DEVELOPMENT_PLAN.md).
+Use the commands in the [README](../README.md). Current implementation work and
+checks for faithful handling of scholarly reports are specified in the
+[development plan](DEVELOPMENT_PLAN.md); this review's examination requirements
+are superseded.

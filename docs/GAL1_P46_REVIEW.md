@@ -1,5 +1,15 @@
 # P46 Galatians 1:1–5 source review
 
+> **Historical record; scope superseded on 2026-10-05.** This document preserves
+> earlier experiments and observations, not current development instructions or
+> accepted scholarly claims. The project now records only explicit scholarly
+> reports of dates and verse contents. Manuscript images, Greek transcriptions,
+> word anchors, and our own writing-layer judgments must not be used to infer
+> coverage or dates. Former human/specialist examination packets are withdrawn,
+> not pending project tasks. Re-source or exclude agent-derived claims before
+> reusing them in active results. Follow [AGENTS.md](../AGENTS.md) and the
+> [current development plan](DEVELOPMENT_PLAN.md#next-development-work).
+
 Reviewed 2026-10-02 UTC (2026-10-01 in the owner's timezone) by Codex.
 Independent human validation: **pending**.
 
@@ -128,6 +138,12 @@ small increment does not yet justify another importer or collection framework.
 
 ## Independent review questions
 
+> **Withdrawn packet.** The questions below are preserved solely as historical
+> context. Do not carry out their image, Greek-text, survival, or hand-identification
+> checks, and do not ask the owner or a specialist to complete them for this
+> project. Optional human checks now concern accurate copying of explicit
+> published reports only.
+
 Answer **agree**, **disagree**, or **unable to assess**, with reviewer, date,
 corrections, and exact source locations. Record eventual answers separately from
 the Codex manifest; none is recorded here. Greek/transcription expertise is useful
@@ -148,10 +164,7 @@ preferences.
 
 ## Next useful work
 
-Add independently source-reviewed overlapping witnesses to this same five-verse
-scope, checking each new writing layer and date's applicability. The existing
-Galatians transcription collection provides candidates, not automatic coverage
-approval. A later increment can exercise a Pauline survival boundary or a later
-supplement. Keep the John review packets open and retain all existing regression
-cases. Whole-NT discovery, mapping certification, the representative benchmark,
-and human publication review remain separate unfinished requirements.
+The former examination increment is withdrawn. Use the
+[current collection-to-chart plan](DEVELOPMENT_PLAN.md#next-development-work).
+Capture explicit scholarly contents/date reports, defer unknown and contested
+cases, and do not extend this document's manuscript-examination workflow.
