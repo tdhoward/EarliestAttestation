@@ -35,8 +35,7 @@ import xml.etree.ElementTree as ET
 import requests
 
 
-#API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
-API_BASE = "http://192.168.0.119:8889/community/vmr/api"
+API_BASE = "https://ntvmr.uni-muenster.de/community/vmr/api"
 # might also try ntvmr2.uni-muenster.de ??
 
 

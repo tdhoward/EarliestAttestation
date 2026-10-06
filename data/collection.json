@@ -2,6 +2,11 @@
   "format_version": 1,
   "coordinate_inventory": "reference/na28.json",
   "books": [
+    "Matt",
+    "Mark",
+    "Luke",
+    "John",
+    "Acts",
     "Rom",
     "1Cor",
     "2Cor",
@@ -10,7 +15,20 @@
     "Phil",
     "Col",
     "1Thess",
-    "Heb"
+    "2Thess",
+    "1Tim",
+    "2Tim",
+    "Titus",
+    "Phlm",
+    "Heb",
+    "Jas",
+    "1Pet",
+    "2Pet",
+    "1John",
+    "2John",
+    "3John",
+    "Jude",
+    "Rev"
   ],
   "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
   "documents": [
@@ -43,6 +61,60 @@
       "corpus": "greek_nt_manuscript",
       "metadata_fixture": "sources/ntvmr-10135-metadata.json",
       "coverage_fixture": "sources/ntvmr-10135-contents.json"
+    },
+    {
+      "doc_id": 10012,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10012-metadata-db2f95d65411.json",
+      "coverage_fixture": "sources/ntvmr-10012-coverage-f09f9ed58e63.json"
+    },
+    {
+      "doc_id": 10013,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10013-metadata-1b3b2aa6a57c.json",
+      "coverage_fixture": "sources/ntvmr-10013-coverage-b7fb4857405c.json"
+    },
+    {
+      "doc_id": 10017,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10017-metadata-0c1d0dc703cb.json",
+      "coverage_fixture": "sources/ntvmr-10017-coverage-853076e725a7.json"
+    },
+    {
+      "doc_id": 10079,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10079-metadata-098d009035df.json",
+      "coverage_fixture": "sources/ntvmr-10079-coverage-b9fad3185b7e.json"
+    },
+    {
+      "doc_id": 10089,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10089-metadata-8c0589353555.json",
+      "coverage_fixture": "sources/ntvmr-10089-coverage-41b8bade55c0.json"
+    },
+    {
+      "doc_id": 10114,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10114-metadata-9771b303f7d9.json",
+      "coverage_fixture": "sources/ntvmr-10114-coverage-c836fea3e50e.json"
+    },
+    {
+      "doc_id": 10116,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10116-metadata-17d8162d706f.json",
+      "coverage_fixture": "sources/ntvmr-10116-coverage-f125ca5563bf.json"
+    },
+    {
+      "doc_id": 10126,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10126-metadata-1070e1d5f1ab.json",
+      "coverage_fixture": "sources/ntvmr-10126-coverage-d145085c7a98.json"
+    },
+    {
+      "doc_id": 10130,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10130-metadata-49e7273386e4.json",
+      "coverage_fixture": "sources/ntvmr-10130-coverage-628dc533065a.json"
     }
   ],
   "additional_reports": [],

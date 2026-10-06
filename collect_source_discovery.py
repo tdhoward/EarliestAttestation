@@ -11,11 +11,32 @@ from urllib.parse import urlencode, urlsplit
 from urllib.request import ProxyHandler, Request, build_opener
 
 from build_collection import DATA, build_data, data_path, prepare_collection, read_json, write_json
-from controlled_ntvmr import (Client, ContractError, JobFailure, RunStopped,
+from controlled_ntvmr import (API_BASE, Client, ContractError, JobFailure, RunStopped,
                               collect_stage, connect, encoded, import_search_fixture)
 from source_discovery import (captured_chain, collect_book_range, prepare_discovery,
                               range_params, response_capture, sha)
 from source_reports import capture, prepare_batch
+
+
+def retained_transport(value, *proxy_urls):
+    """Hide configured proxy origins in permanent records; preserve response bodies."""
+    origins = []
+    for url in proxy_urls:
+        if url:
+            parts = urlsplit(url)
+            origins.append(f"{parts.scheme}://{parts.netloc}")
+
+    def redact(item):
+        if isinstance(item, dict):
+            return {key: child if key == "raw_body" else redact(child) for key, child in item.items()}
+        if isinstance(item, list):
+            return [redact(child) for child in item]
+        if isinstance(item, str):
+            for origin in origins:
+                item = item.replace(origin, "<local proxy>")
+        return item
+
+    return redact(value)
 
 
 def https_proxy_transport(proxy_url):
@@ -45,6 +66,7 @@ def collect(data_dir, definition, run_id, *, offline=False, https_proxy=None, ba
         raise ValueError("The network route must match the declared discovery definition")
     if base_url != definition.get("transport_base_url") or (base_url and https_proxy):
         raise ValueError("Use the single network route recorded in the discovery definition")
+    retained_definition = retained_transport(definition, base_url, https_proxy)
     config_path = data_dir / "collection.json"
     original = read_json(config_path)
     prepare_collection(original, data_dir)  # Validate reused reports before requests.
@@ -58,9 +80,10 @@ def collect(data_dir, definition, run_id, *, offline=False, https_proxy=None, ba
     with closing(connect(data_dir / ".cache" / "collection.sqlite")) as con:
         if offline:
             for previous in records:
-                if previous["definition"] == definition:
+                if previous["definition"] == retained_definition:
                     for record in previous["search_captures"]:
-                        import_search_fixture(con, record)
+                        replay = {**record, "source_url": (base_url or API_BASE).rstrip("/") + "/metadata/liste/search/"}
+                        import_search_fixture(con, replay)
         transport_options = {"send": https_proxy_transport(https_proxy)} if https_proxy else {}
         if base_url:
             transport_options["base_url"] = base_url
@@ -86,8 +109,9 @@ def collect(data_dir, definition, run_id, *, offline=False, https_proxy=None, ba
                     response_id = con.execute("SELECT response_id FROM collection_job WHERE run_id=? AND doc_id=? AND stage=?",
                                               (run_id, doc_id, stage)).fetchone()[0]
                     saved = response_capture(con, response_id)
-                    if base_url:
+                    if definition.get("transport_qualification"):
                         saved["transport_qualification"] = definition["transport_qualification"]
+                    saved = retained_transport(saved, base_url, https_proxy)
                     target = data_dir / "sources" / f"ntvmr-{doc_id}-{stage}-{sha(encoded(saved))[:12]}.json"
                     write_json(target, saved)
                     _, _, parsed = capture(target, doc_id, stage)
@@ -113,6 +137,7 @@ def collect(data_dir, definition, run_id, *, offline=False, https_proxy=None, ba
             "reused_seed_document_responses": sum(bool(d.get(f)) for d in original["documents"] for f in ("metadata_fixture", "coverage_fixture")),
             "request_budget": definition["request_budget"], "collection_errors": errors,
         }
+    record = retained_transport(record, base_url, https_proxy)
     # One current record per declared scope, including failures and pending candidates.
     records = [r for r in records if r["definition"]["scope_id"] != definition["scope_id"]]
     records.append(record)
@@ -140,7 +165,7 @@ def main(argv=None):
     parser.add_argument("--data-dir", type=Path, default=DATA)
     parser.add_argument("--offline", action="store_true")
     parser.add_argument("--https-proxy", help="Configured HTTPS CONNECT proxy; canonical TLS remains verified")
-    parser.add_argument("--base-url", help="Explicit configured relay, qualified in the definition")
+    parser.add_argument("--base-url", help="Explicit configured API proxy, recorded in the definition")
     args = parser.parse_args(argv)
     summary = collect(args.data_dir.resolve(), read_json(args.definition), args.run_id,
                       offline=args.offline, https_proxy=args.https_proxy, base_url=args.base_url)

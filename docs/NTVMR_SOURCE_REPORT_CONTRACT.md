@@ -119,11 +119,18 @@ contents assertions. Per-verse discovery states and the app's **earliest collect
 labels distinguish usable reports from completeness of the witness search. See
 [the discovery guide](BOUNDED_WITNESS_DISCOVERY.md).
 
-The current collection combines five witnesses across nine books. Four document
-captures and the Galatians search used an existing HTTP relay; upstream TLS
-verification was not established. This qualification remains on the affected
-source claims and discovery record. Canonical citations and transport URLs are
-kept separately.
+The current collection reuses 14 witnesses' captured reports across all 27
+books. Only exact reported OSIS matches supply presence; thirteen default
+coordinates remain unresolved. This reuse establishes no new discovery
+completion. Independent Galatians and Hebrews searches are complete only within
+their declared ID range. The Hebrews pilot collected nine new witnesses through
+the owner's local API proxy. Canonical NTVMR URLs supply all scholarly citations;
+permanent captures replace proxy origins with `<local proxy>` and preserve raw
+response bodies, hashes, paths, parameters, and retrieval dates. Actual transport
+addresses remain in ignored local definitions and request caches; see
+[README](../README.md#collect-more-data). Per the owner's
+2026-10-06 clarification, TLS verification is not a collection prerequisite and
+transport notes are not scholarly contents or date qualifications.
 
 Refresh or verify the one app data file offline:
 

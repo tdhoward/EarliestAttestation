@@ -170,7 +170,8 @@ class DiscoveryTests(unittest.TestCase):
         seed["documents"] = seed["documents"][:1]
         self.write("collection.json", {"format_version": 1, "coordinate_inventory": "inventory.json",
             "books": ["Gal", "Heb"], "documents": seed["documents"], "additional_reports": []})
-        self.write("definition.json", definition())
+        plan = {**definition(), "transport_base_url": "http://proxy.example/community/vmr/api"}
+        self.write("definition.json", plan)
         calls = []
 
         def send(url, params, timeout):
@@ -190,13 +191,14 @@ class DiscoveryTests(unittest.TestCase):
             return Client(con, run_id, send=send, sleep=lambda seconds: None, clock=lambda: 0, jitter=0, **kwargs)
 
         args = ["--definition", str(self.root / "definition.json"), "--data-dir", str(self.root),
-                "--run-id", "synthetic-cli"]
+                "--run-id", "synthetic-cli", "--base-url", plan["transport_base_url"]]
         with patch("collect_source_discovery.Client", side_effect=client), redirect_stdout(StringIO()):
             self.assertEqual(collect_main(args), 0)
             # Repeating this scope uses existing captures and leaves one central record.
             self.assertEqual(collect_main(args), 0)
         self.assertEqual(len(json.loads((self.root / "discovery.json").read_text())), 1)
         self.assertEqual(len(calls), 3)
+        self.assertTrue(all(url.startswith(plan["transport_base_url"]) for url, _ in calls))
         self.assertNotIn("gaNum", calls[0][1])
         self.assertNotIn("lang", calls[0][1])
         self.assertNotIn("dateMax", calls[0][1])
@@ -207,6 +209,23 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"]["present"], 2)
         self.assertEqual(data["observations"]["Gal.1.1"]["discovery"]["state"], "bounded_search_complete")
         self.assertFalse(list(self.root.glob("*.html")))
+        record = json.loads((self.root / "discovery.json").read_text())[-1]
+        self.assertEqual(record["definition"]["transport_base_url"], "<local proxy>/community/vmr/api")
+        self.assertTrue(record["search_captures"][0]["source_url"].startswith("<local proxy>/"))
+        for path in [self.root / "discovery.json", self.root / "attestations.json", *self.root.glob("sources/*.json")]:
+            self.assertNotIn("http://proxy.example", path.read_text(encoding="utf-8"))
+        for path in self.root.glob("sources/*.json"):
+            saved = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(sha(saved["raw_body"]), saved["body_sha256"])
+        # A fresh ignored cache can replay redacted search captures using the configured route.
+        with patch("collect_source_discovery.Client", side_effect=client), \
+                patch("collect_source_discovery.connect", side_effect=lambda path: connect(self.root / "offline.sqlite")), \
+                redirect_stdout(StringIO()):
+            self.assertEqual(collect_main([*args, "--offline"]), 0)
+        self.assertEqual(len(calls), 3)
+        for claim in [*data["claims"].values(), *data["dates"].values()]:
+            self.assertTrue(claim["citation"].startswith("https://ntvmr.uni-muenster.de/"))
+        self.assertTrue(data["metadata"]["discovery"]["sources"][0]["citation"].startswith("https://ntvmr.uni-muenster.de/"))
 
     def test_metadata_only_candidate_resumes_contents_into_existing_collection(self):
         seed = self.manifest()
@@ -242,6 +261,41 @@ class DiscoveryTests(unittest.TestCase):
         data = json.loads((self.root / "attestations.json").read_text())
         self.assertEqual(data["observations"]["Gal.1.1"]["discovery"]["state"], "bounded_search_complete")
         self.assertEqual(data["observations"]["Heb.1.1"]["discovery"]["state"], "not_searched")
+
+    def test_collection_cli_preserves_candidate_block_on_resume(self):
+        seed = self.manifest()
+        self.write("collection.json", {"format_version": 1, "coordinate_inventory": "inventory.json",
+            "books": ["Gal", "Heb"], "documents": seed["documents"], "additional_reports": []})
+        self.write("definition.json", definition())
+        calls = []
+
+        def send(url, params, timeout):
+            calls.append((url, dict(params)))
+            if url.endswith("/metadata/liste/search/"):
+                return 200, json.dumps(page([10046, 10051, 10052])), {}
+            self.assertTrue(url.endswith("/biblicalcontent/get/"))
+            self.assertEqual(params["docID"], "10051")
+            return 403, "Synthetic provider access block", {}
+
+        def client(con, run_id, **kwargs):
+            return Client(con, run_id, send=send, sleep=lambda seconds: None, clock=lambda: 0, jitter=0, **kwargs)
+
+        args = ["--definition", str(self.root / "definition.json"), "--data-dir", str(self.root),
+                "--run-id", "synthetic-blocked-candidate"]
+        with patch("collect_source_discovery.Client", side_effect=client), redirect_stdout(StringIO()):
+            self.assertEqual(collect_main(args), 2)
+            self.assertEqual(collect_main(args), 2)
+        self.assertEqual(len(calls), 2)
+        record = json.loads((self.root / "discovery.json").read_text())[0]
+        self.assertEqual(record["collection_cost"]["request_attempts"], 2)
+        self.assertIn("Prior document access block", record["collection_cost"]["collection_errors"][0])
+        data = json.loads((self.root / "attestations.json").read_text())
+        self.assertEqual(data["metadata"]["discovery"]["pending_candidate_ids"], [10051, 10052])
+        self.assertEqual(data["observations"]["Gal.1.1"]["discovery"]["state"], "candidate_collection_incomplete")
+        self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"]["present"], 1)
+        with closing(connect(self.root / ".cache" / "collection.sqlite")) as con:
+            self.assertEqual(con.execute("SELECT doc_id,state,attempts FROM collection_job").fetchall(),
+                             [(10051, "blocked", 1)])
 
     def test_proxy_keeps_canonical_https_requests_and_rejects_credentials(self):
         with self.assertRaises(ValueError):

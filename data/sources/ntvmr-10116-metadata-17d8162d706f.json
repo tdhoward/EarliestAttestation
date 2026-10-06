@@ -1,0 +1,27 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10116",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:04:19 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791327859694",
+    "X-Request-Post-Validation-Epoch": "1791327859695",
+    "X-Request-Response-Epoch": "1791327859699",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2900",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10116,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P116\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Austria\",\"instID\":328,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Österreichische Nationalbibliothek\",\"place\":\"Wien\",\"logoURL\":\"http://ntmss.info/instlogos/OesterNationalbib.jpg\",\"url\":\"http://www.onb.ac.at/\"},\"leavesDescription\":\"Frg\",\"shelfID\":102,\"originYearDescription\":\"VI/VII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pap. G 42417\",\"contentOverview\":\"H 2,9-11; 3,3-6\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":699,\"early\":500,\"content\":\"VI/VII\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Heb 2:9-11\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10116/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digital.onb.ac.at/RepViewer/viewer.faces?doc=DTL_2883055&order=1&view=SINGLE\\\"><img src=\\\"http://digital.onb.ac.at/RepViewer/images/logo_c4.gif\\\"><div>Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10116/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10116/StreamGate01.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10116/StreamGate01.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":102,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Heb 2:9-11\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10116&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Heb 3:3-6\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10116/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digital.onb.ac.at/RepViewer/viewer.faces?doc=DTL_2883055&order=1&view=SINGLE\\\"><img src=\\\"http://digital.onb.ac.at/RepViewer/images/logo_c4.gif\\\"><div>Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10116/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10116/StreamGate02.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10116/StreamGate02.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":102,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Heb 3:3-6\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10116&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":\"P116\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":180},\"lang\":\"g\",\"contentOverview\":\"p: H\",\"lineCount\":{\"lineCountMin\":7,\"content\":7},\"height\":{\"heightMin\":280}}}}",
+  "body_sha256": "1b9906a670818e885125c8521e7bd7839397737e421a3d6128779cd082e681ce",
+  "retrieved_at": "2026-10-06T23:04:19+00:00",
+  "transport_qualification": "Retrieved through the local HTTP proxy explicitly supplied by the project owner. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Proxy upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+}

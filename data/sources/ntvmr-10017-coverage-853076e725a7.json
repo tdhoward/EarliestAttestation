@@ -1,0 +1,27 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10017",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:03:43 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791327823801",
+    "X-Request-Post-Validation-Epoch": "1791327823802",
+    "X-Request-Response-Epoch": "1791327823805",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "684",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10017,\"indexContent\":[\"Heb 9:12-19\",{\"docID\":10017,\"osisID\":\"Heb.9.12\",\"indexContent\":2019009012,\"pageID\":10},{\"docID\":10017,\"osisID\":\"Heb.9.13\",\"indexContent\":2019009013,\"pageID\":10},{\"docID\":10017,\"osisID\":\"Heb.9.14\",\"indexContent\":2019009014,\"pageID\":10},{\"docID\":10017,\"osisID\":\"Heb.9.15\",\"indexContent\":2019009015,\"pageID\":20},{\"docID\":10017,\"osisID\":\"Heb.9.16\",\"indexContent\":2019009016,\"pageID\":20},{\"docID\":10017,\"osisID\":\"Heb.9.17\",\"indexContent\":2019009017,\"pageID\":20},{\"docID\":10017,\"osisID\":\"Heb.9.18\",\"indexContent\":2019009018,\"pageID\":20},{\"docID\":10017,\"osisID\":\"Heb.9.19\",\"indexContent\":2019009019,\"pageID\":20}]}}}",
+  "body_sha256": "72ddfdc9366b48e0037de4151b41fd959994893d858bd44abaf4539a6d8e176e",
+  "retrieved_at": "2026-10-06T23:03:43+00:00",
+  "transport_qualification": "Retrieved through the local HTTP proxy explicitly supplied by the project owner. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Proxy upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+}

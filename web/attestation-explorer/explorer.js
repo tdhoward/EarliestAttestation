@@ -413,7 +413,6 @@
       appendText(scope, "p", `${discovery.definition.book}: document IDs ${discovery.definition.doc_id_min}–${discovery.definition.doc_id_max}. Search ${discovery.search_state}; candidate collection ${discovery.candidate_collection_state}.`);
       appendText(scope, "p", `Search candidates: ${discovery.candidate_ids.join(", ") || (discovery.search_state === "complete" ? "none returned" : "not established")}. Awaiting collection: ${discovery.pending_candidate_ids.join(", ") || (discovery.search_state === "complete" ? "none" : "not established")}.`);
       appendText(scope, "p", discovery.limitation);
-      if (discovery.definition.transport_qualification) appendText(scope, "p", discovery.definition.transport_qualification);
       appendText(scope, "p", `Discovery collection cost: ${JSON.stringify(discovery.collection_cost)}`);
       if (discovery.run_error) appendText(scope, "p", discovery.run_error);
       for (const source of discovery.sources || []) link(scope, source.citation, `Search source · ${source.retrieved_at.slice(0, 10)} ↗`);

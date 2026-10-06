@@ -1,0 +1,27 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10114",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:04:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791327849449",
+    "X-Request-Post-Validation-Epoch": "1791327849450",
+    "X-Request-Response-Epoch": "1791327849455",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2932",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10114,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P114\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":499,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Art, Archaeology and Ancient World Library\",\"place\":\"Oxford\",\"logoURL\":\"https://pbs.twimg.com/profile_images/1789959363588763648/0XlnKdqo_400x400.png\",\"url\":\"https://www.bodleian.ox.ac.uk/libraries/art\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":6112,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Oxy. 4498\",\"contentOverview\":\"H 1,7-12\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"III\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Heb 1:7-12\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10114/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10114/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10114/POxy.v0066.n4498.a.along.hires.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10114/POxy.v0066.n4498.a.along.hires.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6112,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Heb 1:7-12\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10114&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10114/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10114/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10114/POxy.v0066.n4498.a.across.hires.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10114/POxy.v0066.n4498.a.across.hires.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6112,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10114&pageID=20&format=xhtml\"}},\"pageID\":20,\"noIdx\":true}]},\"gaNum\":\"P114\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":150},\"lang\":\"g\",\"contentOverview\":\"p: H\",\"lineCount\":{\"lineCountMax\":27,\"lineCountMin\":10,\"content\":\"10 (27)\"},\"height\":{\"heightMin\":250}}}}",
+  "body_sha256": "7adf0250d707cf5841639f3051832d9e0eecca0601b8a497e719707958b23ad8",
+  "retrieved_at": "2026-10-06T23:04:09+00:00",
+  "transport_qualification": "Retrieved through the local HTTP proxy explicitly supplied by the project owner. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Proxy upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+}

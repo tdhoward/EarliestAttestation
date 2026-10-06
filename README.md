@@ -46,11 +46,15 @@ rankings in a temporary database, and replaces `data/attestations.json`. Refresh
 the browser to see the result. It creates no HTML, book-specific export, persistent
 replay database, or numbered revision file. `npm run data` is equivalent.
 
-The current collection contains five witnesses across nine books, with 2,020
-default graphable verses, 5,617 reported-present witness/verse pairs, and 4,483
-unknown pairs. Unknown includes missing reports for fragmentary witnesses; it
-does not mean absence. Galatians has one completed bounded indexed search;
-discovery across the wider catalogue remains incomplete.
+The current collection reuses 14 witnesses' retained reports across all
+27 books, with 7,928 default graphable verses, 16,595 reported-present
+witness/verse pairs, and 94,579 unknown pairs. Thirteen default coordinates have
+no exact match in the retained contents reports and remain unknown. Unknown
+includes missing reports for fragmentary witnesses; it does not mean absence.
+Galatians and Hebrews have completed bounded indexed searches for IDs
+10000–19999; discovery across the wider catalogue remains incomplete.
+Scholarly citations use canonical NTVMR URLs. The owner-supplied local API proxy
+is an access route, and TLS verification is not a collection prerequisite.
 
 ## Collect more data
 
@@ -58,7 +62,36 @@ discovery across the wider catalogue remains incomplete.
 reuses existing document captures, saves new reports to `data/sources/`, updates
 the central registers, and refreshes the app data. It does not generate charts.
 See [bounded discovery](docs/BOUNDED_WITNESS_DISCOVERY.md) for the definition
-format, limits, resume behavior, and transport qualifications.
+format, limits, and resume behavior.
+
+When direct NTVMR access is unavailable, use the owner's local API proxy.
+The current address is `http://192.168.0.119:8889`; this is the only concrete
+local proxy address kept in tracked files. All other references use
+`<local proxy>`. If the address changes, update this one reference.
+
+Replace `https://ntvmr.uni-muenster.de` with `<local proxy>`, keeping the
+endpoint path and query parameters. For the collector, declare
+`"transport_base_url": "<local proxy>/community/vmr/api"` in the request
+definition and pass the same base URL. Substitute the current address for
+`<local proxy>` in the ignored `data/.cache/` definition and command before running:
+
+```powershell
+python collect_source_discovery.py --definition data/.cache/discovery-request.json --run-id declared-run --base-url "<local proxy>/community/vmr/api"
+```
+
+The proxy is an access route. Cite and link the canonical
+`https://ntvmr.uni-muenster.de` sources; proxy URLs are not scholarly citations.
+TLS verification and transport qualifications are not required for collection.
+Permanent captures, discovery records, fixtures, and generated app data use
+`<local proxy>` in transport URLs; the collector replaces the configured proxy
+origin when saving them. Raw response bodies, hashes, retrieval dates, endpoint
+paths, and parameters remain intact. Actual addresses belong only in local
+commands and ignored `data/.cache/` definitions and request caches. Do not
+hard-code them in scripts or copy them into other tracked files.
+
+Keep the declared request budget, spacing, resume checkpoints, and provider-block
+stops when using the proxy. A run's definition stays fixed; a transport change
+uses a new run ID and carries prior attempts into the total budget.
 
 Reuse each manuscript's metadata and contents locally, while discovering
 candidates independently of previously selected witnesses. A report for one

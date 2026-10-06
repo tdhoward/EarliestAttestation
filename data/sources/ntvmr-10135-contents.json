@@ -1,5 +1,5 @@
 {
-  "source_url": "http://192.168.0.119:8889/community/vmr/api/biblicalcontent/get/",
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
   "params": {
     "detail": "long",
     "docID": "10135",
@@ -23,5 +23,5 @@
   "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10135,\"indexContent\":[\"Gal 4:31; Gal 5:1-6; Gal 5:10-15; Gal 3:28-29; Gal 3:21-22\",{\"docID\":10135,\"osisID\":\"Gal.4.31\",\"indexContent\":2009004031,\"pageID\":10},{\"docID\":10135,\"osisID\":\"Gal.5.1\",\"indexContent\":2009005001,\"pageID\":10},{\"docID\":10135,\"osisID\":\"Gal.5.2\",\"indexContent\":2009005002,\"pageID\":10},{\"docID\":10135,\"osisID\":\"Gal.5.3\",\"indexContent\":2009005003,\"pageID\":10},{\"docID\":10135,\"osisID\":\"Gal.5.4\",\"indexContent\":2009005004,\"pageID\":10},{\"docID\":10135,\"osisID\":\"Gal.5.5\",\"indexContent\":2009005005,\"pageID\":10},{\"docID\":10135,\"osisID\":\"Gal.5.6\",\"indexContent\":2009005006,\"pageID\":10},{\"docID\":10135,\"osisID\":\"Gal.5.10\",\"indexContent\":2009005010,\"pageID\":20},{\"docID\":10135,\"osisID\":\"Gal.5.11\",\"indexContent\":2009005011,\"pageID\":20},{\"docID\":10135,\"osisID\":\"Gal.5.12\",\"indexContent\":2009005012,\"pageID\":20},{\"docID\":10135,\"osisID\":\"Gal.5.13\",\"indexContent\":2009005013,\"pageID\":20},{\"docID\":10135,\"osisID\":\"Gal.5.14\",\"indexContent\":2009005014,\"pageID\":20},{\"docID\":10135,\"osisID\":\"Gal.5.15\",\"indexContent\":2009005015,\"pageID\":20},{\"docID\":10135,\"osisID\":\"Gal.3.28\",\"indexContent\":2009003028,\"pageID\":30},{\"docID\":10135,\"osisID\":\"Gal.3.29\",\"indexContent\":2009003029,\"pageID\":30},{\"docID\":10135,\"osisID\":\"Gal.3.21\",\"indexContent\":2009003021,\"pageID\":40},{\"docID\":10135,\"osisID\":\"Gal.3.22\",\"indexContent\":2009003022,\"pageID\":40}]}}}",
   "body_sha256": "1539e52645b07ea67c14d712100b649a2c21e55ac47ffa38b68a53149a392ed1",
   "retrieved_at": "2026-10-06T20:14:56+00:00",
-  "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and actual transport URL are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+  "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
 }

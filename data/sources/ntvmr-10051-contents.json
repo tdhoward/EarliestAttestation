@@ -1,5 +1,5 @@
 {
-  "source_url": "http://192.168.0.119:8889/community/vmr/api/biblicalcontent/get/",
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
   "params": {
     "detail": "long",
     "docID": "10051",
@@ -23,5 +23,5 @@
   "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10051,\"indexContent\":[\"Gal 1:2-10; Gal 1:13; Gal 1:16-19\",{\"docID\":10051,\"osisID\":\"Gal.1.2\",\"indexContent\":2009001002,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.3\",\"indexContent\":2009001003,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.4\",\"indexContent\":2009001004,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.5\",\"indexContent\":2009001005,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.6\",\"indexContent\":2009001006,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.7\",\"indexContent\":2009001007,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.8\",\"indexContent\":2009001008,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.9\",\"indexContent\":2009001009,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.10\",\"indexContent\":2009001010,\"pageID\":10},{\"docID\":10051,\"osisID\":\"Gal.1.13\",\"indexContent\":2009001013,\"pageID\":20},{\"docID\":10051,\"osisID\":\"Gal.1.16\",\"indexContent\":2009001016,\"pageID\":20},{\"docID\":10051,\"osisID\":\"Gal.1.17\",\"indexContent\":2009001017,\"pageID\":20},{\"docID\":10051,\"osisID\":\"Gal.1.18\",\"indexContent\":2009001018,\"pageID\":20},{\"docID\":10051,\"osisID\":\"Gal.1.19\",\"indexContent\":2009001019,\"pageID\":20}]}}}",
   "body_sha256": "043513b6c01c7024acadb48710048fb518c610e076870d5f00d91d27b0f47d52",
   "retrieved_at": "2026-10-06T20:14:46+00:00",
-  "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and actual transport URL are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+  "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
 }

@@ -1,0 +1,27 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10012",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:03:23 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791327803446",
+    "X-Request-Post-Validation-Epoch": "1791327803447",
+    "X-Request-Response-Epoch": "1791327803450",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "161",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10012,\"indexContent\":[\"Heb 1:1\",{\"docID\":10012,\"osisID\":\"Heb.1.1\",\"indexContent\":2019001001,\"pageID\":20}]}}}",
+  "body_sha256": "9681f6a390988cdcf9bc1bf061c74f9e3cb014ed5895a90c1a90dbb412aa2a60",
+  "retrieved_at": "2026-10-06T23:03:23+00:00",
+  "transport_qualification": "Retrieved through the local HTTP proxy explicitly supplied by the project owner. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Proxy upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+}

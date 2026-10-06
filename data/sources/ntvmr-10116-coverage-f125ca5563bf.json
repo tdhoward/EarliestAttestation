@@ -1,0 +1,27 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10116",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:04:24 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791327864891",
+    "X-Request-Post-Validation-Epoch": "1791327864892",
+    "X-Request-Response-Epoch": "1791327864895",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "615",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10116,\"indexContent\":[\"Heb 2:9-11; Heb 3:3-6\",{\"docID\":10116,\"osisID\":\"Heb.2.9\",\"indexContent\":2019002009,\"pageID\":10},{\"docID\":10116,\"osisID\":\"Heb.2.10\",\"indexContent\":2019002010,\"pageID\":10},{\"docID\":10116,\"osisID\":\"Heb.2.11\",\"indexContent\":2019002011,\"pageID\":10},{\"docID\":10116,\"osisID\":\"Heb.3.3\",\"indexContent\":2019003003,\"pageID\":20},{\"docID\":10116,\"osisID\":\"Heb.3.4\",\"indexContent\":2019003004,\"pageID\":20},{\"docID\":10116,\"osisID\":\"Heb.3.5\",\"indexContent\":2019003005,\"pageID\":20},{\"docID\":10116,\"osisID\":\"Heb.3.6\",\"indexContent\":2019003006,\"pageID\":20}]}}}",
+  "body_sha256": "9cfa1073473cf6d058b28cd05d7adc2c2d803176a53befc3f7718f46b4af247d",
+  "retrieved_at": "2026-10-06T23:04:24+00:00",
+  "transport_qualification": "Retrieved through the local HTTP proxy explicitly supplied by the project owner. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Proxy upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+}

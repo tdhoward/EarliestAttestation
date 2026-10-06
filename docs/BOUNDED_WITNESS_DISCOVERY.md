@@ -29,13 +29,22 @@ python collect_source_discovery.py --definition data/.cache/discovery-request.js
 
 The same run ID resumes against `data/.cache/collection.sqlite` within its remaining
 budget. A run's definition is fixed; blocked access is never automatically retried.
+An access block during metadata or contents collection stops the remaining
+documents. Resuming that run preserves the original blocked job and makes no
+further document requests, including refresh requests.
 The register holds the current record for each declared scope. Other scopes and
 all existing document captures remain available. Metadata-only candidates can
 resume contents collection without being skipped as already complete.
 
 Canonical HTTPS is the default. Optional `--https-proxy` uses a configured CONNECT
-proxy with canonical TLS verification. An explicitly configured `--base-url` relay
-must be declared and qualified in the request definition. Do not change routes or
+proxy. The owner-supplied local API proxy uses
+`--base-url "<local proxy>/community/vmr/api"` and must be recorded in the
+ignored request definition. Substitute the address documented once in
+[README](../README.md#collect-more-data) before running. Scholarly citations always
+use canonical NTVMR endpoints; TLS verification is not a collection prerequisite.
+Permanent records replace the proxy origin with `<local proxy>` while preserving
+raw response bodies, hashes, paths, parameters, and retrieval dates. Actual request
+URLs remain only in ignored local definitions and request caches. Do not change routes or
 identity to bypass a provider block. Establish provider expectations before bulk
 access. Tests and data rebuilds make no live requests.
 
@@ -71,6 +80,16 @@ P51 supplies 14 Galatians presence pairs and P135 supplies 17, all with the
 provider's indexing tier 3. Their exact catalogue date bounds are respectively
 400–425 CE (`V (A)`) and 301–499 CE (`IV/V`). The record retains source fields,
 citations, retrieval times, hashes, and request cost. Successful collection used
-an existing HTTP relay; upstream TLS verification was not established, and that
-qualification remains attached to its sources. Broader catalogue discovery is
-still incomplete.
+an existing HTTP relay. Their citations identify the canonical NTVMR endpoints.
+Broader catalogue discovery is still incomplete.
+
+The completed Hebrews search for IDs 10000–19999 returned P12, P13, P17, P46,
+P79, P89, P114, P116, P126, and P130. It reused P46 and captured metadata and long
+contents for the nine new witnesses. Those reports add 163 presence pairs.
+The pilot used 19 successful requests through the owner-supplied proxy, after
+six direct attempts received no source response, within a total budget of 25.
+
+All 27 books now reuse explicit contents fields from the existing document
+captures. That offline expansion creates no additional search completion: only
+the Galatians and Hebrews scopes are complete, and the remaining books
+are unsearched.

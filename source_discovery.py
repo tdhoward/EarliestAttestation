@@ -30,9 +30,6 @@ def range_params(definition):
     for field in ("scope_id", "catalogue_citation", "access_expectations"):
         if not isinstance(definition.get(field), str) or not definition[field].strip():
             raise ValueError(f"Discovery requires {field}")
-    if definition.get("transport_base_url"):
-        if not isinstance(definition.get("transport_qualification"), str) or not definition["transport_qualification"].strip():
-            raise ValueError("A configured relay requires an explicit transport qualification")
     low, high, limit = (definition.get(k) for k in ("doc_id_min", "doc_id_max", "page_limit"))
     if type(low) is not int or type(high) is not int or not 0 < low < high or high-low >= 50000:
         raise ValueError("Discovery requires a positive finite range of at most 50,000 IDs")
@@ -163,8 +160,7 @@ def prepare_discovery(record, documents):
         snapshots.append({"endpoint": "metadata/liste/search", "url": capture["source_url"],
                           "params": dict(params), "body": capture["raw_body"], "headers": capture.get("headers", {}),
                           "body_sha256": capture["body_sha256"], "retrieved_at": capture["retrieved_at"],
-                          "provider": "INTF / NTVMR", "citation": API_BASE + "/metadata/liste/search/?" + urlencode(params),
-                          "transport_qualification": definition.get("transport_qualification", "Canonical HTTPS transport")})
+                          "provider": "INTF / NTVMR", "citation": API_BASE + "/metadata/liste/search/?" + urlencode(params)})
         terminal = cursor is None
         if not terminal:
             params["afterDocID"] = str(cursor)

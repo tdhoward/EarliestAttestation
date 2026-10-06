@@ -30,9 +30,9 @@ class ExplorerTests(unittest.TestCase):
         self.assertEqual(data["coordinates"][0][0], "Matt.1.1")
         self.assertEqual(data["coordinates"][-1][0], "Rev.22.21")
         self.assertEqual(len({ref.split('.')[0] for ref, _ in data["coordinates"]}), 27)
-        self.assertEqual(len(data["observations"]), 2020)
-        self.assertNotIn("John.3.16", data["observations"])
-        self.assertEqual(len(data["dates"]), 5)
+        self.assertEqual(len(data["observations"]), 7941)
+        self.assertNotIn("Rom.16.24", data["observations"])
+        self.assertEqual(len(data["dates"]), 14)
         self.assertEqual(data["metadata"]["counts"], self.graph["counts"])
 
     def test_rankings_and_provenance_survive_compaction(self):

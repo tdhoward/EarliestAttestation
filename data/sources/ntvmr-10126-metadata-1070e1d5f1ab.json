@@ -1,0 +1,27 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10126",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:04:30 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791327870111",
+    "X-Request-Post-Validation-Epoch": "1791327870112",
+    "X-Request-Response-Epoch": "1791327870117",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3345",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10126,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P126\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":275,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Istituto Papirologico \",\"place\":\"Florence\",\"logoURL\":\"http://ntmss.info/instlogos/IPvitelli.gif\",\"url\":\"https://www.istitutopapirologico.unifi.it\"},\"leavesDescription\":\"Frg\",\"shelfID\":112,\"originYearDescription\":\"IV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"PSI inv. 1497\",\"contentOverview\":\"H 13,12-13.19-20\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":399,\"early\":300,\"content\":\"IV\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Heb 13:12-13\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10126/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.psi-online.it/documents/psi;15;1497\\\"><div>External Images by<br/>PSIonline</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10126/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":112,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Heb 13:12-13\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10126&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Heb 13:19-20\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10126/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.psi-online.it/documents/psi;15;1497\\\"><div>External Images by<br/>PSIonline</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10126/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":112,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Heb 13:19-20\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10126&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":\"P126\",\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"width\":{\"widthMin\":160},\"lang\":\"g\",\"contentOverview\":\"p: H\",\"lineCount\":{\"lineCountMin\":20,\"content\":\"(ca. 20)\"},\"height\":{\"heightMin\":300}}}}",
+  "body_sha256": "1335c98b5ae8fa971bf5ccdb171899dba2972a56e955e0f9328184715db6ef76",
+  "retrieved_at": "2026-10-06T23:04:30+00:00",
+  "transport_qualification": "Retrieved through the local HTTP proxy explicitly supplied by the project owner. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Proxy upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+}

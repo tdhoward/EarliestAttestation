@@ -254,6 +254,26 @@ class CollectorTests(unittest.TestCase):
             other.get_json("biblicalcontent/get", {**PARAMS, "pageID": "20"})
         self.assertEqual(len(calls), 3)
 
+    def test_document_block_survives_resume_and_stops_other_jobs(self):
+        for stage in ("metadata", "coverage"):
+            with self.subTest(stage=stage):
+                run_id = f"blocked-{stage}"
+                client, _, calls = self.client([(403, "denied", {})], run_id=run_id)
+                with self.assertRaises(AccessBlocked):
+                    collect_stage(client, 10052, stage)
+                checkpoint = self.con.execute("SELECT * FROM collection_job WHERE run_id=?",
+                                              (run_id,)).fetchone()
+                resumed, _, resumed_calls = self.client([], run_id=run_id)
+                for doc, next_stage, refresh in ((10052, stage, False), (10052, stage, True),
+                                                  (10066, "metadata", False)):
+                    with self.assertRaisesRegex(AccessBlocked, "Prior document access block"):
+                        collect_stage(resumed, doc, next_stage, refresh=refresh)
+                self.assertEqual(len(calls), 1)
+                self.assertEqual(resumed_calls, [])
+                self.assertEqual(resumed.attempts, 1)
+                self.assertEqual(self.con.execute("SELECT * FROM collection_job WHERE run_id=?",
+                                                 (run_id,)).fetchall(), [checkpoint])
+
     def test_offline_fixture_resume_and_atomic_replacement(self):
         import_p52(self.con, FIXTURE)
         client = Client(self.con, "sample", offline=True)

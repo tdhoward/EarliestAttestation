@@ -1,6 +1,6 @@
 {
   "source": "NTVMR API index response captured through the user-provided proxy; index candidates only, not reviewed physical coverage",
-  "source_url": "http://192.168.0.146:8889/community/vmr/api/biblicalcontent/get/",
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
   "params": {
     "detail": "long",
     "docID": "10066",

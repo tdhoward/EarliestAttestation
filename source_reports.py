@@ -79,8 +79,6 @@ def capture(path, doc_id, stage):
 
 
 def provenance(snapshot, locator, reported, qualifications=""):
-    if snapshot.get("transport_qualification"):
-        qualifications += " " + snapshot["transport_qualification"]
     return {"provider": snapshot["provider"], "citation": snapshot["citation"],
             "retrieved_at": snapshot["retrieved_at"], "source_locator": locator,
             "reported": reported, "qualifications": qualifications,

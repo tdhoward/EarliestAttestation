@@ -8,14 +8,20 @@ const current = JSON.parse(readFileSync(join(__dirname, "../data/attestations.js
 // A smaller synthetic view keeps the three-witness model cases independent of collection growth.
 const data = structuredClone(current);
 const retained = new Set(["ntvmr:10046", "ntvmr:20001", "ntvmr:20002"]);
+const retainedBooks = new Set(["Rom", "1Cor", "2Cor", "Gal", "Eph", "Phil", "Col", "1Thess", "Heb"]);
+data.observations = Object.fromEntries(Object.entries(data.observations).filter(([ref]) => retainedBooks.has(ref.split(".")[0])));
 data.documents = data.documents.filter(d => retained.has(d.witness_id));
 data.dates = Object.fromEntries(Object.entries(data.dates).filter(([,d]) => retained.has(d.witness_id)));
+const fixtureDateIds = new Map(Object.keys(data.dates).map((id, i) => [id, String(i + 1)]));
+data.dates = Object.fromEntries(Object.entries(data.dates).map(([id, date]) =>
+  [fixtureDateIds.get(id), {...date, assessment_id: Number(fixtureDateIds.get(id))}]));
 for (const row of Object.values(data.observations)) {
   row.reported_coverage = row.reported_coverage.filter(p => retained.has(p.witness_id));
   for (const combo of row.dating_alternatives.combinations) {
-    combo.assessments = combo.assessments.filter(id => data.dates[id]);
+    combo.assessments = combo.assessments.filter(id => fixtureDateIds.has(String(id))).map(id => fixtureDateIds.get(String(id)));
     for (const side of ["optimistic", "pessimistic"]) {
-      combo.scenarios[side] = combo.scenarios[side].filter(e => retained.has(e.witness_id)).map((e, i) => ({...e, rank: i + 1}));
+      combo.scenarios[side] = combo.scenarios[side].filter(e => retained.has(e.witness_id)).map((e, i) =>
+        ({...e, assessment_id: Number(fixtureDateIds.get(String(e.assessment_id))), rank: i + 1}));
     }
   }
 }
@@ -26,42 +32,55 @@ test("bounded discovery is independent of coverage, dates, and the rest of the c
   const model = createModel(discovered);
   assert.equal(model.discovery(model.lookup("Gal 1:9")).state, "bounded_search_complete");
   assert.match(model.discovery(model.lookup("Gal 1:9")).text, /Other catalogue ranges and unindexed witnesses/);
-  assert.equal(model.discovery(model.lookup("Heb 1:1")).state, "not_searched");
+  assert.equal(model.discovery(model.lookup("Heb 1:1")).state, "bounded_search_complete");
+  assert.equal(model.discovery(model.lookup("Rom 1:1")).state, "not_searched");
   assert.equal(discovered.metadata.discovery.corpus_complete, false);
   const cell = model.cell(model.lookup("Gal 1:9"), "optimistic");
   assert.equal(cell.observation.reported_coverage.find(p => p.witness_id === "ntvmr:10046").state, "unknown");
   assert.equal(cell.observation.reported_coverage.find(p => p.witness_id === "ntvmr:10051").state, "present");
   const pending = structuredClone(discovered);
-  pending.metadata.discovery.pending_candidate_ids = [10135];
-  pending.metadata.discovery.candidate_collection_state = "incomplete";
+  const pendingGal = pending.metadata.discovery.scopes.find(s => s.definition.book === "Gal");
+  pendingGal.pending_candidate_ids = [10135];
+  pendingGal.candidate_collection_state = "incomplete";
   pending.observations["Gal.1.9"].discovery.state = "candidate_collection_incomplete";
   const pendingModel = createModel(pending);
   assert.match(pendingModel.discovery(pendingModel.lookup("Gal 1:9")).text, /1 of 3/);
   assert.deepEqual(pendingModel.cell(pendingModel.lookup("Gal 1:9"), "optimistic").events, cell.events);
   const failed = structuredClone(pending);
-  failed.metadata.discovery.search_state = "blocked";
+  failed.metadata.discovery.scopes.find(s => s.definition.book === "Gal").search_state = "blocked";
   failed.observations["Gal.1.9"].discovery.state = "search_incomplete";
   assert.match(createModel(failed).discovery(model.lookup("Gal 1:9")).text, /blocked/);
   assert.match(readFileSync(join(__dirname, "../web/attestation-explorer/explorer.js"), "utf8"), /Earliest collected/);
 });
 
-test("nine-book report expansion navigates sources, endpoints, unknowns, and supplementary filters", () => {
+test("full NT report expansion navigates sources, endpoints, unknowns, and supplementary filters", () => {
   const expanded = current;
   const model = createModel(expanded);
   assert.equal(model.discovery(model.lookup("Gal 1:9")).state, "bounded_search_complete");
-  assert.equal(Object.keys(expanded.observations).length, 2020);
+  assert.equal(Object.keys(expanded.observations).length, 7941);
   assert.equal(model.cell(model.lookup("Rom 16:24"), "optimistic").state, "filtered");
-  assert.equal(model.cell(model.lookup("John 3:16"), "optimistic").state, "uncollected");
+  assert.equal(model.cell(model.lookup("John 3:16"), "optimistic").state, "dated");
+  assert.equal(model.discovery(model.lookup("John 3:16")).state, "not_searched");
+  assert.equal(expanded.metadata.counts.graphable_coordinates, 7928);
+  const unresolved = Object.keys(expanded.observations).filter(ref => model.cell(model.indices.get(ref), "optimistic").state === "no_date");
+  assert.equal(unresolved.length, 13);
+  for (const ref of unresolved) {
+    assert.ok(expanded.observations[ref].reported_coverage.every(pair => pair.state === "unknown" && !pair.claims.length));
+    assert.deepEqual(model.cell(model.indices.get(ref), "pessimistic").events, []);
+  }
   const first = model.cell(model.lookup("Rom 1:1"), "optimistic");
   assert.equal(first.observation.reported_coverage[0].state, "unknown");
   assert.deepEqual(first.events.map(e => e.event_year), [300, 400]);
-  for (const ref of ["1Cor 1:1", "2Cor 1:1", "Gal 1:1", "Eph 1:1", "Phil 1:1", "Col 1:1", "1Thess 1:1", "Heb 1:1"]) {
+  for (const ref of ["1Cor 1:1", "2Cor 1:1", "Gal 1:1", "Eph 1:1", "Phil 1:1", "Col 1:1", "1Thess 1:1"]) {
     const optimistic = model.cell(model.lookup(ref), "optimistic");
     const pessimistic = model.cell(model.lookup(ref), "pessimistic");
     assert.deepEqual(optimistic.events.map(e => e.event_year), [200, 300, 400]);
     assert.deepEqual(pessimistic.events.map(e => e.event_year), [225, 399, 499]);
   }
-  assert.equal(model.minimum, 150); assert.equal(model.maximum, 550);
+  const hebrews = model.cell(model.lookup("Heb 1:1"), "optimistic");
+  assert.equal(hebrews.observation.reported_coverage.length, 14);
+  assert.equal(hebrews.observation.reported_coverage.find(p => p.witness_id === "ntvmr:10012").state, "present");
+  assert.equal(model.minimum, 150); assert.equal(model.maximum, 750);
 });
 
 test("complete canonical axis and reference navigation, including tiny books", () => {

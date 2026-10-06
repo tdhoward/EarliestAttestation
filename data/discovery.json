@@ -9,19 +9,19 @@
       "doc_id_max": 19999,
       "page_limit": 200,
       "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/en_US/intfblog/-/blogs/1695852; catalogue membership and Greek language are checked from explicit document metadata before contents import.",
-      "access_expectations": "Three-attempt completion batch for the already captured Galatians book/range search. Reuse the terminal search and P51 metadata, then collect P51 contents and P135 metadata/contents once. The initial twelve-attempt pilot is preserved separately. No broader discovery or source refresh is authorized by this batch. Keep one worker, fixed project identity, five-second spacing, Retry-After, and blocked-state stops. Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and actual transport URL are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed.",
+      "access_expectations": "Three-attempt completion batch for the already captured Galatians book/range search. Reuse the terminal search and P51 metadata, then collect P51 contents and P135 metadata/contents once. The initial twelve-attempt pilot is preserved separately. No broader discovery or source refresh is authorized by this batch. Keep one worker, fixed project identity, five-second spacing, Retry-After, and blocked-state stops. Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed.",
       "request_budget": 3,
       "minimum_interval_seconds": 5,
       "maximum_run_seconds": 180,
-      "transport_base_url": "http://192.168.0.119:8889/community/vmr/api",
+      "transport_base_url": "<local proxy>/community/vmr/api",
       "prior_pilot_attempts": 12,
-      "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and actual transport URL are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+      "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
     },
     "run_state": "complete",
     "run_error": null,
     "search_captures": [
       {
-        "source_url": "http://192.168.0.119:8889/community/vmr/api/metadata/liste/search/",
+        "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
         "params": {
           "detail": "document",
           "docID": "10000-19999",
@@ -54,6 +54,64 @@
       "http_responses_recorded": 3,
       "reused_seed_document_responses": 6,
       "request_budget": 3,
+      "collection_errors": []
+    }
+  },
+  {
+    "format_version": 1,
+    "definition": {
+      "format_version": 1,
+      "scope_id": "hebrews-docids-10000-19999",
+      "book": "Heb",
+      "doc_id_min": 10000,
+      "doc_id_max": 19999,
+      "page_limit": 200,
+      "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/en_US/intfblog/-/blogs/1695852; catalogue membership and Greek language are checked from explicit document metadata before contents import.",
+      "access_expectations": "Complete the finite independent Hebrews book-index pilot through the local HTTP proxy explicitly supplied by the owner on 2026-10-06 after canonical HTTPS could not be reached. The initial six attempts received no provider response; this is a transport change authorized by the owner, not a response to a provider access block. Retain that initial cost as prior_pilot_attempts and cap this batch at the remaining 19 attempts, including continuation pages and retries. Use the documented default page limit, no name/date/language search filters, one worker, the fixed EarliestAttestation identity, at least five seconds between requests, Retry-After, and blocked-state stops. Reuse registered metadata and long contents reports. No published numerical provider quota has been established; this project budget does not authorize bulk access. No source refresh, images, transcriptions, or other book/range searches are included. Keep canonical citations and proxy transport placeholders separate. Proxy upstream TLS verification is not established by these captures.",
+      "request_budget": 19,
+      "prior_pilot_attempts": 6,
+      "minimum_interval_seconds": 5,
+      "maximum_run_seconds": 240,
+      "transport_base_url": "<local proxy>/community/vmr/api",
+      "transport_qualification": "Retrieved through the local HTTP proxy explicitly supplied by the project owner. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Proxy upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+    },
+    "run_state": "complete",
+    "run_error": null,
+    "search_captures": [
+      {
+        "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+        "params": {
+          "detail": "document",
+          "docID": "10000-19999",
+          "format": "json",
+          "indexContent": "Heb",
+          "limit": "200"
+        },
+        "http_status": 200,
+        "headers": {
+          "Date": "Tue, 06 Oct 2026 23:03:13 GMT",
+          "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+          "X-Request-Received-Epoch": "1791327793766",
+          "X-Request-Post-Validation-Epoch": "1791327793767",
+          "X-Request-Response-Epoch": "1791327793777",
+          "X-Response-Time": "11ms",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "Content-Type": "application/json;charset=UTF-8",
+          "Content-Length": "1506",
+          "Connection": "close"
+        },
+        "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":60,\"manuscript\":[{\"origLate\":299,\"gaNum\":\"P12\",\"orig\":\"E III\",\"docID\":10012,\"groupID\":\"\",\"primaryName\":\"P12\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":275},{\"origLate\":399,\"gaNum\":\"P13\",\"orig\":\"III/IV\",\"docID\":10013,\"groupID\":\"\",\"primaryName\":\"P13\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":399,\"gaNum\":\"P17\",\"orig\":\"IV\",\"docID\":10017,\"groupID\":\"\",\"primaryName\":\"P17\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300},{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":699,\"gaNum\":\"P79\",\"orig\":\"VII\",\"docID\":10079,\"groupID\":\"\",\"primaryName\":\"P79\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":600},{\"origLate\":399,\"gaNum\":\"P89\",\"orig\":\"IV\",\"docID\":10089,\"groupID\":\"\",\"primaryName\":\"P89\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300},{\"origLate\":299,\"gaNum\":\"P114\",\"orig\":\"III\",\"docID\":10114,\"groupID\":\"\",\"primaryName\":\"P114\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":699,\"gaNum\":\"P116\",\"orig\":\"VI/VII\",\"docID\":10116,\"groupID\":\"\",\"primaryName\":\"P116\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":500},{\"origLate\":399,\"gaNum\":\"P126\",\"orig\":\"IV\",\"docID\":10126,\"groupID\":\"\",\"primaryName\":\"P126\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300},{\"origLate\":400,\"gaNum\":\"P130\",\"orig\":\"III/IV\",\"docID\":10130,\"groupID\":\"\",\"primaryName\":\"P130\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200}],\"count\":10}}}",
+        "body_sha256": "c9b194107f79eb138bec31dfb0609e855132b99cc01f5fcae7db75a116f51e58",
+        "retrieved_at": "2026-10-06T23:03:13+00:00"
+      }
+    ],
+    "collection_cost": {
+      "request_attempts": 19,
+      "http_responses_recorded": 19,
+      "reused_seed_document_responses": 10,
+      "request_budget": 19,
       "collection_errors": []
     }
   }

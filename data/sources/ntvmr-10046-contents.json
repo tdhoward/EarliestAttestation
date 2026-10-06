@@ -1,6 +1,6 @@
 {
   "source": "Official NTVMR response captured through the existing local access proxy after two direct metadata timeouts; indexing is not physical evidence.",
-  "source_url": "http://192.168.0.146:8889/community/vmr/api/biblicalcontent/get/",
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
   "canonical_source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
   "params": {
     "detail": "long",

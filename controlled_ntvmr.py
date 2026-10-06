@@ -598,6 +598,12 @@ def collect_stage(client, doc_id, stage, *, refresh=False):
     metadata_ready = stage != "metadata" or (row and metadata_checkpoint_ready(con, doc_id, row[1]))
     if row and row[0] in ("success", "empty") and metadata_ready and not refresh:
         return row[0]
+    blocked = con.execute("""SELECT doc_id,stage,error FROM collection_job
+      WHERE run_id=? AND state='blocked' ORDER BY doc_id,stage LIMIT 1""",
+      (client.run_id,)).fetchone()
+    if blocked:
+        raise AccessBlocked(f"Prior document access block is preserved for {blocked[0]} {blocked[1]}: "
+                            f"{blocked[2]}; do not automatically retry this run")
     set_job(con, client.run_id, doc_id, stage, "pending")
     endpoint = "metadata/manuscript/get" if stage == "metadata" else "biblicalcontent/get"
     params = {"docID": str(doc_id), "detail": "10" if stage == "metadata" else "long", "format": "json"}
