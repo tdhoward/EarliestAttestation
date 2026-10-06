@@ -7,12 +7,12 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
-import xml.etree.ElementTree as ET
 import re
 
 from controlled_ntvmr import connect, rank_candidates
 from export_attestation import main as export_main
 from render_attestation import render
+from report_explorer import build_explorer_data
 from replay_source_reports import main as replay_main
 from source_reports import (CONTRACT, build_report_exports, coverage_state, digest,
                             import_batch)
@@ -132,7 +132,7 @@ class ReportTests(unittest.TestCase):
             self.assertEqual(combo["scenarios"]["optimistic"][0]["witness_id"], "ntvmr:10046")
             self.assertEqual(combo["scenarios"]["pessimistic"][0]["witness_id"], "ntvmr:20001")
         self.assertEqual([(c["assessments"][0]["date_min"], c["assessments"][0]["date_max"]) for c in combos], [(100, 300), (150, 350)])
-        self.assertEqual(render(graph).count('<h2>Date combination'), 2)
+        self.assertEqual(len(build_explorer_data(graph)["observations"]["Gal.1.1"]["dating_alternatives"]["combinations"]), 2)
 
     def test_unknown_date_does_not_erase_presence(self):
         self.add_document(20001, ["Gal.1.3"], 0, 0)
@@ -141,7 +141,7 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(verse["reported_coverage"][1]["state"], "present")
         self.assertEqual(verse["ranking_state"], "no_rankable_dates")
         self.assertEqual(verse["dating_alternatives"]["unrankable_assessments"][0]["status"], "unknown")
-        self.assertIn("unknown numeric bounds; unrankable", render(graph))
+        self.assertEqual(build_explorer_data(graph)["dates"][str(verse["reported_coverage"][1]["date_assessments"][0]["assessment_id"])]["status"], "unknown")
 
     def test_explicit_provider_unconfirmed_indexing_is_unknown(self):
         path = self.root / "meta-10046.json"
@@ -248,7 +248,52 @@ class ReportTests(unittest.TestCase):
 
 
 class BoundedReplayTests(unittest.TestCase):
-    def test_real_captures_replay_without_network_and_render_valid_svg(self):
+    def test_whole_galatians_reuses_six_captures_in_full_gnt_explorer(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            artifacts = []
+            for number in (1, 2):
+                args = ["--manifest", str(ROOT / "benchmarks/galatians-source-reports-v1.json"),
+                        "--db", str(root / f"new-{number}.sqlite"),
+                        "--dataset-output", str(root / f"dataset-{number}.json"),
+                        "--graph-output", str(root / f"graph-{number}.json"),
+                        "--html-output", str(root / f"chart-{number}.html")]
+                with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")), redirect_stdout(StringIO()):
+                    self.assertEqual(replay_main(args), 0)
+                artifacts.append(tuple((root / f"{name}-{number}.{suffix}").read_text(encoding="utf-8")
+                                       for name, suffix in (("dataset", "json"), ("graph", "json"), ("chart", "html"))))
+            self.assertEqual(artifacts[0], artifacts[1])
+            graph = json.loads(artifacts[0][1])
+            self.assertEqual(graph["counts"]["witness_verse_pairs"], {"present": 437, "absent": 0, "unknown": 10, "contested": 0})
+            self.assertEqual(graph["counts"]["graphable_coordinates"], 149)
+            self.assertEqual(graph["counts"]["mapping_gaps"], 0)
+            self.assertEqual(graph["collection_cost"]["reused_response_count"], 6)
+            self.assertEqual(graph["collection_cost"]["replay_network_requests"], 0)
+            publisher = json.loads((ROOT / "benchmarks/na28-nt-reference-provisional-v3.json").read_text(encoding="utf-8"))
+            expected = [v for v in publisher["verses"] if v["osis_ref"].startswith("Gal.")]
+            self.assertEqual([v["osis_ref"] for v in graph["verses"]], [v["osis_ref"] for v in expected])
+            for verse in graph["verses"]:
+                pairs = verse["reported_coverage"]
+                self.assertEqual([p["state"] for p in pairs[1:]], ["present", "present"])
+                for pair in pairs:
+                    self.assertEqual({d["status"] for d in pair["date_assessments"]}, {"valid"})
+                    if pair["state"] == "unknown":
+                        self.assertEqual(pair["witness_id"], "ntvmr:10046")
+                        self.assertEqual(pair["claims"], [])
+                        self.assertEqual(pair["unknown_reason"], "no_explicit_mapped_report")
+                combo = verse["dating_alternatives"]["combinations"][0]
+                present_ids = [p["witness_id"] for p in pairs if p["state"] == "present"]
+                for side in ("optimistic", "pessimistic"):
+                    self.assertEqual([e["witness_id"] for e in combo["scenarios"][side]], present_ids)
+            html = artifacts[0][2]
+            self.assertEqual(html.count('<canvas '), 1)
+            payload = json.loads(re.search(r'<script id="attestation-data" type="application/json">(.*?)</script>', html, re.S).group(1))
+            self.assertEqual(len(payload["coordinates"]), 7957)
+            self.assertEqual(len(payload["observations"]), 149)
+            self.assertEqual(payload["metadata"]["counts"], graph["counts"])
+            self.assertIn('name="scenario" value="pessimistic"', html)
+
+    def test_real_captures_replay_without_network_and_render_explorer(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             args = ["--manifest", str(ROOT / "benchmarks/gal1-source-reports-v1.json"), "--db", str(root / "new.sqlite"),
@@ -262,17 +307,12 @@ class BoundedReplayTests(unittest.TestCase):
             self.assertEqual(graph["collection_cost"]["replay_network_requests"], 0)
             self.assertEqual(graph["collection_cost"]["reused_response_count"], 6)
             html = (root / "chart.html").read_text(encoding="utf-8")
-            svgs = re.findall(r'<svg\b.*?</svg>', html, re.S)
-            self.assertEqual(len(svgs), 2)
-            for svg in svgs:
-                tree = ET.fromstring(svg)
-                self.assertEqual(tree.tag, "svg")
-                for rect in tree.findall("rect"):
-                    self.assertGreaterEqual(float(rect.get("height", "0")), 0)
+            self.assertEqual(html.count('<canvas '), 1)
             self.assertIn("Source snapshots", html)
-            self.assertIn("Endpoint rankings", html)
-            self.assertIn("1. ntvmr:10046: 200 CE", html)
-            self.assertIn("1. ntvmr:10046: 225 CE", html)
+            data = build_explorer_data(graph)
+            combo = data["observations"]["Gal.1.1"]["dating_alternatives"]["combinations"][0]
+            self.assertEqual(combo["scenarios"]["optimistic"][0]["event_year"], 200)
+            self.assertEqual(combo["scenarios"]["pessimistic"][0]["event_year"], 225)
             self.assertIn("unknown", html)
             with redirect_stdout(StringIO()), redirect_stderr(StringIO()), self.assertRaises(SystemExit):
                 replay_main(args)

@@ -380,6 +380,82 @@ def parse_search(payload):
     return rows, count
 
 
+def search_continuation(payload, rows, headers=None, after_doc_id=0):
+    """Read the documented root attributes or equivalent response headers."""
+    root = payload["data"]["manuscripts"]
+    if headers is not None and not isinstance(headers, dict):
+        raise ContractError("Search response headers are invalid")
+    headers = {key.lower(): value for key, value in (headers or {}).items()}
+
+    def partial_value(value):
+        if type(value) is bool:
+            return value
+        if value in ("true", "false"):
+            return value == "true"
+        raise ContractError("Search partial flag is invalid")
+
+    flags = [partial_value(container[key]) for container, key in
+             ((root, "partial"), (headers, "x-vmr-partial")) if key in container]
+    if len(set(flags)) > 1:
+        raise ContractError("Search partial attributes and headers disagree")
+    partial = flags[0] if flags else False
+    cursors = []
+    for container, key in ((root, "nextAfterDocID"), (headers, "x-vmr-next-afterdocid")):
+        if key not in container:
+            continue
+        value = container[key]
+        if type(value) is int and value > 0:
+            cursors.append(value)
+        elif isinstance(value, str) and re.fullmatch(r"[1-9][0-9]*", value):
+            cursors.append(int(value))
+        else:
+            raise ContractError("Search continuation cursor is invalid")
+    if len(set(cursors)) > 1:
+        raise ContractError("Search continuation attributes and headers disagree")
+    if not partial:
+        if cursors:
+            raise ContractError("Terminal search response has a continuation cursor")
+        return None
+    if not rows or not cursors:
+        raise ContractError("Partial search response lacks rows or continuation cursor")
+    cursor = cursors[0]
+    if cursor <= after_doc_id or cursor != max(row["docID"] for row in rows):
+        raise ContractError("Search continuation cursor does not advance to the last document")
+    return cursor
+
+
+def collect_search_pages(client, params, *, refresh=False, allowed_ids=None):
+    """Replay captured pages on resume; publish candidates only after a terminal page.
+
+    Params tracks the current request for the caller's failure checkpoint. Each
+    candidate keeps its own page response ID. A refreshed first page cannot be
+    combined with older cached continuation pages.
+    """
+    records, seen, reported, first_response_id = [], set(), 0, 0
+    mismatch = False
+    while True:
+        payload, response_id = client.get_json("metadata/liste/search", params,
+            refresh=refresh, min_response_id=first_response_id)
+        rows, count = parse_search(payload)
+        headers = json.loads(client.con.execute(
+            "SELECT headers_json FROM source_response WHERE id=?", (response_id,)).fetchone()[0])
+        after_doc_id = int(params.get("afterDocID", 0))
+        cursor = search_continuation(payload, rows, headers, after_doc_id)
+        ids = {row["docID"] for row in rows}
+        if seen & ids or any(doc_id <= after_doc_id for doc_id in ids):
+            raise ContractError("Search continuation repeats or goes backwards over document IDs")
+        if cursor is not None and allowed_ids is not None and ids - allowed_ids:
+            raise ContractError("Partial search returned documents outside the declared scope")
+        seen.update(ids)
+        records.extend((row, response_id) for row in rows)
+        reported += count  # Count is per response, not a declaration of corpus size.
+        mismatch = mismatch or count != len(rows)
+        first_response_id = first_response_id or response_id
+        if cursor is None:
+            return records, reported, response_id, mismatch
+        params["afterDocID"] = str(cursor)
+
+
 def retry_after(value, clock=time.time):
     if not value:
         return None
@@ -450,12 +526,13 @@ class Client:
         self.con.commit()
         return status, body, headers, response_id
 
-    def get_json(self, endpoint, params, *, refresh=False):
+    def get_json(self, endpoint, params, *, refresh=False, min_response_id=0):
         if not refresh:
             row = self.con.execute("""SELECT id,body FROM source_response WHERE endpoint=?
               AND url=? AND params_json=? AND status_code BETWEEN 200 AND 299
-              AND (origin='http' OR ?) ORDER BY id DESC LIMIT 1""",
-              (endpoint, self.base_url + "/" + endpoint.strip("/") + "/", encoded(params), self.offline)).fetchone()
+              AND (origin='http' OR ?) AND id>=? ORDER BY id DESC LIMIT 1""",
+              (endpoint, self.base_url + "/" + endpoint.strip("/") + "/", encoded(params),
+               self.offline, min_response_id)).fetchone()
             if row:
                 if row[1].lstrip().lower().startswith(("<!doctype html", "<html")):
                     raise AccessBlocked(f"Cached HTML block/challenge, response {row[0]}")
@@ -584,6 +661,8 @@ def collect_search(client, ref, ga_num, *, lang=None, refresh=False):
         AND ga_num=? AND lang_filter=?""", key).fetchone()
     if prior and prior[0] in ("success", "empty") and not refresh:
         return prior[0]
+    if prior and prior[0] == "blocked" and not refresh:
+        raise AccessBlocked("Prior search access block requires explicit refresh")
     params = search_params(ref, ga_num, lang)
     con.execute("""INSERT INTO discovery_job(run_id,osis_ref,ga_num,lang_filter,state,updated_at)
         VALUES(?,?,?,?,?,?) ON CONFLICT(run_id,osis_ref,ga_num,lang_filter)
@@ -591,23 +670,22 @@ def collect_search(client, ref, ga_num, *, lang=None, refresh=False):
         (*key, "pending", now()))
     con.commit()
     try:
-        payload, response_id = client.get_json("metadata/liste/search", params, refresh=refresh)
-        rows, reported = parse_search(payload)
-        state = "incomplete" if reported != len(rows) else "success" if rows else "empty"
+        records, reported, response_id, mismatch = collect_search_pages(client, params, refresh=refresh)
+        state = "incomplete" if mismatch else "success" if records else "empty"
         with con:
             con.execute("""DELETE FROM discovery_candidate WHERE run_id=? AND osis_ref=?
                 AND ga_num_query=? AND lang_filter=?""", key)
             con.executemany("""INSERT INTO discovery_candidate(run_id,osis_ref,ga_num_query,
                 lang_filter,doc_id,response_id,ga_num,primary_name,source_lang,raw_json)
                 VALUES(?,?,?,?,?,?,?,?,?,?)""", [
-                (*key, row["docID"], response_id,
+                (*key, row["docID"], page_response_id,
                  str(row["gaNum"]) if "gaNum" in row else None,
                  str(row["primaryName"]) if "primaryName" in row else None,
-                 row.get("lang"), encoded(row)) for row in rows])
+                 row.get("lang"), encoded(row)) for row, page_response_id in records])
             con.execute("""UPDATE discovery_job SET state=?,response_id=?,reported_count=?,
                 returned_count=?,error=?,updated_at=? WHERE run_id=? AND osis_ref=?
                 AND ga_num=? AND lang_filter=?""",
-                (state, response_id, reported, len(rows),
+                (state, response_id, reported, len(records),
                  "Returned rows differ from reported count" if state == "incomplete" else None,
                  now(), *key))
         return state
@@ -801,7 +879,7 @@ def discovery_report(con, run_id):
         ORDER BY j.osis_ref,j.ga_num,j.lang_filter,c.doc_id""", (run_id,))]
     return {"run_id": run_id, "scope": "named gaNum and single OSIS verse lookups",
             "corpus_complete": False, "discovery_complete": False,
-            "reason": "The API page limit and search indexing have no verified exhaustive contract",
+            "reason": "Named lookups remain bounded; continued search completion does not establish exhaustive manuscript discovery",
             "jobs": jobs, "candidates": candidates,
             "indexed_coverage_search_omissions": omissions}
 
@@ -833,6 +911,8 @@ def collect_catalogue_scope(client, doc_ids, *, index_ref=None, page_limit=200, 
         raise ValueError("Run ID already belongs to a different catalogue scope")
     if row and row[3] in ("success", "empty") and not refresh:
         return row[3]
+    if row and row[3] == "blocked" and not refresh:
+        raise AccessBlocked("Prior catalogue access block requires explicit refresh")
     con.execute("""INSERT INTO catalogue_scope(run_id,requested_ids_json,index_ref,
         page_limit,state,updated_at) VALUES(?,?,?,?,?,?)
         ON CONFLICT(run_id) DO UPDATE SET state='pending',error=NULL,
@@ -840,27 +920,27 @@ def collect_catalogue_scope(client, doc_ids, *, index_ref=None, page_limit=200, 
         (client.run_id, encoded(ids), index_ref, page_limit, "pending", now()))
     con.commit()
     try:
-        payload, response_id = client.get_json("metadata/liste/search", params, refresh=refresh)
-        rows, reported = parse_search(payload)
-        returned = {record["docID"] for record in rows}
+        records, reported, response_id, mismatch = collect_search_pages(
+            client, params, refresh=refresh, allowed_ids=set(ids))
+        returned = {record["docID"] for record, _ in records}
         unexpected = returned - set(ids)
         missing = set(ids) - returned
-        incomplete = reported != len(rows) or bool(unexpected) or (index_ref is None and bool(missing))
-        state = "incomplete" if incomplete else "success" if rows else "empty"
+        incomplete = mismatch or bool(unexpected) or (index_ref is None and bool(missing))
+        state = "incomplete" if incomplete else "success" if records else "empty"
         error = None
         if incomplete:
-            error = f"count mismatch={reported != len(rows)}; missing={sorted(missing)}; unexpected={sorted(unexpected)}"
+            error = f"count mismatch={mismatch}; missing={sorted(missing)}; unexpected={sorted(unexpected)}"
         with con:
             con.execute("DELETE FROM catalogue_candidate WHERE run_id=?", (client.run_id,))
             con.executemany("""INSERT INTO catalogue_candidate(run_id,doc_id,response_id,
                 ga_num,primary_name,source_lang,raw_json) VALUES(?,?,?,?,?,?,?)""", [
-                (client.run_id, record["docID"], response_id,
+                (client.run_id, record["docID"], page_response_id,
                  str(record["gaNum"]) if "gaNum" in record else None,
                  str(record["primaryName"]) if "primaryName" in record else None,
-                 record.get("lang"), encoded(record)) for record in rows])
+                 record.get("lang"), encoded(record)) for record, page_response_id in records])
             con.execute("""UPDATE catalogue_scope SET state=?,response_id=?,
                 reported_count=?,returned_count=?,error=?,updated_at=? WHERE run_id=?""",
-                (state, response_id, reported, len(rows), error, now(), client.run_id))
+                (state, response_id, reported, len(records), error, now(), client.run_id))
         return state
     except (ContractError, RunStopped, JobFailure) as error:
         state = "blocked" if isinstance(error, AccessBlocked) else "pending" if isinstance(error, RunStopped) else "failed"
@@ -1775,16 +1855,17 @@ def import_search_fixture(con, fixture):
     if digest != record["body_sha256"]:
         raise ValueError("Search fixture body hash mismatch")
     args = encoded(record["params"])
+    headers = encoded(record.get("headers", {}))
     row = con.execute("""SELECT id FROM source_response WHERE origin='fixture'
-        AND url=? AND params_json=? AND body_sha256=?""",
-        (record["source_url"], args, digest)).fetchone()
+        AND url=? AND params_json=? AND body_sha256=? AND headers_json=?""",
+        (record["source_url"], args, digest, headers)).fetchone()
     if row:
         return row[0]
     con.execute("""INSERT INTO source_response(endpoint,url,params_json,status_code,
         headers_json,body,body_sha256,retrieved_at,origin)
         VALUES(?,?,?,?,?,?,?,?,?)""",
         ("metadata/liste/search", record["source_url"], args,
-         record["http_status"], "{}", body, digest, record["retrieved_at"], "fixture"))
+         record["http_status"], headers, body, digest, record["retrieved_at"], "fixture"))
     con.commit()
     return con.execute("SELECT last_insert_rowid()").fetchone()[0]
 
@@ -2236,13 +2317,16 @@ def main(argv=None):
                 "cached_jobs": cached, "blocked_jobs": blocked, "fixture_p52": args.fixture_p52,
                 "search_scope": "named gaNum and single OSIS verse lookups",
                 "search_jobs": search_pending, "cached_searches": search_cached,
+                "search_cache_scope": "initial pages only; continuations may require requests",
                 "blocked_searches": search_blocked,
                 "catalogue_doc_ids": sorted(set(args.catalogue_doc_id)),
                 "catalogue_pending": catalogue_pending,
                 "catalogue_cached": catalogue_cached,
                 "catalogue_blocked": catalogue_blocked,
                 "prior_network_attempts": prior_attempts,
-                "maximum_network_attempts": 0 if args.offline else min(max(0, args.request_budget - prior_attempts), planned_network_jobs * 3),
+                "maximum_network_attempts": 0 if args.offline else min(
+                    max(0, args.request_budget - prior_attempts),
+                    args.request_budget if search_pending or catalogue_pending else planned_network_jobs * 3),
                 "offline": args.offline, "refresh_stage": args.refresh_stage}))
             if args.dry_run:
                 return 0

@@ -6,6 +6,13 @@ of **NA28**, show up to five distinct witnesses using both ends of the reported
 date ranges. The chart follows traditional book/chapter/verse order, places
 newer years at the top, and changes color as the witness count increases.
 
+The [interactive explorer](examples/galatians-source-reports.html) displays the
+entire GNT on one horizontal chart, with an optimistic/pessimistic toggle,
+hover/tap source summaries, zoom, and verse navigation. Open the HTML directly.
+Only Galatians currently has collected reports in this example; other coordinates
+remain visibly uncollected. See the [explorer guide](docs/ATTESTATION_EXPLORER.md)
+for controls, reusable components, and offline checks.
+
 ## Project boundary
 
 This is a data collection and visualization project. Neither the project owner
@@ -54,16 +61,18 @@ Other witness categories require an explicit scope change.
 ## Development direction
 
 The first **reproducible NTVMR report-to-chart path** is implemented for a bounded
-Galatians example, with unknown and contested handling. The next milestone is
-expanding document batches and supported mappings efficiently.
+Galatians example, with unknown and contested handling, and now covers the whole
+book using the same six captures. The next milestone is expanding document
+batches and supported mappings efficiently.
 The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) is the
 source of current priorities and acceptance criteria:
 
 1. Extend the [documented bounded contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md)
    to additional coordinate subsets and source-reported applicability as needed.
 2. Expand document batches, fetching each manuscript's metadata and contents once
-   where possible and ranking locally. Test documented search continuation before
-   relying on it for broader discovery.
+   where possible and ranking locally. Documented search continuation is now
+   implemented and tested offline; establish provider expectations and a bounded
+   scope before broader discovery.
 3. Re-source or exclude agent-derived claims from further historical examples,
    preserving their history. Only explicit reports enter active results.
 
@@ -147,6 +156,18 @@ coordinates**. P46 at 1:9 stays unknown. Replay makes zero network requests.
 Only catalogue claims and publisher coordinates were admitted in this increment;
 the wider historical attribution audit remains unfinished.
 
+The [whole-Galatians chart](examples/galatians-source-reports.html) expands this
+same three-witness scope to **149 graphable coordinates, 437 present pairs, and
+ten unknown pairs**, with no contested or explicitly absent pairs and no mapping
+gaps. It reuses the same six captures and makes zero replay network requests.
+Separate chapter panels share a CE scale, with scrollable verse columns. Version
+3 rendering supports up to 200 coordinates; the date-combination cap is unchanged.
+
+Named and finite document-set lookups now follow documented `partial` /
+`nextAfterDocID` continuation within the existing request budget. Failed refreshes
+retain the previous candidate snapshot; resume reuses captured pages. Search
+completion remains distinct from exhaustive discovery and reported verse contents.
+
 The [historical implementation and replay guide](docs/HISTORICAL_REPLAY_GUIDE.md)
 preserves prior commands and observations. The
 [historical development plan](docs/HISTORICAL_DEVELOPMENT_PLAN.md) preserves the
@@ -166,6 +187,12 @@ the graph carries the selected coordinates, claims, date alternatives, and hashe
 Existing batches can be exported with `export_attestation.py --report-batch`.
 See the [contract and replay guide](docs/NTVMR_SOURCE_REPORT_CONTRACT.md) for
 field semantics, attribution, limitations, and commands.
+
+Reproduce the larger chart with a fresh database path:
+
+```powershell
+python replay_source_reports.py --manifest benchmarks/galatians-source-reports-v1.json --db data/galatians-source-reports.sqlite --dataset-output data/galatians-source-reports-complete.json --graph-output examples/galatians-source-reports-graph-input.json --html-output examples/galatians-source-reports.html
+```
 
 ## Controlled collection
 

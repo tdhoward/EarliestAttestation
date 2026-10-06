@@ -1,0 +1,31 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/",
+  "params": {
+    "docID": "10066|10075",
+    "indexContent": "John.1.1",
+    "detail": "document",
+    "format": "json",
+    "limit": "1"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 14:44:56 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791297896243",
+    "X-Request-Post-Validation-Epoch": "1791297896245",
+    "X-Request-Response-Epoch": "1791297896256",
+    "X-Response-Time": "13ms",
+    "Content-Length": "372",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Connection": "close",
+    "Content-Type": "application/json;charset=UTF-8"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":3,\"manuscript\":[{\"origLate\":225,\"gaNum\":\"P66\",\"orig\":\"III (A)\",\"docID\":10066,\"groupID\":\"\",\"primaryName\":\"P66\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":225,\"gaNum\":\"P75\",\"orig\":\"III (A)\",\"docID\":10075,\"groupID\":\"\",\"primaryName\":\"P75\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200}],\"count\":2}}}",
+  "body_sha256": "71535e4004f60e33b3d9ee571b4131705c13f10852314a864929023fc65c5f0a",
+  "retrieved_at": "2026-10-06T14:44:56.350823+00:00",
+  "headers_omitted": [
+    "Set-Cookie: transient session value; not part of the source contract"
+  ]
+}

@@ -4,7 +4,7 @@ Implemented on 2026-10-05. This is the active bounded report-to-chart path;
 historical image/transcription reviews are not its inputs. The contract ID is
 `ntvmr-source-reports-v1`, the manifest format is 1, and its dataset/graph format
 is 3. It uses the existing collector's response storage, inventory, endpoint
-ranking function, and SVG chart. Three additive `scholarly_*` tables preserve
+ranking function, and the source-report explorer. Three additive `scholarly_*` tables preserve
 immutable report batches and claims alongside the unchanged legacy v12 tables.
 
 ## Field meanings and limits
@@ -26,12 +26,38 @@ spacing. No manuscript response, image, or transcription was requested.
 | Metadata page `indexTier` | Provider-supplied indexing qualification, retained with the metadata hash. | The help identifies tier 4+ as AI indexing awaiting confirmation. Such entries are retained as unknown. Missing tier information is disclosed, without inventing a physical-verification requirement. |
 | `liste/search` matches | Discovery candidates only in this path. | Search results and omissions are not imported as positive/negative coverage claims. |
 
-The [current search help](https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/)
-now documents `partial` and `nextAfterDocID`/`afterDocID` continuation. This was
-observed during the contract check; the existing collector has **not** been
-updated to consume that continuation contract. A selected document batch remains
-bounded regardless of matched counts. Implement and test continuation before
-claiming any broader search scope.
+The [search help](https://ntvmr.uni-muenster.de/community/vmr/api/metadata/liste/search/)
+documents `partial` and `nextAfterDocID`/`afterDocID` continuation. On 2026-10-06
+Pacific the collector was updated to follow it for named lookups and explicit
+document sets. It accepts boolean or string flags in `data.manuscripts` and the
+documented `X-VMR-Partial` / `X-VMR-Next-AfterDocID` header equivalents. Disagreeing
+fields, malformed or nonadvancing cursors, and repeated documents are contract
+errors. A count matching the returned rows does not override a partial flag.
+
+Each continuation repeats the original filters and page limit, changing only
+`afterDocID`. All requests and retries use the existing run budget, spacing,
+timeout, and blocked-state behavior. Captured pages are replayed on resume;
+candidates are replaced only after a terminal page is parsed. A failed refresh
+keeps the previous candidate snapshot visibly stale. Refreshed first pages are
+not combined with older continuation captures. Each candidate retains the
+response ID of its own page; raw responses and headers remain immutable.
+Dry-run cache indicators cover initial pages only, and the reported maximum
+allows continuation requests within the remaining run budget.
+
+The help and one bounded search response for IDs 10066 and 10075, filtered to
+John 1:1, are retained as `metadata_liste_search_help.json` and
+`search_bounded_terminal.json` in the source-contract fixture directory. This
+check made two successful HTTPS requests, five seconds apart, with TLS verified:
+one documentation request and one catalogue search, without images or
+transcriptions. A page limit of 1 still returned both documents without a partial
+flag; no second search request was made. Live partial-response shape remains
+unobserved by this check. Transient session cookies were excluded from the
+retained headers; the public body and its hash are unchanged. Clearly synthetic
+offline tests exercise the documented
+root-attribute layout and headers, budgeted resume, stale refresh protection,
+count mismatches, overlapping pages, and blocks. Search rows are discovery
+candidates only. Completion of a selected lookup does not establish exhaustive
+manuscript discovery or provide an absence assertion.
 
 This version accepts explicit direct OSIS-to-NA28 coordinate matches and
 unmapped coordinates. Changed or multi-reference mappings are rejected pending
@@ -77,8 +103,9 @@ hands, and does not yet support portion-specific date applicability.
 All complete date intervals remain alternatives with equal standing. Each
 combination ranks independently by lower and upper endpoints, selecting up to
 five witnesses per scenario. Unknown/invalid bounds remain visible without event
-years. The existing 256-combination limit remains explicit per verse and across
-the bounded chart; overflow does not select or truncate an alternative.
+years. The existing 256-combination export limit remains explicit per verse;
+overflow does not select or truncate an alternative. The explorer chooses among
+exported combinations on demand without enumerating a corpus-wide product.
 
 ## First active bounded result
 
@@ -121,8 +148,8 @@ python replay_source_reports.py --db data/gal1-source-reports.sqlite --dataset-o
 ```
 
 Open [`examples/gal1-source-reports.html`](../examples/gal1-source-reports.html)
-directly. It displays both endpoint charts, contents states, date inputs, source
-citations, exact reported contents fields, and a source snapshot table. The
+directly. It displays a full-GNT chart with an endpoint toggle, contents states,
+date inputs, source citations, exact reported contents fields, and source snapshots. The
 complete dataset retains document-wide source claims and raw responses; the
 graph output includes only the filtered inventory coordinates and source hashes.
 
@@ -137,4 +164,60 @@ python -m unittest discover -s tests -p test_source_reports.py -v
 Next expansion: add documented document batches and supported coordinate subsets,
 reusing each document's metadata and contents locally. Keep unsupported mappings,
 unknown dates, provider qualifications, and explicit conflicts visible. Update
-search continuation separately before relying on it for broader discovery.
+provider access expectations and bound the next discovery run before bulk access.
+
+## Whole-Galatians expansion
+
+Implemented on 2026-10-06. The new immutable batch
+[`galatians-source-reports-v1.json`](../benchmarks/galatians-source-reports-v1.json)
+reuses the same six document captures across all six Galatians chapters. Its
+149 reference-only coordinates are copied from the provisional publisher
+inventory v3; each direct mapping also occurs in a captured long contents
+report. It admits no historical review, writing-unit, or dating-selection input.
+The original 1:1–10 batch remains preserved; both active HTML examples now use
+the reusable explorer, with their original report data unchanged.
+
+| Measure | Result |
+| --- | ---: |
+| Declared documents / distinct witnesses | 3 / 3 |
+| Coordinates / graphable coordinates | 149 / 149 |
+| Reported-present witness/verse pairs | 437 |
+| Unknown witness/verse pairs | 10 |
+| Explicitly absent / contested pairs | 0 / 0 |
+| Reference mapping gaps within this subset | 0 |
+| Captured document responses reused | 6 |
+| New document collection / replay network requests | 0 / 0 |
+
+All 444 admitted page-level entries have catalogue indexing tier 3. Multiple
+page reports collapse to 437 distinct witness/verse pairs. The ten unknown pairs
+are P46 at Galatians 1:9; 2:10–11; 3:1; 4:1, 18–19; 5:18–19; and 6:9.
+Missing entries are not absence claims. The complete reported date intervals
+remain 200–225, 300–399, and 400–499 CE for P46, GA 01, and GA 02 respectively.
+This is a bounded three-witness dataset, not exhaustive discovery.
+
+The first expansion used separate chapter panels and a 200-coordinate rendering
+limit. The subsequent [explorer update](ATTESTATION_EXPLORER.md), also on
+2026-10-06, replaces those panels with one continuous, responsive full-GNT chart.
+All 7,957 provisional coordinates have stable horizontal positions; only the 149
+collected coordinates receive source reports. Uncollected and edition-filtered
+coordinates are distinct. Hover/tap summaries, keyboard navigation, reference
+entry, zoom, and a top-right endpoint toggle keep the thin bars usable.
+Version 3 rendering supports the full inventory. Per-verse export overflow remains
+explicit; the UI no longer enumerates a global date product. Legacy version 2
+retains its existing renderer and limits.
+
+```powershell
+python replay_source_reports.py --manifest benchmarks/galatians-source-reports-v1.json --db data/galatians-source-reports.sqlite --dataset-output data/galatians-source-reports-complete.json --graph-output examples/galatians-source-reports-graph-input.json --html-output examples/galatians-source-reports.html
+python -m unittest discover -s tests -p test_search_continuation.py -v
+python -m unittest discover -s tests -p test_source_reports.py -v
+```
+
+Choose a new database path if the example destination already exists. Open
+[`examples/galatians-source-reports.html`](../examples/galatians-source-reports.html)
+directly. Two fresh offline replays produce identical dataset, graph, and HTML
+outputs. Tests verify publisher coordinate order, retained unknowns, deduplicated
+rankings, full-corpus coordinate order, compact provenance, shared year bounds,
+interaction geometry, safe embedding, and response reuse. SQLite integrity and foreign-key
+checks pass; the fresh batch contains no legacy review records. The two search
+contract-check requests are separate from this chart's zero-cost document reuse;
+historical capture attempts remain unmeasured.

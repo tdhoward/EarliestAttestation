@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render a bounded graph-input export as a self-contained prototype HTML file."""
+"""Render graph input as a self-contained HTML explorer (or legacy v2 chart)."""
 
 from __future__ import annotations
 
@@ -9,7 +9,6 @@ from itertools import product
 import json
 from pathlib import Path
 import re
-from urllib.parse import urlencode
 
 
 COLORS = ("#dcebe7", "#a9d7c6", "#72b99f", "#388f76", "#146553")
@@ -81,8 +80,9 @@ def cases_for(graph):
         raise ValueError("Expected a version 2 or 3 graph-input export")
     assessment_key = "witness_id" if graph["format_version"] == 3 else "unit_id"
     verses = graph["verses"]
-    if not verses or len(verses) > 20 or graph["counts"]["verse_count"] != len(verses):
-        raise ValueError("Render a bounded graph input of 1–20 verses")
+    limit = 200 if graph["format_version"] == 3 else 20
+    if not verses or len(verses) > limit or graph["counts"]["verse_count"] != len(verses):
+        raise ValueError(f"Render a bounded graph input of 1–{limit} verses")
     units = {}
     for verse in verses:
         alternatives = verse.get("dating_alternatives")
@@ -115,12 +115,13 @@ def cases_for(graph):
     return cases, count
 
 
-def chart(rows, scenario, minimum, maximum, pattern_id):
+def chart(rows, scenario, minimum, maximum, pattern_id, *, preserve_width=False):
     top, height, left, width = 42, 360, 68, 82
     bottom = top + height
     total_width = left + len(rows) * width + 12
     y = lambda year: top + (maximum - year) * height / (maximum - minimum)
-    out = [f'<svg viewBox="0 0 {total_width} 452" role="img" '
+    style = f' style="min-width:{total_width}px"' if preserve_width else ''
+    out = [f'<svg viewBox="0 0 {total_width} 452" role="img"{style} '
            f'aria-label="{escape(scenario.title())} witness counts by CE year">',
            f'<defs><pattern id="{pattern_id}" width="8" height="8" patternUnits="userSpaceOnUse">'
            '<rect width="8" height="8" fill="#eceff2"/>'
@@ -297,119 +298,9 @@ def render(graph):
 
 
 def render_reports(graph):
-    """Display attributable reports, including deferred disputes and missing data."""
-    if graph.get("evidence_policy") != "scholarly_reports_only":
-        raise ValueError("Version 3 requires the scholarly-report evidence policy")
-    cases, count = cases_for(graph)
-    years = [e["event_year"] for _, rows in cases for _, _, scenarios in rows
-             if scenarios for entries in scenarios.values() for e in entries]
-    minimum, maximum = (min(years)-10, max(years)+10) if years else (0, 1)
-    parts = ['<!doctype html><html lang="en"><meta charset="utf-8">',
-             '<meta name="viewport" content="width=device-width,initial-scale=1">',
-             '<title>Earliest reported Greek NT witnesses</title>',
-             '<style>body{font:16px/1.45 system-ui,sans-serif;max-width:1200px;margin:auto;padding:2rem;color:#172b30}'
-             'h1,h2{line-height:1.2}.notice{background:#fff1d6;padding:1rem;border-left:5px solid #ad6821}'
-             '.charts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;overflow:auto}'
-             'svg{min-width:500px;width:100%}table{border-collapse:collapse;width:100%}'
-             'th,td{border:1px solid #cad3d6;padding:.45rem;vertical-align:top;text-align:left}'
-             'th{background:#eaf0ef}details{margin:.5rem 0}a,code{overflow-wrap:anywhere}'
-             '.legend span{display:inline-block;padding:.3rem .5rem;margin:.15rem}'
-             '.contested{background:#ffe4dc}.unknown{background:#eceff2}</style><body>',
-             '<h1>Earliest reported Greek NT witnesses</h1>',
-             '<p class="notice">Bounded scholarly-source chart. Dates show the earliest '
-             'witnesses reported in the collected sources and declared scope. Discovery is incomplete. '
-             'Any reported portion counts once. Contested cases are deferred and excluded from '
-             'presence counts. Missing entries remain unknown.</p>',
-             '<p><strong>Collected scope:</strong> ' + escape(graph["collection_scope"]) + '</p>',
-             f'<p>{graph["counts"]["document_count"]} documents; '
-             f'{graph["counts"]["witness_count"]} distinct witnesses; '
-             f'{graph["counts"]["verse_count"]} coordinates; '
-             f'{graph["counts"]["graphable_coordinates"]} graphable; '
-             f'{graph["counts"]["mapping_gaps"]} mapping gaps. '
-             'Witness/verse states: ' + escape(json.dumps(graph["counts"]["witness_verse_pairs"], sort_keys=True)) + '</p>',
-             '<p>Collection cost: ' + escape(json.dumps(graph["collection_cost"], sort_keys=True)) + '</p>',
-             '<p>Filters: include omitted ' + str(graph["filters"]["include_omitted"]).lower() +
-             '; include bracketed ' + str(graph["filters"]["include_bracketed"]).lower() + '.</p>',
-             '<p class="legend">Witness count: ' + ''.join(
-                 f'<span style="background:{color}">{i}</span>' for i, color in enumerate(COLORS, 1)) +
-             ' <span style="background:#eceff2">No dated presence event</span></p>']
-    if not cases:
-        parts.append(f'<p class="notice">{count} global date combinations exceed the 256-case display limit. '
-                     'No date alternative is selected; reports remain visible below.</p>')
-    for verse in graph["verses"]:
-        alt = verse["dating_alternatives"]
-        if alt["state"] == "too_many_combinations":
-            parts.append(f'<p class="notice">{escape(verse["osis_ref"])}: '
-                         f'{alt["combination_count"]} complete date combinations exceed the '
-                         f'{alt["max_combinations"]}-case limit. No alternative is selected for this verse.</p>')
-    for number, (selection, rows) in enumerate(cases, 1):
-        parts.append(f'<section><h2>Date combination {number} of {len(cases)}</h2>'
-                     '<p>Complete reported intervals are equally valid alternatives; no combination is preferred. '
-                     'Selected source assessment IDs: ' + escape(json.dumps(selection, sort_keys=True)) + '</p><div class="charts">')
-        for side in ("optimistic", "pessimistic"):
-            parts.append(f'<div><h3>{side.title()} endpoint</h3>' + chart(
-                rows, side, minimum, maximum, f'reports-{number}-{side}') + '</div>')
-        parts.append('</div></section>')
-    parts.append('<h2>Endpoint rankings</h2><table><thead><tr><th>Verse</th><th>Combination</th>'
-                 '<th>Optimistic</th><th>Pessimistic</th></tr></thead><tbody>')
-    for verse in graph["verses"]:
-        for number, combo in enumerate(verse["dating_alternatives"]["combinations"], 1):
-            parts.append(f'<tr><th>{escape(verse["osis_ref"])}</th><td>{number}</td>')
-            for side in ("optimistic", "pessimistic"):
-                parts.append('<td>' + '<br>'.join(
-                    f'{entry["rank"]}. {escape(entry["witness_id"])}: {entry["event_year"]} CE '
-                    f'(reported interval {entry["date_min"]}–{entry["date_max"]} CE; '
-                    f'date assessment {entry["assessment_id"]}; contents claims '
-                    + escape(', '.join(str(i) for i in entry["coverage_claim_ids"])) + ')'
-                    for entry in combo["scenarios"][side]) + '</td>')
-            parts.append('</tr>')
-    parts.append('</tbody></table>')
-    parts.append('<h2>Reported contents and unresolved cases</h2><table><thead><tr>'
-                 '<th>Verse</th><th>Witness</th><th>State</th><th>Source assertions and dates</th></tr></thead><tbody>')
-    for verse in graph["verses"]:
-        for pair in verse["reported_coverage"]:
-            detail = []
-            if pair["unknown_reason"]:
-                detail.append('<p>' + escape(pair["unknown_reason"].replace('_', ' ')) + '.</p>')
-            if pair["state"] == "contested":
-                detail.append('<p>Explicit incompatible source claims retained. Deferred; no presence event.</p>')
-            for claim in pair["claims"]:
-                detail.append(f'<p><strong>{escape(claim["provider"])}: {escape(claim["assertion"])}</strong> '
-                              f'({escape(claim.get("extent", "unspecified"))} extent). '
-                              f'{source(claim["citation"])}<br>Retrieved {escape(claim["retrieved_at"])}; '
-                              f'field {escape(claim["source_locator"])}; response {claim["source_response_id"]}; '
-                              f'claim {claim["claim_id"]}. '
-                              f'{escape(claim["qualifications"])}</p>'
-                              '<details><summary>Exact reported field or statement</summary><code>' +
-                              escape(json.dumps(claim["reported"], ensure_ascii=False, sort_keys=True)) + '</code></details>')
-            if not pair["date_assessments"]:
-                detail.append('<p>No reported date assessment; unrankable.</p>')
-            for date in pair["date_assessments"]:
-                interval = (f'{date["date_min"]}–{date["date_max"]} CE' if date["status"] == "valid"
-                            else f'{date["status"]} numeric bounds; unrankable')
-                detail.append(f'<p><strong>Date:</strong> {escape(interval)}; '
-                              f'{escape(date.get("original_notation") or "notation not supplied")}. '
-                              f'{escape(date["provider"])}; {source(date["citation"])}<br>'
-                              f'Retrieved {escape(date["retrieved_at"])}; field {escape(date["source_locator"])}; '
-                              f'response {date["source_response_id"]}; assessment {date["assessment_id"]}. '
-                              f'{escape(date["qualifications"])}</p>')
-            if verse.get("mapping_note"):
-                detail.append('<p>Mapping: ' + escape(verse["mapping_note"]) + '</p>')
-            parts.append(f'<tr class="{escape(pair["state"])}"><th>{escape(verse["osis_ref"])}</th>'
-                         f'<td>{escape(pair["witness_id"])}</td><td>{escape(pair["state"])}; '
-                         f'{escape(verse["editorial_status"])}; {escape(verse["ranking_state"])}</td>'
-                         '<td>' + ''.join(detail) + '</td></tr>')
-    parts.append('</tbody></table><h2>Source snapshots</h2><table><thead><tr>'
-                 '<th>Response</th><th>Catalogue or publication</th><th>Retrieved</th><th>SHA-256</th>'
-                 '</tr></thead><tbody>')
-    for snapshot in graph["sources"]:
-        parts.append(f'<tr><td>{snapshot["source_response_id"]}</td><td>' +
-                     source(snapshot.get("canonical_url", snapshot["url"]) + ('?' + urlencode(snapshot["params"]) if snapshot["params"] else '')) +
-                     f'</td><td>{escape(snapshot["retrieved_at"])}</td><td><code>'
-                     f'{escape(snapshot["body_sha256"])}</code></td></tr>')
-    parts.append('</tbody></table><p>Inventory source: ' + source(graph["inventory_source_citation"]) +
-                 '</p><p>Mapping: ' + source(graph["mapping_citation"]) + '</p></body></html>')
-    return '\n'.join(parts)
+    """Render the active source-report path as the reusable full-GNT explorer."""
+    from report_explorer import render_report_explorer
+    return render_report_explorer(graph)
 
 
 def main(argv=None):

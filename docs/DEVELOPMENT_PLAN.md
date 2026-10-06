@@ -52,7 +52,9 @@ The owner and agents are collecting and organizing scholarship, not producing it
 The existing Python/SQLite collector already supplies budgeted collection,
 immutable responses, cache replay, explicit document scopes, and source indexes.
 A provisional NA28 inventory, deduplication, endpoint rankings, offline exports,
-and static charts are available. Reuse these components.
+and static charts are available. Reuse these components. Documented search
+continuation is implemented for existing bounded lookup interfaces, with offline
+budget/resume and failure tests; no broader corpus discovery is claimed.
 
 Schema v12 also contains manual coverage reviews, physical-absence decisions,
 writing units, and ranking gates from the superseded approach. Existing benchmarks
@@ -64,7 +66,7 @@ The scope-reset documentation itself did not migrate data or implement behavior.
 The subsequent [source-report increment](NTVMR_SOURCE_REPORT_CONTRACT.md) now
 provides an immutable batch/claim path, explicit `contested` handling, version 3
 exports, and a bounded Galatians chart. It reuses response storage, inventories,
-endpoint rankings, and SVG charts while excluding the old review gates and inputs.
+endpoint rankings, and the source-report explorer while excluding the old review gates and inputs.
 Legacy positive/absence conflict flags remain historical behavior, separate from
 the new scholarly-claim states. Existing databases were not migrated.
 
@@ -82,10 +84,24 @@ requests. The new path retains conflicts and date alternatives, exercised with
 synthetic software tests. Its attribution audit excludes historical agent claims
 for this increment; it does not complete a repository-wide audit.
 
-**Next priority: expand this path efficiently** with additional documented
-document batches and coordinate subsets. Reuse metadata and contents once per
-document and invert reports locally. Before broad search discovery, implement
-the now-documented `partial`/`afterDocID` continuation contract with offline tests.
+The 2026-10-06 expansion reuses those same six captures for all 149 Galatians
+coordinates: 437 reported-present pairs, ten unknown pairs, no reported conflicts
+or absences, no mapping gaps, and zero replay network requests. The
+[responsive explorer](ATTESTATION_EXPLORER.md) now places all GNT coordinates on
+one horizontal chart with an endpoint toggle and hover/tap source summaries;
+uncollected coordinates remain distinct from unknown witness reports. Two fresh replays produce
+identical outputs. The documented `partial`/`afterDocID` continuation contract is
+also implemented with offline tests. A bounded two-ID check captured the search
+help and one terminal search response; live partial shape remains unobserved.
+
+**Next priority: expand this path efficiently** to additional documented
+document batches and supported coordinate subsets. Reuse metadata and contents
+once per document and invert reports locally. Prefer another book supported by
+existing document captures; audit attribution only for that active subset.
+Before broad search discovery, establish provider access expectations, declare
+the finite discovery scope and budget, and capture a partial response if needed
+to confirm its JSON layout. The current lookup interfaces still accept named
+queries or at most 20 explicit IDs; range/corpus discovery is future work.
 Unsupported changed mappings and portion-specific date applicability remain
 bounded-contract limitations. Audit further historical claims only when needed
 for the next active dataset; preserve their history.
