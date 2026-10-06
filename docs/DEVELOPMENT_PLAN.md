@@ -60,10 +60,13 @@ and examples include agent interpretations of images and transcriptions. Their
 passing tests demonstrate software behavior and reproducibility, not compliance
 with the current source-report policy.
 
-**This documentation change does not migrate data or implement new behavior.**
-The direct report-to-chart path, `contested` claim handling, and the attribution
-audit below remain implementation work. Do not describe the older positive/absence
-conflict flags as implemented scholarly-source disagreement handling.
+The scope-reset documentation itself did not migrate data or implement behavior.
+The subsequent [source-report increment](NTVMR_SOURCE_REPORT_CONTRACT.md) now
+provides an immutable batch/claim path, explicit `contested` handling, version 3
+exports, and a bounded Galatians chart. It reuses response storage, inventories,
+endpoint rankings, and SVG charts while excluding the old review gates and inputs.
+Legacy positive/absence conflict flags remain historical behavior, separate from
+the new scholarly-claim states. Existing databases were not migrated.
 
 Existing fixtures, replays, charts, and local databases remain unchanged. The
 unfinished John 5 overlap manifests and image/transcription-review drafts from
@@ -72,9 +75,24 @@ needed, but do not use or extend their inferred claims in the next dataset.
 
 ## Next development work
 
-The active milestone is **one reproducible NTVMR collection-to-chart path using
-reported dates and verse contents**, with provenance and unresolved cases visible.
-Complete it in this order; do not restart a manuscript research programme.
+The first bounded milestone is implemented: Galatians 1:1–10, three witnesses,
+six reused document captures, 29 reported-present pairs, one unknown pair, no
+reported conflicts or absences, 10 graphable coordinates, and zero replay network
+requests. The new path retains conflicts and date alternatives, exercised with
+synthetic software tests. Its attribution audit excludes historical agent claims
+for this increment; it does not complete a repository-wide audit.
+
+**Next priority: expand this path efficiently** with additional documented
+document batches and coordinate subsets. Reuse metadata and contents once per
+document and invert reports locally. Before broad search discovery, implement
+the now-documented `partial`/`afterDocID` continuation contract with offline tests.
+Unsupported changed mappings and portion-specific date applicability remain
+bounded-contract limitations. Audit further historical claims only when needed
+for the next active dataset; preserve their history.
+
+The milestone sequence below remains the project roadmap, with steps 1–4 now
+implemented for the declared Galatians subset. Do not restart a manuscript
+research programme.
 
 1. **Establish the source-field contract.** Inspect existing captures and API
    documentation to identify which fields explicitly report contents, date bounds,
@@ -188,8 +206,8 @@ older source versions and decisions when correcting extraction or attribution.
 
 ## 4. Reported verse contents and contested cases
 
-The following states describe the target workflow; they are not a claim that
-v12 already implements them:
+The following states are implemented by the new source-report batch path.
+They do not change the behavior of the legacy v12 review tables:
 
 | State | Meaning and counting |
 | --- | --- |

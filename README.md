@@ -35,7 +35,8 @@ source's documented meaning, without filling gaps independently.
 
 These rules were clarified on **2026-10-05**. They are enforced as agent
 instructions in [AGENTS.md](AGENTS.md) and supersede examination requirements in
-older notes. The code still needs the adaptations described below.
+older notes. The bounded source-report path now implements these rules as
+described in the [source-field contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md).
 
 ## Witness scope
 
@@ -52,20 +53,19 @@ Other witness categories require an explicit scope change.
 
 ## Development direction
 
-The next milestone is a **reproducible NTVMR collection-to-chart pipeline using
-reported dates and verse contents**, with unknown and contested cases visible.
+The first **reproducible NTVMR report-to-chart path** is implemented for a bounded
+Galatians example, with unknown and contested handling. The next milestone is
+expanding document batches and supported mappings efficiently.
 The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work) is the
 source of current priorities and acceptance criteria:
 
-1. Document which NTVMR fields explicitly report dates, contents, identity, and
-   discovery scope; use existing captures before any bounded live contract check.
-2. Adapt the existing data path to accept those scholarly reports without our
-   own image checks, word anchors, or writing-layer judgments. Preserve provenance
-   and implement explicit disagreement as `contested`.
-3. Re-source or exclude agent-derived claims from earlier examples, preserving
-   their history. Rebuild one small chart entirely from attributable reports.
-4. Expand document batches and reference mappings, fetching each manuscript's
-   metadata and contents once where possible and ranking locally.
+1. Extend the [documented bounded contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md)
+   to additional coordinate subsets and source-reported applicability as needed.
+2. Expand document batches, fetching each manuscript's metadata and contents once
+   where possible and ranking locally. Test documented search continuation before
+   relying on it for broader discovery.
+3. Re-source or exclude agent-derived claims from further historical examples,
+   preserving their history. Only explicit reports enter active results.
 
 Measure progress by manuscripts collected, reported witness/verse pairs,
 graphable coordinates, unresolved records, and collection efficiency. An
@@ -119,28 +119,53 @@ Schema version **12** also contains review and writing-unit interfaces from the
 previous approach. The offline exporter and static renderer already implement
 both endpoint scenarios and conditional date alternatives.
 
+The active [`source_reports.py`](source_reports.py) path adds three batch/claim
+tables without changing legacy v12 behavior. Its version 3 exports use catalogue
+contents and dates directly, with no image, transcription, writing-unit, or
+manual-review inputs. Explicit conflicts are `contested`, retained and deferred;
+missing entries remain unknown. Full source intervals and provenance are kept.
+
 The provisional whole-NT inventory contains 7,957 coordinates across 27 books and
 260 chapters, including 16 skipped traditional numbers. It is not a completed
 manuscript collection or a complete source-to-NA28 mapping.
 
-**The scope reset is documentation only.** A direct scholarly-report-to-chart
-path and a `contested` coverage state are planned, not implemented by this
-change. Existing conflict flags are not yet a representation of disagreements
-between scholarly sources. Old storage and ranking gates still require adaptation.
+The documentation scope reset itself did not migrate data. The subsequent
+bounded report path is implemented separately; old review tables, gates, and
+conflict flags are unchanged and are not used by active report batches.
 
 Earlier John/Galatians charts, review manifests, and tests include agent judgments
 from images or transcriptions. They remain historical prototypes pending an
 attribution audit; their replay success does not establish compliance with the
 current scope. The unfinished John 5 overlap drafts likewise are not approved
 inputs. Do not continue their examination work or present their conclusions as
-scholarly reports. Existing code, fixtures, databases, and charts are unchanged.
+scholarly reports. Historical fixtures, databases, and charts remain preserved.
+
+The new [Galatians 1:1–10 source-report chart](examples/gal1-source-reports.html)
+uses three witnesses and six captured catalogue responses: **29 present pairs,
+one unknown, zero contested or explicitly absent pairs, and 10 graphable
+coordinates**. P46 at 1:9 stays unknown. Replay makes zero network requests.
+Only catalogue claims and publisher coordinates were admitted in this increment;
+the wider historical attribution audit remains unfinished.
 
 The [historical implementation and replay guide](docs/HISTORICAL_REPLAY_GUIDE.md)
 preserves prior commands and observations. The
 [historical development plan](docs/HISTORICAL_DEVELOPMENT_PLAN.md) preserves the
-old milestones. Both are superseded, not task lists. The latest previously
-recorded full run was 121 offline tests; that observation is not a new test run
-or an endorsement of the old evidence policy.
+old milestones. Both are superseded, not task lists. Historical test success
+establishes software reproducibility, not source authority.
+
+## Reproduce the active chart offline
+
+Use a fresh database destination; existing databases are never replayed over.
+
+```powershell
+python replay_source_reports.py --db data/gal1-source-reports.sqlite --dataset-output data/gal1-source-reports-complete.json --graph-output examples/gal1-source-reports-graph-input.json --html-output examples/gal1-source-reports.html
+```
+
+Open the HTML file directly. The complete dataset retains raw source responses;
+the graph carries the selected coordinates, claims, date alternatives, and hashes.
+Existing batches can be exported with `export_attestation.py --report-batch`.
+See the [contract and replay guide](docs/NTVMR_SOURCE_REPORT_CONTRACT.md) for
+field semantics, attribution, limitations, and commands.
 
 ## Controlled collection
 
@@ -164,8 +189,9 @@ python sync_ntvmr.py --offline --fixture-p52 --db data/source-report-fixture.sql
 python sync_ntvmr.py --offline --db data/source-report-fixture.sqlite --doc-id 10052 --run-id contract-review --dry-run
 ```
 
-These existing commands demonstrate collection and index extraction; they do not
-implement the planned report-to-chart workflow. Always pass `--db` explicitly.
+These collector commands demonstrate collection and index extraction. The active
+report-to-chart replay above imports captured responses separately. Always pass
+`--db` explicitly.
 `--offline` prevents network requests but permits writes. Collector `--dry-run`
 and report commands can create or upgrade the schema; they are not read-only.
 Use fresh destinations or SQLite backup before modifying existing databases.
@@ -205,7 +231,7 @@ and membership may differ. Retain the complete intervals and their citations.
 A physical witness counts once per verse regardless of pages, portions, or date
 assessments. Any reported portion supplies one full verse-presence count.
 
-For the planned workflow, contested coverage stays visible separately and does
+In the active source-report workflow, contested coverage stays visible separately and does
 not enter the ordinary presence count while deferred. Unknown dates do not
 produce invented event years. Exports must distinguish this from absence or a
 coordinate excluded by an edition filter.
@@ -220,7 +246,7 @@ The existing version 2 exporter retains full and filtered outputs and enumerates
 at most 256 conditional date combinations per verse. Overflow is explicit
 (`too_many_combinations`), not silently truncated. On-demand exploration and a
 structured consensus representation remain future work. Existing outputs still
-use the older review inputs pending the pipeline adaptation.
+use the older review inputs; version 3 batch exports use scholarly claims.
 
 ## Files
 
@@ -230,7 +256,9 @@ use the older review inputs pending the pipeline adaptation.
 | [Development plan](docs/DEVELOPMENT_PLAN.md) | Current priorities, data semantics, and acceptance criteria |
 | [Inventory notes](docs/NA28_INVENTORY.md) | Publisher coordinates and pending source mappings |
 | `sync_ntvmr.py`, `controlled_ntvmr.py` | Controlled collection and current v12 storage |
-| `export_attestation.py`, `render_attestation.py` | Existing offline export and chart pipeline to adapt |
+| `source_reports.py`, `replay_source_reports.py` | Active immutable scholarly claims and fresh offline report-to-chart replay |
+| [Source contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md) | Implemented field meanings, attribution, bounded result, and replay guide |
+| `export_attestation.py`, `render_attestation.py` | Version 3 source-report export/chart and retained version 2 historical export/chart |
 | `audit_ntvmr.py`, `audit_reviewed.py`, `tests/` | Structural and software checks, including historical fixtures |
 | `replay_*.py`, `review_absence.py`, `benchmarks/`, `examples/` | Existing review interfaces and historical prototypes; require attribution audit before reuse as active results |
 | [Historical replay guide](docs/HISTORICAL_REPLAY_GUIDE.md) | Superseded implementation notes and reproducibility commands |

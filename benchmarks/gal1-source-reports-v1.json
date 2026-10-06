@@ -1,0 +1,29 @@
+{
+  "format_version": 1,
+  "contract_id": "ntvmr-source-reports-v1",
+  "batch_id": "gal1-source-reports-v1",
+  "scope": "Galatians 1:1–10; NTVMR catalogue documents P46 (10046), GA 01 (20001), and GA 02 (20002) only. Six captured document responses reused; no passage search or exhaustive discovery. Only explicit long contents entries and document date fields are admitted. Historical image/transcription reviews are excluded.",
+  "inventory": "benchmarks/gal1-source-report-coordinates-v1.json",
+  "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+  "documents": [
+    {
+      "doc_id": 10046,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "tests/fixtures/p46_metadata_probe.json",
+      "coverage_fixture": "tests/fixtures/p46_coverage_probe.json"
+    },
+    {
+      "doc_id": 20001,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "tests/fixtures/sinaiticus_metadata_probe.json",
+      "coverage_fixture": "tests/fixtures/sinaiticus_coverage_probe.json"
+    },
+    {
+      "doc_id": 20002,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "tests/fixtures/alexandrinus_metadata_probe.json",
+      "coverage_fixture": "tests/fixtures/alexandrinus_coverage_probe.json"
+    }
+  ],
+  "additional_reports": []
+}

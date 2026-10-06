@@ -1517,11 +1517,11 @@ def ranking_input(con, inventory_id, osis_ref, policy_id, *, alternatives=False)
 def rank_candidates(candidates, scenario):
     if scenario == "optimistic":
         key = lambda row: (row["date_min"], row["date_max"], row["witness_id"],
-                           row["unit_id"], row["coverage_review_id"])
+                           row.get("unit_id", ""), row.get("coverage_review_id", 0))
         event = "date_min"
     elif scenario == "pessimistic":
         key = lambda row: (row["date_max"], row["date_min"], row["witness_id"],
-                           row["unit_id"], row["coverage_review_id"])
+                           row.get("unit_id", ""), row.get("coverage_review_id", 0))
         event = "date_max"
     else:
         raise ValueError("Unknown ranking scenario")

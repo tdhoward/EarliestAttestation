@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export complete reviewed inventory data and a filtered graph input, offline."""
+"""Export scholarly-report batches or historical reviewed data, offline."""
 
 from __future__ import annotations
 
@@ -147,8 +147,9 @@ def build_exports(con, inventory_id, policy_id, *, include_omitted=False,
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, required=True)
-    parser.add_argument("--inventory", required=True)
-    parser.add_argument("--policy", required=True)
+    parser.add_argument("--inventory")
+    parser.add_argument("--policy")
+    parser.add_argument("--report-batch", help="Export an immutable scholarly-report batch (version 3)")
     parser.add_argument("--dataset-output", type=Path, required=True)
     parser.add_argument("--graph-output", type=Path, required=True)
     parser.add_argument("--include-omitted", action="store_true")
@@ -156,11 +157,20 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.dataset_output.resolve() == args.graph_output.resolve():
         parser.error("Dataset and graph output paths must differ")
+    if args.report_batch and (args.inventory or args.policy):
+        parser.error("Use --report-batch on its own, or --inventory and --policy for historical exports")
+    if not args.report_batch and not (args.inventory and args.policy):
+        parser.error("Supply --report-batch, or both --inventory and --policy")
+    if args.db.resolve() in (args.dataset_output.resolve(), args.graph_output.resolve()):
+        parser.error("Output paths must not overwrite the database")
     with closing(sqlite3.connect(f"file:{args.db.resolve().as_posix()}?mode=ro", uri=True)) as con:
-        dataset, graph = build_exports(
-            con, args.inventory, args.policy,
-            include_omitted=args.include_omitted,
-            include_bracketed=not args.exclude_bracketed)
+        options = {"include_omitted": args.include_omitted,
+                   "include_bracketed": not args.exclude_bracketed}
+        if args.report_batch:
+            from source_reports import build_report_exports
+            dataset, graph = build_report_exports(con, args.report_batch, **options)
+        else:
+            dataset, graph = build_exports(con, args.inventory, args.policy, **options)
     for path, data in ((args.dataset_output, dataset), (args.graph_output, graph)):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n",
