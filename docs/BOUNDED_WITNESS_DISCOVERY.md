@@ -71,7 +71,8 @@ earlier candidates. Missing contents entries remain unknown, never inferred abse
 
 ## Current source scope
 
-The central discovery register contains a Galatians search for IDs 10000–19999,
+The central discovery register contains completed Galatians, Hebrews, and
+Ephesians searches for IDs 10000–19999. The Galatians search ran
 without name, date, or language search filters. It returned P46, P51, and P135;
 all have metadata and long contents captures. GA 01 and GA 02 are additional
 collected witnesses outside that range.
@@ -90,6 +91,15 @@ The pilot used 19 successful requests through the owner-supplied proxy, after
 six direct attempts received no source response, within a total budget of 25.
 
 All 27 books now reuse explicit contents fields from the existing document
-captures. That offline expansion creates no additional search completion: only
-the Galatians and Hebrews scopes are complete, and the remaining books
-are unsearched.
+captures. That offline expansion creates no additional search completion.
+
+The Ephesians search returned P46, P49, P92, and P132. It reused P46's metadata
+and contents and captured both reports for each new candidate. It used seven
+successful proxy requests and three sandbox-denied attempts with no provider
+response, within a fixed 25-attempt budget. The new reports add 41 Ephesians
+presence pairs and four 2 Thessalonians presence pairs. P49's report includes
+Ephesians 4:29 and 4:31 but no exact 4:30 entry; that witness/verse pair remains
+unknown. No neighboring-verse expansion or absence inference was made.
+
+Only the Galatians, Hebrews, and Ephesians scopes are complete. Other books,
+including 2 Thessalonians despite the reused report, remain unsearched.

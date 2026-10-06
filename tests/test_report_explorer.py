@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import unittest
 
-from report_explorer import build_explorer_data
+from report_explorer import build_explorer_data, pack_explorer_data, expand_explorer_data
 from build_collection import DATA, prepare_collection, read_json
 from controlled_ntvmr import connect
 from source_reports import import_batch, build_report_exports
@@ -32,7 +32,7 @@ class ExplorerTests(unittest.TestCase):
         self.assertEqual(len({ref.split('.')[0] for ref, _ in data["coordinates"]}), 27)
         self.assertEqual(len(data["observations"]), 7941)
         self.assertNotIn("Rom.16.24", data["observations"])
-        self.assertEqual(len(data["dates"]), 14)
+        self.assertEqual(len(data["dates"]), 17)
         self.assertEqual(data["metadata"]["counts"], self.graph["counts"])
 
     def test_rankings_and_provenance_survive_compaction(self):
@@ -48,6 +48,42 @@ class ExplorerTests(unittest.TestCase):
                 for side in ("optimistic", "pessimistic"):
                     restored = [{**data["dates"][str(event["assessment_id"])], **event} for event in combo["scenarios"][side]]
                     self.assertEqual(restored, original["scenarios"][side])
+
+    def test_transfer_format_is_lossless_and_reduces_repeated_records(self):
+        data = build_explorer_data(self.graph)
+        packed = pack_explorer_data(data)
+        self.assertEqual(expand_explorer_data(packed), data)
+        self.assertEqual(expand_explorer_data(data), data)
+        self.assertEqual(pack_explorer_data(expand_explorer_data(packed)), packed)
+        size = lambda value: len(json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+        self.assertLess(size(packed), size(data) * 0.4)
+        self.assertLess(len(packed["claim_contexts"]), len(data["claims"]))
+        self.assertLess(len(packed["coverage_records"]),
+                        sum(len(row["reported_coverage"]) for row in data["observations"].values()))
+        self.assertLess(len(packed["discovery_records"]), len(data["observations"]))
+        # Storage sharing does not couple independent observations after loading.
+        restored = expand_explorer_data(packed)
+        ref, row = next(iter(restored["observations"].items()))
+        row["reported_coverage"][0]["claims"].append("synthetic")
+        row["discovery"]["state"] = "synthetic"
+        self.assertEqual(expand_explorer_data(packed), data)
+        self.assertTrue(all(other["discovery"]["state"] != "synthetic"
+                            for other_ref, other in restored["observations"].items() if other_ref != ref))
+
+    def test_invalid_transfer_references_fail_instead_of_losing_evidence(self):
+        packed = pack_explorer_data(build_explorer_data(self.graph))
+        ref = next(iter(packed["observations"]))
+        for name in ("coverage_records", "discovery_records", "claim_contexts"):
+            for index in (-1, len(packed[name]), "0", True):
+                broken = copy.deepcopy(packed)
+                if name == "coverage_records":
+                    broken["observations"][ref]["reported_coverage"][0] = index
+                elif name == "discovery_records":
+                    broken["observations"][ref]["discovery"] = index
+                else:
+                    next(iter(broken["claims"].values()))[0] = index
+                with self.assertRaisesRegex(ValueError, "Invalid .* reference"):
+                    expand_explorer_data(broken)
 
     def test_entire_corpus_input_has_no_two_hundred_verse_limit(self):
         graph = copy.deepcopy(self.graph)

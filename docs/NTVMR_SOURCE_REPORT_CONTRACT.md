@@ -119,11 +119,12 @@ contents assertions. Per-verse discovery states and the app's **earliest collect
 labels distinguish usable reports from completeness of the witness search. See
 [the discovery guide](BOUNDED_WITNESS_DISCOVERY.md).
 
-The current collection reuses 14 witnesses' captured reports across all 27
+The current collection reuses 17 witnesses' captured reports across all 27
 books. Only exact reported OSIS matches supply presence; thirteen default
 coordinates remain unresolved. This reuse establishes no new discovery
-completion. Independent Galatians and Hebrews searches are complete only within
-their declared ID range. The Hebrews pilot collected nine new witnesses through
+completion. Independent Galatians, Hebrews, and Ephesians searches are complete
+only within their declared ID range. The Hebrews pilot collected nine new
+witnesses; Ephesians added P49, P92, and P132 while reusing P46. Both used
 the owner's local API proxy. Canonical NTVMR URLs supply all scholarly citations;
 permanent captures replace proxy origins with `<local proxy>` and preserve raw
 response bodies, hashes, paths, parameters, and retrieval dates. Actual transport

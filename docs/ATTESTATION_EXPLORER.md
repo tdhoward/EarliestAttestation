@@ -40,8 +40,19 @@ failure leaves the previous app data intact.
   verses or a completed bounded query does not establish exhaustive discovery.
 
 `report_explorer.py` compacts normalized graph data into shared claim/date tables
-and per-verse observations. The browser uses those computed events without
-reinterpreting sources. Raw reports stay in the central source directory.
+and per-verse observations. The version 2 JSON transfer format additionally
+stores identical coverage and discovery records once and splits each claim into
+a shared provenance context plus its remaining exact fields. References are
+zero-based indices into `coverage_records`, `discovery_records`, and
+`claim_contexts`. The loader rejects invalid indices and conflicting claim
+fields, then restores the version 1 normalized structure for the chart model.
+This retains every unknown pair, qualification, reported object, citation, date
+alternative, and precomputed event. Previous version 1 files remain readable.
+Observations are independent after expansion, despite shared transfer records.
+
+The current 17-witness transfer file is 12.5 MB, compared with 39.6 MB expanded.
+The browser uses the computed events without reinterpreting sources. Raw reports
+stay in the central source directory; collection updates change only the data.
 
 ## Verification
 

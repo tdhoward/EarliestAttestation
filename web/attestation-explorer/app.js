@@ -2,15 +2,13 @@
 (function (global) {
   "use strict";
   const DATA_URL = "../../data/attestations.json";
+  const {expandData} = typeof module !== "undefined" && module.exports ?
+    require("./explorer.js") : global.AttestationExplorer;
 
   async function loadData(fetcher = global.fetch.bind(global)) {
     const response = await fetcher(DATA_URL, {cache: "no-store"});
     if (!response.ok) throw new Error(`Collection request failed (${response.status})`);
-    const data = await response.json();
-    if (data.format_version !== 1 || !Array.isArray(data.coordinates) || !data.observations) {
-      throw new Error("Unsupported collection data");
-    }
-    return data;
+    return expandData(await response.json());
   }
 
   function start(doc = global.document, explorer = global.AttestationExplorer, fetcher) {
@@ -45,7 +43,7 @@
     retry.addEventListener("click", load);
     file.addEventListener("change", async () => {
       if (!file.files[0]) return;
-      try { show(JSON.parse(await file.files[0].text())); } catch { failed(); }
+      try { show(expandData(JSON.parse(await file.files[0].text()))); } catch { failed(); }
     });
     return load();
   }

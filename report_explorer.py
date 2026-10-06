@@ -6,12 +6,21 @@ rankings always come from the supplied scholarly-report export.
 
 from __future__ import annotations
 
+from copy import deepcopy
 import json
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
 INVENTORY = ROOT / "data" / "reference" / "na28.json"
+
+# These fields repeat across claims from the same reported source and indexing
+# tier. Their exact values are retained once; no provenance is reconstructed.
+CLAIM_CONTEXT_FIELDS = frozenset((
+    "assertion", "citation", "doc_id", "extent", "indexing_metadata_sha256",
+    "provider", "qualifications", "reported_indexing_tier", "retrieved_at",
+    "source_response_id", "source_sha256", "witness_id",
+))
 
 
 def build_explorer_data(graph, inventory=None):
@@ -81,3 +90,67 @@ def build_explorer_data(graph, inventory=None):
         "documents": graph["documents"], "sources": graph["sources"],
         "claims": claims, "dates": dates, "observations": observations,
     }
+
+
+def pack_explorer_data(data):
+    """Store repeated records once in the version 2 browser transfer format.
+
+    Normalized observations remain version 1 in Python and in the chart model.
+    This lossless storage step neither removes unknown pairs nor computes claims,
+    dates, discovery states, or rankings.
+    """
+    if data.get("format_version") != 1:
+        raise ValueError("Expected normalized version 1 explorer data")
+    tables = {name: [] for name in ("claim_contexts", "coverage_records", "discovery_records")}
+    indices = {name: {} for name in tables}
+
+    def intern(name, record):
+        key = json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        if key not in indices[name]:
+            indices[name][key] = len(tables[name])
+            tables[name].append(record)
+        return indices[name][key]
+
+    claims = {}
+    for identifier, claim in data["claims"].items():
+        context = {k: v for k, v in claim.items() if k in CLAIM_CONTEXT_FIELDS}
+        details = {k: v for k, v in claim.items() if k not in CLAIM_CONTEXT_FIELDS}
+        claims[identifier] = [intern("claim_contexts", context), details]
+    observations = {ref: {
+        **row,
+        "reported_coverage": [intern("coverage_records", pair) for pair in row["reported_coverage"]],
+        "discovery": intern("discovery_records", row["discovery"]),
+    } for ref, row in data["observations"].items()}
+    return {**data, "format_version": 2, **tables, "claims": claims, "observations": observations}
+
+
+def expand_explorer_data(data):
+    """Restore the transfer format exactly; also accept previous version 1 files."""
+    if data.get("format_version") == 1:
+        return data
+    if data.get("format_version") != 2:
+        raise ValueError("Unsupported explorer data")
+    names = ("claim_contexts", "coverage_records", "discovery_records")
+    if any(not isinstance(data.get(name), list) for name in names):
+        raise ValueError("Missing explorer record tables")
+
+    def record(name, index):
+        if type(index) is not int or not 0 <= index < len(data[name]) or not isinstance(data[name][index], dict):
+            raise ValueError(f"Invalid {name} reference")
+        return deepcopy(data[name][index])
+
+    claims = {}
+    for identifier, packed in data["claims"].items():
+        if not isinstance(packed, list) or len(packed) != 2 or not isinstance(packed[1], dict):
+            raise ValueError("Invalid packed claim")
+        context = record("claim_contexts", packed[0])
+        if context.keys() & packed[1].keys():
+            raise ValueError("Packed claim overrides its context")
+        claims[identifier] = {**context, **deepcopy(packed[1])}
+    observations = {ref: {
+        **row,
+        "reported_coverage": [record("coverage_records", index) for index in row["reported_coverage"]],
+        "discovery": record("discovery_records", row["discovery"]),
+    } for ref, row in data["observations"].items()}
+    return {**{k: v for k, v in data.items() if k not in names},
+            "format_version": 1, "claims": claims, "observations": observations}

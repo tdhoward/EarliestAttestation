@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10132",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:27:16 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791329236774",
+    "X-Request-Post-Validation-Epoch": "1791329236775",
+    "X-Request-Response-Epoch": "1791329236778",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "555",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10132,\"indexContent\":[\"Eph 3:21; Eph 4:1-2; Eph 4:14-16\",{\"docID\":10132,\"osisID\":\"Eph.3.21\",\"indexContent\":2010003021,\"pageID\":10},{\"docID\":10132,\"osisID\":\"Eph.4.1\",\"indexContent\":2010004001,\"pageID\":10},{\"docID\":10132,\"osisID\":\"Eph.4.2\",\"indexContent\":2010004002,\"pageID\":10},{\"docID\":10132,\"osisID\":\"Eph.4.14\",\"indexContent\":2010004014,\"pageID\":20},{\"docID\":10132,\"osisID\":\"Eph.4.15\",\"indexContent\":2010004015,\"pageID\":20},{\"docID\":10132,\"osisID\":\"Eph.4.16\",\"indexContent\":2010004016,\"pageID\":20}]}}}",
+  "body_sha256": "e69f8b7190cacc8d371f5829c8c71911d6a69fc605abd3895b6ba96370b2bf95",
+  "retrieved_at": "2026-10-06T23:27:16+00:00"
+}

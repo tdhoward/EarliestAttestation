@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10092",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:27:06 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791329226484",
+    "X-Request-Post-Validation-Epoch": "1791329226485",
+    "X-Request-Response-Epoch": "1791329226489",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "885",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10092,\"indexContent\":[\"Eph 1:11-13; Eph 1:19-21; 2Thess 1:4-5; 2Thess 1:11-12\",{\"docID\":10092,\"osisID\":\"Eph.1.11\",\"indexContent\":2010001011,\"pageID\":10},{\"docID\":10092,\"osisID\":\"Eph.1.12\",\"indexContent\":2010001012,\"pageID\":10},{\"docID\":10092,\"osisID\":\"Eph.1.13\",\"indexContent\":2010001013,\"pageID\":10},{\"docID\":10092,\"osisID\":\"Eph.1.19\",\"indexContent\":2010001019,\"pageID\":20},{\"docID\":10092,\"osisID\":\"Eph.1.20\",\"indexContent\":2010001020,\"pageID\":20},{\"docID\":10092,\"osisID\":\"Eph.1.21\",\"indexContent\":2010001021,\"pageID\":20},{\"docID\":10092,\"osisID\":\"2Thess.1.4\",\"indexContent\":2014001004,\"pageID\":30},{\"docID\":10092,\"osisID\":\"2Thess.1.5\",\"indexContent\":2014001005,\"pageID\":30},{\"docID\":10092,\"osisID\":\"2Thess.1.11\",\"indexContent\":2014001011,\"pageID\":40},{\"docID\":10092,\"osisID\":\"2Thess.1.12\",\"indexContent\":2014001012,\"pageID\":40}]}}}",
+  "body_sha256": "fcc4d0392f5dd9218b0b4655994fcb2e26a5c3d38730a4c19fa1e22cfa9f5a92",
+  "retrieved_at": "2026-10-06T23:27:06+00:00"
+}

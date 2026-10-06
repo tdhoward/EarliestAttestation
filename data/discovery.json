@@ -114,5 +114,61 @@
       "request_budget": 19,
       "collection_errors": []
     }
+  },
+  {
+    "format_version": 1,
+    "definition": {
+      "format_version": 1,
+      "scope_id": "ephesians-docids-10000-19999",
+      "book": "Eph",
+      "doc_id_min": 10000,
+      "doc_id_max": 19999,
+      "page_limit": 200,
+      "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+      "access_expectations": "Finite independent Ephesians book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+      "request_budget": 25,
+      "minimum_interval_seconds": 5,
+      "maximum_run_seconds": 300,
+      "transport_base_url": "<local proxy>/community/vmr/api"
+    },
+    "run_state": "complete",
+    "run_error": null,
+    "search_captures": [
+      {
+        "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+        "params": {
+          "detail": "document",
+          "docID": "10000-19999",
+          "format": "json",
+          "indexContent": "Eph",
+          "limit": "200"
+        },
+        "http_status": 200,
+        "headers": {
+          "Date": "Tue, 06 Oct 2026 23:26:46 GMT",
+          "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+          "X-Request-Received-Epoch": "1791329206547",
+          "X-Request-Post-Validation-Epoch": "1791329206549",
+          "X-Request-Response-Epoch": "1791329206560",
+          "X-Response-Time": "13ms",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "Content-Type": "application/json;charset=UTF-8",
+          "Content-Length": "663",
+          "Connection": "close"
+        },
+        "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":19,\"manuscript\":[{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":299,\"gaNum\":\"P49\",\"orig\":\"III (E)\",\"docID\":10049,\"groupID\":\"\",\"primaryName\":\"P49\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":275},{\"origLate\":399,\"gaNum\":\"P92\",\"orig\":\"III/IV\",\"docID\":10092,\"groupID\":\"\",\"primaryName\":\"P92\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":399,\"gaNum\":\"P132\",\"orig\":\"III/IV\",\"docID\":10132,\"groupID\":\"\",\"primaryName\":\"P132\",\"lang\":\"grc\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200}],\"count\":4}}}",
+        "body_sha256": "eed270a00140bc2b609460e26bd685031ad1d0fcc1c95b6fd8c83f3b8a0958d3",
+        "retrieved_at": "2026-10-06T23:26:46+00:00"
+      }
+    ],
+    "collection_cost": {
+      "request_attempts": 10,
+      "http_responses_recorded": 7,
+      "reused_seed_document_responses": 28,
+      "request_budget": 25,
+      "collection_errors": []
+    }
   }
 ]

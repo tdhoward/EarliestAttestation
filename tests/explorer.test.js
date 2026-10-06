@@ -3,8 +3,8 @@ const {test} = require("node:test");
 const assert = require("node:assert/strict");
 const {readFileSync} = require("node:fs");
 const {join} = require("node:path");
-const {createModel, hitIndex, segments} = require("../web/attestation-explorer/explorer.js");
-const current = JSON.parse(readFileSync(join(__dirname, "../data/attestations.json"), "utf8"));
+const {expandData, createModel, hitIndex, segments} = require("../web/attestation-explorer/explorer.js");
+const current = expandData(JSON.parse(readFileSync(join(__dirname, "../data/attestations.json"), "utf8")));
 // A smaller synthetic view keeps the three-witness model cases independent of collection growth.
 const data = structuredClone(current);
 const retained = new Set(["ntvmr:10046", "ntvmr:20001", "ntvmr:20002"]);
@@ -33,6 +33,8 @@ test("bounded discovery is independent of coverage, dates, and the rest of the c
   assert.equal(model.discovery(model.lookup("Gal 1:9")).state, "bounded_search_complete");
   assert.match(model.discovery(model.lookup("Gal 1:9")).text, /Other catalogue ranges and unindexed witnesses/);
   assert.equal(model.discovery(model.lookup("Heb 1:1")).state, "bounded_search_complete");
+  assert.equal(model.discovery(model.lookup("Eph 1:1")).state, "bounded_search_complete");
+  assert.equal(model.discovery(model.lookup("2Thess 1:4")).state, "not_searched");
   assert.equal(model.discovery(model.lookup("Rom 1:1")).state, "not_searched");
   assert.equal(discovered.metadata.discovery.corpus_complete, false);
   const cell = model.cell(model.lookup("Gal 1:9"), "optimistic");
@@ -78,7 +80,7 @@ test("full NT report expansion navigates sources, endpoints, unknowns, and suppl
     assert.deepEqual(pessimistic.events.map(e => e.event_year), [225, 399, 499]);
   }
   const hebrews = model.cell(model.lookup("Heb 1:1"), "optimistic");
-  assert.equal(hebrews.observation.reported_coverage.length, 14);
+  assert.equal(hebrews.observation.reported_coverage.length, 17);
   assert.equal(hebrews.observation.reported_coverage.find(p => p.witness_id === "ntvmr:10012").state, "present");
   assert.equal(model.minimum, 150); assert.equal(model.maximum, 750);
 });

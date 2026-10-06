@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10049",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Tue, 06 Oct 2026 23:26:56 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791329216194",
+    "X-Request-Post-Validation-Epoch": "1791329216194",
+    "X-Request-Response-Epoch": "1791329216197",
+    "X-Response-Time": "3ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2254",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10049,\"indexContent\":[\"Eph 4:16-29; Eph 4:31-32; Eph 5:1-13\",{\"docID\":10049,\"osisID\":\"Eph.4.16\",\"indexContent\":2010004016,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.17\",\"indexContent\":2010004017,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.18\",\"indexContent\":2010004018,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.19\",\"indexContent\":2010004019,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.20\",\"indexContent\":2010004020,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.21\",\"indexContent\":2010004021,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.22\",\"indexContent\":2010004022,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.23\",\"indexContent\":2010004023,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.24\",\"indexContent\":2010004024,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.25\",\"indexContent\":2010004025,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.26\",\"indexContent\":2010004026,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.27\",\"indexContent\":2010004027,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.28\",\"indexContent\":2010004028,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.29\",\"indexContent\":2010004029,\"pageID\":10},{\"docID\":10049,\"osisID\":\"Eph.4.31\",\"indexContent\":2010004031,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.4.32\",\"indexContent\":2010004032,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.1\",\"indexContent\":2010005001,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.2\",\"indexContent\":2010005002,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.3\",\"indexContent\":2010005003,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.4\",\"indexContent\":2010005004,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.5\",\"indexContent\":2010005005,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.6\",\"indexContent\":2010005006,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.7\",\"indexContent\":2010005007,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.8\",\"indexContent\":2010005008,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.9\",\"indexContent\":2010005009,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.10\",\"indexContent\":2010005010,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.11\",\"indexContent\":2010005011,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.12\",\"indexContent\":2010005012,\"pageID\":20},{\"docID\":10049,\"osisID\":\"Eph.5.13\",\"indexContent\":2010005013,\"pageID\":20}]}}}",
+  "body_sha256": "24af118a24e2df0a32dbc182d4b956555024f69fbda628051c74eded2c49f205",
+  "retrieved_at": "2026-10-06T23:26:56+00:00"
+}

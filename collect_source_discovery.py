@@ -16,6 +16,7 @@ from controlled_ntvmr import (API_BASE, Client, ContractError, JobFailure, RunSt
 from source_discovery import (captured_chain, collect_book_range, prepare_discovery,
                               range_params, response_capture, sha)
 from source_reports import capture, prepare_batch
+from report_explorer import pack_explorer_data
 
 
 def retained_transport(value, *proxy_urls):
@@ -153,7 +154,7 @@ def collect(data_dir, definition, run_id, *, offline=False, https_proxy=None, ba
         raise ValueError("Collection changed during discovery; captures are retained in data/sources for recovery")
     write_json(discovery_path, records)
     write_json(config_path, config)
-    write_json(data_dir / "attestations.json", app_data, compact=True)
+    write_json(data_dir / "attestations.json", pack_explorer_data(app_data), compact=True)
     summary, _ = prepare_discovery(record, ready)
     return summary
 

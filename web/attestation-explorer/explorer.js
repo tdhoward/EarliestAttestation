@@ -18,6 +18,53 @@
   const normalize = value => value.toLowerCase().replace(/[\s.]/g, "");
   const interval = date => date.status === "valid" ? `${date.date_min}–${date.date_max} CE` : `${date.status} numeric bounds; unrankable`;
 
+  function expandData(data) {
+    const isRecord = value => value && typeof value === "object" && !Array.isArray(value);
+    if (!isRecord(data) || !Array.isArray(data.coordinates) || !isRecord(data.observations)) {
+      throw new Error("Unsupported collection data");
+    }
+    if (data.format_version === 1) return data;
+    if (data.format_version !== 2) throw new Error("Unsupported collection data");
+    const names = ["claim_contexts", "coverage_records", "discovery_records"];
+    if (names.some(name => !Array.isArray(data[name])) || !isRecord(data.claims)) {
+      throw new Error("Missing collection record tables");
+    }
+    function copyJSON(value) {
+      if (Array.isArray(value)) return value.map(copyJSON);
+      if (!isRecord(value)) return value;
+      const copy = {...value};
+      for (const key of Object.keys(copy)) {
+        if (copy[key] && typeof copy[key] === "object") copy[key] = copyJSON(copy[key]);
+      }
+      return copy;
+    }
+    function record(name, index) {
+      if (!Number.isInteger(index) || index < 0 || index >= data[name].length || !isRecord(data[name][index])) {
+        throw new Error(`Invalid ${name} reference`);
+      }
+      // Observations stay independent even when their transfer records are shared.
+      return copyJSON(data[name][index]);
+    }
+    const claims = Object.fromEntries(Object.entries(data.claims).map(([id, packed]) => {
+      if (!Array.isArray(packed) || packed.length !== 2 || !isRecord(packed[1])) {
+        throw new Error("Invalid packed claim");
+      }
+      const context = record("claim_contexts", packed[0]);
+      if (Object.keys(packed[1]).some(key => Object.hasOwn(context, key))) {
+        throw new Error("Packed claim overrides its context");
+      }
+      return [id, {...context, ...packed[1]}];
+    }));
+    const observations = Object.fromEntries(Object.entries(data.observations).map(([ref, row]) => {
+      if (!isRecord(row) || !Array.isArray(row.reported_coverage)) throw new Error("Invalid packed observation");
+      return [ref, {...row,
+        reported_coverage: row.reported_coverage.map(index => record("coverage_records", index)),
+        discovery: record("discovery_records", row.discovery)}];
+    }));
+    const {claim_contexts, coverage_records, discovery_records, ...rest} = data;
+    return {...rest, format_version: 1, claims, observations};
+  }
+
   function hitIndex(x, width, scrollLeft, totalWidth, count) {
     return clamp(Math.floor((clamp(x, 0, width) + scrollLeft) / totalWidth * count), 0, count - 1);
   }
@@ -36,6 +83,7 @@
   }
 
   function createModel(data) {
+    data = expandData(data);
     if (data.format_version !== 1 || !data.coordinates.length) throw new Error("Unsupported explorer data");
     const indices = new Map(data.coordinates.map((row, index) => [row[0], index]));
     const choices = new Map();
@@ -119,6 +167,7 @@
 
   function mount(root, data, options = {}) {
     const model = createModel(data);
+    data = model.data;
     const el = name => root.querySelector(`[data-el="${name}"]`);
     const doc = root.ownerDocument;
     const view = doc.defaultView;
@@ -487,7 +536,7 @@
     };
   }
 
-  const api = {createModel, hitIndex, segments, mount};
+  const api = {expandData, createModel, hitIndex, segments, mount};
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else global.AttestationExplorer = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

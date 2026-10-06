@@ -9,7 +9,7 @@ from pathlib import Path
 import tempfile
 
 from controlled_ntvmr import connect, encoded, validate_inventory
-from report_explorer import build_explorer_data
+from report_explorer import build_explorer_data, pack_explorer_data
 from source_reports import CONTRACT, build_report_exports, digest, import_batch, prepare_batch
 
 
@@ -129,12 +129,13 @@ def build_data(collection=None, data_dir=DATA, *, discovery_records=None):
 
 def refresh(data_dir=DATA, *, check=False):
     result = build_data(data_dir=data_dir)
+    packed = pack_explorer_data(result)
     output = data_dir / "attestations.json"
     if check:
-        if not output.exists() or read_json(output) != result:
+        if not output.exists() or read_json(output) != packed:
             raise ValueError("Explorer data is out of date; run python build_collection.py")
     else:
-        write_json(output, result, compact=True)
+        write_json(output, packed, compact=True)
     return result
 
 
@@ -145,7 +146,9 @@ def main(argv=None):
     args = parser.parse_args(argv)
     data = refresh(args.data_dir.resolve(), check=args.check)
     print(json.dumps({**data["metadata"]["counts"], "network_requests": 0,
-                      "data_file": str(args.data_dir / "attestations.json"), "checked": args.check}, sort_keys=True))
+                      "data_file": str(args.data_dir / "attestations.json"),
+                      "data_bytes": (args.data_dir / "attestations.json").stat().st_size,
+                      "checked": args.check}, sort_keys=True))
     return 0
 
 

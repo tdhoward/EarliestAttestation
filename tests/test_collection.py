@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 from build_collection import DATA, ROOT, build_data, prepare_collection, read_json, refresh, write_json
 from source_reports import capture
+from report_explorer import expand_explorer_data
 
 
 class CollectionTests(unittest.TestCase):
@@ -19,18 +20,19 @@ class CollectionTests(unittest.TestCase):
 
     def test_current_file_combines_all_collected_books_and_witnesses(self):
         data = self.data
-        self.assertEqual(data, read_json(DATA / "attestations.json"))
+        self.assertEqual(data, expand_explorer_data(read_json(DATA / "attestations.json")))
+        self.assertEqual(read_json(DATA / "attestations.json")["format_version"], 2)
         self.assertEqual(len(data["coordinates"]), 7957)
         self.assertEqual(data["metadata"]["counts"]["verse_count"], 7941)
-        self.assertEqual(data["metadata"]["counts"]["witness_count"], 14)
+        self.assertEqual(data["metadata"]["counts"]["witness_count"], 17)
         self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"],
-                         {"present": 16595, "unknown": 94579, "absent": 0, "contested": 0})
+                         {"present": 16640, "unknown": 118357, "absent": 0, "contested": 0})
         self.assertEqual(data["metadata"]["counts"]["by_discovery_state"],
-                         {"bounded_search_complete": 452, "not_searched": 7489})
+                         {"bounded_search_complete": 607, "not_searched": 7334})
         self.assertEqual(data["metadata"]["counts"]["graphable_coordinates"], 7928)
         self.assertEqual(data["metadata"]["counts"]["mapping_gaps"], 13)
         self.assertEqual(len({ref.split('.')[0] for ref in data["observations"]}), 27)
-        self.assertEqual(data["metadata"]["collection_cost"]["reused_response_count"], 30)
+        self.assertEqual(data["metadata"]["collection_cost"]["reused_response_count"], 37)
         self.assertEqual(data["metadata"]["collection_cost"]["replay_network_requests"], 0)
 
     def test_every_presence_and_date_retains_its_actual_source_field(self):
@@ -131,7 +133,7 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(len(data["observations"]), 7957)
         self.assertEqual(data["observations"]["Rom.16.24"]["editorial_status"], "omitted")
         self.assertEqual([p["state"] for p in data["observations"]["Rom.16.24"]["reported_coverage"]],
-                         ["unknown"] * 12 + ["present", "present"])
+                         ["unknown"] * 15 + ["present", "present"])
         for books in ([], ["Gal", "Gal"], ["Unknown"]):
             with self.assertRaisesRegex(ValueError, "distinct book codes"):
                 prepare_collection({**config, "books": books})
@@ -174,6 +176,35 @@ class CollectionTests(unittest.TestCase):
         for claim in [*self.data["claims"].values(), *self.data["dates"].values()]:
             self.assertTrue(claim["citation"].startswith("https://ntvmr.uni-muenster.de/"))
             self.assertNotIn("TLS", claim["qualifications"])
+
+    def test_ephesians_discovery_preserves_exact_reports_and_independent_scope(self):
+        data = self.data
+        scope = next(s for s in data["metadata"]["discovery"]["scopes"] if s["definition"]["book"] == "Eph")
+        self.assertEqual(scope["candidate_ids"], [10046, 10049, 10092, 10132])
+        self.assertEqual(scope["collected_candidate_ids"], scope["candidate_ids"])
+        self.assertEqual(scope["pending_candidate_ids"], [])
+        self.assertEqual(scope["search_state"], "complete")
+        self.assertEqual(scope["collection_cost"]["request_attempts"], 10)
+        self.assertEqual(scope["collection_cost"]["http_responses_recorded"], 7)
+        self.assertLessEqual(scope["collection_cost"]["request_attempts"], scope["definition"]["request_budget"])
+        for doc, low, high, expected in ((10049, 275, 299, {"Eph": 29}),
+                                         (10092, 200, 399, {"Eph": 6, "2Thess": 4}),
+                                         (10132, 200, 399, {"Eph": 6})):
+            date = next(d for d in data["dates"].values() if d["doc_id"] == doc)
+            self.assertEqual((date["date_min"], date["date_max"]), (low, high))
+            present = {}
+            for ref, row in data["observations"].items():
+                pair = next(p for p in row["reported_coverage"] if p["witness_id"] == f"ntvmr:{doc}")
+                if pair["state"] == "present":
+                    book = ref.split(".")[0]
+                    present[book] = present.get(book, 0) + 1
+            self.assertEqual(present, expected)
+        for ref in ("Eph.4.16", "Eph.4.30"):
+            pair = next(p for p in data["observations"][ref]["reported_coverage"] if p["witness_id"] == "ntvmr:10049")
+            self.assertEqual(pair["state"], "present" if ref == "Eph.4.16" else "unknown")
+        self.assertEqual(data["observations"]["Eph.1.1"]["discovery"]["state"], "bounded_search_complete")
+        self.assertEqual(data["observations"]["2Thess.1.4"]["discovery"]["state"], "not_searched")
+        self.assertFalse(data["metadata"]["discovery"]["corpus_complete"])
 
 
 if __name__ == "__main__":

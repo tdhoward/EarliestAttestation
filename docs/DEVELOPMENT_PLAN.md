@@ -17,14 +17,14 @@ complete date alternatives and count any reported portion once per witness.
 
 ## Current implementation
 
-The current register reuses retained reports for 14 witnesses across all 27
+The current register reuses retained reports for 17 witnesses across all 27
 books. Default data contains 7,941 reference coordinates,
-7,928 graphable coordinates, 16,595 present witness/verse pairs, 94,579 unknown
+7,928 graphable coordinates, 16,640 present witness/verse pairs, 118,357 unknown
 pairs, and no absent or contested pairs. Thirteen coordinates have no exact
 reported match and remain unknown. Sixteen supplementary omitted coordinates,
 including Romans 16:24, remain in the underlying reference scope.
 
-Galatians and Hebrews have completed independent indexed searches within IDs 10000–19999;
+Galatians, Hebrews, and Ephesians have completed independent indexed searches within IDs 10000–19999;
 the other books and catalogue ranges do not gain discovery completion merely
 through document reuse. Multiple bounded scopes can coexist in the central
 discovery register. All rankings describe collected witnesses only.
@@ -35,10 +35,22 @@ attempts, staying within its 25-attempt budget. The new reports add 163 presence
 pairs. Canonical NTVMR URLs supply citations; the owner-supplied local proxy is
 an access route. TLS verification is not a prerequisite for source collection.
 
-The current JSON is approximately 36.4 MB (34.7 MiB). An offline Node check parsed
-it in 207 ms, constructed the chart model in 16 ms, and evaluated the full axis
-in 22 ms on this workstation. These are local measurements, not browser or
-network benchmarks. Payload transfer size is the next concrete scaling concern.
+The Ephesians search found P46, P49, P92, and P132, reused P46, and collected the
+other three witnesses. Their reports add 45 presence pairs: 41 in Ephesians and
+four in 2 Thessalonians. Reuse does not complete discovery for 2 Thessalonians.
+The run used seven successful proxy requests and three sandbox-denied attempts,
+within its declared 25-attempt budget. Every prior claim, date alternative, and
+witness/verse state survived the addition unchanged.
+
+The current JSON is approximately 12.5 MB (11.9 MiB). Lossless version 2 storage
+shares repeated coverage, discovery, and claim provenance records, reducing the
+17-witness expanded payload from 39.6 MB by 68.5%. The browser restores the same
+normalized data before charting; earlier version 1 files remain supported.
+An offline Node check parsed the file in 105 ms, expanded it in 126 ms, constructed
+the chart model in 20 ms, and evaluated the full axis in 10 ms on this workstation.
+The expanded result matched the complete pre-packing dataset. These are local
+measurements, not browser or network benchmarks. Browser memory usage remains
+unmeasured; restored unknown pairs still scale with witnesses and coordinates.
 
 The data builder validates raw hashes, provenance, mappings, identity, complete
 date intervals, and derived results in a fresh temporary SQLite database. Builds
@@ -52,6 +64,8 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 1. Broaden bounded independent witness discovery. Declare a book/range and request
    budget; reuse each document's metadata and contents; update the central register.
    Do not constrain discovery to the witnesses already collected for nearby verses.
+   A useful next scope is 2 Thessalonians within IDs 10000–19999, reusing P92's
+   newly retained reports while searching for candidates independently.
 2. Establish provider access expectations before bulk collection. Use the
    owner-supplied local proxy when direct access is unavailable; cite canonical
    NTVMR endpoints. Preserve blocked states, honor limits, and do not change

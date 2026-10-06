@@ -46,15 +46,20 @@ rankings in a temporary database, and replaces `data/attestations.json`. Refresh
 the browser to see the result. It creates no HTML, book-specific export, persistent
 replay database, or numbered revision file. `npm run data` is equivalent.
 
-The current collection reuses 14 witnesses' retained reports across all
-27 books, with 7,928 default graphable verses, 16,595 reported-present
-witness/verse pairs, and 94,579 unknown pairs. Thirteen default coordinates have
+The current collection reuses 17 witnesses' retained reports across all
+27 books, with 7,928 default graphable verses, 16,640 reported-present
+witness/verse pairs, and 118,357 unknown pairs. Thirteen default coordinates have
 no exact match in the retained contents reports and remain unknown. Unknown
 includes missing reports for fragmentary witnesses; it does not mean absence.
-Galatians and Hebrews have completed bounded indexed searches for IDs
+Galatians, Hebrews, and Ephesians have completed bounded indexed searches for IDs
 10000–19999; discovery across the wider catalogue remains incomplete.
 Scholarly citations use canonical NTVMR URLs. The owner-supplied local API proxy
 is an access route, and TLS verification is not a collection prerequisite.
+
+The current app data file is approximately 12.5 MB. Its version 2 transfer format
+stores repeated coverage, discovery, and claim provenance records once. The app
+restores every field before displaying the collection and also accepts previous
+version 1 files through the local file picker.
 
 ## Collect more data
 
