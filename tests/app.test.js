@@ -6,8 +6,8 @@ const {transferFixture} = require("./explorer-fixtures.js");
 
 test("shared transfer records preserve exact claims, all coverage states, discovery and complete alternatives", async () => {
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1} = transferFixture(name);
-    for (const input of [normalized, packed, phase1]) {
+    const {normalized, packed, phase1, phase2} = transferFixture(name);
+    for (const input of [normalized, packed, phase1, phase2]) {
       assert.deepEqual(await loadData(async () => ({ok: true, json: async () => input})), normalized);
     }
     if (name === "explorer-empty") continue;
@@ -88,7 +88,7 @@ test("a failed request offers retry and a local JSON fallback, then mounts the l
   assert.equal(mounted[1].local, true);
 });
 
-test("the file picker loads retained versions and the Phase 1 candidate against the shared oracle", async () => {
+test("the file picker loads retained versions and candidate codecs against the shared oracle", async () => {
   const node = () => ({hidden: true, listeners: {}, addEventListener(type, fn) {this.listeners[type] = fn;}});
   const nodes = {status: node(), retry: node(), "file-label": node(), file: node()};
   const loader = node(), root = node();
@@ -100,8 +100,8 @@ test("the file picker loads retained versions and the Phase 1 candidate against 
   }};
   await start(doc, explorer, async () => {throw new Error("Offline fixture loading");});
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1} = transferFixture(name);
-    for (const input of [normalized, packed, phase1]) {
+    const {normalized, packed, phase1, phase2} = transferFixture(name);
+    for (const input of [normalized, packed, phase1, phase2]) {
       nodes.file.files = [{text: async () => JSON.stringify(input)}];
       await nodes.file.listeners.change();
       assert.deepEqual(mounted.at(-1), normalized);
@@ -109,13 +109,16 @@ test("the file picker loads retained versions and the Phase 1 candidate against 
       assert.equal(loader.hidden, true);
     }
   }
-  const {normalized, packed} = transferFixture();
+  const {normalized, packed, phase2} = transferFixture();
   packed.observations["Gal.1.1"].reported_coverage[0] = -1;
-  nodes.file.files = [{text: async () => JSON.stringify(packed)}];
-  await nodes.file.listeners.change();
-  assert.equal(mounted.length, 6);
-  assert.equal(root.hidden, true);
-  assert.equal(nodes.retry.hidden, false);
+  phase2.coverage_records[0][0] = -1;
+  for (const broken of [packed, phase2]) {
+    nodes.file.files = [{text: async () => JSON.stringify(broken)}];
+    await nodes.file.listeners.change();
+    assert.equal(mounted.length, 8);
+    assert.equal(root.hidden, true);
+    assert.equal(nodes.retry.hidden, false);
+  }
   nodes.file.files = [{text: async () => JSON.stringify(normalized)}];
   await nodes.file.listeners.change();
   assert.deepEqual(mounted.at(-1), normalized);

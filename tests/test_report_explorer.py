@@ -7,7 +7,8 @@ import subprocess
 import unittest
 
 from report_explorer import (build_explorer_data, pack_explorer_data, pack_explorer_data_phase1,
-                             expand_explorer_data, PHASE1_FORMAT_VERSION)
+                             pack_explorer_data_phase2, expand_explorer_data,
+                             PHASE1_FORMAT_VERSION, PHASE2_FORMAT_VERSION)
 from build_collection import DATA, prepare_collection, read_json
 from controlled_ntvmr import connect
 from source_reports import import_batch, build_report_exports
@@ -42,7 +43,7 @@ class CompatibilityOracleTests(unittest.TestCase):
             with self.subTest(fixture=name):
                 expected = read_json(FIXTURES / f"{name}.v1.json")
                 original = copy.deepcopy(expected)
-                for packer in (pack_explorer_data, pack_explorer_data_phase1):
+                for packer in (pack_explorer_data, pack_explorer_data_phase1, pack_explorer_data_phase2):
                     packed = packer(expected)
                     self.assert_json_equal(expand_explorer_data(packed), original)
                     self.assertEqual(json.dumps(packed), json.dumps(packer(expected)))
@@ -60,7 +61,7 @@ class CompatibilityOracleTests(unittest.TestCase):
         for name in ("explorer-normalized", "explorer-empty"):
             with self.subTest(fixture=name):
                 path = FIXTURES / f"{name}.v1.json"
-                for packer in (pack_explorer_data, pack_explorer_data_phase1):
+                for packer in (pack_explorer_data, pack_explorer_data_phase1, pack_explorer_data_phase2):
                     result = subprocess.run(
                         ["node", "-e", script, str(path)], cwd=ROOT,
                         input=json.dumps(packer(read_json(path)), ensure_ascii=False),
@@ -221,6 +222,203 @@ class CompatibilityOracleTests(unittest.TestCase):
                 del broken["claims"]["101"][1]["claim_id"]
             with self.subTest(variant=variant), self.assertRaises(ValueError):
                 expand_explorer_data(broken)
+
+
+class Phase2CodecTests(unittest.TestCase):
+    # Reuse the type-sensitive oracle assertions without rerunning inherited tests.
+    assert_json_equal = CompatibilityOracleTests.assert_json_equal
+
+    def test_phase2_snapshots_preserve_compact_and_literal_claims_and_shared_coverage(self):
+        for name in ("explorer-normalized", "explorer-empty"):
+            expected = read_json(FIXTURES / f"{name}.v1.json")
+            packed = read_json(FIXTURES / f"{name}.phase2.json")
+            self.assertEqual(packed["format_version"], PHASE2_FORMAT_VERSION)
+            self.assert_json_equal(packed, pack_explorer_data_phase2(expected))
+            self.assert_json_equal(expand_explorer_data(packed), expected)
+        packed = pack_explorer_data_phase2(read_json(FIXTURES / "explorer-normalized.v1.json"))
+        self.assertEqual(packed["claims"]["101"][0], "ntvmr_index_v1")
+        self.assertEqual(packed["claims"]["102"][0], "literal")
+        a, b = [packed["observations"][ref][1][1][0] for ref in ("Gal.1.1", "Gal.1.2")]
+        self.assertNotEqual(a, b)
+        self.assertEqual(packed["coverage_records"][a][0], packed["coverage_records"][b][0])
+        self.assertEqual(packed["coverage_records"][a][1], ["102", "101"])
+        self.assertLess(len(packed["coverage_contexts"]), len(packed["coverage_records"]))
+        encode = lambda value: json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        expected = read_json(FIXTURES / "explorer-normalized.v1.json")
+        self.assertLess(len(encode(packed)), len(encode(pack_explorer_data_phase1(expected))))
+
+    def test_phase2_eligibility_falls_back_losslessly_in_both_languages(self):
+        cases = []
+        variants = ("details_extra", "reported_extra", "missing_details", "missing_reported", "reported_literal",
+                    "key_leading_zero", "key_plus", "key_negative_zero", "key_mismatch", "key_nonnumeric",
+                    "claim_string", "claim_boolean", "claim_null", "claim_unsafe", "claim_float",
+                    "ref_mismatch", "ref_type", "page_mismatch", "page_type", "doc_mismatch", "doc_type",
+                    "page_string", "page_boolean", "page_null", "page_unsafe", "doc_string", "doc_unsafe",
+                    "missing_doc", "locator_leading_zero", "locator_alternate", "locator_negative",
+                    "locator_unsafe", "locator_null")
+        for variant in variants:
+            expected = read_json(FIXTURES / "explorer-normalized.v1.json")
+            # An unused claim exercises arbitrary identifiers without changing
+            # valid ranking-event references in the independent oracle.
+            claim = copy.deepcopy(expected["claims"]["101"])
+            claim["claim_id"] = 501
+            identifier = "501"
+            if variant == "details_extra": claim["extra"] = {"values": [True, 1, None, 'résumé "quoted"']}
+            elif variant == "reported_extra": claim["reported"]["extra"] = None
+            elif variant == "missing_details": del claim["page_id"]
+            elif variant == "missing_reported": del claim["reported"]["pageID"]
+            elif variant == "reported_literal": claim["reported"] = 'Fictional publication: résumé "quoted"'
+            elif variant.startswith("key_"):
+                identifier = {"key_leading_zero": "0501", "key_plus": "+501", "key_negative_zero": "-0",
+                              "key_mismatch": "502", "key_nonnumeric": "publication"}[variant]
+            elif variant.startswith("claim_"):
+                claim["claim_id"] = {"claim_string": "501", "claim_boolean": True, "claim_null": None,
+                                     "claim_unsafe": 2**53, "claim_float": 501.0}[variant]
+                if variant == "claim_unsafe": identifier = str(2**53)
+            elif variant == "ref_mismatch": claim["source_ref"] = "Gal.1.2"
+            elif variant == "ref_type": claim["source_ref"], claim["reported"]["osisID"] = True, 1
+            elif variant == "page_mismatch": claim["page_id"] = 11
+            elif variant == "page_type": claim["page_id"], claim["reported"]["pageID"] = True, 1
+            elif variant == "doc_mismatch": claim["doc_id"] = 2
+            elif variant == "doc_type": claim["doc_id"], claim["reported"]["docID"] = True, 1
+            elif variant.startswith("page_"):
+                value = {"page_string": "10", "page_boolean": True, "page_null": None, "page_unsafe": 2**53}[variant]
+                claim["page_id"] = claim["reported"]["pageID"] = value
+            elif variant.startswith("doc_"):
+                claim["doc_id"] = claim["reported"]["docID"] = "1" if variant == "doc_string" else 2**53
+            elif variant == "missing_doc": del claim["doc_id"]
+            else:
+                claim["source_locator"] = {"locator_leading_zero": "data.indexContents.indexContent[00]",
+                    "locator_alternate": "data.indexContents.indexContent[0] ",
+                    "locator_negative": "data.indexContents.indexContent[-1]",
+                    "locator_unsafe": f"data.indexContents.indexContent[{2**53}]", "locator_null": None}[variant]
+            expected["claims"][identifier] = claim
+            packed = pack_explorer_data_phase2(expected)
+            with self.subTest(variant=variant):
+                self.assertEqual(packed["claims"][identifier][0], "literal")
+                self.assert_json_equal(expand_explorer_data(packed), expected)
+            cases.append({"packed": packed, "expected": expected})
+        # Safe integer boundaries and structured/null reported contents survive
+        # compact storage too; no content is interpreted or reconstructed.
+        for identifier, content in (("-9007199254740991", None), ("9007199254740991", [True, 1, 'résumé "quoted"'])):
+            expected = read_json(FIXTURES / "explorer-normalized.v1.json")
+            claim = copy.deepcopy(expected["claims"]["101"])
+            claim.update(claim_id=int(identifier), source_locator="data.indexContents.indexContent[9007199254740991]")
+            claim["reported"]["indexContent"] = content
+            expected["claims"][identifier] = claim
+            packed = pack_explorer_data_phase2(expected)
+            self.assertEqual(packed["claims"][identifier][0], "ntvmr_index_v1")
+            self.assert_json_equal(expand_explorer_data(packed), expected)
+            cases.append({"packed": packed, "expected": expected})
+        script = """
+          const assert = require('node:assert/strict');
+          const {readFileSync} = require('node:fs');
+          const {expandData} = require('./web/attestation-explorer/explorer.js');
+          for (const {packed, expected} of JSON.parse(readFileSync(0, 'utf8'))) {
+            assert.deepStrictEqual(expandData(packed), expected);
+          }
+        """
+        result = subprocess.run(["node", "-e", script], cwd=ROOT,
+            input=json.dumps(cases, ensure_ascii=False), text=True, encoding="utf-8", capture_output=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+    def test_phase2_preserves_complete_coverage_values_and_mutation_isolation(self):
+        for variant in ("missing_vs_null", "different_unknown_reason", "date_order", "witness_type"):
+            expected = read_json(FIXTURES / "explorer-normalized.v1.json")
+            first, second = [expected["observations"][ref]["reported_coverage"][4] for ref in ("Gal.1.1", "Gal.1.2")]
+            if variant == "missing_vs_null": second["extra"] = None
+            elif variant == "different_unknown_reason": second["unknown_reason"] = "unresolved_reference_mapping"
+            elif variant == "date_order": first["date_assessments"], second["date_assessments"] = ["1", "2"], ["2", "1"]
+            else: first["witness_id"], second["witness_id"] = True, 1
+            packed = pack_explorer_data_phase2(expected)
+            a, b = [packed["coverage_records"][packed["observations"][ref][1][1][4]][0]
+                    for ref in ("Gal.1.1", "Gal.1.2")]
+            with self.subTest(variant=variant):
+                self.assertNotEqual(a, b)
+                self.assert_json_equal(expand_explorer_data(packed), expected)
+        expected = read_json(FIXTURES / "explorer-normalized.v1.json")
+        first, second = [expected["observations"][ref]["reported_coverage"][0] for ref in ("Gal.1.1", "Gal.1.2")]
+        first["extra"], second["extra"] = {"values": [True, None]}, {"values": [1, None]}
+        packed = pack_explorer_data_phase2(expected)
+        a, b = [packed["coverage_records"][packed["observations"][ref][1][1][0]][0]
+                for ref in ("Gal.1.1", "Gal.1.2")]
+        self.assertNotEqual(a, b)
+        restored = expand_explorer_data(packed)
+        self.assert_json_equal(restored, expected)
+        pair = restored["observations"]["Gal.1.1"]["reported_coverage"][0]
+        self.assertEqual(pair["date_assessments"], ["1", "2"])
+        pair["date_assessments"].append("changed")
+        pair["claims"].append("changed")
+        pair["extra"]["values"].append("changed")
+        restored["claims"]["101"]["reported"]["indexContent"] = "changed"
+        restored["claims"]["102"]["reported_extra"]["values"].append("changed")
+        self.assert_json_equal(restored["observations"]["Gal.1.2"], expected["observations"]["Gal.1.2"])
+        self.assert_json_equal(expand_explorer_data(packed), expected)
+        # Complete record interning preserves repeated occurrence and array order.
+        expected["observations"]["Gal.1.5"]["reported_coverage"] *= 2
+        self.assert_json_equal(expand_explorer_data(pack_explorer_data_phase2(expected)), expected)
+
+    def test_phase2_rejects_missing_tables_and_invalid_indices(self):
+        packed = read_json(FIXTURES / "explorer-normalized.phase2.json")
+        for name in ("claim_contexts", "coverage_contexts", "coverage_records", "discovery_records",
+                     "ranking_templates", "observation_contexts"):
+            broken = copy.deepcopy(packed)
+            del broken[name]
+            with self.subTest(table=name), self.assertRaisesRegex(ValueError, "Missing .* record tables"):
+                expand_explorer_data(broken)
+            for index in (-1, len(packed[name]), 0.5, "0", True, None):
+                broken = copy.deepcopy(packed)
+                if name == "claim_contexts": broken["claims"]["101"][1] = index
+                elif name == "coverage_contexts": broken["coverage_records"][0][0] = index
+                elif name == "coverage_records": broken["observations"]["Gal.1.1"][1][1][0] = index
+                elif name == "observation_contexts": broken["observations"]["Gal.1.1"][0] = index
+                else: broken["observation_contexts"][0]["discovery" if name == "discovery_records" else "dating_alternatives"] = index
+                with self.subTest(table=name, index=index), self.assertRaisesRegex(ValueError, "Invalid .* reference"):
+                    expand_explorer_data(broken)
+
+    def test_phase2_rejects_bad_claim_tuples_and_context_collisions(self):
+        packed = read_json(FIXTURES / "explorer-normalized.phase2.json")
+        for value in (None, [], ["literal", 0], ["literal", 0, {}, None], ["unknown", 0, {}],
+                      ["literal", 0, []], ["ntvmr_index_v1", 0, []], ["ntvmr_index_v1", 0, ["x", "ref", 1, 0, None]]):
+            broken = copy.deepcopy(packed)
+            broken["claims"]["101"] = value
+            with self.subTest(value=value), self.assertRaises(ValueError): expand_explorer_data(broken)
+        for value in (-1, 0.5, True, "0", None, 2**53):
+            broken = copy.deepcopy(packed)
+            broken["claims"]["101"][2][3] = value
+            with self.subTest(locator=value), self.assertRaises(ValueError): expand_explorer_data(broken)
+        for identifier in ("0101", "+101", "-0", "9007199254740992", "publication"):
+            broken = copy.deepcopy(packed)
+            broken["claims"][identifier] = copy.deepcopy(broken["claims"]["101"])
+            with self.subTest(identifier=identifier), self.assertRaises(ValueError): expand_explorer_data(broken)
+        for value in (0.5, True, "1", None, 2**53):
+            for field in ("doc", "page"):
+                broken = copy.deepcopy(packed)
+                if field == "doc": broken["claim_contexts"][broken["claims"]["101"][1]]["doc_id"] = value
+                else: broken["claims"]["101"][2][2] = value
+                with self.subTest(field=field, value=value), self.assertRaisesRegex(ValueError, "Invalid compact index claim"):
+                    expand_explorer_data(broken)
+        for compact in (True, False):
+            broken = copy.deepcopy(packed)
+            identifier = "101" if compact else "102"
+            context = broken["claim_contexts"][broken["claims"][identifier][1]]
+            context["source_ref"] = "Conflicting fictional field"
+            with self.subTest(compact=compact), self.assertRaisesRegex(ValueError, "overrides its context"):
+                expand_explorer_data(broken)
+
+    def test_phase2_rejects_bad_coverage_records_and_dangling_claims(self):
+        packed = read_json(FIXTURES / "explorer-normalized.phase2.json")
+        for value in (None, [], [0], [0, [], None], [0, None], [0, [102]], [0, ["missing"]]):
+            broken = copy.deepcopy(packed)
+            broken["coverage_records"][0] = value
+            with self.subTest(value=value), self.assertRaises(ValueError): expand_explorer_data(broken)
+        broken = copy.deepcopy(packed)
+        broken["coverage_contexts"][broken["coverage_records"][0][0]]["claims"] = []
+        with self.assertRaisesRegex(ValueError, "Coverage context contains claims"): expand_explorer_data(broken)
+        broken = copy.deepcopy(packed)
+        # Even unreferenced coverage records must not hide dangling claims.
+        broken["coverage_records"].append([0, ["missing"]])
+        with self.assertRaisesRegex(ValueError, "Dangling coverage claim reference"): expand_explorer_data(broken)
 
 
 class ExplorerTests(unittest.TestCase):

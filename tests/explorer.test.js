@@ -28,12 +28,13 @@ for (const row of Object.values(data.observations)) {
 }
 const copy = () => structuredClone(data);
 
-test("retained versions and the Phase 1 candidate decode exactly to the independent fictional oracle", () => {
+test("retained versions and candidate codecs decode exactly to the independent fictional oracle", () => {
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1} = transferFixture(name);
+    const {normalized, packed, phase1, phase2} = transferFixture(name);
     assert.deepEqual(expandData(normalized), normalized);
     assert.deepEqual(expandData(packed), normalized);
     assert.deepEqual(expandData(phase1), normalized);
+    assert.deepEqual(expandData(phase2), normalized);
   }
 });
 
@@ -101,9 +102,101 @@ test("Phase 1 rejects bad tuple tags, dangling claims and ambiguous pair recover
   }
 });
 
+test("Phase 2 restores compact/literal claims and complete coverage as independent copies", () => {
+  const {normalized, phase2} = transferFixture();
+  assert.equal(phase2.claims["101"][0], "ntvmr_index_v1");
+  assert.equal(phase2.claims["102"][0], "literal");
+  const [a, b] = ["Gal.1.1", "Gal.1.2"].map(ref => phase2.observations[ref][1][1][0]);
+  assert.equal(phase2.coverage_records[a][0], phase2.coverage_records[b][0]);
+  assert.deepEqual(phase2.coverage_records[a][1], ["102", "101"]);
+  const restored = expandData(phase2), first = restored.observations["Gal.1.1"];
+  assert.deepEqual(restored, normalized);
+  assert.deepEqual(first.reported_coverage[0].date_assessments, ["1", "2"]);
+  first.reported_coverage[0].date_assessments.push("changed");
+  first.reported_coverage[0].claims.push("changed");
+  first.dating_alternatives.combinations[0].scenarios.optimistic[0].coverage_claim_ids.push(999);
+  restored.claims["101"].reported.indexContent = "changed";
+  restored.claims["102"].reported_extra.values.push("changed");
+  restored.claims["101"].qualifications = "changed";
+  assert.deepEqual(restored.observations["Gal.1.2"], normalized.observations["Gal.1.2"]);
+  assert.deepEqual(restored.claims["201"], normalized.claims["201"]);
+  assert.deepEqual(expandData(phase2), normalized);
+});
+
+test("Phase 2 rejects missing tables, invalid indices, and conflicting context fields", () => {
+  const {phase2} = transferFixture();
+  for (const name of ["claim_contexts", "coverage_contexts", "coverage_records", "discovery_records", "ranking_templates", "observation_contexts"]) {
+    const missing = structuredClone(phase2);
+    delete missing[name];
+    assert.throws(() => expandData(missing), /Missing collection record tables/);
+    for (const index of [-1, phase2[name].length, 0.5, "0", true, null]) {
+      const broken = structuredClone(phase2);
+      if (name === "claim_contexts") broken.claims["101"][1] = index;
+      else if (name === "coverage_contexts") broken.coverage_records[0][0] = index;
+      else if (name === "coverage_records") broken.observations["Gal.1.1"][1][1][0] = index;
+      else if (name === "observation_contexts") broken.observations["Gal.1.1"][0] = index;
+      else broken.observation_contexts[0][name === "discovery_records" ? "discovery" : "dating_alternatives"] = index;
+      assert.throws(() => expandData(broken), /Invalid .* reference/);
+    }
+  }
+  for (const id of ["101", "102"]) {
+    const broken = structuredClone(phase2);
+    broken.claim_contexts[broken.claims[id][1]].source_ref = "Conflicting fictional field";
+    assert.throws(() => expandData(broken), /overrides its context/);
+  }
+  const broken = structuredClone(phase2);
+  broken.coverage_contexts[broken.coverage_records[0][0]].claims = [];
+  assert.throws(() => expandData(broken), /Coverage context contains claims/);
+});
+
+test("Phase 2 rejects malformed claims, unsafe reconstructed integers, and dangling coverage", () => {
+  const {phase2} = transferFixture();
+  for (const value of [null, [], ["literal", 0], ["literal", 0, {}, null], ["unknown", 0, {}],
+    ["literal", 0, []], ["ntvmr_index_v1", 0, []], ["ntvmr_index_v1", 0, ["x", "ref", 1, 0, null]]]) {
+    const broken = structuredClone(phase2);
+    broken.claims["101"] = value;
+    assert.throws(() => expandData(broken), /Invalid .*claim|Invalid claim encoding/);
+  }
+  for (const value of [-1, 0.5, true, "0", null, 2 ** 53]) {
+    const broken = structuredClone(phase2);
+    broken.claims["101"][2][3] = value;
+    assert.throws(() => expandData(broken), /Invalid compact index claim/);
+  }
+  for (const id of ["0101", "+101", "-0", "9007199254740992", "publication"]) {
+    const broken = structuredClone(phase2);
+    broken.claims[id] = structuredClone(broken.claims["101"]);
+    assert.throws(() => expandData(broken), /Invalid compact index claim/);
+  }
+  for (const value of [0.5, true, "1", null, 2 ** 53]) {
+    for (const field of ["doc", "page"]) {
+      const broken = structuredClone(phase2);
+      if (field === "doc") broken.claim_contexts[broken.claims["101"][1]].doc_id = value;
+      else broken.claims["101"][2][2] = value;
+      assert.throws(() => expandData(broken), /Invalid compact index claim/);
+    }
+  }
+  for (const value of [null, [], [0], [0, [], null], [0, null], [0, [102]], [0, ["missing"]]]) {
+    const broken = structuredClone(phase2);
+    broken.coverage_records[0] = value;
+    assert.throws(() => expandData(broken), /Invalid packed coverage|Dangling coverage claim/);
+  }
+  const broken = structuredClone(phase2);
+  broken.coverage_records.push([0, ["missing"]]);
+  assert.throws(() => expandData(broken), /Dangling coverage claim/);
+  for (const variant of ["missing_pair", "duplicate_pair", "dangling_claim", "event_tag", "sparse"]) {
+    const broken = structuredClone(phase2), vector = broken.observations["Gal.1.1"][1][1];
+    if (variant === "missing_pair") vector.shift();
+    else if (variant === "duplicate_pair") vector.push(vector[0]);
+    else if (variant === "dangling_claim") delete broken.claims["101"];
+    else if (variant === "event_tag") broken.ranking_templates[0].combinations[0].scenarios.optimistic[0].coverage_claim_ids = ["unknown"];
+    else broken.observations["Gal.1.1"][1][0] = "sparse";
+    assert.throws(() => expandData(broken), /pair reference|claim reference|Invalid event claim|Invalid coverage encoding/);
+  }
+});
+
 test("the fictional oracle preserves coverage assertions, claim order, unknown reasons, and omitted observations", () => {
-  const {normalized, packed, phase1} = transferFixture();
-  for (const input of [normalized, packed, phase1]) {
+  const {normalized, packed, phase1, phase2} = transferFixture();
+  for (const input of [normalized, packed, phase1, phase2]) {
     const model = createModel(input);
     const first = model.cell(model.lookup("Gal 1:1"), "optimistic");
     const second = model.cell(model.lookup("Gal 1:2"), "optimistic");
@@ -133,8 +226,8 @@ test("the fictional oracle preserves coverage assertions, claim order, unknown r
 });
 
 test("the fictional oracle keeps complete alternatives, ties, unavailable selections, and independent overflow state", () => {
-  const {normalized, packed, phase1} = transferFixture();
-  for (const input of [normalized, packed, phase1]) {
+  const {normalized, packed, phase1, phase2} = transferFixture();
+  for (const input of [normalized, packed, phase1, phase2]) {
     const model = createModel(input), first = model.lookup("Gal 1:1"), second = model.lookup("Gal 1:2");
     assert.deepEqual(model.choices.get("fictional:a").map(date => [date.date_min, date.date_max]),
       [[200, 250], [300, 399]]);
@@ -169,8 +262,8 @@ test("the fictional oracle keeps complete alternatives, ties, unavailable select
 });
 
 test("the shared empty oracle keeps a navigable axis without creating observations", () => {
-  const {normalized, packed, phase1} = transferFixture("explorer-empty");
-  for (const input of [normalized, packed, phase1]) {
+  const {normalized, packed, phase1, phase2} = transferFixture("explorer-empty");
+  for (const input of [normalized, packed, phase1, phase2]) {
     const model = createModel(input);
     assert.equal(model.hasEvents, false);
     assert.equal(model.minimum, 0); assert.equal(model.maximum, 500);

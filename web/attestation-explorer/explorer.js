@@ -24,12 +24,14 @@
       throw new Error("Unsupported collection data");
     }
     if (data.format_version === 1) return data;
-    // Private Phase 1 candidate; numeric version 3 remains reserved for the
+    // Private candidates; numeric version 3 remains reserved for the
     // complete transfer schema. The collection writer still emits version 2.
-    const phase1 = data.format_version === "3-phase1";
-    if (data.format_version !== 2 && !phase1) throw new Error("Unsupported collection data");
+    const phase2 = data.format_version === "3-phase2";
+    const sharedObservations = data.format_version === "3-phase1" || phase2;
+    if (data.format_version !== 2 && !sharedObservations) throw new Error("Unsupported collection data");
     const names = ["claim_contexts", "coverage_records", "discovery_records"];
-    if (phase1) names.push("ranking_templates", "observation_contexts");
+    if (sharedObservations) names.push("ranking_templates", "observation_contexts");
+    if (phase2) names.push("coverage_contexts");
     if (names.some(name => !Array.isArray(data[name])) || !isRecord(data.claims)) {
       throw new Error("Missing collection record tables");
     }
@@ -50,16 +52,37 @@
       return copyJSON(data[name][index]);
     }
     const claims = Object.fromEntries(Object.entries(data.claims).map(([id, packed]) => {
-      if (!Array.isArray(packed) || packed.length !== 2 || !isRecord(packed[1])) {
-        throw new Error("Invalid packed claim");
+      let context, details;
+      if (phase2) {
+        // Claims: ["ntvmr_index_v1", contextIndex, [indexContent, osisID,
+        // pageID, locatorIndex]] or ["literal", contextIndex, completeDetails].
+        if (!Array.isArray(packed) || packed.length !== 3) throw new Error("Invalid packed claim");
+        const [tag, index, values] = packed;
+        context = record("claim_contexts", index);
+        if (tag === "literal" && isRecord(values)) details = copyJSON(values);
+        else if (tag === "ntvmr_index_v1") {
+          const claimId = Number(id);
+          if (!/^(?:0|-?[1-9][0-9]*)$/.test(id) || !Number.isSafeInteger(claimId) || String(claimId) !== id ||
+              !Array.isArray(values) || values.length !== 4 || !Number.isSafeInteger(values[3]) || values[3] < 0 ||
+              !Number.isSafeInteger(context.doc_id) || !Number.isSafeInteger(values[2])) {
+            throw new Error("Invalid compact index claim");
+          }
+          const [content, osis, page, locator] = copyJSON(values);
+          details = {claim_id: claimId, source_ref: osis, page_id: page,
+            reported: {docID: context.doc_id, indexContent: content, osisID: copyJSON(osis), pageID: page},
+            source_locator: `data.indexContents.indexContent[${locator}]`};
+        } else throw new Error("Invalid claim encoding");
+      } else {
+        if (!Array.isArray(packed) || packed.length !== 2 || !isRecord(packed[1])) throw new Error("Invalid packed claim");
+        context = record("claim_contexts", packed[0]);
+        details = sharedObservations ? copyJSON(packed[1]) : packed[1];
       }
-      const context = record("claim_contexts", packed[0]);
-      if (Object.keys(packed[1]).some(key => Object.hasOwn(context, key))) {
+      if (Object.keys(details).some(key => Object.hasOwn(context, key))) {
         throw new Error("Packed claim overrides its context");
       }
-      return [id, {...context, ...(phase1 ? copyJSON(packed[1]) : packed[1])}];
+      return [id, {...context, ...details}];
     }));
-    if (phase1) {
+    if (sharedObservations) {
       // Observations: [contextIndex, ["dense", coverageRecordIndices]]. Context
       // discovery/dating_alternatives are table indices. Ranking event claim
       // lists: ["pair"] or ["literal", originalIds]. All other fields survive.
@@ -103,7 +126,27 @@
           }
         }
       }
-      for (const pair of data.coverage_records) presentClaimIds(pair);
+      const coverageRecords = data.coverage_records.map(packed => {
+        let pair = packed;
+        if (phase2) {
+          // Coverage: [coverageContextIndex, orderedClaimIdStrings]. Contexts
+          // contain every other field, including all date assessment IDs.
+          if (!Array.isArray(packed) || packed.length !== 2 || !Array.isArray(packed[1])) {
+            throw new Error("Invalid packed coverage record");
+          }
+          const context = record("coverage_contexts", packed[0]);
+          if (Object.hasOwn(context, "claims")) throw new Error("Coverage context contains claims");
+          pair = {...context, claims: copyJSON(packed[1])};
+        }
+        presentClaimIds(pair);
+        return pair;
+      });
+      function coverageRecord(index) {
+        if (!Number.isInteger(index) || index < 0 || index >= coverageRecords.length) {
+          throw new Error("Invalid coverage_records reference");
+        }
+        return copyJSON(coverageRecords[index]);
+      }
       const observations = Object.fromEntries(Object.entries(data.observations).map(([ref, packed]) => {
         if (!Array.isArray(packed) || packed.length !== 2) throw new Error("Invalid packed observation");
         const row = record("observation_contexts", packed[0]), encoding = packed[1];
@@ -111,7 +154,7 @@
         if (!Array.isArray(encoding) || encoding.length !== 2 || encoding[0] !== "dense" || !Array.isArray(encoding[1])) {
           throw new Error("Invalid coverage encoding");
         }
-        const pairs = encoding[1].map(index => record("coverage_records", index));
+        const pairs = encoding[1].map(coverageRecord);
         row.discovery = record("discovery_records", row.discovery);
         const alternatives = record("ranking_templates", row.dating_alternatives);
         for (const event of rankingEvents(alternatives)) {

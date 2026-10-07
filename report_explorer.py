@@ -9,6 +9,7 @@ from __future__ import annotations
 from copy import deepcopy
 import json
 from pathlib import Path
+import re
 
 
 ROOT = Path(__file__).resolve().parent
@@ -25,6 +26,10 @@ CLAIM_CONTEXT_FIELDS = frozenset((
 # Private intermediate codec, never written by the collection builder. Numeric
 # version 3 is reserved for the complete schema in DATA_SIZE_OPTIMIZATION.md.
 PHASE1_FORMAT_VERSION = "3-phase1"
+PHASE2_FORMAT_VERSION = "3-phase2"
+JS_SAFE_INTEGER = 2**53 - 1
+CANONICAL_INTEGER = re.compile(r"(?:0|-?[1-9][0-9]*)")
+INDEX_LOCATOR = re.compile(r"data\.indexContents\.indexContent\[(0|[1-9][0-9]*)\]")
 
 
 def build_explorer_data(graph, inventory=None):
@@ -217,16 +222,81 @@ def pack_explorer_data_phase1(data):
     return {**packed, "format_version": PHASE1_FORMAT_VERSION, **tables, "observations": observations}
 
 
+def _safe_integer(value):
+    return type(value) is int and abs(value) <= JS_SAFE_INTEGER
+
+
+def _compact_index_values(identifier, context, details):
+    """Return mechanically reversible index fields, or choose literal storage."""
+    if set(details) != {"claim_id", "source_ref", "page_id", "reported", "source_locator"}:
+        return None
+    reported = details["reported"]
+    if (not isinstance(reported, dict)
+            or set(reported) != {"docID", "indexContent", "osisID", "pageID"}
+            or not isinstance(identifier, str) or not CANONICAL_INTEGER.fullmatch(identifier)
+            or not _safe_integer(details["claim_id"]) or str(details["claim_id"]) != identifier
+            or "doc_id" not in context
+            or _json_key(details["source_ref"]) != _json_key(reported["osisID"])
+            or _json_key(details["page_id"]) != _json_key(reported["pageID"])
+            or _json_key(context["doc_id"]) != _json_key(reported["docID"])):
+        return None
+    # Keep noninteger and unsafe document/page IDs literal rather than converting
+    # them. The same conservative eligibility rules are checked by both decoders.
+    if not _safe_integer(context["doc_id"]) or not _safe_integer(details["page_id"]):
+        return None
+    locator = details["source_locator"]
+    match = INDEX_LOCATOR.fullmatch(locator) if isinstance(locator, str) else None
+    if not match or len(match[1]) > 16 or not _safe_integer(int(match[1])):
+        return None
+    return [reported["indexContent"], reported["osisID"], reported["pageID"], int(match[1])]
+
+
+def pack_explorer_data_phase2(data):
+    """Offline candidate: compact claims and coverage, retaining dense vectors.
+
+    Claims: ["ntvmr_index_v1", contextIndex, [indexContent, osisID, pageID,
+    locatorIndex]] or ["literal", contextIndex, completeDetails]. Coverage:
+    [coverageContextIndex, orderedClaimIdStrings]; contexts retain every other
+    field. Numeric version 3 and the production writer remain unchanged.
+    """
+    packed = pack_explorer_data_phase1(data)
+    claims = {}
+    for identifier, (index, details) in packed["claims"].items():
+        values = _compact_index_values(identifier, packed["claim_contexts"][index], details)
+        claims[identifier] = (["ntvmr_index_v1", index, values] if values is not None
+                              else ["literal", index, details])
+    contexts, records, context_indices, record_indices, remap = [], [], {}, {}, []
+    for pair in packed["coverage_records"]:
+        context = {k: v for k, v in pair.items() if k != "claims"}
+        key = _json_key(context)
+        if key not in context_indices:
+            context_indices[key] = len(contexts)
+            contexts.append(context)
+        record = [context_indices[key], pair["claims"]]
+        key = _json_key(record)
+        if key not in record_indices:
+            record_indices[key] = len(records)
+            records.append(record)
+        remap.append(record_indices[key])
+    for row in packed["observations"].values():
+        row[1][1] = [remap[index] for index in row[1][1]]
+    return {**packed, "format_version": PHASE2_FORMAT_VERSION, "claims": claims,
+            "coverage_contexts": contexts, "coverage_records": records}
+
+
 def expand_explorer_data(data):
     """Restore the transfer format exactly; also accept previous version 1 files."""
     if data.get("format_version") == 1:
         return data
-    phase1 = data.get("format_version") == PHASE1_FORMAT_VERSION
-    if data.get("format_version") != 2 and not phase1:
+    phase2 = data.get("format_version") == PHASE2_FORMAT_VERSION
+    shared_observations = data.get("format_version") == PHASE1_FORMAT_VERSION or phase2
+    if data.get("format_version") != 2 and not shared_observations:
         raise ValueError("Unsupported explorer data")
     names = ("claim_contexts", "coverage_records", "discovery_records")
-    if phase1:
+    if shared_observations:
         names += ("ranking_templates", "observation_contexts")
+    if phase2:
+        names += ("coverage_contexts",)
     if (any(not isinstance(data.get(name), list) for name in names)
             or not isinstance(data.get("claims"), dict)):
         raise ValueError("Missing explorer record tables")
@@ -238,16 +308,58 @@ def expand_explorer_data(data):
 
     claims = {}
     for identifier, packed in data["claims"].items():
+        if phase2:
+            if not isinstance(packed, list) or len(packed) != 3:
+                raise ValueError("Invalid packed claim")
+            tag, index, values = packed
+            context = record("claim_contexts", index)
+            if tag == "literal" and isinstance(values, dict):
+                details = deepcopy(values)
+            elif tag == "ntvmr_index_v1":
+                if (not isinstance(values, list) or len(values) != 4
+                        or not _safe_integer(values[3]) or values[3] < 0
+                        or not isinstance(identifier, str) or len(identifier) > 17
+                        or not CANONICAL_INTEGER.fullmatch(identifier)
+                        or not _safe_integer(int(identifier)) or "doc_id" not in context):
+                    raise ValueError("Invalid compact index claim")
+                content, osis, page, locator = deepcopy(values)
+                details = {"claim_id": int(identifier), "source_ref": osis, "page_id": page,
+                           "reported": {"docID": deepcopy(context["doc_id"]), "indexContent": content,
+                                        "osisID": deepcopy(osis), "pageID": page},
+                           "source_locator": f"data.indexContents.indexContent[{locator}]"}
+                if _compact_index_values(identifier, context, details) is None:
+                    raise ValueError("Invalid compact index claim")
+            else:
+                raise ValueError("Invalid claim encoding")
+            if context.keys() & details.keys():
+                raise ValueError("Packed claim overrides its context")
+            claims[identifier] = {**context, **details}
+            continue
         if not isinstance(packed, list) or len(packed) != 2 or not isinstance(packed[1], dict):
             raise ValueError("Invalid packed claim")
         context = record("claim_contexts", packed[0])
         if context.keys() & packed[1].keys():
             raise ValueError("Packed claim overrides its context")
         claims[identifier] = {**context, **deepcopy(packed[1])}
-    if phase1:
+    if shared_observations:
         claim_ids = {_json_key(claim["claim_id"]) for claim in claims.values() if "claim_id" in claim}
+        coverage_records = []
         for pair in data["coverage_records"]:
+            if phase2:
+                if not isinstance(pair, list) or len(pair) != 2 or not isinstance(pair[1], list):
+                    raise ValueError("Invalid packed coverage record")
+                context = record("coverage_contexts", pair[0])
+                if "claims" in context:
+                    raise ValueError("Coverage context contains claims")
+                pair = {**context, "claims": deepcopy(pair[1])}
             _present_claim_ids(pair, claims)
+            coverage_records.append(pair)
+
+        def coverage_record(index):
+            if type(index) is not int or not 0 <= index < len(coverage_records):
+                raise ValueError("Invalid coverage_records reference")
+            return deepcopy(coverage_records[index])
+
         observations = {}
         for ref, packed in data["observations"].items():
             if not isinstance(packed, list) or len(packed) != 2:
@@ -259,7 +371,7 @@ def expand_explorer_data(data):
             if (not isinstance(encoding, list) or len(encoding) != 2
                     or encoding[0] != "dense" or not isinstance(encoding[1], list)):
                 raise ValueError("Invalid coverage encoding")
-            pairs = [record("coverage_records", index) for index in encoding[1]]
+            pairs = [coverage_record(index) for index in encoding[1]]
             row["discovery"] = record("discovery_records", row.get("discovery"))
             alternatives = record("ranking_templates", row.get("dating_alternatives"))
             for event in _ranking_events(alternatives):

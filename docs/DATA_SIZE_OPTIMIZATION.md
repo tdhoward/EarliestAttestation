@@ -1,10 +1,10 @@
 # App data size and memory optimization guide
 
-Status: Phases 0 and 1 completed on 2026-10-06; phases 2–6 remain planned.
-The correctness oracle and Phase 1 candidate codec are in place. The production
-writer and current data remain on version 2; the app has a matching candidate
-decoder while its loading and runtime behavior remain unchanged. Work stopped
-at Phase 1 at the owner's request. This guide is based on offline work on
+Status: Phases 0–2 completed on 2026-10-06; phases 3–6 remain planned.
+The correctness oracle and Phase 1/2 candidate codecs are in place. The production
+writer and current data remain on version 2; the app has matching candidate
+decoders while its loading and runtime behavior remain unchanged. Work stopped
+at Phase 2 at the owner's request. This guide is based on offline work on
 2026-10-06. Complete later phases in order when authorized, with the focused
 checks below before moving on. Phase 6 depends on the deployment environment.
 
@@ -99,14 +99,17 @@ Implement a version 3 candidate packer alongside the current writer until phase
 4. Define the final schema before switching the writer; do not publish several
 incompatible layouts under version 3 during the intermediate phases.
 
-The implemented Phase 1 candidate is `pack_explorer_data_phase1()` and uses the
+The retained Phase 1 candidate is `pack_explorer_data_phase1()` and uses the
 private string marker `format_version: "3-phase1"`. Python expansion and the
 JavaScript decoder accept it for offline checks and fixture loading. Numeric
 version 3 stays reserved for the complete schema below. The candidate retains
 version 2 claim tuples and coverage objects, adds ranking/observation tables,
-and uses only dense coverage encodings. Later phases must retain an explicit
-candidate marker until the complete version 3 writer is ready; this intermediate
-layout is not the production version 3 contract.
+and uses only dense coverage encodings. The Phase 2 candidate is
+`pack_explorer_data_phase2()` with `format_version: "3-phase2"`; it adds the
+documented tagged claim tuples and shared coverage contexts while retaining
+dense coverage. Both decoders accept both candidates. Later phases must retain
+an explicit candidate marker until the complete version 3 writer is ready;
+these intermediate layouts are not the production version 3 contract.
 
 Use this layout as the implementation contract. Tuple positions and tags are
 part of the format, documented beside both codecs; do not emit schema descriptions
@@ -212,8 +215,8 @@ passed. Shared fictional fixtures cover exact cross-language expansion,
 literal fallbacks, alternative selection, fetch/file loading, malformed data,
 extra fields, type distinctions, and mutation isolation. The production writer,
 collection inputs, and current data file were unchanged. No compression or
-runtime-memory measurement was performed. Phase 2 is the next planned step;
-phases 2–6 have not been implemented.
+runtime-memory measurement was performed in Phase 1. Phase 2 implementation
+is recorded below.
 
 The completed scope was:
 
@@ -248,6 +251,49 @@ negative/out-of-range/noninteger indices, booleans, and unknown tags. Mutating
 one expanded observation must not change another or the packed input.
 
 ## Phase 2: compact claims and coverage records
+
+Completed on 2026-10-06. The private `"3-phase2"` candidate shares complete
+coverage contexts and stores coverage records as context indices plus ordered
+claim-ID strings. Every other coverage field survives, including all date
+assessments, witness identity, states, unknown reasons, and supported extra
+fields. Contexts and complete records are interned in deterministic first-encounter
+order with type-sensitive JSON keys; observations retain dense coverage vectors.
+
+Eligible index claims use `ntvmr_index_v1`; the decoder mechanically restores
+their duplicated fields and canonical locator text. Other claims keep their
+complete details through `literal`, including publication assertions, additional
+fields, missing/null values, type differences, and alternate locator spellings.
+Claim and locator integers must be safe for JavaScript. Document/page IDs are
+also conservatively kept literal unless they are safe integers; no ID is coerced.
+Both decoders reject bad tuple lengths/tags, invalid indices, unsafe compact
+IDs, context/detail collisions, and dangling coverage claim references.
+Expanded coverage and claim values remain independently mutable.
+
+The current collection yields 51 coverage contexts and 16,674 complete coverage
+records. All 17,135 current claims meet compact eligibility; fictional regression
+fixtures also exercise publication-style literal claims. The 28 ranking templates
+and 37 observation contexts are unchanged. Candidate JSON occupies
+**2,179,689 bytes**, including its final newline, versus **6,391,574 bytes** for
+Phase 1 and the unchanged **12,476,223-byte** production version 2 file:
+**65.90%** incremental reduction and **82.53%** reduction from production.
+These are measurements of this input, not hard-coded table counts or size caps.
+
+Two candidate packings produced identical bytes. Python and Node expansion
+matched the complete fresh offline `build_data()` result and Phase 0 normalized
+baseline exactly. Both chart scenarios matched across all 7,957 coordinates,
+including complete observations, events, discovery, count-band segments, and
+scale bounds. Work-session candidate, normalized result, and measurements stay
+in ignored `data/.cache/size-optimization-phase2-2026-10-06/`.
+
+Verification: all 22 focused Python explorer tests and 26 `npm test` tests passed.
+The independent fictional oracle checks both codecs and fetch/file loading,
+complete alternatives, coverage states, fallbacks, malformed input, Unicode,
+type distinctions, and mutation isolation. The production writer, current data
+file, collection inputs, and source captures were unchanged. No compression or
+runtime-memory measurement was performed. Phase 3 is the next planned step;
+phases 3–6 remain unimplemented and require further authorization.
+
+The completed scope was:
 
 1. Split each coverage record into a context containing every field except
    `claims`, plus its ordered claim-ID list. Intern contexts and then complete

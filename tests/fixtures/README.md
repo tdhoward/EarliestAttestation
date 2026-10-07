@@ -50,3 +50,15 @@ Galatians 1:1 and 1:2 share the same context and template but recover their own
 ordered numeric claim IDs through `["pair"]`. Galatians 1:3's subset is retained
 as `["literal", [301]]`. Python also supplies reordered, missing/duplicate-pair,
 boolean-versus-number, and string-versus-number fallback cases directly to Node.
+
+The `*.phase2.json` snapshots use private `format_version: "3-phase2"` and
+retain the same independent version 1 expected data. Claims use tagged compact
+index tuples or complete literal details; coverage records share contexts and
+retain ordered claim-ID lists. Coverage remains dense. Python verifies fresh
+packing against the snapshots and passes it to Node; Node checks exact decoding,
+loading, chart states, alternatives, malformed tuples/references, and mutation
+isolation. Additional Python cases alter each compact-eligibility condition and
+send the resulting literal fallbacks directly to Node, including Unicode, nulls,
+extra/missing fields, noncanonical locators/IDs, and safe-integer boundaries.
+The production writer and current data remain version 2; numeric version 3 is
+still reserved for the complete schema.
