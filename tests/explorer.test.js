@@ -487,6 +487,28 @@ test("bounded discovery is independent of coverage, dates, and the rest of the c
   assert.match(readFileSync(join(__dirname, "../web/attestation-explorer/explorer.js"), "utf8"), /Earliest collected/);
 });
 
+test("catalogue inventory scopes apply to every declared book without asserting verse contents", () => {
+  const fixture = structuredClone(current);
+  fixture.metadata.discovery.scopes = [{
+    definition: {format_version: 2, scope_type: "catalogue_range", category: "papyri",
+      books: ["Gal", "Rom"], doc_id_min: 10000, doc_id_max: 19999},
+    search_state: "complete", candidate_collection_state: "complete",
+    candidate_ids: [10046], pending_candidate_ids: []
+  }];
+  for (const ref of ["Gal.1.9", "Rom.1.1"]) {
+    fixture.observations[ref].discovery = {state: "bounded_search_complete"};
+  }
+  const model = createModel(fixture);
+  for (const ref of ["Gal 1:9", "Rom 1:1"]) {
+    const assessed = model.discovery(model.lookup(ref));
+    assert.equal(assessed.state, "bounded_search_complete");
+    assert.match(assessed.text, /catalogue search complete/);
+    assert.match(assessed.text, /membership does not establish verse contents/);
+    assert.match(assessed.text, /Unindexed contents remain unknown/);
+  }
+  assert.equal(model.discovery(model.lookup("Heb 1:1")).state, "not_searched");
+});
+
 test("full NT report expansion navigates sources, endpoints, unknowns, and supplementary filters", () => {
   const expanded = current;
   const model = createModel(expanded);

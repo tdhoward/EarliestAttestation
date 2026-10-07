@@ -622,7 +622,9 @@
     function discovery(index) {
       const ref = data.coordinates[index][0], meta = data.metadata.discovery;
       const reported = store.summary(ref)?.discovery;
-      const scopes = (meta?.scopes || [meta]).filter(item => item?.definition?.book === ref.split(".")[0]);
+      const book = ref.split(".")[0];
+      const scopes = (meta?.scopes || [meta]).filter(item => item?.definition?.book === book ||
+        item?.definition?.books?.includes(book));
       if (!scopes.length) {
         return {state: "not_searched", text: "Witness discovery has not been assessed for this verse. Rankings cover collected witnesses only."};
       }
@@ -631,10 +633,13 @@
         scopes.some(item => item.candidate_collection_state !== "complete") ? "candidate_collection_incomplete" : "bounded_search_complete");
       const count = new Set(scopes.flatMap(item => item.candidate_ids)).size;
       const pending = new Set(scopes.flatMap(item => item.pending_candidate_ids)).size;
-      const pool = "Other catalogue ranges and unindexed witnesses remain outside this search. Rankings cover collected witnesses only.";
-      const text = state === "bounded_search_complete" ? `Bounded book search complete; all ${count} search candidates collected. ${pool}` :
-        state === "candidate_collection_incomplete" ? `Bounded book search complete; ${pending} of ${count} search candidates await metadata or contents collection. ${pool}` :
-        `Bounded book search ${(incomplete?.search_state || "incomplete").replaceAll("_", " ")}; ${count} candidates identified so far. ${pool}`;
+      const catalogue = scopes.some(item => item.definition.scope_type === "catalogue_range");
+      const search = catalogue ? "catalogue search" : "book search";
+      const pool = catalogue ? "Catalogue membership does not establish verse contents. Unindexed contents remain unknown. Rankings cover collected witnesses only; exhaustive discovery is not established." :
+        "Other catalogue ranges and unindexed witnesses remain outside this search. Rankings cover collected witnesses only.";
+      const text = state === "bounded_search_complete" ? `Bounded ${search} complete; all ${count} search candidates collected. ${pool}` :
+        state === "candidate_collection_incomplete" ? `Bounded ${search} complete; ${pending} of ${count} search candidates await metadata or contents collection. ${pool}` :
+        `Bounded ${search} ${(incomplete?.search_state || "incomplete").replaceAll("_", " ")}; ${count} candidates identified so far. ${pool}`;
       return {state, text};
     }
     const model = {data, store, indices, books, choices, selection, minimum, maximum, hasEvents, label, lookup, cell,
@@ -940,7 +945,8 @@
     appendText(scope, "p", meta.collection_scope);
     appendText(scope, "h3", "Witness discovery");
     for (const discovery of discoveries) {
-      appendText(scope, "p", `${discovery.definition.book}: document IDs ${discovery.definition.doc_id_min}–${discovery.definition.doc_id_max}. Search ${discovery.search_state}; candidate collection ${discovery.candidate_collection_state}.`);
+      const scopeLabel = discovery.definition.book || `${discovery.definition.category || "Catalogue"} · ${discovery.definition.books.length} books`;
+      appendText(scope, "p", `${scopeLabel}: document IDs ${discovery.definition.doc_id_min}–${discovery.definition.doc_id_max}. Search ${discovery.search_state}; candidate collection ${discovery.candidate_collection_state}.`);
       appendText(scope, "p", `Search candidates: ${discovery.candidate_ids.join(", ") || (discovery.search_state === "complete" ? "none returned" : "not established")}. Awaiting collection: ${discovery.pending_candidate_ids.join(", ") || (discovery.search_state === "complete" ? "none" : "not established")}.`);
       appendText(scope, "p", discovery.limitation);
       appendText(scope, "p", `Discovery collection cost: ${JSON.stringify(discovery.collection_cost)}`);

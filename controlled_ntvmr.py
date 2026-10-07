@@ -497,7 +497,7 @@ class Client:
             self.sleep(delay)
 
     def attempt(self, endpoint, params):
-        if self.attempts >= self.budget:
+        if self.budget is not None and self.attempts >= self.budget:
             raise RunStopped("Network request budget exhausted")
         if self.last_attempt is not None:
             self.wait(self.interval + self.jitter * self.rng() - (self.clock() - self.last_attempt))
@@ -548,7 +548,7 @@ class Client:
             except (TimeoutError, URLError, OSError) as error:
                 if retry == 2:
                     raise JobFailure(f"Transport failed after three attempts: {error}") from error
-                if self.attempts >= self.budget:
+                if self.budget is not None and self.attempts >= self.budget:
                     raise RunStopped(f"Network request budget exhausted after transport failure: {error}") from error
                 self.wait(2 ** retry + self.rng())
                 continue

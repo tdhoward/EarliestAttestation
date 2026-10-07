@@ -10,8 +10,8 @@ reported contents and date rankability.
 ## Planned catalogue scope
 
 The discovery target is all 27 New Testament books across all four NTVMR Greek
-NT manuscript categories, using independently budgeted book/category or smaller
-range searches:
+NT manuscript categories, using budgeted catalogue inventories or independent
+book/category and smaller range searches:
 
 | NTVMR document ID range | Manuscript category |
 | --- | --- |
@@ -34,9 +34,11 @@ categories and rank them using their scholarly contents and date reports.
 This is planned scope, not completed coverage. Current discovery flags evaluate
 only scopes registered in `data/discovery.json`; they do not automatically
 require all four categories. Record each searched book/range independently and
-retain its qualifications when reporting completion. Completing every planned
-indexed search still does not establish exhaustive coverage of unindexed
-witnesses; the [discovery states](#meaning-and-states) retain that distinction.
+retain its qualifications when reporting completion. Catalogue inventories can
+include witnesses without book indexing, whose contents remain unknown until a
+usable report is available. Completing the planned searches does not establish
+exhaustive manuscript or verse coverage; the [discovery states](#meaning-and-states)
+retain that distinction.
 
 ## Central collection workflow
 
@@ -53,7 +55,9 @@ citation, documented `access_expectations`, `request_budget`,
 `minimum_interval_seconds`, and `maximum_run_seconds`. A definition must declare
 1–50 attempts, at least five seconds between requests, at most 600 seconds, a
 range of at most 50,000 IDs, and a page limit of 1–200. These are project safeguards,
-not claims about the provider's numerical quota.
+not claims about the provider's numerical quota. The 50-attempt and ten-minute
+limits apply to this original format-1 pilot; the catalogue collector below
+supports longer runs without that attempt cap.
 
 ```powershell
 python collect_source_discovery.py --definition data/.cache/discovery-request.json --run-id declared-run
@@ -78,7 +82,88 @@ Permanent records replace the proxy origin with `<local proxy>` while preserving
 raw response bodies, hashes, paths, parameters, and retrieval dates. Actual request
 URLs remain only in ignored local definitions and request caches. Do not change routes or
 identity to bypass a provider block. Establish provider expectations before bulk
-access. Tests and data rebuilds make no live requests.
+access. Tests and data rebuilds make no live requests. The owner authorized
+longer catalogue collection on 2026-10-06 while retaining five-second spacing;
+this does not assert a published numerical provider quota.
+
+## Overnight catalogue collection
+
+`collect_catalogue.py` provides `collect`, `status`, and `import` commands.
+Collection searches each of the four ranges without book, name, date, or
+language filters, follows documented continuation cursors, and queues metadata
+(`detail=10`) and verse contents (`detail=long`) for each returned ID. It makes
+no requests to images or transcriptions and does not probe every possible ID.
+Each report is captured once and serves every book for which it reports contents.
+Registered reports are validated and reused, including metadata-only witnesses.
+
+```powershell
+python collect_catalogue.py collect --use-local-proxy --hours 8
+python collect_catalogue.py status
+```
+
+The default campaign ID is `catalogue`. Use the same `--run-id`, route, interval,
+and page limit to resume. `--use-local-proxy` reads the address kept once in the
+README. Alternatively supply `--base-url "<local proxy>/community/vmr/api"`,
+use `--https-proxy` for an explicitly configured CONNECT proxy, or omit route
+options for canonical HTTPS. The tool never switches routes automatically.
+
+`--hours` is a finite time budget for each launch, defaulting to eight hours.
+The collector may take multiple nights. There is no fixed request-count cap;
+optional `--max-requests N` caps cumulative attempts for the campaign, including
+continuations and retries. An existing ceiling persists if omitted on resume;
+raise it explicitly if more attempts are wanted. Time or request exhaustion and
+Ctrl+C retain resumable checkpoints. Exit status is 0 for complete capture and
+2 for paused, incomplete, blocked, or failed work.
+
+`--interval` defaults to five seconds and cannot be set below five. A single
+worker and a persistent pacing checkpoint maintain spacing between categories,
+retries, restarts, and campaign IDs. Waiting after response completion makes the
+spacing conservative. `Retry-After` cooldowns survive interrupted waits and
+deadlines. Do not run another collection tool concurrently. `status` can inspect
+the queue while collection is running and makes no network requests.
+
+HTTP 401/403, HTML access challenges, and repeated HTTP 429 stop the entire
+collector. The provider-block checkpoint also prevents automatic retries under
+a different campaign ID. After access is actually restored, an explicit
+`--access-restored-reason "reason"` records that resolution before resuming;
+it does not change routes or shorten a retained cooldown. Transient failures
+receive bounded retries and remain visible afterward. `--retry-failed` explicitly
+retries failed document requests, preserving successful captures. Catalogue
+contract failures require review of the retained response; no guessed cursor or
+automatic restart can promote them to completion.
+
+Every received response, including error responses, is committed to the ignored
+queue database and archived atomically under `data/sources/`. Captures retain
+raw bodies, hashes, request parameters, retrieval times, canonical source URLs,
+and noncredential headers. Proxy origins are placeholders in permanent records.
+A response committed before an interrupted file write is recovered from the
+checkpoint without downloading it again. Keep `data/.cache/catalogue.sqlite`
+until capture/import work is finished; it is a temporary checkpoint, never a
+normalization database or product input.
+
+When collection stops, import and build separately:
+
+```powershell
+python collect_catalogue.py import
+python build_collection.py
+```
+
+Import is entirely offline. It validates source hashes, report shapes, reported
+Greek catalogue membership, and provenance, then fills missing document fields
+in `data/collection.json` without replacing existing reports, date alternatives,
+identity assertions, or other discovery scopes. It registers four format-2
+`catalogue_range` definitions, each with a `books` list covering all 27 books,
+in `data/discovery.json`. Pagination evidence is retained in those records.
+The build subsequently uses only the central register and permanent captures.
+Neither overnight capture nor import changes `data/attestations.json` or app HTML.
+
+Complete capture means the inventory and queued downloads finished, not that
+every response is usable under the scholarly-report contract. Unsupported or
+malformed reports stay captured; import lists errors and keeps their candidates
+pending while importing other usable reports. Empty contents reports stay
+unknown and never establish absence. Catalogue membership is not verse presence.
+Catalogue completion applies only to the declared ranges and captured snapshot;
+`corpus_complete` remains false.
 
 ## Meaning and states
 

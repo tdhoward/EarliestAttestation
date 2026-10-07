@@ -135,21 +135,31 @@ The request collector retains budget/resume checkpoints in ignored cache storage
 Older review-table code remains a compatibility implementation, outside the app's
 scholarly-report path; its judgments are never admitted as scholarly assertions.
 
+`collect_catalogue.py` now supports resumable overnight capture across all four
+Greek NT catalogue ranges. Paginated inventories include records without book
+indexing and queue each manuscript's metadata and verse contents once for reuse
+across all 27 books. Launches have a finite time budget, optional cumulative
+request ceiling, at least five-second persistent spacing, and provider-block
+stops; there is no 50-attempt cap. Capture, offline import, and app rebuilding are
+separate commands. Format-2 catalogue scopes coexist with existing book-index
+scopes. No new live collection is implied by implementing or testing this tool.
+See [overnight collection](BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-collection).
+
 ## Next development work
 
 1. Broaden bounded independent witness discovery to all 27 books across papyri,
    majuscules, minuscules, and lectionaries. The
    [planned catalogue scope](BOUNDED_WITNESS_DISCOVERY.md#planned-catalogue-scope)
-   defines the four ID ranges. Declare independent book/category or smaller range
-   scopes with request budgets; reuse each document's metadata and contents;
-   update the central register.
+   defines the four ID ranges. Use the overnight catalogue collector with a
+   declared time budget and optional request ceiling, or independent book/range
+   pilots. Reuse retained reports, import captures offline, and refresh the
+   central app data afterward.
    Do not constrain discovery to the witnesses already collected for nearby verses.
    The earliest five are ranked per verse and may span categories and widely
    separated dates. Continue toward the full planned scope even where five
    witnesses or early papyrus attestations have already been collected.
-   A useful next scope is Jude within IDs 10000–19999, searching for candidates
-   independently and reusing any retained reports for returned witnesses. This
-   immediate step does not limit the eventual discovery target to papyri.
+   Jude within IDs 10000–19999 remains a useful smaller independent scope when
+   running a book-index pilot; it does not limit catalogue-wide collection.
 2. Establish provider access expectations before bulk collection. Use the
    owner-supplied local proxy when direct access is unavailable; cite canonical
    NTVMR endpoints. Preserve blocked states, honor limits, and do not change

@@ -82,7 +82,7 @@ format, limits, and resume behavior.
 
 The planned discovery target is all 27 books across all four NTVMR manuscript
 categories: papyri, majuscules, minuscules, and lectionaries. Expand through
-independently budgeted book/category searches and reuse retained reports.
+budgeted catalogue inventories or book/category searches and reuse retained reports.
 Categories do not determine chronological rank: a much later witness can still
 be among a verse's earliest five collected witnesses. Finding five witnesses or
 completing a papyrus-only search does not complete that broader target. See the
@@ -122,6 +122,44 @@ Reuse each manuscript's metadata and contents locally, while discovering
 candidates independently of previously selected witnesses. A report for one
 verse does not prove that the candidate pool is sufficient for adjacent verses.
 One usable scholarly report is enough; unresolved cases do not block collection.
+
+### Overnight catalogue capture
+
+`collect_catalogue.py` inventories all four ID ranges with paginated searches,
+including records without book indexing, then captures each manuscript's full
+metadata and verse-content reports once for reuse across all 27 books.
+It maintains at least five-second spacing across requests, retries, and restarts,
+honors `Retry-After`, and stops the whole collector on a provider access block.
+There is no 50-attempt cap. The default time budget is eight hours per launch;
+an optional `--max-requests` sets a cumulative campaign request ceiling.
+
+```powershell
+python collect_catalogue.py collect --use-local-proxy --hours 8
+```
+
+`--use-local-proxy` reads the current address documented above. Omit that option
+to use canonical HTTPS. Run the same command on another night to resume the
+default `catalogue` campaign. Ctrl+C preserves committed captures and checkpoints.
+Only one collector should run at a time. Inspect progress from another terminal:
+
+```powershell
+python collect_catalogue.py status
+```
+
+After collection stops, validate and import the captured reports, then rebuild
+the app data. Both commands below are offline:
+
+```powershell
+python collect_catalogue.py import
+python build_collection.py
+```
+
+Collection saves source captures under `data/sources/` and temporary queue state
+under `data/.cache/`; it does not rebuild the app overnight. Import preserves
+existing reports and records four catalogue-range discovery scopes covering
+all 27 books. Unusable reports remain captured and unresolved; missing contents
+remain unknown. See [overnight collection](docs/BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-collection)
+for budgets, recovery, and completion qualifications.
 
 ## Scholarly scope
 

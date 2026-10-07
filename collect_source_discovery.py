@@ -62,6 +62,8 @@ def https_proxy_transport(proxy_url):
 
 
 def collect(data_dir, definition, run_id, *, offline=False, https_proxy=None, base_url=None):
+    if definition.get("format_version") != 1:
+        raise ValueError("Use collect_catalogue.py for catalogue-range collection")
     range_params(definition)
     if https_proxy != definition.get("https_connect_proxy"):
         raise ValueError("The network route must match the declared discovery definition")

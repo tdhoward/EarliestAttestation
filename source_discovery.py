@@ -25,8 +25,13 @@ def sha(body):
 
 
 def range_params(definition):
-    if definition.get("format_version") != 1 or definition.get("book") not in NT_BOOKS:
-        raise ValueError("Discovery requires format 1 and one New Testament book code")
+    catalogue = definition.get("format_version") == 2 and definition.get("scope_type") == "catalogue_range"
+    if catalogue:
+        books = definition.get("books")
+        if not isinstance(books, list) or not books or len(set(books)) != len(books) or any(b not in NT_BOOKS for b in books):
+            raise ValueError("Catalogue discovery requires distinct New Testament book codes")
+    elif definition.get("format_version") != 1 or definition.get("book") not in NT_BOOKS:
+        raise ValueError("Discovery requires a book-index or catalogue-range definition")
     for field in ("scope_id", "catalogue_citation", "access_expectations"):
         if not isinstance(definition.get(field), str) or not definition[field].strip():
             raise ValueError(f"Discovery requires {field}")
@@ -38,14 +43,25 @@ def range_params(definition):
     budget = definition.get("request_budget")
     interval = definition.get("minimum_interval_seconds")
     duration = definition.get("maximum_run_seconds")
-    if type(budget) is not int or not 1 <= budget <= 50:
+    if catalogue:
+        if budget is not None and (type(budget) is not int or budget <= 0):
+            raise ValueError("Catalogue request budget must be null or a positive integer")
+    elif type(budget) is not int or not 1 <= budget <= 50:
         raise ValueError("Discovery requires a budget of 1 to 50 attempts, including document collection")
-    if type(interval) not in (int, float) or interval < 5:
+    if type(interval) not in (int, float) or not 5 <= interval < float("inf"):
         raise ValueError("Discovery minimum interval must be at least five seconds")
-    if type(duration) not in (int, float) or not 0 < duration <= 600:
-        raise ValueError("Discovery requires a run duration of at most 600 seconds")
-    return {"docID": f"{low}-{high}", "indexContent": definition["book"],
-            "detail": "document", "format": "json", "limit": str(limit)}
+    if type(duration) not in (int, float) or not 0 < duration < float("inf") or (not catalogue and duration > 600):
+        raise ValueError("Catalogue discovery requires a positive finite duration" if catalogue
+                         else "Discovery requires a run duration of at most 600 seconds")
+    if not catalogue:
+        # Keep historical citation query ordering stable for existing book scopes.
+        return {"docID": f"{low}-{high}", "indexContent": definition["book"],
+                "detail": "document", "format": "json", "limit": str(limit)}
+    return {"docID": f"{low}-{high}", "detail": "document", "format": "json", "limit": str(limit)}
+
+
+def scope_books(definition):
+    return definition.get("books", [definition.get("book")])
 
 
 def response_capture(con, response_id):
@@ -181,7 +197,11 @@ def prepare_discovery(record, documents):
                "candidate_ids": sorted(seen), "collected_candidate_ids": sorted(seen & ready),
                "pending_candidate_ids": pending, "additional_collected_doc_ids": sorted(ready-seen),
                "candidates": candidates, "corpus_complete": False,
-               "ranking_scope": "collected_witnesses_only", "limitation": LIMITATION,
+               "ranking_scope": "collected_witnesses_only", "limitation": (
+                   "The catalogue inventory covers only its declared ID range and source snapshot. "
+                   "Unindexed contents remain unknown; other ranges and scholarly sources may be missing. "
+                   "Rankings describe collected witnesses, not exhaustive earliest-witness discovery."
+                   if definition.get("scope_type") == "catalogue_range" else LIMITATION),
                "source_snapshots": snapshots,
                "source_hashes": [s["body_sha256"] for s in snapshots],
                "collection_cost": record.get("collection_cost", {}), "run_error": record.get("run_error")}
@@ -191,7 +211,7 @@ def prepare_discovery(record, documents):
 def verse_discovery(summary, ref):
     if "scopes" in summary:
         scopes = [verse_discovery(item, ref) for item in summary["scopes"]
-                  if item.get("definition", {}).get("book") == ref.split(".")[0]]
+                  if ref.split(".")[0] in scope_books(item.get("definition", {}))]
         if not scopes:
             return {"state": "not_searched", "ranking_scope": "collected_witnesses_only"}
         # Completion applies only when every declared search for this book is ready.
@@ -200,7 +220,7 @@ def verse_discovery(summary, ref):
                  else "bounded_search_complete")
         return {"state": state, "scopes": scopes, "corpus_complete": False,
                 "ranking_scope": "collected_witnesses_only"}
-    if "definition" not in summary or ref.split(".")[0] != summary["definition"]["book"]:
+    if "definition" not in summary or ref.split(".")[0] not in scope_books(summary["definition"]):
         return {"state": "not_searched", "ranking_scope": "collected_witnesses_only"}
     state = ("bounded_search_complete" if summary["search_state"] == "complete"
              and summary["candidate_collection_state"] == "complete"
