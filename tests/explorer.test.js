@@ -4,7 +4,7 @@ const assert = require("node:assert/strict");
 const {readFileSync} = require("node:fs");
 const {join} = require("node:path");
 const {expandData, createModel, hitIndex, segments} = require("../web/attestation-explorer/explorer.js");
-const {transferFixture} = require("./explorer-fixtures.js");
+const {transferFixture, sparseFixture} = require("./explorer-fixtures.js");
 const current = expandData(JSON.parse(readFileSync(join(__dirname, "../data/attestations.json"), "utf8")));
 // A smaller synthetic view keeps the three-witness model cases independent of collection growth.
 const data = structuredClone(current);
@@ -30,11 +30,12 @@ const copy = () => structuredClone(data);
 
 test("retained versions and candidate codecs decode exactly to the independent fictional oracle", () => {
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1, phase2} = transferFixture(name);
+    const {normalized, packed, phase1, phase2, phase3} = transferFixture(name);
     assert.deepEqual(expandData(normalized), normalized);
     assert.deepEqual(expandData(packed), normalized);
     assert.deepEqual(expandData(phase1), normalized);
     assert.deepEqual(expandData(phase2), normalized);
+    assert.deepEqual(expandData(phase3), normalized);
   }
 });
 
@@ -194,9 +195,96 @@ test("Phase 2 rejects malformed claims, unsafe reconstructed integers, and dangl
   }
 });
 
+test("Phase 3 restores sparse defaults, dense fallbacks and different witness orders exactly", () => {
+  const {normalized, phase3} = sparseFixture();
+  assert.equal(phase3.coverage_defaults.length, 2);
+  assert.deepEqual(phase3.observations["Gal.1.1"][1], ["sparse", 0, []]);
+  assert.deepEqual(phase3.observations["Gal.3.1"][1], ["sparse", 1, []]);
+  assert.deepEqual(phase3.observations["Gal.4.1"][1], ["dense", []]);
+  const restored = expandData(phase3);
+  assert.deepEqual(restored, normalized);
+  const first = restored.observations["Gal.1.1"];
+  assert.equal(first.reported_coverage[0].state, "present");
+  assert.deepEqual(first.reported_coverage[3].claims, ["106"]);
+  assert.equal(first.reported_coverage[3].state, "unknown");
+  assert.equal(first.reported_coverage[4].unknown_reason, "no_explicit_mapped_report");
+  assert.equal(restored.observations["Gal.1.5"].reported_coverage[4].unknown_reason, "unresolved_reference_mapping");
+  assert.deepEqual(restored.observations["Gal.4.6"].reported_coverage[0].date_assessments, ["2"]);
+  assert.equal(Object.hasOwn(restored.observations, "Gal.1.7"), false);
+  first.reported_coverage[0].claims.push("changed");
+  first.reported_coverage[0].date_assessments.push("changed");
+  first.reported_coverage[3].unknown_reason = "changed";
+  first.dating_alternatives.combinations[0].scenarios.optimistic[0].coverage_claim_ids.push(999);
+  assert.deepEqual(restored.observations["Gal.2.1"], normalized.observations["Gal.2.1"]);
+  assert.deepEqual(expandData(phase3), normalized);
+
+  // Independently spell out each dense vector using only its stored indices.
+  const dense = structuredClone(phase3);
+  for (const row of Object.values(dense.observations)) {
+    if (row[1][0] !== "sparse") continue;
+    const [, index, overrides] = row[1], vector = dense.coverage_defaults[index].slice();
+    for (const [position, recordIndex] of overrides) vector[position] = recordIndex;
+    row[1] = ["dense", vector];
+  }
+  assert.deepEqual(expandData(dense), normalized);
+});
+
+test("Phase 3 rejects missing defaults, dangling indices and malformed ordered overrides", () => {
+  const {phase3} = sparseFixture();
+  const missing = structuredClone(phase3);
+  delete missing.coverage_defaults;
+  assert.throws(() => expandData(missing), /Missing collection record tables/);
+  for (const index of [-1, phase3.coverage_defaults.length, 0.5, "0", true, null]) {
+    const broken = structuredClone(phase3);
+    broken.observations["Gal.1.1"][1][1] = index;
+    assert.throws(() => expandData(broken), /Invalid coverage_defaults reference/);
+  }
+  for (const vector of [null, {}, "vector", [-1], [phase3.coverage_records.length], [true], ["0"], [0.5]]) {
+    const broken = structuredClone(phase3);
+    broken.coverage_defaults.push(vector); // Validate unused defaults as well.
+    assert.throws(() => expandData(broken), /Invalid coverage/);
+  }
+  for (const encoding of [[], ["sparse"], ["sparse", 0], ["sparse", 0, [], null],
+    ["sparse", 0, null], ["other", 0, []], ["dense", null]]) {
+    const broken = structuredClone(phase3);
+    broken.observations["Gal.1.1"][1] = encoding;
+    assert.throws(() => expandData(broken), /Invalid coverage encoding/);
+  }
+  for (const override of [null, [], [0], [0, 0, 0], [true, 0], [-1, 0], [7, 0], [0.5, 0], ["0", 0],
+    [0, -1], [0, phase3.coverage_records.length], [0, true], [0, "0"], [0, 0.5]]) {
+    const broken = structuredClone(phase3);
+    broken.observations["Gal.1.1"][1][2] = [override];
+    assert.throws(() => expandData(broken), /Invalid coverage/);
+  }
+  for (const overrides of [[[0, 0], [0, 0]], [[1, 0], [0, 0]]]) {
+    const broken = structuredClone(phase3);
+    broken.observations["Gal.1.1"][1][2] = overrides;
+    assert.throws(() => expandData(broken), /Invalid coverage override position/);
+  }
+});
+
+test("Phase 3 sparse chart cells, count bands and alternative selections match the independent oracle", () => {
+  const {normalized, phase3} = sparseFixture();
+  const expected = createModel(normalized), candidate = createModel(phase3);
+  for (const selected of ["1", "2"]) {
+    expected.selection.set("fictional:a", selected);
+    candidate.selection.set("fictional:a", selected);
+    for (let i = 0; i < normalized.coordinates.length; i++) {
+      for (const side of ["optimistic", "pessimistic"]) {
+        const original = expected.cell(i, side), restored = candidate.cell(i, side);
+        assert.deepEqual(restored, original);
+        assert.deepEqual(segments(restored.events, candidate.maximum), segments(original.events, expected.maximum));
+      }
+      assert.deepEqual(candidate.discovery(i), expected.discovery(i));
+    }
+  }
+  assert.equal(candidate.minimum, expected.minimum);
+  assert.equal(candidate.maximum, expected.maximum);
+});
+
 test("the fictional oracle preserves coverage assertions, claim order, unknown reasons, and omitted observations", () => {
-  const {normalized, packed, phase1, phase2} = transferFixture();
-  for (const input of [normalized, packed, phase1, phase2]) {
+  const {normalized, packed, phase1, phase2, phase3} = transferFixture();
+  for (const input of [normalized, packed, phase1, phase2, phase3]) {
     const model = createModel(input);
     const first = model.cell(model.lookup("Gal 1:1"), "optimistic");
     const second = model.cell(model.lookup("Gal 1:2"), "optimistic");
@@ -226,8 +314,8 @@ test("the fictional oracle preserves coverage assertions, claim order, unknown r
 });
 
 test("the fictional oracle keeps complete alternatives, ties, unavailable selections, and independent overflow state", () => {
-  const {normalized, packed, phase1, phase2} = transferFixture();
-  for (const input of [normalized, packed, phase1, phase2]) {
+  const {normalized, packed, phase1, phase2, phase3} = transferFixture();
+  for (const input of [normalized, packed, phase1, phase2, phase3]) {
     const model = createModel(input), first = model.lookup("Gal 1:1"), second = model.lookup("Gal 1:2");
     assert.deepEqual(model.choices.get("fictional:a").map(date => [date.date_min, date.date_max]),
       [[200, 250], [300, 399]]);
@@ -262,8 +350,8 @@ test("the fictional oracle keeps complete alternatives, ties, unavailable select
 });
 
 test("the shared empty oracle keeps a navigable axis without creating observations", () => {
-  const {normalized, packed, phase1, phase2} = transferFixture("explorer-empty");
-  for (const input of [normalized, packed, phase1, phase2]) {
+  const {normalized, packed, phase1, phase2, phase3} = transferFixture("explorer-empty");
+  for (const input of [normalized, packed, phase1, phase2, phase3]) {
     const model = createModel(input);
     assert.equal(model.hasEvents, false);
     assert.equal(model.minimum, 0); assert.equal(model.maximum, 500);

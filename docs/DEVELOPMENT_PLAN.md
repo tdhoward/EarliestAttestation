@@ -52,7 +52,7 @@ The expanded result matched the complete pre-packing dataset. These are local
 measurements, not browser or network benchmarks. Browser memory usage remains
 unmeasured; restored unknown pairs still scale with witnesses and coordinates.
 
-Phases 0–2 of the [data size optimization guide](DATA_SIZE_OPTIMIZATION.md)
+Phases 0–3 of the [data size optimization guide](DATA_SIZE_OPTIMIZATION.md)
 are complete. The offline current build exactly matches its normalized expansion;
 full-size work-session baselines stay in ignored cache storage. Shared fictional
 version 1 expected fixtures and frozen version 2 snapshots now check Python and
@@ -69,10 +69,17 @@ shares complete coverage contexts, preserving literal claims and dense coverage.
 It measures 2,179,689 bytes (82.53% below production and 65.90% below Phase 1),
 with 51 coverage contexts. Python and Node restore every field exactly to the
 fresh offline build and Phase 0 baseline; both chart scenarios match across all
-7,957 coordinates. All 22 focused Python explorer tests and 26 Node tests pass.
+7,957 coordinates. Phase 3's private `"3-phase3"` candidate adds exact defaults
+grouped by ordered witness identities and sparse exceptions only where serialized
+group costs justify them. Dense fallback preserves empty and incompatible
+vectors and expensive exceptions. It measures 2,007,752 bytes (83.91% below
+production and 7.89% below Phase 2), with one default, 7,928 sparse observations,
+and 13 dense observations. Python and Node restore every field exactly to the
+fresh offline build and Phase 0 baseline; both scenarios match across all 7,957
+coordinates. All 28 focused Python explorer tests and 29 Node tests pass.
 The production writer and dataset remain on version 2, with matching candidate
-decoders available in the app. Work stopped at Phase 2 at the owner's request;
-phases 3–6, including writer rollout and runtime sharing, are pending.
+decoders available in the app. Work stopped at Phase 3 at the owner's request;
+phases 4–6, including writer rollout and runtime sharing, are pending.
 
 The data builder validates raw hashes, provenance, mappings, identity, complete
 date intervals, and derived results in a fresh temporary SQLite database. Builds
@@ -98,10 +105,10 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 4. Keep collection efficient and the app usable as the dataset grows. Measure
    witnesses, usable reports, graphable coordinates, unresolved records, request
    cost, and browser data size. Prefer concrete bottlenecks over new infrastructure.
-   When authorized, continue at Phase 3 of the
+   When authorized, continue at Phase 4 of the
    [data size and memory optimization guide](DATA_SIZE_OPTIMIZATION.md) for
    transfer-format, runtime-sharing, and compression work with focused offline
-   checks. Phases 0–2 are complete; the current work authorization stops at Phase 2.
+   checks. Phases 0–3 are complete; the current work authorization stops at Phase 3.
 
 ## Acceptance
 

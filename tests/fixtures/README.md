@@ -62,3 +62,24 @@ send the resulting literal fallbacks directly to Node, including Unicode, nulls,
 extra/missing fields, noncanonical locators/IDs, and safe-integer boundaries.
 The production writer and current data remain version 2; numeric version 3 is
 still reserved for the complete schema.
+
+The `*.phase3.json` snapshots use private `format_version: "3-phase3"`, adding
+ordered coverage defaults and sparse exceptions alongside dense fallback. The
+normalized and empty snapshots still expand to the same independent version 1
+files. `explorer-sparse.phase3.json` expands to a synthetic extension of that
+fictional oracle, constructed without codecs by `sparse_fixture()` in the Python
+tests and `sparseFixture()` in `explorer-fixtures.js`. Both constructions repeat
+the original values for storage tests; they do not collect or infer reports.
+Python checks fresh packing against all snapshots and sends fresh packing and
+the independent expected values to Node.
+
+The sparse extension repeats the first observation twelve times in chapter 2,
+then eight times with its first two witnesses swapped in chapter 3. Chapter 4
+adds empty coverage, duplicate and missing witness identities, a witness subset,
+an expensive exception list, and changed date applicability. Original unknown
+claims, both unknown reasons, contested/absent states, present defaults, missing
+observations, and complete alternatives remain covered. Node checks exact
+decoding, chart/selection equivalence, fetch/file loading, malformed defaults and
+ordered overrides, and mutation isolation. Python also checks modal ties,
+type-sensitive witness grouping, and default-table cost accounting. Production
+remains version 2; numeric version 3 rollout belongs to Phase 4.

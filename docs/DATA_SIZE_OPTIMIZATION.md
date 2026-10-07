@@ -1,10 +1,10 @@
 # App data size and memory optimization guide
 
-Status: Phases 0–2 completed on 2026-10-06; phases 3–6 remain planned.
-The correctness oracle and Phase 1/2 candidate codecs are in place. The production
+Status: Phases 0–3 completed on 2026-10-06; phases 4–6 remain planned.
+The correctness oracle and Phase 1/2/3 candidate codecs are in place. The production
 writer and current data remain on version 2; the app has matching candidate
 decoders while its loading and runtime behavior remain unchanged. Work stopped
-at Phase 2 at the owner's request. This guide is based on offline work on
+at Phase 3 at the owner's request. This guide is based on offline work on
 2026-10-06. Complete later phases in order when authorized, with the focused
 checks below before moving on. Phase 6 depends on the deployment environment.
 
@@ -107,9 +107,11 @@ version 2 claim tuples and coverage objects, adds ranking/observation tables,
 and uses only dense coverage encodings. The Phase 2 candidate is
 `pack_explorer_data_phase2()` with `format_version: "3-phase2"`; it adds the
 documented tagged claim tuples and shared coverage contexts while retaining
-dense coverage. Both decoders accept both candidates. Later phases must retain
-an explicit candidate marker until the complete version 3 writer is ready;
-these intermediate layouts are not the production version 3 contract.
+dense coverage. The Phase 3 candidate is `pack_explorer_data_phase3()` with
+`format_version: "3-phase3"`; it adds exact coverage defaults and sparse
+exceptions, retaining dense fallback. Both decoders accept all three candidates.
+Numeric version 3 remains reserved for the complete production writer's Phase 4
+rollout; these private candidates are not production format contracts.
 
 Use this layout as the implementation contract. Tuple positions and tags are
 part of the format, documented beside both codecs; do not emit schema descriptions
@@ -290,8 +292,8 @@ The independent fictional oracle checks both codecs and fetch/file loading,
 complete alternatives, coverage states, fallbacks, malformed input, Unicode,
 type distinctions, and mutation isolation. The production writer, current data
 file, collection inputs, and source captures were unchanged. No compression or
-runtime-memory measurement was performed. Phase 3 is the next planned step;
-phases 3–6 remain unimplemented and require further authorization.
+runtime-memory measurement was performed. Phase 3 implementation is recorded
+below.
 
 The completed scope was:
 
@@ -331,6 +333,53 @@ claims, dates, and unknown reasons survive multiple claims per witness. Test
 bad tuple lengths, unknown tags, conflicting fields, and dangling references.
 
 ## Phase 3: sparse coverage with exact defaults
+
+Completed on 2026-10-06. The private `"3-phase3"` candidate groups nonempty
+coverage vectors by their complete ordered witness identities, with JSON value
+types preserved. Missing or duplicate identities retain dense mode. Each default
+position uses the most frequent exact coverage-record index; ties use the lowest
+index, which follows record first encounter. Defaults can contain present,
+absent, contested, or unknown records, including unknown records with claims.
+No new observation or scholarly assertion is created.
+
+Each row uses ordered exceptions only when its sparse encoding is smaller than
+its dense encoding. A group shares a default only when the total savings pay for
+the serialized default vector, table separator, and initial field/table overhead.
+Empty lists and expensive exception lists stay dense. Both decoders validate all
+default vectors, including unused ones, and reject invalid default/record indices,
+malformed tuple lengths/tags, duplicate or unordered positions, and out-of-range
+positions. Expanded coverage, claim references, and rankings remain independently
+mutable without altering shared defaults or the packed input.
+
+The current collection yields one default vector, **7,928 sparse observations**,
+and **13 dense observations**. The 51 coverage contexts, 16,674 coverage records,
+28 ranking templates, and 37 observation contexts remain unchanged. Candidate
+JSON occupies **2,007,752 bytes**, including its final newline, versus
+**2,179,689 bytes** for Phase 2 and the unchanged **12,476,223-byte** production
+version 2 file: **171,937 bytes / 7.89%** incremental reduction and **83.91%**
+reduction from production. The candidate remains slightly above the Phase 4
+2 MB aim; these measured sizes do not impose a collection-growth cap.
+
+Two candidate packings produced identical bytes. Python and Node expansion
+matched the complete fresh offline `build_data()` result and Phase 0 normalized
+baseline exactly. Both chart scenarios matched across all 7,957 coordinates,
+including full observations, events, discovery, count-band segments, and scale
+bounds. The unchanged version 2 writer also reproduced the production file's
+exact bytes. Work-session candidate, fresh normalized result, and measurements
+stay in ignored `data/.cache/size-optimization-phase3-2026-10-06/`.
+
+Verification: all 28 focused Python explorer tests and 29 `npm test` tests passed.
+The independent fictional oracle and its synthetic sparse extension cover
+dense/sparse equivalence, different witness orders and subsets, empty coverage,
+defaults containing present records, unknown claims and both unknown reasons,
+date applicability, omitted observations, deterministic ties, typed identities,
+group costs, malformed data, mutation isolation, fetch/file loading, and
+alternative selection. The production writer, current data file, collection
+inputs, and source captures were unchanged. No compression or runtime-memory
+measurement was performed. Work stops at Phase 3 at the owner's request;
+phases 4–6, including writer rollout, remain planned.
+
+The completed scope was:
 
 1. Retain dense mode for every observation. For compatible coverage vectors,
    build an explicit ordered default vector of coverage-record indices. Group

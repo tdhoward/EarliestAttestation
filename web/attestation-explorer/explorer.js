@@ -26,12 +26,14 @@
     if (data.format_version === 1) return data;
     // Private candidates; numeric version 3 remains reserved for the
     // complete transfer schema. The collection writer still emits version 2.
-    const phase2 = data.format_version === "3-phase2";
+    const phase3 = data.format_version === "3-phase3";
+    const phase2 = data.format_version === "3-phase2" || phase3;
     const sharedObservations = data.format_version === "3-phase1" || phase2;
     if (data.format_version !== 2 && !sharedObservations) throw new Error("Unsupported collection data");
     const names = ["claim_contexts", "coverage_records", "discovery_records"];
     if (sharedObservations) names.push("ranking_templates", "observation_contexts");
     if (phase2) names.push("coverage_contexts");
+    if (phase3) names.push("coverage_defaults");
     if (names.some(name => !Array.isArray(data[name])) || !isRecord(data.claims)) {
       throw new Error("Missing collection record tables");
     }
@@ -83,7 +85,9 @@
       return [id, {...context, ...details}];
     }));
     if (sharedObservations) {
-      // Observations: [contextIndex, ["dense", coverageRecordIndices]]. Context
+      // Observations: [contextIndex, ["dense", coverageRecordIndices]] or
+      // [contextIndex, ["sparse", defaultsIndex, [[position, recordIndex], ...]]].
+      // Sparse overrides have strictly increasing positions. Context
       // discovery/dating_alternatives are table indices. Ranking event claim
       // lists: ["pair"] or ["literal", originalIds]. All other fields survive.
       const orderedJSON = value => Array.isArray(value) ? value.map(orderedJSON) :
@@ -141,20 +145,49 @@
         presentClaimIds(pair);
         return pair;
       });
-      function coverageRecord(index) {
+      function validateCoverageIndex(index) {
         if (!Number.isInteger(index) || index < 0 || index >= coverageRecords.length) {
           throw new Error("Invalid coverage_records reference");
         }
+      }
+      function coverageRecord(index) {
+        validateCoverageIndex(index);
         return copyJSON(coverageRecords[index]);
+      }
+      if (phase3) {
+        // Check unused defaults too, without creating observations for any
+        // coordinate omitted from the stored observation keys.
+        for (const vector of data.coverage_defaults) {
+          if (!Array.isArray(vector)) throw new Error("Invalid coverage default vector");
+          vector.forEach(validateCoverageIndex);
+        }
       }
       const observations = Object.fromEntries(Object.entries(data.observations).map(([ref, packed]) => {
         if (!Array.isArray(packed) || packed.length !== 2) throw new Error("Invalid packed observation");
         const row = record("observation_contexts", packed[0]), encoding = packed[1];
         if (Object.hasOwn(row, "reported_coverage")) throw new Error("Observation context contains coverage");
-        if (!Array.isArray(encoding) || encoding.length !== 2 || encoding[0] !== "dense" || !Array.isArray(encoding[1])) {
-          throw new Error("Invalid coverage encoding");
-        }
-        const pairs = encoding[1].map(coverageRecord);
+        let vector;
+        if (Array.isArray(encoding) && encoding.length === 2 && encoding[0] === "dense" && Array.isArray(encoding[1])) {
+          vector = encoding[1];
+        } else if (phase3 && Array.isArray(encoding) && encoding.length === 3 && encoding[0] === "sparse" && Array.isArray(encoding[2])) {
+          const index = encoding[1];
+          if (!Number.isInteger(index) || index < 0 || index >= data.coverage_defaults.length) {
+            throw new Error("Invalid coverage_defaults reference");
+          }
+          vector = data.coverage_defaults[index].slice();
+          let previous = -1;
+          for (const override of encoding[2]) {
+            if (!Array.isArray(override) || override.length !== 2) throw new Error("Invalid coverage override");
+            const [position, recordIndex] = override;
+            if (!Number.isInteger(position) || position <= previous || position >= vector.length) {
+              throw new Error("Invalid coverage override position");
+            }
+            validateCoverageIndex(recordIndex);
+            vector[position] = recordIndex;
+            previous = position;
+          }
+        } else throw new Error("Invalid coverage encoding");
+        const pairs = vector.map(coverageRecord);
         row.discovery = record("discovery_records", row.discovery);
         const alternatives = record("ranking_templates", row.dating_alternatives);
         for (const event of rankingEvents(alternatives)) {

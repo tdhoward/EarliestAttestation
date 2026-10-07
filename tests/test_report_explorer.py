@@ -7,8 +7,8 @@ import subprocess
 import unittest
 
 from report_explorer import (build_explorer_data, pack_explorer_data, pack_explorer_data_phase1,
-                             pack_explorer_data_phase2, expand_explorer_data,
-                             PHASE1_FORMAT_VERSION, PHASE2_FORMAT_VERSION)
+                             pack_explorer_data_phase2, pack_explorer_data_phase3, expand_explorer_data,
+                             PHASE1_FORMAT_VERSION, PHASE2_FORMAT_VERSION, PHASE3_FORMAT_VERSION)
 from build_collection import DATA, prepare_collection, read_json
 from controlled_ntvmr import connect
 from source_reports import import_batch, build_report_exports
@@ -18,6 +18,46 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures"
+
+
+def sparse_fixture():
+    """Extend the independent fictional oracle with repeated storage cases.
+
+    These cloned assertions are synthetic codec values, not collected reports.
+    Keep this expected-data construction in sync with explorer-fixtures.js.
+    """
+    expected = read_json(FIXTURES / "explorer-normalized.v1.json")
+
+    def add(ref, row):
+        expected["coordinates"].append([ref, "main"])
+        expected["observations"][ref] = row
+
+    for verse in range(1, 13):
+        add(f"Gal.2.{verse}", copy.deepcopy(expected["observations"]["Gal.1.1"]))
+    for verse in range(1, 9):
+        row = copy.deepcopy(expected["observations"]["Gal.1.1"])
+        row["reported_coverage"][:2] = reversed(row["reported_coverage"][:2])
+        add(f"Gal.3.{verse}", row)
+    for verse in range(1, 7):
+        row = copy.deepcopy(expected["observations"]["Gal.1.4"])
+        pairs = copy.deepcopy(expected["observations"]["Gal.1.1"]["reported_coverage"])
+        if verse == 1:
+            pairs = []
+        elif verse == 2:
+            pairs = [pairs[0], copy.deepcopy(pairs[0])]
+        elif verse == 3:
+            pairs = [pairs[0]]
+            del pairs[0]["witness_id"]
+        elif verse == 4:
+            pairs = pairs[:3]
+        elif verse == 5:
+            for pair in pairs:
+                pair["extra_storage_case"] = [True, 1, None]
+        else:
+            pairs[0]["date_assessments"] = ["2"]
+        row["reported_coverage"] = pairs
+        add(f"Gal.4.{verse}", row)
+    return expected
 
 
 class CompatibilityOracleTests(unittest.TestCase):
@@ -43,7 +83,7 @@ class CompatibilityOracleTests(unittest.TestCase):
             with self.subTest(fixture=name):
                 expected = read_json(FIXTURES / f"{name}.v1.json")
                 original = copy.deepcopy(expected)
-                for packer in (pack_explorer_data, pack_explorer_data_phase1, pack_explorer_data_phase2):
+                for packer in (pack_explorer_data, pack_explorer_data_phase1, pack_explorer_data_phase2, pack_explorer_data_phase3):
                     packed = packer(expected)
                     self.assert_json_equal(expand_explorer_data(packed), original)
                     self.assertEqual(json.dumps(packed), json.dumps(packer(expected)))
@@ -61,7 +101,7 @@ class CompatibilityOracleTests(unittest.TestCase):
         for name in ("explorer-normalized", "explorer-empty"):
             with self.subTest(fixture=name):
                 path = FIXTURES / f"{name}.v1.json"
-                for packer in (pack_explorer_data, pack_explorer_data_phase1, pack_explorer_data_phase2):
+                for packer in (pack_explorer_data, pack_explorer_data_phase1, pack_explorer_data_phase2, pack_explorer_data_phase3):
                     result = subprocess.run(
                         ["node", "-e", script, str(path)], cwd=ROOT,
                         input=json.dumps(packer(read_json(path)), ensure_ascii=False),
@@ -419,6 +459,137 @@ class Phase2CodecTests(unittest.TestCase):
         # Even unreferenced coverage records must not hide dangling claims.
         broken["coverage_records"].append([0, ["missing"]])
         with self.assertRaisesRegex(ValueError, "Dangling coverage claim reference"): expand_explorer_data(broken)
+
+
+class Phase3CodecTests(unittest.TestCase):
+    assert_json_equal = CompatibilityOracleTests.assert_json_equal
+
+    def test_phase3_snapshots_match_independent_oracles_and_fresh_packing(self):
+        cases = [(name, read_json(FIXTURES / f"{name}.v1.json"))
+                 for name in ("explorer-normalized", "explorer-empty")]
+        cases.append(("explorer-sparse", sparse_fixture()))
+        script = """
+          const assert = require('node:assert/strict');
+          const {readFileSync} = require('node:fs');
+          const {expandData} = require('./web/attestation-explorer/explorer.js');
+          const {packed, expected} = JSON.parse(readFileSync(0, 'utf8'));
+          assert.deepStrictEqual(expandData(packed), expected);
+        """
+        for name, expected in cases:
+            with self.subTest(fixture=name):
+                packed = pack_explorer_data_phase3(expected)
+                self.assertEqual(packed["format_version"], PHASE3_FORMAT_VERSION)
+                self.assert_json_equal(packed, read_json(FIXTURES / f"{name}.phase3.json"))
+                self.assert_json_equal(expand_explorer_data(packed), expected)
+                self.assertEqual(json.dumps(packed), json.dumps(pack_explorer_data_phase3(expected)))
+                result = subprocess.run(["node", "-e", script], cwd=ROOT,
+                    input=json.dumps({"packed": packed, "expected": expected}, ensure_ascii=False),
+                    text=True, encoding="utf-8", capture_output=True, timeout=30)
+                self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+    def test_phase3_shares_exact_defaults_and_retains_dense_fallbacks(self):
+        expected = sparse_fixture()
+        packed = pack_explorer_data_phase3(expected)
+        self.assertEqual(len(packed["coverage_defaults"]), 2)
+        first = packed["observations"]["Gal.1.1"][1]
+        self.assertEqual(first, ["sparse", 0, []])
+        self.assertEqual(packed["observations"]["Gal.2.1"][1], first)
+        self.assertEqual(packed["observations"]["Gal.3.1"][1], ["sparse", 1, []])
+        self.assertEqual(packed["observations"]["Gal.4.6"][1][0], "sparse")
+        for ref in ("Gal.1.2", "Gal.1.5", *(f"Gal.4.{i}" for i in range(1, 6))):
+            self.assertEqual(packed["observations"][ref][1][0], "dense", ref)
+        self.assertEqual(packed["observations"]["Gal.4.1"][1], ["dense", []])
+        self.assertNotIn("Gal.1.7", packed["observations"])
+        restored = expand_explorer_data(packed)
+        self.assert_json_equal(restored, expected)
+        self.assertEqual(restored["observations"]["Gal.1.1"]["reported_coverage"][3]["claims"], ["106"])
+        self.assertEqual(restored["observations"]["Gal.4.6"]["reported_coverage"][0]["date_assessments"], ["2"])
+        # On this stable fixture, sparse storage must save bytes even after all
+        # table/tag overhead. Legitimate collection growth has no byte cap.
+        size = lambda value: len(json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+        self.assertLess(size(packed), size(pack_explorer_data_phase2(expected)))
+
+    def test_phase3_counts_default_overhead_before_selecting_sparse_rows(self):
+        expected = read_json(FIXTURES / "explorer-normalized.v1.json")
+        row = expected["observations"]["Gal.1.1"]
+        expected["observations"] = {"Gal.1.1": row, "Gal.1.2": copy.deepcopy(row)}
+        packed = pack_explorer_data_phase3(expected)
+        # Sparse would save bytes on each row separately, but not enough to
+        # pay for its default vector and field/table syntax.
+        self.assertEqual(packed["coverage_defaults"], [])
+        self.assertTrue(all(row[1][0] == "dense" for row in packed["observations"].values()))
+        self.assert_json_equal(expand_explorer_data(packed), expected)
+
+    def test_phase3_ties_use_first_record_and_witness_grouping_preserves_types(self):
+        expected = read_json(FIXTURES / "explorer-normalized.v1.json")
+        first, second = [expected["observations"][ref] for ref in ("Gal.1.2", "Gal.1.1")]
+        expected["observations"] = {f"Gal.2.{i}": copy.deepcopy(first if i <= 12 else second)
+                                    for i in range(1, 25)}
+        dense = pack_explorer_data_phase2(expected)
+        packed = pack_explorer_data_phase3(expected)
+        self.assertEqual(packed["coverage_defaults"][0], dense["observations"]["Gal.2.1"][1][1])
+        self.assertEqual(json.dumps(packed), json.dumps(pack_explorer_data_phase3(expected)))
+        self.assert_json_equal(expand_explorer_data(packed), expected)
+        # True and 1 are distinct JSON identities and must not share a group.
+        for i, row in enumerate(expected["observations"].values()):
+            row["reported_coverage"][0]["witness_id"] = True if i < 12 else 1
+        packed = pack_explorer_data_phase3(expected)
+        self.assertEqual(len(packed["coverage_defaults"]), 2)
+        self.assertNotEqual(packed["observations"]["Gal.2.1"][1][1],
+                            packed["observations"]["Gal.2.13"][1][1])
+        self.assert_json_equal(expand_explorer_data(packed), expected)
+
+    def test_phase3_dense_and_sparse_expansion_are_independent_mutable_views(self):
+        expected = sparse_fixture()
+        packed = pack_explorer_data_phase3(expected)
+        dense = copy.deepcopy(packed)
+        phase2 = pack_explorer_data_phase2(expected)
+        for ref, row in dense["observations"].items():
+            row[1] = phase2["observations"][ref][1]
+        self.assert_json_equal(expand_explorer_data(dense), expected)
+        restored = expand_explorer_data(packed)
+        first = restored["observations"]["Gal.1.1"]
+        first["reported_coverage"][0]["claims"].append("changed")
+        first["reported_coverage"][0]["date_assessments"].append("changed")
+        first["reported_coverage"][3]["unknown_reason"] = "changed"
+        first["dating_alternatives"]["combinations"][0]["scenarios"]["optimistic"][0]["coverage_claim_ids"].append(999)
+        self.assert_json_equal(restored["observations"]["Gal.2.1"], expected["observations"]["Gal.2.1"])
+        self.assert_json_equal(expand_explorer_data(packed), expected)
+
+    def test_phase3_rejects_malformed_defaults_and_overrides(self):
+        original = pack_explorer_data_phase3(sparse_fixture())
+        missing = copy.deepcopy(original)
+        del missing["coverage_defaults"]
+        with self.assertRaisesRegex(ValueError, "Missing .* record tables"):
+            expand_explorer_data(missing)
+        for index in (-1, len(original["coverage_defaults"]), 0.5, "0", True, None):
+            broken = copy.deepcopy(original)
+            broken["observations"]["Gal.1.1"][1][1] = index
+            with self.subTest(index=index), self.assertRaisesRegex(ValueError, "Invalid coverage_defaults reference"):
+                expand_explorer_data(broken)
+        for vector in (None, {}, "vector", [-1], [len(original["coverage_records"])], [True], ["0"], [0.5]):
+            broken = copy.deepcopy(original)
+            broken["coverage_defaults"].append(vector)
+            with self.subTest(vector=vector), self.assertRaises(ValueError):
+                expand_explorer_data(broken)
+        for encoding in ([], ["sparse"], ["sparse", 0], ["sparse", 0, [], None],
+                         ["sparse", 0, None], ["other", 0, []], ["dense", None]):
+            broken = copy.deepcopy(original)
+            broken["observations"]["Gal.1.1"][1] = encoding
+            with self.subTest(encoding=encoding), self.assertRaisesRegex(ValueError, "Invalid coverage encoding"):
+                expand_explorer_data(broken)
+        overrides = [None, [], [0], [0, 0, 0], [True, 0], [-1, 0], [7, 0], [0.5, 0], ["0", 0],
+                     [0, -1], [0, len(original["coverage_records"])], [0, True], [0, "0"], [0, 0.5]]
+        for override in overrides:
+            broken = copy.deepcopy(original)
+            broken["observations"]["Gal.1.1"][1][2] = [override]
+            with self.subTest(override=override), self.assertRaises(ValueError):
+                expand_explorer_data(broken)
+        for overrides in ([[0, 0], [0, 0]], [[1, 0], [0, 0]]):
+            broken = copy.deepcopy(original)
+            broken["observations"]["Gal.1.1"][1][2] = overrides
+            with self.assertRaisesRegex(ValueError, "Invalid coverage override position"):
+                expand_explorer_data(broken)
 
 
 class ExplorerTests(unittest.TestCase):

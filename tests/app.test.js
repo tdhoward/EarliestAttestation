@@ -2,12 +2,12 @@ const {test} = require("node:test");
 const assert = require("node:assert/strict");
 const {DATA_URL, loadData, start} = require("../web/attestation-explorer/app.js");
 const {expandData, createModel} = require("../web/attestation-explorer/explorer.js");
-const {transferFixture} = require("./explorer-fixtures.js");
+const {transferFixture, sparseFixture} = require("./explorer-fixtures.js");
 
 test("shared transfer records preserve exact claims, all coverage states, discovery and complete alternatives", async () => {
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1, phase2} = transferFixture(name);
-    for (const input of [normalized, packed, phase1, phase2]) {
+    const {normalized, packed, phase1, phase2, phase3} = transferFixture(name);
+    for (const input of [normalized, packed, phase1, phase2, phase3]) {
       assert.deepEqual(await loadData(async () => ({ok: true, json: async () => input})), normalized);
     }
     if (name === "explorer-empty") continue;
@@ -100,8 +100,8 @@ test("the file picker loads retained versions and candidate codecs against the s
   }};
   await start(doc, explorer, async () => {throw new Error("Offline fixture loading");});
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1, phase2} = transferFixture(name);
-    for (const input of [normalized, packed, phase1, phase2]) {
+    const {normalized, packed, phase1, phase2, phase3} = transferFixture(name);
+    for (const input of [normalized, packed, phase1, phase2, phase3]) {
       nodes.file.files = [{text: async () => JSON.stringify(input)}];
       await nodes.file.listeners.change();
       assert.deepEqual(mounted.at(-1), normalized);
@@ -109,13 +109,19 @@ test("the file picker loads retained versions and candidate codecs against the s
       assert.equal(loader.hidden, true);
     }
   }
+  const {normalized: sparseExpected, phase3: sparse} = sparseFixture();
+  assert.deepEqual(await loadData(async () => ({ok: true, json: async () => sparse})), sparseExpected);
+  nodes.file.files = [{text: async () => JSON.stringify(sparse)}];
+  await nodes.file.listeners.change();
+  assert.deepEqual(mounted.at(-1), sparseExpected);
   const {normalized, packed, phase2} = transferFixture();
   packed.observations["Gal.1.1"].reported_coverage[0] = -1;
   phase2.coverage_records[0][0] = -1;
-  for (const broken of [packed, phase2]) {
+  sparse.observations["Gal.1.1"][1][2] = [[0, 0], [0, 0]];
+  for (const broken of [packed, phase2, sparse]) {
     nodes.file.files = [{text: async () => JSON.stringify(broken)}];
     await nodes.file.listeners.change();
-    assert.equal(mounted.length, 8);
+    assert.equal(mounted.length, 11);
     assert.equal(root.hidden, true);
     assert.equal(nodes.retry.hidden, false);
   }

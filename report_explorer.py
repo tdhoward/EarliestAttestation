@@ -6,6 +6,7 @@ rankings always come from the supplied scholarly-report export.
 
 from __future__ import annotations
 
+from collections import Counter
 from copy import deepcopy
 import json
 from pathlib import Path
@@ -27,6 +28,7 @@ CLAIM_CONTEXT_FIELDS = frozenset((
 # version 3 is reserved for the complete schema in DATA_SIZE_OPTIMIZATION.md.
 PHASE1_FORMAT_VERSION = "3-phase1"
 PHASE2_FORMAT_VERSION = "3-phase2"
+PHASE3_FORMAT_VERSION = "3-phase3"
 JS_SAFE_INTEGER = 2**53 - 1
 CANONICAL_INTEGER = re.compile(r"(?:0|-?[1-9][0-9]*)")
 INDEX_LOCATOR = re.compile(r"data\.indexContents\.indexContent\[(0|[1-9][0-9]*)\]")
@@ -284,11 +286,64 @@ def pack_explorer_data_phase2(data):
             "coverage_contexts": contexts, "coverage_records": records}
 
 
+def pack_explorer_data_phase3(data):
+    """Offline candidate with exact coverage defaults, alongside the v2 writer.
+
+    Coverage is ["dense", indices] or ["sparse", defaultsIndex, overrides],
+    where overrides are increasing [position, coverageRecordIndex] pairs.
+    Defaults group only nonempty vectors with the same ordered, unique witness
+    identities. Each position uses its modal exact record, with the lowest
+    record index (first encounter) breaking ties. No coverage is inferred.
+    """
+    packed = pack_explorer_data_phase2(data)
+    groups = {}
+    for row in packed["observations"].values():
+        vector = row[1][1]
+        contexts = [packed["coverage_contexts"][packed["coverage_records"][index][0]]
+                    for index in vector]
+        if not vector or any("witness_id" not in context for context in contexts):
+            continue
+        witnesses = [context["witness_id"] for context in contexts]
+        if len({_json_key(witness) for witness in witnesses}) != len(witnesses):
+            continue
+        groups.setdefault(_json_key(witnesses), []).append(row)
+
+    defaults = []
+    size = lambda value: len(_json_key(value).encode("utf-8"))
+    for rows in groups.values():
+        vectors = [row[1][1] for row in rows]
+        default = [min(Counter(values).items(), key=lambda item: (-item[1], item[0]))[0]
+                   for values in zip(*vectors)]
+        candidates = []
+        for row, vector in zip(rows, vectors):
+            overrides = [[position, index] for position, index in enumerate(vector)
+                         if index != default[position]]
+            encoding = ["sparse", len(defaults), overrides]
+            saving = size(row[1]) - size(encoding)
+            if saving > 0:
+                candidates.append((row, encoding, saving))
+        # Count the vector, its table separator, and the initial field/table
+        # overhead. Rows whose sparse form costs more retain their dense form.
+        overhead = size(default) + (1 if defaults else len(',"coverage_defaults":[]'))
+        if sum(saving for _, _, saving in candidates) <= overhead:
+            continue
+        defaults.append(default)
+        for row, encoding, _ in candidates:
+            restored = default.copy()
+            for position, index in encoding[2]:
+                restored[position] = index
+            if restored != row[1][1]:
+                raise ValueError("Sparse coverage does not restore its dense vector")
+            row[1] = encoding
+    return {**packed, "format_version": PHASE3_FORMAT_VERSION, "coverage_defaults": defaults}
+
+
 def expand_explorer_data(data):
     """Restore the transfer format exactly; also accept previous version 1 files."""
     if data.get("format_version") == 1:
         return data
-    phase2 = data.get("format_version") == PHASE2_FORMAT_VERSION
+    phase3 = data.get("format_version") == PHASE3_FORMAT_VERSION
+    phase2 = data.get("format_version") == PHASE2_FORMAT_VERSION or phase3
     shared_observations = data.get("format_version") == PHASE1_FORMAT_VERSION or phase2
     if data.get("format_version") != 2 and not shared_observations:
         raise ValueError("Unsupported explorer data")
@@ -297,6 +352,8 @@ def expand_explorer_data(data):
         names += ("ranking_templates", "observation_contexts")
     if phase2:
         names += ("coverage_contexts",)
+    if phase3:
+        names += ("coverage_defaults",)
     if (any(not isinstance(data.get(name), list) for name in names)
             or not isinstance(data.get("claims"), dict)):
         raise ValueError("Missing explorer record tables")
@@ -355,10 +412,22 @@ def expand_explorer_data(data):
             _present_claim_ids(pair, claims)
             coverage_records.append(pair)
 
-        def coverage_record(index):
+        def validate_coverage_index(index):
             if type(index) is not int or not 0 <= index < len(coverage_records):
                 raise ValueError("Invalid coverage_records reference")
+
+        def coverage_record(index):
+            validate_coverage_index(index)
             return deepcopy(coverage_records[index])
+
+        if phase3:
+            # Validate even unused default vectors; they must not hide dangling
+            # records. A default is an ordered storage value, never a new row.
+            for vector in data["coverage_defaults"]:
+                if not isinstance(vector, list):
+                    raise ValueError("Invalid coverage default vector")
+                for index in vector:
+                    validate_coverage_index(index)
 
         observations = {}
         for ref, packed in data["observations"].items():
@@ -368,10 +437,28 @@ def expand_explorer_data(data):
             if "reported_coverage" in row:
                 raise ValueError("Observation context contains coverage")
             encoding = packed[1]
-            if (not isinstance(encoding, list) or len(encoding) != 2
-                    or encoding[0] != "dense" or not isinstance(encoding[1], list)):
+            if (isinstance(encoding, list) and len(encoding) == 2
+                    and encoding[0] == "dense" and isinstance(encoding[1], list)):
+                vector = encoding[1]
+            elif (phase3 and isinstance(encoding, list) and len(encoding) == 3
+                    and encoding[0] == "sparse" and isinstance(encoding[2], list)):
+                default_index = encoding[1]
+                if type(default_index) is not int or not 0 <= default_index < len(data["coverage_defaults"]):
+                    raise ValueError("Invalid coverage_defaults reference")
+                vector = data["coverage_defaults"][default_index].copy()
+                previous = -1
+                for override in encoding[2]:
+                    if not isinstance(override, list) or len(override) != 2:
+                        raise ValueError("Invalid coverage override")
+                    position, index = override
+                    if type(position) is not int or not previous < position < len(vector):
+                        raise ValueError("Invalid coverage override position")
+                    validate_coverage_index(index)
+                    vector[position] = index
+                    previous = position
+            else:
                 raise ValueError("Invalid coverage encoding")
-            pairs = [coverage_record(index) for index in encoding[1]]
+            pairs = [coverage_record(index) for index in vector]
             row["discovery"] = record("discovery_records", row.get("discovery"))
             alternatives = record("ranking_templates", row.get("dating_alternatives"))
             for event in _ranking_events(alternatives):
