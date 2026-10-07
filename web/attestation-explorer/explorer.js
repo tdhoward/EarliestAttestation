@@ -24,8 +24,12 @@
       throw new Error("Unsupported collection data");
     }
     if (data.format_version === 1) return data;
-    if (data.format_version !== 2) throw new Error("Unsupported collection data");
+    // Private Phase 1 candidate; numeric version 3 remains reserved for the
+    // complete transfer schema. The collection writer still emits version 2.
+    const phase1 = data.format_version === "3-phase1";
+    if (data.format_version !== 2 && !phase1) throw new Error("Unsupported collection data");
     const names = ["claim_contexts", "coverage_records", "discovery_records"];
+    if (phase1) names.push("ranking_templates", "observation_contexts");
     if (names.some(name => !Array.isArray(data[name])) || !isRecord(data.claims)) {
       throw new Error("Missing collection record tables");
     }
@@ -53,8 +57,77 @@
       if (Object.keys(packed[1]).some(key => Object.hasOwn(context, key))) {
         throw new Error("Packed claim overrides its context");
       }
-      return [id, {...context, ...packed[1]}];
+      return [id, {...context, ...(phase1 ? copyJSON(packed[1]) : packed[1])}];
     }));
+    if (phase1) {
+      // Observations: [contextIndex, ["dense", coverageRecordIndices]]. Context
+      // discovery/dating_alternatives are table indices. Ranking event claim
+      // lists: ["pair"] or ["literal", originalIds]. All other fields survive.
+      const orderedJSON = value => Array.isArray(value) ? value.map(orderedJSON) :
+        isRecord(value) ? Object.fromEntries(Object.keys(value).sort().map(key => [key, orderedJSON(value[key])])) : value;
+      const jsonKey = value => JSON.stringify(orderedJSON(value));
+      const claimIds = new Set(Object.values(claims).filter(claim => Object.hasOwn(claim, "claim_id"))
+        .map(claim => jsonKey(claim.claim_id)));
+      function validateEventIds(ids) {
+        if (!Array.isArray(ids)) throw new Error("Invalid event claim references");
+        if (ids.some(id => !claimIds.has(jsonKey(id)))) throw new Error("Dangling event claim reference");
+      }
+      function presentClaimIds(pair) {
+        if (!isRecord(pair) || !Array.isArray(pair.claims)) throw new Error("Invalid coverage record");
+        const ids = [];
+        for (const id of pair.claims) {
+          if (typeof id !== "string" || !Object.hasOwn(claims, id)) throw new Error("Dangling coverage claim reference");
+          const claim = claims[id];
+          if (claim.assertion === "present") {
+            if (!Object.hasOwn(claim, "claim_id")) throw new Error("Missing coverage claim identifier");
+            ids.push(claim.claim_id);
+          }
+        }
+        return ids;
+      }
+      function pairClaimIds(pairs, witness) {
+        const matches = pairs.filter(pair => Object.hasOwn(pair, "witness_id") && jsonKey(pair.witness_id) === jsonKey(witness));
+        if (matches.length !== 1) throw new Error("Missing or ambiguous coverage pair reference");
+        return presentClaimIds(matches[0]);
+      }
+      function* rankingEvents(alternatives) {
+        if (!isRecord(alternatives) || !Array.isArray(alternatives.combinations)) throw new Error("Invalid ranking template");
+        for (const combination of alternatives.combinations) {
+          if (!isRecord(combination) || !isRecord(combination.scenarios)) throw new Error("Invalid ranking combination");
+          for (const events of Object.values(combination.scenarios)) {
+            if (!Array.isArray(events)) throw new Error("Invalid ranking scenario");
+            for (const event of events) {
+              if (!isRecord(event) || !Object.hasOwn(event, "witness_id")) throw new Error("Invalid ranking event");
+              yield event;
+            }
+          }
+        }
+      }
+      for (const pair of data.coverage_records) presentClaimIds(pair);
+      const observations = Object.fromEntries(Object.entries(data.observations).map(([ref, packed]) => {
+        if (!Array.isArray(packed) || packed.length !== 2) throw new Error("Invalid packed observation");
+        const row = record("observation_contexts", packed[0]), encoding = packed[1];
+        if (Object.hasOwn(row, "reported_coverage")) throw new Error("Observation context contains coverage");
+        if (!Array.isArray(encoding) || encoding.length !== 2 || encoding[0] !== "dense" || !Array.isArray(encoding[1])) {
+          throw new Error("Invalid coverage encoding");
+        }
+        const pairs = encoding[1].map(index => record("coverage_records", index));
+        row.discovery = record("discovery_records", row.discovery);
+        const alternatives = record("ranking_templates", row.dating_alternatives);
+        for (const event of rankingEvents(alternatives)) {
+          const tag = event.coverage_claim_ids;
+          let ids;
+          if (Array.isArray(tag) && tag.length === 1 && tag[0] === "pair") ids = pairClaimIds(pairs, event.witness_id);
+          else if (Array.isArray(tag) && tag.length === 2 && tag[0] === "literal") ids = tag[1];
+          else throw new Error("Invalid event claim encoding");
+          validateEventIds(ids);
+          event.coverage_claim_ids = copyJSON(ids);
+        }
+        return [ref, {...row, reported_coverage: pairs, dating_alternatives: alternatives}];
+      }));
+      const rest = Object.fromEntries(Object.entries(data).filter(([key]) => !names.includes(key) && key !== "claims" && key !== "observations"));
+      return {...copyJSON(rest), format_version: 1, claims, observations};
+    }
     const observations = Object.fromEntries(Object.entries(data.observations).map(([ref, row]) => {
       if (!isRecord(row) || !Array.isArray(row.reported_coverage)) throw new Error("Invalid packed observation");
       return [ref, {...row,

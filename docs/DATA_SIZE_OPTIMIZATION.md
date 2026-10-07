@@ -1,10 +1,12 @@
 # App data size and memory optimization guide
 
-Status: Phase 0 completed on 2026-10-06; phases 1–6 remain planned.
-The correctness oracle is in place. The production format, builder, app, and
-current data remain unchanged. This guide is based on an offline audit on
-2026-10-06. Complete the remaining phases in order, with the focused checks below
-before moving on. Phase 6 depends on the deployment environment.
+Status: Phases 0 and 1 completed on 2026-10-06; phases 2–6 remain planned.
+The correctness oracle and Phase 1 candidate codec are in place. The production
+writer and current data remain on version 2; the app has a matching candidate
+decoder while its loading and runtime behavior remain unchanged. Work stopped
+at Phase 1 at the owner's request. This guide is based on offline work on
+2026-10-06. Complete later phases in order when authorized, with the focused
+checks below before moving on. Phase 6 depends on the deployment environment.
 
 ## Objective and constraints
 
@@ -97,6 +99,15 @@ Implement a version 3 candidate packer alongside the current writer until phase
 4. Define the final schema before switching the writer; do not publish several
 incompatible layouts under version 3 during the intermediate phases.
 
+The implemented Phase 1 candidate is `pack_explorer_data_phase1()` and uses the
+private string marker `format_version: "3-phase1"`. Python expansion and the
+JavaScript decoder accept it for offline checks and fixture loading. Numeric
+version 3 stays reserved for the complete schema below. The candidate retains
+version 2 claim tuples and coverage objects, adds ranking/observation tables,
+and uses only dense coverage encodings. Later phases must retain an explicit
+candidate marker until the complete version 3 writer is ready; this intermediate
+layout is not the production version 3 contract.
+
 Use this layout as the implementation contract. Tuple positions and tags are
 part of the format, documented beside both codecs; do not emit schema descriptions
 on every row.
@@ -146,7 +157,7 @@ the full-collection oracle.
 Verification: all 10 Python explorer tests and 20 `npm test` tests passed, along
 with the focused current-collection equality test. Production JSON remains
 12,476,223 bytes; no compression or runtime-memory implementation or measurement
-was performed in this phase. Phase 1 is the next implementation step.
+was performed in this phase. Phase 1 implementation is recorded below.
 
 The completed scope was:
 
@@ -172,6 +183,39 @@ Use the normalized fixture as the independent expected result, not just a
 packer/decoder round trip that could share the same bug.
 
 ## Phase 1: share rankings and observation metadata
+
+Completed on 2026-10-06. The candidate shares complete ranking alternatives
+through exact, ordered, type-preserving claim-reference tags and interns every
+remaining observation field. Discovery records keep their existing sharing;
+coverage remains dense. Literal fallback preserves subsets, reordered lists,
+type differences, and cases without a unique matching witness pair. Both
+decoders reject invalid table indices/tags, dangling claim references, and
+ambiguous pair recovery. Expanded candidate observations and their nested
+values are independently mutable and do not alias the packed input. Complete
+date alternatives, ranks, years, extra fields, nulls, missing fields, and the
+independent `ranking_state` field survive exactly.
+
+The current collection produces 28 ranking templates and 37 observation
+contexts, discovered from the input rather than hard-coded. Compact candidate
+JSON occupies **6,391,574 bytes**, including its final newline, versus the
+unchanged **12,476,223-byte** production version 2 file: a **48.77%** reduction.
+Two candidate packings produced identical bytes. Candidate expansion in Python
+and Node matched the complete fresh `build_data()` result and the Phase 0
+normalized baseline exactly. An offline Node check compared all 7,957 chart
+coordinates in both scenarios, including full observations, events, count-band
+segments, discovery, and scale bounds. Work-session candidate/results files are
+in ignored `data/.cache/size-optimization-phase1-2026-10-06/`; they are not build
+inputs or additional production datasets.
+
+Verification: all 16 focused Python explorer tests and 23 `npm test` tests
+passed. Shared fictional fixtures cover exact cross-language expansion,
+literal fallbacks, alternative selection, fetch/file loading, malformed data,
+extra fields, type distinctions, and mutation isolation. The production writer,
+collection inputs, and current data file were unchanged. No compression or
+runtime-memory measurement was performed. Phase 2 is the next planned step;
+phases 2–6 have not been implemented.
+
+The completed scope was:
 
 1. For each normalized observation, copy its `dating_alternatives`. Preserve
    state, combination counts, limits, assessment lists, both scenario orders,

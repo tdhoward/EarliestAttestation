@@ -36,3 +36,17 @@ and `explorer.test.js` uses it for chart and selection assertions.
 
 Full collection baselines are work-session artifacts in ignored `data/.cache/`,
 never test fixtures or product inputs.
+
+The `*.phase1.json` files exercise the private `format_version: "3-phase1"`
+candidate codec. They share ranking templates and observation contexts, with
+dense version 2 coverage records and version 2 claim records. Numeric version 3
+is reserved for the complete planned schema; the production writer still emits
+version 2. Python checks these snapshots against `pack_explorer_data_phase1()`
+and the independent version 1 oracle, and passes fresh packing to Node as well.
+Node uses them for exact decoding, fetch/file loading, chart states, alternative
+selection, mutation isolation, and malformed-reference tests.
+
+Galatians 1:1 and 1:2 share the same context and template but recover their own
+ordered numeric claim IDs through `["pair"]`. Galatians 1:3's subset is retained
+as `["literal", [301]]`. Python also supplies reordered, missing/duplicate-pair,
+boolean-versus-number, and string-versus-number fallback cases directly to Node.

@@ -1,0 +1,987 @@
+{
+  "format_version": "3-phase1",
+  "coordinates": [
+    [
+      "Gal.1.1",
+      "main"
+    ],
+    [
+      "Gal.1.2",
+      "main"
+    ],
+    [
+      "Gal.1.3",
+      "main"
+    ],
+    [
+      "Gal.1.4",
+      "main"
+    ],
+    [
+      "Gal.1.5",
+      "main"
+    ],
+    [
+      "Gal.1.6",
+      "bracketed"
+    ],
+    [
+      "Gal.1.7",
+      "main"
+    ]
+  ],
+  "coordinate_inventory": {
+    "inventory_id": "fictional-axis",
+    "scope": "Fictional codec test coordinates",
+    "source_citation": "https://example.invalid/fictional-axis"
+  },
+  "metadata": {
+    "evidence_policy": "scholarly_reports_only",
+    "collection_scope": "Explicitly fictional assertions; no manuscript examination.",
+    "filters": {
+      "include_omitted": false,
+      "include_bracketed": false
+    },
+    "discovery": {
+      "corpus_complete": false,
+      "scopes": [
+        {
+          "definition": {
+            "scope_id": "fictional-scope",
+            "book": "Gal"
+          },
+          "search_state": "complete",
+          "candidate_collection_state": "incomplete",
+          "candidate_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "pending_candidate_ids": [
+            8
+          ]
+        }
+      ]
+    }
+  },
+  "documents": [
+    {
+      "witness_id": "fictional:a",
+      "doc_id": 1,
+      "label": "Fictional A"
+    },
+    {
+      "witness_id": "fictional:b",
+      "doc_id": 2,
+      "label": "Fictional B"
+    },
+    {
+      "witness_id": "fictional:c",
+      "doc_id": 3,
+      "label": "Fictional C"
+    },
+    {
+      "witness_id": "fictional:d",
+      "doc_id": 4,
+      "label": "Fictional D"
+    },
+    {
+      "witness_id": "fictional:e",
+      "doc_id": 5,
+      "label": "Fictional E"
+    },
+    {
+      "witness_id": "fictional:f",
+      "doc_id": 6,
+      "label": "Fictional F"
+    },
+    {
+      "witness_id": "fictional:g",
+      "doc_id": 7,
+      "label": "Fictional G"
+    }
+  ],
+  "sources": [
+    {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "body_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "capture_file": null,
+      "endpoint": "fictional_publication"
+    }
+  ],
+  "claims": {
+    "101": [
+      0,
+      {
+        "claim_id": 101,
+        "source_ref": "Gal.1.1",
+        "source_locator": "data.indexContents.indexContent[0]",
+        "reported": {
+          "docID": 1,
+          "indexContent": "Fictional index assertion",
+          "osisID": "Gal.1.1",
+          "pageID": 10
+        },
+        "page_id": 10
+      }
+    ],
+    "102": [
+      0,
+      {
+        "claim_id": 102,
+        "source_ref": "Gal.1.1",
+        "source_locator": "fictional assertion 102",
+        "reported": "Fictional partial presence: r?sum? \"quoted\" </script>",
+        "publication_note": null,
+        "reported_extra": {
+          "values": [
+            true,
+            1,
+            false,
+            0,
+            "1",
+            null
+          ]
+        }
+      }
+    ],
+    "103": [
+      1,
+      {
+        "claim_id": 103,
+        "source_ref": "Gal.1.1",
+        "source_locator": "fictional assertion 103",
+        "reported": "Fictional explicit absence"
+      }
+    ],
+    "104": [
+      2,
+      {
+        "claim_id": 104,
+        "source_ref": "Gal.1.1",
+        "source_locator": "fictional assertion 104",
+        "reported": "Fictional contested presence"
+      }
+    ],
+    "105": [
+      3,
+      {
+        "claim_id": 105,
+        "source_ref": "Gal.1.1",
+        "source_locator": "fictional assertion 105",
+        "reported": "Fictional competing absence"
+      }
+    ],
+    "106": [
+      4,
+      {
+        "claim_id": 106,
+        "source_ref": "Gal.1.1",
+        "source_locator": "fictional assertion 106",
+        "reported": "Fictional explicitly unconfirmed assertion"
+      }
+    ],
+    "107": [
+      5,
+      {
+        "claim_id": 107,
+        "source_ref": "Gal.1.1",
+        "source_locator": "fictional assertion 107",
+        "reported": "Fictional presence with an unrankable date"
+      }
+    ],
+    "108": [
+      6,
+      {
+        "claim_id": 108,
+        "source_ref": "Gal.1.1",
+        "source_locator": "fictional assertion 108",
+        "reported": "Fictional presence with tied date endpoints"
+      }
+    ],
+    "201": [
+      0,
+      {
+        "claim_id": 201,
+        "source_ref": "Gal.1.2",
+        "source_locator": "data.indexContents.indexContent[0]",
+        "reported": {
+          "docID": 1,
+          "indexContent": "Fictional index assertion",
+          "osisID": "Gal.1.2",
+          "pageID": 10
+        },
+        "page_id": 10
+      }
+    ],
+    "202": [
+      0,
+      {
+        "claim_id": 202,
+        "source_ref": "Gal.1.2",
+        "source_locator": "fictional assertion 202",
+        "reported": "Fictional partial presence: r?sum? \"quoted\" </script>",
+        "publication_note": null,
+        "reported_extra": {
+          "values": [
+            true,
+            1,
+            false,
+            0,
+            "1",
+            null
+          ]
+        }
+      }
+    ],
+    "203": [
+      1,
+      {
+        "claim_id": 203,
+        "source_ref": "Gal.1.2",
+        "source_locator": "fictional assertion 203",
+        "reported": "Fictional explicit absence"
+      }
+    ],
+    "204": [
+      2,
+      {
+        "claim_id": 204,
+        "source_ref": "Gal.1.2",
+        "source_locator": "fictional assertion 204",
+        "reported": "Fictional contested presence"
+      }
+    ],
+    "205": [
+      3,
+      {
+        "claim_id": 205,
+        "source_ref": "Gal.1.2",
+        "source_locator": "fictional assertion 205",
+        "reported": "Fictional competing absence"
+      }
+    ],
+    "206": [
+      4,
+      {
+        "claim_id": 206,
+        "source_ref": "Gal.1.2",
+        "source_locator": "fictional assertion 206",
+        "reported": "Fictional explicitly unconfirmed assertion"
+      }
+    ],
+    "207": [
+      5,
+      {
+        "claim_id": 207,
+        "source_ref": "Gal.1.2",
+        "source_locator": "fictional assertion 207",
+        "reported": "Fictional presence with an unrankable date"
+      }
+    ],
+    "208": [
+      6,
+      {
+        "claim_id": 208,
+        "source_ref": "Gal.1.2",
+        "source_locator": "fictional assertion 208",
+        "reported": "Fictional presence with tied date endpoints"
+      }
+    ],
+    "301": [
+      0,
+      {
+        "claim_id": 301,
+        "source_ref": "Gal.1.3",
+        "source_locator": "fictional assertion 301",
+        "reported": "Fictional first presence assertion"
+      }
+    ],
+    "302": [
+      0,
+      {
+        "claim_id": 302,
+        "source_ref": "Gal.1.3",
+        "source_locator": "fictional assertion 302",
+        "reported": "Fictional second presence assertion"
+      }
+    ]
+  },
+  "dates": {
+    "1": {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "assessment_id": 1,
+      "witness_id": "fictional:a",
+      "doc_id": 1,
+      "status": "valid",
+      "date_min": 200,
+      "date_max": 250,
+      "original_notation": "Fictional first estimate: 200-250",
+      "reported": {
+        "early": 200,
+        "late": 250,
+        "content": "Fictional first estimate"
+      },
+      "source_locator": "fictional date assertion 1",
+      "applies_to": "whole_witness"
+    },
+    "2": {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "assessment_id": 2,
+      "witness_id": "fictional:a",
+      "doc_id": 1,
+      "status": "valid",
+      "date_min": 300,
+      "date_max": 399,
+      "original_notation": "Fictional competing estimate: 300-399",
+      "reported": "Fictional competing date assertion; no consensus claimed.",
+      "source_locator": "fictional date assertion 2",
+      "applies_to": "whole_witness"
+    },
+    "3": {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "assessment_id": 3,
+      "witness_id": "fictional:g",
+      "doc_id": 7,
+      "status": "valid",
+      "date_min": 200,
+      "date_max": 250,
+      "original_notation": "Fictional tied estimate: 200-250",
+      "reported": "Fictional tied date assertion",
+      "source_locator": "fictional date assertion 3",
+      "applies_to": "whole_witness"
+    },
+    "4": {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "assessment_id": 4,
+      "witness_id": "fictional:f",
+      "doc_id": 6,
+      "status": "unknown",
+      "date_min": null,
+      "date_max": null,
+      "original_notation": "Fictional undated report",
+      "reported": {
+        "content": "Fictional undated report"
+      },
+      "source_locator": "fictional date assertion 4",
+      "applies_to": "whole_witness"
+    }
+  },
+  "observations": {
+    "Gal.1.1": [
+      0,
+      [
+        "dense",
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      ]
+    ],
+    "Gal.1.2": [
+      0,
+      [
+        "dense",
+        [
+          7,
+          8,
+          9,
+          10,
+          4,
+          11,
+          12
+        ]
+      ]
+    ],
+    "Gal.1.3": [
+      1,
+      [
+        "dense",
+        [
+          13
+        ]
+      ]
+    ],
+    "Gal.1.4": [
+      2,
+      [
+        "dense",
+        [
+          4
+        ]
+      ]
+    ],
+    "Gal.1.5": [
+      3,
+      [
+        "dense",
+        [
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ]
+      ]
+    ],
+    "Gal.1.6": [
+      4,
+      [
+        "dense",
+        []
+      ]
+    ]
+  },
+  "claim_contexts": [
+    {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "witness_id": "fictional:a",
+      "doc_id": 1,
+      "assertion": "present",
+      "extent": "unspecified"
+    },
+    {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "witness_id": "fictional:b",
+      "doc_id": 2,
+      "assertion": "absent",
+      "extent": "unspecified"
+    },
+    {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "witness_id": "fictional:c",
+      "doc_id": 3,
+      "assertion": "present",
+      "extent": "unspecified"
+    },
+    {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "witness_id": "fictional:c",
+      "doc_id": 3,
+      "assertion": "absent",
+      "extent": "unspecified"
+    },
+    {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "witness_id": "fictional:d",
+      "doc_id": 4,
+      "assertion": "unknown",
+      "extent": "unspecified",
+      "reported_indexing_tier": 4
+    },
+    {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "witness_id": "fictional:f",
+      "doc_id": 6,
+      "assertion": "present",
+      "extent": "unspecified"
+    },
+    {
+      "provider": "Fictional catalogue",
+      "citation": "https://example.invalid/fictional-report",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "qualifications": "Explicitly fictional reports for codec regression tests.",
+      "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_response_id": 1,
+      "witness_id": "fictional:g",
+      "doc_id": 7,
+      "assertion": "present",
+      "extent": "unspecified"
+    }
+  ],
+  "coverage_records": [
+    {
+      "witness_id": "fictional:a",
+      "state": "present",
+      "claims": [
+        "102",
+        "101"
+      ],
+      "date_assessments": [
+        "1",
+        "2"
+      ],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:b",
+      "state": "absent",
+      "claims": [
+        "103"
+      ],
+      "date_assessments": [],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:c",
+      "state": "contested",
+      "claims": [
+        "104",
+        "105"
+      ],
+      "date_assessments": [],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:d",
+      "state": "unknown",
+      "claims": [
+        "106"
+      ],
+      "date_assessments": [],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:e",
+      "state": "unknown",
+      "claims": [],
+      "date_assessments": [],
+      "unknown_reason": "no_explicit_mapped_report"
+    },
+    {
+      "witness_id": "fictional:f",
+      "state": "present",
+      "claims": [
+        "107"
+      ],
+      "date_assessments": [
+        "4"
+      ],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:g",
+      "state": "present",
+      "claims": [
+        "108"
+      ],
+      "date_assessments": [
+        "3"
+      ],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:a",
+      "state": "present",
+      "claims": [
+        "202",
+        "201"
+      ],
+      "date_assessments": [
+        "1",
+        "2"
+      ],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:b",
+      "state": "absent",
+      "claims": [
+        "203"
+      ],
+      "date_assessments": [],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:c",
+      "state": "contested",
+      "claims": [
+        "204",
+        "205"
+      ],
+      "date_assessments": [],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:d",
+      "state": "unknown",
+      "claims": [
+        "206"
+      ],
+      "date_assessments": [],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:f",
+      "state": "present",
+      "claims": [
+        "207"
+      ],
+      "date_assessments": [
+        "4"
+      ],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:g",
+      "state": "present",
+      "claims": [
+        "208"
+      ],
+      "date_assessments": [
+        "3"
+      ],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:a",
+      "state": "present",
+      "claims": [
+        "302",
+        "301"
+      ],
+      "date_assessments": [
+        "1",
+        "2"
+      ],
+      "unknown_reason": null
+    },
+    {
+      "witness_id": "fictional:a",
+      "state": "unknown",
+      "claims": [],
+      "date_assessments": [
+        "1",
+        "2"
+      ],
+      "unknown_reason": "unresolved_reference_mapping"
+    },
+    {
+      "witness_id": "fictional:b",
+      "state": "unknown",
+      "claims": [],
+      "date_assessments": [],
+      "unknown_reason": "unresolved_reference_mapping"
+    },
+    {
+      "witness_id": "fictional:c",
+      "state": "unknown",
+      "claims": [],
+      "date_assessments": [],
+      "unknown_reason": "unresolved_reference_mapping"
+    },
+    {
+      "witness_id": "fictional:d",
+      "state": "unknown",
+      "claims": [],
+      "date_assessments": [],
+      "unknown_reason": "unresolved_reference_mapping"
+    },
+    {
+      "witness_id": "fictional:e",
+      "state": "unknown",
+      "claims": [],
+      "date_assessments": [],
+      "unknown_reason": "unresolved_reference_mapping"
+    },
+    {
+      "witness_id": "fictional:f",
+      "state": "unknown",
+      "claims": [],
+      "date_assessments": [
+        "4"
+      ],
+      "unknown_reason": "unresolved_reference_mapping"
+    },
+    {
+      "witness_id": "fictional:g",
+      "state": "unknown",
+      "claims": [],
+      "date_assessments": [
+        "3"
+      ],
+      "unknown_reason": "unresolved_reference_mapping"
+    }
+  ],
+  "discovery_records": [
+    {
+      "state": "candidate_collection_incomplete",
+      "corpus_complete": false,
+      "ranking_scope": "collected_witnesses_only",
+      "scopes": [
+        {
+          "scope_id": "fictional-scope",
+          "pending_candidate_ids": [
+            8
+          ]
+        }
+      ]
+    }
+  ],
+  "ranking_templates": [
+    {
+      "state": "complete",
+      "combination_count": 2,
+      "max_combinations": 256,
+      "eligible_witness_count": 2,
+      "combinations": [
+        {
+          "assessments": [
+            "1",
+            "3"
+          ],
+          "scenarios": {
+            "optimistic": [
+              {
+                "witness_id": "fictional:a",
+                "assessment_id": 1,
+                "rank": 1,
+                "event_year": 200,
+                "coverage_claim_ids": [
+                  "pair"
+                ]
+              },
+              {
+                "witness_id": "fictional:g",
+                "assessment_id": 3,
+                "rank": 2,
+                "event_year": 200,
+                "coverage_claim_ids": [
+                  "pair"
+                ]
+              }
+            ],
+            "pessimistic": [
+              {
+                "witness_id": "fictional:a",
+                "assessment_id": 1,
+                "rank": 1,
+                "event_year": 250,
+                "coverage_claim_ids": [
+                  "pair"
+                ]
+              },
+              {
+                "witness_id": "fictional:g",
+                "assessment_id": 3,
+                "rank": 2,
+                "event_year": 250,
+                "coverage_claim_ids": [
+                  "pair"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "assessments": [
+            "2",
+            "3"
+          ],
+          "scenarios": {
+            "optimistic": [
+              {
+                "witness_id": "fictional:g",
+                "assessment_id": 3,
+                "rank": 1,
+                "event_year": 200,
+                "coverage_claim_ids": [
+                  "pair"
+                ]
+              },
+              {
+                "witness_id": "fictional:a",
+                "assessment_id": 2,
+                "rank": 2,
+                "event_year": 300,
+                "coverage_claim_ids": [
+                  "pair"
+                ]
+              }
+            ],
+            "pessimistic": [
+              {
+                "witness_id": "fictional:g",
+                "assessment_id": 3,
+                "rank": 1,
+                "event_year": 250,
+                "coverage_claim_ids": [
+                  "pair"
+                ]
+              },
+              {
+                "witness_id": "fictional:a",
+                "assessment_id": 2,
+                "rank": 2,
+                "event_year": 399,
+                "coverage_claim_ids": [
+                  "pair"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "state": "complete",
+      "combination_count": 1,
+      "max_combinations": 256,
+      "eligible_witness_count": 1,
+      "combinations": [
+        {
+          "assessments": [
+            "1"
+          ],
+          "scenarios": {
+            "optimistic": [
+              {
+                "witness_id": "fictional:a",
+                "assessment_id": 1,
+                "rank": 1,
+                "event_year": 200,
+                "coverage_claim_ids": [
+                  "literal",
+                  [
+                    301
+                  ]
+                ]
+              }
+            ],
+            "pessimistic": [
+              {
+                "witness_id": "fictional:a",
+                "assessment_id": 1,
+                "rank": 1,
+                "event_year": 250,
+                "coverage_claim_ids": [
+                  "literal",
+                  [
+                    301
+                  ]
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "state": "too_many_combinations",
+      "combination_count": 257,
+      "max_combinations": 256,
+      "combinations": []
+    },
+    {
+      "state": "no_rankable_dates",
+      "combination_count": 0,
+      "max_combinations": 256,
+      "eligible_witness_count": 0,
+      "combinations": []
+    }
+  ],
+  "observation_contexts": [
+    {
+      "editorial_status": "main",
+      "editorial_note": null,
+      "mapping_note": null,
+      "passage_citation": null,
+      "ranking_state": "complete",
+      "discovery": 0,
+      "dating_alternatives": 0
+    },
+    {
+      "editorial_status": "main",
+      "editorial_note": null,
+      "mapping_note": null,
+      "passage_citation": null,
+      "ranking_state": "complete",
+      "discovery": 0,
+      "dating_alternatives": 1
+    },
+    {
+      "editorial_status": "main",
+      "editorial_note": null,
+      "mapping_note": null,
+      "passage_citation": null,
+      "ranking_state": "no_rankable_dates",
+      "discovery": 0,
+      "dating_alternatives": 2
+    },
+    {
+      "editorial_status": "main",
+      "editorial_note": null,
+      "mapping_note": "Fictional unresolved mapping; no absence inference.",
+      "passage_citation": null,
+      "ranking_state": "no_rankable_dates",
+      "discovery": 0,
+      "dating_alternatives": 3
+    },
+    {
+      "editorial_status": "bracketed",
+      "editorial_note": "Fictional filtered coordinate",
+      "mapping_note": null,
+      "passage_citation": null,
+      "ranking_state": "no_rankable_dates",
+      "discovery": 0,
+      "dating_alternatives": 3
+    }
+  ]
+}
