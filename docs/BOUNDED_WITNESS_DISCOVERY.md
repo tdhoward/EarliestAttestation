@@ -72,7 +72,7 @@ earlier candidates. Missing contents entries remain unknown, never inferred abse
 ## Current source scope
 
 The central discovery register contains completed Galatians, Hebrews, Ephesians,
-Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, and Philemon searches for IDs
+Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, Titus, and Philemon searches for IDs
 10000–19999.
 The Galatians search ran without name, date, or language search filters. It returned P46, P51, and P135;
 all have metadata and long contents captures. GA 01 and GA 02 are additional
@@ -153,11 +153,23 @@ P139 (1:6–8, 18–20), with indexing tier 3. Their complete catalogue date est
 are 200–299 CE (`III`) and 300–399 CE (`IV`). Missing entries, including P87 1:16
 and P139 1:9, remain unknown. Prior claims, complete dates, coverage states, and
 other discovery scopes survived unchanged. Only the 25 Philemon coordinates
-gain bounded discovery completion. The collection retains 54 usable reports for
-23 witnesses and eight searches, with no pending candidates. App data is
+gain bounded discovery completion. That addition brought the collection to 54 usable reports for
+23 witnesses and eight searches, with no pending candidates. App data was
 2,076,312 bytes, growing by 15,703 bytes for this addition.
 
+The independent Titus search returned P32 and P61. P61's metadata and long
+contents were reused, leaving three successful proxy requests for the search
+and P32's two reports, within the declared 25-attempt budget. Exact reported
+entries add 11 presence pairs for Titus 1:11–15 and 2:3–8, with indexing tier 3.
+P32's complete catalogue date estimate remains 200–225 CE (`III (A)`). Missing
+entries, including 1:10, 1:16, 2:2, and 2:9, remain unknown. Prior claims,
+complete dates, coverage states, rankings outside the added coverage, and other
+discovery scopes survived unchanged. Only the 46 Titus coordinates gain bounded
+discovery completion. The collection retains 57 usable reports for 24 witnesses
+and nine searches, with no pending candidates. App data is 2,085,991 bytes,
+growing by 9,679 bytes for this addition.
+
 Only the Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
-2 Thessalonians, and Philemon scopes are complete. Other books remain unsearched
-despite reused contents. Titus within the same ID range is the next suggested
-bounded scope, reusing P61's retained reports.
+2 Thessalonians, Titus, and Philemon scopes are complete. Other books remain unsearched
+despite reused contents. 2 Timothy within the same ID range is the next suggested
+bounded scope; reuse any retained reports for independently returned candidates.

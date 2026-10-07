@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10032",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 04:07:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791346029288",
+    "X-Request-Post-Validation-Epoch": "1791346029290",
+    "X-Request-Response-Epoch": "1791346029293",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "937",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10032,\"indexContent\":[\"Titus 1:11-15; Titus 2:3-8\",{\"docID\":10032,\"osisID\":\"Titus.1.11\",\"indexContent\":2017001011,\"pageID\":10},{\"docID\":10032,\"osisID\":\"Titus.1.12\",\"indexContent\":2017001012,\"pageID\":10},{\"docID\":10032,\"osisID\":\"Titus.1.13\",\"indexContent\":2017001013,\"pageID\":10},{\"docID\":10032,\"osisID\":\"Titus.1.14\",\"indexContent\":2017001014,\"pageID\":10},{\"docID\":10032,\"osisID\":\"Titus.1.15\",\"indexContent\":2017001015,\"pageID\":10},{\"docID\":10032,\"osisID\":\"Titus.2.3\",\"indexContent\":2017002003,\"pageID\":20},{\"docID\":10032,\"osisID\":\"Titus.2.4\",\"indexContent\":2017002004,\"pageID\":20},{\"docID\":10032,\"osisID\":\"Titus.2.5\",\"indexContent\":2017002005,\"pageID\":20},{\"docID\":10032,\"osisID\":\"Titus.2.6\",\"indexContent\":2017002006,\"pageID\":20},{\"docID\":10032,\"osisID\":\"Titus.2.7\",\"indexContent\":2017002007,\"pageID\":20},{\"docID\":10032,\"osisID\":\"Titus.2.8\",\"indexContent\":2017002008,\"pageID\":20}]}}}",
+  "body_sha256": "34b76ae15b28e08bd91bcaa7df6e6d2f266fdbb5dbee73687aefbbe78660bcf1",
+  "retrieved_at": "2026-10-07T04:07:09+00:00"
+}

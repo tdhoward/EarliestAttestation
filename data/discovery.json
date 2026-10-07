@@ -450,5 +450,61 @@
       "request_budget": 25,
       "collection_errors": []
     }
+  },
+  {
+    "format_version": 1,
+    "definition": {
+      "format_version": 1,
+      "scope_id": "titus-docids-10000-19999",
+      "book": "Titus",
+      "doc_id_min": 10000,
+      "doc_id_max": 19999,
+      "page_limit": 200,
+      "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+      "access_expectations": "Finite independent Titus book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+      "request_budget": 25,
+      "minimum_interval_seconds": 5,
+      "maximum_run_seconds": 300,
+      "transport_base_url": "<local proxy>/community/vmr/api"
+    },
+    "run_state": "complete",
+    "run_error": null,
+    "search_captures": [
+      {
+        "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+        "params": {
+          "detail": "document",
+          "docID": "10000-19999",
+          "format": "json",
+          "indexContent": "Titus",
+          "limit": "200"
+        },
+        "http_status": 200,
+        "headers": {
+          "Date": "Wed, 07 Oct 2026 04:06:59 GMT",
+          "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+          "X-Request-Received-Epoch": "1791346019797",
+          "X-Request-Post-Validation-Epoch": "1791346019798",
+          "X-Request-Response-Epoch": "1791346019808",
+          "X-Response-Time": "11ms",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "Content-Type": "application/json;charset=UTF-8",
+          "Content-Length": "373",
+          "Connection": "close"
+        },
+        "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":5,\"manuscript\":[{\"origLate\":225,\"gaNum\":\"P32\",\"orig\":\"III (A)\",\"docID\":10032,\"groupID\":\"\",\"primaryName\":\"P32\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":725,\"gaNum\":\"P61\",\"orig\":\"VIII (A)\",\"docID\":10061,\"groupID\":\"\",\"primaryName\":\"P61\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":700}],\"count\":2}}}",
+        "body_sha256": "856769835aa9f858e266a2c268fcfc3d7c186ee99e0a76bf2c7bb4a1f3b6c039",
+        "retrieved_at": "2026-10-07T04:06:59+00:00"
+      }
+    ],
+    "collection_cost": {
+      "request_attempts": 3,
+      "http_responses_recorded": 3,
+      "reused_seed_document_responses": 46,
+      "request_budget": 25,
+      "collection_errors": []
+    }
   }
 ]

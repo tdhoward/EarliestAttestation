@@ -17,15 +17,15 @@ complete date alternatives and count any reported portion once per witness.
 
 ## Current implementation
 
-The current register reuses retained reports for 23 witnesses across all 27
+The current register reuses retained reports for 24 witnesses across all 27
 books. Default data contains 7,941 reference coordinates,
-7,928 graphable coordinates, 16,760 present witness/verse pairs, 165,883 unknown
+7,928 graphable coordinates, 16,771 present witness/verse pairs, 173,813 unknown
 pairs, and no absent or contested pairs. Thirteen coordinates have no exact
 reported match and remain unknown. Sixteen supplementary omitted coordinates,
 including Romans 16:24, remain in the underlying reference scope.
 
 Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
-2 Thessalonians, and Philemon have completed independent indexed searches within
+2 Thessalonians, Titus, and Philemon have completed independent indexed searches within
 IDs 10000–19999; the other books and catalogue ranges do not gain discovery
 completion merely through document reuse. Multiple bounded scopes can coexist
 in the central discovery register. All rankings describe collected witnesses only.
@@ -87,9 +87,20 @@ proxy requests within its 25-attempt budget. Exact entries add five presence
 pairs for P87 (1:13–15, 24–25) and six for P139 (1:6–8, 18–20). Complete catalogue
 date estimates remain 200–299 CE (`III`) and 300–399 CE (`IV`), respectively.
 Missing entries remain unknown. All prior claims, complete dates, coverage
-states, and discovery scopes survived unchanged. The collection now retains
+states, and discovery scopes survived unchanged. That addition brought the collection to
 54 usable responses for 23 witnesses and eight completed scopes, with no pending
-candidates. App data is 2,076,312 bytes, growing by 15,703 bytes for this addition.
+candidates. App data was 2,076,312 bytes, growing by 15,703 bytes for this addition.
+
+The independent Titus search returned P32 and P61. It reused P61 and collected
+P32's metadata and long contents with three successful proxy requests within a
+25-attempt budget. Exact entries add 11 presence pairs for Titus 1:11–15 and
+2:3–8, with indexing tier 3. The complete catalogue date estimate remains
+200–225 CE (`III (A)`). Missing entries remain unknown. All prior claims, complete
+dates, coverage states, rankings outside the added coverage, and discovery scopes
+survived unchanged. Only the 46 Titus coordinates gain bounded discovery completion.
+The collection retains 57 usable responses for 24 witnesses and nine completed
+scopes, with no pending candidates. App data is 2,085,991 bytes, growing by
+9,679 bytes for this addition.
 
 The app uses a lossless version 3 JSON format with shared records and exact
 sparse coverage. It validates and retains read-only data for charting, resolving
@@ -111,8 +122,8 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 1. Broaden bounded independent witness discovery. Declare a book/range and request
    budget; reuse each document's metadata and contents; update the central register.
    Do not constrain discovery to the witnesses already collected for nearby verses.
-   A useful next scope is Titus within IDs 10000–19999, reusing P61's retained
-   reports while searching for candidates independently.
+   A useful next scope is 2 Timothy within IDs 10000–19999, searching for candidates
+   independently and reusing any retained reports for returned witnesses.
 2. Establish provider access expectations before bulk collection. Use the
    owner-supplied local proxy when direct access is unavailable; cite canonical
    NTVMR endpoints. Preserve blocked states, honor limits, and do not change
