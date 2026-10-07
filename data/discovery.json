@@ -506,5 +506,117 @@
       "request_budget": 25,
       "collection_errors": []
     }
+  },
+  {
+    "format_version": 1,
+    "definition": {
+      "format_version": 1,
+      "scope_id": "2timothy-docids-10000-19999",
+      "book": "2Tim",
+      "doc_id_min": 10000,
+      "doc_id_max": 19999,
+      "page_limit": 200,
+      "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+      "access_expectations": "Finite independent 2 Timothy book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+      "request_budget": 25,
+      "minimum_interval_seconds": 5,
+      "maximum_run_seconds": 300,
+      "transport_base_url": "<local proxy>/community/vmr/api"
+    },
+    "run_state": "complete",
+    "run_error": null,
+    "search_captures": [
+      {
+        "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+        "params": {
+          "detail": "document",
+          "docID": "10000-19999",
+          "format": "json",
+          "indexContent": "2Tim",
+          "limit": "200"
+        },
+        "http_status": 200,
+        "headers": {
+          "Date": "Wed, 07 Oct 2026 04:13:56 GMT",
+          "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+          "X-Request-Received-Epoch": "1791346436325",
+          "X-Request-Post-Validation-Epoch": "1791346436326",
+          "X-Request-Response-Epoch": "1791346436336",
+          "X-Response-Time": "11ms",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "Content-Type": "application/json;charset=UTF-8",
+          "Content-Length": "69",
+          "Connection": "close"
+        },
+        "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":0,\"count\":0}}}",
+        "body_sha256": "95eeb1e39c5edfd3a988cd4d5175b8e385057b709714cb7da61fc70a4a5f7f4a",
+        "retrieved_at": "2026-10-07T04:13:56+00:00"
+      }
+    ],
+    "collection_cost": {
+      "request_attempts": 1,
+      "http_responses_recorded": 1,
+      "reused_seed_document_responses": 48,
+      "request_budget": 25,
+      "collection_errors": []
+    }
+  },
+  {
+    "format_version": 1,
+    "definition": {
+      "format_version": 1,
+      "scope_id": "1timothy-docids-10000-19999",
+      "book": "1Tim",
+      "doc_id_min": 10000,
+      "doc_id_max": 19999,
+      "page_limit": 200,
+      "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+      "access_expectations": "Finite independent 1 Timothy book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+      "request_budget": 25,
+      "minimum_interval_seconds": 5,
+      "maximum_run_seconds": 300,
+      "transport_base_url": "<local proxy>/community/vmr/api"
+    },
+    "run_state": "complete",
+    "run_error": null,
+    "search_captures": [
+      {
+        "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+        "params": {
+          "detail": "document",
+          "docID": "10000-19999",
+          "format": "json",
+          "indexContent": "1Tim",
+          "limit": "200"
+        },
+        "http_status": 200,
+        "headers": {
+          "Date": "Wed, 07 Oct 2026 04:14:44 GMT",
+          "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+          "X-Request-Received-Epoch": "1791346484331",
+          "X-Request-Post-Validation-Epoch": "1791346484333",
+          "X-Request-Response-Epoch": "1791346484343",
+          "X-Response-Time": "12ms",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "Content-Type": "application/json;charset=UTF-8",
+          "Content-Length": "226",
+          "Connection": "close"
+        },
+        "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":2,\"manuscript\":{\"origLate\":299,\"gaNum\":\"P133\",\"orig\":\"III\",\"docID\":10133,\"groupID\":\"\",\"primaryName\":\"P133\",\"lang\":\"grc\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},\"count\":1}}}",
+        "body_sha256": "a7e27eaac76bb0676bdae0407fa346d545e03ff902f7085e935992e4f82aa091",
+        "retrieved_at": "2026-10-07T04:14:44+00:00"
+      }
+    ],
+    "collection_cost": {
+      "request_attempts": 3,
+      "http_responses_recorded": 3,
+      "reused_seed_document_responses": 48,
+      "request_budget": 25,
+      "collection_errors": []
+    }
   }
 ]

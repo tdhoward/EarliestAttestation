@@ -17,16 +17,17 @@ complete date alternatives and count any reported portion once per witness.
 
 ## Current implementation
 
-The current register reuses retained reports for 24 witnesses across all 27
+The current register reuses retained reports for 25 witnesses across all 27
 books. Default data contains 7,941 reference coordinates,
-7,928 graphable coordinates, 16,771 present witness/verse pairs, 173,813 unknown
+7,928 graphable coordinates, 16,783 present witness/verse pairs, 181,742 unknown
 pairs, and no absent or contested pairs. Thirteen coordinates have no exact
 reported match and remain unknown. Sixteen supplementary omitted coordinates,
 including Romans 16:24, remain in the underlying reference scope.
 
 Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
-2 Thessalonians, Titus, and Philemon have completed independent indexed searches within
-IDs 10000–19999; the other books and catalogue ranges do not gain discovery
+2 Thessalonians, 1 Timothy, 2 Timothy, Titus, and Philemon have completed
+independent indexed searches within IDs 10000–19999; the other books and
+catalogue ranges do not gain discovery
 completion merely through document reuse. Multiple bounded scopes can coexist
 in the central discovery register. All rankings describe collected witnesses only.
 
@@ -98,9 +99,26 @@ P32's metadata and long contents with three successful proxy requests within a
 200–225 CE (`III (A)`). Missing entries remain unknown. All prior claims, complete
 dates, coverage states, rankings outside the added coverage, and discovery scopes
 survived unchanged. Only the 46 Titus coordinates gain bounded discovery completion.
-The collection retains 57 usable responses for 24 witnesses and nine completed
-scopes, with no pending candidates. App data is 2,085,991 bytes, growing by
-9,679 bytes for this addition.
+That addition brought the collection to 57 usable responses for 24 witnesses and
+nine completed scopes, with no pending candidates. App data was 2,085,991 bytes,
+growing by 9,679 bytes for this addition.
+
+The independent 2 Timothy search returned no indexed candidates within
+IDs 10000–19999, using one successful proxy request within a 25-attempt budget.
+Only its 83 coordinates gain bounded discovery completion. A terminal empty
+index does not assert manuscript absence or complete wider catalogue discovery.
+
+The independent 1 Timothy search returned P133 and collected its metadata and
+long contents with three successful proxy requests within a separate 25-attempt
+budget. Exact entries add 12 presence pairs for 1 Timothy 3:13–16 and 4:1–8,
+with indexing tier 3 and complete catalogue date 200–299 CE (`III`). Two page
+reports for 4:3 are preserved as two claims and count as one witness/verse pair.
+Missing entries remain unknown. Existing claims, dates, coverage states, rankings
+outside the added coverage, and other discovery scopes survive unchanged.
+Together these searches add bounded completion to 196 coordinates. The current
+collection retains 61 usable reports for 25 witnesses and eleven completed
+scopes, with no pending candidates. App data is 2,099,555 bytes, growing by
+13,564 bytes across the two additions.
 
 The app uses a lossless version 3 JSON format with shared records and exact
 sparse coverage. It validates and retains read-only data for charting, resolving
@@ -122,7 +140,7 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 1. Broaden bounded independent witness discovery. Declare a book/range and request
    budget; reuse each document's metadata and contents; update the central register.
    Do not constrain discovery to the witnesses already collected for nearby verses.
-   A useful next scope is 2 Timothy within IDs 10000–19999, searching for candidates
+   A useful next scope is Jude within IDs 10000–19999, searching for candidates
    independently and reusing any retained reports for returned witnesses.
 2. Establish provider access expectations before bulk collection. Use the
    owner-supplied local proxy when direct access is unavailable; cite canonical

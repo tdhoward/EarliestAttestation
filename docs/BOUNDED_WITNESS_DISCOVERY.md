@@ -72,8 +72,8 @@ earlier candidates. Missing contents entries remain unknown, never inferred abse
 ## Current source scope
 
 The central discovery register contains completed Galatians, Hebrews, Ephesians,
-Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, Titus, and Philemon searches for IDs
-10000–19999.
+Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy, 2 Timothy,
+Titus, and Philemon searches for IDs 10000–19999.
 The Galatians search ran without name, date, or language search filters. It returned P46, P51, and P135;
 all have metadata and long contents captures. GA 01 and GA 02 are additional
 collected witnesses outside that range.
@@ -165,11 +165,31 @@ P32's complete catalogue date estimate remains 200–225 CE (`III (A)`). Missing
 entries, including 1:10, 1:16, 2:2, and 2:9, remain unknown. Prior claims,
 complete dates, coverage states, rankings outside the added coverage, and other
 discovery scopes survived unchanged. Only the 46 Titus coordinates gain bounded
-discovery completion. The collection retains 57 usable reports for 24 witnesses
-and nine searches, with no pending candidates. App data is 2,085,991 bytes,
-growing by 9,679 bytes for this addition.
+discovery completion. That addition brought the collection to 57 usable reports
+for 24 witnesses and nine searches, with no pending candidates. App data was
+2,085,991 bytes, growing by 9,679 bytes for this addition.
 
+The independent 2 Timothy search returned no indexed candidates in
+IDs 10000–19999. One successful proxy request completed its declared scope and
+the discovery state of its 83 coordinates; it added no coverage claims or date
+estimates. The empty result is retained with its exact response and provenance.
+It does not assert absence, rule out unindexed witnesses, or complete other ranges.
+
+The independent 1 Timothy search returned P133. Its metadata and long contents
+were collected with three successful proxy requests, including the search,
+within a separate 25-attempt budget. Thirteen exact entries add 12 presence
+pairs for 1 Timothy 3:13–16 and 4:1–8, with indexing tier 3 and complete catalogue
+date 200–299 CE (`III`). Both reported page entries for 4:3 are preserved; the
+overlap counts once per witness/verse and creates one chart event per date
+scenario. Missing entries, including 3:12 and 4:9, remain unknown. Prior claims,
+dates, coverage states, rankings outside the added coverage, and other scopes
+survived unchanged. Only the 113 1 Timothy coordinates gain bounded completion.
+
+The collection now retains 61 usable reports for 25 witnesses and eleven
+completed scopes, with no pending candidates. The two Timothy searches used
+four successful requests and increased app data by 13,564 bytes to 2,099,555 bytes.
 Only the Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
-2 Thessalonians, Titus, and Philemon scopes are complete. Other books remain unsearched
-despite reused contents. 2 Timothy within the same ID range is the next suggested
-bounded scope; reuse any retained reports for independently returned candidates.
+2 Thessalonians, 1 Timothy, 2 Timothy, Titus, and Philemon scopes are complete.
+Other books remain unsearched despite reused contents. Jude within the same ID
+range is the next suggested bounded scope; reuse any retained reports for
+independently returned candidates.

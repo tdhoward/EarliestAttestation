@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10133",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 04:14:54 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791346494083",
+    "X-Request-Post-Validation-Epoch": "1791346494084",
+    "X-Request-Response-Epoch": "1791346494087",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1132",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10133,\"indexContent\":[\"1Tim 3:13-4:8\",{\"docID\":10133,\"osisID\":\"1Tim.3.13\",\"indexContent\":2015003013,\"pageID\":10},{\"docID\":10133,\"osisID\":\"1Tim.3.14\",\"indexContent\":2015003014,\"pageID\":10},{\"docID\":10133,\"osisID\":\"1Tim.3.15\",\"indexContent\":2015003015,\"pageID\":10},{\"docID\":10133,\"osisID\":\"1Tim.3.16\",\"indexContent\":2015003016,\"pageID\":10},{\"docID\":10133,\"osisID\":\"1Tim.4\",\"indexContent\":2015004000,\"pageID\":10},{\"docID\":10133,\"osisID\":\"1Tim.4.1\",\"indexContent\":2015004001,\"pageID\":10},{\"docID\":10133,\"osisID\":\"1Tim.4.2\",\"indexContent\":2015004002,\"pageID\":10},{\"docID\":10133,\"osisID\":\"1Tim.4.3\",\"indexContent\":2015004003,\"pageID\":10},{\"docID\":10133,\"osisID\":\"1Tim.4.3\",\"indexContent\":2015004003,\"pageID\":20},{\"docID\":10133,\"osisID\":\"1Tim.4.4\",\"indexContent\":2015004004,\"pageID\":20},{\"docID\":10133,\"osisID\":\"1Tim.4.5\",\"indexContent\":2015004005,\"pageID\":20},{\"docID\":10133,\"osisID\":\"1Tim.4.6\",\"indexContent\":2015004006,\"pageID\":20},{\"docID\":10133,\"osisID\":\"1Tim.4.7\",\"indexContent\":2015004007,\"pageID\":20},{\"docID\":10133,\"osisID\":\"1Tim.4.8\",\"indexContent\":2015004008,\"pageID\":20}]}}}",
+  "body_sha256": "28c4c83f87bcaba5fb2e1728eee2967db341875a474096e31ffe2e2ef9207d0f",
+  "retrieved_at": "2026-10-07T04:14:54+00:00"
+}

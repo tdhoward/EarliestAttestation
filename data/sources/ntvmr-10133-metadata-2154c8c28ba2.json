@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10133",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 04:14:48 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791346488872",
+    "X-Request-Post-Validation-Epoch": "1791346488873",
+    "X-Request-Response-Epoch": "1791346488878",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2901",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10133,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P133\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":499,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Art, Archaeology and Ancient World Library\",\"place\":\"Oxford\",\"logoURL\":\"https://pbs.twimg.com/profile_images/1789959363588763648/0XlnKdqo_400x400.png\",\"url\":\"https://www.bodleian.ox.ac.uk/libraries/art\"},\"leavesDescription\":\"3 Frg.\",\"shelfID\":6010,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Oxy. 5259\",\"contentOverview\":\"1 Tim 3,13-4,8\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"III\"},\"leavesDescription\":\"3 Frg.\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"1Tim 3:13-4:3\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10133/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10133/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10133/10133x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10133/10133x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6010,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"1Tim 3:13-4:3\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10133&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"andrew.smith\"},{\"biblicalContent\":\"1Tim 4:3-8\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10133/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10133/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10133/10133x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10133/10133x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6010,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"1Tim 4:3-8\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10133&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"andrew.smith\"}]},\"gaNum\":\"P133\",\"leaves\":{\"leavesCount\":0,\"content\":\"3 Frg.\"},\"lang\":\"grc\",\"contentOverview\":\"p: 1T\",\"lineCount\":{\"lineCountMax\":28,\"lineCountMin\":25,\"content\":\"28, 25\"}}}}",
+  "body_sha256": "52a31d798d826b824959ed701d60ce604ae9da9a4c7fd66a5685c91b2a3b01ef",
+  "retrieved_at": "2026-10-07T04:14:48+00:00"
+}

@@ -643,7 +643,7 @@ class ExplorerTests(unittest.TestCase):
         self.assertEqual(len({ref.split('.')[0] for ref, _ in data["coordinates"]}), 27)
         self.assertEqual(len(data["observations"]), 7941)
         self.assertNotIn("Rom.16.24", data["observations"])
-        self.assertEqual(len(data["dates"]), 24)
+        self.assertEqual(len(data["dates"]), 25)
         self.assertEqual(data["metadata"]["counts"], self.graph["counts"])
 
     def test_rankings_and_provenance_survive_compaction(self):

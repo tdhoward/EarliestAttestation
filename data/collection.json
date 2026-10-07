@@ -175,6 +175,12 @@
       "corpus": "greek_nt_manuscript",
       "metadata_fixture": "sources/ntvmr-10032-metadata-ad1b54d7b5ee.json",
       "coverage_fixture": "sources/ntvmr-10032-coverage-7a81028829dd.json"
+    },
+    {
+      "doc_id": 10133,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10133-metadata-2154c8c28ba2.json",
+      "coverage_fixture": "sources/ntvmr-10133-coverage-3c3bdecf20c0.json"
     }
   ],
   "additional_reports": [],

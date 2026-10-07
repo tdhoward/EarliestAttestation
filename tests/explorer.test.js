@@ -514,7 +514,7 @@ test("full NT report expansion navigates sources, endpoints, unknowns, and suppl
   assert.deepEqual(model.cell(model.lookup("1Cor 1:1"), "optimistic").events.map(e => e.event_year), [200, 300, 400, 700]);
   assert.deepEqual(model.cell(model.lookup("1Cor 1:1"), "pessimistic").events.map(e => e.event_year), [225, 399, 499, 725]);
   const hebrews = model.cell(model.lookup("Heb 1:1"), "optimistic");
-  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, 24);
+  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, model.data.documents.length);
   assert.equal(model.store.observation(hebrews.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10012").state, "present");
   assert.equal(model.minimum, 150); assert.equal(model.maximum, 750);
 });
@@ -550,7 +550,7 @@ test("Philemon reports preserve endpoints, exact verse entries, and bounded disc
         }
       }
     }
-    assert.equal(model.discovery(model.lookup("2Tim 1:1")).state, "not_searched");
+    assert.equal(model.discovery(model.lookup("Jude 1:1")).state, "not_searched");
   }
 });
 
@@ -691,7 +691,7 @@ test("Colossians discovery keeps reused reports, chart endpoints, and missing en
         assert.equal(model.discovery(model.lookup(ref)).state, "bounded_search_complete");
       }
     }
-    assert.equal(model.discovery(model.lookup("2Tim 1:1")).state, "not_searched");
+    assert.equal(model.discovery(model.lookup("Jude 1:1")).state, "not_searched");
   }
 });
 
@@ -724,7 +724,67 @@ test("P32 Titus reports add single chart events with complete endpoints and keep
         }
       }
     }
-    assert.equal(model.discovery(model.lookup("2Tim 1:1")).state, "not_searched");
+    assert.equal(model.discovery(model.lookup("Jude 1:1")).state, "not_searched");
+  }
+});
+
+test("empty 2 Timothy index completes bounded discovery while P133 coverage stays unknown", () => {
+  for (const input of [current, packedCurrent]) {
+    const model = createModel(input);
+    for (const ref of ["2Tim 1:1", "2Tim 4:22"]) {
+      const index = model.lookup(ref), discovery = model.discovery(index);
+      assert.equal(discovery.state, "bounded_search_complete");
+      assert.match(discovery.text, /all 0 search candidates collected/);
+      assert.match(discovery.text, /Other catalogue ranges and unindexed witnesses remain outside this search/);
+      const reported = model.store.summary(model.data.coordinates[index][0]).discovery;
+      assert.equal(reported.corpus_complete, false);
+      assert.equal(reported.scopes[0].book_candidate_count, 0);
+      assert.deepEqual(reported.scopes[0].pending_candidate_ids, []);
+      for (const scenario of ["optimistic", "pessimistic"]) {
+        const cell = model.cell(index, scenario);
+        const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10133");
+        assert.equal(pair.state, "unknown");
+        assert.deepEqual(pair.claims, []);
+        assert.ok(cell.events.every(e => e.witness_id !== "ntvmr:10133"));
+      }
+    }
+    assert.equal(model.discovery(model.lookup("Jude 1:1")).state, "not_searched");
+  }
+});
+
+test("P133 keeps both page reports for 1 Timothy 4:3 and contributes one chart event", () => {
+  const present = [13, 14, 15, 16].map(v => `1Tim 3:${v}`)
+    .concat([1, 2, 3, 4, 5, 6, 7, 8].map(v => `1Tim 4:${v}`));
+  const unknown = ["1Tim 3:12", "1Tim 4:9"];
+  for (const input of [current, packedCurrent]) {
+    const model = createModel(input);
+    for (const ref of [...present, ...unknown]) {
+      const index = model.lookup(ref), isPresent = present.includes(ref);
+      assert.equal(model.discovery(index).state, "bounded_search_complete");
+      for (const [scenario, year] of [["optimistic", 200], ["pessimistic", 299]]) {
+        const cell = model.cell(index, scenario);
+        const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10133");
+        const events = cell.events.filter(e => e.witness_id === "ntvmr:10133");
+        assert.equal(pair.state, isPresent ? "present" : "unknown");
+        assert.equal(events.length, isPresent ? 1 : 0);
+        if (isPresent) {
+          assert.equal(events[0].event_year, year);
+          assert.ok(pair.claims.length);
+          for (const id of pair.claims) {
+            const claim = model.store.claim(id);
+            assert.equal(claim.reported.osisID, cell.ref);
+            assert.equal(claim.reported_indexing_tier, 3);
+            assert.ok(claim.citation.startsWith("https://ntvmr.uni-muenster.de/"));
+          }
+          if (cell.ref === "1Tim.4.3") {
+            assert.equal(pair.claims.length, 2);
+            assert.deepEqual(pair.claims.map(id => model.store.claim(id).page_id).sort((a, b) => a - b), [10, 20]);
+          }
+        } else {
+          assert.deepEqual(pair.claims, []);
+        }
+      }
+    }
   }
 });
 
