@@ -137,11 +137,19 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 
 ## Next development work
 
-1. Broaden bounded independent witness discovery. Declare a book/range and request
-   budget; reuse each document's metadata and contents; update the central register.
+1. Broaden bounded independent witness discovery to all 27 books across papyri,
+   majuscules, minuscules, and lectionaries. The
+   [planned catalogue scope](BOUNDED_WITNESS_DISCOVERY.md#planned-catalogue-scope)
+   defines the four ID ranges. Declare independent book/category or smaller range
+   scopes with request budgets; reuse each document's metadata and contents;
+   update the central register.
    Do not constrain discovery to the witnesses already collected for nearby verses.
+   The earliest five are ranked per verse and may span categories and widely
+   separated dates. Continue toward the full planned scope even where five
+   witnesses or early papyrus attestations have already been collected.
    A useful next scope is Jude within IDs 10000–19999, searching for candidates
-   independently and reusing any retained reports for returned witnesses.
+   independently and reusing any retained reports for returned witnesses. This
+   immediate step does not limit the eventual discovery target to papyri.
 2. Establish provider access expectations before bulk collection. Use the
    owner-supplied local proxy when direct access is unavailable; cite canonical
    NTVMR endpoints. Preserve blocked states, honor limits, and do not change
@@ -161,5 +169,8 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 - Every active claim is attributable to a scholarly source. Explicit disagreement
   is retained and deferred; missing information remains unknown.
 - Discovery completeness is scoped independently of coverage and rankability.
+- Progress toward all four categories is supported by independently recorded
+  book/range searches. Completing a declared scope does not complete unsearched
+  categories or establish exhaustive manuscript-corpus discovery.
 - Offline source, normalization, data-loading, and chart tests pass. No manuscript
   examination, local server launch, or live request is part of routine verification.

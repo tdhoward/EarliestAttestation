@@ -3,8 +3,40 @@
 Candidate discovery is independent of the witness pool already collected.
 Reusing a document's contents report supplies explicit verse claims; it does
 not establish that all earlier witnesses for another verse have been found.
-The app therefore ranks **earliest collected witnesses** and displays discovery
-status separately from reported contents and date rankability.
+The app therefore ranks up to five **earliest collected witnesses per verse**,
+including in the book view, and displays discovery status separately from
+reported contents and date rankability.
+
+## Planned catalogue scope
+
+The discovery target is all 27 New Testament books across all four NTVMR Greek
+NT manuscript categories, using independently budgeted book/category or smaller
+range searches:
+
+| NTVMR document ID range | Manuscript category |
+| --- | --- |
+| 10000–19999 | Papyri |
+| 20000–29999 | Majuscules |
+| 30000–39999 | Minuscules |
+| 40000–49999 | Lectionaries |
+
+The first digit identifies the category; the remaining four encode the
+Gregory–Aland number. For example, 10045 identifies P45. See the
+[NTVMR usage guide](https://digitalorientalist.com/2023/02/28/a-guide-for-using-the-new-testament-virtual-manuscript-room-part-1/)
+for this ID convention. Categories and ID order do not establish manuscript age.
+
+A verse's fifth earliest collected witness may date much later than its first,
+and the five may span categories. Late results can motivate broader searches,
+but neither finding five witnesses nor finding early papyri completes the
+planned discovery target. Discover candidates independently in all four
+categories and rank them using their scholarly contents and date reports.
+
+This is planned scope, not completed coverage. Current discovery flags evaluate
+only scopes registered in `data/discovery.json`; they do not automatically
+require all four categories. Record each searched book/range independently and
+retain its qualifications when reporting completion. Completing every planned
+indexed search still does not establish exhaustive coverage of unindexed
+witnesses; the [discovery states](#meaning-and-states) retain that distinction.
 
 ## Central collection workflow
 

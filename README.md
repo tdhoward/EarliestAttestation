@@ -17,7 +17,8 @@ browsers generally restrict automatic reads of neighboring files under `file://`
 Navigate the full New Testament timeline, zoom into a book, enter a verse, and
 switch between the lower and upper endpoints of reported date ranges. Source
 claims, complete date alternatives, unknown and contested states, and discovery
-scope remain inspectable. Rankings describe **earliest collected witnesses**.
+scope remain inspectable. Rankings describe up to five **earliest collected
+witnesses per verse**, including when viewing a whole book.
 
 ## One collection, one app
 
@@ -53,7 +54,7 @@ no exact match in the retained contents reports and remain unknown. Unknown
 includes missing reports for fragmentary witnesses; it does not mean absence.
 Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
 2 Thessalonians, 1 Timothy, 2 Timothy, Titus, and Philemon have completed bounded
-indexed searches for IDs 10000–19999; discovery across the wider catalogue
+indexed searches for IDs 10000–19999 (papyri); discovery across the wider catalogue
 remains incomplete. The latest two searches used four successful requests in
 separate 25-attempt budgets. The 2 Timothy index returned no candidates in that
 range, without establishing absence. The 1 Timothy search collected P133's
@@ -78,6 +79,15 @@ reuses existing document captures, saves new reports to `data/sources/`, updates
 the central registers, and refreshes the app data. It does not generate charts.
 See [bounded discovery](docs/BOUNDED_WITNESS_DISCOVERY.md) for the definition
 format, limits, and resume behavior.
+
+The planned discovery target is all 27 books across all four NTVMR manuscript
+categories: papyri, majuscules, minuscules, and lectionaries. Expand through
+independently budgeted book/category searches and reuse retained reports.
+Categories do not determine chronological rank: a much later witness can still
+be among a verse's earliest five collected witnesses. Finding five witnesses or
+completing a papyrus-only search does not complete that broader target. See the
+[planned catalogue scope](docs/BOUNDED_WITNESS_DISCOVERY.md#planned-catalogue-scope)
+for ID ranges and completion qualifications.
 
 When direct NTVMR access is unavailable, use the owner's local API proxy.
 The current address is `http://192.168.0.119:8889`; this is the only concrete
