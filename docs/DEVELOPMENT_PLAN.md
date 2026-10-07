@@ -78,8 +78,12 @@ Five isolated Node processes per path, with the same input, warm-up and explicit
 GC procedure, measured median retained heap after 2,000 selections at **16.72 MB**
 for shared runtime data versus **66.99 MB** for full expansion on the same revision:
 a **75.04%** reduction. The guide records parse/model/chart/selection measurements
-and practical limits; these are not browser or peak-memory benchmarks. Work stops
-at Phase 5 at the owner's request. HTTP compression (Phase 6) remains pending.
+and practical limits; these are not browser or peak-memory benchmarks. Phase 6's
+offline audit and hosting handoff are complete: gzip level 6 yields **318,653
+bytes** and level 9 yields **305,645 bytes**, with exact byte restoration and
+deterministic output. No app deployment configuration exists in the repository.
+HTTP compression activation and live header verification remain pending at the
+eventual host; the guide documents the required URL, headers, and negotiation.
 Both build `--check` commands, all **134 Python tests**, all **37 Node tests**,
 and the final focused runtime checks passed offline.
 
@@ -108,8 +112,11 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
    witnesses, usable reports, graphable coordinates, unresolved records, request
    cost, and browser data size. Prefer concrete bottlenecks over new infrastructure.
    Phases 0–5 of the [data size and memory optimization guide](DATA_SIZE_OPTIMIZATION.md)
-   are complete; the current work authorization stops at Phase 5. When separately
-   authorized, continue with Phase 6's deployment compression where supported.
+   are complete, along with Phase 6's offline compression audit and hosting
+   handoff. When a deployment is available, enable JSON compression at its host
+   or proxy and verify response headers and exact decoded bytes. Keep the
+   canonical JSON and existing local loading; no app or local-server change is
+   needed for this deployment task.
 
 ## Acceptance
 

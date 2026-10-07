@@ -75,10 +75,28 @@ newlines. This is an **83.91%** reduction from version 2. Phase 5 retains shared
 in the running app; five isolated Node runs per path measured median retained heap
 after repeated selection at **16.72 MB**, compared with **66.99 MB** for full
 expansion on the same revision. See the [measurement method and results](DATA_SIZE_OPTIMIZATION.md#phase-5-retain-shared-data-in-the-running-app).
-HTTP compression (Phase 6) remains pending; browser memory remains unmeasured.
+Phase 6's offline audit measured **305,645 bytes** with gzip level 9 and verified
+exact byte restoration. Deployment activation remains pending because no hosting
+configuration exists in the repository; browser memory remains unmeasured.
 The browser uses the computed events
 without reinterpreting sources. Raw reports stay in the central source directory;
 collection updates change only the data.
+
+## Hosting compression
+
+Enable gzip or Brotli for JSON through the deployment host or proxy while keeping
+`data/attestations.json` at the same relative URL with `Content-Type: application/json`.
+Compressed responses need the matching `Content-Encoding: gzip` or `br`; negotiated
+responses need `Vary: Accept-Encoding`. Uncompressed responses omit
+`Content-Encoding`. Verify actual response headers and exact decompressed JSON
+bytes when an authorized deployment is available. See the
+[hosting contract and offline measurement command](DATA_SIZE_OPTIMIZATION.md#phase-6-transport-compression-where-deployment-supports-it).
+
+The browser continues to use `response.json()` and the JSON file picker.
+`data/attestations.json` remains ordinary JSON; compression belongs to delivery
+at the host. The existing `npm start` command uses Python's simple static server
+and does not enable HTTP compression. Offline gzip measurements do not establish
+that any deployment serves compressed data.
 
 ## Verification
 

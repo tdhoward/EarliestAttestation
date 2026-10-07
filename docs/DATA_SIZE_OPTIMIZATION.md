@@ -1,14 +1,15 @@
 # App data size and memory optimization guide
 
-Status: Phases 0–5 completed on 2026-10-06; Phase 6 remains planned.
+Status: Phases 0–5 completed on 2026-10-06; Phase 6's offline audit and hosting
+handoff completed on 2026-10-06. Deployment compression activation remains pending.
 The production writer and current data now use the complete numeric version 3
 schema. Python and JavaScript restore every field exactly, with version 1 and 2
 compatibility retained. The app now retains shared read-only data for charting and
-resolves full observations only for selection. HTTP compression remains pending.
-Work stops at Phase 5 at the owner's request. This guide is based on offline work
-on 2026-10-06. Complete later phases in order when authorized, with the focused
-checks below before moving on.
-Phase 6 depends on the deployment environment.
+resolves full observations only for selection. Repository work is complete
+through compression measurements and hosting requirements.
+There is no deployment configuration in this repository to enable HTTP compression.
+Activation and live response-header verification depend on a deployment environment.
+This guide is based on offline work on 2026-10-06.
 
 ## Objective and constraints
 
@@ -539,8 +540,8 @@ stay in ignored `data/.cache/size-optimization-phase5-2026-10-06/`.
 The production JSON remains **2,007,743 bytes**, down **83.91%** from the
 12,476,223-byte version 2 baseline. The writer, source registers, captures, and
 reference inputs are unchanged. No new compressed-size measurement or transport
-configuration work was performed. Phase 6 remains pending and outside this
-authorization; browser memory remains unmeasured.
+configuration work was performed during Phase 5. Phase 6's subsequent offline
+work is recorded below; browser memory remains unmeasured.
 
 The completed scope was:
 
@@ -603,6 +604,48 @@ separately inspected through an explicitly requested browser run.
 
 ## Phase 6: transport compression where deployment supports it
 
+Offline audit and hosting handoff completed on 2026-10-06. Deployment activation
+remains explicitly pending. The repository contains no app deployment, host/proxy,
+or CI configuration to edit or validate. Its only server command is `npm start`,
+which runs `python -m http.server 8000 --bind 127.0.0.1`. No deployment was available
+for response-header verification.
+
+The exact current JSON bytes, including the final newline, were compressed in
+memory with Python 3.12.6 and zlib 1.3.1 using `gzip.compress(..., mtime=0)`.
+For each level, decompression restored the original bytes exactly and a second
+compression produced identical bytes. The canonical input's SHA-256 was
+`a3136b21900a97197338f0732812c654c995559354925b06dd3e6b9b7937b88f`.
+
+| Representation | Bytes | Reduction from canonical JSON |
+| --- | ---: | ---: |
+| Canonical version 3 JSON | 2,007,743 | — |
+| Gzip level 6 | 318,653 | 84.13% |
+| Gzip level 9 | 305,645 | 84.78% |
+
+These are offline sizes, not deployed transfer measurements. Brotli was not
+measured. Measurements and hashes remain in ignored
+`data/.cache/size-optimization-phase6-2026-10-06/compression-measurements.json`;
+the cache is not a build input. No compressed product file was created.
+
+The hosting requirement is to enable the chosen host or proxy's supported gzip
+or Brotli compression for JSON at the existing data URL
+(`../../data/attestations.json` relative to the app directory).
+When negotiating encodings, return `Vary: Accept-Encoding` alongside any existing
+`Vary` fields. An actual gzip response must include:
+
+```http
+Content-Type: application/json
+Content-Encoding: gzip
+Vary: Accept-Encoding
+```
+
+Use `Content-Encoding: br` for an actual Brotli response. Serve ordinary JSON
+without `Content-Encoding` to clients receiving an uncompressed representation.
+Setting headers alone does not compress the body. The host must serve the same
+logical JSON for each representation and preserve the app/data relative paths.
+Activation is complete only after host configuration and authorized deployment
+checks verify those headers and exact decompressed bytes.
+
 Keep `attestations.json` as the canonical JSON artifact and preserve direct local
 file loading. HTTP compression is a separate delivery optimization; it does not
 replace the storage or memory changes above.
@@ -626,7 +669,37 @@ Use any existing offline configuration validation. Do not launch a server or
 probe localhost for this phase. Live response-header checks require an available,
 authorized deployment verification context.
 
+To repeat the offline measurement from the repository root without creating a
+compressed file:
+
+```powershell
+@'
+import gzip
+from pathlib import Path
+
+raw = Path("data/attestations.json").read_bytes()
+print(f"JSON: {len(raw):,} bytes")
+for level in (6, 9):
+    encoded = gzip.compress(raw, compresslevel=level, mtime=0)
+    assert gzip.decompress(encoded) == raw
+    assert encoded == gzip.compress(raw, compresslevel=level, mtime=0)
+    print(f"gzip level {level}: {len(encoded):,} bytes; exact round trip")
+'@ | python -
+```
+
 ## Completion and handoff
+
+Phase 6 offline handoff on 2026-10-06: the deployment audit found no configuration
+to edit. Gzip levels 6 and 9 restored the exact canonical bytes and were
+deterministic, with sizes of **318,653** and **305,645 bytes** respectively.
+Both build `--check` commands, all **37 Node tests**, and `git diff --check`
+passed; the canonical JSON remains **2,007,743 bytes**, and collection inputs and
+app code are unchanged. The hosting contract
+above is the remaining deployment task: enable compression and verify live
+headers and decoded bytes when a deployment is available. No server, localhost
+probe, or live request was used. Earlier exact normalized/cross-language,
+chart-equivalence, and Node memory results remain recorded below; this phase
+does not introduce new codec or browser-memory measurements.
 
 Phase 5 handoff on 2026-10-06: `python build_collection.py --check`,
 `python build_na28_inventory.py --check`, all **134 Python tests**, all **37 Node

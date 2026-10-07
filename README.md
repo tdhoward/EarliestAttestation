@@ -65,8 +65,11 @@ observations only for the selected verse. Previous version 1 and 2 files still
 load through fetch and the local file picker; the explicit full-expansion API
 preserves every field as independently mutable data. Phase 5's isolated Node
 measurements reduced retained heap after repeated selection from **66.99 MB to
-16.72 MB** (75.04%); browser memory remains unmeasured. HTTP compression (Phase 6)
-remains pending in [the optimization guide](docs/DATA_SIZE_OPTIMIZATION.md).
+16.72 MB** (75.04%); browser memory remains unmeasured. Offline gzip level 9
+reduces the current JSON to **305,645 bytes**, restoring its exact bytes when
+decompressed. Deployment compression activation remains pending because this
+repository has no hosting configuration. See the
+[hosting requirements and measurements](docs/DATA_SIZE_OPTIMIZATION.md#phase-6-transport-compression-where-deployment-supports-it).
 
 ## Collect more data
 
