@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20127",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:37:26 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394647644",
+    "X-Request-Post-Validation-Epoch": "1791394647645",
+    "X-Request-Response-Epoch": "1791394647657",
+    "X-Response-Time": "13ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2736",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20127,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":127,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"France\",\"instID\":67,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliothèque Nationale\",\"place\":\"Paris\",\"logoURL\":\"http://ntmss.info/instlogos/BNF.jpg\",\"url\":\"http://www.bnf.fr/fr/acc/x.accueil.html\"},\"leavesDescription\":1,\"shelfID\":203,\"originYearDescription\":\"VIII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Copte 129,10, fol. 207\",\"contentOverview\":\"J 2,2-11\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":799,\"early\":700,\"content\":\"VIII\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"John 2:2-7\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20127/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://egora.uni-muenster.de/intf/ \\\"><img src=\\\"http://www.uni-muenster.de/wwucd/images/allgemein/farbunabhaengig/wwu_logo.gif\\\"><div>Images ©<br/> The holding Institution - images digizited by INTF for research purposes </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20127/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":203,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"John 2:2-7\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"gerloff\"},{\"biblicalContent\":\"John 2:8-11\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20127/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://egora.uni-muenster.de/intf/ \\\"><img src=\\\"http://www.uni-muenster.de/wwucd/images/allgemein/farbunabhaengig/wwu_logo.gif\\\"><div>Images ©<br/> The holding Institution - images digizited by INTF for research purposes </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20127/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":203,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"John 2:8-11\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"}]},\"gaNum\":127,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":212},\"lang\":\"g\",\"contentOverview\":\"e: J\",\"lineCount\":{\"lineCountMin\":22,\"content\":22},\"height\":{\"heightMin\":265}}}}",
+  "body_sha256": "6e5561b6bb81eda6a426c6d69044e88fe8d3b95db9c0b004c42b3a34a312372e",
+  "retrieved_at": "2026-10-07T17:37:27+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

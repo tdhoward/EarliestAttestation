@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20161",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:43:42 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395022868",
+    "X-Request-Post-Validation-Epoch": "1791395022869",
+    "X-Request-Response-Epoch": "1791395022872",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1731",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20161,\"indexContent\":[\"Matt 22:7-11; Matt 22:15-18; Matt 22:28-32; Matt 22:40-46\",{\"docID\":20161,\"osisID\":\"Matt.22.7\",\"indexContent\":2001022007,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.8\",\"indexContent\":2001022008,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.9\",\"indexContent\":2001022009,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.10\",\"indexContent\":2001022010,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.11\",\"indexContent\":2001022011,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.15\",\"indexContent\":2001022015,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.16\",\"indexContent\":2001022016,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.17\",\"indexContent\":2001022017,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.18\",\"indexContent\":2001022018,\"pageID\":10},{\"docID\":20161,\"osisID\":\"Matt.22.28\",\"indexContent\":2001022028,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.29\",\"indexContent\":2001022029,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.30\",\"indexContent\":2001022030,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.31\",\"indexContent\":2001022031,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.32\",\"indexContent\":2001022032,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.40\",\"indexContent\":2001022040,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.41\",\"indexContent\":2001022041,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.42\",\"indexContent\":2001022042,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.43\",\"indexContent\":2001022043,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.44\",\"indexContent\":2001022044,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.45\",\"indexContent\":2001022045,\"pageID\":20},{\"docID\":20161,\"osisID\":\"Matt.22.46\",\"indexContent\":2001022046,\"pageID\":20}]}}}",
+  "body_sha256": "461be4c90fc71cc3ace32de859f03db9acc36f48a67017ca058de7312e04f405",
+  "retrieved_at": "2026-10-07T17:43:42+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

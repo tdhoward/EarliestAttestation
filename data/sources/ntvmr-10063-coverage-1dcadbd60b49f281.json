@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10063",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:02:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392529138",
+    "X-Request-Post-Validation-Epoch": "1791392529140",
+    "X-Request-Response-Epoch": "1791392529143",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "630",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10063,\"indexContent\":[\"John 3:14-18; John 4:9-10\",{\"docID\":10063,\"osisID\":\"John.3.14\",\"indexContent\":2004003014,\"pageID\":10},{\"docID\":10063,\"osisID\":\"John.3.15\",\"indexContent\":2004003015,\"pageID\":10},{\"docID\":10063,\"osisID\":\"John.3.16\",\"indexContent\":2004003016,\"pageID\":20},{\"docID\":10063,\"osisID\":\"John.3.17\",\"indexContent\":2004003017,\"pageID\":20},{\"docID\":10063,\"osisID\":\"John.3.18\",\"indexContent\":2004003018,\"pageID\":20},{\"docID\":10063,\"osisID\":\"John.4.9\",\"indexContent\":2004004009,\"pageID\":30},{\"docID\":10063,\"osisID\":\"John.4.10\",\"indexContent\":2004004010,\"pageID\":40}]}}}",
+  "body_sha256": "ee78e3d1c4ec79099be57aab0c7be14b2005ab85572b5792532bbcdecc6e1043",
+  "retrieved_at": "2026-10-07T17:02:09+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

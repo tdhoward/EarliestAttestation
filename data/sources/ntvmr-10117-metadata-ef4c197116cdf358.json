@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10117",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:10:24 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393024152",
+    "X-Request-Post-Validation-Epoch": "1791393024153",
+    "X-Request-Response-Epoch": "1791393024158",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3340",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10117,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P117\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":41,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Staats- und Universitätsbibliothek\",\"place\":\"Hamburg\",\"logoURL\":\"http://ntmss.info/instlogos/SUB_Hamburg.jpg\",\"url\":\"https://www.sub.uni-hamburg.de/startseite.html\"},\"leavesDescription\":\"Frg\",\"shelfID\":103,\"originYearDescription\":\"IV/V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Hamb. Inv. NS 1002\",\"contentOverview\":\"pP: 2K\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":300,\"content\":\"IV/V\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"2Cor 7:6-8\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10117/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P117\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10117/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":103,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"2Cor 7:6-8\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10117&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"ECM\"},{\"biblicalContent\":\"2Cor 7:9-11\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10117/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P117\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10117/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":103,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"2Cor 7:9-11\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10117&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"ECM\"}]},\"gaNum\":\"P117\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":110},\"lang\":\"g\",\"contentOverview\":\"p: 2K\",\"lineCount\":{\"lineCountMin\":11,\"content\":11},\"height\":{\"heightMin\":150}}}}",
+  "body_sha256": "15b4f8873ce84c7b8796e856ce87fff9ca06dd3535ebba10976f78e3dcf21d59",
+  "retrieved_at": "2026-10-07T17:10:24+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

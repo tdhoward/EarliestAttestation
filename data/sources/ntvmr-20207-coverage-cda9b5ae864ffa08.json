@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20207",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:51:48 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395508184",
+    "X-Request-Post-Validation-Epoch": "1791395508185",
+    "X-Request-Response-Epoch": "1791395508187",
+    "X-Response-Time": "3ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1203",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20207,\"indexContent\":[\"Rev 9:7-15; Rev 9:2-7\",{\"docID\":20207,\"osisID\":\"Rev.9.7\",\"indexContent\":2027009007,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.8\",\"indexContent\":2027009008,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.9\",\"indexContent\":2027009009,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.10\",\"indexContent\":2027009010,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.11\",\"indexContent\":2027009011,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.12\",\"indexContent\":2027009012,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.13\",\"indexContent\":2027009013,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.14\",\"indexContent\":2027009014,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.15\",\"indexContent\":2027009015,\"pageID\":10},{\"docID\":20207,\"osisID\":\"Rev.9.2\",\"indexContent\":2027009002,\"pageID\":20},{\"docID\":20207,\"osisID\":\"Rev.9.3\",\"indexContent\":2027009003,\"pageID\":20},{\"docID\":20207,\"osisID\":\"Rev.9.4\",\"indexContent\":2027009004,\"pageID\":20},{\"docID\":20207,\"osisID\":\"Rev.9.5\",\"indexContent\":2027009005,\"pageID\":20},{\"docID\":20207,\"osisID\":\"Rev.9.6\",\"indexContent\":2027009006,\"pageID\":20},{\"docID\":20207,\"osisID\":\"Rev.9.7\",\"indexContent\":2027009007,\"pageID\":20}]}}}",
+  "body_sha256": "6b2ac1e5e6bc0450fc3e43199fc38a1e9d8fb1fd38696e21c9b83053a351a1aa",
+  "retrieved_at": "2026-10-07T17:51:48+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

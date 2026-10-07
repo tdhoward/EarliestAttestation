@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20206",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:51:37 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395497656",
+    "X-Request-Post-Validation-Epoch": "1791395497657",
+    "X-Request-Response-Epoch": "1791395497660",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "836",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20206,\"indexContent\":[\"1Pet 5:5-13\",{\"docID\":20206,\"osisID\":\"1Pet.5.5\",\"indexContent\":2021005005,\"pageID\":10},{\"docID\":20206,\"osisID\":\"1Pet.5.6\",\"indexContent\":2021005006,\"pageID\":10},{\"docID\":20206,\"osisID\":\"1Pet.5.7\",\"indexContent\":2021005007,\"pageID\":10},{\"docID\":20206,\"osisID\":\"1Pet.5.8\",\"indexContent\":2021005008,\"pageID\":10},{\"docID\":20206,\"osisID\":\"1Pet.5.9\",\"indexContent\":2021005009,\"pageID\":10},{\"docID\":20206,\"osisID\":\"1Pet.5.9\",\"indexContent\":2021005009,\"pageID\":20},{\"docID\":20206,\"osisID\":\"1Pet.5.10\",\"indexContent\":2021005010,\"pageID\":20},{\"docID\":20206,\"osisID\":\"1Pet.5.11\",\"indexContent\":2021005011,\"pageID\":20},{\"docID\":20206,\"osisID\":\"1Pet.5.12\",\"indexContent\":2021005012,\"pageID\":20},{\"docID\":20206,\"osisID\":\"1Pet.5.13\",\"indexContent\":2021005013,\"pageID\":20}]}}}",
+  "body_sha256": "691d332734181671fd532fc7542c5967a526df7a5f1e700d6b0dd3bc0e8e8184",
+  "retrieved_at": "2026-10-07T17:51:37+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10083",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:05:24 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392724034",
+    "X-Request-Post-Validation-Epoch": "1791392724035",
+    "X-Request-Response-Epoch": "1791392724039",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "749",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10083,\"indexContent\":[\"Matt 20:23-25; Matt 20:30-31; Matt 23:39; Matt 24:1; Matt 24:6\",{\"docID\":10083,\"osisID\":\"Matt.20.23\",\"indexContent\":2001020023,\"pageID\":10},{\"docID\":10083,\"osisID\":\"Matt.20.24\",\"indexContent\":2001020024,\"pageID\":10},{\"docID\":10083,\"osisID\":\"Matt.20.25\",\"indexContent\":2001020025,\"pageID\":10},{\"docID\":10083,\"osisID\":\"Matt.20.30\",\"indexContent\":2001020030,\"pageID\":20},{\"docID\":10083,\"osisID\":\"Matt.20.31\",\"indexContent\":2001020031,\"pageID\":20},{\"docID\":10083,\"osisID\":\"Matt.23.39\",\"indexContent\":2001023039,\"pageID\":30},{\"docID\":10083,\"osisID\":\"Matt.24.1\",\"indexContent\":2001024001,\"pageID\":30},{\"docID\":10083,\"osisID\":\"Matt.24.6\",\"indexContent\":2001024006,\"pageID\":40}]}}}",
+  "body_sha256": "e91db58250af91633be65de2482d3f2acd25de92f2247b1ed09a154031fb06db",
+  "retrieved_at": "2026-10-07T17:05:24+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

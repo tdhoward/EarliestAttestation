@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10021",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:55:46 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392146839",
+    "X-Request-Post-Validation-Epoch": "1791392146839",
+    "X-Request-Response-Epoch": "1791392146843",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "489",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10021,\"indexContent\":[\"Matt 12:24-26; Matt 12:32-33\",{\"docID\":10021,\"osisID\":\"Matt.12.24\",\"indexContent\":2001012024,\"pageID\":10},{\"docID\":10021,\"osisID\":\"Matt.12.25\",\"indexContent\":2001012025,\"pageID\":10},{\"docID\":10021,\"osisID\":\"Matt.12.26\",\"indexContent\":2001012026,\"pageID\":10},{\"docID\":10021,\"osisID\":\"Matt.12.32\",\"indexContent\":2001012032,\"pageID\":20},{\"docID\":10021,\"osisID\":\"Matt.12.33\",\"indexContent\":2001012033,\"pageID\":20}]}}}",
+  "body_sha256": "5c1c125409d56269712e4f10d702153917130751d10d58ff38df4c6e8de299ed",
+  "retrieved_at": "2026-10-07T16:55:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

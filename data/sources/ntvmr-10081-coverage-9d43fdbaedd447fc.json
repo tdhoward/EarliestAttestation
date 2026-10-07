@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10081",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:05:02 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392702960",
+    "X-Request-Post-Validation-Epoch": "1791392702961",
+    "X-Request-Response-Epoch": "1791392702965",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1383",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10081,\"indexContent\":[\"1Pet 2:20-25; 1Pet 3:0-1; 1Pet 3:4-12\",{\"docID\":10081,\"osisID\":\"1Pet.2.20\",\"indexContent\":2021002020,\"pageID\":10},{\"docID\":10081,\"osisID\":\"1Pet.2.21\",\"indexContent\":2021002021,\"pageID\":10},{\"docID\":10081,\"osisID\":\"1Pet.2.22\",\"indexContent\":2021002022,\"pageID\":10},{\"docID\":10081,\"osisID\":\"1Pet.2.23\",\"indexContent\":2021002023,\"pageID\":10},{\"docID\":10081,\"osisID\":\"1Pet.2.24\",\"indexContent\":2021002024,\"pageID\":10},{\"docID\":10081,\"osisID\":\"1Pet.2.25\",\"indexContent\":2021002025,\"pageID\":10},{\"docID\":10081,\"osisID\":\"1Pet.3\",\"indexContent\":2021003000,\"pageID\":10},{\"docID\":10081,\"osisID\":\"1Pet.3.1\",\"indexContent\":2021003001,\"pageID\":10},{\"docID\":10081,\"osisID\":\"1Pet.3.4\",\"indexContent\":2021003004,\"pageID\":20},{\"docID\":10081,\"osisID\":\"1Pet.3.5\",\"indexContent\":2021003005,\"pageID\":20},{\"docID\":10081,\"osisID\":\"1Pet.3.6\",\"indexContent\":2021003006,\"pageID\":20},{\"docID\":10081,\"osisID\":\"1Pet.3.7\",\"indexContent\":2021003007,\"pageID\":20},{\"docID\":10081,\"osisID\":\"1Pet.3.8\",\"indexContent\":2021003008,\"pageID\":20},{\"docID\":10081,\"osisID\":\"1Pet.3.9\",\"indexContent\":2021003009,\"pageID\":20},{\"docID\":10081,\"osisID\":\"1Pet.3.10\",\"indexContent\":2021003010,\"pageID\":20},{\"docID\":10081,\"osisID\":\"1Pet.3.11\",\"indexContent\":2021003011,\"pageID\":20},{\"docID\":10081,\"osisID\":\"1Pet.3.12\",\"indexContent\":2021003012,\"pageID\":20}]}}}",
+  "body_sha256": "fb40ed0e0559ab26418824fa6da6d1ce8ff1614f4695a9ef45a27220fd4f71c3",
+  "retrieved_at": "2026-10-07T17:05:03+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

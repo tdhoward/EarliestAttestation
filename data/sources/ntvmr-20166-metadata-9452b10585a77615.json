@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20166",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:44:30 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395070339",
+    "X-Request-Post-Validation-Epoch": "1791395070340",
+    "X-Request-Response-Epoch": "1791395070347",
+    "X-Response-Time": "8ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2936",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20166,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":166,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":42,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Institut für Papyrologie\",\"place\":\"Heidelberg\",\"logoURL\":\"http://ntmss.info/instlogos/PapHeidelberg.jpg\",\"url\":\"http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html\"},\"leavesDescription\":\"Frg\",\"shelfID\":235,\"originYearDescription\":\"V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Heid. Inv. G 1357\",\"contentOverview\":\"Act 28,30-31; Jc 1,11\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Acts 28:30-31\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20166/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html\\\"><img src=\\\"http://www.uni-heidelberg.de/imperia/md/images/layoutgrafiken/schriftzug_papyrologie.gif\\\"><div>Images © Universität Heidelberg<br/>Institut für Papyrologie</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20166/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20166/20166x001.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20166/20166x001.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":235,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Acts 28:30-31\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20166&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"SEL\"},{\"biblicalContent\":\"Jas 1:11\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20166/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html\\\"><img src=\\\"http://www.uni-heidelberg.de/imperia/md/images/layoutgrafiken/schriftzug_papyrologie.gif\\\"><div>Images © Universität Heidelberg<br/>Institut für Papyrologie</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20166/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20166/20166x002.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20166/20166x002.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":235,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Jas 1:11\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"SEL\"}]},\"gaNum\":166,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"width\":{\"widthMin\":74},\"lang\":\"g\",\"contentOverview\":\"a: ActJc\",\"lineCount\":{\"lineCountMin\":9,\"content\":9},\"height\":{\"heightMin\":50}}}}",
+  "body_sha256": "795895a24d5e761f552b1de9bc562201807e1f1e88f52a458d2b6a5fbbec861a",
+  "retrieved_at": "2026-10-07T17:44:30+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

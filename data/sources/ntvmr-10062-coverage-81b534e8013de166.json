@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10062",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:01:58 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392518579",
+    "X-Request-Post-Validation-Epoch": "1791392518580",
+    "X-Request-Response-Epoch": "1791392518584",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1094",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10062,\"indexContent\":[\"Matt inscriptio; Matt 11:25-30\",{\"docID\":10062,\"osisID\":\"Matt\",\"indexContent\":2001000000,\"pageID\":10},{\"docID\":10062,\"osisID\":\"Matt.11.25\",\"indexContent\":2001011025,\"pageID\":20},{\"docID\":10062,\"osisID\":\"Matt.11.25\",\"indexContent\":2001011025,\"pageID\":30},{\"docID\":10062,\"osisID\":\"Matt.11.25\",\"indexContent\":2001011025,\"pageID\":40},{\"docID\":10062,\"osisID\":\"Matt.11.26\",\"indexContent\":2001011026,\"pageID\":40},{\"docID\":10062,\"osisID\":\"Matt.11.27\",\"indexContent\":2001011027,\"pageID\":50},{\"docID\":10062,\"osisID\":\"Matt.11.27\",\"indexContent\":2001011027,\"pageID\":60},{\"docID\":10062,\"osisID\":\"Matt.11.27\",\"indexContent\":2001011027,\"pageID\":70},{\"docID\":10062,\"osisID\":\"Matt.11.28\",\"indexContent\":2001011028,\"pageID\":70},{\"docID\":10062,\"osisID\":\"Matt.11.28\",\"indexContent\":2001011028,\"pageID\":80},{\"docID\":10062,\"osisID\":\"Matt.11.29\",\"indexContent\":2001011029,\"pageID\":80},{\"docID\":10062,\"osisID\":\"Matt.11.29\",\"indexContent\":2001011029,\"pageID\":90},{\"docID\":10062,\"osisID\":\"Matt.11.30\",\"indexContent\":2001011030,\"pageID\":100}]}}}",
+  "body_sha256": "0ac96ca6e59f392ad9b33c6673272c245115bcb682554813b63464fa66e5c3ec",
+  "retrieved_at": "2026-10-07T17:01:58+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

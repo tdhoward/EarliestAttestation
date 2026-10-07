@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10098",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:07:25 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392845092",
+    "X-Request-Post-Validation-Epoch": "1791392845093",
+    "X-Request-Response-Epoch": "1791392845097",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2085",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10098,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P98\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":4,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"French Institute for Eastern Archaeology\",\"place\":\"Cairo\",\"logoURL\":\"\",\"url\":\"http://www.ifao.egnet.net\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":84,\"originYearDescription\":\"II (?)\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. IFAO inv. 237b\",\"contentOverview\":\"Ap 1,13-20\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":250,\"early\":150,\"content\":\"II (?)\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"Rev 1:13-20\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10098/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P98\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10098/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":84,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1v\",\"indexContent\":\"Rev 1:13-20\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10098&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"ECM\"}},\"gaNum\":\"P98\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":70},\"lang\":\"g\",\"contentOverview\":\"r\",\"lineCount\":{\"lineCountMin\":19,\"content\":19},\"height\":{\"heightMin\":130}}}}",
+  "body_sha256": "331dd6c2c3ab5620f1b52f62842da1a485d0ceedbcdd6b85fa2f8ebfc5a0c223",
+  "retrieved_at": "2026-10-07T17:07:25+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

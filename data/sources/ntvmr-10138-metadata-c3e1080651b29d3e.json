@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10138",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:13:12 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393192741",
+    "X-Request-Post-Validation-Epoch": "1791393192742",
+    "X-Request-Response-Epoch": "1791393192747",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3286",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10138,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P138\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":499,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Art, Archaeology and Ancient World Library\",\"place\":\"Oxford\",\"logoURL\":\"https://pbs.twimg.com/profile_images/1789959363588763648/0XlnKdqo_400x400.png\",\"url\":\"https://www.bodleian.ox.ac.uk/libraries/art\"},\"leavesDescription\":\"2 Frg (1fol.)\",\"shelfID\":6127,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P.Oxy. 5346 / 101/219(b)\",\"contentOverview\":\"Lk 13, 13-17. 25-30\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"III\"},\"leavesDescription\":\"2 Frg (1fol.)\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Luke 13:13-17\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10138/10/10\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"https://www.ees.ac.uk/Handlers/Download.ashx?IDMF=45d9d9f7-8df4-4e8f-9eb5-9af2b048ef60\\\">Courtesy of The Egypt Exploration Society<br/></a><a target=\\\"_blank\\\" href=\\\"https://doi.org/10.25446/oxford.20319453.v1\\\">and the University of Oxford Imaging Papyri Project</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10138/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10138/10138x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10138/10138x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6127,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Luke 13:13-17\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10138&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"stewalchofficial\"},{\"biblicalContent\":\"Luke 13:25-30\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10138/20/10\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"https://www.ees.ac.uk/Handlers/Download.ashx?IDMF=45d9d9f7-8df4-4e8f-9eb5-9af2b048ef60\\\">Courtesy of The Egypt Exploration Society<br/></a><a target=\\\"_blank\\\" href=\\\"https://doi.org/10.25446/oxford.20319453.v1\\\">and the University of Oxford Imaging Papyri Project</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10138/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10138/10138x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10138/10138x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6127,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Luke 13:25-30\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10138&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"stewalchofficial\"}]},\"gaNum\":\"P138\",\"leaves\":{\"leavesCount\":0,\"content\":\"2 Frg (1fol.)\"},\"width\":{\"widthMin\":210},\"lang\":\"g\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMax\":14,\"lineCountMin\":13,\"content\":\"13, 14\"},\"height\":{\"heightMin\":165}}}}",
+  "body_sha256": "9986688043a67f760586180f084a0875fcc8830f04da9ac53fa166d00ed5c34f",
+  "retrieved_at": "2026-10-07T17:13:12+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

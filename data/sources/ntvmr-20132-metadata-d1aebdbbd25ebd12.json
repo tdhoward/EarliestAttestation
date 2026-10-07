@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20132",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:38:20 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394700624",
+    "X-Request-Post-Validation-Epoch": "1791394700625",
+    "X-Request-Response-Epoch": "1791394700629",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2815",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20132,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":132,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":250,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Christ Church\",\"place\":\"Oxford\",\"logoURL\":\"http://ntmss.info/instlogos/ChristChurchOxford2.jpg\",\"url\":\"http://www.chch.ox.ac.uk/\"},\"leavesDescription\":1,\"shelfID\":206,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Wake 37, fol. 237\",\"contentOverview\":\"Mc 5,16-40\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Mark 5:16-28\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20132/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20132/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":206,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Mark 5:16-28\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"gerloff\"},{\"biblicalContent\":\"Mark 5:29-40\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20132/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20132/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":206,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Mark 5:29-40\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"}]},\"gaNum\":132,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":140},\"lang\":\"g\",\"contentOverview\":\"e: Mc\",\"lineCount\":{\"lineCountMax\":33,\"lineCountMin\":30,\"content\":\"30 (33)\"},\"height\":{\"heightMin\":205}}}}",
+  "body_sha256": "07b1cca1830d14f2eb2bc5731d0f5456c5672be41e0e632e783acdd2139721d2",
+  "retrieved_at": "2026-10-07T17:38:20+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

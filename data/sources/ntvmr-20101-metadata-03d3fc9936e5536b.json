@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20101",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:32:50 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394370729",
+    "X-Request-Post-Validation-Epoch": "1791394370730",
+    "X-Request-Response-Epoch": "1791394370734",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2647",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20101,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":101,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Austria\",\"instID\":328,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Österreichische Nationalbibliothek\",\"place\":\"Wien\",\"logoURL\":\"http://ntmss.info/instlogos/OesterNationalbib.jpg\",\"url\":\"http://www.onb.ac.at/\"},\"leavesDescription\":\"Frg\",\"shelfID\":188,\"originYearDescription\":\"VIII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pap. G. 39780\",\"contentOverview\":\"J 1,29-32\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":799,\"early\":700,\"content\":\"VIII\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"John 1:29-30\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20101/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digital.onb.ac.at/RepViewer/viewer.faces?doc=DTL_419188&order=1&view=SINGLE\\\"><img src=\\\"http://digital.onb.ac.at/RepViewer/images/logo_c4.gif\\\"><div>Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20101/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20101/20101x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20101/20101x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":188,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"John 1:29-30\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"SEL\"},{\"biblicalContent\":\"John 1:31-32\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20101/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digital.onb.ac.at/RepViewer/viewer.faces?doc=DTL_419188&order=1&view=SINGLE\\\"><img src=\\\"http://digital.onb.ac.at/RepViewer/images/logo_c4.gif\\\"><div>Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20101/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20101/20101x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20101/20101x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":188,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"John 1:31-32\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"SEL\"}]},\"gaNum\":101,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"width\":{\"widthMin\":90},\"lang\":\"g\",\"contentOverview\":\"e: J\",\"lineCount\":{\"lineCountMin\":11,\"content\":11},\"height\":{\"heightMin\":71}}}}",
+  "body_sha256": "fdb2e3da33ef00c6e6c239242865d9a6660252595037ba48fdf059d3a1700686",
+  "retrieved_at": "2026-10-07T17:32:50+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

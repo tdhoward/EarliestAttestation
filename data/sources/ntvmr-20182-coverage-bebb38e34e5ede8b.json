@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20182",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:47:24 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395244621",
+    "X-Request-Post-Validation-Epoch": "1791395244622",
+    "X-Request-Response-Epoch": "1791395244625",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "641",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20182,\"indexContent\":[\"Luke 19:17-20; Luke 19:22-24\",{\"docID\":20182,\"osisID\":\"Luke.19.17\",\"indexContent\":2003019017,\"pageID\":10},{\"docID\":20182,\"osisID\":\"Luke.19.18\",\"indexContent\":2003019018,\"pageID\":10},{\"docID\":20182,\"osisID\":\"Luke.19.19\",\"indexContent\":2003019019,\"pageID\":10},{\"docID\":20182,\"osisID\":\"Luke.19.20\",\"indexContent\":2003019020,\"pageID\":10},{\"docID\":20182,\"osisID\":\"Luke.19.22\",\"indexContent\":2003019022,\"pageID\":20},{\"docID\":20182,\"osisID\":\"Luke.19.23\",\"indexContent\":2003019023,\"pageID\":20},{\"docID\":20182,\"osisID\":\"Luke.19.24\",\"indexContent\":2003019024,\"pageID\":20}]}}}",
+  "body_sha256": "2fb3ef1d6e0d45033af85ae53301f36445d0f4a9393c38af56f513cdd6f63ab6",
+  "retrieved_at": "2026-10-07T17:47:24+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10015",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:54:59 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392099346",
+    "X-Request-Post-Validation-Epoch": "1791392099347",
+    "X-Request-Response-Epoch": "1791392099353",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3352",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10015,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P15\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":607,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliotheca Alexandrina Antiquities Museum\",\"place\":\"Alexandria\",\"logoURL\":\"\",\"url\":\"http://antiquities.bibalex.org/collection/MuseumDatabase.aspx\"},\"leavesDescription\":1,\"shelfID\":6607,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"BAAM 0543\",\"contentOverview\":\"1 K 7,18-32; 7,33-8,4\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":399,\"early\":300,\"content\":\"IV\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"1Cor 7:18-32\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10015/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photo Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P15\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10015/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6607,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"1Cor 7:18-32\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10015&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"ECM\"},{\"biblicalContent\":\"1Cor 7:32-40; 1Cor 8:1-4\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10015/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photo Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P15\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10015/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6607,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"1Cor 7:32-40; 1Cor 8:1-4\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10015&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"ECM\"}]},\"gaNum\":\"P15\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":160},\"lang\":\"g\",\"contentOverview\":\"p: 1K\",\"lineCount\":{\"lineCountMin\":38,\"content\":\"38r, 37v\"},\"height\":{\"heightMin\":270}}}}",
+  "body_sha256": "28dc7046647c61c41dfbfe46b491f58c44a836f48a5f8b2a2dc95f5446151697",
+  "retrieved_at": "2026-10-07T16:54:59+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

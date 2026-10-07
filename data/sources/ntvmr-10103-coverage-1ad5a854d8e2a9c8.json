@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10103",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:08:22 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392902987",
+    "X-Request-Post-Validation-Epoch": "1791392902988",
+    "X-Request-Response-Epoch": "1791392902992",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "484",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10103,\"indexContent\":[\"Matt 13:55-56; Matt 14:3-5\",{\"docID\":10103,\"osisID\":\"Matt.13.55\",\"indexContent\":2001013055,\"pageID\":10},{\"docID\":10103,\"osisID\":\"Matt.13.56\",\"indexContent\":2001013056,\"pageID\":10},{\"docID\":10103,\"osisID\":\"Matt.14.3\",\"indexContent\":2001014003,\"pageID\":20},{\"docID\":10103,\"osisID\":\"Matt.14.4\",\"indexContent\":2001014004,\"pageID\":20},{\"docID\":10103,\"osisID\":\"Matt.14.5\",\"indexContent\":2001014005,\"pageID\":20}]}}}",
+  "body_sha256": "161cfd2ea93c79f040f15723c9f2740f8e712538659315dc119daa95d4004dca",
+  "retrieved_at": "2026-10-07T17:08:23+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

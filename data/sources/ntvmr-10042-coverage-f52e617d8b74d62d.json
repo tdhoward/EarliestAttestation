@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10042",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:59:08 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392348216",
+    "X-Request-Post-Validation-Epoch": "1791392348217",
+    "X-Request-Response-Epoch": "1791392348220",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "557",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10042,\"indexContent\":[\"Luke 1:54-55; Luke 2:29-32\",{\"docID\":10042,\"osisID\":\"Luke.1.54\",\"indexContent\":2003001054,\"pageID\":20},{\"docID\":10042,\"osisID\":\"Luke.1.55\",\"indexContent\":2003001055,\"pageID\":20},{\"docID\":10042,\"osisID\":\"Luke.2.29\",\"indexContent\":2003002029,\"pageID\":20},{\"docID\":10042,\"osisID\":\"Luke.2.30\",\"indexContent\":2003002030,\"pageID\":20},{\"docID\":10042,\"osisID\":\"Luke.2.31\",\"indexContent\":2003002031,\"pageID\":20},{\"docID\":10042,\"osisID\":\"Luke.2.32\",\"indexContent\":2003002032,\"pageID\":20}]}}}",
+  "body_sha256": "881b4dae93308760ae33e37125d8ccb184aeac1f2fe52524d7aa079dd3983099",
+  "retrieved_at": "2026-10-07T16:59:08+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

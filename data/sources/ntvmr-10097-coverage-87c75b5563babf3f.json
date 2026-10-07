@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10097",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:07:19 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392839775",
+    "X-Request-Post-Validation-Epoch": "1791392839777",
+    "X-Request-Response-Epoch": "1791392839781",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "774",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10097,\"indexContent\":[\"Luke 14:7-14\",{\"docID\":10097,\"osisID\":\"Luke.14.7\",\"indexContent\":2003014007,\"pageID\":10},{\"docID\":10097,\"osisID\":\"Luke.14.8\",\"indexContent\":2003014008,\"pageID\":10},{\"docID\":10097,\"osisID\":\"Luke.14.9\",\"indexContent\":2003014009,\"pageID\":10},{\"docID\":10097,\"osisID\":\"Luke.14.10\",\"indexContent\":2003014010,\"pageID\":10},{\"docID\":10097,\"osisID\":\"Luke.14.11\",\"indexContent\":2003014011,\"pageID\":10},{\"docID\":10097,\"osisID\":\"Luke.14.12\",\"indexContent\":2003014012,\"pageID\":10},{\"docID\":10097,\"osisID\":\"Luke.14.12\",\"indexContent\":2003014012,\"pageID\":20},{\"docID\":10097,\"osisID\":\"Luke.14.13\",\"indexContent\":2003014013,\"pageID\":20},{\"docID\":10097,\"osisID\":\"Luke.14.14\",\"indexContent\":2003014014,\"pageID\":20}]}}}",
+  "body_sha256": "606cc7257ed8e338713fa0cc287687e67f4b1d2e4c412f1ab424963e9b764e93",
+  "retrieved_at": "2026-10-07T17:07:19+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

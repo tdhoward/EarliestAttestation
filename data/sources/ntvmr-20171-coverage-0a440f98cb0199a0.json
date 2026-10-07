@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20171",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:45:28 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395128489",
+    "X-Request-Post-Validation-Epoch": "1791395128490",
+    "X-Request-Response-Epoch": "1791395128494",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2647",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20171,\"indexContent\":[\"Matt 10:17-23; Matt 10:25-32; Luke 22:44-56; Luke 22:61-64\",{\"docID\":20171,\"osisID\":\"Matt.10.17\",\"indexContent\":2001010017,\"pageID\":10},{\"docID\":20171,\"osisID\":\"Matt.10.18\",\"indexContent\":2001010018,\"pageID\":10},{\"docID\":20171,\"osisID\":\"Matt.10.19\",\"indexContent\":2001010019,\"pageID\":10},{\"docID\":20171,\"osisID\":\"Matt.10.20\",\"indexContent\":2001010020,\"pageID\":10},{\"docID\":20171,\"osisID\":\"Matt.10.21\",\"indexContent\":2001010021,\"pageID\":10},{\"docID\":20171,\"osisID\":\"Matt.10.22\",\"indexContent\":2001010022,\"pageID\":10},{\"docID\":20171,\"osisID\":\"Matt.10.23\",\"indexContent\":2001010023,\"pageID\":10},{\"docID\":20171,\"osisID\":\"Matt.10.25\",\"indexContent\":2001010025,\"pageID\":20},{\"docID\":20171,\"osisID\":\"Matt.10.26\",\"indexContent\":2001010026,\"pageID\":20},{\"docID\":20171,\"osisID\":\"Matt.10.27\",\"indexContent\":2001010027,\"pageID\":20},{\"docID\":20171,\"osisID\":\"Matt.10.28\",\"indexContent\":2001010028,\"pageID\":20},{\"docID\":20171,\"osisID\":\"Matt.10.29\",\"indexContent\":2001010029,\"pageID\":20},{\"docID\":20171,\"osisID\":\"Matt.10.30\",\"indexContent\":2001010030,\"pageID\":20},{\"docID\":20171,\"osisID\":\"Matt.10.31\",\"indexContent\":2001010031,\"pageID\":20},{\"docID\":20171,\"osisID\":\"Matt.10.32\",\"indexContent\":2001010032,\"pageID\":20},{\"docID\":20171,\"osisID\":\"Luke.22.44\",\"indexContent\":2003022044,\"pageID\":30},{\"docID\":20171,\"osisID\":\"Luke.22.45\",\"indexContent\":2003022045,\"pageID\":30},{\"docID\":20171,\"osisID\":\"Luke.22.46\",\"indexContent\":2003022046,\"pageID\":30},{\"docID\":20171,\"osisID\":\"Luke.22.47\",\"indexContent\":2003022047,\"pageID\":30},{\"docID\":20171,\"osisID\":\"Luke.22.48\",\"indexContent\":2003022048,\"pageID\":30},{\"docID\":20171,\"osisID\":\"Luke.22.49\",\"indexContent\":2003022049,\"pageID\":30},{\"docID\":20171,\"osisID\":\"Luke.22.50\",\"indexContent\":2003022050,\"pageID\":30},{\"docID\":20171,\"osisID\":\"Luke.22.50\",\"indexContent\":2003022050,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.51\",\"indexContent\":2003022051,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.52\",\"indexContent\":2003022052,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.53\",\"indexContent\":2003022053,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.54\",\"indexContent\":2003022054,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.55\",\"indexContent\":2003022055,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.56\",\"indexContent\":2003022056,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.61\",\"indexContent\":2003022061,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.62\",\"indexContent\":2003022062,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.63\",\"indexContent\":2003022063,\"pageID\":40},{\"docID\":20171,\"osisID\":\"Luke.22.64\",\"indexContent\":2003022064,\"pageID\":40}]}}}",
+  "body_sha256": "1329246349b29042d6f7b73e3e07f4645063b0d0a127cc0d4daccb41be9c5ebc",
+  "retrieved_at": "2026-10-07T17:45:28+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

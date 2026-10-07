@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10080",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:04:47 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392687191",
+    "X-Request-Post-Validation-Epoch": "1791392687192",
+    "X-Request-Response-Epoch": "1791392687196",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3263",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10080,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P80\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Spain\",\"instID\":358,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Abadia de Montserrat\",\"place\":\"Montserrat\",\"logoURL\":\"\",\"url\":\"http://www.abadiamontserrat.net/(S(zfrreq55asgfcn45rsrzlvuf))/Cultura/angles/scriptorium.aspx?newsid=2\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":67,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Monts.Roca inv. 83\",\"contentOverview\":\"J 3,34\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"III\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"John 3:34\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10080/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P80\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10080/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/10080/10080x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10080/10080x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":67,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"John 3:34\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10080&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"gerloff\"},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10080/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P80\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10080/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/10080/10080x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10080/10080x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":67,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10080&pageID=20&format=xhtml\"}},\"pageID\":20,\"noIdx\":true}]},\"gaNum\":\"P80\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":96},\"lang\":\"g\",\"contentOverview\":\"e: J\",\"lineCount\":{\"lineCountMin\":3,\"content\":\"3v\"},\"height\":{\"heightMin\":104}}}}",
+  "body_sha256": "211292bbf088faaeeb01e6768219678c6d86bed94d9b7feed384531f47380556",
+  "retrieved_at": "2026-10-07T17:04:47+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10040",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:58:46 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392326694",
+    "X-Request-Post-Validation-Epoch": "1791392326695",
+    "X-Request-Response-Epoch": "1791392326699",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2761",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10040,\"indexContent\":[\"Rom 1:24-27; Rom 1:31-32; Rom 2:1-3; Rom 3:21-31; Rom 4:1-8; Rom 6:4-5; Rom 6:16; Rom 9:16-17; Rom 9:27\",{\"docID\":10040,\"osisID\":\"Rom.1.24\",\"indexContent\":2006001024,\"pageID\":10},{\"docID\":10040,\"osisID\":\"Rom.1.25\",\"indexContent\":2006001025,\"pageID\":10},{\"docID\":10040,\"osisID\":\"Rom.1.26\",\"indexContent\":2006001026,\"pageID\":10},{\"docID\":10040,\"osisID\":\"Rom.1.27\",\"indexContent\":2006001027,\"pageID\":10},{\"docID\":10040,\"osisID\":\"Rom.1.31\",\"indexContent\":2006001031,\"pageID\":20},{\"docID\":10040,\"osisID\":\"Rom.1.32\",\"indexContent\":2006001032,\"pageID\":20},{\"docID\":10040,\"osisID\":\"Rom.2.1\",\"indexContent\":2006002001,\"pageID\":20},{\"docID\":10040,\"osisID\":\"Rom.2.2\",\"indexContent\":2006002002,\"pageID\":20},{\"docID\":10040,\"osisID\":\"Rom.2.3\",\"indexContent\":2006002003,\"pageID\":20},{\"docID\":10040,\"osisID\":\"Rom.3.21\",\"indexContent\":2006003021,\"pageID\":30},{\"docID\":10040,\"osisID\":\"Rom.3.22\",\"indexContent\":2006003022,\"pageID\":30},{\"docID\":10040,\"osisID\":\"Rom.3.23\",\"indexContent\":2006003023,\"pageID\":30},{\"docID\":10040,\"osisID\":\"Rom.3.24\",\"indexContent\":2006003024,\"pageID\":30},{\"docID\":10040,\"osisID\":\"Rom.3.25\",\"indexContent\":2006003025,\"pageID\":30},{\"docID\":10040,\"osisID\":\"Rom.3.26\",\"indexContent\":2006003026,\"pageID\":30},{\"docID\":10040,\"osisID\":\"Rom.3.26\",\"indexContent\":2006003026,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.3.27\",\"indexContent\":2006003027,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.3.28\",\"indexContent\":2006003028,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.3.29\",\"indexContent\":2006003029,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.3.30\",\"indexContent\":2006003030,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.3.31\",\"indexContent\":2006003031,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.4.1\",\"indexContent\":2006004001,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.4.2\",\"indexContent\":2006004002,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.4.3\",\"indexContent\":2006004003,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.4.4\",\"indexContent\":2006004004,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.4.5\",\"indexContent\":2006004005,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.4.6\",\"indexContent\":2006004006,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.4.7\",\"indexContent\":2006004007,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.4.8\",\"indexContent\":2006004008,\"pageID\":40},{\"docID\":10040,\"osisID\":\"Rom.6.4\",\"indexContent\":2006006004,\"pageID\":50},{\"docID\":10040,\"osisID\":\"Rom.6.5\",\"indexContent\":2006006005,\"pageID\":50},{\"docID\":10040,\"osisID\":\"Rom.6.16\",\"indexContent\":2006006016,\"pageID\":60},{\"docID\":10040,\"osisID\":\"Rom.9.16\",\"indexContent\":2006009016,\"pageID\":70},{\"docID\":10040,\"osisID\":\"Rom.9.17\",\"indexContent\":2006009017,\"pageID\":70},{\"docID\":10040,\"osisID\":\"Rom.9.27\",\"indexContent\":2006009027,\"pageID\":80}]}}}",
+  "body_sha256": "d579a99bd7492196be3a93fba5a6f0870c336e828aea5cb4d15d9c7488749fd6",
+  "retrieved_at": "2026-10-07T16:58:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

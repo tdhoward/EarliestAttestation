@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10042",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:59:02 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392342936",
+    "X-Request-Post-Validation-Epoch": "1791392342937",
+    "X-Request-Response-Epoch": "1791392342942",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2964",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10042,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P42\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Austria\",\"instID\":328,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Österreichische Nationalbibliothek\",\"place\":\"Wien\",\"logoURL\":\"http://ntmss.info/instlogos/OesterNationalbib.jpg\",\"url\":\"http://www.onb.ac.at/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":38,\"originYearDescription\":\"VII/VIII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pap. K. 8706\",\"contentOverview\":\"greek/coptic: L 1,54-55; 2,29-32 coptic: L 1,46-51\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":799,\"early\":600,\"content\":\"VII/VIII\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10042/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digital.onb.ac.at/RepViewer/viewer.faces?doc=DTL_168317&order=1&view=SINGLE\\\"><img src=\\\" http://digital.onb.ac.at/RepViewer/images/logo_c4.gif\\\"><div> Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10042/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10042/10042x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10042/10042x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":38,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10042&pageID=10&format=xhtml\"}},\"pageID\":10,\"noIdx\":true},{\"biblicalContent\":\"Luke 1:54-55; Luke 2:29-32\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10042/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digital.onb.ac.at/RepViewer/viewer.faces?doc=DTL_168317&order=1&view=SINGLE\\\"><img src=\\\" http://digital.onb.ac.at/RepViewer/images/logo_c4.gif\\\"><div> Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10042/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10042/10042x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10042/10042x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":38,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Luke 1:54-55; Luke 2:29-32\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10042&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":\"P42\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":180},\"lang\":\"g-k\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMin\":16,\"content\":16},\"height\":{\"heightMin\":270}}}}",
+  "body_sha256": "26343222cbaea26b8743dbe9826228311594910c0805d66f071d9f810a7fb5cf",
+  "retrieved_at": "2026-10-07T16:59:03+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

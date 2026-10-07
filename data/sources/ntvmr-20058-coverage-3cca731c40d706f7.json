@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20058",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:25:17 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393917256",
+    "X-Request-Post-Validation-Epoch": "1791393917257",
+    "X-Request-Response-Epoch": "1791393917260",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "747",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20058,\"indexContent\":[\"Matt 18:18-19; Matt 18:22-23; Matt 18:25-26; Matt 18:28-29\",{\"docID\":20058,\"osisID\":\"Matt.18.18\",\"indexContent\":2001018018,\"pageID\":20},{\"docID\":20058,\"osisID\":\"Matt.18.19\",\"indexContent\":2001018019,\"pageID\":20},{\"docID\":20058,\"osisID\":\"Matt.18.22\",\"indexContent\":2001018022,\"pageID\":20},{\"docID\":20058,\"osisID\":\"Matt.18.23\",\"indexContent\":2001018023,\"pageID\":20},{\"docID\":20058,\"osisID\":\"Matt.18.25\",\"indexContent\":2001018025,\"pageID\":30},{\"docID\":20058,\"osisID\":\"Matt.18.26\",\"indexContent\":2001018026,\"pageID\":30},{\"docID\":20058,\"osisID\":\"Matt.18.28\",\"indexContent\":2001018028,\"pageID\":30},{\"docID\":20058,\"osisID\":\"Matt.18.29\",\"indexContent\":2001018029,\"pageID\":30}]}}}",
+  "body_sha256": "f9cefeeb7502da768e67370a708bea590186e5473c603622fc9088a48f658be3",
+  "retrieved_at": "2026-10-07T17:25:17+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

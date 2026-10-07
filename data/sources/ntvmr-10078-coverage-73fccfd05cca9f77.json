@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10078",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:04:41 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392681960",
+    "X-Request-Post-Validation-Epoch": "1791392681961",
+    "X-Request-Response-Epoch": "1791392681965",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "547",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10078,\"indexContent\":[\"Jude 1:4-5; Jude 1:7-8\",{\"docID\":10078,\"osisID\":\"Jude.1.4\",\"indexContent\":2026001004,\"pageID\":10},{\"docID\":10078,\"osisID\":\"Jude.1.4\",\"indexContent\":2026001004,\"pageID\":20},{\"docID\":10078,\"osisID\":\"Jude.1.5\",\"indexContent\":2026001005,\"pageID\":20},{\"docID\":10078,\"osisID\":\"Jude.1.7\",\"indexContent\":2026001007,\"pageID\":30},{\"docID\":10078,\"osisID\":\"Jude.1.8\",\"indexContent\":2026001008,\"pageID\":30},{\"docID\":10078,\"osisID\":\"Jude.1.8\",\"indexContent\":2026001008,\"pageID\":40}]}}}",
+  "body_sha256": "da92ffb73c39c770809368d61b54fb6419f32e45d1d9a30f942ff2a72b564260",
+  "retrieved_at": "2026-10-07T17:04:42+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

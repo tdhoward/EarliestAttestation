@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20163",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:44:03 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395043987",
+    "X-Request-Post-Validation-Epoch": "1791395043988",
+    "X-Request-Response-Epoch": "1791395043992",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "393",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20163,\"indexContent\":[\"Rev 16:17-20\",{\"docID\":20163,\"osisID\":\"Rev.16.17\",\"indexContent\":2027016017,\"pageID\":10},{\"docID\":20163,\"osisID\":\"Rev.16.18\",\"indexContent\":2027016018,\"pageID\":10},{\"docID\":20163,\"osisID\":\"Rev.16.19\",\"indexContent\":2027016019,\"pageID\":20},{\"docID\":20163,\"osisID\":\"Rev.16.20\",\"indexContent\":2027016020,\"pageID\":20}]}}}",
+  "body_sha256": "35c4f9b285021d27bba7c6039c413df1c05dad25a01b1e240c3b103cb749e016",
+  "retrieved_at": "2026-10-07T17:44:04+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

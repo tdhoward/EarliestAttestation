@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10009",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:54:22 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392062195",
+    "X-Request-Post-Validation-Epoch": "1791392062196",
+    "X-Request-Response-Epoch": "1791392062199",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "565",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10009,\"indexContent\":[\"1John 4:11-12; 1John 4:14-17\",{\"docID\":10009,\"osisID\":\"1John.4.11\",\"indexContent\":2023004011,\"pageID\":10},{\"docID\":10009,\"osisID\":\"1John.4.12\",\"indexContent\":2023004012,\"pageID\":10},{\"docID\":10009,\"osisID\":\"1John.4.14\",\"indexContent\":2023004014,\"pageID\":20},{\"docID\":10009,\"osisID\":\"1John.4.15\",\"indexContent\":2023004015,\"pageID\":20},{\"docID\":10009,\"osisID\":\"1John.4.16\",\"indexContent\":2023004016,\"pageID\":20},{\"docID\":10009,\"osisID\":\"1John.4.17\",\"indexContent\":2023004017,\"pageID\":20}]}}}",
+  "body_sha256": "5dc87f23c8626702a6b8e2ee675670ab4403d17e1a5baf7d56391a60dfb939a4",
+  "retrieved_at": "2026-10-07T16:54:22+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

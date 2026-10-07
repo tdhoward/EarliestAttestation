@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10138",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:13:17 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393197986",
+    "X-Request-Post-Validation-Epoch": "1791393197987",
+    "X-Request-Response-Epoch": "1791393197990",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "945",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10138,\"indexContent\":[\"Luke 13:13-17; Luke 13:25-30\",{\"docID\":10138,\"osisID\":\"Luke.13.13\",\"indexContent\":2003013013,\"pageID\":10},{\"docID\":10138,\"osisID\":\"Luke.13.14\",\"indexContent\":2003013014,\"pageID\":10},{\"docID\":10138,\"osisID\":\"Luke.13.15\",\"indexContent\":2003013015,\"pageID\":10},{\"docID\":10138,\"osisID\":\"Luke.13.16\",\"indexContent\":2003013016,\"pageID\":10},{\"docID\":10138,\"osisID\":\"Luke.13.17\",\"indexContent\":2003013017,\"pageID\":10},{\"docID\":10138,\"osisID\":\"Luke.13.25\",\"indexContent\":2003013025,\"pageID\":20},{\"docID\":10138,\"osisID\":\"Luke.13.26\",\"indexContent\":2003013026,\"pageID\":20},{\"docID\":10138,\"osisID\":\"Luke.13.27\",\"indexContent\":2003013027,\"pageID\":20},{\"docID\":10138,\"osisID\":\"Luke.13.28\",\"indexContent\":2003013028,\"pageID\":20},{\"docID\":10138,\"osisID\":\"Luke.13.29\",\"indexContent\":2003013029,\"pageID\":20},{\"docID\":10138,\"osisID\":\"Luke.13.30\",\"indexContent\":2003013030,\"pageID\":20}]}}}",
+  "body_sha256": "9128c60e3a0094bc881a9643d2f0b3db792f0466f922c7f5cc5e1a3408391b6e",
+  "retrieved_at": "2026-10-07T17:13:18+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10122",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:11:22 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393082088",
+    "X-Request-Post-Validation-Epoch": "1791393082089",
+    "X-Request-Response-Epoch": "1791393082092",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "641",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10122,\"indexContent\":[\"John 21:11-14; John 21:22-24\",{\"docID\":10122,\"osisID\":\"John.21.11\",\"indexContent\":2004021011,\"pageID\":10},{\"docID\":10122,\"osisID\":\"John.21.12\",\"indexContent\":2004021012,\"pageID\":10},{\"docID\":10122,\"osisID\":\"John.21.13\",\"indexContent\":2004021013,\"pageID\":10},{\"docID\":10122,\"osisID\":\"John.21.14\",\"indexContent\":2004021014,\"pageID\":10},{\"docID\":10122,\"osisID\":\"John.21.22\",\"indexContent\":2004021022,\"pageID\":20},{\"docID\":10122,\"osisID\":\"John.21.23\",\"indexContent\":2004021023,\"pageID\":20},{\"docID\":10122,\"osisID\":\"John.21.24\",\"indexContent\":2004021024,\"pageID\":20}]}}}",
+  "body_sha256": "dd362b2b752b47ce1c6244a3ba466d3d9f1b8b7edd16d28fe027ada41cb03a12",
+  "retrieved_at": "2026-10-07T17:11:22+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10023",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:56:07 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392167991",
+    "X-Request-Post-Validation-Epoch": "1791392167992",
+    "X-Request-Response-Epoch": "1791392167996",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "623",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10023,\"indexContent\":[\"Jas 1:10-12; Jas 1:15-18\",{\"docID\":10023,\"osisID\":\"Jas.1.10\",\"indexContent\":2020001010,\"pageID\":10},{\"docID\":10023,\"osisID\":\"Jas.1.11\",\"indexContent\":2020001011,\"pageID\":10},{\"docID\":10023,\"osisID\":\"Jas.1.12\",\"indexContent\":2020001012,\"pageID\":10},{\"docID\":10023,\"osisID\":\"Jas.1.15\",\"indexContent\":2020001015,\"pageID\":20},{\"docID\":10023,\"osisID\":\"Jas.1.16\",\"indexContent\":2020001016,\"pageID\":20},{\"docID\":10023,\"osisID\":\"Jas.1.17\",\"indexContent\":2020001017,\"pageID\":20},{\"docID\":10023,\"osisID\":\"Jas.1.18\",\"indexContent\":2020001018,\"pageID\":20}]}}}",
+  "body_sha256": "c9a0f5c8e59fa953ac4d57e983c99c56ce9cd980995bf3ec29d00cca3adc420f",
+  "retrieved_at": "2026-10-07T16:56:08+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

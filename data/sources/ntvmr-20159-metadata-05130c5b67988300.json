@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20159",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:43:16 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394996446",
+    "X-Request-Post-Validation-Epoch": "1791394996447",
+    "X-Request-Response-Epoch": "1791394996451",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2159",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20159,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":159,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Location unknown\",\"instID\":541,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Last known: Damascus\",\"place\":\"Location unknown\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":1,\"shelfID\":6375,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"(früher: Damascus, Qubbat al-Khazna)\",\"contentOverview\":\"E 4,21-24; 5,1-3\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20159/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20159/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6375,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10,\"noIdx\":true},{\"biblicalContent\":\"Eph 4:21-24; Eph 5:1-3\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20159/20/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20159/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6375,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Eph 4:21-24; Eph 5:1-3\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"overesch\"}]},\"gaNum\":159,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":170},\"lang\":\"g\",\"contentOverview\":\"p: E\",\"lineCount\":{\"lineCountMin\":25,\"content\":25},\"height\":{\"heightMin\":240}}}}",
+  "body_sha256": "dcfd775df90df750b5f51fb54c67ba00677d63af29c73afc9af3a71e3403de57",
+  "retrieved_at": "2026-10-07T17:43:16+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

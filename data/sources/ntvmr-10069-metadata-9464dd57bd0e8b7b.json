@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10069",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:02:58 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392578403",
+    "X-Request-Post-Validation-Epoch": "1791392578404",
+    "X-Request-Response-Epoch": "1791392578410",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2993",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10069,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P69\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":499,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Art, Archaeology and Ancient World Library\",\"place\":\"Oxford\",\"logoURL\":\"https://pbs.twimg.com/profile_images/1789959363588763648/0XlnKdqo_400x400.png\",\"url\":\"https://www.bodleian.ox.ac.uk/libraries/art\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":6098,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Oxy. 2383\",\"contentOverview\":\"L 22,41.45-48.58-61\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"III\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Luke 22:41-48\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10069/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10069/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10069/POxy.v0024.n2383.a.01.hires.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10069/POxy.v0024.n2383.a.01.hires.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6098,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Luke 22:41-48\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10069&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Luke 22:58-61\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10069/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10069/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10069/POxy.v0024.n2383.b.01.hires.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10069/POxy.v0024.n2383.b.01.hires.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6098,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Luke 22:58-61\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10069&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P69\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":150},\"lang\":\"g\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMax\":45,\"lineCountMin\":14,\"content\":\"14 (35 od. 45)\"},\"height\":{\"heightMin\":250}}}}",
+  "body_sha256": "7dc5a8c0e10d7f5a1dc4993dda7e99c77aa33091bb276f947d1fd4c45c11478d",
+  "retrieved_at": "2026-10-07T17:02:58+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

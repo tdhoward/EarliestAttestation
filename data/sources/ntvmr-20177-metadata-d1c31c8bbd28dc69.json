@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20177",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:46:26 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395186568",
+    "X-Request-Post-Validation-Epoch": "1791395186568",
+    "X-Request-Response-Epoch": "1791395186575",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2614",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20177,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":177,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Austria\",\"instID\":328,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Österreichische Nationalbibliothek\",\"place\":\"Wien\",\"logoURL\":\"http://ntmss.info/instlogos/OesterNationalbib.jpg\",\"url\":\"http://www.onb.ac.at/\"},\"leavesDescription\":1,\"shelfID\":244,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pap. K. 2698\",\"contentOverview\":\"L 1,73-2,7 (griech.); 1,59-73 (kopt.)\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Luke 1:59-73\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20177/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.onb.ac.at/\\\"><img src=\\\"https://www.onb.ac.at/fileadmin/user_upload/3_Logos/OENB_Logo/logo_250x80_k.png\\\"><div>Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20177/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20177/20177x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20177/20177x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":244,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Luke 1:59-73\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Luke 1:73-80; Luke 2:1-7\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20177/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.onb.ac.at/\\\"><img src=\\\"https://www.onb.ac.at/fileadmin/user_upload/3_Logos/OENB_Logo/logo_250x80_k.png\\\"><div>Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20177/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20177/20177x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20177/20177x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":244,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Luke 1:73-80; Luke 2:1-7\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":177,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":275},\"lang\":\"g-k\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMin\":36,\"content\":36},\"height\":{\"heightMin\":360}}}}",
+  "body_sha256": "b0d3e7ae52048fc9c944819a4183802caad1162c00b55180db7068f78f71dbc8",
+  "retrieved_at": "2026-10-07T17:46:26+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

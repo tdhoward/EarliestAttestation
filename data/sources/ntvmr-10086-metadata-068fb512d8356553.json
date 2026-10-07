@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10086",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:05:50 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392750505",
+    "X-Request-Post-Validation-Epoch": "1791392750505",
+    "X-Request-Response-Epoch": "1791392750510",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2900",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10086,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P86\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":44,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Institut für Altertumskunde\",\"place\":\"Köln\",\"logoURL\":\"http://ntmss.info/instlogos/Koeln.jpg\",\"url\":\"http://www.uni-koeln.de/phil-fak/ifa/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":73,\"originYearDescription\":\"IV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Inv. Nr. 5516\",\"contentOverview\":\"Mt 5,13-16.22-25\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":399,\"early\":300,\"content\":\"IV\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Matt 5:13-16\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10086/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/Karte/II_080.html\\\"><div>Images © by<br/>UniversitätKöln</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10086/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK5516r.jpg\",\"webFriendlyURL\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK5516r.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":73,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Matt 5:13-16\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10086&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Matt 5:22-25\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10086/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/Karte/II_080.html\\\"><div>Images © by<br/>UniversitätKöln</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10086/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK5516v.jpg\",\"webFriendlyURL\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK5516v.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":73,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Matt 5:22-25\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10086&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":\"P86\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":80},\"lang\":\"g\",\"contentOverview\":\"e: Mt\",\"lineCount\":{\"lineCountMax\":31,\"lineCountMin\":10,\"content\":\"10r, 11v (31)\"},\"height\":{\"heightMin\":95}}}}",
+  "body_sha256": "1b80e988e643c7142d8bc00aab83a0adb379b980af2c4fdc730344a30e3d927c",
+  "retrieved_at": "2026-10-07T17:05:50+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

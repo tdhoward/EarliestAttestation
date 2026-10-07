@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10029",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:57:06 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392226077",
+    "X-Request-Post-Validation-Epoch": "1791392226078",
+    "X-Request-Response-Epoch": "1791392226083",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3871",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10029,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P29\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":249,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Library\",\"place\":\"Oxford\",\"logoURL\":\"https://iiif.bodleian.ox.ac.uk/iiif/image/f27e28db-0b08-4f16-9bdf-3565f591fb71/full/255,/0/default.jpg\",\"url\":\"http://www.bodleian.ox.ac.uk/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":27,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Ms. Gr. bib. g. 4(P)\",\"contentOverview\":\"Act 26,7-8; 26,20\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"III\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Acts 26:7-8\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10029/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P29\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10029/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10029/10029x00010.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10029/10029x00010.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":27,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Acts 26:7-8\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10029&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"ECM\"},{\"biblicalContent\":\"Acts 26:20\",\"images\":{\"image\":[{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10029/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;\\n<a target=\\\"_blank\\\" href=\\\"https://digital.bodleian.ox.ac.uk/inquire/p/ea138c19-2e09-4a07-9a0e-b7d09cb28a9b\\\"><div>External Images by<br/>Bodleian\\n</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10029/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10029/10029x00020.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10029/10029x00020.jpg\",\"surrID\":10,\"protectLevel\":0},{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10029/20/20\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://digital.bodleian.ox.ac.uk\\\"><div>Images ©<br/>Bodleian Libraries, University of Oxford</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10029/20_49_20.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10029/10029x00020Xb_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10029/10029x00020Xb_INTF.jpg\",\"surrID\":20,\"protectLevel\":0}]},\"shelfID\":27,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Acts 26:20\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10029&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P29\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":160},\"lang\":\"g\",\"contentOverview\":\"a: Act\",\"lineCount\":{\"lineCountMax\":41,\"lineCountMin\":5,\"content\":\"5 (38-41)\"},\"height\":{\"heightMax\":290,\"heightMin\":270}}}}",
+  "body_sha256": "f9dd1520101c8ce9ed25a94240a1b52bbcbb8450d05d8cd61b0ee9f896a916aa",
+  "retrieved_at": "2026-10-07T16:57:06+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

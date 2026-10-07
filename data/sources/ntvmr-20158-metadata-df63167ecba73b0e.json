@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20158",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:43:05 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394985880",
+    "X-Request-Post-Validation-Epoch": "1791394985881",
+    "X-Request-Response-Epoch": "1791394985886",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2137",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20158,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":158,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Location unknown\",\"instID\":541,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Last known: Damascus\",\"place\":\"Location unknown\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"Frg\",\"shelfID\":6374,\"originYearDescription\":\"V/VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"(früher: Damascus, Qubbat al-Khazna)\",\"contentOverview\":\"G 1,1-13\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":400,\"content\":\"V/VI\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Gal 1:1-7\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20158/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20158/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6374,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Gal 1:1-7\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"overesch\"},{\"biblicalContent\":\"Gal 1:7-13\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20158/20/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20158/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6374,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Gal 1:7-13\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"overesch\"}]},\"gaNum\":158,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"lang\":\"g\",\"contentOverview\":\"p: G\",\"lineCount\":{\"lineCountMin\":25,\"content\":\"(25)\"}}}}",
+  "body_sha256": "fafc4d1c13a42b4954cc77f6768e90a56692575a538d37ede1ee58887021bd13",
+  "retrieved_at": "2026-10-07T17:43:05+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

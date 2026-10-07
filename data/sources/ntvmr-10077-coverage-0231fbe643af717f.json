@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10077",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:04:31 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392671488",
+    "X-Request-Post-Validation-Epoch": "1791392671489",
+    "X-Request-Response-Epoch": "1791392671492",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "854",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10077,\"indexContent\":[\"Matt 23:30-39\",{\"docID\":10077,\"osisID\":\"Matt.23.30\",\"indexContent\":2001023030,\"pageID\":10},{\"docID\":10077,\"osisID\":\"Matt.23.31\",\"indexContent\":2001023031,\"pageID\":10},{\"docID\":10077,\"osisID\":\"Matt.23.32\",\"indexContent\":2001023032,\"pageID\":10},{\"docID\":10077,\"osisID\":\"Matt.23.33\",\"indexContent\":2001023033,\"pageID\":10},{\"docID\":10077,\"osisID\":\"Matt.23.34\",\"indexContent\":2001023034,\"pageID\":10},{\"docID\":10077,\"osisID\":\"Matt.23.35\",\"indexContent\":2001023035,\"pageID\":20},{\"docID\":10077,\"osisID\":\"Matt.23.36\",\"indexContent\":2001023036,\"pageID\":20},{\"docID\":10077,\"osisID\":\"Matt.23.37\",\"indexContent\":2001023037,\"pageID\":20},{\"docID\":10077,\"osisID\":\"Matt.23.38\",\"indexContent\":2001023038,\"pageID\":20},{\"docID\":10077,\"osisID\":\"Matt.23.39\",\"indexContent\":2001023039,\"pageID\":20}]}}}",
+  "body_sha256": "06457dd871da620f07e2df29cae2c05b1331f7a2bd2da7581e49899fbdf5275a",
+  "retrieved_at": "2026-10-07T17:04:31+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

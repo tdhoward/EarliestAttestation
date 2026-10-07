@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20131",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:38:15 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394695330",
+    "X-Request-Post-Validation-Epoch": "1791394695331",
+    "X-Request-Response-Epoch": "1791394695334",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2684",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20131,\"indexContent\":[\"Mark 7:3-4; Mark 7:6-8; Mark 7:30-37; Mark 8:1-16; Mark 9:2; Mark 9:7-8\",{\"docID\":20131,\"osisID\":\"Mark.7.3\",\"indexContent\":2002007003,\"pageID\":20},{\"docID\":20131,\"osisID\":\"Mark.7.4\",\"indexContent\":2002007004,\"pageID\":20},{\"docID\":20131,\"osisID\":\"Mark.7.6\",\"indexContent\":2002007006,\"pageID\":30},{\"docID\":20131,\"osisID\":\"Mark.7.7\",\"indexContent\":2002007007,\"pageID\":30},{\"docID\":20131,\"osisID\":\"Mark.7.8\",\"indexContent\":2002007008,\"pageID\":30},{\"docID\":20131,\"osisID\":\"Mark.7.30\",\"indexContent\":2002007030,\"pageID\":40},{\"docID\":20131,\"osisID\":\"Mark.7.31\",\"indexContent\":2002007031,\"pageID\":40},{\"docID\":20131,\"osisID\":\"Mark.7.32\",\"indexContent\":2002007032,\"pageID\":40},{\"docID\":20131,\"osisID\":\"Mark.7.33\",\"indexContent\":2002007033,\"pageID\":40},{\"docID\":20131,\"osisID\":\"Mark.7.34\",\"indexContent\":2002007034,\"pageID\":40},{\"docID\":20131,\"osisID\":\"Mark.7.35\",\"indexContent\":2002007035,\"pageID\":40},{\"docID\":20131,\"osisID\":\"Mark.7.36\",\"indexContent\":2002007036,\"pageID\":40},{\"docID\":20131,\"osisID\":\"Mark.7.36\",\"indexContent\":2002007036,\"pageID\":50},{\"docID\":20131,\"osisID\":\"Mark.7.37\",\"indexContent\":2002007037,\"pageID\":50},{\"docID\":20131,\"osisID\":\"Mark.8.1\",\"indexContent\":2002008001,\"pageID\":50},{\"docID\":20131,\"osisID\":\"Mark.8.2\",\"indexContent\":2002008002,\"pageID\":50},{\"docID\":20131,\"osisID\":\"Mark.8.3\",\"indexContent\":2002008003,\"pageID\":50},{\"docID\":20131,\"osisID\":\"Mark.8.4\",\"indexContent\":2002008004,\"pageID\":50},{\"docID\":20131,\"osisID\":\"Mark.8.4\",\"indexContent\":2002008004,\"pageID\":60},{\"docID\":20131,\"osisID\":\"Mark.8.5\",\"indexContent\":2002008005,\"pageID\":60},{\"docID\":20131,\"osisID\":\"Mark.8.6\",\"indexContent\":2002008006,\"pageID\":60},{\"docID\":20131,\"osisID\":\"Mark.8.7\",\"indexContent\":2002008007,\"pageID\":60},{\"docID\":20131,\"osisID\":\"Mark.8.8\",\"indexContent\":2002008008,\"pageID\":60},{\"docID\":20131,\"osisID\":\"Mark.8.9\",\"indexContent\":2002008009,\"pageID\":60},{\"docID\":20131,\"osisID\":\"Mark.8.10\",\"indexContent\":2002008010,\"pageID\":60},{\"docID\":20131,\"osisID\":\"Mark.8.11\",\"indexContent\":2002008011,\"pageID\":70},{\"docID\":20131,\"osisID\":\"Mark.8.12\",\"indexContent\":2002008012,\"pageID\":70},{\"docID\":20131,\"osisID\":\"Mark.8.13\",\"indexContent\":2002008013,\"pageID\":70},{\"docID\":20131,\"osisID\":\"Mark.8.14\",\"indexContent\":2002008014,\"pageID\":70},{\"docID\":20131,\"osisID\":\"Mark.8.15\",\"indexContent\":2002008015,\"pageID\":70},{\"docID\":20131,\"osisID\":\"Mark.8.16\",\"indexContent\":2002008016,\"pageID\":70},{\"docID\":20131,\"osisID\":\"Mark.9.2\",\"indexContent\":2002009002,\"pageID\":80},{\"docID\":20131,\"osisID\":\"Mark.9.7\",\"indexContent\":2002009007,\"pageID\":90},{\"docID\":20131,\"osisID\":\"Mark.9.8\",\"indexContent\":2002009008,\"pageID\":90}]}}}",
+  "body_sha256": "3dbdb1e53376819d280062f741d4a4d3e3d140e907f5e9eec93cabf629ff5b3a",
+  "retrieved_at": "2026-10-07T17:38:15+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

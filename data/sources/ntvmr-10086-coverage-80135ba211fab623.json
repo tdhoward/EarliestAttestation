@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10086",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:05:55 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392755750",
+    "X-Request-Post-Validation-Epoch": "1791392755751",
+    "X-Request-Response-Epoch": "1791392755754",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "707",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10086,\"indexContent\":[\"Matt 5:13-16; Matt 5:22-25\",{\"docID\":10086,\"osisID\":\"Matt.5.13\",\"indexContent\":2001005013,\"pageID\":10},{\"docID\":10086,\"osisID\":\"Matt.5.14\",\"indexContent\":2001005014,\"pageID\":10},{\"docID\":10086,\"osisID\":\"Matt.5.15\",\"indexContent\":2001005015,\"pageID\":10},{\"docID\":10086,\"osisID\":\"Matt.5.16\",\"indexContent\":2001005016,\"pageID\":10},{\"docID\":10086,\"osisID\":\"Matt.5.22\",\"indexContent\":2001005022,\"pageID\":20},{\"docID\":10086,\"osisID\":\"Matt.5.23\",\"indexContent\":2001005023,\"pageID\":20},{\"docID\":10086,\"osisID\":\"Matt.5.24\",\"indexContent\":2001005024,\"pageID\":20},{\"docID\":10086,\"osisID\":\"Matt.5.25\",\"indexContent\":2001005025,\"pageID\":20}]}}}",
+  "body_sha256": "c9af766f73f1cd62dc598b8d06a1277cb9ba85c532abf2bb7d8170b0bb7b6a3d",
+  "retrieved_at": "2026-10-07T17:05:55+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

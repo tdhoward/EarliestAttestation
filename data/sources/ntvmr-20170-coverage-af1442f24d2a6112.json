@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20170",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:45:17 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395117951",
+    "X-Request-Post-Validation-Epoch": "1791395117952",
+    "X-Request-Response-Epoch": "1791395117956",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "800",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20170,\"indexContent\":[\"Matt 6:5-6; Matt 6:8-10; Matt 6:13-15; Matt 6:17\",{\"docID\":20170,\"osisID\":\"Matt.6.5\",\"indexContent\":2001006005,\"pageID\":10},{\"docID\":20170,\"osisID\":\"Matt.6.6\",\"indexContent\":2001006006,\"pageID\":10},{\"docID\":20170,\"osisID\":\"Matt.6.8\",\"indexContent\":2001006008,\"pageID\":10},{\"docID\":20170,\"osisID\":\"Matt.6.9\",\"indexContent\":2001006009,\"pageID\":10},{\"docID\":20170,\"osisID\":\"Matt.6.10\",\"indexContent\":2001006010,\"pageID\":10},{\"docID\":20170,\"osisID\":\"Matt.6.13\",\"indexContent\":2001006013,\"pageID\":20},{\"docID\":20170,\"osisID\":\"Matt.6.14\",\"indexContent\":2001006014,\"pageID\":20},{\"docID\":20170,\"osisID\":\"Matt.6.15\",\"indexContent\":2001006015,\"pageID\":20},{\"docID\":20170,\"osisID\":\"Matt.6.17\",\"indexContent\":2001006017,\"pageID\":20}]}}}",
+  "body_sha256": "a6ff8190c8bb19f17ed4b5b4ec8841ce3400f1bca43c3ac7d71709e4e824a169",
+  "retrieved_at": "2026-10-07T17:45:18+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

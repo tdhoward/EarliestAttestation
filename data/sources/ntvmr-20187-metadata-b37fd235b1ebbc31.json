@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20187",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:48:12 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395292042",
+    "X-Request-Post-Validation-Epoch": "1791395292042",
+    "X-Request-Response-Epoch": "1791395292047",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3044",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20187,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":187,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":42,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Institut für Papyrologie\",\"place\":\"Heidelberg\",\"logoURL\":\"http://ntmss.info/instlogos/PapHeidelberg.jpg\",\"url\":\"http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html\"},\"leavesDescription\":\"Frg\",\"shelfID\":250,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Heid. Inv. G. 1354\",\"contentOverview\":\"Mc 6,30-41\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Mark 6:30-35\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20187/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html\\\"><img src=\\\"http://www.uni-heidelberg.de/imperia/md/images/layoutgrafiken/schriftzug_papyrologie.gif\\\"><div>Images © Universität Heidelberg<br/>Institut für Papyrologie</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20187/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20187/20187x001.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20187/20187x001.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":250,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Mark 6:30-35\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20187&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"m.pion\"},{\"biblicalContent\":\"Mark 6:36-39; Mark 6:41\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20187/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html\\\"><img src=\\\"http://www.uni-heidelberg.de/imperia/md/images/layoutgrafiken/schriftzug_papyrologie.gif\\\"><div>Images © Universität Heidelberg<br/>Institut für Papyrologie</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20187/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20187/20187x002.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20187/20187x002.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":250,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Mark 6:36-39; Mark 6:41\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20187&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"ECM\"}]},\"gaNum\":187,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"lang\":\"g\",\"contentOverview\":\"e: Mc\",\"lineCount\":{\"lineCountMin\":26,\"content\":26}}}}",
+  "body_sha256": "846a0b9be34b48daa40a4ddf6f84dd74be4a644edeb1aff35188a525e3ccf029",
+  "retrieved_at": "2026-10-07T17:48:12+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

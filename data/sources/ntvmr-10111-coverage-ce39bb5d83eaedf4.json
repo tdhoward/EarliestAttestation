@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10111",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:09:47 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392987095",
+    "X-Request-Post-Validation-Epoch": "1791392987097",
+    "X-Request-Response-Epoch": "1791392987100",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "489",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10111,\"indexContent\":[\"Luke 17:11-13; Luke 17:22-23\",{\"docID\":10111,\"osisID\":\"Luke.17.11\",\"indexContent\":2003017011,\"pageID\":10},{\"docID\":10111,\"osisID\":\"Luke.17.12\",\"indexContent\":2003017012,\"pageID\":10},{\"docID\":10111,\"osisID\":\"Luke.17.13\",\"indexContent\":2003017013,\"pageID\":10},{\"docID\":10111,\"osisID\":\"Luke.17.22\",\"indexContent\":2003017022,\"pageID\":20},{\"docID\":10111,\"osisID\":\"Luke.17.23\",\"indexContent\":2003017023,\"pageID\":20}]}}}",
+  "body_sha256": "98afaca628c243ed3290fb605c5f0f5368675195f83c8a04171af534006c2195",
+  "retrieved_at": "2026-10-07T17:09:47+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

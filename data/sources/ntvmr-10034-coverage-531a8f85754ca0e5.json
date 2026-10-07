@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10034",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:57:43 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392263047",
+    "X-Request-Post-Validation-Epoch": "1791392263049",
+    "X-Request-Response-Epoch": "1791392263053",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1373",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10034,\"indexContent\":[\"1Cor 16:4-7; 1Cor 16:9-10; 2Cor 5:18-21; 2Cor 10:13-14; 2Cor 11:2; 2Cor 11:4; 2Cor 11:6-7\",{\"docID\":10034,\"osisID\":\"1Cor.16.4\",\"indexContent\":2007016004,\"pageID\":10},{\"docID\":10034,\"osisID\":\"1Cor.16.5\",\"indexContent\":2007016005,\"pageID\":10},{\"docID\":10034,\"osisID\":\"1Cor.16.6\",\"indexContent\":2007016006,\"pageID\":10},{\"docID\":10034,\"osisID\":\"1Cor.16.7\",\"indexContent\":2007016007,\"pageID\":10},{\"docID\":10034,\"osisID\":\"1Cor.16.9\",\"indexContent\":2007016009,\"pageID\":10},{\"docID\":10034,\"osisID\":\"1Cor.16.10\",\"indexContent\":2007016010,\"pageID\":10},{\"docID\":10034,\"osisID\":\"2Cor.5.18\",\"indexContent\":2008005018,\"pageID\":20},{\"docID\":10034,\"osisID\":\"2Cor.5.19\",\"indexContent\":2008005019,\"pageID\":20},{\"docID\":10034,\"osisID\":\"2Cor.5.20\",\"indexContent\":2008005020,\"pageID\":20},{\"docID\":10034,\"osisID\":\"2Cor.5.21\",\"indexContent\":2008005021,\"pageID\":20},{\"docID\":10034,\"osisID\":\"2Cor.10.13\",\"indexContent\":2008010013,\"pageID\":30},{\"docID\":10034,\"osisID\":\"2Cor.10.14\",\"indexContent\":2008010014,\"pageID\":30},{\"docID\":10034,\"osisID\":\"2Cor.11.2\",\"indexContent\":2008011002,\"pageID\":30},{\"docID\":10034,\"osisID\":\"2Cor.11.4\",\"indexContent\":2008011004,\"pageID\":40},{\"docID\":10034,\"osisID\":\"2Cor.11.6\",\"indexContent\":2008011006,\"pageID\":40},{\"docID\":10034,\"osisID\":\"2Cor.11.7\",\"indexContent\":2008011007,\"pageID\":40}]}}}",
+  "body_sha256": "a6e2083c1642cb0bd22069c06cd111a5251960c5f1f19a8afe5edd6e6a666611",
+  "retrieved_at": "2026-10-07T16:57:43+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

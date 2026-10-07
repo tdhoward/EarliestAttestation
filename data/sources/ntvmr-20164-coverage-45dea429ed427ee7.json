@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20164",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:44:14 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395054512",
+    "X-Request-Post-Validation-Epoch": "1791395054513",
+    "X-Request-Response-Epoch": "1791395054516",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "246",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20164,\"indexContent\":[\"Matt 13:20-21\",{\"docID\":20164,\"osisID\":\"Matt.13.20\",\"indexContent\":2001013020,\"pageID\":20},{\"docID\":20164,\"osisID\":\"Matt.13.21\",\"indexContent\":2001013021,\"pageID\":20}]}}}",
+  "body_sha256": "85e8f76a8f921170999ac4e75591d422935fa45878eb55c39740984b0b5c93da",
+  "retrieved_at": "2026-10-07T17:44:14+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

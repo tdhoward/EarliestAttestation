@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10140",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:13:23 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393203242",
+    "X-Request-Post-Validation-Epoch": "1791393203243",
+    "X-Request-Response-Epoch": "1791393203259",
+    "X-Response-Time": "17ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2738",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10140,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P140\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":275,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Istituto Papirologico \",\"place\":\"Florence\",\"logoURL\":\"http://ntmss.info/instlogos/IPvitelli.gif\",\"url\":\"https://www.istitutopapirologico.unifi.it\"},\"leavesDescription\":\"\",\"shelfID\":6320,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"PSI inv. 1971\",\"contentOverview\":\"\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":\"1 Frag.\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Acts 7:54-55\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10140/10/20\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"https://psi-online.it/documents/psi;17;1564\\\">Images © Istituto Papirologico </a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10140/10_49_20.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10140/10140x00010XX.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10140/10140x00010XX.jpg\",\"surrID\":20,\"protectLevel\":0}},\"shelfID\":6320,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Acts 7:54-55\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10140&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Acts 7:57-58\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10140/20/10\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"https://psi-online.it/documents/psi;17;1564\\\">Images © Istituto Papirologico </a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10140/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10140/10140x00020XX.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10140/10140x00020XX.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6320,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Acts 7:57-58\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10140&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P140\",\"leaves\":{\"leavesCount\":0,\"content\":\"1 Frag.\"},\"width\":{\"widthMin\":28},\"lang\":\"grc\",\"contentOverview\":\"a: Act\",\"lineCount\":{\"lineCountMax\":5,\"lineCountMin\":4,\"content\":\"4r, 5v\"},\"height\":{\"heightMin\":43}}}}",
+  "body_sha256": "84e97c4a97532617f728ddf0b07a55994ba66b19e7fbfdd28d366690df5edc2a",
+  "retrieved_at": "2026-10-07T17:13:23+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

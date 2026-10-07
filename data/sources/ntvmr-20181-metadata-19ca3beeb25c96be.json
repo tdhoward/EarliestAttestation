@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20181",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:47:08 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395228774",
+    "X-Request-Post-Validation-Epoch": "1791395228775",
+    "X-Request-Response-Epoch": "1791395228780",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2716",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20181,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":181,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Austria\",\"instID\":328,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Österreichische Nationalbibliothek\",\"place\":\"Wien\",\"logoURL\":\"http://ntmss.info/instlogos/OesterNationalbib.jpg\",\"url\":\"http://www.onb.ac.at/\"},\"leavesDescription\":1,\"shelfID\":245,\"originYearDescription\":\"IV/V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pap. G. 39778\",\"contentOverview\":\"L 9,59-10,14\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":300,\"content\":\"IV/V\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Luke 9:59-62; Luke 10:1-5\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20181/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digital.onb.ac.at/RepViewer/viewer.faces?doc=DTL_416385&order=1&view=SINGLE\\\"><img src=\\\"https://www.onb.ac.at/fileadmin/user_upload/3_Logos/OENB_Logo/logo_250x80_k.png\\\"><div>Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20181/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20181/20181x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20181/20181x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":245,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Luke 9:59-62; Luke 10:1-5\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Luke 10:6-14\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20181/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digital.onb.ac.at/RepViewer/viewer.faces?doc=DTL_416385&order=1&view=SINGLE\\\"><img src=\\\"https://www.onb.ac.at/fileadmin/user_upload/3_Logos/OENB_Logo/logo_250x80_k.png\\\"><div>Images©<br/>ÖNB</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20181/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20181/20181x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20181/20181x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":245,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Luke 10:6-14\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":181,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":140},\"lang\":\"g\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMin\":26,\"content\":26},\"height\":{\"heightMin\":150}}}}",
+  "body_sha256": "57b9e9042993faad31e5456a85bee9be9f10438ca96b46e81bb5876f3c45e9d4",
+  "retrieved_at": "2026-10-07T17:47:08+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

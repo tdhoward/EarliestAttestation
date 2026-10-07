@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10125",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:11:53 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393113681",
+    "X-Request-Post-Validation-Epoch": "1791393113682",
+    "X-Request-Response-Epoch": "1791393113685",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1160",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10125,\"indexContent\":[\"1Pet 1:23-25; 1Pet 2:1-5; 1Pet 2:7-12\",{\"docID\":10125,\"osisID\":\"1Pet.1.23\",\"indexContent\":2021001023,\"pageID\":10},{\"docID\":10125,\"osisID\":\"1Pet.1.24\",\"indexContent\":2021001024,\"pageID\":10},{\"docID\":10125,\"osisID\":\"1Pet.1.25\",\"indexContent\":2021001025,\"pageID\":10},{\"docID\":10125,\"osisID\":\"1Pet.2.1\",\"indexContent\":2021002001,\"pageID\":10},{\"docID\":10125,\"osisID\":\"1Pet.2.2\",\"indexContent\":2021002002,\"pageID\":10},{\"docID\":10125,\"osisID\":\"1Pet.2.3\",\"indexContent\":2021002003,\"pageID\":10},{\"docID\":10125,\"osisID\":\"1Pet.2.4\",\"indexContent\":2021002004,\"pageID\":10},{\"docID\":10125,\"osisID\":\"1Pet.2.5\",\"indexContent\":2021002005,\"pageID\":10},{\"docID\":10125,\"osisID\":\"1Pet.2.7\",\"indexContent\":2021002007,\"pageID\":20},{\"docID\":10125,\"osisID\":\"1Pet.2.8\",\"indexContent\":2021002008,\"pageID\":20},{\"docID\":10125,\"osisID\":\"1Pet.2.9\",\"indexContent\":2021002009,\"pageID\":20},{\"docID\":10125,\"osisID\":\"1Pet.2.10\",\"indexContent\":2021002010,\"pageID\":20},{\"docID\":10125,\"osisID\":\"1Pet.2.11\",\"indexContent\":2021002011,\"pageID\":20},{\"docID\":10125,\"osisID\":\"1Pet.2.12\",\"indexContent\":2021002012,\"pageID\":20}]}}}",
+  "body_sha256": "0f72183fb94722faaf7cab539eabfe23b88197420802dd0020582f33d684f2c4",
+  "retrieved_at": "2026-10-07T17:11:53+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

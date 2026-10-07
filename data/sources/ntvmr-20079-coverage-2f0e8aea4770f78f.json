@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20079",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:29:02 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394142994",
+    "X-Request-Post-Validation-Epoch": "1791394142995",
+    "X-Request-Response-Epoch": "1791394142998",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1768",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20079,\"indexContent\":[\"Luke 7:39-49; Luke 24:10-19\",{\"docID\":20079,\"osisID\":\"Luke.7.39\",\"indexContent\":2003007039,\"pageID\":10},{\"docID\":20079,\"osisID\":\"Luke.7.40\",\"indexContent\":2003007040,\"pageID\":10},{\"docID\":20079,\"osisID\":\"Luke.7.41\",\"indexContent\":2003007041,\"pageID\":10},{\"docID\":20079,\"osisID\":\"Luke.7.42\",\"indexContent\":2003007042,\"pageID\":10},{\"docID\":20079,\"osisID\":\"Luke.7.43\",\"indexContent\":2003007043,\"pageID\":10},{\"docID\":20079,\"osisID\":\"Luke.7.44\",\"indexContent\":2003007044,\"pageID\":10},{\"docID\":20079,\"osisID\":\"Luke.7.44\",\"indexContent\":2003007044,\"pageID\":30},{\"docID\":20079,\"osisID\":\"Luke.7.45\",\"indexContent\":2003007045,\"pageID\":30},{\"docID\":20079,\"osisID\":\"Luke.7.46\",\"indexContent\":2003007046,\"pageID\":30},{\"docID\":20079,\"osisID\":\"Luke.7.47\",\"indexContent\":2003007047,\"pageID\":30},{\"docID\":20079,\"osisID\":\"Luke.7.48\",\"indexContent\":2003007048,\"pageID\":30},{\"docID\":20079,\"osisID\":\"Luke.7.49\",\"indexContent\":2003007049,\"pageID\":30},{\"docID\":20079,\"osisID\":\"Luke.24.10\",\"indexContent\":2003024010,\"pageID\":50},{\"docID\":20079,\"osisID\":\"Luke.24.11\",\"indexContent\":2003024011,\"pageID\":50},{\"docID\":20079,\"osisID\":\"Luke.24.12\",\"indexContent\":2003024012,\"pageID\":50},{\"docID\":20079,\"osisID\":\"Luke.24.13\",\"indexContent\":2003024013,\"pageID\":50},{\"docID\":20079,\"osisID\":\"Luke.24.14\",\"indexContent\":2003024014,\"pageID\":50},{\"docID\":20079,\"osisID\":\"Luke.24.15\",\"indexContent\":2003024015,\"pageID\":50},{\"docID\":20079,\"osisID\":\"Luke.24.16\",\"indexContent\":2003024016,\"pageID\":60},{\"docID\":20079,\"osisID\":\"Luke.24.17\",\"indexContent\":2003024017,\"pageID\":60},{\"docID\":20079,\"osisID\":\"Luke.24.18\",\"indexContent\":2003024018,\"pageID\":60},{\"docID\":20079,\"osisID\":\"Luke.24.19\",\"indexContent\":2003024019,\"pageID\":60}]}}}",
+  "body_sha256": "021a6ea91201493d0ec12372860b334332c581e950ff7dde296f89591fe7ee2c",
+  "retrieved_at": "2026-10-07T17:29:03+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

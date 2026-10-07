@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20071",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:27:36 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394056340",
+    "X-Request-Post-Validation-Epoch": "1791394056341",
+    "X-Request-Response-Epoch": "1791394056344",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "628",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20071,\"indexContent\":[\"Matt 1:21-25; Matt 2:1-2\",{\"docID\":20071,\"osisID\":\"Matt.1.21\",\"indexContent\":2001001021,\"pageID\":10},{\"docID\":20071,\"osisID\":\"Matt.1.22\",\"indexContent\":2001001022,\"pageID\":10},{\"docID\":20071,\"osisID\":\"Matt.1.23\",\"indexContent\":2001001023,\"pageID\":10},{\"docID\":20071,\"osisID\":\"Matt.1.24\",\"indexContent\":2001001024,\"pageID\":10},{\"docID\":20071,\"osisID\":\"Matt.1.25\",\"indexContent\":2001001025,\"pageID\":20},{\"docID\":20071,\"osisID\":\"Matt.2.1\",\"indexContent\":2001002001,\"pageID\":20},{\"docID\":20071,\"osisID\":\"Matt.2.2\",\"indexContent\":2001002002,\"pageID\":20}]}}}",
+  "body_sha256": "1411abdfe3561401b16f89d39afa2eedb5651fb986517e2a8a87416503d7f91d",
+  "retrieved_at": "2026-10-07T17:27:36+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20143",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:40:28 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394828301",
+    "X-Request-Post-Validation-Epoch": "1791394828302",
+    "X-Request-Response-Epoch": "1791394828306",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "482",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20143,\"indexContent\":[\"Mark 8:17-19; Mark 8:27-28\",{\"docID\":20143,\"osisID\":\"Mark.8.17\",\"indexContent\":2002008017,\"pageID\":10},{\"docID\":20143,\"osisID\":\"Mark.8.18\",\"indexContent\":2002008018,\"pageID\":10},{\"docID\":20143,\"osisID\":\"Mark.8.19\",\"indexContent\":2002008019,\"pageID\":10},{\"docID\":20143,\"osisID\":\"Mark.8.27\",\"indexContent\":2002008027,\"pageID\":20},{\"docID\":20143,\"osisID\":\"Mark.8.28\",\"indexContent\":2002008028,\"pageID\":20}]}}}",
+  "body_sha256": "23548869d14b66cdb28d12cd0b3746553c907f15b8d799de8854429ffb36148d",
+  "retrieved_at": "2026-10-07T17:40:28+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

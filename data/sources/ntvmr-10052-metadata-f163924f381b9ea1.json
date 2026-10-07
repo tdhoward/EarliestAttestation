@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10052",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:00:17 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392417560",
+    "X-Request-Post-Validation-Epoch": "1791392417562",
+    "X-Request-Response-Epoch": "1791392417567",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3021",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10052,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P52\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":246,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"John Rylands University Library of Manchester\",\"place\":\"Manchester\",\"logoURL\":\"http://ntmss.info/instlogos/JohnRylandUL.gif\",\"url\":\"http://www.library.manchester.ac.uk/eresources/imagecollections/university/papyrus/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":46,\"originYearDescription\":\"II (A)\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Gr. P. 457\",\"contentOverview\":\"J 18,31-33.37-38\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":175,\"early\":125,\"content\":\"II (M)\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"John 18:31-33\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10052/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.manchester.ac.uk/\\\"><img src=\\\"https://assets.manchester.ac.uk/corporate/images/design/logo-university-of-manchester.png\\\"><div>Images©<br/>UniversityManchester</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10052/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10052/jrl020153tr.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10052/jrl020153tr.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":46,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"John 18:31-33\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10052&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"John 18:37-38\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10052/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.manchester.ac.uk/\\\"><img src=\\\"https://assets.manchester.ac.uk/corporate/images/design/logo-university-of-manchester.png\\\"><div>Images©<br/>UniversityManchester</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10052/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10052/jrl020154tr.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10052/jrl020154tr.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":46,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"John 18:37-38\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10052&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P52\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":180},\"lang\":\"g\",\"contentOverview\":\"e: J\",\"lineCount\":{\"lineCountMax\":18,\"lineCountMin\":7,\"content\":\"7 (18)\"},\"height\":{\"heightMin\":220}}}}",
+  "body_sha256": "a3d782ae10830aec79167b7b07a232b7e4eec3ba89bc99fe98b46d912e829f4e",
+  "retrieved_at": "2026-10-07T17:00:17+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

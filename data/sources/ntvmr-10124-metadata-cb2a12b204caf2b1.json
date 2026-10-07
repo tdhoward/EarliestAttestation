@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10124",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:11:37 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393097896",
+    "X-Request-Post-Validation-Epoch": "1791393097897",
+    "X-Request-Response-Epoch": "1791393097902",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2960",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10124,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P124\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":499,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Art, Archaeology and Ancient World Library\",\"place\":\"Oxford\",\"logoURL\":\"https://pbs.twimg.com/profile_images/1789959363588763648/0XlnKdqo_400x400.png\",\"url\":\"https://www.bodleian.ox.ac.uk/libraries/art\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":6123,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Oxy. 4845\",\"contentOverview\":\"2K 11,1-4.6-9\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"2Cor 11:1-4\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10124/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10124/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10124/POxy.v0072.n4845.a.01.hires.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10124/POxy.v0072.n4845.a.01.hires.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6123,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"2Cor 11:1-4\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10124&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"2Cor 11:6-9\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10124/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://163.1.169.40/cgi-bin/library?a=p&p=home&l=en&w=utf-8 \\\"><div>Images©<br/> Courtesy of the Oxford Imaging Papyri Project </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10124/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10124/POxy.v0072.n4845.b.01.hires.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10124/POxy.v0072.n4845.b.01.hires.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6123,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"2Cor 11:6-9\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10124&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":\"P124\",\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"width\":{\"widthMin\":135},\"lang\":\"g\",\"contentOverview\":\"p: 2K\",\"lineCount\":{\"lineCountMax\":26,\"lineCountMin\":14,\"content\":\"14 (26)\"},\"height\":{\"heightMin\":145}}}}",
+  "body_sha256": "0788c3eb28a79f07c4c16343c2ccc8f0c4e9a84e86d72f6cf8a18f8b27801f29",
+  "retrieved_at": "2026-10-07T17:11:38+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

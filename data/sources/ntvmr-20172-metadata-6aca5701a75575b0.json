@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20172",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:45:33 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395133788",
+    "X-Request-Post-Validation-Epoch": "1791395133789",
+    "X-Request-Response-Epoch": "1791395133794",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3039",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20172,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":172,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":272,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Medicea Laurenziana\",\"place\":\"Florence\",\"logoURL\":\"http://ntmss.info/instlogos/Laurenziana.gif\",\"url\":\"http://www.bml.firenze.sbn.it/\"},\"leavesDescription\":\"Frg\",\"shelfID\":239,\"originYearDescription\":\"V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"PSI I 4\",\"contentOverview\":\"R 1,27-30.32-2,2\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Rom 1:27-29\",\"images\":{\"image\":[{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20172/10/10\",\"attribution\":\"<div>Images<br/>digitized by</div><a target=\\\"_blank\\\" href=\\\"http://www.csntm.org\\\"><img src=\\\"http://ntmss.info/instlogos/csntm.png\\\"/></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20172/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/20172/20172x00010Xa.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20172/20172x00010Xa.jpg\",\"surrID\":10,\"protectLevel\":0},{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20172/10/20\",\"attribution\":\"<div>Images<br/>digitized by</div><a target=\\\"_blank\\\" href=\\\"http://www.csntm.org\\\"><img src=\\\"http://ntmss.info/instlogos/csntm.png\\\"/></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20172/10_49_20.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/20172/20172x00010Xb.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20172/20172x00010Xb.jpg\",\"surrID\":20,\"protectLevel\":0}]},\"shelfID\":239,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Rom 1:27-29\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"snhelton\"},{\"biblicalContent\":\"Rom 1:32; Rom 2:1\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20172/20/10\",\"attribution\":\"<div>Images<br/>digitized by</div><a target=\\\"_blank\\\" href=\\\"http://www.csntm.org\\\"><img src=\\\"http://ntmss.info/instlogos/csntm.png\\\"/></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20172/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/20172/20172x00020XX.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20172/20172x00020XX.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":239,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Rom 1:32; Rom 2:1\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"}]},\"gaNum\":172,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"width\":{\"widthMin\":78},\"lang\":\"g\",\"contentOverview\":\"p: R\",\"lineCount\":{\"lineCountMin\":11,\"content\":11},\"height\":{\"heightMin\":60}}}}",
+  "body_sha256": "4f44d617ea4873074ab72b483a0aa11c89a15d11f4a5b3ef886842bb0bc48c1c",
+  "retrieved_at": "2026-10-07T17:45:33+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

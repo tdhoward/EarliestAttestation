@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10085",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:05:45 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392745274",
+    "X-Request-Post-Validation-Epoch": "1791392745275",
+    "X-Request-Response-Epoch": "1791392745278",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "856",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10085,\"indexContent\":[\"Rev 9:19-21; Rev 10:1-2; Rev 10:5-9\",{\"docID\":10085,\"osisID\":\"Rev.9.19\",\"indexContent\":2027009019,\"pageID\":10},{\"docID\":10085,\"osisID\":\"Rev.9.20\",\"indexContent\":2027009020,\"pageID\":10},{\"docID\":10085,\"osisID\":\"Rev.9.21\",\"indexContent\":2027009021,\"pageID\":10},{\"docID\":10085,\"osisID\":\"Rev.10.1\",\"indexContent\":2027010001,\"pageID\":10},{\"docID\":10085,\"osisID\":\"Rev.10.2\",\"indexContent\":2027010002,\"pageID\":10},{\"docID\":10085,\"osisID\":\"Rev.10.5\",\"indexContent\":2027010005,\"pageID\":20},{\"docID\":10085,\"osisID\":\"Rev.10.6\",\"indexContent\":2027010006,\"pageID\":20},{\"docID\":10085,\"osisID\":\"Rev.10.7\",\"indexContent\":2027010007,\"pageID\":20},{\"docID\":10085,\"osisID\":\"Rev.10.8\",\"indexContent\":2027010008,\"pageID\":20},{\"docID\":10085,\"osisID\":\"Rev.10.9\",\"indexContent\":2027010009,\"pageID\":20}]}}}",
+  "body_sha256": "b15878a8aa0a73e9e3125e52253ef493e7f653d96e689e1408aa390c2f0bc82c",
+  "retrieved_at": "2026-10-07T17:05:45+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

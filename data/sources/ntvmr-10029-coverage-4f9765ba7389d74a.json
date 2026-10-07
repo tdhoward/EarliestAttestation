@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10029",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:57:11 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392231370",
+    "X-Request-Post-Validation-Epoch": "1791392231371",
+    "X-Request-Response-Epoch": "1791392231374",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "330",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10029,\"indexContent\":[\"Acts 26:7-8; Acts 26:20\",{\"docID\":10029,\"osisID\":\"Acts.26.7\",\"indexContent\":2005026007,\"pageID\":10},{\"docID\":10029,\"osisID\":\"Acts.26.8\",\"indexContent\":2005026008,\"pageID\":10},{\"docID\":10029,\"osisID\":\"Acts.26.20\",\"indexContent\":2005026020,\"pageID\":20}]}}}",
+  "body_sha256": "0e7358174d352e20355aae789e1ac605b7edb774bdceab864de263d8db80cab3",
+  "retrieved_at": "2026-10-07T16:57:11+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

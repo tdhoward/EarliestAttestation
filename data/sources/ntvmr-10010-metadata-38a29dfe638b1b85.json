@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10010",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:54:27 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392067469",
+    "X-Request-Post-Validation-Epoch": "1791392067470",
+    "X-Request-Response-Epoch": "1791392067475",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3129",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10010,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P10\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":405,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Houghton Library, Harvard University\",\"place\":\"Cambridge, MA\",\"logoURL\":\"http://ntmss.info/instlogos/harvardCollege2.gif\",\"url\":\"http://hcl.harvard.edu/libraries/houghton/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":9,\"originYearDescription\":\"IV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"MS Gr SM2218\",\"contentOverview\":\"R 1,1-7\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":399,\"early\":300,\"content\":\"IV\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Rom 1:1-7\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10010/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>\\n&nbsp;\\n<a target=\\\"_blank\\\" href=\\\"http://library.harvard.edu/\\\"><img src=\\\"https://library.harvard.edu/sites/all/themes/HarvardLibraryPortalTheme/logo.png\\\"><div>Images ©<br/>Harvard</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10010/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10010/10010x00010_Harvard7456488.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10010/10010x00010_Harvard7456488.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":9,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Rom 1:1-7\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10010&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10010/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>\\n&nbsp;\\n<a target=\\\"_blank\\\" href=\\\"http://library.harvard.edu/\\\"><img src=\\\"https://library.harvard.edu/sites/all/themes/HarvardLibraryPortalTheme/logo.png\\\"><div>Images ©<br/>Harvard</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10010/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10010/10010x00020_Harvard7456489.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10010/10010x00020_Harvard7456489.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":9,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10010&pageID=20&format=xhtml\"}},\"pageID\":20,\"noIdx\":true}]},\"gaNum\":\"P10\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":199},\"lang\":\"g\",\"contentOverview\":\"p: R\",\"lineCount\":{\"lineCountMin\":11,\"content\":11},\"height\":{\"heightMin\":252}}}}",
+  "body_sha256": "3fdf1bb19322d69e6303c95a481c95a9d38ceeb2a3054e3bb46f46a963d16dff",
+  "retrieved_at": "2026-10-07T16:54:27+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

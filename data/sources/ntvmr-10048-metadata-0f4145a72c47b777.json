@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10048",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:59:56 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392396627",
+    "X-Request-Post-Validation-Epoch": "1791392396628",
+    "X-Request-Response-Epoch": "1791392396634",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3316",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10048,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P48\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":272,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Medicea Laurenziana\",\"place\":\"Florence\",\"logoURL\":\"http://ntmss.info/instlogos/Laurenziana.gif\",\"url\":\"http://www.bml.firenze.sbn.it/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":42,\"originYearDescription\":\"E III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"PSI X 1165\",\"contentOverview\":\"Act 23,11-17; 23,25-29\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"E III\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Acts 23:11-17\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10048/10/20\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.bml.firenze.sbn.it\\\"><img src=\\\"http://www.bml.firenze.sbn.it/images_index/semper_home.gif\\\"><div>Images © Firenze, <br/>Biblioteca Medicea Laurenziana, PSI X 1165</div></a>\\n&nbsp;\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/\\\"><img src=\\\"http://images.csntm.org/CSNTM_Logo_Small.jpg\\\"><div>digitized by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10048/10_49_20.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":20}},\"shelfID\":42,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Acts 23:11-17\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10048&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"gerloff\"},{\"biblicalContent\":\"Acts 23:25-29\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10048/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.bml.firenze.sbn.it\\\"><img src=\\\"http://www.bml.firenze.sbn.it/images_index/semper_home.gif\\\"><div>Images © Firenze, <br/>Biblioteca Medicea Laurenziana, PSI X 1165</div></a>\\n&nbsp;\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/\\\"><img src=\\\"http://images.csntm.org/CSNTM_Logo_Small.jpg\\\"><div>digitized by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10048/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":42,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Acts 23:25-29\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10048&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"}]},\"gaNum\":\"P48\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":140},\"lang\":\"g\",\"contentOverview\":\"a: Act\",\"lineCount\":{\"lineCountMax\":47,\"lineCountMin\":20,\"content\":\"20 (42-47)\"},\"height\":{\"heightMax\":260,\"heightMin\":240}}}}",
+  "body_sha256": "8d82fa38a7bedbd8162ec59265e5b61c0260f027800a7958f6717983d178e315",
+  "retrieved_at": "2026-10-07T16:59:56+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10110",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:09:36 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392976602",
+    "X-Request-Post-Validation-Epoch": "1791392976603",
+    "X-Request-Response-Epoch": "1791392976606",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "489",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10110,\"indexContent\":[\"Matt 10:13-14; Matt 10:25-27\",{\"docID\":10110,\"osisID\":\"Matt.10.13\",\"indexContent\":2001010013,\"pageID\":10},{\"docID\":10110,\"osisID\":\"Matt.10.14\",\"indexContent\":2001010014,\"pageID\":10},{\"docID\":10110,\"osisID\":\"Matt.10.25\",\"indexContent\":2001010025,\"pageID\":20},{\"docID\":10110,\"osisID\":\"Matt.10.26\",\"indexContent\":2001010026,\"pageID\":20},{\"docID\":10110,\"osisID\":\"Matt.10.27\",\"indexContent\":2001010027,\"pageID\":20}]}}}",
+  "body_sha256": "1760ddd569f10927765975d11a6d3dbee326afdfe2165c41d2fa3d8c7a65df90",
+  "retrieved_at": "2026-10-07T17:09:36+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

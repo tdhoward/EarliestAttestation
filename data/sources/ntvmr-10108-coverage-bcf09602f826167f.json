@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10108",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:09:15 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392955582",
+    "X-Request-Post-Validation-Epoch": "1791392955583",
+    "X-Request-Response-Epoch": "1791392955586",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "634",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10108,\"indexContent\":[\"John 17:23-24; John 18:1-5\",{\"docID\":10108,\"osisID\":\"John.17.23\",\"indexContent\":2004017023,\"pageID\":10},{\"docID\":10108,\"osisID\":\"John.17.24\",\"indexContent\":2004017024,\"pageID\":10},{\"docID\":10108,\"osisID\":\"John.18.1\",\"indexContent\":2004018001,\"pageID\":20},{\"docID\":10108,\"osisID\":\"John.18.2\",\"indexContent\":2004018002,\"pageID\":20},{\"docID\":10108,\"osisID\":\"John.18.3\",\"indexContent\":2004018003,\"pageID\":20},{\"docID\":10108,\"osisID\":\"John.18.4\",\"indexContent\":2004018004,\"pageID\":20},{\"docID\":10108,\"osisID\":\"John.18.5\",\"indexContent\":2004018005,\"pageID\":20}]}}}",
+  "body_sha256": "d4175bf4c21e55e3d5ef3776b87d9f91e0913bbf6cc44bf0e76773b7d4b886fc",
+  "retrieved_at": "2026-10-07T17:09:15+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

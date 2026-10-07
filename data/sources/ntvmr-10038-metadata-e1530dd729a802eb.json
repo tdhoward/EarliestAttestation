@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10038",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:58:20 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392300041",
+    "X-Request-Post-Validation-Epoch": "1791392300042",
+    "X-Request-Response-Epoch": "1791392300047",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2974",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10038,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P38\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":394,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"University of Michigan Library\",\"place\":\"Ann Arbor, MI\",\"logoURL\":\"http://ntmss.info/instlogos/michigan.jpg\",\"url\":\"http://www.lib.umich.edu/\"},\"leavesDescription\":\"3 Frg\",\"shelfID\":35,\"originYearDescription\":\"IV (A)\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Inv. Nr. 1571\",\"contentOverview\":\"Act 18,27-19,6; 19,12-16\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":325,\"early\":300,\"content\":\"IV (A)\"},\"leavesDescription\":\"3 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Acts 18:27-28; Acts 19:1-6\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10038/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.lib.umich.edu/\\\"><img src=\\\"https://www.lib.umich.edu/sites/all/themes/mlibrary_zen/images/um_logo.png\\\"><div>Images©<br/>UniversityMichigan</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10038/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10038/1571rJP2-re1-final.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10038/1571rJP2-re1-final.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":35,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Acts 18:27-28; Acts 19:1-6\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10038&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Acts 19:12-16\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10038/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.lib.umich.edu/\\\"><img src=\\\"https://www.lib.umich.edu/sites/all/themes/mlibrary_zen/images/um_logo.png\\\"><div>Images©<br/>UniversityMichigan</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10038/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10038/1571vJP2-re1-final.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10038/1571vJP2-re1-final.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":35,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Acts 19:12-16\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10038&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":\"P38\",\"leaves\":{\"leavesCount\":3,\"content\":\"3 Frg\"},\"width\":{\"widthMin\":150},\"lang\":\"g\",\"contentOverview\":\"a: Act\",\"lineCount\":{\"lineCountMax\":36,\"lineCountMin\":21,\"content\":\"21 (35-36)\"},\"height\":{\"heightMax\":260,\"heightMin\":250}}}}",
+  "body_sha256": "dae295484f98e6cf1836557a8b36bb60383d780eedc5a872979799d0762ac32f",
+  "retrieved_at": "2026-10-07T16:58:20+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

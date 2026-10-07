@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20184",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:47:45 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395265676",
+    "X-Request-Post-Validation-Epoch": "1791395265677",
+    "X-Request-Response-Epoch": "1791395265679",
+    "X-Response-Time": "3ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "413",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20184,\"indexContent\":[\"Mark 15:36-37; Mark 15:40-41\",{\"docID\":20184,\"osisID\":\"Mark.15.36\",\"indexContent\":2002015036,\"pageID\":20},{\"docID\":20184,\"osisID\":\"Mark.15.37\",\"indexContent\":2002015037,\"pageID\":20},{\"docID\":20184,\"osisID\":\"Mark.15.40\",\"indexContent\":2002015040,\"pageID\":20},{\"docID\":20184,\"osisID\":\"Mark.15.41\",\"indexContent\":2002015041,\"pageID\":20}]}}}",
+  "body_sha256": "dab8b0982ee729a434cbf33b522cd8187ec7d312face4dc66f87694eabe80b6b",
+  "retrieved_at": "2026-10-07T17:47:45+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

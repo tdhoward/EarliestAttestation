@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20122",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:36:39 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394599438",
+    "X-Request-Post-Validation-Epoch": "1791394599439",
+    "X-Request-Response-Epoch": "1791394599442",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2850",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20122,\"indexContent\":[\"Gal 5:12-26; Gal 6:1-4; Heb 5:8-14; Heb 6:1-10\",{\"docID\":20122,\"osisID\":\"Gal.5.12\",\"indexContent\":2009005012,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.13\",\"indexContent\":2009005013,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.14\",\"indexContent\":2009005014,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.15\",\"indexContent\":2009005015,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.16\",\"indexContent\":2009005016,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.17\",\"indexContent\":2009005017,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.18\",\"indexContent\":2009005018,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.19\",\"indexContent\":2009005019,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.20\",\"indexContent\":2009005020,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.21\",\"indexContent\":2009005021,\"pageID\":10},{\"docID\":20122,\"osisID\":\"Gal.5.21\",\"indexContent\":2009005021,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.5.22\",\"indexContent\":2009005022,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.5.23\",\"indexContent\":2009005023,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.5.24\",\"indexContent\":2009005024,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.5.25\",\"indexContent\":2009005025,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.5.26\",\"indexContent\":2009005026,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.6.1\",\"indexContent\":2009006001,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.6.2\",\"indexContent\":2009006002,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.6.3\",\"indexContent\":2009006003,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Gal.6.4\",\"indexContent\":2009006004,\"pageID\":20},{\"docID\":20122,\"osisID\":\"Heb.5.8\",\"indexContent\":2019005008,\"pageID\":30},{\"docID\":20122,\"osisID\":\"Heb.5.9\",\"indexContent\":2019005009,\"pageID\":30},{\"docID\":20122,\"osisID\":\"Heb.5.10\",\"indexContent\":2019005010,\"pageID\":30},{\"docID\":20122,\"osisID\":\"Heb.5.11\",\"indexContent\":2019005011,\"pageID\":30},{\"docID\":20122,\"osisID\":\"Heb.5.12\",\"indexContent\":2019005012,\"pageID\":30},{\"docID\":20122,\"osisID\":\"Heb.5.13\",\"indexContent\":2019005013,\"pageID\":30},{\"docID\":20122,\"osisID\":\"Heb.5.14\",\"indexContent\":2019005014,\"pageID\":30},{\"docID\":20122,\"osisID\":\"Heb.6.1\",\"indexContent\":2019006001,\"pageID\":30},{\"docID\":20122,\"osisID\":\"Heb.6.2\",\"indexContent\":2019006002,\"pageID\":40},{\"docID\":20122,\"osisID\":\"Heb.6.3\",\"indexContent\":2019006003,\"pageID\":40},{\"docID\":20122,\"osisID\":\"Heb.6.4\",\"indexContent\":2019006004,\"pageID\":40},{\"docID\":20122,\"osisID\":\"Heb.6.5\",\"indexContent\":2019006005,\"pageID\":40},{\"docID\":20122,\"osisID\":\"Heb.6.6\",\"indexContent\":2019006006,\"pageID\":40},{\"docID\":20122,\"osisID\":\"Heb.6.7\",\"indexContent\":2019006007,\"pageID\":40},{\"docID\":20122,\"osisID\":\"Heb.6.8\",\"indexContent\":2019006008,\"pageID\":40},{\"docID\":20122,\"osisID\":\"Heb.6.9\",\"indexContent\":2019006009,\"pageID\":40},{\"docID\":20122,\"osisID\":\"Heb.6.10\",\"indexContent\":2019006010,\"pageID\":40}]}}}",
+  "body_sha256": "fc2b3693f73f455c1b1f37a270733eca14eba108ced52b83d51d2bf0d159feb8",
+  "retrieved_at": "2026-10-07T17:36:39+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

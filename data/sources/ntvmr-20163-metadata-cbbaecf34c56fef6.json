@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20163",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:43:58 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395038688",
+    "X-Request-Post-Validation-Epoch": "1791395038688",
+    "X-Request-Response-Epoch": "1791395038695",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3057",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20163,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":163,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":410,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"University of Chicago Library\",\"place\":\"Chicago, IL\",\"logoURL\":\"http://ntmss.info/instlogos/ChicagoUL.jpg\",\"url\":\"http://www.lib.uchicago.edu/e/index.html\"},\"leavesDescription\":\"Frg\",\"shelfID\":232,\"originYearDescription\":\"V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Ms. 9351 (OIM) (P. Oxy. 848)\",\"contentOverview\":\"Ap 16,17-20\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Rev 16:17-18\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20163/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://goodspeed.lib.uchicago.edu/ms/index.php?doc=9351&obj=001\\\"><div>See External Images by<br/>UCL</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20163/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":232,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Rev 16:17-18\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"gerloff\"},{\"biblicalContent\":\"Rev 16:19-20\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20163/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://goodspeed.lib.uchicago.edu/ms/index.php?doc=9351&obj=001\\\"><div>See External Images by<br/>UCL</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20163/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":232,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Rev 16:19-20\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"}]},\"gaNum\":163,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"lang\":\"g\",\"contentOverview\":\"r\",\"lineCount\":{\"lineCountMin\":17,\"content\":\"(17)\"}}}}",
+  "body_sha256": "cdef67acdec92d7791d9f87a6c2f206ef223692bab212dc880e61ef466867f2d",
+  "retrieved_at": "2026-10-07T17:43:58+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

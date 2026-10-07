@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20111",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:34:42 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394482956",
+    "X-Request-Post-Validation-Epoch": "1791394482957",
+    "X-Request-Response-Epoch": "1791394482961",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1251",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20111,\"indexContent\":[\"2Thess 1:1-12; 2Thess 2:1-2\",{\"docID\":20111,\"osisID\":\"2Thess.1.1\",\"indexContent\":2014001001,\"pageID\":10},{\"docID\":20111,\"osisID\":\"2Thess.1.2\",\"indexContent\":2014001002,\"pageID\":10},{\"docID\":20111,\"osisID\":\"2Thess.1.3\",\"indexContent\":2014001003,\"pageID\":10},{\"docID\":20111,\"osisID\":\"2Thess.1.4\",\"indexContent\":2014001004,\"pageID\":10},{\"docID\":20111,\"osisID\":\"2Thess.1.5\",\"indexContent\":2014001005,\"pageID\":10},{\"docID\":20111,\"osisID\":\"2Thess.1.6\",\"indexContent\":2014001006,\"pageID\":10},{\"docID\":20111,\"osisID\":\"2Thess.1.7\",\"indexContent\":2014001007,\"pageID\":10},{\"docID\":20111,\"osisID\":\"2Thess.1.7\",\"indexContent\":2014001007,\"pageID\":20},{\"docID\":20111,\"osisID\":\"2Thess.1.8\",\"indexContent\":2014001008,\"pageID\":20},{\"docID\":20111,\"osisID\":\"2Thess.1.9\",\"indexContent\":2014001009,\"pageID\":20},{\"docID\":20111,\"osisID\":\"2Thess.1.10\",\"indexContent\":2014001010,\"pageID\":20},{\"docID\":20111,\"osisID\":\"2Thess.1.11\",\"indexContent\":2014001011,\"pageID\":20},{\"docID\":20111,\"osisID\":\"2Thess.1.12\",\"indexContent\":2014001012,\"pageID\":20},{\"docID\":20111,\"osisID\":\"2Thess.2.1\",\"indexContent\":2014002001,\"pageID\":20},{\"docID\":20111,\"osisID\":\"2Thess.2.2\",\"indexContent\":2014002002,\"pageID\":20}]}}}",
+  "body_sha256": "03974fb3d0e0ed8db52a6b9f802fe5160d3428579900739f9581fb792da89742",
+  "retrieved_at": "2026-10-07T17:34:43+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20133",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:38:37 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394717875",
+    "X-Request-Post-Validation-Epoch": "1791394717875",
+    "X-Request-Response-Epoch": "1791394717881",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2974",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20133,\"indexContent\":[\"John 3:3; Ps 40:12-14; Isa 50:4-11; Ps 51:1-5; Ps 51:7-11; Ps 139:1-9; Jer 11:18-23\",{\"docID\":20133,\"osisID\":\"John.3.3\",\"indexContent\":2004003003,\"pageID\":40},{\"docID\":20133,\"osisID\":\"Ps.40.12\",\"indexContent\":1025040012,\"pageID\":1050},{\"docID\":20133,\"osisID\":\"Ps.40.13\",\"indexContent\":1025040013,\"pageID\":1050},{\"docID\":20133,\"osisID\":\"Ps.40.14\",\"indexContent\":1025040014,\"pageID\":1050},{\"docID\":20133,\"osisID\":\"Isa.50.4\",\"indexContent\":1046050004,\"pageID\":1060},{\"docID\":20133,\"osisID\":\"Isa.50.5\",\"indexContent\":1046050005,\"pageID\":1060},{\"docID\":20133,\"osisID\":\"Isa.50.6\",\"indexContent\":1046050006,\"pageID\":1060},{\"docID\":20133,\"osisID\":\"Isa.50.7\",\"indexContent\":1046050007,\"pageID\":1060},{\"docID\":20133,\"osisID\":\"Isa.50.8\",\"indexContent\":1046050008,\"pageID\":1060},{\"docID\":20133,\"osisID\":\"Isa.50.9\",\"indexContent\":1046050009,\"pageID\":1060},{\"docID\":20133,\"osisID\":\"Isa.50.10\",\"indexContent\":1046050010,\"pageID\":1060},{\"docID\":20133,\"osisID\":\"Isa.50.11\",\"indexContent\":1046050011,\"pageID\":1060},{\"docID\":20133,\"osisID\":\"Ps.51.1\",\"indexContent\":1025051001,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.2\",\"indexContent\":1025051002,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.3\",\"indexContent\":1025051003,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.4\",\"indexContent\":1025051004,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.5\",\"indexContent\":1025051005,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.7\",\"indexContent\":1025051007,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.8\",\"indexContent\":1025051008,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.9\",\"indexContent\":1025051009,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.10\",\"indexContent\":1025051010,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.51.11\",\"indexContent\":1025051011,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.1\",\"indexContent\":1025139001,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.2\",\"indexContent\":1025139002,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.3\",\"indexContent\":1025139003,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.4\",\"indexContent\":1025139004,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.5\",\"indexContent\":1025139005,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.6\",\"indexContent\":1025139006,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.7\",\"indexContent\":1025139007,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.8\",\"indexContent\":1025139008,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Ps.139.9\",\"indexContent\":1025139009,\"pageID\":1070},{\"docID\":20133,\"osisID\":\"Jer.11.18\",\"indexContent\":1047011018,\"pageID\":1110},{\"docID\":20133,\"osisID\":\"Jer.11.19\",\"indexContent\":1047011019,\"pageID\":1110},{\"docID\":20133,\"osisID\":\"Jer.11.20\",\"indexContent\":1047011020,\"pageID\":1110},{\"docID\":20133,\"osisID\":\"Jer.11.21\",\"indexContent\":1047011021,\"pageID\":1110},{\"docID\":20133,\"osisID\":\"Jer.11.22\",\"indexContent\":1047011022,\"pageID\":1110},{\"docID\":20133,\"osisID\":\"Jer.11.23\",\"indexContent\":1047011023,\"pageID\":1110}]}}}",
+  "body_sha256": "cf177bc86bc1bce41e4b44c37b8ece07e4d241a86ae720ad1b072dfc57cf2ec2",
+  "retrieved_at": "2026-10-07T17:38:37+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

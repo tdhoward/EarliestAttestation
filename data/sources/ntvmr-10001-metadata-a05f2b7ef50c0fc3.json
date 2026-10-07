@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10001",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:52:52 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791391972410",
+    "X-Request-Post-Validation-Epoch": "1791391972411",
+    "X-Request-Response-Epoch": "1791391972417",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2950",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10001,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P1\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":443,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Penn Museum\",\"place\":\"Philadelphia, PA\",\"logoURL\":\"http://ntmss.info/instlogos/penn_logo.png\",\"url\":\"http://www.penn.museum/\"},\"leavesDescription\":\"2 Frg (1 Dbl.)\",\"shelfID\":1,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"E 2746\",\"contentOverview\":\"Mt 1,1-9.12; 1,14-20.23\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"III\"},\"leavesDescription\":\"2 Frg (1 Dbl.)\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Matt 1:1-9; Matt 1:12-13\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10001/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.penn.museum/collections/object/254486\\\"><img src=\\\" https://upmaa-pennmuseum.netdna-ssl.com/img/brand/pm-logo-blue.jpg\\\"><div> Images©<br/>PennMuseum</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10001/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10001/10001x001.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10001/10001x001.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":1,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Matt 1:1-9; Matt 1:12-13\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10001&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Matt 1:14-20; Matt 1:23\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10001/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.penn.museum/collections/object/254486\\\"><img src=\\\" https://upmaa-pennmuseum.netdna-ssl.com/img/brand/pm-logo-blue.jpg\\\"><div> Images©<br/>PennMuseum</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10001/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10001/10001x002.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10001/10001x002.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":1,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Matt 1:14-20; Matt 1:23\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10001&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P1\",\"leaves\":{\"leavesCount\":1,\"content\":\"2 Frg (1 Dbl.)\"},\"width\":{\"widthMin\":130},\"lang\":\"g\",\"contentOverview\":\"e: Mt\",\"lineCount\":{\"lineCountMax\":38,\"lineCountMin\":37,\"content\":\"27r, 25v\"},\"height\":{\"heightMin\":250}}}}",
+  "body_sha256": "66e4c402dd840647407d41d0486f5ed12645f0e0c300042f3c27cc3d9b35657d",
+  "retrieved_at": "2026-10-07T16:52:52+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

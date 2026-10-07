@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20165",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:44:25 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395065050",
+    "X-Request-Post-Validation-Epoch": "1791395065051",
+    "X-Request-Response-Epoch": "1791395065054",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1685",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20165,\"indexContent\":[\"Acts 3:24-26; Acts 4:1-13; Acts 4:17-20\",{\"docID\":20165,\"osisID\":\"Acts.3.24\",\"indexContent\":2005003024,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.3.25\",\"indexContent\":2005003025,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.3.26\",\"indexContent\":2005003026,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.4.1\",\"indexContent\":2005004001,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.4.2\",\"indexContent\":2005004002,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.4.3\",\"indexContent\":2005004003,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.4.4\",\"indexContent\":2005004004,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.4.5\",\"indexContent\":2005004005,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.4.6\",\"indexContent\":2005004006,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.4.7\",\"indexContent\":2005004007,\"pageID\":10},{\"docID\":20165,\"osisID\":\"Acts.4.7\",\"indexContent\":2005004007,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.8\",\"indexContent\":2005004008,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.9\",\"indexContent\":2005004009,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.10\",\"indexContent\":2005004010,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.11\",\"indexContent\":2005004011,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.12\",\"indexContent\":2005004012,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.13\",\"indexContent\":2005004013,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.17\",\"indexContent\":2005004017,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.18\",\"indexContent\":2005004018,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.19\",\"indexContent\":2005004019,\"pageID\":20},{\"docID\":20165,\"osisID\":\"Acts.4.20\",\"indexContent\":2005004020,\"pageID\":20}]}}}",
+  "body_sha256": "3a1879ffd47ce2ea01be05303dca2fbad8f9ddc9be356b9f9c382b2d697256fc",
+  "retrieved_at": "2026-10-07T17:44:25+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

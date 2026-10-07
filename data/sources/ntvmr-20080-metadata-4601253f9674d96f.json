@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20080",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:29:08 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394148262",
+    "X-Request-Post-Validation-Epoch": "1791394148262",
+    "X-Request-Response-Epoch": "1791394148267",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3920",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20080,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":80,\"shelfInstances\":{\"shelfInstance\":[{\"institution\":{\"country\":\"Egypt\",\"instID\":1,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Greek Orthodox Patriarchate of Alexandria\",\"place\":\"Alexandria\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":1,\"shelfID\":5511,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":496,\"contentOverview\":\"Mc 9,14-18.20-22; 10,23-24.29\"},{\"institution\":{\"country\":\"Russia\",\"instID\":345,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"National Library of Russia\",\"place\":\"St. Petersburg\",\"logoURL\":\"http://ntmss.info/instlogos/RussNationalBib2.jpg\",\"url\":\"http://www.nlr.ru/\"},\"leavesDescription\":1,\"shelfID\":5512,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Ф. № 906 / Gr. 275 \",\"contentOverview\":\"Mc 9,14-18.20-22; 10,23-24.29\"}]},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":2,\"pages\":{\"count\":3,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20080/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20080/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":5511,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20080/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20080/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":5511,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20080/30/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20080/30_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":5512,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30}]},\"gaNum\":80,\"leaves\":{\"leavesCount\":2,\"content\":2},\"lang\":\"g\",\"contentOverview\":\"e: Mc\",\"lineCount\":{\"lineCountMin\":18,\"content\":\"(18)\"}}}}",
+  "body_sha256": "ebe5353a2db82acf5584f9e34786e13ea82afb9aef58425972de0655a0187255",
+  "retrieved_at": "2026-10-07T17:29:08+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

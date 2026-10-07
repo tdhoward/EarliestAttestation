@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10035",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:57:48 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392268325",
+    "X-Request-Post-Validation-Epoch": "1791392268326",
+    "X-Request-Response-Epoch": "1791392268331",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2855",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10035,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P35\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":272,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Medicea Laurenziana\",\"place\":\"Florence\",\"logoURL\":\"http://ntmss.info/instlogos/Laurenziana.gif\",\"url\":\"http://www.bml.firenze.sbn.it/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":32,\"originYearDescription\":\"IV (?)\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pap. inv. 13725 (PSI I 1)\",\"contentOverview\":\"Mt 25,12-15; 25,20-23\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":475,\"content\":\"E V\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Matt 25:12-15\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10035/20/20\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.bmlonline.it/en/\\\"><img src=\\\"https://www.bmlonline.it/wp-content/uploads/2018/09/bml.jpg\\\"><div>Images©<br/>BML</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10035/20_49_20.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/10035/10035x00020Xb.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10035/10035x00020Xb.jpg\",\"surrID\":20,\"protectLevel\":0}},\"shelfID\":32,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1r\",\"indexContent\":\"Matt 25:12-15\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10035&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"},{\"biblicalContent\":\"Matt 25:20-23\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10035/30/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.bmlonline.it/en/\\\"><img src=\\\"https://www.bmlonline.it/wp-content/uploads/2018/09/bml.jpg\\\"><div>Images©<br/>BML</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10035/30_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10035/10035x00030XX.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10035/10035x00030XX.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":32,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"1v\",\"indexContent\":\"Matt 25:20-23\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10035&pageID=30&format=xhtml\"}},\"indexTier\":3,\"pageID\":30,\"indexedBy\":\"gerloff\"}]},\"gaNum\":\"P35\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":89},\"lang\":\"g\",\"contentOverview\":\"e: Mt\",\"lineCount\":{\"lineCountMax\":11,\"lineCountMin\":10,\"content\":\"10-11 (30)\"},\"height\":{\"heightMin\":80}}}}",
+  "body_sha256": "c9d98700f773fbc2689dcb970aa01ab1c8ac7a1a6003c6915f5c0a91a8e25118",
+  "retrieved_at": "2026-10-07T16:57:48+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

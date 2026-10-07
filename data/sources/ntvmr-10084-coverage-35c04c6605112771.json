@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10084",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:05:34 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392734754",
+    "X-Request-Post-Validation-Epoch": "1791392734755",
+    "X-Request-Response-Epoch": "1791392734759",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1611",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10084,\"indexContent\":[\"Mark 2:2-5; Mark 2:8-9; Mark 6:30-31; Mark 6:33-34; Mark 6:36-37; Mark 6:39-41; John 5:5; John 17:3; John 17:7-8\",{\"docID\":10084,\"osisID\":\"Mark.2.2\",\"indexContent\":2002002002,\"pageID\":10},{\"docID\":10084,\"osisID\":\"Mark.2.3\",\"indexContent\":2002002003,\"pageID\":10},{\"docID\":10084,\"osisID\":\"Mark.2.4\",\"indexContent\":2002002004,\"pageID\":10},{\"docID\":10084,\"osisID\":\"Mark.2.5\",\"indexContent\":2002002005,\"pageID\":10},{\"docID\":10084,\"osisID\":\"Mark.2.8\",\"indexContent\":2002002008,\"pageID\":20},{\"docID\":10084,\"osisID\":\"Mark.2.9\",\"indexContent\":2002002009,\"pageID\":20},{\"docID\":10084,\"osisID\":\"Mark.6.30\",\"indexContent\":2002006030,\"pageID\":30},{\"docID\":10084,\"osisID\":\"Mark.6.31\",\"indexContent\":2002006031,\"pageID\":30},{\"docID\":10084,\"osisID\":\"Mark.6.33\",\"indexContent\":2002006033,\"pageID\":30},{\"docID\":10084,\"osisID\":\"Mark.6.34\",\"indexContent\":2002006034,\"pageID\":30},{\"docID\":10084,\"osisID\":\"Mark.6.36\",\"indexContent\":2002006036,\"pageID\":40},{\"docID\":10084,\"osisID\":\"Mark.6.37\",\"indexContent\":2002006037,\"pageID\":40},{\"docID\":10084,\"osisID\":\"Mark.6.39\",\"indexContent\":2002006039,\"pageID\":40},{\"docID\":10084,\"osisID\":\"Mark.6.40\",\"indexContent\":2002006040,\"pageID\":40},{\"docID\":10084,\"osisID\":\"Mark.6.41\",\"indexContent\":2002006041,\"pageID\":40},{\"docID\":10084,\"osisID\":\"John.5.5\",\"indexContent\":2004005005,\"pageID\":42},{\"docID\":10084,\"osisID\":\"John.17.3\",\"indexContent\":2004017003,\"pageID\":50},{\"docID\":10084,\"osisID\":\"John.17.7\",\"indexContent\":2004017007,\"pageID\":60},{\"docID\":10084,\"osisID\":\"John.17.8\",\"indexContent\":2004017008,\"pageID\":60}]}}}",
+  "body_sha256": "d464aac94864279c0e866b7286403a23a6ee979e86bab3feb02187816619e145",
+  "retrieved_at": "2026-10-07T17:05:34+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

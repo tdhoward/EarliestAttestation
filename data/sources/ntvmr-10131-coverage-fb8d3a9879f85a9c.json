@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10131",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:12:35 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393155905",
+    "X-Request-Post-Validation-Epoch": "1791393155906",
+    "X-Request-Response-Epoch": "1791393155909",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1250",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10131,\"indexContent\":[\"Rom 8:17-19; Rom 9:33; Rom 10:1-4; Rom 8:32-33; Rom 9:18-22\",{\"docID\":10131,\"osisID\":\"Rom.8.17\",\"indexContent\":2006008017,\"pageID\":20},{\"docID\":10131,\"osisID\":\"Rom.8.18\",\"indexContent\":2006008018,\"pageID\":20},{\"docID\":10131,\"osisID\":\"Rom.8.19\",\"indexContent\":2006008019,\"pageID\":20},{\"docID\":10131,\"osisID\":\"Rom.9.33\",\"indexContent\":2006009033,\"pageID\":20},{\"docID\":10131,\"osisID\":\"Rom.10.1\",\"indexContent\":2006010001,\"pageID\":20},{\"docID\":10131,\"osisID\":\"Rom.10.2\",\"indexContent\":2006010002,\"pageID\":20},{\"docID\":10131,\"osisID\":\"Rom.10.3\",\"indexContent\":2006010003,\"pageID\":20},{\"docID\":10131,\"osisID\":\"Rom.10.4\",\"indexContent\":2006010004,\"pageID\":20},{\"docID\":10131,\"osisID\":\"Rom.8.32\",\"indexContent\":2006008032,\"pageID\":30},{\"docID\":10131,\"osisID\":\"Rom.8.33\",\"indexContent\":2006008033,\"pageID\":30},{\"docID\":10131,\"osisID\":\"Rom.9.18\",\"indexContent\":2006009018,\"pageID\":30},{\"docID\":10131,\"osisID\":\"Rom.9.19\",\"indexContent\":2006009019,\"pageID\":30},{\"docID\":10131,\"osisID\":\"Rom.9.20\",\"indexContent\":2006009020,\"pageID\":30},{\"docID\":10131,\"osisID\":\"Rom.9.21\",\"indexContent\":2006009021,\"pageID\":30},{\"docID\":10131,\"osisID\":\"Rom.9.22\",\"indexContent\":2006009022,\"pageID\":30}]}}}",
+  "body_sha256": "ae4054592c2c2a255cd065076fd50e7c0e94e8bc5f7944513a46464346560187",
+  "retrieved_at": "2026-10-07T17:12:36+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

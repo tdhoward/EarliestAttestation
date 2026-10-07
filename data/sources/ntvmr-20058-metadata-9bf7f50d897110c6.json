@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20058",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:25:11 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393911984",
+    "X-Request-Post-Validation-Epoch": "1791393911985",
+    "X-Request-Response-Epoch": "1791393911990",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2272",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20058,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":58,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Austria\",\"instID\":328,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Österreichische Nationalbibliothek\",\"place\":\"Wien\",\"logoURL\":\"http://ntmss.info/instlogos/OesterNationalbib.jpg\",\"url\":\"http://www.onb.ac.at/\"},\"leavesDescription\":\"Frg\",\"shelfID\":163,\"originYearDescription\":\"IV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pap. G. 39782\",\"contentOverview\":\"Mt 18,18-19.22-23; 18,25-26.28-29\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":399,\"early\":300,\"content\":\"IV\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Matt 18:18-19; Matt 18:22-23\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":2,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected2.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20058/20/30\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20058/20_49_30.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected2.png\",\"surrID\":30}},\"shelfID\":163,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Matt 18:18-19; Matt 18:22-23\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"davidhutchison\"},{\"biblicalContent\":\"Matt 18:25-26; Matt 18:28-29\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":2,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected2.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20058/30/30\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20058/30_49_30.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected2.png\",\"surrID\":30}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"Matt 18:25-26; Matt 18:28-29\",\"indexTier\":3,\"pageID\":30,\"indexedBy\":\"lakmann\"}]},\"gaNum\":58,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"lang\":\"g\",\"contentOverview\":\"e: Mt\",\"lineCount\":{\"lineCountMin\":26,\"content\":\"(28)\"}}}}",
+  "body_sha256": "364b1fa414934c3300828e37db3ae385a21e373888c620cb1254b382a04dd26b",
+  "retrieved_at": "2026-10-07T17:25:12+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

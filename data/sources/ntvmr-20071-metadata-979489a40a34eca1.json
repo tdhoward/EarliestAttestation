@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20071",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:27:31 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394051075",
+    "X-Request-Post-Validation-Epoch": "1791394051076",
+    "X-Request-Response-Epoch": "1791394051081",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3166",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20071,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":71,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":405,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Houghton Library, Harvard University\",\"place\":\"Cambridge, MA\",\"logoURL\":\"http://ntmss.info/instlogos/harvardCollege2.gif\",\"url\":\"http://hcl.harvard.edu/libraries/houghton/\"},\"leavesDescription\":\"Frg\",\"shelfID\":172,\"originYearDescription\":\"V/VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"MS Gr SM3735\",\"contentOverview\":\"Mt 1,21-24.25-2,2\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":400,\"content\":\"V/VI\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Matt 1:21-24\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20071/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>\\n&nbsp;\\n<a target=\\\"_blank\\\" href=\\\"http://library.harvard.edu/\\\"><img src=\\\"https://library.harvard.edu/sites/all/themes/HarvardLibraryPortalTheme/logo.png\\\"><div>Images ©<br/>Harvard</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20071/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20071/20071x00010_Harvard10651398.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20071/20071x00010_Harvard10651398.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":172,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Matt 1:21-24\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20071&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"SEL\"},{\"biblicalContent\":\"Matt 1:25; Matt 2:1-2\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20071/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>\\n&nbsp;\\n<a target=\\\"_blank\\\" href=\\\"http://library.harvard.edu/\\\"><img src=\\\"https://library.harvard.edu/sites/all/themes/HarvardLibraryPortalTheme/logo.png\\\"><div>Images ©<br/>Harvard</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20071/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20071/20071x00020_Harvard10651397.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20071/20071x00020_Harvard10651397.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":172,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Matt 1:25; Matt 2:1-2\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20071&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"SEL\"}]},\"gaNum\":71,\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"lang\":\"g\",\"contentOverview\":\"e: Mt\",\"lineCount\":{\"lineCountMin\":13,\"content\":\"(13)\"}}}}",
+  "body_sha256": "389c4dfa991bc96c1a83e830055a3515865ea532ae7a376edc1f2d4961ee834b",
+  "retrieved_at": "2026-10-07T17:27:31+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

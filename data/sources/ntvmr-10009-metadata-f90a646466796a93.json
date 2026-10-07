@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10009",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:54:16 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392056949",
+    "X-Request-Post-Validation-Epoch": "1791392056950",
+    "X-Request-Response-Epoch": "1791392056957",
+    "X-Response-Time": "8ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3239",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10009,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P9\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":405,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Houghton Library, Harvard University\",\"place\":\"Cambridge, MA\",\"logoURL\":\"http://ntmss.info/instlogos/harvardCollege2.gif\",\"url\":\"http://hcl.harvard.edu/libraries/houghton/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":8,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"MS Gr SM3736\",\"contentOverview\":\"1 J 4,11-12.14-17\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":325,\"early\":275,\"content\":\"E III - A IV\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"1John 4:11-12\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10009/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>\\n&nbsp;\\n<a target=\\\"_blank\\\" href=\\\"http://library.harvard.edu/\\\"><img src=\\\"https://library.harvard.edu/sites/all/themes/HarvardLibraryPortalTheme/logo.png\\\"><div>Images ©<br/>Harvard</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10009/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10009/10009x00010_Harvard10651399.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10009/10009x00010_Harvard10651399.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":8,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"1John 4:11-12\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10009&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"1John 4:14-17\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10009/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>\\n&nbsp;\\n<a target=\\\"_blank\\\" href=\\\"http://library.harvard.edu/\\\"><img src=\\\"https://library.harvard.edu/sites/all/themes/HarvardLibraryPortalTheme/logo.png\\\"><div>Images ©<br/>Harvard</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10009/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10009/10009x00020_Harvard10651400.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10009/10009x00020_Harvard10651400.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":8,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"1John 4:14-17\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10009&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P9\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":110},\"lang\":\"g\",\"contentOverview\":\"a: 1J\",\"lineCount\":{\"lineCountMax\":15,\"lineCountMin\":6,\"content\":\"6r, 11v (15)\"},\"height\":{\"heightMin\":140}}}}",
+  "body_sha256": "2ad8397b3e90af9d81d760e34ffedd0dedd478ae81a06423ce0a3171f3d0ea84",
+  "retrieved_at": "2026-10-07T16:54:17+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

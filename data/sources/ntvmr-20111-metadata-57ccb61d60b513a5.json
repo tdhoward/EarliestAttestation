@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20111",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:34:37 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394477668",
+    "X-Request-Post-Validation-Epoch": "1791394477669",
+    "X-Request-Response-Epoch": "1791394477674",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3934",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20111,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":111,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":28,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Staatliche Museen zu Berlin \",\"place\":\"Berlin\",\"logoURL\":\"https://www.smb.museum/_assets/039206741bf4587f2033bb29864a8b5a/img/logo.svg\",\"url\":\"https://www.smb.museum/home/\"},\"leavesDescription\":1,\"shelfID\":195,\"originYearDescription\":\"VII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. 5013\",\"contentOverview\":\"2Th 1,1-2,2\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":699,\"early\":600,\"content\":\"VII\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"2Thess 1:1-7\",\"images\":{\"image\":[{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20111/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20111/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10},{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20111/10/20\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20111/10_49_20.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":20},{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20111/10/30\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ww2.smb.museum/berlpap/\\\"><img src=\\\"http://ww2.smb.museum/berlpap/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images © Berlin<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20111/10_49_30.jpg\",\"userName\":\"\",\"uri\":\"http://ww2.smb.museum/berlpap/Original/P_05013_R.jpg\",\"webFriendlyURL\":\"http://ww2.smb.museum/berlpap/Original/P_05013_R.jpg\",\"surrID\":30,\"protectLevel\":0}]},\"shelfID\":195,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"2Thess 1:1-7\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"gerloff\"},{\"biblicalContent\":\"2Thess 1:7-12; 2Thess 2:1-2\",\"images\":{\"image\":[{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20111/20/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20111/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10},{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20111/20/20\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ww2.smb.museum/berlpap/\\\"><img src=\\\"http://ww2.smb.museum/berlpap/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images © Berlin<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20111/20_49_20.jpg\",\"userName\":\"\",\"uri\":\"http://ww2.smb.museum/berlpap/Original/P_05013_V.jpg\",\"webFriendlyURL\":\"http://ww2.smb.museum/berlpap/Original/P_05013_V.jpg\",\"surrID\":20,\"protectLevel\":0}]},\"shelfID\":195,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"2Thess 1:7-12; 2Thess 2:1-2\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"}]},\"gaNum\":111,\"leaves\":{\"leavesCount\":1,\"content\":1},\"lang\":\"g\",\"contentOverview\":\"p: 2Th\",\"lineCount\":{\"lineCountMin\":24,\"content\":24}}}}",
+  "body_sha256": "2d23c1441c79c70dc3e56a55f2134a0b5f6002516d5de89e527abeab84f648f4",
+  "retrieved_at": "2026-10-07T17:34:37+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

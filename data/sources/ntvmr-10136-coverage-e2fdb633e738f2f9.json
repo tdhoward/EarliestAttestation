@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10136",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:12:56 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393176951",
+    "X-Request-Post-Validation-Epoch": "1791393176952",
+    "X-Request-Response-Epoch": "1791393176955",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "857",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10136,\"indexContent\":[\"Acts 4:27-31; Acts 7:26-30\",{\"docID\":10136,\"osisID\":\"Acts.4.27\",\"indexContent\":2005004027,\"pageID\":10},{\"docID\":10136,\"osisID\":\"Acts.4.28\",\"indexContent\":2005004028,\"pageID\":10},{\"docID\":10136,\"osisID\":\"Acts.4.29\",\"indexContent\":2005004029,\"pageID\":10},{\"docID\":10136,\"osisID\":\"Acts.4.30\",\"indexContent\":2005004030,\"pageID\":10},{\"docID\":10136,\"osisID\":\"Acts.4.31\",\"indexContent\":2005004031,\"pageID\":10},{\"docID\":10136,\"osisID\":\"Acts.7.26\",\"indexContent\":2005007026,\"pageID\":20},{\"docID\":10136,\"osisID\":\"Acts.7.27\",\"indexContent\":2005007027,\"pageID\":20},{\"docID\":10136,\"osisID\":\"Acts.7.28\",\"indexContent\":2005007028,\"pageID\":20},{\"docID\":10136,\"osisID\":\"Acts.7.29\",\"indexContent\":2005007029,\"pageID\":20},{\"docID\":10136,\"osisID\":\"Acts.7.30\",\"indexContent\":2005007030,\"pageID\":20}]}}}",
+  "body_sha256": "fe8ed87a2f728f0be68804a908fef0ef9f2fdf29a2e4cc17a3a797e980cfbcde",
+  "retrieved_at": "2026-10-07T17:12:57+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

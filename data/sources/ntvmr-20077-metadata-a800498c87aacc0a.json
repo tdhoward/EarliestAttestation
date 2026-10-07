@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20077",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:28:36 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394116475",
+    "X-Request-Post-Validation-Epoch": "1791394116476",
+    "X-Request-Response-Epoch": "1791394116480",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1655",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20077,\"columns\":{\"columnsMin\":0,\"content\":\"?\"},\"groupID\":\"\",\"primaryName\":77,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":6,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Saint Catherine's Monastery\",\"place\":\"Sinai\",\"logoURL\":\"http://ntmss.info/instlogos/Katharinenkloster.jpg\",\"url\":\"http://www.sinaimonastery.com/\"},\"leavesDescription\":\"Frg\",\"shelfID\":176,\"originYearDescription\":\"V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Harris App. 5\",\"contentOverview\":\"Act 13,28-29\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"Acts 13:28-31\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20077/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20077/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20077/20077x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20077/20077x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":176,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Acts 13:28-31\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20077&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"}},\"gaNum\":77,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"lang\":\"g\",\"contentOverview\":\"a: Act\",\"lineCount\":{\"lineCountMin\":0,\"content\":\"?\"}}}}",
+  "body_sha256": "2c83dc7eaf161f17ba789bb216005b9fdd3886e72afac5d2c4d2d8f50954c4b2",
+  "retrieved_at": "2026-10-07T17:28:36+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

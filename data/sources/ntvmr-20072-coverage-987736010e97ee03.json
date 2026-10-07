@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20072",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:27:46 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394066866",
+    "X-Request-Post-Validation-Epoch": "1791394066868",
+    "X-Request-Response-Epoch": "1791394066872",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "850",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20072,\"indexContent\":[\"Mark 2:23-27; Mark 3:1-5\",{\"docID\":20072,\"osisID\":\"Mark.2.23\",\"indexContent\":2002002023,\"pageID\":10},{\"docID\":20072,\"osisID\":\"Mark.2.24\",\"indexContent\":2002002024,\"pageID\":10},{\"docID\":20072,\"osisID\":\"Mark.2.25\",\"indexContent\":2002002025,\"pageID\":10},{\"docID\":20072,\"osisID\":\"Mark.2.26\",\"indexContent\":2002002026,\"pageID\":10},{\"docID\":20072,\"osisID\":\"Mark.2.27\",\"indexContent\":2002002027,\"pageID\":10},{\"docID\":20072,\"osisID\":\"Mark.3.1\",\"indexContent\":2002003001,\"pageID\":20},{\"docID\":20072,\"osisID\":\"Mark.3.2\",\"indexContent\":2002003002,\"pageID\":20},{\"docID\":20072,\"osisID\":\"Mark.3.3\",\"indexContent\":2002003003,\"pageID\":20},{\"docID\":20072,\"osisID\":\"Mark.3.4\",\"indexContent\":2002003004,\"pageID\":20},{\"docID\":20072,\"osisID\":\"Mark.3.5\",\"indexContent\":2002003005,\"pageID\":20}]}}}",
+  "body_sha256": "0538845b539d0645b61c76b10d38bf07fe8074801d88187e9e408ea779adf05b",
+  "retrieved_at": "2026-10-07T17:27:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

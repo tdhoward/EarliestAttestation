@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10082",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:05:13 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392713478",
+    "X-Request-Post-Validation-Epoch": "1791392713479",
+    "X-Request-Response-Epoch": "1791392713483",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "482",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10082,\"indexContent\":[\"Luke 7:32-34; Luke 7:37-38\",{\"docID\":10082,\"osisID\":\"Luke.7.32\",\"indexContent\":2003007032,\"pageID\":10},{\"docID\":10082,\"osisID\":\"Luke.7.33\",\"indexContent\":2003007033,\"pageID\":10},{\"docID\":10082,\"osisID\":\"Luke.7.34\",\"indexContent\":2003007034,\"pageID\":10},{\"docID\":10082,\"osisID\":\"Luke.7.37\",\"indexContent\":2003007037,\"pageID\":20},{\"docID\":10082,\"osisID\":\"Luke.7.38\",\"indexContent\":2003007038,\"pageID\":20}]}}}",
+  "body_sha256": "e90efb6df31c9905a3588df823b1257c8b3d44c46230063ca0b2a98c26ada9bb",
+  "retrieved_at": "2026-10-07T17:05:13+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

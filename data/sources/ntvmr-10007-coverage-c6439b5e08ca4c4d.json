@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10007",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:54:01 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392041183",
+    "X-Request-Post-Validation-Epoch": "1791392041184",
+    "X-Request-Response-Epoch": "1791392041187",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "239",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10007,\"indexContent\":[\"Luke 4:1-2\",{\"docID\":10007,\"osisID\":\"Luke.4.1\",\"indexContent\":2003004001,\"pageID\":10},{\"docID\":10007,\"osisID\":\"Luke.4.2\",\"indexContent\":2003004002,\"pageID\":10}]}}}",
+  "body_sha256": "4516fcd7cda43a586df66df7113078fe377a563cedc3d075b4beff5aea181746",
+  "retrieved_at": "2026-10-07T16:54:01+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

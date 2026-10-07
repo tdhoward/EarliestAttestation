@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10094",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:06:48 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392808268",
+    "X-Request-Post-Validation-Epoch": "1791392808269",
+    "X-Request-Response-Epoch": "1791392808273",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "769",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10094,\"indexContent\":[\"Rom 6:9-13; Rom 6:19-22\",{\"docID\":10094,\"osisID\":\"Rom.6.9\",\"indexContent\":2006006009,\"pageID\":10},{\"docID\":10094,\"osisID\":\"Rom.6.10\",\"indexContent\":2006006010,\"pageID\":10},{\"docID\":10094,\"osisID\":\"Rom.6.11\",\"indexContent\":2006006011,\"pageID\":10},{\"docID\":10094,\"osisID\":\"Rom.6.12\",\"indexContent\":2006006012,\"pageID\":10},{\"docID\":10094,\"osisID\":\"Rom.6.13\",\"indexContent\":2006006013,\"pageID\":10},{\"docID\":10094,\"osisID\":\"Rom.6.19\",\"indexContent\":2006006019,\"pageID\":20},{\"docID\":10094,\"osisID\":\"Rom.6.20\",\"indexContent\":2006006020,\"pageID\":20},{\"docID\":10094,\"osisID\":\"Rom.6.21\",\"indexContent\":2006006021,\"pageID\":20},{\"docID\":10094,\"osisID\":\"Rom.6.22\",\"indexContent\":2006006022,\"pageID\":20}]}}}",
+  "body_sha256": "14b19b99fbc0adbd0f4e38b2d42789d94f24c5e0001f7f705e78d8ab90019902",
+  "retrieved_at": "2026-10-07T17:06:48+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

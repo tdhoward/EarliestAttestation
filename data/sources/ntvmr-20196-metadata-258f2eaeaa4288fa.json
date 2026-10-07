@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20196",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:49:46 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395386934",
+    "X-Request-Post-Validation-Epoch": "1791395386935",
+    "X-Request-Response-Epoch": "1791395386940",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1321",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20196,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":196,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Syria\",\"instID\":660,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"National Museum of Damascus\",\"place\":\"Damascus\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":2,\"shelfID\":6959,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"s.n. 1\",\"contentOverview\":\"Mt 5,1-11; L 24,26-33\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6959,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6959,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":6959,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":6959,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40}]},\"gaNum\":196,\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":140},\"lang\":\"g\",\"contentOverview\":\"e: MtL\",\"lineCount\":{\"lineCountMin\":19,\"content\":19},\"height\":{\"heightMin\":185}}}}",
+  "body_sha256": "27f1e3b3114939c1782e5fb5497f87410dfc268257c3b72782c8eedbda4c33ef",
+  "retrieved_at": "2026-10-07T17:49:47+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

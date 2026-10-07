@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10100",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:07:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392871404",
+    "X-Request-Post-Validation-Epoch": "1791392871405",
+    "X-Request-Response-Epoch": "1791392871408",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1598",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10100,\"indexContent\":[\"Jas 3:13-18; Jas 4:1-4; Jas 4:9-17; Jas 5:1\",{\"docID\":10100,\"osisID\":\"Jas.3.13\",\"indexContent\":2020003013,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.3.14\",\"indexContent\":2020003014,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.3.15\",\"indexContent\":2020003015,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.3.16\",\"indexContent\":2020003016,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.3.17\",\"indexContent\":2020003017,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.3.18\",\"indexContent\":2020003018,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.4.1\",\"indexContent\":2020004001,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.4.2\",\"indexContent\":2020004002,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.4.3\",\"indexContent\":2020004003,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.4.4\",\"indexContent\":2020004004,\"pageID\":10},{\"docID\":10100,\"osisID\":\"Jas.4.9\",\"indexContent\":2020004009,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.4.10\",\"indexContent\":2020004010,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.4.11\",\"indexContent\":2020004011,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.4.12\",\"indexContent\":2020004012,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.4.13\",\"indexContent\":2020004013,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.4.14\",\"indexContent\":2020004014,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.4.15\",\"indexContent\":2020004015,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.4.16\",\"indexContent\":2020004016,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.4.17\",\"indexContent\":2020004017,\"pageID\":20},{\"docID\":10100,\"osisID\":\"Jas.5.1\",\"indexContent\":2020005001,\"pageID\":20}]}}}",
+  "body_sha256": "ad502f2085c5ced1d22feb62d11f81ecdcdd07e9bc21e8b86038dae34786677e",
+  "retrieved_at": "2026-10-07T17:07:51+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

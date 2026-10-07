@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10031",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:57:16 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392236651",
+    "X-Request-Post-Validation-Epoch": "1791392236652",
+    "X-Request-Response-Epoch": "1791392236658",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2219",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10031,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P31\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":246,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"John Rylands University Library of Manchester\",\"place\":\"Manchester\",\"logoURL\":\"http://ntmss.info/instlogos/JohnRylandUL.gif\",\"url\":\"http://www.library.manchester.ac.uk/eresources/imagecollections/university/papyrus/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":29,\"originYearDescription\":\"VII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Gr. P. 4\",\"contentOverview\":\"R 12,3-8\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":699,\"early\":600,\"content\":\"VII\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"Rom 12:3-8\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10031/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P31\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10031/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":29,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1v\",\"indexContent\":\"Rom 12:3-8\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10031&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"ECM\"}},\"gaNum\":\"P31\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":240},\"lang\":\"g\",\"contentOverview\":\"p: R\",\"lineCount\":{\"lineCountMax\":15,\"lineCountMin\":9,\"content\":\"9 (15/11)\"},\"height\":{\"heightMin\":240}}}}",
+  "body_sha256": "5f7e749bf868015a1fee26e352c4d4e4a15f46c2a4de99512586927c52bf4b6d",
+  "retrieved_at": "2026-10-07T16:57:16+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

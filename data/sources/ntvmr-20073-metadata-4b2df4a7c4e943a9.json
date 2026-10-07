@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20073",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:27:52 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394072148",
+    "X-Request-Post-Validation-Epoch": "1791394072149",
+    "X-Request-Response-Epoch": "1791394072153",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3835",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20073,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":73,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":6,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Saint Catherine's Monastery\",\"place\":\"Sinai\",\"logoURL\":\"http://ntmss.info/instlogos/Katharinenkloster.jpg\",\"url\":\"http://www.sinaimonastery.com/\"},\"leavesDescription\":\"Frg\",\"shelfID\":5509,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Harris 7\",\"contentOverview\":\"Mt 14,28-31\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":1,\"pages\":{\"count\":3,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20073/9/10\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\">Images ©<br/>The Holding Institution</a></div>\\n\\n<div><a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\">Microfilm Digitized by<br/>INTF for Research Purposes</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20073/9_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00009\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":9,\"noIdx\":true},{\"biblicalContent\":\"Matt 14:19-31\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20073/10/10\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\">Images ©<br/>The Holding Institution</a></div>\\n\\n<div><a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\">Microfilm Digitized by<br/>INTF for Research Purposes</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20073/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":5509,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Matt 14:19-31\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20073&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Matt 14:31-35; Matt 15:2-8\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20073/20/20\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\">Images ©<br/>The Holding Institution</a></div>\\n\\n<div><a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\">Microfilm Digitized by<br/>INTF for Research Purposes</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20073/20_49_20.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":20}},\"shelfID\":5509,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Matt 14:31-35; Matt 15:2-8\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20073&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":73,\"leaves\":{\"leavesCount\":1,\"content\":1},\"lang\":\"g\",\"contentOverview\":\"e: Mt\",\"lineCount\":{\"lineCountMin\":34,\"content\":\"(34)\"}}}}",
+  "body_sha256": "f876ec154075cd3c956f81cbb809aaf7c42f95353e306ce756cb2197ee9540c2",
+  "retrieved_at": "2026-10-07T17:27:52+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

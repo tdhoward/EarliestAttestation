@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20175",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:46:10 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791395170739",
+    "X-Request-Post-Validation-Epoch": "1791395170740",
+    "X-Request-Response-Epoch": "1791395170743",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "703",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20175,\"indexContent\":[\"Acts 6:7-10; Acts 6:12-15\",{\"docID\":20175,\"osisID\":\"Acts.6.7\",\"indexContent\":2005006007,\"pageID\":10},{\"docID\":20175,\"osisID\":\"Acts.6.8\",\"indexContent\":2005006008,\"pageID\":10},{\"docID\":20175,\"osisID\":\"Acts.6.9\",\"indexContent\":2005006009,\"pageID\":10},{\"docID\":20175,\"osisID\":\"Acts.6.10\",\"indexContent\":2005006010,\"pageID\":10},{\"docID\":20175,\"osisID\":\"Acts.6.12\",\"indexContent\":2005006012,\"pageID\":20},{\"docID\":20175,\"osisID\":\"Acts.6.13\",\"indexContent\":2005006013,\"pageID\":20},{\"docID\":20175,\"osisID\":\"Acts.6.14\",\"indexContent\":2005006014,\"pageID\":20},{\"docID\":20175,\"osisID\":\"Acts.6.15\",\"indexContent\":2005006015,\"pageID\":20}]}}}",
+  "body_sha256": "14d6966feb0687fe4b256e57dd2746fae77081c0298e9a221bc19f476050bce0",
+  "retrieved_at": "2026-10-07T17:46:10+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

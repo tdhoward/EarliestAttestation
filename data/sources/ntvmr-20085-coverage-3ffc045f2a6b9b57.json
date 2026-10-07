@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20085",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:30:06 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394206861",
+    "X-Request-Post-Validation-Epoch": "1791394206862",
+    "X-Request-Response-Epoch": "1791394206866",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3741",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20085,\"indexContent\":[\"Matt 20:3-32; Matt 22:3-16\",{\"docID\":20085,\"osisID\":\"Matt.20.3\",\"indexContent\":2001020003,\"pageID\":30},{\"docID\":20085,\"osisID\":\"Matt.20.4\",\"indexContent\":2001020004,\"pageID\":30},{\"docID\":20085,\"osisID\":\"Matt.20.5\",\"indexContent\":2001020005,\"pageID\":30},{\"docID\":20085,\"osisID\":\"Matt.20.6\",\"indexContent\":2001020006,\"pageID\":30},{\"docID\":20085,\"osisID\":\"Matt.20.7\",\"indexContent\":2001020007,\"pageID\":30},{\"docID\":20085,\"osisID\":\"Matt.20.8\",\"indexContent\":2001020008,\"pageID\":30},{\"docID\":20085,\"osisID\":\"Matt.20.9\",\"indexContent\":2001020009,\"pageID\":30},{\"docID\":20085,\"osisID\":\"Matt.20.10\",\"indexContent\":2001020010,\"pageID\":30},{\"docID\":20085,\"osisID\":\"Matt.20.10\",\"indexContent\":2001020010,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.11\",\"indexContent\":2001020011,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.12\",\"indexContent\":2001020012,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.13\",\"indexContent\":2001020013,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.14\",\"indexContent\":2001020014,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.15\",\"indexContent\":2001020015,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.16\",\"indexContent\":2001020016,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.17\",\"indexContent\":2001020017,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.18\",\"indexContent\":2001020018,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.19\",\"indexContent\":2001020019,\"pageID\":40},{\"docID\":20085,\"osisID\":\"Matt.20.19\",\"indexContent\":2001020019,\"pageID\":50},{\"docID\":20085,\"osisID\":\"Matt.20.20\",\"indexContent\":2001020020,\"pageID\":50},{\"docID\":20085,\"osisID\":\"Matt.20.21\",\"indexContent\":2001020021,\"pageID\":50},{\"docID\":20085,\"osisID\":\"Matt.20.22\",\"indexContent\":2001020022,\"pageID\":50},{\"docID\":20085,\"osisID\":\"Matt.20.23\",\"indexContent\":2001020023,\"pageID\":50},{\"docID\":20085,\"osisID\":\"Matt.20.24\",\"indexContent\":2001020024,\"pageID\":50},{\"docID\":20085,\"osisID\":\"Matt.20.25\",\"indexContent\":2001020025,\"pageID\":50},{\"docID\":20085,\"osisID\":\"Matt.20.25\",\"indexContent\":2001020025,\"pageID\":60},{\"docID\":20085,\"osisID\":\"Matt.20.26\",\"indexContent\":2001020026,\"pageID\":60},{\"docID\":20085,\"osisID\":\"Matt.20.27\",\"indexContent\":2001020027,\"pageID\":60},{\"docID\":20085,\"osisID\":\"Matt.20.28\",\"indexContent\":2001020028,\"pageID\":60},{\"docID\":20085,\"osisID\":\"Matt.20.29\",\"indexContent\":2001020029,\"pageID\":60},{\"docID\":20085,\"osisID\":\"Matt.20.30\",\"indexContent\":2001020030,\"pageID\":60},{\"docID\":20085,\"osisID\":\"Matt.20.31\",\"indexContent\":2001020031,\"pageID\":60},{\"docID\":20085,\"osisID\":\"Matt.20.32\",\"indexContent\":2001020032,\"pageID\":60},{\"docID\":20085,\"osisID\":\"Matt.22.3\",\"indexContent\":2001022003,\"pageID\":70},{\"docID\":20085,\"osisID\":\"Matt.22.4\",\"indexContent\":2001022004,\"pageID\":70},{\"docID\":20085,\"osisID\":\"Matt.22.5\",\"indexContent\":2001022005,\"pageID\":70},{\"docID\":20085,\"osisID\":\"Matt.22.6\",\"indexContent\":2001022006,\"pageID\":70},{\"docID\":20085,\"osisID\":\"Matt.22.7\",\"indexContent\":2001022007,\"pageID\":70},{\"docID\":20085,\"osisID\":\"Matt.22.8\",\"indexContent\":2001022008,\"pageID\":70},{\"docID\":20085,\"osisID\":\"Matt.22.9\",\"indexContent\":2001022009,\"pageID\":70},{\"docID\":20085,\"osisID\":\"Matt.22.10\",\"indexContent\":2001022010,\"pageID\":70},{\"docID\":20085,\"osisID\":\"Matt.22.10\",\"indexContent\":2001022010,\"pageID\":80},{\"docID\":20085,\"osisID\":\"Matt.22.11\",\"indexContent\":2001022011,\"pageID\":80},{\"docID\":20085,\"osisID\":\"Matt.22.12\",\"indexContent\":2001022012,\"pageID\":80},{\"docID\":20085,\"osisID\":\"Matt.22.13\",\"indexContent\":2001022013,\"pageID\":80},{\"docID\":20085,\"osisID\":\"Matt.22.14\",\"indexContent\":2001022014,\"pageID\":80},{\"docID\":20085,\"osisID\":\"Matt.22.15\",\"indexContent\":2001022015,\"pageID\":80},{\"docID\":20085,\"osisID\":\"Matt.22.16\",\"indexContent\":2001022016,\"pageID\":80}]}}}",
+  "body_sha256": "fd223c95d9b4258184bc11f54622053fc9791c2c2e1417cde419aed62695e6c5",
+  "retrieved_at": "2026-10-07T17:30:06+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

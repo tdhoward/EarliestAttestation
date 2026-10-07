@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10095",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:06:58 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392818744",
+    "X-Request-Post-Validation-Epoch": "1791392818745",
+    "X-Request-Response-Epoch": "1791392818748",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "632",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10095,\"indexContent\":[\"John 5:26-29; John 5:36-38\",{\"docID\":10095,\"osisID\":\"John.5.26\",\"indexContent\":2004005026,\"pageID\":10},{\"docID\":10095,\"osisID\":\"John.5.27\",\"indexContent\":2004005027,\"pageID\":10},{\"docID\":10095,\"osisID\":\"John.5.28\",\"indexContent\":2004005028,\"pageID\":10},{\"docID\":10095,\"osisID\":\"John.5.29\",\"indexContent\":2004005029,\"pageID\":10},{\"docID\":10095,\"osisID\":\"John.5.36\",\"indexContent\":2004005036,\"pageID\":20},{\"docID\":10095,\"osisID\":\"John.5.37\",\"indexContent\":2004005037,\"pageID\":20},{\"docID\":10095,\"osisID\":\"John.5.38\",\"indexContent\":2004005038,\"pageID\":20}]}}}",
+  "body_sha256": "25403357596e7a1f1fb281e427efafde68497f8122c2b02fd9fbe984e348ce1d",
+  "retrieved_at": "2026-10-07T17:06:58+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

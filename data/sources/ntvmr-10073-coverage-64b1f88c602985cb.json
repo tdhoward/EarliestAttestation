@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10073",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:03:46 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392626495",
+    "X-Request-Post-Validation-Epoch": "1791392626496",
+    "X-Request-Response-Epoch": "1791392626499",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "330",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10073,\"indexContent\":[\"Matt 25:43; Matt 26:2-3\",{\"docID\":10073,\"osisID\":\"Matt.25.43\",\"indexContent\":2001025043,\"pageID\":10},{\"docID\":10073,\"osisID\":\"Matt.26.2\",\"indexContent\":2001026002,\"pageID\":20},{\"docID\":10073,\"osisID\":\"Matt.26.3\",\"indexContent\":2001026003,\"pageID\":20}]}}}",
+  "body_sha256": "bdcd7ec66332ee35f6bd4d5ae439d7007e7d02f32c6423ff3a273fcb5473eb15",
+  "retrieved_at": "2026-10-07T17:03:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

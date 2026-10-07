@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10003",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:53:18 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791391998814",
+    "X-Request-Post-Validation-Epoch": "1791391998815",
+    "X-Request-Response-Epoch": "1791391998819",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1238",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10003,\"indexContent\":[\"Luke 7:36-45; Luke 10:38-42\",{\"docID\":10003,\"osisID\":\"Luke.7.36\",\"indexContent\":2003007036,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.37\",\"indexContent\":2003007037,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.38\",\"indexContent\":2003007038,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.39\",\"indexContent\":2003007039,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.40\",\"indexContent\":2003007040,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.41\",\"indexContent\":2003007041,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.42\",\"indexContent\":2003007042,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.43\",\"indexContent\":2003007043,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.44\",\"indexContent\":2003007044,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.7.45\",\"indexContent\":2003007045,\"pageID\":10},{\"docID\":10003,\"osisID\":\"Luke.10.38\",\"indexContent\":2003010038,\"pageID\":20},{\"docID\":10003,\"osisID\":\"Luke.10.39\",\"indexContent\":2003010039,\"pageID\":20},{\"docID\":10003,\"osisID\":\"Luke.10.40\",\"indexContent\":2003010040,\"pageID\":20},{\"docID\":10003,\"osisID\":\"Luke.10.41\",\"indexContent\":2003010041,\"pageID\":20},{\"docID\":10003,\"osisID\":\"Luke.10.42\",\"indexContent\":2003010042,\"pageID\":20}]}}}",
+  "body_sha256": "bdb1e1943046406cb897614c7407e5bc41309f160444df327f319f547d231abf",
+  "retrieved_at": "2026-10-07T16:53:18+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

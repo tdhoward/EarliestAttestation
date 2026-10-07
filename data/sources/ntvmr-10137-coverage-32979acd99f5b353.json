@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10137",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:13:07 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393187482",
+    "X-Request-Post-Validation-Epoch": "1791393187482",
+    "X-Request-Response-Epoch": "1791393187486",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "552",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10137,\"indexContent\":[\"Mark 1:7-9; Mark 1:16-18\",{\"docID\":10137,\"osisID\":\"Mark.1.7\",\"indexContent\":2002001007,\"pageID\":10},{\"docID\":10137,\"osisID\":\"Mark.1.8\",\"indexContent\":2002001008,\"pageID\":10},{\"docID\":10137,\"osisID\":\"Mark.1.9\",\"indexContent\":2002001009,\"pageID\":10},{\"docID\":10137,\"osisID\":\"Mark.1.16\",\"indexContent\":2002001016,\"pageID\":20},{\"docID\":10137,\"osisID\":\"Mark.1.17\",\"indexContent\":2002001017,\"pageID\":20},{\"docID\":10137,\"osisID\":\"Mark.1.18\",\"indexContent\":2002001018,\"pageID\":20}]}}}",
+  "body_sha256": "e8c26dcace016da97d3ff99a29a562e49ee5dcdd1bd1f844d0813b01ff48a687",
+  "retrieved_at": "2026-10-07T17:13:07+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

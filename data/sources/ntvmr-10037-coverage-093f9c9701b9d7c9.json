@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10037",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:58:14 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392294753",
+    "X-Request-Post-Validation-Epoch": "1791392294754",
+    "X-Request-Response-Epoch": "1791392294758",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2678",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10037,\"indexContent\":[\"Matt 26:19-52\",{\"docID\":10037,\"osisID\":\"Matt.26.19\",\"indexContent\":2001026019,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.20\",\"indexContent\":2001026020,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.21\",\"indexContent\":2001026021,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.22\",\"indexContent\":2001026022,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.23\",\"indexContent\":2001026023,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.24\",\"indexContent\":2001026024,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.25\",\"indexContent\":2001026025,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.26\",\"indexContent\":2001026026,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.27\",\"indexContent\":2001026027,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.28\",\"indexContent\":2001026028,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.29\",\"indexContent\":2001026029,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.30\",\"indexContent\":2001026030,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.31\",\"indexContent\":2001026031,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.32\",\"indexContent\":2001026032,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.33\",\"indexContent\":2001026033,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.34\",\"indexContent\":2001026034,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.35\",\"indexContent\":2001026035,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.36\",\"indexContent\":2001026036,\"pageID\":10},{\"docID\":10037,\"osisID\":\"Matt.26.37\",\"indexContent\":2001026037,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.38\",\"indexContent\":2001026038,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.39\",\"indexContent\":2001026039,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.40\",\"indexContent\":2001026040,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.41\",\"indexContent\":2001026041,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.42\",\"indexContent\":2001026042,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.43\",\"indexContent\":2001026043,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.44\",\"indexContent\":2001026044,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.45\",\"indexContent\":2001026045,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.46\",\"indexContent\":2001026046,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.47\",\"indexContent\":2001026047,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.48\",\"indexContent\":2001026048,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.49\",\"indexContent\":2001026049,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.50\",\"indexContent\":2001026050,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.51\",\"indexContent\":2001026051,\"pageID\":20},{\"docID\":10037,\"osisID\":\"Matt.26.52\",\"indexContent\":2001026052,\"pageID\":20}]}}}",
+  "body_sha256": "7936374c70beff4bb475aaf9ac7716f6c6eda664c63be4bace6ca8c0cc10e2e2",
+  "retrieved_at": "2026-10-07T16:58:14+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

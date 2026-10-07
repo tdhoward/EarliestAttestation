@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20110",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:34:32 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394472387",
+    "X-Request-Post-Validation-Epoch": "1791394472388",
+    "X-Request-Response-Epoch": "1791394472391",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "163",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20110,\"indexContent\":[\"Matt 4:2\",{\"docID\":20110,\"osisID\":\"Matt.4.2\",\"indexContent\":2001004002,\"pageID\":10}]}}}",
+  "body_sha256": "9ca46fc2a51ceac1989a1d0da354f67fd399f167b79979ab9c78b02bb7eeb1ed",
+  "retrieved_at": "2026-10-07T17:34:32+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

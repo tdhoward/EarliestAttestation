@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10054",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:00:38 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392438550",
+    "X-Request-Post-Validation-Epoch": "1791392438551",
+    "X-Request-Response-Epoch": "1791392438557",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2228",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10054,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P54\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":446,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Princeton University Libraries\",\"place\":\"Princeton, NJ\",\"logoURL\":\"http://ntmss.info/instlogos/PrincetonUniversityLibrary2.jpg\",\"url\":\"http://library.princeton.edu/\"},\"leavesDescription\":\"2 Frg\",\"shelfID\":48,\"originYearDescription\":\"V/VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Princeton II 15\",\"contentOverview\":\"Jc 2,16-18.22-26; 3,2-4\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":400,\"content\":\"V/VI\"},\"leavesDescription\":\"2 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Jas 2:16-18; Jas 2:22-23\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10054/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P54\\\"><div>External Images by<br/>CSNTM\\n</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42482/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":48,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Jas 2:16-18; Jas 2:22-23\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10054&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Jas 2:23-25; Jas 3:2-4\",\"shelfID\":48,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Jas 2:23-25; Jas 3:2-4\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10054&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P54\",\"leaves\":{\"leavesCount\":2,\"content\":\"2 Frg\"},\"lang\":\"g\",\"contentOverview\":\"a: Jc\",\"lineCount\":{\"lineCountMin\":24,\"content\":\"(24)\"}}}}",
+  "body_sha256": "28fe208009ae53d3ddf0004105b5993d179ec313240ecef72d9196c8b63caf4a",
+  "retrieved_at": "2026-10-07T17:00:38+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

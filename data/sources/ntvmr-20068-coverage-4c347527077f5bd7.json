@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20068",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:27:03 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394023926",
+    "X-Request-Post-Validation-Epoch": "1791394023927",
+    "X-Request-Response-Epoch": "1791394023931",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1411",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20068,\"indexContent\":[\"John 13:16-17; John 13:19-20; John 13:23-24; John 13:26-27; John 16:7-8; John 16:12-13; John 16:15-16; John 16:18-19\",{\"docID\":20068,\"osisID\":\"John.13.16\",\"indexContent\":2004013016,\"pageID\":10},{\"docID\":20068,\"osisID\":\"John.13.17\",\"indexContent\":2004013017,\"pageID\":10},{\"docID\":20068,\"osisID\":\"John.13.19\",\"indexContent\":2004013019,\"pageID\":10},{\"docID\":20068,\"osisID\":\"John.13.20\",\"indexContent\":2004013020,\"pageID\":10},{\"docID\":20068,\"osisID\":\"John.13.23\",\"indexContent\":2004013023,\"pageID\":20},{\"docID\":20068,\"osisID\":\"John.13.24\",\"indexContent\":2004013024,\"pageID\":20},{\"docID\":20068,\"osisID\":\"John.13.26\",\"indexContent\":2004013026,\"pageID\":20},{\"docID\":20068,\"osisID\":\"John.13.27\",\"indexContent\":2004013027,\"pageID\":20},{\"docID\":20068,\"osisID\":\"John.16.7\",\"indexContent\":2004016007,\"pageID\":40},{\"docID\":20068,\"osisID\":\"John.16.8\",\"indexContent\":2004016008,\"pageID\":40},{\"docID\":20068,\"osisID\":\"John.16.12\",\"indexContent\":2004016012,\"pageID\":40},{\"docID\":20068,\"osisID\":\"John.16.13\",\"indexContent\":2004016013,\"pageID\":40},{\"docID\":20068,\"osisID\":\"John.16.15\",\"indexContent\":2004016015,\"pageID\":50},{\"docID\":20068,\"osisID\":\"John.16.16\",\"indexContent\":2004016016,\"pageID\":50},{\"docID\":20068,\"osisID\":\"John.16.18\",\"indexContent\":2004016018,\"pageID\":50},{\"docID\":20068,\"osisID\":\"John.16.19\",\"indexContent\":2004016019,\"pageID\":50}]}}}",
+  "body_sha256": "87f431541e41db46a994293fcb9728b0b4e440f4d0cc57cad5b82b8770e3bcf5",
+  "retrieved_at": "2026-10-07T17:27:04+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

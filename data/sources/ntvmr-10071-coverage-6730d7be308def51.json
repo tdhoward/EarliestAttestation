@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10071",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:03:24 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392604832",
+    "X-Request-Post-Validation-Epoch": "1791392604833",
+    "X-Request-Response-Epoch": "1791392604837",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "413",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10071,\"indexContent\":[\"Matt 19:10-11; Matt 19:17-18\",{\"docID\":10071,\"osisID\":\"Matt.19.10\",\"indexContent\":2001019010,\"pageID\":10},{\"docID\":10071,\"osisID\":\"Matt.19.11\",\"indexContent\":2001019011,\"pageID\":10},{\"docID\":10071,\"osisID\":\"Matt.19.17\",\"indexContent\":2001019017,\"pageID\":20},{\"docID\":10071,\"osisID\":\"Matt.19.18\",\"indexContent\":2001019018,\"pageID\":20}]}}}",
+  "body_sha256": "e2bc9c501174cdb6358dd4272ae34dfdc6f35d1fb17db948d4e76cb84afd38de",
+  "retrieved_at": "2026-10-07T17:03:24+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

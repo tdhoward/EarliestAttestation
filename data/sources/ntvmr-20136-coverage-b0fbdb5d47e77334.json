@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20136",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:39:10 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394750178",
+    "X-Request-Post-Validation-Epoch": "1791394750178",
+    "X-Request-Response-Epoch": "1791394750182",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2566",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20136,\"indexContent\":[\"Matt 13:46-52; Matt 14:6-13; Matt 25:9-16; Matt 25:41-46; Matt 26:1\",{\"docID\":20136,\"osisID\":\"Matt.13.46\",\"indexContent\":2001013046,\"pageID\":7},{\"docID\":20136,\"osisID\":\"Matt.13.47\",\"indexContent\":2001013047,\"pageID\":7},{\"docID\":20136,\"osisID\":\"Matt.13.48\",\"indexContent\":2001013048,\"pageID\":7},{\"docID\":20136,\"osisID\":\"Matt.13.49\",\"indexContent\":2001013049,\"pageID\":8},{\"docID\":20136,\"osisID\":\"Matt.13.50\",\"indexContent\":2001013050,\"pageID\":8},{\"docID\":20136,\"osisID\":\"Matt.13.51\",\"indexContent\":2001013051,\"pageID\":8},{\"docID\":20136,\"osisID\":\"Matt.13.52\",\"indexContent\":2001013052,\"pageID\":8},{\"docID\":20136,\"osisID\":\"Matt.14.6\",\"indexContent\":2001014006,\"pageID\":10},{\"docID\":20136,\"osisID\":\"Matt.14.7\",\"indexContent\":2001014007,\"pageID\":10},{\"docID\":20136,\"osisID\":\"Matt.14.8\",\"indexContent\":2001014008,\"pageID\":10},{\"docID\":20136,\"osisID\":\"Matt.14.9\",\"indexContent\":2001014009,\"pageID\":10},{\"docID\":20136,\"osisID\":\"Matt.14.9\",\"indexContent\":2001014009,\"pageID\":20},{\"docID\":20136,\"osisID\":\"Matt.14.10\",\"indexContent\":2001014010,\"pageID\":20},{\"docID\":20136,\"osisID\":\"Matt.14.11\",\"indexContent\":2001014011,\"pageID\":20},{\"docID\":20136,\"osisID\":\"Matt.14.12\",\"indexContent\":2001014012,\"pageID\":20},{\"docID\":20136,\"osisID\":\"Matt.14.13\",\"indexContent\":2001014013,\"pageID\":20},{\"docID\":20136,\"osisID\":\"Matt.25.9\",\"indexContent\":2001025009,\"pageID\":21},{\"docID\":20136,\"osisID\":\"Matt.25.10\",\"indexContent\":2001025010,\"pageID\":21},{\"docID\":20136,\"osisID\":\"Matt.25.11\",\"indexContent\":2001025011,\"pageID\":21},{\"docID\":20136,\"osisID\":\"Matt.25.12\",\"indexContent\":2001025012,\"pageID\":21},{\"docID\":20136,\"osisID\":\"Matt.25.13\",\"indexContent\":2001025013,\"pageID\":22},{\"docID\":20136,\"osisID\":\"Matt.25.14\",\"indexContent\":2001025014,\"pageID\":22},{\"docID\":20136,\"osisID\":\"Matt.25.15\",\"indexContent\":2001025015,\"pageID\":22},{\"docID\":20136,\"osisID\":\"Matt.25.16\",\"indexContent\":2001025016,\"pageID\":22},{\"docID\":20136,\"osisID\":\"Matt.25.41\",\"indexContent\":2001025041,\"pageID\":30},{\"docID\":20136,\"osisID\":\"Matt.25.42\",\"indexContent\":2001025042,\"pageID\":30},{\"docID\":20136,\"osisID\":\"Matt.25.43\",\"indexContent\":2001025043,\"pageID\":30},{\"docID\":20136,\"osisID\":\"Matt.25.44\",\"indexContent\":2001025044,\"pageID\":30},{\"docID\":20136,\"osisID\":\"Matt.25.44\",\"indexContent\":2001025044,\"pageID\":40},{\"docID\":20136,\"osisID\":\"Matt.25.45\",\"indexContent\":2001025045,\"pageID\":40},{\"docID\":20136,\"osisID\":\"Matt.25.46\",\"indexContent\":2001025046,\"pageID\":40},{\"docID\":20136,\"osisID\":\"Matt.26.1\",\"indexContent\":2001026001,\"pageID\":40}]}}}",
+  "body_sha256": "b07330d13f11f446fbaed9559e5ff5e6c59b36fdab586d409c13f98f15f25cb7",
+  "retrieved_at": "2026-10-07T17:39:10+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

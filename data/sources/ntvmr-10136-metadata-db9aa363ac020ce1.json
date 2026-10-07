@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10136",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:12:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791393171673",
+    "X-Request-Post-Validation-Epoch": "1791393171674",
+    "X-Request-Response-Epoch": "1791393171678",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2837",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10136,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P136\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":511,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Duke University, David M. Rubenstein Library\",\"place\":\"Durham, NC\",\"logoURL\":\"\",\"url\":\"https://library.duke.edu/rubenstein/\"},\"leavesDescription\":\"\",\"shelfID\":6022,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Duke Inv. 1377\",\"contentOverview\":\"\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":501,\"content\":\"VI\"},\"leavesDescription\":\"1 Frg.\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Acts 4:27-31\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10136/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://library.duke.edu/rubenstein/\\\"><img src=\\\"https://library.duke.edu/masthead/img/logo.png\\\"><div>Images©<br/>Duke University</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10136/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10136/10136x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10136/10136x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6022,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Acts 4:27-31\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10136&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Acts 7:26-30\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10136/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://library.duke.edu/rubenstein/\\\"><img src=\\\"https://library.duke.edu/masthead/img/logo.png\\\"><div>Images©<br/>Duke University</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10136/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10136/10136x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10136/10136x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6022,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Acts 7:26-30\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10136&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"P136\",\"leaves\":{\"leavesCount\":0,\"content\":\"1 Frg.\"},\"width\":{\"widthMin\":244},\"lang\":\"grc\",\"contentOverview\":\"a: Act\",\"lineCount\":{\"lineCountMax\":8,\"lineCountMin\":7,\"content\":\"8r, 7v\"},\"height\":{\"heightMin\":155}}}}",
+  "body_sha256": "eef739c682f8eb469c104b55a555f79abead9e25a6d61b1b5896b5cbf90f2757",
+  "retrieved_at": "2026-10-07T17:12:51+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

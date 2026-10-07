@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20148",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 17:41:21 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791394881019",
+    "X-Request-Post-Validation-Epoch": "1791394881020",
+    "X-Request-Response-Epoch": "1791394881023",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1304",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20148,\"indexContent\":[\"Matt 28:5-19\",{\"docID\":20148,\"osisID\":\"Matt.28.5\",\"indexContent\":2001028005,\"pageID\":10},{\"docID\":20148,\"osisID\":\"Matt.28.6\",\"indexContent\":2001028006,\"pageID\":10},{\"docID\":20148,\"osisID\":\"Matt.28.7\",\"indexContent\":2001028007,\"pageID\":10},{\"docID\":20148,\"osisID\":\"Matt.28.8\",\"indexContent\":2001028008,\"pageID\":10},{\"docID\":20148,\"osisID\":\"Matt.28.9\",\"indexContent\":2001028009,\"pageID\":10},{\"docID\":20148,\"osisID\":\"Matt.28.10\",\"indexContent\":2001028010,\"pageID\":10},{\"docID\":20148,\"osisID\":\"Matt.28.11\",\"indexContent\":2001028011,\"pageID\":10},{\"docID\":20148,\"osisID\":\"Matt.28.11\",\"indexContent\":2001028011,\"pageID\":20},{\"docID\":20148,\"osisID\":\"Matt.28.12\",\"indexContent\":2001028012,\"pageID\":20},{\"docID\":20148,\"osisID\":\"Matt.28.13\",\"indexContent\":2001028013,\"pageID\":20},{\"docID\":20148,\"osisID\":\"Matt.28.14\",\"indexContent\":2001028014,\"pageID\":20},{\"docID\":20148,\"osisID\":\"Matt.28.15\",\"indexContent\":2001028015,\"pageID\":20},{\"docID\":20148,\"osisID\":\"Matt.28.16\",\"indexContent\":2001028016,\"pageID\":20},{\"docID\":20148,\"osisID\":\"Matt.28.17\",\"indexContent\":2001028017,\"pageID\":20},{\"docID\":20148,\"osisID\":\"Matt.28.18\",\"indexContent\":2001028018,\"pageID\":20},{\"docID\":20148,\"osisID\":\"Matt.28.19\",\"indexContent\":2001028019,\"pageID\":20}]}}}",
+  "body_sha256": "6c96be68172396a52c7917c9b653dde5c975d437ee853d2e49c97c92ad932212",
+  "retrieved_at": "2026-10-07T17:41:21+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10026",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:56:34 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392194410",
+    "X-Request-Post-Validation-Epoch": "1791392194411",
+    "X-Request-Response-Epoch": "1791392194415",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2924",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10026,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P26\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":416,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Southern Methodist University Bridwell Library\",\"place\":\"Dallas, TX\",\"logoURL\":\"http://ntmss.info/instlogos/smu_blue.jpg\",\"url\":\"http://smu.edu/bridwell/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":24,\"originYearDescription\":\"VII (A)\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pap. 1\",\"contentOverview\":\"R 1,1-9; 1,9-16\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":625,\"early\":600,\"content\":\"VII (A)\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Rom 1:1-9\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10026/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.smu.edu/bridwell\\\"><img src=\\\" https://www.smu.edu/~/media/Site/Bridwell/Structure/LogoMastheadBridwell.ashx\\\"><div> Images©<br/>SMU</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10026/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10026/BR1354VJP2-re2-final.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10026/BR1354VJP2-re2-final.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":24,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Rom 1:1-9\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10026&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Rom 1:9-16\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10026/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.smu.edu/bridwell\\\"><img src=\\\" https://www.smu.edu/~/media/Site/Bridwell/Structure/LogoMastheadBridwell.ashx\\\"><div> Images©<br/>SMU</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10026/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10026/BR1354RJP2-re2-final.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10026/BR1354RJP2-re2-final.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":24,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Rom 1:9-16\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10026&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":\"P26\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":180,\"widthMax\":200},\"lang\":\"g\",\"contentOverview\":\"p: R\",\"lineCount\":{\"lineCountMax\":22,\"lineCountMin\":20,\"content\":\"21r, 20v (22)\"},\"height\":{\"heightMin\":280}}}}",
+  "body_sha256": "9826a4e6112e4ef1e0df365795caedc43e5aaa9ee8d3c092626f6de34e0a01e4",
+  "retrieved_at": "2026-10-07T16:56:34+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

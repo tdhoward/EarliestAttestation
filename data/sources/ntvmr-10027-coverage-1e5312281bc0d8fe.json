@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10027",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 16:56:50 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791392210251",
+    "X-Request-Post-Validation-Epoch": "1791392210253",
+    "X-Request-Response-Epoch": "1791392210257",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2352",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10027,\"indexContent\":[\"Rom 8:12-22; Rom 8:24-27; Rom 8:33-39; Rom 9:1-3; Rom 9:5-9\",{\"docID\":10027,\"osisID\":\"Rom.8.12\",\"indexContent\":2006008012,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.13\",\"indexContent\":2006008013,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.14\",\"indexContent\":2006008014,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.15\",\"indexContent\":2006008015,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.16\",\"indexContent\":2006008016,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.17\",\"indexContent\":2006008017,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.18\",\"indexContent\":2006008018,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.19\",\"indexContent\":2006008019,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.20\",\"indexContent\":2006008020,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.21\",\"indexContent\":2006008021,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.22\",\"indexContent\":2006008022,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.24\",\"indexContent\":2006008024,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.25\",\"indexContent\":2006008025,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.26\",\"indexContent\":2006008026,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.27\",\"indexContent\":2006008027,\"pageID\":10},{\"docID\":10027,\"osisID\":\"Rom.8.33\",\"indexContent\":2006008033,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.8.34\",\"indexContent\":2006008034,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.8.35\",\"indexContent\":2006008035,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.8.36\",\"indexContent\":2006008036,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.8.37\",\"indexContent\":2006008037,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.8.38\",\"indexContent\":2006008038,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.8.39\",\"indexContent\":2006008039,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.9.1\",\"indexContent\":2006009001,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.9.2\",\"indexContent\":2006009002,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.9.3\",\"indexContent\":2006009003,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.9.5\",\"indexContent\":2006009005,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.9.6\",\"indexContent\":2006009006,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.9.7\",\"indexContent\":2006009007,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.9.8\",\"indexContent\":2006009008,\"pageID\":20},{\"docID\":10027,\"osisID\":\"Rom.9.9\",\"indexContent\":2006009009,\"pageID\":20}]}}}",
+  "body_sha256": "0f44f74c0f0ed57d1c5a2167b8449e15601632b561920cb05e0a44522e26ba65",
+  "retrieved_at": "2026-10-07T16:56:50+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}
