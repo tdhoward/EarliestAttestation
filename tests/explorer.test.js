@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const {readFileSync} = require("node:fs");
 const {join} = require("node:path");
 const {expandData, createModel, hitIndex, segments} = require("../web/attestation-explorer/explorer.js");
+const {transferFixture} = require("./explorer-fixtures.js");
 const current = expandData(JSON.parse(readFileSync(join(__dirname, "../data/attestations.json"), "utf8")));
 // A smaller synthetic view keeps the three-witness model cases independent of collection growth.
 const data = structuredClone(current);
@@ -26,6 +27,94 @@ for (const row of Object.values(data.observations)) {
   }
 }
 const copy = () => structuredClone(data);
+
+test("retained version 1 and 2 fixtures decode exactly to the independent fictional oracle", () => {
+  for (const name of ["explorer-normalized", "explorer-empty"]) {
+    const {normalized, packed} = transferFixture(name);
+    assert.deepEqual(expandData(normalized), normalized);
+    assert.deepEqual(expandData(packed), normalized);
+  }
+});
+
+test("the fictional oracle preserves coverage assertions, claim order, unknown reasons, and omitted observations", () => {
+  const {normalized, packed} = transferFixture();
+  for (const input of [normalized, packed]) {
+    const model = createModel(input);
+    const first = model.cell(model.lookup("Gal 1:1"), "optimistic");
+    const second = model.cell(model.lookup("Gal 1:2"), "optimistic");
+    assert.equal(first.contested, true);
+    assert.deepEqual(first.observation.reported_coverage.map(pair => pair.state),
+      ["present", "absent", "contested", "unknown", "unknown", "present", "present"]);
+    assert.deepEqual(first.observation.reported_coverage.map(pair => pair.claims),
+      [["102", "101"], ["103"], ["104", "105"], ["106"], [], ["107"], ["108"]]);
+    assert.deepEqual(second.observation.reported_coverage[0].claims, ["202", "201"]);
+    assert.equal(model.data.claims["103"].assertion, "absent");
+    assert.deepEqual(["104", "105"].map(id => model.data.claims[id].assertion), ["present", "absent"]);
+    assert.equal(model.data.claims["106"].assertion, "unknown");
+    assert.equal(first.observation.reported_coverage[4].unknown_reason, "no_explicit_mapped_report");
+    const unresolved = model.cell(model.lookup("Gal 1:5"), "optimistic");
+    assert.equal(unresolved.state, "no_date");
+    assert.deepEqual(unresolved.events, []);
+    assert.ok(unresolved.observation.reported_coverage.every(pair =>
+      pair.state === "unknown" && !pair.claims.length && pair.unknown_reason === "unresolved_reference_mapping"));
+    assert.equal(unresolved.observation.mapping_note, "Fictional unresolved mapping; no absence inference.");
+    assert.equal(model.cell(model.lookup("Gal 1:6"), "optimistic").state, "filtered");
+    assert.ok(model.cell(model.lookup("Gal 1:6"), "optimistic").observation);
+    assert.equal(model.cell(model.lookup("Gal 1:7"), "optimistic").state, "uncollected");
+    assert.equal(model.cell(model.lookup("Gal 1:7"), "optimistic").observation, null);
+    assert.equal(Object.hasOwn(model.data.observations, "Gal.1.7"), false);
+    assert.equal(model.discovery(model.lookup("Gal 1:1")).state, "candidate_collection_incomplete");
+  }
+});
+
+test("the fictional oracle keeps complete alternatives, ties, unavailable selections, and independent overflow state", () => {
+  const {normalized, packed} = transferFixture();
+  for (const input of [normalized, packed]) {
+    const model = createModel(input), first = model.lookup("Gal 1:1"), second = model.lookup("Gal 1:2");
+    assert.deepEqual(model.choices.get("fictional:a").map(date => [date.date_min, date.date_max]),
+      [[200, 250], [300, 399]]);
+    assert.equal(model.choices.has("fictional:f"), false);
+    assert.equal(model.data.dates["4"].status, "unknown");
+    assert.equal(model.data.dates["4"].date_min, null);
+    assert.equal(model.data.dates["4"].date_max, null);
+    assert.deepEqual(model.cell(first, "optimistic").events.map(event =>
+      [event.witness_id, event.assessment_id, event.rank, event.event_year, event.coverage_claim_ids]),
+      [["fictional:a", 1, 1, 200, [102, 101]], ["fictional:g", 3, 2, 200, [108]]]);
+    assert.deepEqual(model.cell(second, "optimistic").events.map(event => event.coverage_claim_ids),
+      [[202, 201], [208]]);
+    assert.deepEqual(model.cell(first, "pessimistic").events.map(event => event.event_year), [250, 250]);
+    assert.deepEqual(segments(model.cell(first, "optimistic").events, model.maximum),
+      [{from: 200, to: 450, count: 2}]);
+    assert.deepEqual(model.cell(model.lookup("Gal 1:3"), "optimistic").events[0].coverage_claim_ids, [301]);
+    model.selection.set("fictional:a", "2");
+    assert.deepEqual(model.cell(first, "optimistic").events.map(event =>
+      [event.witness_id, event.assessment_id, event.rank, event.event_year]),
+      [["fictional:g", 3, 1, 200], ["fictional:a", 2, 2, 300]]);
+    assert.deepEqual(model.cell(first, "pessimistic").events.map(event => event.event_year), [250, 399]);
+    assert.equal(model.cell(model.lookup("Gal 1:3"), "optimistic").state, "unavailable_combination");
+    assert.deepEqual(model.cell(model.lookup("Gal 1:3"), "optimistic").events, []);
+    const overflow = model.cell(model.lookup("Gal 1:4"), "optimistic");
+    assert.equal(overflow.state, "too_many_combinations");
+    assert.equal(overflow.observation.ranking_state, "no_rankable_dates");
+    assert.equal(overflow.observation.dating_alternatives.state, "too_many_combinations");
+    assert.equal(overflow.observation.dating_alternatives.combination_count, 257);
+    assert.equal(overflow.observation.dating_alternatives.max_combinations, 256);
+    assert.deepEqual(overflow.events, []);
+  }
+});
+
+test("the shared empty oracle keeps a navigable axis without creating observations", () => {
+  const {normalized, packed} = transferFixture("explorer-empty");
+  for (const input of [normalized, packed]) {
+    const model = createModel(input);
+    assert.equal(model.hasEvents, false);
+    assert.equal(model.minimum, 0); assert.equal(model.maximum, 500);
+    assert.deepEqual(model.data.observations, {});
+    assert.deepEqual(model.data.claims, {});
+    assert.deepEqual(model.data.dates, {});
+    assert.equal(model.cell(model.lookup("Gal 1:1"), "optimistic").state, "uncollected");
+  }
+});
 
 test("bounded discovery is independent of coverage, dates, and the rest of the corpus", () => {
   const discovered = structuredClone(current);

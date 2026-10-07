@@ -52,6 +52,15 @@ The expanded result matched the complete pre-packing dataset. These are local
 measurements, not browser or network benchmarks. Browser memory usage remains
 unmeasured; restored unknown pairs still scale with witnesses and coordinates.
 
+Phase 0 of the [data size optimization guide](DATA_SIZE_OPTIMIZATION.md) is
+complete. The offline current build exactly matches its normalized expansion;
+full-size work-session baselines stay in ignored cache storage. Shared fictional
+version 1 expected fixtures and frozen version 2 snapshots now check Python and
+Node decoding, source fields, coverage states, complete date choices, ties,
+mapping gaps, filters, missing observations, and empty exports. Python-to-Node
+packing is compared directly with the independent normalized fixture. The writer
+and app remain on version 2; phases 1–6 are pending.
+
 The data builder validates raw hashes, provenance, mappings, identity, complete
 date intervals, and derived results in a fresh temporary SQLite database. Builds
 are offline and replace one current JSON file. The app requests that file on load.
@@ -76,6 +85,9 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 4. Keep collection efficient and the app usable as the dataset grows. Measure
    witnesses, usable reports, graphable coordinates, unresolved records, request
    cost, and browser data size. Prefer concrete bottlenecks over new infrastructure.
+   Continue at Phase 1 of the [data size and memory optimization guide](DATA_SIZE_OPTIMIZATION.md)
+   for transfer-format, runtime-sharing, and compression work with focused offline
+   checks. Phase 0's correctness oracle is complete.
 
 ## Acceptance
 

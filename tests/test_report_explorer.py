@@ -3,6 +3,7 @@
 import copy
 import json
 from pathlib import Path
+import subprocess
 import unittest
 
 from report_explorer import build_explorer_data, pack_explorer_data, expand_explorer_data
@@ -14,6 +15,55 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
+FIXTURES = ROOT / "tests" / "fixtures"
+
+
+class CompatibilityOracleTests(unittest.TestCase):
+    """Independent fictional expected data, shared with the Node tests."""
+
+    def assert_json_equal(self, actual, expected):
+        # Python object equality alone considers True == 1. Canonical JSON also
+        # checks types, missing fields, nulls, and array order, ignoring key order.
+        encode = lambda value: json.dumps(value, ensure_ascii=False, sort_keys=True)
+        self.assertEqual(encode(actual), encode(expected))
+
+    def test_retained_versions_match_the_independent_normalized_oracle(self):
+        for name in ("explorer-normalized", "explorer-empty"):
+            expected = read_json(FIXTURES / f"{name}.v1.json")
+            for version in (1, 2):
+                with self.subTest(fixture=name, version=version):
+                    retained = read_json(FIXTURES / f"{name}.v{version}.json")
+                    self.assertEqual(retained["format_version"], version)
+                    self.assert_json_equal(expand_explorer_data(retained), expected)
+
+    def test_current_packer_preserves_the_oracle_and_is_deterministic(self):
+        for name in ("explorer-normalized", "explorer-empty"):
+            with self.subTest(fixture=name):
+                expected = read_json(FIXTURES / f"{name}.v1.json")
+                original = copy.deepcopy(expected)
+                packed = pack_explorer_data(expected)
+                self.assert_json_equal(expand_explorer_data(packed), original)
+                self.assertEqual(json.dumps(packed), json.dumps(pack_explorer_data(expected)))
+                self.assert_json_equal(expected, original)
+
+    def test_node_decodes_python_packing_against_the_independent_oracle(self):
+        script = """
+          const assert = require('node:assert/strict');
+          const {readFileSync} = require('node:fs');
+          const {expandData} = require('./web/attestation-explorer/explorer.js');
+          const expected = JSON.parse(readFileSync(process.argv[1], 'utf8'));
+          const packed = JSON.parse(readFileSync(0, 'utf8'));
+          assert.deepStrictEqual(expandData(packed), expected);
+        """
+        for name in ("explorer-normalized", "explorer-empty"):
+            with self.subTest(fixture=name):
+                path = FIXTURES / f"{name}.v1.json"
+                result = subprocess.run(
+                    ["node", "-e", script, str(path)], cwd=ROOT,
+                    input=json.dumps(pack_explorer_data(read_json(path)), ensure_ascii=False),
+                    text=True, encoding="utf-8", capture_output=True, timeout=30,
+                )
+                self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 
 
 class ExplorerTests(unittest.TestCase):
