@@ -48,18 +48,35 @@ with dense fallback for other observations. A coordinate without an observation
 stays uncollected. See [the format contract](DATA_SIZE_OPTIMIZATION.md#code-ownership-and-intended-design)
 for tuple positions, tags, and tables.
 
-Both decoders retain version 1 and 2 support. The loader rejects malformed tuples,
-invalid indices, dangling claim references, and conflicting claim fields, then
-restores the version 1 normalized structure for the chart model. This retains every
-unknown pair, qualification, reported object, citation, complete date alternative,
-and precomputed event. Expanded version 3 observations and their nested values
-are independently mutable, despite shared transfer records.
+Both decoders retain version 1 and 2 support. Fetch and the file picker return a
+validated, read-only store, checking the complete reference graph, including unused
+tables, without expanding the coverage matrix. The chart uses shared precomputed
+events, retaining their order, ranks, years, witnesses, and assessment choices.
+Event claim lists are resolved only in the selected full observation. Every unknown
+pair, qualification, reported object, citation, and complete date alternative survives.
+The explicit `expandData()` API still restores independently mutable version 1
+data for all supported inputs.
+
+`createDataStore(raw)` takes ownership of parsed JSON and deeply freezes its records.
+Its `hasObservation(ref)`, `summary(ref)`, `chartAlternatives(ref)`, `claim(id)`,
+`date(id)`, and `observation(ref)` accessors separate drawing from source details.
+The store retains at most one resolved observation and caches claims by unique ID.
+Date-choice state stays in the model's separate selection map. `model.data` contains
+ordinary collection metadata, coordinates, documents, and sources, excluding
+encoded tables and the observation/claim/date lookups; use `model.store` for those
+records. `cell()` returns the coordinate reference, state, shared chart events,
+and applicable contested flag; it no longer contains a full observation.
+`createModel()` and `mount()` accept an existing validated store or model so loading
+does not construct the model twice.
 
 The current 17-witness file is **2,007,743 bytes** (about 2.01 MB), compared with
 12,476,223 bytes in version 2 and 39,599,390 bytes normalized, including final
-newlines. This is an **83.91%** reduction from version 2. The browser still eagerly
-expands the file; runtime memory sharing and HTTP compression are pending phases
-5 and 6. Browser memory remains unmeasured. The browser uses the computed events
+newlines. This is an **83.91%** reduction from version 2. Phase 5 retains shared data
+in the running app; five isolated Node runs per path measured median retained heap
+after repeated selection at **16.72 MB**, compared with **66.99 MB** for full
+expansion on the same revision. See the [measurement method and results](DATA_SIZE_OPTIMIZATION.md#phase-5-retain-shared-data-in-the-running-app).
+HTTP compression (Phase 6) remains pending; browser memory remains unmeasured.
+The browser uses the computed events
 without reinterpreting sources. Raw reports stay in the central source directory;
 collection updates change only the data.
 

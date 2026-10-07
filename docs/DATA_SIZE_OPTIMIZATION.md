@@ -1,12 +1,13 @@
 # App data size and memory optimization guide
 
-Status: Phases 0–4 completed on 2026-10-06; phases 5–6 remain planned.
+Status: Phases 0–5 completed on 2026-10-06; Phase 6 remains planned.
 The production writer and current data now use the complete numeric version 3
 schema. Python and JavaScript restore every field exactly, with version 1 and 2
-compatibility retained. The app still eagerly expands its data; runtime memory
-sharing and HTTP compression remain pending. Work stops at Phase 4 at the owner's
-request. This guide is based on offline work on 2026-10-06. Complete later phases
-in order when authorized, with the focused checks below before moving on.
+compatibility retained. The app now retains shared read-only data for charting and
+resolves full observations only for selection. HTTP compression remains pending.
+Work stops at Phase 5 at the owner's request. This guide is based on offline work
+on 2026-10-06. Complete later phases in order when authorized, with the focused
+checks below before moving on.
 Phase 6 depends on the deployment environment.
 
 ## Objective and constraints
@@ -439,8 +440,8 @@ preserving the previous file, failed atomic replacement cleanup, and app assets
 surviving refresh. All 134 Python tests and both build `--check` commands passed;
 the complete offline checks are recorded at handoff below.
 Collection registers, source captures, and reference inputs are unchanged.
-No compression or runtime-memory measurement was performed in Phase 4; phases
-5–6 remain pending, and work stops here at the owner's request.
+No compression or runtime-memory measurement was performed in Phase 4. That
+authorization stopped at Phase 4; Phase 5's later implementation is recorded below.
 
 The completed scope was:
 
@@ -476,11 +477,72 @@ any permanent size-regression assertion. Never trade data fidelity for the cap.
 
 ## Phase 5: retain shared data in the running app
 
-The current `app.js` expands on fetch and file selection. `createModel()` also
-accepts packed input through `expandData()`. `refreshCells()` retains one cell
-per coordinate, and each cell currently holds its expanded observation. Merely
-adding a lazy decoder while leaving those paths intact will still expand and
-retain the whole coverage matrix.
+Completed on 2026-10-06. `createDataStore()` validates the full reference graph,
+including unused contexts, templates, defaults, coverage records, and claim/date
+references, directly in the packed tables. Fetch and file selection return this
+store. The parsed input and shared records are deeply frozen; date selection
+remains separate. Version 1/2 and all retained candidate adapters are supported.
+`expandData()` remains an exact, independently mutable compatibility view,
+including when its input has already been frozen by a store.
+
+`summary()` counts coverage states from shared records without constructing pairs.
+Chart alternatives share precomputed event fields and omit claim lists; the scale
+visits each referenced template once (28 in this collection). Cells and drawing
+runs contain coordinate references and drawing state, with no full observations.
+Selection and source details call `observation()` and claim/date accessors. The
+observation cache retains at most one verse; claim caching is by unique ID.
+Loading and mounting reuse the same validated model.
+
+Both chart scenarios match the pre-refactor compatibility model across **7,957
+coordinates**, including states, contested flags, event order, rank, year,
+assessment selection, count-band segments, discovery, and scale bounds. All
+**7,941 observations**, **17,135 claims**, and **17 date records** match the
+independent normalized baseline exactly. Full expansion also matches it. Python
+passes fresh packing and literal/type/Unicode fallbacks to both the JavaScript
+expander and store, checked against independent fictional values. Offline DOM
+tests exercise the actual selection/source renderer across versions 1/2/3,
+including safe text, alternatives, unknowns, filters, and missing observations.
+
+Structural checks confirm full-axis chart evaluation invokes neither the
+observation nor coverage decoder, does not retain observations in cells, and
+shares read-only events. Repeated selection keeps the cache bounded at one verse.
+Existing independently mutable expansion guarantees remain tested for all
+published versions. Malformed loading, file fallback, retry, and unchanged URL
+behavior remain covered.
+
+Node v22.14.0 retained heap measurements used five fresh isolated processes per
+path, identical current version 3 input, the same fictional warm-up, and three
+explicit GC calls before each sample with `--expose-gc`. Values below are medians
+above each warmed empty-process baseline, in bytes (decimal MB in parentheses).
+The compatibility path uses the current `expandData()` and normalized model
+adapter on the same revision. Raw JSON source strings, temporary observations,
+packed inputs after construction, and comparison models were dropped before
+sampling. These are retained heap measurements, not peak or browser memory.
+
+| Stage | Compatibility full expansion | Shared runtime |
+| --- | ---: | ---: |
+| Parsed version 3 JSON | 12,125,928 (12.13 MB) | 12,125,928 (12.13 MB) |
+| Model constructed | 68,406,104 (68.41 MB) | 17,812,904 (17.81 MB) |
+| Both chart scenarios evaluated | 66,979,440 (66.98 MB) | 16,393,160 (16.39 MB) |
+| Repeated selection | 66,987,256 (66.99 MB) | 16,716,720 (16.72 MB) |
+
+Chart evaluation retains the current scenario's 7,957 cells and 206 drawing runs.
+Selection visits 2,000 dispersed coordinates, accesses the immediate five witness
+cards, and accesses full source details every twentieth visit. The shared store
+ends with one cached observation and 653 unique cached claims. Its retained heap
+is **75.04% lower** after repeated selection; full-axis drawing decoded no coverage
+pairs. GC/JIT activity can reduce later samples; these are stage snapshots, not
+monotonic or peak measurements. No machine-specific memory limit is a unit test.
+Scratch scripts, per-run measurements, and full-collection comparison results
+stay in ignored `data/.cache/size-optimization-phase5-2026-10-06/`.
+
+The production JSON remains **2,007,743 bytes**, down **83.91%** from the
+12,476,223-byte version 2 baseline. The writer, source registers, captures, and
+reference inputs are unchanged. No new compressed-size measurement or transport
+configuration work was performed. Phase 6 remains pending and outside this
+authorization; browser memory remains unmeasured.
+
+The completed scope was:
 
 1. Add an internal `createDataStore(rawData)` abstraction in `explorer.js` that
    accepts all supported versions. Validate the complete reference graph before
@@ -566,12 +628,23 @@ authorized deployment verification context.
 
 ## Completion and handoff
 
-Phase 4 handoff on 2026-10-06: `python build_collection.py --check`,
+Phase 5 handoff on 2026-10-06: `python build_collection.py --check`,
+`python build_na28_inventory.py --check`, all **134 Python tests**, all **37 Node
+tests**, and `git diff --check` passed. The final added coverage-total,
+deep-freeze, and unused-template scale checks also passed in a focused Node run.
+Exact full-collection expansion, selected observations and source fields, and
+both chart scenarios passed as recorded above. Runtime data now stays shared;
+the production file remains 2,007,743 bytes. The measured Node memory reduction
+is 75.04% after repeated selection; browser memory remains unmeasured. Phase 6
+is pending and was not started. Verification used retained local inputs and
+fictional fixtures, with no server, localhost probe, or live source requests.
+
+Earlier Phase 4 handoff on 2026-10-06: `python build_collection.py --check`,
 `python build_na28_inventory.py --check`, all **134 Python tests**, all **32 Node
 tests**, and `git diff --check` passed. Exact full-collection Python/Node decoding
 and both chart scenarios also passed as described above. Current data uses numeric
-version 3; phases 5–6 are pending. Compression and runtime-memory measurements
-were outside this rollout. Verification used retained local inputs and fictional
+version 3; phases 5–6 were pending at that handoff. Compression and runtime-memory
+measurements were outside that rollout. Verification used retained local inputs and fictional
 fixtures, without starting a server or making live source requests.
 
 Run focused tests after each phase. At the writer rollout and after the runtime

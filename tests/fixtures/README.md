@@ -94,3 +94,15 @@ also checks chart equivalence, alternative selection, independent mutable
 expansion, fetch/file loading, and failed-load retry. Version 2 fixtures remain
 frozen and readable. A full-collection integration test compares Node expansion
 of the current production file with independently built normalized Python data.
+
+Phase 5 reuses these same independent oracles for the read-only runtime store,
+without introducing another dataset. Selected observations, claims, dates,
+coverage totals, and chart fields match the normalized values across all supported
+versions. Fresh Python packing and fallback cases go to both the Node expander
+and store. Malformed-input cases cover unused records as well as referenced
+tables, including dangling dates. Structural diagnostics verify that full-axis
+chart evaluation decodes no observations or coverage pairs, chart events are
+shared and read-only, and repeated selection retains at most one observation.
+Full-expansion mutation-isolation checks remain separate. A minimal offline DOM
+fixture exercises the actual renderer's selection and source text across versions
+1/2/3, without a browser or server.

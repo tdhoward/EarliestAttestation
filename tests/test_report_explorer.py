@@ -107,10 +107,14 @@ class CompatibilityOracleTests(unittest.TestCase):
         script = """
           const assert = require('node:assert/strict');
           const {readFileSync} = require('node:fs');
-          const {expandData} = require('./web/attestation-explorer/explorer.js');
+          const {expandData, createDataStore} = require('./web/attestation-explorer/explorer.js');
           const expected = JSON.parse(readFileSync(process.argv[1], 'utf8'));
           const packed = JSON.parse(readFileSync(0, 'utf8'));
           assert.deepStrictEqual(expandData(packed), expected);
+          const store = createDataStore(packed);
+          for (const [ref, row] of Object.entries(expected.observations)) assert.deepStrictEqual(store.observation(ref), row);
+          for (const [id, claim] of Object.entries(expected.claims)) assert.deepStrictEqual(store.claim(id), claim);
+          for (const [id, date] of Object.entries(expected.dates)) assert.deepStrictEqual(store.date(id), date);
         """
         for name in ("explorer-normalized", "explorer-empty"):
             with self.subTest(fixture=name):
@@ -148,9 +152,13 @@ class CompatibilityOracleTests(unittest.TestCase):
         script = """
           const assert = require('node:assert/strict');
           const {readFileSync} = require('node:fs');
-          const {expandData} = require('./web/attestation-explorer/explorer.js');
+          const {expandData, createDataStore} = require('./web/attestation-explorer/explorer.js');
           const {packed, expected} = JSON.parse(readFileSync(0, 'utf8'));
           assert.deepStrictEqual(expandData(packed), expected);
+          const store = createDataStore(packed);
+          for (const [ref, row] of Object.entries(expected.observations)) assert.deepStrictEqual(store.observation(ref), row);
+          for (const [id, claim] of Object.entries(expected.claims)) assert.deepStrictEqual(store.claim(id), claim);
+          for (const [id, date] of Object.entries(expected.dates)) assert.deepStrictEqual(store.date(id), date);
         """
         for variant in ("reordered", "missing_pair", "duplicate_pair", "boolean", "string"):
             with self.subTest(variant=variant):
@@ -367,9 +375,13 @@ class Phase2CodecTests(unittest.TestCase):
         script = """
           const assert = require('node:assert/strict');
           const {readFileSync} = require('node:fs');
-          const {expandData} = require('./web/attestation-explorer/explorer.js');
+          const {expandData, createDataStore} = require('./web/attestation-explorer/explorer.js');
           for (const {packed, expected} of JSON.parse(readFileSync(0, 'utf8'))) {
             assert.deepStrictEqual(expandData(packed), expected);
+            const store = createDataStore(packed);
+            for (const [ref, row] of Object.entries(expected.observations)) assert.deepStrictEqual(store.observation(ref), row);
+            for (const [id, claim] of Object.entries(expected.claims)) assert.deepStrictEqual(store.claim(id), claim);
+            for (const [id, date] of Object.entries(expected.dates)) assert.deepStrictEqual(store.date(id), date);
           }
         """
         result = subprocess.run(["node", "-e", script], cwd=ROOT,
@@ -485,9 +497,13 @@ class Phase3CodecTests(unittest.TestCase):
         script = """
           const assert = require('node:assert/strict');
           const {readFileSync} = require('node:fs');
-          const {expandData} = require('./web/attestation-explorer/explorer.js');
+          const {expandData, createDataStore} = require('./web/attestation-explorer/explorer.js');
           const {packed, expected} = JSON.parse(readFileSync(0, 'utf8'));
           assert.deepStrictEqual(expandData(packed), expected);
+          const store = createDataStore(packed);
+          for (const [ref, row] of Object.entries(expected.observations)) assert.deepStrictEqual(store.observation(ref), row);
+          for (const [id, claim] of Object.entries(expected.claims)) assert.deepStrictEqual(store.claim(id), claim);
+          for (const [id, date] of Object.entries(expected.dates)) assert.deepStrictEqual(store.date(id), date);
         """
         for name, expected in cases:
             with self.subTest(fixture=name):

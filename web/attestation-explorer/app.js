@@ -2,13 +2,13 @@
 (function (global) {
   "use strict";
   const DATA_URL = "../../data/attestations.json";
-  const {expandData} = typeof module !== "undefined" && module.exports ?
+  const {createDataStore} = typeof module !== "undefined" && module.exports ?
     require("./explorer.js") : global.AttestationExplorer;
 
   async function loadData(fetcher = global.fetch.bind(global)) {
     const response = await fetcher(DATA_URL, {cache: "no-store"});
     if (!response.ok) throw new Error(`Collection request failed (${response.status})`);
-    return expandData(await response.json());
+    return createDataStore(await response.json());
   }
 
   function start(doc = global.document, explorer = global.AttestationExplorer, fetcher) {
@@ -22,10 +22,10 @@
 
     function show(data) {
       // Validate before replacing a working view. Source strings are rendered as text.
-      explorer.createModel(data);
+      const model = explorer.createModel(data);
       app?.destroy();
       root.hidden = false;
-      app = explorer.mount(root, data);
+      app = explorer.mount(root, model);
       loader.hidden = true;
     }
     function failed() {
@@ -43,7 +43,7 @@
     retry.addEventListener("click", load);
     file.addEventListener("change", async () => {
       if (!file.files[0]) return;
-      try { show(expandData(JSON.parse(await file.files[0].text()))); } catch { failed(); }
+      try { show(createDataStore(JSON.parse(await file.files[0].text()))); } catch { failed(); }
     });
     return load();
   }

@@ -60,10 +60,13 @@ The current app data file is **2,007,743 bytes** (about 2.01 MB), down **83.91%*
 from the 12,476,223-byte version 2 file. Its lossless version 3 transfer format
 shares rankings, observation metadata, coverage contexts, discovery, and claim
 provenance; coverage uses exact defaults with sparse exceptions or dense fallback.
-The app restores every field before displaying the collection and also accepts
-previous version 1 and 2 files through fetch and the local file picker. Runtime
-memory sharing and HTTP compression remain planned in
-[the optimization guide](docs/DATA_SIZE_OPTIMIZATION.md).
+The app validates and retains shared records for charting, resolving complete
+observations only for the selected verse. Previous version 1 and 2 files still
+load through fetch and the local file picker; the explicit full-expansion API
+preserves every field as independently mutable data. Phase 5's isolated Node
+measurements reduced retained heap after repeated selection from **66.99 MB to
+16.72 MB** (75.04%); browser memory remains unmeasured. HTTP compression (Phase 6)
+remains pending in [the optimization guide](docs/DATA_SIZE_OPTIMIZATION.md).
 
 ## Collect more data
 

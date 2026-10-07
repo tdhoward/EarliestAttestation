@@ -2,13 +2,22 @@ const {test} = require("node:test");
 const assert = require("node:assert/strict");
 const {DATA_URL, loadData, start} = require("../web/attestation-explorer/app.js");
 const {expandData, createModel} = require("../web/attestation-explorer/explorer.js");
+function assertStore(store, expected) {
+  assert.deepEqual(store.data.coordinates, expected.coordinates);
+  for (const [ref] of expected.coordinates) {
+    assert.equal(store.hasObservation(ref), Object.hasOwn(expected.observations, ref));
+    assert.deepEqual(store.observation(ref), expected.observations[ref] || null);
+  }
+  for (const [id, claim] of Object.entries(expected.claims)) assert.deepEqual(store.claim(id), claim);
+  for (const [id, date] of Object.entries(expected.dates)) assert.deepEqual(store.date(id), date);
+}
 const {transferFixture, sparseFixture} = require("./explorer-fixtures.js");
 
 test("shared transfer records preserve exact claims, all coverage states, discovery and complete alternatives", async () => {
   for (const name of ["explorer-normalized", "explorer-empty"]) {
     const {normalized, packed, version3, phase1, phase2, phase3} = transferFixture(name);
     for (const input of [normalized, packed, version3, phase1, phase2, phase3]) {
-      assert.deepEqual(await loadData(async () => ({ok: true, json: async () => input})), normalized);
+      assertStore(await loadData(async () => ({ok: true, json: async () => input})), normalized);
     }
     if (name === "explorer-empty") continue;
     const restored = expandData(packed);
@@ -47,8 +56,8 @@ test("the app requests the same current data URL without a stale browser cache",
     return {ok: true, json: async () => ({format_version: 1, coordinates: [["Gal.1.1", "main"]],
       observations: {}, revision: versions.shift()})};
   };
-  assert.equal((await loadData(fetcher)).revision, 1);
-  assert.equal((await loadData(fetcher)).revision, 2);
+  assert.equal((await loadData(fetcher)).data.revision, 1);
+  assert.equal((await loadData(fetcher)).data.revision, 2);
 });
 
 test("missing or malformed data is a load failure rather than an empty collection", async () => {
@@ -64,8 +73,9 @@ test("a failed request offers retry and a local JSON fallback, then mounts the l
   loader.querySelector = selector => nodes[selector.match(/"(.*?)"/)[1]];
   const doc = {getElementById: id => id === "collection-loader" ? loader : root};
   const mounted = [];
-  const explorer = {createModel: data => assert.equal(data.format_version, 1),
-    mount(element, data) {assert.equal(element, root); mounted.push(data); return {destroy() {}};}};
+  let modelBuilds = 0;
+  const explorer = {createModel(store) {modelBuilds++; return {store};},
+    mount(element, model) {assert.equal(element, root); mounted.push(model.store); return {destroy() {}};}};
   let fail = true;
   const data = {format_version: 1, coordinates: [["Gal.1.1", "main"]], observations: {}};
   await start(doc, explorer, async () => {
@@ -81,11 +91,12 @@ test("a failed request offers retry and a local JSON fallback, then mounts the l
   await nodes.retry.listeners.click();
   assert.equal(root.hidden, false);
   assert.equal(loader.hidden, true);
-  assert.deepEqual(mounted, [data]);
+  assert.equal(mounted[0].hasObservation("Gal.1.1"), false);
+  assert.equal(modelBuilds, 1);
   nodes.file.files = [{text: async () => JSON.stringify({...data, local: true, format_version: 2,
     claims: {}, claim_contexts: [], coverage_records: [], discovery_records: []})}];
   await nodes.file.listeners.change();
-  assert.equal(mounted[1].local, true);
+  assert.equal(mounted[1].data.local, true);
 });
 
 test("the file picker loads versions 1, 2, 3 and candidate codecs against the shared oracle", async () => {
@@ -96,7 +107,7 @@ test("the file picker loads versions 1, 2, 3 and candidate codecs against the sh
   const doc = {getElementById: id => id === "collection-loader" ? loader : root};
   const mounted = [];
   const explorer = {createModel, mount(element, data) {
-    assert.equal(element, root); mounted.push(data); return {destroy() {}};
+    assert.equal(element, root); mounted.push(data.store); return {destroy() {}};
   }};
   await start(doc, explorer, async () => {throw new Error("Offline fixture loading");});
   for (const name of ["explorer-normalized", "explorer-empty"]) {
@@ -104,26 +115,27 @@ test("the file picker loads versions 1, 2, 3 and candidate codecs against the sh
     for (const input of [normalized, packed, version3, phase1, phase2, phase3]) {
       nodes.file.files = [{text: async () => JSON.stringify(input)}];
       await nodes.file.listeners.change();
-      assert.deepEqual(mounted.at(-1), normalized);
+      assertStore(mounted.at(-1), normalized);
       assert.equal(root.hidden, false);
       assert.equal(loader.hidden, true);
     }
   }
   const {normalized: sparseExpected, phase3: sparse, version3: sparse3} = sparseFixture();
   for (const input of [sparse, sparse3]) {
-    assert.deepEqual(await loadData(async () => ({ok: true, json: async () => input})), sparseExpected);
+    assertStore(await loadData(async () => ({ok: true, json: async () => input})), sparseExpected);
     nodes.file.files = [{text: async () => JSON.stringify(input)}];
     await nodes.file.listeners.change();
-    assert.deepEqual(mounted.at(-1), sparseExpected);
+    assertStore(mounted.at(-1), sparseExpected);
   }
   const {normalized, packed, version3, phase2} = transferFixture();
   packed.observations["Gal.1.1"].reported_coverage[0] = -1;
   phase2.coverage_records[0][0] = -1;
-  sparse.observations["Gal.1.1"][1][2] = [[0, 0], [0, 0]];
+  const brokenSparse = structuredClone(sparse), brokenSparse3 = structuredClone(sparse3);
+  brokenSparse.observations["Gal.1.1"][1][2] = [[0, 0], [0, 0]];
   version3.claims["101"][1] = -1;
-  sparse3.observations["Gal.1.1"][1][2] = [[0, 0], [0, 0]];
+  brokenSparse3.observations["Gal.1.1"][1][2] = [[0, 0], [0, 0]];
   const successfulLoads = mounted.length;
-  for (const broken of [packed, phase2, sparse, version3, sparse3]) {
+  for (const broken of [packed, phase2, brokenSparse, version3, brokenSparse3]) {
     nodes.file.files = [{text: async () => JSON.stringify(broken)}];
     await nodes.file.listeners.change();
     assert.equal(mounted.length, successfulLoads);
@@ -132,7 +144,7 @@ test("the file picker loads versions 1, 2, 3 and candidate codecs against the sh
   }
   nodes.file.files = [{text: async () => JSON.stringify(normalized)}];
   await nodes.file.listeners.change();
-  assert.deepEqual(mounted.at(-1), normalized);
+  assertStore(mounted.at(-1), normalized);
   assert.equal(root.hidden, false);
 });
 
@@ -146,14 +158,15 @@ test("a malformed version 3 fetch can be retried with corrected data", async () 
   broken.coverage_defaults[0][0] = -1;
   let response = broken;
   await start(doc, {createModel, mount(element, data) {
-    assert.equal(element, root); mounted.push(data); return {destroy() {}};
+    assert.equal(element, root); mounted.push(data.store); return {destroy() {}};
   }}, async () => ({ok: true, json: async () => response}));
   assert.equal(root.hidden, true);
   assert.equal(nodes.retry.hidden, false);
   assert.equal(mounted.length, 0);
   response = version3;
   await nodes.retry.listeners.click();
-  assert.deepEqual(mounted, [normalized]);
+  assert.equal(mounted.length, 1);
+  assertStore(mounted[0], normalized);
   assert.equal(root.hidden, false);
   assert.equal(loader.hidden, true);
 });

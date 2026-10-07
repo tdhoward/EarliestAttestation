@@ -18,12 +18,321 @@
   const normalize = value => value.toLowerCase().replace(/[\s.]/g, "");
   const interval = date => date.status === "valid" ? `${date.date_min}–${date.date_max} CE` : `${date.status} numeric bounds; unrankable`;
 
+  const isRecord = value => value && typeof value === "object" && !Array.isArray(value);
+  const copyJSON = value => Array.isArray(value) ? value.map(copyJSON) : isRecord(value) ?
+    Object.fromEntries(Object.entries(value).map(([key, item]) => [key, copyJSON(item)])) : value;
+  const readonlyRecords = new WeakSet();
+  function freezeJSON(value) {
+    if (value && typeof value === "object" && !readonlyRecords.has(value)) {
+      readonlyRecords.add(value);
+      for (const item of Object.values(value)) freezeJSON(item);
+      Object.freeze(value);
+    }
+    return value;
+  }
+  const orderedJSON = value => Array.isArray(value) ? value.map(orderedJSON) : isRecord(value) ?
+    Object.fromEntries(Object.keys(value).sort().map(key => [key, orderedJSON(value[key])])) : value;
+  const jsonKey = value => JSON.stringify(orderedJSON(value));
+  const stores = new WeakSet(), models = new WeakSet();
+
+  // The runtime takes ownership of the parsed JSON and freezes it. Validation
+  // follows references in place, including unused tables; it never expands the
+  // witness/verse matrix. Only observation() materializes a normalized row.
+  function createDataStore(raw) {
+    if (stores.has(raw)) return raw;
+    if (!isRecord(raw) || !Array.isArray(raw.coordinates) || !isRecord(raw.observations)) {
+      throw new Error("Unsupported collection data");
+    }
+    const version = raw.format_version, normalized = version === 1;
+    const sparse = version === 3 || version === "3-phase3";
+    const compact = sparse || version === "3-phase2";
+    const shared = compact || version === "3-phase1";
+    if (!normalized && version !== 2 && !shared) throw new Error("Unsupported collection data");
+    const tables = normalized ? [] : ["claim_contexts", "coverage_records", "discovery_records"];
+    if (shared) tables.push("ranking_templates", "observation_contexts");
+    if (compact) tables.push("coverage_contexts");
+    if (sparse) tables.push("coverage_defaults");
+    if (tables.some(name => !Array.isArray(raw[name])) || (!normalized && !isRecord(raw.claims))) {
+      throw new Error("Missing collection record tables");
+    }
+    const claims = raw.claims || {}, dates = raw.dates || {};
+    if (!isRecord(claims) || !isRecord(dates)) throw new Error("Invalid collection lookup tables");
+    function index(name, id) {
+      if (!Number.isInteger(id) || id < 0 || id >= raw[name].length) throw new Error(`Invalid ${name} reference`);
+      return raw[name][id];
+    }
+    function record(name, id) {
+      const value = index(name, id);
+      if (!isRecord(value)) throw new Error(`Invalid ${name} reference`);
+      return value;
+    }
+    for (const name of tables.filter(name => name.endsWith("contexts") || name === "discovery_records")) {
+      raw[name].forEach((_, id) => record(name, id));
+    }
+    for (const coordinate of raw.coordinates) {
+      if (!Array.isArray(coordinate) || typeof coordinate[0] !== "string") throw new Error("Invalid coordinate");
+    }
+    for (const date of Object.values(dates)) if (!isRecord(date)) throw new Error("Invalid date record");
+    function dateReference(id) {
+      if ((typeof id !== "string" && typeof id !== "number") || !Object.hasOwn(dates, id)) {
+        throw new Error("Dangling date reference");
+      }
+    }
+    function claimParts(id) {
+      const packed = claims[id];
+      if (normalized) return [packed, packed];
+      return [record("claim_contexts", packed[compact ? 1 : 0]), packed[compact ? 2 : 1]];
+    }
+    function claimField(id, field) {
+      const [context, details] = claimParts(id);
+      if (compact && claims[id][0] === "ntvmr_index_v1") return field === "claim_id" ? Number(id) : context[field];
+      return Object.hasOwn(details, field) ? details[field] : context[field];
+    }
+    const claimIdentifiers = new Set();
+    for (const [id, packed] of Object.entries(claims)) {
+      if (normalized) {
+        if (!isRecord(packed)) throw new Error("Invalid claim record");
+      } else {
+        if (!Array.isArray(packed) || packed.length !== (compact ? 3 : 2)) throw new Error("Invalid packed claim");
+        const [context, details] = claimParts(id);
+        let keys;
+        if (compact && packed[0] === "ntvmr_index_v1") {
+          if (!/^(?:0|-?[1-9][0-9]*)$/.test(id) || !Number.isSafeInteger(Number(id)) || String(Number(id)) !== id ||
+              !Array.isArray(details) || details.length !== 4 || !Number.isSafeInteger(details[3]) || details[3] < 0 ||
+              !Number.isSafeInteger(context.doc_id) || !Number.isSafeInteger(details[2])) {
+            throw new Error("Invalid compact index claim");
+          }
+          keys = ["claim_id", "source_ref", "page_id", "reported", "source_locator"];
+        } else {
+          if (compact && packed[0] !== "literal") throw new Error("Invalid claim encoding");
+          if (!isRecord(details)) throw new Error("Invalid packed claim");
+          keys = Object.keys(details);
+        }
+        if (keys.some(key => Object.hasOwn(context, key))) throw new Error("Packed claim overrides its context");
+      }
+      const identifier = claimField(id, "claim_id");
+      if (identifier !== undefined) claimIdentifiers.add(jsonKey(identifier));
+    }
+    function validateClaimIds(ids) {
+      if (!Array.isArray(ids)) throw new Error("Invalid event claim references");
+      if (ids.some(id => !claimIdentifiers.has(jsonKey(id)))) throw new Error("Dangling event claim reference");
+    }
+    function coverageContext(key) {
+      if (normalized) return key;
+      return compact ? record("coverage_contexts", index("coverage_records", key)[0]) : record("coverage_records", key);
+    }
+    function coverageClaims(key) {
+      return normalized ? key.claims : compact ? index("coverage_records", key)[1] : coverageContext(key).claims;
+    }
+    function validatePair(context, ids) {
+      if (!isRecord(context) || !Array.isArray(ids) || !Array.isArray(context.date_assessments)) {
+        throw new Error("Invalid coverage record");
+      }
+      for (const id of ids) {
+        if (typeof id !== "string" || !Object.hasOwn(claims, id)) throw new Error("Dangling coverage claim reference");
+        if (claimField(id, "assertion") === "present" && claimField(id, "claim_id") === undefined) {
+          throw new Error("Missing coverage claim identifier");
+        }
+      }
+      context.date_assessments.forEach(dateReference);
+    }
+    if (compact) for (const context of raw.coverage_contexts) {
+      if (Object.hasOwn(context, "claims")) throw new Error("Coverage context contains claims");
+      validatePair(context, []);
+    }
+    if (!normalized) raw.coverage_records.forEach((packed, id) => {
+      if (compact && (!Array.isArray(packed) || packed.length !== 2 || !Array.isArray(packed[1]))) {
+        throw new Error("Invalid packed coverage record");
+      }
+      validatePair(coverageContext(id), coverageClaims(id));
+    });
+    const coverageIndex = id => { index("coverage_records", id); };
+    if (sparse) for (const vector of raw.coverage_defaults) {
+      if (!Array.isArray(vector)) throw new Error("Invalid coverage default vector");
+      vector.forEach(coverageIndex);
+    }
+    function validateEncoding(encoding) {
+      if (Array.isArray(encoding) && encoding.length === 2 && encoding[0] === "dense" && Array.isArray(encoding[1])) {
+        encoding[1].forEach(coverageIndex);
+      } else if (sparse && Array.isArray(encoding) && encoding.length === 3 && encoding[0] === "sparse" && Array.isArray(encoding[2])) {
+        const vector = index("coverage_defaults", encoding[1]);
+        let previous = -1;
+        for (const override of encoding[2]) {
+          if (!Array.isArray(override) || override.length !== 2) throw new Error("Invalid coverage override");
+          const [position, id] = override;
+          if (!Number.isInteger(position) || position <= previous || position >= vector.length) throw new Error("Invalid coverage override position");
+          coverageIndex(id); previous = position;
+        }
+      } else throw new Error("Invalid coverage encoding");
+    }
+    function row(ref) {
+      return shared ? record("observation_contexts", raw.observations[ref][0]) : raw.observations[ref];
+    }
+    function* coverageKeys(ref) {
+      if (!shared) {yield* row(ref).reported_coverage; return;}
+      const encoding = raw.observations[ref][1];
+      if (encoding[0] === "dense") {yield* encoding[1]; return;}
+      const vector = raw.coverage_defaults[encoding[1]], overrides = encoding[2];
+      let next = 0;
+      for (let position = 0; position < vector.length; position++) {
+        if (overrides[next]?.[0] === position) yield overrides[next++][1];
+        else yield vector[position];
+      }
+    }
+    function alternatives(ref) {
+      const context = row(ref);
+      return shared ? record("ranking_templates", context.dating_alternatives) : context.dating_alternatives;
+    }
+    function* rankingEvents(value) {
+      if (!isRecord(value) || !Array.isArray(value.combinations)) throw new Error("Invalid ranking template");
+      for (const combo of value.combinations) {
+        if (!isRecord(combo) || !Array.isArray(combo.assessments) || !isRecord(combo.scenarios)) throw new Error("Invalid ranking combination");
+        combo.assessments.forEach(dateReference);
+        for (const events of Object.values(combo.scenarios)) {
+          if (!Array.isArray(events)) throw new Error("Invalid ranking scenario");
+          for (const event of events) {
+            if (!isRecord(event) || !Object.hasOwn(event, "witness_id") || !Number.isFinite(event.event_year)) throw new Error("Invalid ranking event");
+            dateReference(event.assessment_id);
+            yield event;
+          }
+        }
+      }
+    }
+    function pairFor(ref, witness) {
+      let found, matches = 0;
+      for (const key of coverageKeys(ref)) {
+        const context = coverageContext(key);
+        if (Object.hasOwn(context, "witness_id") && jsonKey(context.witness_id) === jsonKey(witness)) {found = key; matches++;}
+      }
+      if (matches !== 1) throw new Error("Missing or ambiguous coverage pair reference");
+      return found;
+    }
+    function presentIds(key) {
+      return coverageClaims(key).filter(id => claimField(id, "assertion") === "present").map(id => claimField(id, "claim_id"));
+    }
+    const pairWitnesses = new WeakMap();
+    function validateRanking(value) {
+      const witnesses = new Map();
+      for (const event of rankingEvents(value)) {
+        if (!shared) {validateClaimIds(event.coverage_claim_ids); continue;}
+        const tag = event.coverage_claim_ids;
+        if (Array.isArray(tag) && tag.length === 1 && tag[0] === "pair") witnesses.set(jsonKey(event.witness_id), event.witness_id);
+        else if (Array.isArray(tag) && tag.length === 2 && tag[0] === "literal") validateClaimIds(tag[1]);
+        else throw new Error("Invalid event claim encoding");
+      }
+      pairWitnesses.set(value, [...witnesses.values()]);
+    }
+    if (shared) {
+      raw.ranking_templates.forEach(validateRanking);
+      for (const context of raw.observation_contexts) {
+        if (Object.hasOwn(context, "reported_coverage")) throw new Error("Observation context contains coverage");
+        record("discovery_records", context.discovery);
+        record("ranking_templates", context.dating_alternatives);
+      }
+    }
+    for (const [ref, packed] of Object.entries(raw.observations)) {
+      if (shared) {
+        if (!Array.isArray(packed) || packed.length !== 2) throw new Error("Invalid packed observation");
+        row(ref); validateEncoding(packed[1]);
+        for (const witness of pairWitnesses.get(alternatives(ref))) pairFor(ref, witness);
+      } else {
+        if (!isRecord(packed) || !Array.isArray(packed.reported_coverage)) throw new Error("Invalid packed observation");
+        if (normalized) {
+          if (!isRecord(packed.discovery)) throw new Error("Invalid discovery record");
+          packed.reported_coverage.forEach(pair => validatePair(pair, pair?.claims));
+        } else {
+          packed.reported_coverage.forEach(coverageIndex);
+          record("discovery_records", packed.discovery);
+        }
+        validateRanking(packed.dating_alternatives);
+      }
+    }
+    freezeJSON(raw);
+    const data = freezeJSON(Object.fromEntries(Object.entries(raw).filter(([key]) =>
+      !tables.includes(key) && !["observations", "claims", "dates"].includes(key))));
+    const chartViews = new WeakMap(), claimCache = new Map();
+    let cachedRef, cachedObservation, observationDecodes = 0, coverageDecodes = 0, chartTemplates = 0;
+    function chartView(value) {
+      if (!chartViews.has(value)) {
+        chartTemplates++;
+        chartViews.set(value, freezeJSON({...value, combinations: value.combinations.map(combo => ({...combo,
+          scenarios: Object.fromEntries(Object.entries(combo.scenarios).map(([side, events]) => [side,
+            events.map(({coverage_claim_ids, ...event}) => event)]))}))}));
+      }
+      return chartViews.get(value);
+    }
+    function claim(id) {
+      if (!Object.hasOwn(claims, id)) return undefined;
+      id = String(id);
+      if (normalized) return claims[id];
+      if (!claimCache.has(id)) {
+        const [context, details] = claimParts(id);
+        let restored = details;
+        if (compact && claims[id][0] === "ntvmr_index_v1") {
+          const [content, osis, page, locator] = details;
+          restored = {claim_id: Number(id), source_ref: osis, page_id: page,
+            reported: {docID: context.doc_id, indexContent: content, osisID: osis, pageID: page},
+            source_locator: `data.indexContents.indexContent[${locator}]`};
+        }
+        claimCache.set(id, freezeJSON({...context, ...restored}));
+      }
+      return claimCache.get(id);
+    }
+    function observation(ref) {
+      if (ref === cachedRef) return cachedObservation;
+      cachedRef = ref; cachedObservation = null;
+      if (!Object.hasOwn(raw.observations, ref)) return null;
+      if (normalized) return (cachedObservation = row(ref));
+      observationDecodes++;
+      const context = copyJSON(row(ref));
+      const pairs = [...coverageKeys(ref)].map(key => {
+        coverageDecodes++;
+        return {...copyJSON(coverageContext(key)), claims: copyJSON(coverageClaims(key))};
+      });
+      const ranking = copyJSON(alternatives(ref));
+      if (shared) for (const event of rankingEvents(ranking)) {
+        const tag = event.coverage_claim_ids;
+        event.coverage_claim_ids = tag[0] === "pair" ? presentIds(pairFor(ref, event.witness_id)) : tag[1];
+      }
+      cachedObservation = freezeJSON({...context, reported_coverage: pairs, dating_alternatives: ranking,
+        discovery: copyJSON(record("discovery_records", context.discovery))});
+      return cachedObservation;
+    }
+    const store = Object.freeze({data, formatVersion: version, dateIds: Object.freeze(Object.keys(dates)),
+      hasObservation: ref => Object.hasOwn(raw.observations, ref),
+      summary(ref) {
+        if (!Object.hasOwn(raw.observations, ref)) return null;
+        const context = row(ref), totals = {present: 0, unknown: 0, contested: 0, absent: 0};
+        for (const key of coverageKeys(ref)) {
+          const state = coverageContext(key).state;
+          totals[state] = (totals[state] || 0) + 1;
+        }
+        return freezeJSON({editorial_status: context.editorial_status, ranking_state: context.ranking_state,
+          discovery: normalized ? context.discovery : record("discovery_records", context.discovery),
+          contested: totals.contested > 0, coverage_totals: totals});
+      },
+      chartAlternatives: ref => Object.hasOwn(raw.observations, ref) ? chartView(alternatives(ref)) : null,
+      // Inspect referenced templates once; unused valid templates do not change scale.
+      *chartRecords() {
+        const seen = new Set();
+        for (const ref of Object.keys(raw.observations)) {
+          const value = alternatives(ref);
+          if (!seen.has(value)) {seen.add(value); yield chartView(value);}
+        }
+      },
+      claim, date: id => Object.hasOwn(dates, id) ? dates[id] : undefined, observation,
+      diagnostics: () => Object.freeze({observationDecodes, coverageDecodes, chartTemplates,
+        cachedObservations: cachedObservation ? 1 : 0, cachedClaims: claimCache.size})});
+    stores.add(store);
+    return store;
+  }
+
   function expandData(data) {
     const isRecord = value => value && typeof value === "object" && !Array.isArray(value);
     if (!isRecord(data) || !Array.isArray(data.coordinates) || !isRecord(data.observations)) {
       throw new Error("Unsupported collection data");
     }
-    if (data.format_version === 1) return data;
+    if (data.format_version === 1) return copyJSON(data);
     // Numeric version 3 is the complete production schema. Retained private
     // candidate markers remain readable for offline compatibility checks.
     const phase3 = data.format_version === 3 || data.format_version === "3-phase3";
@@ -211,7 +520,7 @@
         discovery: record("discovery_records", row.discovery)}];
     }));
     const {claim_contexts, coverage_records, discovery_records, ...rest} = data;
-    return {...rest, format_version: 1, claims, observations};
+    return copyJSON({...rest, format_version: 1, claims, observations});
   }
 
   function hitIndex(x, width, scrollLeft, totalWidth, count) {
@@ -231,12 +540,13 @@
     });
   }
 
-  function createModel(data) {
-    data = expandData(data);
-    if (data.format_version !== 1 || !data.coordinates.length) throw new Error("Unsupported explorer data");
+  function createModel(input) {
+    if (models.has(input)) return input;
+    const store = createDataStore(input), data = store.data;
+    if (!data.coordinates.length) throw new Error("Unsupported explorer data");
     const indices = new Map(data.coordinates.map((row, index) => [row[0], index]));
     const choices = new Map();
-    const dates = Object.values(data.dates).sort((a, b) => Number(a.assessment_id) - Number(b.assessment_id));
+    const dates = store.dateIds.map(store.date).sort((a, b) => Number(a.assessment_id) - Number(b.assessment_id));
     for (const date of dates) {
       if (date.status !== "valid") continue;
       if (!choices.has(date.witness_id)) choices.set(date.witness_id, []);
@@ -253,8 +563,8 @@
     const witnesses = new Map(data.documents.map(doc => [doc.witness_id,
       /^\d+$/.test(doc.label) ? `GA ${doc.label.padStart(2, "0")}` : doc.label]));
     let minimum = Infinity, maximum = -Infinity;
-    for (const row of Object.values(data.observations)) {
-      for (const combo of row.dating_alternatives.combinations) {
+    for (const alternatives of store.chartRecords()) {
+      for (const combo of alternatives.combinations) {
         for (const events of Object.values(combo.scenarios)) for (const event of events) {
           minimum = Math.min(minimum, event.event_year);
           maximum = Math.max(maximum, event.event_year);
@@ -276,25 +586,25 @@
     }
     function cell(index, scenario) {
       const [ref, editorial] = data.coordinates[index];
-      const observation = data.observations[ref];
-      const status = observation?.editorial_status || editorial;
+      const summary = store.summary(ref);
+      const status = summary?.editorial_status || editorial;
       const filters = data.metadata.filters;
       if ((status === "omitted" && !filters.include_omitted) ||
           (status === "bracketed" && !filters.include_bracketed)) {
-        return {state: "filtered", events: [], observation};
+        return {ref, state: "filtered", events: []};
       }
-      if (!observation) return {state: "uncollected", events: [], observation: null};
-      const alternatives = observation.dating_alternatives;
+      if (!summary) return {ref, state: "uncollected", events: []};
+      const alternatives = store.chartAlternatives(ref);
       const combo = alternatives.combinations.find(item => item.assessments.every(id =>
-        selection.get(data.dates[id].witness_id) === String(id)));
+        selection.get(store.date(id).witness_id) === String(id)));
       const events = combo?.scenarios[scenario] || [];
       return {state: alternatives.state === "too_many_combinations" ? "too_many_combinations" :
         (!combo && alternatives.combinations.length ? "unavailable_combination" : events.length ? "dated" : "no_date"),
-        events, observation, contested: observation.reported_coverage.some(pair => pair.state === "contested")};
+        ref, events, contested: summary.contested};
     }
     function discovery(index) {
       const ref = data.coordinates[index][0], meta = data.metadata.discovery;
-      const reported = data.observations[ref]?.discovery;
+      const reported = store.summary(ref)?.discovery;
       const scopes = (meta?.scopes || [meta]).filter(item => item?.definition?.book === ref.split(".")[0]);
       if (!scopes.length) {
         return {state: "not_searched", text: "Witness discovery has not been assessed for this verse. Rankings cover collected witnesses only."};
@@ -310,8 +620,10 @@
         `Bounded book search ${(incomplete?.search_state || "incomplete").replaceAll("_", " ")}; ${count} candidates identified so far. ${pool}`;
       return {state, text};
     }
-    return {data, indices, books, choices, selection, minimum, maximum, hasEvents, label, lookup, cell,
+    const model = {data, store, indices, books, choices, selection, minimum, maximum, hasEvents, label, lookup, cell,
       discovery, witness: id => witnesses.get(id) || id};
+    models.add(model);
+    return model;
   }
 
   function mount(root, data, options = {}) {
@@ -342,7 +654,7 @@
     const scroll = el("scroll"), spacer = el("spacer");
     let scenario = "optimistic", zoom = 1, pinned = false, frame = 0;
     let width = 1, height = 320, cachedCells = [], runs = [], hasSize = false;
-    let selected = data.coordinates.findIndex(([ref]) => data.observations[ref]);
+    let selected = data.coordinates.findIndex(([ref]) => model.store.hasObservation(ref));
     selected = Math.max(0, selected);
     const totalWidth = () => width * zoom;
     const plotTop = 32, plotBottom = () => height - 35;
@@ -490,24 +802,26 @@
       parent.append(section);
     }
 
-    function renderClaims(cell) {
+    function renderClaims(ref) {
       const parent = el("claims"); parent.replaceChildren();
-      if (!cell.observation) return;
-      if (cell.observation.mapping_note) appendText(parent, "p", `Mapping: ${cell.observation.mapping_note}`);
-      if (cell.observation.editorial_note) appendText(parent, "p", cell.observation.editorial_note);
-      if (cell.observation.passage_citation) link(parent, cell.observation.passage_citation);
-      for (const pair of cell.observation.reported_coverage) {
+      const observation = model.store.observation(ref);
+      if (!observation) return;
+      if (observation.mapping_note) appendText(parent, "p", `Mapping: ${observation.mapping_note}`);
+      if (observation.editorial_note) appendText(parent, "p", observation.editorial_note);
+      if (observation.passage_citation) link(parent, observation.passage_citation);
+      for (const pair of observation.reported_coverage) {
         appendText(parent, "h3", `${model.witness(pair.witness_id)} · ${pair.state}`);
         if (pair.unknown_reason) appendText(parent, "p", pair.unknown_reason.replaceAll("_", " "));
         if (pair.state === "contested") appendText(parent, "p", "Explicit incompatible source claims retained. Deferred; no presence event.");
-        for (const id of pair.claims) sourceRecord(parent, data.claims[id], "coverage");
-        for (const id of pair.date_assessments) sourceRecord(parent, data.dates[id], "date");
+        for (const id of pair.claims) sourceRecord(parent, model.store.claim(id), "coverage");
+        for (const id of pair.date_assessments) sourceRecord(parent, model.store.date(id), "date");
         if (!pair.date_assessments.length) appendText(parent, "p", "No reported date assessment; unrankable.");
       }
     }
 
     function renderSelection() {
       const cell = cachedCells[selected], ref = model.label(selected);
+      const observation = model.store.observation(cell.ref);
       el("selected-heading").textContent = ref;
       el("discovery-summary").textContent = model.discovery(selected).text;
       el("selection-label").textContent = ref;
@@ -518,7 +832,7 @@
       canvas.setAttribute("aria-valuenow", selected + 1);
       canvas.setAttribute("aria-valuetext", `${ref}: ${cell.state.replaceAll("_", " ")}`);
       const parent = el("witnesses"); parent.replaceChildren();
-      el("source-details").hidden = !cell.observation;
+      el("source-details").hidden = !observation;
       let summary;
       if (cell.state === "uncollected" || cell.state === "filtered") {
         summary = cell.state === "filtered" ? "Excluded by this export’s edition filter. This says nothing about manuscript contents." :
@@ -526,13 +840,13 @@
         appendText(parent, "div", cell.state === "filtered" ? "This coordinate retains its place in the GNT. Change the export filters to include its reports." :
           "This verse has a place on the timeline. Its source summary will appear when reports are added to the dataset.", "empty-state");
       } else {
-        const pairs = cell.observation.reported_coverage;
+        const pairs = observation.reported_coverage;
         const totals = {present: 0, unknown: 0, contested: 0, absent: 0};
         for (const pair of pairs) totals[pair.state]++;
         const first = cell.events[0];
         summary = `${totals.present} reported present · ${totals.unknown} unknown · ${totals.contested} contested · ${totals.absent} reported absent.`;
         summary += first ? ` Earliest collected ${scenario} endpoint: ${first.event_year} CE (${model.witness(first.witness_id)}).` : " No dated presence event for this selection.";
-        if (cell.state === "too_many_combinations") summary += ` ${cell.observation.dating_alternatives.combination_count} date combinations exceed the export limit; no alternative selected.`;
+        if (cell.state === "too_many_combinations") summary += ` ${observation.dating_alternatives.combination_count} date combinations exceed the export limit; no alternative selected.`;
         if (cell.state === "unavailable_combination") summary += " This combination of date choices is unavailable for this verse.";
         const order = [...pairs].sort((a, b) => {
           const rank = pair => cell.events.find(e => e.witness_id === pair.witness_id)?.rank ?? 999;
@@ -545,13 +859,13 @@
           appendText(top, "span", pair.state === "present" ? "Reported present" : pair.state, `badge ${pair.state}`);
           card.append(top);
           const event = cell.events.find(e => e.witness_id === pair.witness_id);
-          const dates = pair.date_assessments.map(id => data.dates[id]);
-          const date = event ? data.dates[event.assessment_id] : dates.find(d => String(d.assessment_id) === model.selection.get(pair.witness_id)) || dates[0];
+          const dates = pair.date_assessments.map(model.store.date);
+          const date = event ? model.store.date(event.assessment_id) : dates.find(d => String(d.assessment_id) === model.selection.get(pair.witness_id)) || dates[0];
           appendText(card, "p", date ? interval(date) : "Date not reported", "interval");
           appendText(card, "p", event ? `#${event.rank} · ${event.event_year} CE ${scenario} endpoint` :
             pair.state === "contested" ? "Deferred · excluded from presence counts" : pair.state === "present" ? "No ranked event in this selection" : "No presence event");
           if (dates.length > 1) appendText(card, "p", `${dates.length} reported date assessments · all retained below`);
-          const claim = pair.claims.length ? data.claims[pair.claims[0]] : null;
+          const claim = pair.claims.length ? model.store.claim(pair.claims[0]) : null;
           if (claim) {
             appendText(card, "p", `${claim.provider} · retrieved ${claim.retrieved_at.slice(0, 10)}`);
             link(card, claim.citation, "Contents source ↗");
@@ -563,7 +877,8 @@
         if (!pairs.length) appendText(parent, "p", "No witness reports are available for this coordinate.", "empty-state");
       }
       el("summary").textContent = summary;
-      if (el("source-details").open) renderClaims(cell);
+      if (el("source-details").open) renderClaims(cell.ref);
+      else el("claims").replaceChildren();
       options.onSelect?.({ref: data.coordinates[selected][0], scenario, state: cell.state});
     }
 
@@ -635,7 +950,7 @@
     }
     canvas.setAttribute("aria-valuemax", data.coordinates.length);
     for (const input of root.querySelectorAll('input[name="scenario"]')) on(input, "change", () => setScenario(input.value));
-    on(el("source-details"), "toggle", () => {if (el("source-details").open) renderClaims(cachedCells[selected]);});
+    on(el("source-details"), "toggle", () => {if (el("source-details").open) renderClaims(cachedCells[selected].ref);});
     on(el("previous"), "click", () => select(selected - 1, true, true));
     on(el("next"), "click", () => select(selected + 1, true, true));
     on(el("pin"), "click", () => select(selected, !pinned));
@@ -685,7 +1000,7 @@
     };
   }
 
-  const api = {expandData, createModel, hitIndex, segments, mount};
+  const api = {expandData, createDataStore, createModel, hitIndex, segments, mount};
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else global.AttestationExplorer = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

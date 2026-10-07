@@ -3,8 +3,9 @@ const {test} = require("node:test");
 const assert = require("node:assert/strict");
 const {readFileSync} = require("node:fs");
 const {join} = require("node:path");
-const {expandData, createModel, hitIndex, segments} = require("../web/attestation-explorer/explorer.js");
+const {expandData, createDataStore, createModel, hitIndex, segments, mount} = require("../web/attestation-explorer/explorer.js");
 const {transferFixture, sparseFixture} = require("./explorer-fixtures.js");
+const {explorerDOM} = require("./explorer-dom-fixture.js");
 const current = expandData(JSON.parse(readFileSync(join(__dirname, "../data/attestations.json"), "utf8")));
 // A smaller synthetic view keeps the three-witness model cases independent of collection growth.
 const data = structuredClone(current);
@@ -64,6 +65,7 @@ test("Phase 1 rejects missing tables and negative, noninteger, boolean and dangl
     const missing = structuredClone(phase1);
     delete missing[name];
     assert.throws(() => expandData(missing), /Missing collection record tables/);
+    assert.throws(() => createDataStore(missing), /Missing collection record tables/);
     for (const index of [-1, phase1[name].length, 0.5, "0", true, null]) {
       const broken = structuredClone(phase1);
       if (name === "claim_contexts") broken.claims["101"][0] = index;
@@ -71,6 +73,7 @@ test("Phase 1 rejects missing tables and negative, noninteger, boolean and dangl
       else if (name === "observation_contexts") broken.observations["Gal.1.1"][0] = index;
       else broken.observation_contexts[0][name === "discovery_records" ? "discovery" : "dating_alternatives"] = index;
       assert.throws(() => expandData(broken), /Invalid .* reference/);
+      assert.throws(() => createDataStore(broken), /Invalid .* reference/);
     }
   }
 });
@@ -82,16 +85,19 @@ test("Phase 1 rejects bad tuple tags, dangling claims and ambiguous pair recover
     const broken = structuredClone(phase1);
     broken.ranking_templates[0].combinations[0].scenarios.optimistic[0].coverage_claim_ids = tag;
     assert.throws(() => expandData(broken), /Invalid event claim|Dangling event claim/);
+    assert.throws(() => createDataStore(broken), /Invalid event claim|Dangling event claim/);
   }
   for (const encoding of [[], ["sparse", []], ["dense"], ["dense", [], null], ["dense", null]]) {
     const broken = structuredClone(phase1);
     broken.observations["Gal.1.1"][1] = encoding;
     assert.throws(() => expandData(broken), /Invalid coverage encoding/);
+    assert.throws(() => createDataStore(broken), /Invalid coverage encoding/);
   }
   for (const row of [null, [], [0], [0, ["dense", []], null]]) {
     const broken = structuredClone(phase1);
     broken.observations["Gal.1.1"] = row;
     assert.throws(() => expandData(broken), /Invalid packed observation/);
+    assert.throws(() => createDataStore(broken), /Invalid packed observation/);
   }
   for (const variant of ["missing_pair", "duplicate_pair", "dangling_claim", "numeric_claim_lookup", "missing_claim_id", "conflict"]) {
     const broken = structuredClone(phase1), vector = broken.observations["Gal.1.1"][1][1];
@@ -102,6 +108,7 @@ test("Phase 1 rejects bad tuple tags, dangling claims and ambiguous pair recover
     else if (variant === "missing_claim_id") delete broken.claims["101"][1].claim_id;
     else broken.claims["101"][1].citation = "Conflicting fictional citation";
     assert.throws(() => expandData(broken), /pair reference|claim reference|claim identifier|overrides its context/);
+    assert.throws(() => createDataStore(broken), /pair reference|claim reference|claim identifier|overrides its context/);
   }
 });
 
@@ -132,6 +139,7 @@ test("Phase 2 rejects missing tables, invalid indices, and conflicting context f
     const missing = structuredClone(phase2);
     delete missing[name];
     assert.throws(() => expandData(missing), /Missing collection record tables/);
+    assert.throws(() => createDataStore(missing), /Missing collection record tables/);
     for (const index of [-1, phase2[name].length, 0.5, "0", true, null]) {
       const broken = structuredClone(phase2);
       if (name === "claim_contexts") broken.claims["101"][1] = index;
@@ -140,16 +148,19 @@ test("Phase 2 rejects missing tables, invalid indices, and conflicting context f
       else if (name === "observation_contexts") broken.observations["Gal.1.1"][0] = index;
       else broken.observation_contexts[0][name === "discovery_records" ? "discovery" : "dating_alternatives"] = index;
       assert.throws(() => expandData(broken), /Invalid .* reference/);
+      assert.throws(() => createDataStore(broken), /Invalid .* reference/);
     }
   }
   for (const id of ["101", "102"]) {
     const broken = structuredClone(phase2);
     broken.claim_contexts[broken.claims[id][1]].source_ref = "Conflicting fictional field";
     assert.throws(() => expandData(broken), /overrides its context/);
+    assert.throws(() => createDataStore(broken), /overrides its context/);
   }
   const broken = structuredClone(phase2);
   broken.coverage_contexts[broken.coverage_records[0][0]].claims = [];
   assert.throws(() => expandData(broken), /Coverage context contains claims/);
+  assert.throws(() => createDataStore(broken), /Coverage context contains claims/);
 });
 
 test("Phase 2 rejects malformed claims, unsafe reconstructed integers, and dangling coverage", () => {
@@ -159,16 +170,19 @@ test("Phase 2 rejects malformed claims, unsafe reconstructed integers, and dangl
     const broken = structuredClone(phase2);
     broken.claims["101"] = value;
     assert.throws(() => expandData(broken), /Invalid .*claim|Invalid claim encoding/);
+    assert.throws(() => createDataStore(broken), /Invalid .*claim|Invalid claim encoding/);
   }
   for (const value of [-1, 0.5, true, "0", null, 2 ** 53]) {
     const broken = structuredClone(phase2);
     broken.claims["101"][2][3] = value;
     assert.throws(() => expandData(broken), /Invalid compact index claim/);
+    assert.throws(() => createDataStore(broken), /Invalid compact index claim/);
   }
   for (const id of ["0101", "+101", "-0", "9007199254740992", "publication"]) {
     const broken = structuredClone(phase2);
     broken.claims[id] = structuredClone(broken.claims["101"]);
     assert.throws(() => expandData(broken), /Invalid compact index claim/);
+    assert.throws(() => createDataStore(broken), /Invalid compact index claim/);
   }
   for (const value of [0.5, true, "1", null, 2 ** 53]) {
     for (const field of ["doc", "page"]) {
@@ -176,16 +190,19 @@ test("Phase 2 rejects malformed claims, unsafe reconstructed integers, and dangl
       if (field === "doc") broken.claim_contexts[broken.claims["101"][1]].doc_id = value;
       else broken.claims["101"][2][2] = value;
       assert.throws(() => expandData(broken), /Invalid compact index claim/);
+      assert.throws(() => createDataStore(broken), /Invalid compact index claim/);
     }
   }
   for (const value of [null, [], [0], [0, [], null], [0, null], [0, [102]], [0, ["missing"]]]) {
     const broken = structuredClone(phase2);
     broken.coverage_records[0] = value;
     assert.throws(() => expandData(broken), /Invalid packed coverage|Dangling coverage claim/);
+    assert.throws(() => createDataStore(broken), /Invalid packed coverage|Dangling coverage claim/);
   }
   const broken = structuredClone(phase2);
   broken.coverage_records.push([0, ["missing"]]);
   assert.throws(() => expandData(broken), /Dangling coverage claim/);
+  assert.throws(() => createDataStore(broken), /Dangling coverage claim/);
   for (const variant of ["missing_pair", "duplicate_pair", "dangling_claim", "event_tag", "sparse"]) {
     const broken = structuredClone(phase2), vector = broken.observations["Gal.1.1"][1][1];
     if (variant === "missing_pair") vector.shift();
@@ -194,6 +211,7 @@ test("Phase 2 rejects malformed claims, unsafe reconstructed integers, and dangl
     else if (variant === "event_tag") broken.ranking_templates[0].combinations[0].scenarios.optimistic[0].coverage_claim_ids = ["unknown"];
     else broken.observations["Gal.1.1"][1][0] = "sparse";
     assert.throws(() => expandData(broken), /pair reference|claim reference|Invalid event claim|Invalid coverage encoding/);
+    assert.throws(() => createDataStore(broken), /pair reference|claim reference|Invalid event claim|Invalid coverage encoding/);
   }
 });
 
@@ -236,32 +254,38 @@ test("Phase 3 rejects missing defaults, dangling indices and malformed ordered o
   const missing = structuredClone(phase3);
   delete missing.coverage_defaults;
   assert.throws(() => expandData(missing), /Missing collection record tables/);
+  assert.throws(() => createDataStore(missing), /Missing collection record tables/);
   for (const index of [-1, phase3.coverage_defaults.length, 0.5, "0", true, null]) {
     const broken = structuredClone(phase3);
     broken.observations["Gal.1.1"][1][1] = index;
     assert.throws(() => expandData(broken), /Invalid coverage_defaults reference/);
+    assert.throws(() => createDataStore(broken), /Invalid coverage_defaults reference/);
   }
   for (const vector of [null, {}, "vector", [-1], [phase3.coverage_records.length], [true], ["0"], [0.5]]) {
     const broken = structuredClone(phase3);
     broken.coverage_defaults.push(vector); // Validate unused defaults as well.
     assert.throws(() => expandData(broken), /Invalid coverage/);
+    assert.throws(() => createDataStore(broken), /Invalid coverage/);
   }
   for (const encoding of [[], ["sparse"], ["sparse", 0], ["sparse", 0, [], null],
     ["sparse", 0, null], ["other", 0, []], ["dense", null]]) {
     const broken = structuredClone(phase3);
     broken.observations["Gal.1.1"][1] = encoding;
     assert.throws(() => expandData(broken), /Invalid coverage encoding/);
+    assert.throws(() => createDataStore(broken), /Invalid coverage encoding/);
   }
   for (const override of [null, [], [0], [0, 0, 0], [true, 0], [-1, 0], [7, 0], [0.5, 0], ["0", 0],
     [0, -1], [0, phase3.coverage_records.length], [0, true], [0, "0"], [0, 0.5]]) {
     const broken = structuredClone(phase3);
     broken.observations["Gal.1.1"][1][2] = [override];
     assert.throws(() => expandData(broken), /Invalid coverage/);
+    assert.throws(() => createDataStore(broken), /Invalid coverage/);
   }
   for (const overrides of [[[0, 0], [0, 0]], [[1, 0], [0, 0]]]) {
     const broken = structuredClone(phase3);
     broken.observations["Gal.1.1"][1][2] = overrides;
     assert.throws(() => expandData(broken), /Invalid coverage override position/);
+    assert.throws(() => createDataStore(broken), /Invalid coverage override position/);
   }
 });
 
@@ -317,6 +341,7 @@ test("production version 3 rejects missing tables, invalid references and confli
     const missing = structuredClone(version3);
     delete missing[name];
     assert.throws(() => expandData(missing), /Missing collection record tables/);
+    assert.throws(() => createDataStore(missing), /Missing collection record tables/);
     for (const index of [-1, version3[name].length, 0.5, "0", true, null]) {
       const broken = structuredClone(version3);
       if (name === "claim_contexts") broken.claims["101"][1] = index;
@@ -326,6 +351,7 @@ test("production version 3 rejects missing tables, invalid references and confli
       else if (name === "observation_contexts") broken.observations["Gal.1.1"][0] = index;
       else broken.observation_contexts[0][name === "discovery_records" ? "discovery" : "dating_alternatives"] = index;
       assert.throws(() => expandData(broken), /Invalid .* reference/);
+      assert.throws(() => createDataStore(broken), /Invalid .* reference/);
     }
   }
   for (const mutate of [
@@ -342,6 +368,7 @@ test("production version 3 rejects missing tables, invalid references and confli
     const broken = structuredClone(version3);
     mutate(broken);
     assert.throws(() => expandData(broken), /Invalid|Dangling|overrides|contains/);
+    assert.throws(() => createDataStore(broken), /Invalid|Dangling|overrides|contains/);
   }
 });
 
@@ -352,26 +379,26 @@ test("the fictional oracle preserves coverage assertions, claim order, unknown r
     const first = model.cell(model.lookup("Gal 1:1"), "optimistic");
     const second = model.cell(model.lookup("Gal 1:2"), "optimistic");
     assert.equal(first.contested, true);
-    assert.deepEqual(first.observation.reported_coverage.map(pair => pair.state),
+    assert.deepEqual(model.store.observation(first.ref).reported_coverage.map(pair => pair.state),
       ["present", "absent", "contested", "unknown", "unknown", "present", "present"]);
-    assert.deepEqual(first.observation.reported_coverage.map(pair => pair.claims),
+    assert.deepEqual(model.store.observation(first.ref).reported_coverage.map(pair => pair.claims),
       [["102", "101"], ["103"], ["104", "105"], ["106"], [], ["107"], ["108"]]);
-    assert.deepEqual(second.observation.reported_coverage[0].claims, ["202", "201"]);
-    assert.equal(model.data.claims["103"].assertion, "absent");
-    assert.deepEqual(["104", "105"].map(id => model.data.claims[id].assertion), ["present", "absent"]);
-    assert.equal(model.data.claims["106"].assertion, "unknown");
-    assert.equal(first.observation.reported_coverage[4].unknown_reason, "no_explicit_mapped_report");
+    assert.deepEqual(model.store.observation(second.ref).reported_coverage[0].claims, ["202", "201"]);
+    assert.equal(model.store.claim("103").assertion, "absent");
+    assert.deepEqual(["104", "105"].map(id => model.store.claim(id).assertion), ["present", "absent"]);
+    assert.equal(model.store.claim("106").assertion, "unknown");
+    assert.equal(model.store.observation(first.ref).reported_coverage[4].unknown_reason, "no_explicit_mapped_report");
     const unresolved = model.cell(model.lookup("Gal 1:5"), "optimistic");
     assert.equal(unresolved.state, "no_date");
     assert.deepEqual(unresolved.events, []);
-    assert.ok(unresolved.observation.reported_coverage.every(pair =>
+    assert.ok(model.store.observation(unresolved.ref).reported_coverage.every(pair =>
       pair.state === "unknown" && !pair.claims.length && pair.unknown_reason === "unresolved_reference_mapping"));
-    assert.equal(unresolved.observation.mapping_note, "Fictional unresolved mapping; no absence inference.");
+    assert.equal(model.store.observation(unresolved.ref).mapping_note, "Fictional unresolved mapping; no absence inference.");
     assert.equal(model.cell(model.lookup("Gal 1:6"), "optimistic").state, "filtered");
-    assert.ok(model.cell(model.lookup("Gal 1:6"), "optimistic").observation);
+    assert.ok(model.store.observation("Gal.1.6"));
     assert.equal(model.cell(model.lookup("Gal 1:7"), "optimistic").state, "uncollected");
-    assert.equal(model.cell(model.lookup("Gal 1:7"), "optimistic").observation, null);
-    assert.equal(Object.hasOwn(model.data.observations, "Gal.1.7"), false);
+    assert.equal(model.store.observation("Gal.1.7"), null);
+    assert.equal(model.store.hasObservation("Gal.1.7"), false);
     assert.equal(model.discovery(model.lookup("Gal 1:1")).state, "candidate_collection_incomplete");
   }
 });
@@ -383,18 +410,20 @@ test("the fictional oracle keeps complete alternatives, ties, unavailable select
     assert.deepEqual(model.choices.get("fictional:a").map(date => [date.date_min, date.date_max]),
       [[200, 250], [300, 399]]);
     assert.equal(model.choices.has("fictional:f"), false);
-    assert.equal(model.data.dates["4"].status, "unknown");
-    assert.equal(model.data.dates["4"].date_min, null);
-    assert.equal(model.data.dates["4"].date_max, null);
+    assert.equal(model.store.date("4").status, "unknown");
+    assert.equal(model.store.date("4").date_min, null);
+    assert.equal(model.store.date("4").date_max, null);
     assert.deepEqual(model.cell(first, "optimistic").events.map(event =>
-      [event.witness_id, event.assessment_id, event.rank, event.event_year, event.coverage_claim_ids]),
-      [["fictional:a", 1, 1, 200, [102, 101]], ["fictional:g", 3, 2, 200, [108]]]);
-    assert.deepEqual(model.cell(second, "optimistic").events.map(event => event.coverage_claim_ids),
+      [event.witness_id, event.assessment_id, event.rank, event.event_year]),
+      [["fictional:a", 1, 1, 200], ["fictional:g", 3, 2, 200]]);
+    assert.deepEqual(model.store.observation("Gal.1.1").dating_alternatives.combinations[0].scenarios.optimistic.map(event => event.coverage_claim_ids),
+      [[102, 101], [108]]);
+    assert.deepEqual(model.store.observation("Gal.1.2").dating_alternatives.combinations[0].scenarios.optimistic.map(event => event.coverage_claim_ids),
       [[202, 201], [208]]);
     assert.deepEqual(model.cell(first, "pessimistic").events.map(event => event.event_year), [250, 250]);
     assert.deepEqual(segments(model.cell(first, "optimistic").events, model.maximum),
       [{from: 200, to: 450, count: 2}]);
-    assert.deepEqual(model.cell(model.lookup("Gal 1:3"), "optimistic").events[0].coverage_claim_ids, [301]);
+    assert.deepEqual(model.store.observation("Gal.1.3").dating_alternatives.combinations[0].scenarios.optimistic[0].coverage_claim_ids, [301]);
     model.selection.set("fictional:a", "2");
     assert.deepEqual(model.cell(first, "optimistic").events.map(event =>
       [event.witness_id, event.assessment_id, event.rank, event.event_year]),
@@ -404,10 +433,10 @@ test("the fictional oracle keeps complete alternatives, ties, unavailable select
     assert.deepEqual(model.cell(model.lookup("Gal 1:3"), "optimistic").events, []);
     const overflow = model.cell(model.lookup("Gal 1:4"), "optimistic");
     assert.equal(overflow.state, "too_many_combinations");
-    assert.equal(overflow.observation.ranking_state, "no_rankable_dates");
-    assert.equal(overflow.observation.dating_alternatives.state, "too_many_combinations");
-    assert.equal(overflow.observation.dating_alternatives.combination_count, 257);
-    assert.equal(overflow.observation.dating_alternatives.max_combinations, 256);
+    assert.equal(model.store.observation(overflow.ref).ranking_state, "no_rankable_dates");
+    assert.equal(model.store.observation(overflow.ref).dating_alternatives.state, "too_many_combinations");
+    assert.equal(model.store.observation(overflow.ref).dating_alternatives.combination_count, 257);
+    assert.equal(model.store.observation(overflow.ref).dating_alternatives.max_combinations, 256);
     assert.deepEqual(overflow.events, []);
   }
 });
@@ -418,9 +447,9 @@ test("the shared empty oracle keeps a navigable axis without creating observatio
     const model = createModel(input);
     assert.equal(model.hasEvents, false);
     assert.equal(model.minimum, 0); assert.equal(model.maximum, 500);
-    assert.deepEqual(model.data.observations, {});
-    assert.deepEqual(model.data.claims, {});
-    assert.deepEqual(model.data.dates, {});
+    assert.equal(model.store.hasObservation("Gal.1.1"), false);
+    assert.equal(model.store.claim("101"), undefined);
+    assert.deepEqual(model.store.dateIds, []);
     assert.equal(model.cell(model.lookup("Gal 1:1"), "optimistic").state, "uncollected");
   }
 });
@@ -436,8 +465,8 @@ test("bounded discovery is independent of coverage, dates, and the rest of the c
   assert.equal(model.discovery(model.lookup("Rom 1:1")).state, "not_searched");
   assert.equal(discovered.metadata.discovery.corpus_complete, false);
   const cell = model.cell(model.lookup("Gal 1:9"), "optimistic");
-  assert.equal(cell.observation.reported_coverage.find(p => p.witness_id === "ntvmr:10046").state, "unknown");
-  assert.equal(cell.observation.reported_coverage.find(p => p.witness_id === "ntvmr:10051").state, "present");
+  assert.equal(model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10046").state, "unknown");
+  assert.equal(model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10051").state, "present");
   const pending = structuredClone(discovered);
   const pendingGal = pending.metadata.discovery.scopes.find(s => s.definition.book === "Gal");
   pendingGal.pending_candidate_ids = [10135];
@@ -469,7 +498,7 @@ test("full NT report expansion navigates sources, endpoints, unknowns, and suppl
     assert.deepEqual(model.cell(model.indices.get(ref), "pessimistic").events, []);
   }
   const first = model.cell(model.lookup("Rom 1:1"), "optimistic");
-  assert.equal(first.observation.reported_coverage[0].state, "unknown");
+  assert.equal(model.store.observation(first.ref).reported_coverage[0].state, "unknown");
   assert.deepEqual(first.events.map(e => e.event_year), [300, 400]);
   for (const ref of ["1Cor 1:1", "2Cor 1:1", "Gal 1:1", "Eph 1:1", "Phil 1:1", "Col 1:1", "1Thess 1:1"]) {
     const optimistic = model.cell(model.lookup(ref), "optimistic");
@@ -478,8 +507,8 @@ test("full NT report expansion navigates sources, endpoints, unknowns, and suppl
     assert.deepEqual(pessimistic.events.map(e => e.event_year), [225, 399, 499]);
   }
   const hebrews = model.cell(model.lookup("Heb 1:1"), "optimistic");
-  assert.equal(hebrews.observation.reported_coverage.length, 17);
-  assert.equal(hebrews.observation.reported_coverage.find(p => p.witness_id === "ntvmr:10012").state, "present");
+  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, 17);
+  assert.equal(model.store.observation(hebrews.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10012").state, "present");
   assert.equal(model.minimum, 150); assert.equal(model.maximum, 750);
 });
 
@@ -501,7 +530,7 @@ test("endpoint switch preserves intervals, rankings, unknowns, and common scale"
   const optimistic = model.cell(index, "optimistic"), pessimistic = model.cell(index, "pessimistic");
   assert.deepEqual(optimistic.events.map(e => e.event_year), [300, 400]);
   assert.deepEqual(pessimistic.events.map(e => e.event_year), [399, 499]);
-  assert.equal(optimistic.observation.reported_coverage[0].state, "unknown");
+  assert.equal(model.store.observation(optimistic.ref).reported_coverage[0].state, "unknown");
   assert.equal(model.minimum, 150); assert.equal(model.maximum, 550);
   assert.equal(model.witness("ntvmr:20001"), "GA 01");
 });
@@ -522,7 +551,7 @@ test("explicit contested reports and absent/unknown states survive without fabri
   row.dating_alternatives.combinations = [{assessments: [], scenarios: {optimistic: [], pessimistic: []}}];
   const model = createModel(fixture), cell = model.cell(model.lookup("Gal 1:1"), "optimistic");
   assert.equal(cell.contested, true); assert.equal(cell.state, "no_date"); assert.deepEqual(cell.events, []);
-  assert.deepEqual(cell.observation.reported_coverage.map(p => p.state), ["contested", "absent", "unknown"]);
+  assert.deepEqual(model.store.observation(cell.ref).reported_coverage.map(p => p.state), ["contested", "absent", "unknown"]);
 });
 
 test("on-demand alternatives reverse order without expanding corpus combinations", () => {
@@ -547,9 +576,11 @@ test("on-demand alternatives reverse order without expanding corpus combinations
   assert.equal(model.cell(index, "pessimistic").events.at(-1).event_year, 600);
   assert.equal(model.maximum, 650);
   assert.equal(model.cell(model.lookup("Gal 1:2"), "optimistic").state, "unavailable_combination");
-  row.dating_alternatives = {state: "too_many_combinations", combinations: [], combination_count: 257};
-  assert.equal(model.cell(index, "optimistic").state, "too_many_combinations");
-  assert.deepEqual(model.cell(index, "optimistic").events, []);
+  const overflowInput = structuredClone(fixture);
+  overflowInput.observations["Gal.1.1"].dating_alternatives = {state: "too_many_combinations", combinations: [], combination_count: 257};
+  const overflowModel = createModel(overflowInput);
+  assert.equal(overflowModel.cell(index, "optimistic").state, "too_many_combinations");
+  assert.deepEqual(overflowModel.cell(index, "optimistic").events, []);
 });
 
 test("pointer mapping respects zoom, scroll, boundaries, and a 7,957-verse axis", () => {
@@ -572,4 +603,163 @@ test("an empty export still has a navigable corpus and a finite neutral scale", 
   assert.equal(model.hasEvents, false);
   assert.equal(model.minimum, 0); assert.equal(model.maximum, 500);
   assert.equal(model.cell(model.lookup("Gal 1:1"), "optimistic").state, "uncollected");
+});
+
+test("shared stores restore every selected source field and chart value against the independent oracle", () => {
+  for (const fixture of [transferFixture(), sparseFixture(), transferFixture("explorer-empty")]) {
+    const {normalized, ...versions} = fixture;
+    for (const raw of [structuredClone(normalized), ...Object.values(versions)]) {
+      const model = createModel(raw), store = model.store;
+      for (const [id, value] of Object.entries(normalized.claims)) assert.deepEqual(store.claim(id), value);
+      for (const [id, value] of Object.entries(normalized.dates)) assert.deepEqual(store.date(id), value);
+      for (const [ref] of normalized.coordinates) {
+        assert.deepEqual(store.observation(ref), normalized.observations[ref] || null);
+        if (normalized.observations[ref]) {
+          const totals = {present: 0, unknown: 0, contested: 0, absent: 0};
+          for (const pair of normalized.observations[ref].reported_coverage) totals[pair.state]++;
+          assert.deepEqual(store.summary(ref).coverage_totals, totals);
+        }
+      }
+      for (const selected of ["1", "2"]) {
+        model.selection.set("fictional:a", selected);
+        for (const [i, [ref, editorial]] of normalized.coordinates.entries()) {
+          const row = normalized.observations[ref], status = row?.editorial_status || editorial;
+          const filtered = status === "omitted" && !normalized.metadata.filters.include_omitted ||
+            status === "bracketed" && !normalized.metadata.filters.include_bracketed;
+          const combo = row?.dating_alternatives.combinations.find(combo => combo.assessments.every(id =>
+            model.selection.get(normalized.dates[id].witness_id) === String(id)));
+          for (const scenario of ["optimistic", "pessimistic"]) {
+            const events = !filtered && row ? (combo?.scenarios[scenario] || []).map(({coverage_claim_ids, ...event}) => event) : [];
+            const cell = model.cell(i, scenario);
+            assert.deepEqual(cell.events, events);
+            assert.equal(cell.state, filtered ? "filtered" : !row ? "uncollected" :
+              row.dating_alternatives.state === "too_many_combinations" ? "too_many_combinations" :
+              !combo && row.dating_alternatives.combinations.length ? "unavailable_combination" : events.length ? "dated" : "no_date");
+            assert.equal(!!cell.contested, !filtered && !!row?.reported_coverage.some(pair => pair.state === "contested"));
+            assert.deepEqual(segments(cell.events, model.maximum), segments(events, model.maximum));
+          }
+        }
+      }
+    }
+  }
+});
+
+test("full-axis evaluation shares read-only chart records without decoding coverage; selection cache stays bounded", () => {
+  const {normalized, version3} = sparseFixture();
+  Object.freeze(version3.metadata); // Shallow-frozen callers still get deeply read-only records.
+  const model = createModel(version3), store = model.store;
+  assert.equal(createDataStore(store), store);
+  assert.equal(createModel(model), model);
+  for (const scenario of ["optimistic", "pessimistic"]) {
+    for (let i = 0; i < normalized.coordinates.length; i++) {
+      const cell = model.cell(i, scenario);
+      assert.equal(Object.hasOwn(cell, "observation"), false);
+      assert.ok(cell.events.every(event => !Object.hasOwn(event, "coverage_claim_ids")));
+      segments(cell.events, model.maximum); model.discovery(i);
+    }
+  }
+  assert.equal(store.diagnostics().observationDecodes, 0);
+  assert.equal(store.diagnostics().coverageDecodes, 0);
+  assert.equal(store.diagnostics().cachedObservations, 0);
+  assert.equal(Object.hasOwn(model.data, "observations"), false);
+  assert.equal(store.chartAlternatives("Gal.1.1"), store.chartAlternatives("Gal.2.1"));
+  const events = model.cell(model.lookup("Gal 1:1"), "optimistic").events;
+  assert.equal(Reflect.set(events[0], "rank", 999), false);
+  assert.throws(() => events.push({}), TypeError);
+  const first = store.observation("Gal.1.1");
+  assert.equal(store.observation("Gal.1.1"), first);
+  assert.throws(() => first.reported_coverage[0].claims.push("changed"), TypeError);
+  assert.equal(Reflect.set(store.claim("101").reported, "osisID", "changed"), false);
+  assert.equal(store.claim(101), store.claim("101"));
+  assert.equal(Reflect.set(store.date("1"), "date_min", 999), false);
+  assert.equal(Reflect.set(store.data.metadata.filters, "include_omitted", true), false);
+  for (let visit = 0; visit < 100; visit++) for (const [ref] of normalized.coordinates) {
+    assert.deepEqual(store.observation(ref), normalized.observations[ref] || null);
+    assert.ok(store.diagnostics().cachedObservations <= 1);
+  }
+  assert.notEqual(store.observation("Gal.1.1"), first);
+  assert.equal(store.claim("101").reported.osisID, "Gal.1.1");
+  model.selection.set("fictional:a", "2");
+  assert.equal(model.cell(model.lookup("Gal 1:1"), "optimistic").events.at(-1).event_year, 300);
+});
+
+test("store validation checks unused contexts, templates, coverage, and date references before mounting", () => {
+  for (const mutate of [
+    raw => raw.claim_contexts.push(null),
+    raw => raw.discovery_records.push(null),
+    raw => raw.coverage_contexts.push({...raw.coverage_contexts[0], claims: []}),
+    raw => raw.coverage_contexts.push({...raw.coverage_contexts[0], date_assessments: ["missing"]}),
+    raw => raw.coverage_records.push([0, ["missing"]]),
+    raw => raw.coverage_defaults.push([-1]),
+    raw => raw.observation_contexts.push({...raw.observation_contexts[0], discovery: -1}),
+    raw => raw.observation_contexts.push({...raw.observation_contexts[0], dating_alternatives: -1}),
+    raw => raw.observation_contexts.push({...raw.observation_contexts[0], reported_coverage: []}),
+    raw => raw.ranking_templates.push(null),
+    raw => {const template = structuredClone(raw.ranking_templates[0]); template.combinations[0].assessments = ["missing"]; raw.ranking_templates.push(template);},
+    raw => {const template = structuredClone(raw.ranking_templates[0]); template.combinations[0].scenarios.optimistic[0].assessment_id = 999; raw.ranking_templates.push(template);},
+    raw => {const template = structuredClone(raw.ranking_templates[0]); template.combinations[0].scenarios.optimistic[0].coverage_claim_ids = ["literal", [999]]; raw.ranking_templates.push(template);},
+    raw => {const template = structuredClone(raw.ranking_templates[0]); template.combinations[0].scenarios.optimistic[0].coverage_claim_ids = ["unsupported"]; raw.ranking_templates.push(template);}
+  ]) {
+    const {version3} = transferFixture(); mutate(version3);
+    assert.throws(() => createDataStore(version3), /Invalid|Dangling|contains/);
+  }
+  for (const kind of ["normalized", "packed", "phase1", "phase2", "phase3", "version3"]) {
+    const raw = transferFixture()[kind]; delete raw.dates["1"];
+    assert.throws(() => createDataStore(raw), /Dangling date reference/);
+  }
+  const {version3} = transferFixture(), unused = structuredClone(version3.ranking_templates[0]);
+  unused.combinations[0].scenarios.optimistic[0].event_year = 9999;
+  version3.ranking_templates.push(unused);
+  version3.observation_contexts.push({...version3.observation_contexts[0], dating_alternatives: version3.ranking_templates.length - 1});
+  assert.equal(createModel(version3).maximum, 450);
+});
+
+test("full expansion remains independently mutable for all published versions, even from frozen store inputs", () => {
+  for (const kind of ["normalized", "packed", "version3"]) {
+    const fixture = transferFixture(), raw = fixture[kind], expected = structuredClone(fixture.normalized);
+    createDataStore(raw);
+    const first = expandData(raw), second = expandData(raw);
+    first.metadata.filters.include_omitted = true;
+    first.claims["102"].reported_extra.values.push("changed");
+    first.observations["Gal.1.1"].reported_coverage[0].date_assessments.push("changed");
+    first.observations["Gal.1.1"].dating_alternatives.combinations[0].scenarios.optimistic[0].coverage_claim_ids.push(999);
+    assert.deepEqual(second, expected);
+    assert.deepEqual(first.observations["Gal.1.2"], expected.observations["Gal.1.2"]);
+    assert.deepEqual(expandData(raw), expected);
+  }
+});
+
+test("mounted selection and source details render identical safe text across versions with a reused model", () => {
+  const fixture = transferFixture(), snapshots = [];
+  for (const kind of ["normalized", "packed", "version3"]) {
+    const raw = fixture[kind];
+    raw.metadata.counts = {verse_count: 6, witness_count: 7, graphable_coordinates: 3,
+      mapping_gaps: 1, witness_verse_pairs: {present: 3, unknown: 2, absent: 1, contested: 1}};
+    const model = createModel(raw), dom = explorerDOM(), app = mount(dom.root, model);
+    dom.draw();
+    assert.equal(model.store.diagnostics().cachedObservations, 1);
+    const details = dom.nodes.get("source-details");
+    details.open = true; details.dispatch("toggle");
+    const capture = () => ["witnesses", "claims", "summary", "discovery-summary"].map(name => dom.snapshot(dom.nodes.get(name)));
+    const initial = capture(), contents = dom.text(dom.nodes.get("claims"));
+    for (const claim of Object.values(fixture.normalized.claims).filter(item => item.source_ref === "Gal.1.1")) {
+      assert.ok(contents.includes(JSON.stringify(claim.reported, null, 2)));
+      assert.ok(contents.includes(claim.source_locator));
+      assert.ok(contents.includes(claim.source_sha256));
+      assert.ok(contents.includes(claim.qualifications));
+    }
+    assert.ok(contents.includes('</script>'));
+    assert.equal(dom.nodes.get("claims").children.some(item => item.tag === "script"), false);
+    model.selection.set("fictional:a", "2"); app.setScenario("pessimistic");
+    const alternative = capture();
+    assert.ok(app.selectVerse("Gal 1:2")); const second = capture();
+    assert.ok(app.selectVerse("Gal 1:5")); const unresolved = capture();
+    assert.ok(app.selectVerse("Gal 1:6")); const filtered = capture();
+    assert.ok(app.selectVerse("Gal 1:7"));
+    assert.equal(details.hidden, true); assert.equal(dom.nodes.get("claims").children.length, 0);
+    assert.equal(model.store.diagnostics().cachedObservations, 0);
+    snapshots.push([initial, alternative, second, unresolved, filtered, capture()]);
+    app.destroy();
+  }
+  assert.deepEqual(snapshots[1], snapshots[0]); assert.deepEqual(snapshots[2], snapshots[0]);
 });
