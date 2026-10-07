@@ -17,16 +17,16 @@ complete date alternatives and count any reported portion once per witness.
 
 ## Current implementation
 
-The current register reuses retained reports for 18 witnesses across all 27
+The current register reuses retained reports for 20 witnesses across all 27
 books. Default data contains 7,941 reference coordinates,
-7,928 graphable coordinates, 16,661 present witness/verse pairs, 126,277 unknown
+7,928 graphable coordinates, 16,734 present witness/verse pairs, 142,086 unknown
 pairs, and no absent or contested pairs. Thirteen coordinates have no exact
 reported match and remain unknown. Sixteen supplementary omitted coordinates,
 including Romans 16:24, remain in the underlying reference scope.
 
-Galatians, Hebrews, Ephesians, and 2 Thessalonians have completed independent
-indexed searches within IDs 10000–19999;
-the other books and catalogue ranges do not gain discovery completion merely
+Galatians, Hebrews, Ephesians, 1 Thessalonians, and 2 Thessalonians have completed
+independent indexed searches within IDs 10000–19999; the other books and catalogue
+ranges do not gain discovery completion merely
 through document reuse. Multiple bounded scopes can coexist in the central
 discovery register. All rankings describe collected witnesses only.
 
@@ -48,10 +48,19 @@ collected P30's metadata and long contents. The report adds 21 presence pairs:
 two in 2 Thessalonians and 19 in 1 Thessalonians. The catalogue's complete P30
 date estimate remains 200–299 CE (`E II - A III`). Three successful proxy
 requests and three sandbox-denied attempts used six of the declared 25 attempts.
-Every prior claim, date alternative, and witness/verse state survived unchanged;
-1 Thessalonians discovery remains unsearched despite those reused contents.
-The collection retains 40 usable responses, with no pending candidates in its
-four completed scopes. The app data is 2,019,708 bytes, an increase of 11,965 bytes
+That report reuse did not complete independent 1 Thessalonians discovery.
+
+The independent 1 Thessalonians search returned P30, P46, P61, and P65. It reused
+P30 and P46 and collected metadata and long contents for P61 and P65 using five
+successful proxy requests within its 25-attempt budget. The new reports add 73
+default presence pairs: 19 in 1 Thessalonians and 54 across Romans, 1 Corinthians,
+Philippians, Colossians, Titus, and Philemon. P61 also explicitly reports the
+supplementary Romans 16:24 coordinate. Complete catalogue dates remain 700–725 CE
+(`VIII (A)`) for P61 and 200–299 CE (`III`) for P65. Existing claims, date
+alternatives, coverage states, and other discovery scopes survived unchanged.
+Those six other books remain unsearched despite the reused contents.
+The collection retains 45 usable responses, with no pending candidates in its
+five completed scopes. The app data is 2,043,590 bytes, an increase of 23,882 bytes
 for this addition; no new storage or mapping infrastructure was needed.
 
 The app uses a lossless version 3 JSON format with shared records and exact
@@ -74,8 +83,8 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 1. Broaden bounded independent witness discovery. Declare a book/range and request
    budget; reuse each document's metadata and contents; update the central register.
    Do not constrain discovery to the witnesses already collected for nearby verses.
-   A useful next scope is 1 Thessalonians within IDs 10000–19999, reusing P30's
-   newly retained reports while searching for candidates independently.
+   A useful next scope is Philippians within IDs 10000–19999, reusing P46 and
+   P61's retained reports while searching for candidates independently.
 2. Establish provider access expectations before bulk collection. Use the
    owner-supplied local proxy when direct access is unavailable; cite canonical
    NTVMR endpoints. Preserve blocked states, honor limits, and do not change

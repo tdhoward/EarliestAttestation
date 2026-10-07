@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10065",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 03:08:43 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791342523546",
+    "X-Request-Post-Validation-Epoch": "1791342523547",
+    "X-Request-Response-Epoch": "1791342523550",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1418",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10065,\"indexContent\":[\"1Thess 1:3-10; 1Thess 2:1; 1Thess 2:6-13\",{\"docID\":10065,\"osisID\":\"1Thess.1.3\",\"indexContent\":2013001003,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.1.4\",\"indexContent\":2013001004,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.1.5\",\"indexContent\":2013001005,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.1.6\",\"indexContent\":2013001006,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.1.7\",\"indexContent\":2013001007,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.1.8\",\"indexContent\":2013001008,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.1.9\",\"indexContent\":2013001009,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.1.10\",\"indexContent\":2013001010,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.2.1\",\"indexContent\":2013002001,\"pageID\":10},{\"docID\":10065,\"osisID\":\"1Thess.2.6\",\"indexContent\":2013002006,\"pageID\":20},{\"docID\":10065,\"osisID\":\"1Thess.2.7\",\"indexContent\":2013002007,\"pageID\":20},{\"docID\":10065,\"osisID\":\"1Thess.2.8\",\"indexContent\":2013002008,\"pageID\":20},{\"docID\":10065,\"osisID\":\"1Thess.2.9\",\"indexContent\":2013002009,\"pageID\":20},{\"docID\":10065,\"osisID\":\"1Thess.2.10\",\"indexContent\":2013002010,\"pageID\":20},{\"docID\":10065,\"osisID\":\"1Thess.2.11\",\"indexContent\":2013002011,\"pageID\":20},{\"docID\":10065,\"osisID\":\"1Thess.2.12\",\"indexContent\":2013002012,\"pageID\":20},{\"docID\":10065,\"osisID\":\"1Thess.2.13\",\"indexContent\":2013002013,\"pageID\":20}]}}}",
+  "body_sha256": "9cffd5bcbe61226af4a9645d5482babe6b6a5d210b3817b6ed897ff7af250e9e",
+  "retrieved_at": "2026-10-07T03:08:43+00:00"
+}
