@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10087",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 03:59:20 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791345560320",
+    "X-Request-Post-Validation-Epoch": "1791345560321",
+    "X-Request-Response-Epoch": "1791345560325",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2891",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10087,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P87\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":44,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Institut für Altertumskunde\",\"place\":\"Köln\",\"logoURL\":\"http://ntmss.info/instlogos/Koeln.jpg\",\"url\":\"http://www.uni-koeln.de/phil-fak/ifa/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":74,\"originYearDescription\":\"III\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Inv. Nr. 12\",\"contentOverview\":\"Phm 13-15.24-25\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":299,\"early\":200,\"content\":\"III\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Phlm 1:13-15\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10087/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/Karte/IV_170.html\\\"><div>Images © by<br/>UniversitätKöln</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10087/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK12r.jpg\",\"webFriendlyURL\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK12r.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":74,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"Phlm 1:13-15\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10087&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"MF\"},{\"biblicalContent\":\"Phlm 1:24-25\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10087/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/Karte/IV_170.html\\\"><div>Images © by<br/>UniversitätKöln</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10087/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK12v.jpg\",\"webFriendlyURL\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK12v.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":74,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"001v\",\"indexContent\":\"Phlm 1:24-25\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10087&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"MF\"}]},\"gaNum\":\"P87\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":150},\"lang\":\"g\",\"contentOverview\":\"p: Phm\",\"lineCount\":{\"lineCountMax\":32,\"lineCountMin\":2,\"content\":\"8r, 2v (32)\"},\"height\":{\"heightMin\":200}}}}",
+  "body_sha256": "c706c202bd2985aef90099f453504eef888ab3e90620c78fb23b69a283e80875",
+  "retrieved_at": "2026-10-07T03:59:20+00:00"
+}

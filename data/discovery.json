@@ -394,5 +394,61 @@
       "request_budget": 25,
       "collection_errors": []
     }
+  },
+  {
+    "format_version": 1,
+    "definition": {
+      "format_version": 1,
+      "scope_id": "philemon-docids-10000-19999",
+      "book": "Phlm",
+      "doc_id_min": 10000,
+      "doc_id_max": 19999,
+      "page_limit": 200,
+      "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+      "access_expectations": "Finite independent Philemon book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+      "request_budget": 25,
+      "minimum_interval_seconds": 5,
+      "maximum_run_seconds": 300,
+      "transport_base_url": "<local proxy>/community/vmr/api"
+    },
+    "run_state": "complete",
+    "run_error": null,
+    "search_captures": [
+      {
+        "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+        "params": {
+          "detail": "document",
+          "docID": "10000-19999",
+          "format": "json",
+          "indexContent": "Phlm",
+          "limit": "200"
+        },
+        "http_status": 200,
+        "headers": {
+          "Date": "Wed, 07 Oct 2026 03:59:15 GMT",
+          "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+          "X-Request-Received-Epoch": "1791345555948",
+          "X-Request-Post-Validation-Epoch": "1791345555949",
+          "X-Request-Response-Epoch": "1791345556021",
+          "X-Response-Time": "73ms",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+          "Content-Type": "application/json;charset=UTF-8",
+          "Content-Length": "510",
+          "Connection": "close"
+        },
+        "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":5,\"manuscript\":[{\"origLate\":725,\"gaNum\":\"P61\",\"orig\":\"VIII (A)\",\"docID\":10061,\"groupID\":\"\",\"primaryName\":\"P61\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":700},{\"origLate\":299,\"gaNum\":\"P87\",\"orig\":\"III\",\"docID\":10087,\"groupID\":\"\",\"primaryName\":\"P87\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":399,\"gaNum\":\"P139\",\"orig\":\"IV\",\"docID\":10139,\"groupID\":\"\",\"primaryName\":\"P139\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300}],\"count\":3}}}",
+        "body_sha256": "aae1f48ead9f25ad41f629affbe88d961bdfdb67edb542b2d598ee0aa55f41fb",
+        "retrieved_at": "2026-10-07T03:59:16+00:00"
+      }
+    ],
+    "collection_cost": {
+      "request_attempts": 5,
+      "http_responses_recorded": 5,
+      "reused_seed_document_responses": 42,
+      "request_budget": 25,
+      "collection_errors": []
+    }
   }
 ]

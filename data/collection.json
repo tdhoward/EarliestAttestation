@@ -157,6 +157,18 @@
       "corpus": "greek_nt_manuscript",
       "metadata_fixture": "sources/ntvmr-10016-metadata-bdac91d994c4.json",
       "coverage_fixture": "sources/ntvmr-10016-coverage-4ed3daa086ab.json"
+    },
+    {
+      "doc_id": 10087,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10087-metadata-7915f8ad24bf.json",
+      "coverage_fixture": "sources/ntvmr-10087-coverage-4ac17d88d36b.json"
+    },
+    {
+      "doc_id": 10139,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10139-metadata-6aebe4162838.json",
+      "coverage_fixture": "sources/ntvmr-10139-coverage-6d3032188b77.json"
     }
   ],
   "additional_reports": [],

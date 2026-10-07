@@ -119,11 +119,11 @@ contents assertions. Per-verse discovery states and the app's **earliest collect
 labels distinguish usable reports from completeness of the witness search. See
 [the discovery guide](BOUNDED_WITNESS_DISCOVERY.md).
 
-The current collection reuses 21 witnesses' captured reports across all 27
+The current collection reuses 23 witnesses' captured reports across all 27
 books. Only exact reported OSIS matches supply presence; thirteen default
 coordinates remain unresolved. This reuse establishes no new discovery
 completion. Independent Galatians, Hebrews, Ephesians, Philippians, Colossians,
-1 Thessalonians, and 2 Thessalonians searches are complete only within their
+1 Thessalonians, 2 Thessalonians, and Philemon searches are complete only within their
 declared ID range. The Hebrews pilot collected nine new witnesses; Ephesians
 added P49, P92, and P132 while reusing P46;
 2 Thessalonians added P30 while reusing P92; 1 Thessalonians added P61 and P65
@@ -140,9 +140,17 @@ The independent Colossians search returned P46 and P61 and reused both witnesses
 retained metadata and long contents. One successful search request and three
 sandbox-denied attempts fit its 25-attempt budget. This adds only search provenance
 and bounded discovery completion for Colossians; all claims, dates, coverage
-states, rankings, and earlier scopes remain unchanged. The collection retains
-49 usable responses for 21 witnesses and seven completed scopes, with no pending
-candidates. Wider catalogue discovery remains incomplete.
+states, rankings, and earlier scopes remain unchanged.
+
+The independent Philemon search returned P61, P87, and P139, reused P61, and
+collected metadata and long contents for both new witnesses with five successful
+proxy requests within its 25-attempt budget. P87's five exact entries and P139's
+six supply 11 presence pairs with indexing tier 3; missing entries remain unknown.
+Their complete date estimates are copied as 200–299 CE (`III`) and 300–399 CE
+(`IV`), without interpretation. All prior claims, dates, coverage states, and
+other discovery scopes survived unchanged. The collection retains 54 usable
+responses for 23 witnesses and eight completed scopes, with no pending candidates.
+Wider catalogue discovery remains incomplete.
 
 These collections used the owner's local API proxy. Canonical NTVMR URLs supply
 all scholarly citations;

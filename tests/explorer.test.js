@@ -513,9 +513,44 @@ test("full NT report expansion navigates sources, endpoints, unknowns, and suppl
   assert.deepEqual(model.cell(model.lookup("1Cor 1:1"), "optimistic").events.map(e => e.event_year), [200, 300, 400, 700]);
   assert.deepEqual(model.cell(model.lookup("1Cor 1:1"), "pessimistic").events.map(e => e.event_year), [225, 399, 499, 725]);
   const hebrews = model.cell(model.lookup("Heb 1:1"), "optimistic");
-  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, 21);
+  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, 23);
   assert.equal(model.store.observation(hebrews.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10012").state, "present");
   assert.equal(model.minimum, 150); assert.equal(model.maximum, 750);
+});
+
+test("Philemon reports preserve endpoints, exact verse entries, and bounded discovery in both formats", () => {
+  for (const input of [current, packedCurrent]) {
+    const model = createModel(input);
+    for (const [witness, present, unknown, early, late] of [
+      ["ntvmr:10087", [13, 14, 15, 24, 25], [12, 16, 23], 200, 299],
+      ["ntvmr:10139", [6, 7, 8, 18, 19, 20], [5, 9, 17, 21], 300, 399]
+    ]) {
+      for (const verse of [...present, ...unknown]) {
+        const index = model.lookup(`Phlm 1:${verse}`), isPresent = present.includes(verse);
+        assert.equal(model.discovery(index).state, "bounded_search_complete");
+        for (const [scenario, year] of [["optimistic", early], ["pessimistic", late]]) {
+          const cell = model.cell(index, scenario);
+          const event = cell.events.find(e => e.witness_id === witness);
+          const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === witness);
+          assert.equal(pair.state, isPresent ? "present" : "unknown");
+          if (isPresent) {
+            assert.equal(event.event_year, year);
+            assert.ok(pair.claims.length);
+            for (const id of pair.claims) {
+              const claim = model.store.claim(id);
+              assert.equal(claim.reported.osisID, cell.ref);
+              assert.equal(claim.reported_indexing_tier, 3);
+              assert.ok(claim.citation.startsWith("https://ntvmr.uni-muenster.de/"));
+            }
+          } else {
+            assert.equal(event, undefined);
+            assert.deepEqual(pair.claims, []);
+          }
+        }
+      }
+    }
+    assert.equal(model.discovery(model.lookup("Titus 1:1")).state, "not_searched");
+  }
 });
 
 test("P30 source reports update chart endpoints without expanding adjacent contents", () => {
@@ -655,7 +690,7 @@ test("Colossians discovery keeps reused reports, chart endpoints, and missing en
         assert.equal(model.discovery(model.lookup(ref)).state, "bounded_search_complete");
       }
     }
-    assert.equal(model.discovery(model.lookup("Phlm 1:1")).state, "not_searched");
+    assert.equal(model.discovery(model.lookup("Titus 1:1")).state, "not_searched");
   }
 });
 

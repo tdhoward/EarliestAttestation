@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10139",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 03:59:30 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791345570539",
+    "X-Request-Post-Validation-Epoch": "1791345570540",
+    "X-Request-Response-Epoch": "1791345570553",
+    "X-Response-Time": "14ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3013",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10139,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"P139\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":499,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Art, Archaeology and Ancient World Library\",\"place\":\"Oxford\",\"logoURL\":\"https://pbs.twimg.com/profile_images/1789959363588763648/0XlnKdqo_400x400.png\",\"url\":\"https://www.bodleian.ox.ac.uk/libraries/art\"},\"leavesDescription\":1,\"shelfID\":6128,\"originYearDescription\":\"IV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P.Oxy. 5347 / 83/66(b)\",\"contentOverview\":\"Phm 6-8. 18-20\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":399,\"early\":300,\"content\":\"IV\"},\"leavesDescription\":\"1 Frg (1fol.)\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Phlm 1:6-8\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10139/10/10\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"https://doi.org/10.25446/oxford.20319456.v1\\\">Courtesy of The Egypt Exploration Society<br/>and the University of Oxford Imaging Papyri Project</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10139/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10139/10139x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10139/10139x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6128,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Phlm 1:6-8\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10139&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"stewalchofficial\"},{\"biblicalContent\":\"Phlm 1:18-20\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10139/20/10\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"https://doi.org/10.25446/oxford.20319456.v1\\\">Courtesy of The Egypt Exploration Society<br/>and the University of Oxford Imaging Papyri Project</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10139/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10139/10139x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10139/10139x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6128,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Phlm 1:18-20\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10139&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"stewalchofficial\"}]},\"gaNum\":\"P139\",\"leaves\":{\"leavesCount\":0,\"content\":\"1 Frg (1fol.)\"},\"width\":{\"widthMin\":210},\"lang\":\"g\",\"contentOverview\":\"p: Phm\",\"lineCount\":{\"lineCountMax\":10,\"lineCountMin\":9,\"content\":\"10, 9\"},\"height\":{\"heightMin\":132}}}}",
+  "body_sha256": "13735216572d3811d1c57203dc95ba7ae01a9eb7c031b01a400372a4b8ee6def",
+  "retrieved_at": "2026-10-07T03:59:30+00:00"
+}

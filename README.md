@@ -46,19 +46,19 @@ rankings in a temporary database, and replaces `data/attestations.json`. Refresh
 the browser to see the result. It creates no HTML, book-specific export, persistent
 replay database, or numbered revision file. `npm run data` is equivalent.
 
-The current collection reuses 21 witnesses' retained reports across all
-27 books, with 7,928 default graphable verses, 16,749 reported-present
-witness/verse pairs, and 150,012 unknown pairs. Thirteen default coordinates have
+The current collection reuses 23 witnesses' retained reports across all
+27 books, with 7,928 default graphable verses, 16,760 reported-present
+witness/verse pairs, and 165,883 unknown pairs. Thirteen default coordinates have
 no exact match in the retained contents reports and remain unknown. Unknown
 includes missing reports for fragmentary witnesses; it does not mean absence.
-Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians, and
-2 Thessalonians have completed bounded indexed searches for IDs 10000–19999;
-discovery across the
-wider catalogue remains incomplete. The Colossians search independently returned
-P46 and P61 and reused both witnesses' metadata and contents. One successful
-request (four attempts including sandbox denials) completed that scope within a
-25-attempt budget, preserving all existing coverage and date results. The
-collection retains 49 usable reports; app data occupies 2,060,609 bytes.
+Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
+2 Thessalonians, and Philemon have completed bounded indexed searches for IDs
+10000–19999; discovery across the wider catalogue remains incomplete. The
+Philemon search returned P61, P87, and P139, reused P61's retained reports, and
+collected the other two witnesses with five successful requests within a
+25-attempt budget. Their exact contents entries add 11 presence pairs, preserving
+all earlier claims, complete dates, coverage states, and discovery scopes. The
+collection retains 54 usable reports; app data occupies 2,076,312 bytes.
 Scholarly citations use canonical NTVMR URLs. The owner-supplied local API proxy
 is an access route, and TLS verification is not a collection prerequisite.
 

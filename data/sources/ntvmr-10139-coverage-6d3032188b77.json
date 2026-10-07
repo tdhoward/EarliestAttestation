@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10139",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 03:59:35 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791345575705",
+    "X-Request-Post-Validation-Epoch": "1791345575706",
+    "X-Request-Response-Epoch": "1791345575729",
+    "X-Response-Time": "24ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "552",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10139,\"indexContent\":[\"Phlm 1:6-8; Phlm 1:18-20\",{\"docID\":10139,\"osisID\":\"Phlm.1.6\",\"indexContent\":2018001006,\"pageID\":10},{\"docID\":10139,\"osisID\":\"Phlm.1.7\",\"indexContent\":2018001007,\"pageID\":10},{\"docID\":10139,\"osisID\":\"Phlm.1.8\",\"indexContent\":2018001008,\"pageID\":10},{\"docID\":10139,\"osisID\":\"Phlm.1.18\",\"indexContent\":2018001018,\"pageID\":20},{\"docID\":10139,\"osisID\":\"Phlm.1.19\",\"indexContent\":2018001019,\"pageID\":20},{\"docID\":10139,\"osisID\":\"Phlm.1.20\",\"indexContent\":2018001020,\"pageID\":20}]}}}",
+  "body_sha256": "5f32205b94042bdf0ab66cea00969515dbe9ec92078f7c146cd0bd5001be6a14",
+  "retrieved_at": "2026-10-07T03:59:35+00:00"
+}

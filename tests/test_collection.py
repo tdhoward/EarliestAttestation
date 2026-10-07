@@ -19,7 +19,10 @@ class CollectionTests(unittest.TestCase):
         with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
             cls.data = build_data()
             config = read_json(DATA / "collection.json")
-            records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] != "Col"]
+            config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10087, 10139)]
+            records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] != "Phlm"]
+            cls.before_phlm = build_data(config, discovery_records=records)
+            records = [r for r in records if r["definition"]["book"] != "Col"]
             cls.before_col = build_data(config, discovery_records=records)
             config["documents"] = [d for d in config["documents"] if d["doc_id"] != 10016]
             records = [r for r in records if r["definition"]["book"] != "Phil"]
@@ -34,15 +37,15 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(read_json(DATA / "attestations.json")["format_version"], 3)
         self.assertEqual(len(data["coordinates"]), 7957)
         self.assertEqual(data["metadata"]["counts"]["verse_count"], 7941)
-        self.assertEqual(data["metadata"]["counts"]["witness_count"], 21)
+        self.assertEqual(data["metadata"]["counts"]["witness_count"], 23)
         self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"],
-                         {"present": 16749, "unknown": 150012, "absent": 0, "contested": 0})
+                         {"present": 16760, "unknown": 165883, "absent": 0, "contested": 0})
         self.assertEqual(data["metadata"]["counts"]["by_discovery_state"],
-                         {"bounded_search_complete": 942, "not_searched": 6999})
+                         {"bounded_search_complete": 967, "not_searched": 6974})
         self.assertEqual(data["metadata"]["counts"]["graphable_coordinates"], 7928)
         self.assertEqual(data["metadata"]["counts"]["mapping_gaps"], 13)
         self.assertEqual(len({ref.split('.')[0] for ref in data["observations"]}), 27)
-        self.assertEqual(data["metadata"]["collection_cost"]["reused_response_count"], 49)
+        self.assertEqual(data["metadata"]["collection_cost"]["reused_response_count"], 54)
         self.assertEqual(data["metadata"]["collection_cost"]["replay_network_requests"], 0)
 
     def test_every_presence_and_date_retains_its_actual_source_field(self):
@@ -286,8 +289,8 @@ class CollectionTests(unittest.TestCase):
     def test_2thessalonians_addition_preserves_prior_claims_dates_and_coverage(self):
         after = self.before_1thess
         config = read_json(DATA / "collection.json")
-        config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10016, 10030, 10061, 10065)]
-        records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] not in ("Col", "Phil", "1Thess", "2Thess")]
+        config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10016, 10030, 10061, 10065, 10087, 10139)]
+        records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] not in ("Col", "Phil", "1Thess", "2Thess", "Phlm")]
         with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
             before = build_data(config, discovery_records=records)
         for table in ("claims", "dates"):
@@ -443,7 +446,7 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(before["observations"]["Phil.3.9"]["discovery"]["state"], "not_searched")
 
     def test_colossians_discovery_reuses_reports_without_changing_contents_dates_or_rankings(self):
-        before, after = self.before_col, self.data
+        before, after = self.before_col, self.before_phlm
         scope = next(s for s in after["metadata"]["discovery"]["scopes"] if s["definition"]["book"] == "Col")
         self.assertEqual(scope["candidate_ids"], [10046, 10061])
         self.assertEqual(scope["collected_candidate_ids"], scope["candidate_ids"])
@@ -474,6 +477,91 @@ class CollectionTests(unittest.TestCase):
                 self.assertEqual(new["discovery"]["state"], "bounded_search_complete")
                 new["discovery"] = old["discovery"]
             self.assertEqual(new, old, ref)
+
+    def test_philemon_discovery_reuses_p61_and_preserves_exact_new_reports(self):
+        data = self.data
+        scope = next(s for s in data["metadata"]["discovery"]["scopes"] if s["definition"]["book"] == "Phlm")
+        self.assertEqual(scope["candidate_ids"], [10061, 10087, 10139])
+        self.assertEqual(scope["collected_candidate_ids"], scope["candidate_ids"])
+        self.assertEqual(scope["pending_candidate_ids"], [])
+        self.assertEqual(scope["search_state"], "complete")
+        self.assertEqual(scope["candidate_collection_state"], "complete")
+        self.assertFalse(scope["corpus_complete"])
+        self.assertEqual(scope["collection_cost"]["request_attempts"], 5)
+        self.assertEqual(scope["collection_cost"]["http_responses_recorded"], 5)
+        self.assertEqual(scope["collection_cost"]["reused_seed_document_responses"], 42)
+        self.assertEqual(scope["collection_cost"]["collection_errors"], [])
+        self.assertLessEqual(scope["collection_cost"]["request_attempts"], scope["definition"]["request_budget"])
+        self.assertEqual(scope["definition"]["transport_base_url"], "<local proxy>/community/vmr/api")
+        self.assertEqual(scope["sources"][0]["params"],
+                         {"docID": "10000-19999", "indexContent": "Phlm", "detail": "document", "format": "json", "limit": "200"})
+        self.assertTrue(scope["sources"][0]["citation"].startswith("https://ntvmr.uni-muenster.de/"))
+        for doc, reported, verses in (
+                (10087, {"early": 200, "late": 299, "content": "III"}, (13, 14, 15, 24, 25)),
+                (10139, {"early": 300, "late": 399, "content": "IV"}, (6, 7, 8, 18, 19, 20))):
+            date = next(d for d in data["dates"].values() if d["doc_id"] == doc)
+            self.assertEqual(date["reported"], reported)
+            self.assertEqual((date["date_min"], date["date_max"]), (reported["early"], reported["late"]))
+            self.assertTrue(date["citation"].startswith("https://ntvmr.uni-muenster.de/"))
+            present = {f"Phlm.1.{v}" for v in verses}
+            for ref, row in data["observations"].items():
+                pair = next(p for p in row["reported_coverage"] if p["witness_id"] == f"ntvmr:{doc}")
+                self.assertEqual(pair["state"], "present" if ref in present else "unknown")
+                if ref in present:
+                    self.assertTrue(pair["claims"])
+                    for key in pair["claims"]:
+                        claim = data["claims"][key]
+                        self.assertEqual(claim["reported"]["osisID"], ref)
+                        self.assertEqual(claim["reported_indexing_tier"], 3)
+                else:
+                    self.assertEqual(pair["claims"], [])
+        self.assertEqual(data["observations"]["Phlm.1.1"]["discovery"]["state"], "bounded_search_complete")
+        self.assertEqual(data["observations"]["Titus.1.1"]["discovery"]["state"], "not_searched")
+
+    def test_philemon_addition_preserves_prior_claims_dates_coverage_and_discovery(self):
+        before, after = self.before_phlm, self.data
+        added_witnesses = {"ntvmr:10087", "ntvmr:10139"}
+        for table in ("claims", "dates"):
+            for key, value in before[table].items():
+                self.assertEqual(after[table][key], value)
+        for table in ("coordinates", "coordinate_inventory"):
+            self.assertEqual(after[table], before[table])
+        self.assertEqual([d for d in after["documents"] if d["witness_id"] not in added_witnesses], before["documents"])
+        # Temporary database IDs may shift when new document reports precede searches.
+        def source_identities(records, data):
+            hashes = {s["source_response_id"]: s["body_sha256"] for s in data["sources"]}
+            result = deepcopy(records)
+            for record in result:
+                if "source_response_id" in record:
+                    record["source_response_id"] = hashes[record["source_response_id"]]
+            return result
+        prior_hashes = {s["body_sha256"] for s in before["sources"]}
+        self.assertEqual(source_identities([s for s in after["sources"] if s["body_sha256"] in prior_hashes], after),
+                         source_identities(before["sources"], before))
+        old_scopes = deepcopy(before["metadata"]["discovery"]["scopes"])
+        new_scopes = deepcopy(after["metadata"]["discovery"]["scopes"][:-1])
+        self.assertEqual(len(new_scopes), len(old_scopes))
+        for old, new in zip(old_scopes, new_scopes):
+            self.assertEqual(new.pop("additional_collected_doc_ids"),
+                             sorted([*old.pop("additional_collected_doc_ids"), 10087, 10139]))
+            for scope, data in ((old, before), (new, after)):
+                for table in ("sources", "candidates"):
+                    scope[table] = source_identities(scope[table], data)
+            self.assertEqual(new, old)
+        added_present = 0
+        for ref, old in before["observations"].items():
+            new = after["observations"][ref]
+            self.assertEqual([p for p in new["reported_coverage"] if p["witness_id"] not in added_witnesses],
+                             old["reported_coverage"])
+            added = [p for p in new["reported_coverage"] if p["witness_id"] in added_witnesses]
+            added_present += sum(p["state"] == "present" for p in added)
+            if all(p["state"] == "unknown" for p in added):
+                self.assertEqual(new["dating_alternatives"], old["dating_alternatives"])
+                self.assertEqual(new["ranking_state"], old["ranking_state"])
+            if not ref.startswith("Phlm."):
+                self.assertEqual(new["discovery"], old["discovery"])
+        self.assertEqual(added_present, 11)
+        self.assertEqual(before["observations"]["Phlm.1.1"]["discovery"]["state"], "not_searched")
 
 
 if __name__ == "__main__":
