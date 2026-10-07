@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20271",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:17:42 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397062458",
+    "X-Request-Post-Validation-Epoch": "1791397062459",
+    "X-Request-Response-Epoch": "1791397062463",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1158",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20271,\"indexContent\":[\"Matt 12:27-39\",{\"docID\":20271,\"osisID\":\"Matt.12.27\",\"indexContent\":2001012027,\"pageID\":10},{\"docID\":20271,\"osisID\":\"Matt.12.28\",\"indexContent\":2001012028,\"pageID\":10},{\"docID\":20271,\"osisID\":\"Matt.12.29\",\"indexContent\":2001012029,\"pageID\":10},{\"docID\":20271,\"osisID\":\"Matt.12.30\",\"indexContent\":2001012030,\"pageID\":10},{\"docID\":20271,\"osisID\":\"Matt.12.31\",\"indexContent\":2001012031,\"pageID\":10},{\"docID\":20271,\"osisID\":\"Matt.12.32\",\"indexContent\":2001012032,\"pageID\":10},{\"docID\":20271,\"osisID\":\"Matt.12.33\",\"indexContent\":2001012033,\"pageID\":10},{\"docID\":20271,\"osisID\":\"Matt.12.33\",\"indexContent\":2001012033,\"pageID\":20},{\"docID\":20271,\"osisID\":\"Matt.12.34\",\"indexContent\":2001012034,\"pageID\":20},{\"docID\":20271,\"osisID\":\"Matt.12.35\",\"indexContent\":2001012035,\"pageID\":20},{\"docID\":20271,\"osisID\":\"Matt.12.36\",\"indexContent\":2001012036,\"pageID\":20},{\"docID\":20271,\"osisID\":\"Matt.12.37\",\"indexContent\":2001012037,\"pageID\":20},{\"docID\":20271,\"osisID\":\"Matt.12.38\",\"indexContent\":2001012038,\"pageID\":20},{\"docID\":20271,\"osisID\":\"Matt.12.39\",\"indexContent\":2001012039,\"pageID\":20}]}}}",
+  "body_sha256": "f4276b4f78b937f077a76ead52c28a9e3c65ba11e5e9f37921c6e1d3ab67c0d7",
+  "retrieved_at": "2026-10-07T18:17:42+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

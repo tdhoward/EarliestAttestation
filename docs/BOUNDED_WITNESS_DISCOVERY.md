@@ -26,10 +26,12 @@ Gregory–Aland number. For example, 10045 identifies P45. See the
 for this ID convention. Categories and ID order do not establish manuscript age.
 
 A verse's fifth earliest collected witness may date much later than its first,
-and the five may span categories. Late results can motivate broader searches,
-but neither finding five witnesses nor finding early papyri completes the
-planned discovery target. Discover candidates independently in all four
-categories and rank them using their scholarly contents and date reports.
+and the five may span categories. The default catalogue collection scope keeps
+date ranges beginning before 1000 CE, unknown dates, and known earlier scholarly
+alternatives. Fewer than five witnesses per verse is acceptable within this scope.
+Neither finding five witnesses nor finding early papyri completes the planned
+discovery target. Discover candidates independently in all four categories and
+rank collected witnesses using their scholarly contents and complete date reports.
 
 This is planned scope, not completed coverage. Current discovery flags evaluate
 only scopes registered in `data/discovery.json`; they do not automatically
@@ -91,10 +93,31 @@ this does not assert a published numerical provider quota.
 `collect_catalogue.py` provides `collect`, `status`, and `import` commands.
 Collection searches each of the four ranges without book, name, date, or
 language filters, follows documented continuation cursors, and queues metadata
-(`detail=10`) and verse contents (`detail=long`) for each returned ID. It makes
+(`detail=10`) and verse contents (`detail=long`) for eligible returned IDs. It makes
 no requests to images or transcriptions and does not probe every possible ID.
 Each report is captured once and serves every book for which it reports contents.
 Registered reports are validated and reused, including metadata-only witnesses.
+
+The default local filter is `--earliest-date-before 1000`. It excludes follow-up
+requests only when integer `origEarly` and `origLate` form a positive, ordered
+range and `origEarly >= 1000`. A range of 950–1050 stays eligible with both bounds
+unchanged; 1000–1099 is excluded. Missing, zero, malformed, or reversed bounds
+remain eligible, after dated candidates. The tool never interprets `orig` notation.
+A valid earlier estimate in retained metadata or a registered scholarly date
+report also keeps the witness eligible, including explicitly registered aliases.
+These are collection decisions, not new scholarly date or coverage assertions.
+
+Use `--earliest-date-before YEAR` to change the cutoff or `--no-date-cutoff` to
+disable it. The selected setting persists when omitted on resume. An older
+checkpoint without a setting adopts 1000 on its first resumed collection; merely
+running `status` or `import` does not change that historical campaign's scope.
+Resume rechecks retained inventories and date reports before further downloads,
+so it can skip existing pending jobs or reopen jobs after a wider cutoff or newly
+retained earlier estimate. Previously failed jobs still require `--retry-failed`
+if they become eligible again. Successful captures, complete date ranges, and
+original inventories are retained. No queue schema migration is required.
+An already-running collector must be stopped with Ctrl+C and relaunched to load
+the change. This option limits collection, not the app's existing witness pool.
 
 ```powershell
 python collect_catalogue.py collect --use-local-proxy --hours 8
@@ -157,13 +180,21 @@ in `data/discovery.json`. Pagination evidence is retained in those records.
 The build subsequently uses only the central register and permanent captures.
 Neither overnight capture nor import changes `data/attestations.json` or app HTML.
 
-Complete capture means the inventory and queued downloads finished, not that
+Complete capture means the inventory and eligible queued downloads finished, not that
 every response is usable under the scholarly-report contract. Unsupported or
 malformed reports stay captured; import lists errors and keeps their candidates
 pending while importing other usable reports. Empty contents reports stay
 unknown and never establish absence. Catalogue membership is not verse presence.
 Catalogue completion applies only to the declared ranges and captured snapshot;
-`corpus_complete` remains false.
+`corpus_complete` remains false. Status reports the effective cutoff and skipped
+documents with reasons. Imported scope definitions record `earliest_date_before`;
+the build derives `date_excluded_candidate_ids`, `eligible_candidate_ids`, and
+each candidate's decision from retained source evidence. Date-excluded candidates
+remain visible without appearing as pending collection. Exclusion is separate
+from verse coverage: previously captured metadata may still have unknown contents,
+and no absence is inferred. Earlier estimates from nonprimary metadata are retained as validated
+filter evidence. The explorer states the collection cutoff and qualifies completion
+as collection of eligible candidates. Fewer than five witnesses is a valid outcome.
 
 ## Meaning and states
 

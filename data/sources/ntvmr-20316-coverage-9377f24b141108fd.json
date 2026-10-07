@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20316",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:25:41 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397541922",
+    "X-Request-Post-Validation-Epoch": "1791397541922",
+    "X-Request-Response-Epoch": "1791397541925",
+    "X-Response-Time": "3ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "693",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20316,\"indexContent\":[\"Jude 1:18-25\",{\"docID\":20316,\"osisID\":\"Jude.1.18\",\"indexContent\":2026001018,\"pageID\":20},{\"docID\":20316,\"osisID\":\"Jude.1.19\",\"indexContent\":2026001019,\"pageID\":20},{\"docID\":20316,\"osisID\":\"Jude.1.20\",\"indexContent\":2026001020,\"pageID\":20},{\"docID\":20316,\"osisID\":\"Jude.1.21\",\"indexContent\":2026001021,\"pageID\":20},{\"docID\":20316,\"osisID\":\"Jude.1.22\",\"indexContent\":2026001022,\"pageID\":20},{\"docID\":20316,\"osisID\":\"Jude.1.23\",\"indexContent\":2026001023,\"pageID\":20},{\"docID\":20316,\"osisID\":\"Jude.1.24\",\"indexContent\":2026001024,\"pageID\":20},{\"docID\":20316,\"osisID\":\"Jude.1.25\",\"indexContent\":2026001025,\"pageID\":20}]}}}",
+  "body_sha256": "c98f431e5d654072cb0145cc47d88912226776b20f7edf67387721340ad06dbb",
+  "retrieved_at": "2026-10-07T18:25:42+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

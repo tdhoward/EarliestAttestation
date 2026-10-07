@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "31366",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 23:10:46 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791414646788",
+    "X-Request-Post-Validation-Epoch": "1791414646789",
+    "X-Request-Response-Epoch": "1791414646797",
+    "X-Response-Time": "9ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "420",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":31366,\"indexContent\":[\"John 1:1; John 1:4; John 1:8; Luke 1:6\",{\"docID\":31366,\"osisID\":\"John.1.1\",\"indexContent\":2004001001,\"pageID\":160},{\"docID\":31366,\"osisID\":\"John.1.4\",\"indexContent\":2004001004,\"pageID\":170},{\"docID\":31366,\"osisID\":\"John.1.8\",\"indexContent\":2004001008,\"pageID\":180},{\"docID\":31366,\"osisID\":\"Luke.1.6\",\"indexContent\":2003001006,\"pageID\":1820}]}}}",
+  "body_sha256": "68177feb060175a971b021ba96991dcfd2abbdcdef2b4bb03877738475a40f0e",
+  "retrieved_at": "2026-10-07T23:10:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

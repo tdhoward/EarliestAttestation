@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20279",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:19:08 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397148869",
+    "X-Request-Post-Validation-Epoch": "1791397148870",
+    "X-Request-Response-Epoch": "1791397148873",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1775",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20279,\"indexContent\":[\"Luke 8:32-44; Luke 22:2-3; Luke 22:15-16\",{\"docID\":20279,\"osisID\":\"Luke.8.32\",\"indexContent\":2003008032,\"pageID\":10},{\"docID\":20279,\"osisID\":\"Luke.8.33\",\"indexContent\":2003008033,\"pageID\":10},{\"docID\":20279,\"osisID\":\"Luke.8.33\",\"indexContent\":2003008033,\"pageID\":20},{\"docID\":20279,\"osisID\":\"Luke.8.34\",\"indexContent\":2003008034,\"pageID\":20},{\"docID\":20279,\"osisID\":\"Luke.8.35\",\"indexContent\":2003008035,\"pageID\":20},{\"docID\":20279,\"osisID\":\"Luke.8.35\",\"indexContent\":2003008035,\"pageID\":30},{\"docID\":20279,\"osisID\":\"Luke.8.36\",\"indexContent\":2003008036,\"pageID\":30},{\"docID\":20279,\"osisID\":\"Luke.8.37\",\"indexContent\":2003008037,\"pageID\":40},{\"docID\":20279,\"osisID\":\"Luke.8.38\",\"indexContent\":2003008038,\"pageID\":50},{\"docID\":20279,\"osisID\":\"Luke.8.39\",\"indexContent\":2003008039,\"pageID\":50},{\"docID\":20279,\"osisID\":\"Luke.8.39\",\"indexContent\":2003008039,\"pageID\":60},{\"docID\":20279,\"osisID\":\"Luke.8.40\",\"indexContent\":2003008040,\"pageID\":60},{\"docID\":20279,\"osisID\":\"Luke.8.41\",\"indexContent\":2003008041,\"pageID\":60},{\"docID\":20279,\"osisID\":\"Luke.8.41\",\"indexContent\":2003008041,\"pageID\":70},{\"docID\":20279,\"osisID\":\"Luke.8.42\",\"indexContent\":2003008042,\"pageID\":70},{\"docID\":20279,\"osisID\":\"Luke.8.42\",\"indexContent\":2003008042,\"pageID\":80},{\"docID\":20279,\"osisID\":\"Luke.8.43\",\"indexContent\":2003008043,\"pageID\":80},{\"docID\":20279,\"osisID\":\"Luke.8.44\",\"indexContent\":2003008044,\"pageID\":80},{\"docID\":20279,\"osisID\":\"Luke.22.2\",\"indexContent\":2003022002,\"pageID\":90},{\"docID\":20279,\"osisID\":\"Luke.22.3\",\"indexContent\":2003022003,\"pageID\":90},{\"docID\":20279,\"osisID\":\"Luke.22.15\",\"indexContent\":2003022015,\"pageID\":100},{\"docID\":20279,\"osisID\":\"Luke.22.16\",\"indexContent\":2003022016,\"pageID\":100}]}}}",
+  "body_sha256": "4497952146878f0e4268a01535c9d576db93133d9a8460ec0859b8d11b1a4bed",
+  "retrieved_at": "2026-10-07T18:19:08+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20313",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:25:05 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397505033",
+    "X-Request-Post-Validation-Epoch": "1791397505034",
+    "X-Request-Response-Epoch": "1791397505039",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1979",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20313,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":313,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":509,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Museum of the Bible\",\"place\":\"Washington D.C.\",\"logoURL\":\"https://d302e0npexowb4.cloudfront.net/wp-content/uploads/2018/08/03152825/museum-of-the-bible-logo.png\",\"url\":\"http://museumofthebible.org/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":6198,\"originYearDescription\":\"V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"SIG.PAP.000604\",\"contentOverview\":\"Mc 4,9.15\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Mark 4:9\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20313/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_0313\\\"><div>See External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42482/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6198,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Mark 4:9\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"bricejones\"},{\"biblicalContent\":\"Mark 4:15\",\"shelfID\":6198,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Mark 4:15\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"bricejones\"}]},\"gaNum\":313,\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":100,\"widthMax\":150},\"lang\":\"g\",\"contentOverview\":\"e: Mc\",\"lineCount\":{\"lineCountMin\":24,\"content\":2},\"height\":{\"heightMax\":180,\"heightMin\":20}}}}",
+  "body_sha256": "d04a0d1e95dbabff70700f0af91be1df31e2521e30fda4357c0a6635050b0bf2",
+  "retrieved_at": "2026-10-07T18:25:05+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

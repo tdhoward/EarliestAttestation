@@ -17,13 +17,14 @@ from build_collection import DATA, ROOT, data_path, read_json, write_json
 from collect_source_discovery import https_proxy_transport, retained_transport
 from controlled_ntvmr import (API_BASE, NT_BOOKS, AccessBlocked, Client, ContractError,
                               JobFailure, RunStopped, encoded, now, transport)
-from source_discovery import (prepare_discovery, range_params, response_capture,
-                              sha, validate_search_capture)
-from source_reports import capture
+from source_discovery import (catalogue_date_decision, prepare_discovery, range_params, response_capture,
+                              sha, validate_date_cutoff, validate_search_capture)
+from source_reports import additional_date_claims, capture, discovery_date_overrides, metadata_date_claim
 
 
 CATEGORIES = (("papyri", 10000, 19999), ("majuscules", 20000, 29999),
               ("minuscules", 30000, 39999), ("lectionaries", 40000, 49999))
+DEFAULT_DATE_CUTOFF = 1000
 ENDPOINTS = {"inventory": "metadata/liste/search", "metadata": "metadata/manuscript/get",
              "coverage": "biblicalcontent/get"}
 # This is a disposable collection checkpoint, never a build input. Existing
@@ -108,6 +109,7 @@ def queue_connection(data_dir, *, create=False):
 
 
 def validate_config(config):
+    validate_date_cutoff(config.get("earliest_date_before", DEFAULT_DATE_CUTOFF))
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,79}", config["run_id"]):
         raise ValueError("Use a short run ID containing letters, numbers, dots, underscores, or hyphens")
     if not math.isfinite(config["interval"]) or config["interval"] < 5:
@@ -168,6 +170,12 @@ def start_campaign(con, config, *, access_restored_reason=None):
             raise ValueError("Resume with the same API route, page limit, and interval")
         if config["max_requests"] is None and previous["max_requests"] is not None:
             config["max_requests"] = previous["max_requests"]
+        # A local date filter can change without splicing different API inventories.
+        # Old checkpoints adopt the default on their first resume with this version.
+        config.setdefault("earliest_date_before", previous.get("earliest_date_before", DEFAULT_DATE_CUTOFF))
+    else:
+        config.setdefault("earliest_date_before", DEFAULT_DATE_CUTOFF)
+    validate_date_cutoff(config["earliest_date_before"])
     blocked = con.execute("SELECT block_reason FROM pacing WHERE id=1").fetchone()[0]
     if blocked and not (access_restored_reason and access_restored_reason.strip()):
         raise AccessBlocked(f"Prior provider block is preserved: {blocked}")
@@ -276,9 +284,11 @@ def scope_definition(config, category, low, high):
             "scope_id": f"catalogue-{config['run_id']}-{category}", "category": category,
             "books": list(NT_BOOKS), "doc_id_min": low, "doc_id_max": high,
             "page_limit": config["page_limit"], "catalogue_citation": API_BASE + "/metadata/liste/search/",
+            "earliest_date_before": config.get("earliest_date_before"),
             "access_expectations": "Owner-authorized catalogue collection, one worker, at least five-second "
                 "spacing, shared campaign budget and launch deadline, Retry-After, and persistent provider-block stops. "
-                "No date or book filter. Metadata and reported verse contents only; no images or transcriptions.",
+                "Unfiltered inventory; the declared earliest-date cutoff screens follow-up requests locally. "
+                "Metadata and reported verse contents only; no images or transcriptions.",
             "request_budget": config["max_requests"], "minimum_interval_seconds": config["interval"],
             "maximum_run_seconds": config["hours"] * 3600}
 
@@ -289,6 +299,92 @@ def reused_report(data_dir, documents, doc_id, stage):
     if relative:
         capture(data_path(data_dir, relative), doc_id, stage)
     return relative
+
+
+def retained_dates(con, data_dir, collection):
+    """Reuse known metadata and published alternatives, without fetching or interpreting dates."""
+    documents = {d["doc_id"]: d for d in collection["documents"]}
+    paths = {(doc, item["metadata_fixture"]) for doc, item in documents.items() if item.get("metadata_fixture")}
+    # Include committed responses even if interruption preceded a job checkpoint.
+    for params, path in con.execute("SELECT r.params_json,a.capture_file FROM source_response r "
+                                   "JOIN archive a ON a.response_id=r.id WHERE r.endpoint=? AND r.status_code=200",
+                                   (ENDPOINTS["metadata"],)):
+        doc = json.loads(params).get("docID", "")
+        if str(doc).isdigit():
+            paths.add((int(doc), path))
+    dates = []
+    for doc, path in sorted(paths):
+        try:
+            snap, payload, metadata = capture(data_path(data_dir, path), doc, "metadata")
+        except (ValueError, KeyError, TypeError):
+            # An unusable capture cannot establish an earlier estimate.
+            continue
+        dates.append({**metadata_date_claim(documents.get(doc, {"doc_id": doc}), snap, payload, metadata),
+                      "capture_file": path})
+    witnesses = {d.get("witness_id", f"ntvmr:{doc}") for doc, d in documents.items()}
+    for report in collection.get("additional_reports", []):
+        dates.extend(additional_date_claims(report, witnesses))
+    discovery_path = data_path(data_dir, collection.get("discovery", "discovery.json"))
+    if discovery_path.exists():
+        for record in read_json(discovery_path):
+            dates.extend(discovery_date_overrides(record, collection["documents"]))
+    by_witness = {}
+    for claim in dates:
+        by_witness.setdefault(claim["witness_id"], []).append(claim)
+    known = {doc: {} for doc, _ in paths}
+    known.update({claim["doc_id"]: {} for claim in dates if "doc_id" in claim})
+    known.update(documents)
+    return {doc: by_witness.get(item.get("witness_id", f"ntvmr:{doc}"), []) for doc, item in known.items()}
+
+
+def apply_date_filter(con, config, date_claims):
+    """Reassess unfinished jobs from retained pages; captured reports are never removed."""
+    cutoff = config["earliest_date_before"]
+    decisions = {}
+    pages = con.execute("SELECT p.response_id FROM inventory_page p WHERE p.run_id=? ORDER BY p.category,p.sequence",
+                        (config["run_id"],)).fetchall()
+    for (response_id,) in pages:
+        record = response_capture(con, response_id)
+        rows, _, _ = validate_search_capture(record, record["params"])
+        for row in rows:
+            doc = row["docID"]
+            decisions[doc] = catalogue_date_decision(row, cutoff, date_claims.get(doc, ()))
+    with con:
+        for doc, decision in decisions.items():
+            for stage, state, error in con.execute("SELECT stage,state,error FROM job WHERE run_id=? AND doc_id=? "
+                                                   "AND state!='captured'", (config["run_id"], doc)).fetchall():
+                previous = json.loads(error) if state == "date_excluded" else {"previous_state": state, "previous_error": error}
+                if decision["state"] == "date_excluded":
+                    previous["reason"] = decision["reason"]
+                    con.execute("UPDATE job SET state='date_excluded',error=? WHERE run_id=? AND doc_id=? AND stage=?",
+                                (encoded(previous), config["run_id"], doc, stage))
+                elif state == "date_excluded":
+                    con.execute("UPDATE job SET state=?,error=? WHERE run_id=? AND doc_id=? AND stage=?",
+                                (previous["previous_state"], previous["previous_error"], config["run_id"], doc, stage))
+    return decisions
+
+
+def recover_captured_jobs(con, run_id, data_dir, seed, retry_jobs=()):
+    """Keep committed reports captured if interruption preceded the job update."""
+    retained = {}
+    for endpoint, params, path, body in con.execute("SELECT r.endpoint,r.params_json,a.capture_file,r.body FROM source_response r "
+            "JOIN archive a ON a.response_id=r.id WHERE r.status_code=200 AND r.origin!='blocked' ORDER BY r.id"):
+        if endpoint in (ENDPOINTS["metadata"], ENDPOINTS["coverage"]):
+            try:
+                json.loads(body)
+                retained[endpoint, params] = path
+            except ValueError:
+                retained[endpoint, params] = None
+    with con:
+        for doc, stage in con.execute("SELECT doc_id,stage FROM job WHERE run_id=? AND state IN ('pending','date_excluded')",
+                                      (run_id,)).fetchall():
+            if (doc, stage) in retry_jobs:
+                continue
+            params = encoded({"docID": str(doc), "detail": "10" if stage == "metadata" else "long", "format": "json"})
+            path = reused_report(data_dir, seed, doc, stage) or retained.get((ENDPOINTS[stage], params))
+            if path:
+                con.execute("UPDATE job SET state='captured',capture_file=?,error=NULL WHERE run_id=? AND doc_id=? AND stage=?",
+                            (path, run_id, doc, stage))
 
 
 def collect_inventory(client, config, category, low, high, seed):
@@ -337,7 +433,7 @@ def collect_inventory(client, config, category, low, high, seed):
 
 
 def summary(con, run_id):
-    campaign_config(con, run_id)
+    config = campaign_config(con, run_id)
     state, error = con.execute("SELECT state,error FROM campaign WHERE run_id=?", (run_id,)).fetchone()
     categories = []
     for category, low, high in CATEGORIES:
@@ -346,12 +442,17 @@ def summary(con, run_id):
         counts = dict(con.execute("SELECT state,count(*) FROM job WHERE run_id=? AND doc_id BETWEEN ? AND ? GROUP BY state",
                                   (run_id, low, high)))
         categories.append({"category": category, "inventory_state": item[0], "after_doc_id": item[1],
-                           "inventory_error": item[2], "documents": sum(counts.values()) // 2, "reports": counts})
+                           "inventory_error": item[2], "documents": sum(counts.values()) // 2, "reports": counts,
+                           "date_excluded_documents": con.execute("SELECT count(DISTINCT doc_id) FROM job WHERE run_id=? "
+                               "AND doc_id BETWEEN ? AND ? AND state='date_excluded'", (run_id, low, high)).fetchone()[0]})
     return {"run_id": run_id, "state": state, "error": error, "categories": categories,
+            "earliest_date_before": config.get("earliest_date_before"),
             "request_attempts": con.execute("SELECT count(*) FROM request_attempt WHERE run_id=?", (run_id,)).fetchone()[0],
             "provider_block": con.execute("SELECT block_reason FROM pacing WHERE id=1").fetchone()[0],
             "failed_reports": [{"doc_id": doc, "stage": stage, "error": failure} for doc, stage, failure in con.execute(
                 "SELECT doc_id,stage,error FROM job WHERE run_id=? AND state='failed' ORDER BY doc_id,stage", (run_id,))],
+            "date_exclusions": [{"doc_id": doc, "reason": json.loads(reason)["reason"]} for doc, reason in con.execute(
+                "SELECT doc_id,min(error) FROM job WHERE run_id=? AND state='date_excluded' GROUP BY doc_id ORDER BY doc_id", (run_id,))],
             "corpus_complete": False}
 
 
@@ -359,7 +460,11 @@ def collect(con, config, data_dir, *, send=transport, sleep=time.sleep, clock=ti
             wall_clock=time.time, progress=None, access_restored_reason=None, retry_failed=False):
     recover_archives(con, data_dir)
     start_campaign(con, config, access_restored_reason=access_restored_reason)
-    seed = {d["doc_id"]: d for d in read_json(data_dir / "collection.json")["documents"]}
+    collection = read_json(data_dir / "collection.json")
+    seed = {d["doc_id"]: d for d in collection["documents"]}
+    recover_captured_jobs(con, config["run_id"], data_dir, seed)
+    known_dates = retained_dates(con, data_dir, collection)
+    apply_date_filter(con, config, known_dates)
     retry_jobs = set(con.execute("SELECT doc_id,stage FROM job WHERE run_id=? AND state='failed'", (config["run_id"],))) if retry_failed else set()
     if retry_failed:
         with con:
@@ -375,8 +480,14 @@ def collect(con, config, data_dir, *, send=transport, sleep=time.sleep, clock=ti
                 with con:
                     con.execute("UPDATE inventory SET state='failed',error=? WHERE run_id=? AND category=?",
                                 (str(failure), config["run_id"], category))
-        for doc, stage in con.execute("SELECT doc_id,stage FROM job WHERE run_id=? AND state='pending' "
-                                     "ORDER BY doc_id,CASE stage WHEN 'metadata' THEN 0 ELSE 1 END", (config["run_id"],)).fetchall():
+            finally:
+                recover_captured_jobs(con, config["run_id"], data_dir, seed, retry_jobs)
+                decisions = apply_date_filter(con, config, known_dates)
+        jobs = con.execute("SELECT doc_id,stage FROM job WHERE run_id=? AND state='pending' "
+                           "ORDER BY doc_id,CASE stage WHEN 'metadata' THEN 0 ELSE 1 END", (config["run_id"],)).fetchall()
+        # Unknown inventory dates remain eligible, after the dated candidates.
+        jobs.sort(key=lambda job: decisions.get(job[0], {}).get("state") == "unknown_date")
+        for doc, stage in jobs:
             try:
                 params = {"docID": str(doc), "detail": "10" if stage == "metadata" else "long", "format": "json"}
                 _, response_id = client.get_json(ENDPOINTS[stage], params, refresh=(doc, stage) in retry_jobs)
@@ -389,7 +500,7 @@ def collect(con, config, data_dir, *, send=transport, sleep=time.sleep, clock=ti
                     con.execute("UPDATE job SET state='failed',error=? WHERE run_id=? AND doc_id=? AND stage=?",
                                 (str(failure), config["run_id"], doc, stage))
         if con.execute("SELECT 1 FROM inventory WHERE run_id=? AND state!='complete'", (config["run_id"],)).fetchone() or con.execute(
-                "SELECT 1 FROM job WHERE run_id=? AND state!='captured'", (config["run_id"],)).fetchone():
+                "SELECT 1 FROM job WHERE run_id=? AND state NOT IN ('captured','date_excluded')", (config["run_id"],)).fetchone():
             state = "incomplete"
     except AccessBlocked as failure:
         state, error = "blocked", str(failure)
@@ -446,16 +557,22 @@ def import_captures(con, data_dir, run_id):
                 known[doc] = item
                 added += 1
     ready = []
+    date_claims = []
     # Existing source fidelity is checked as well, using only one report at a time.
     for item in collection["documents"]:
         metadata_state, coverage_state = "missing", "missing"
         if item.get("metadata_fixture"):
-            capture(data_path(data_dir, item["metadata_fixture"]), item["doc_id"], "metadata")
+            snap, payload, metadata = capture(data_path(data_dir, item["metadata_fixture"]), item["doc_id"], "metadata")
+            date_claims.append(metadata_date_claim(item, snap, payload, metadata))
             metadata_state = "success"
         if item.get("coverage_fixture"):
             _, _, entries = capture(data_path(data_dir, item["coverage_fixture"]), item["doc_id"], "coverage")
             coverage_state = "success" if entries else "empty"
-        ready.append({"doc_id": item["doc_id"], "metadata_state": metadata_state, "coverage_state": coverage_state})
+        ready.append({"doc_id": item["doc_id"], "witness_id": item.get("witness_id", f"ntvmr:{item['doc_id']}"),
+                      "metadata_state": metadata_state, "coverage_state": coverage_state})
+    for report in collection.get("additional_reports", []):
+        date_claims.extend(additional_date_claims(report, {d["witness_id"] for d in ready}))
+    known_dates = retained_dates(con, data_dir, collection)
     attempts = [json.loads(row[0]) for row in con.execute("SELECT params_json FROM request_attempt WHERE run_id=?", (run_id,))]
     for category, low, high in CATEGORIES:
         definition = scope_definition(config, category, low, high)
@@ -475,9 +592,28 @@ def import_captures(con, data_dir, run_id):
                                       "campaign_state": campaign_state, "campaign_error": campaign_error,
                                       "shared_campaign_request_budget": config["max_requests"],
                                       "collection_errors": [e for e in errors if low <= int(e.split()[0]) <= high]}}
+        # Preserve the evidence for earlier estimates from nonprimary metadata.
+        # These qualify collection only; they do not silently replace active date claims.
+        extra = {}
+        cutoff = definition["earliest_date_before"]
+        if cutoff is not None:
+            primary_hashes = {d["source_sha256"] for d in date_claims}
+            for page in pages:
+                rows, _, _ = validate_search_capture(page, page["params"])
+                for row in rows:
+                    if catalogue_date_decision(row, cutoff)["state"] != "date_excluded":
+                        continue
+                    for claim in known_dates.get(row["docID"], []):
+                        if (claim.get("capture_file") and claim["status"] == "valid" and claim["date_min"] < cutoff
+                                and claim["source_sha256"] not in primary_hashes):
+                            extra[claim["doc_id"], claim["source_sha256"]] = {
+                                "doc_id": claim["doc_id"], "capture_file": claim["capture_file"],
+                                "capture": read_json(data_path(data_dir, claim["capture_file"]))}
+        if extra:
+            record["date_filter_metadata_captures"] = list(extra.values())
         record = retained_transport(record, config["base_url"] if config["base_url"] != API_BASE else None,
                                     config.get("https_proxy"))
-        prepare_discovery(record, ready)
+        prepare_discovery(record, ready, date_claims + discovery_date_overrides(record, ready))
         records = [r for r in records if r["definition"]["scope_id"] != definition["scope_id"]]
         records.append(record)
     publisher = read_json(data_path(data_dir, collection["coordinate_inventory"]))
@@ -504,6 +640,11 @@ def main(argv=None):
             command_parser.add_argument("--interval", type=float, default=5, help="Minimum seconds between requests, at least 5")
             command_parser.add_argument("--max-requests", type=int, help="Optional cumulative campaign attempt ceiling, including retries; no 50-attempt cap")
             command_parser.add_argument("--page-limit", type=int, default=200)
+            dates = command_parser.add_mutually_exclusive_group()
+            dates.add_argument("--earliest-date-before", type=int, default=argparse.SUPPRESS,
+                               help="Collect ranges starting before this CE year (default 1000; retained on resume); unknown dates remain eligible")
+            dates.add_argument("--no-date-cutoff", dest="earliest_date_before", action="store_const", const=None,
+                               default=argparse.SUPPRESS, help="Collect all dates; reopen jobs previously skipped by the cutoff")
             route = command_parser.add_mutually_exclusive_group()
             route.add_argument("--base-url", help="Explicit owner-configured API proxy base URL")
             route.add_argument("--use-local-proxy", action="store_true", help="Use the single proxy address documented in README.md")
@@ -525,6 +666,8 @@ def main(argv=None):
                 config = {"run_id": args.run_id, "hours": args.hours, "interval": args.interval,
                           "max_requests": args.max_requests, "page_limit": args.page_limit,
                           "base_url": base_url.rstrip("/"), "https_proxy": args.https_proxy}
+                if hasattr(args, "earliest_date_before"):
+                    config["earliest_date_before"] = args.earliest_date_before
                 send = https_proxy_transport(args.https_proxy) if args.https_proxy else transport
                 result = collect(con, config, data_dir, send=send,
                     access_restored_reason=args.access_restored_reason,

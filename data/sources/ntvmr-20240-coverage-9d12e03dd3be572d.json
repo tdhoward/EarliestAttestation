@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20240",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:12:13 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396733362",
+    "X-Request-Post-Validation-Epoch": "1791396733363",
+    "X-Request-Response-Epoch": "1791396733366",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1366",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20240,\"indexContent\":[\"Titus 1:7-8; Titus 1:4-6; Titus 1:8-9; 1Tim 6:5-6; 1Tim 6:12-13; 1Tim 6:10-11; 1Tim 6:8-9\",{\"docID\":20240,\"osisID\":\"Titus.1.7\",\"indexContent\":2017001007,\"pageID\":10},{\"docID\":20240,\"osisID\":\"Titus.1.8\",\"indexContent\":2017001008,\"pageID\":10},{\"docID\":20240,\"osisID\":\"Titus.1.4\",\"indexContent\":2017001004,\"pageID\":20},{\"docID\":20240,\"osisID\":\"Titus.1.5\",\"indexContent\":2017001005,\"pageID\":20},{\"docID\":20240,\"osisID\":\"Titus.1.5\",\"indexContent\":2017001005,\"pageID\":30},{\"docID\":20240,\"osisID\":\"Titus.1.6\",\"indexContent\":2017001006,\"pageID\":30},{\"docID\":20240,\"osisID\":\"Titus.1.8\",\"indexContent\":2017001008,\"pageID\":40},{\"docID\":20240,\"osisID\":\"Titus.1.9\",\"indexContent\":2017001009,\"pageID\":40},{\"docID\":20240,\"osisID\":\"1Tim.6.5\",\"indexContent\":2015006005,\"pageID\":50},{\"docID\":20240,\"osisID\":\"1Tim.6.6\",\"indexContent\":2015006006,\"pageID\":50},{\"docID\":20240,\"osisID\":\"1Tim.6.12\",\"indexContent\":2015006012,\"pageID\":60},{\"docID\":20240,\"osisID\":\"1Tim.6.13\",\"indexContent\":2015006013,\"pageID\":60},{\"docID\":20240,\"osisID\":\"1Tim.6.10\",\"indexContent\":2015006010,\"pageID\":70},{\"docID\":20240,\"osisID\":\"1Tim.6.11\",\"indexContent\":2015006011,\"pageID\":70},{\"docID\":20240,\"osisID\":\"1Tim.6.8\",\"indexContent\":2015006008,\"pageID\":80},{\"docID\":20240,\"osisID\":\"1Tim.6.9\",\"indexContent\":2015006009,\"pageID\":80}]}}}",
+  "body_sha256": "d8bb021338a78ff76ccc7ff01badbd75529d751828fcda96654caeef3603147d",
+  "retrieved_at": "2026-10-07T18:12:13+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

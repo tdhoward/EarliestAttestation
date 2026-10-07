@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "31300",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 22:57:23 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791413843728",
+    "X-Request-Post-Validation-Epoch": "1791413843729",
+    "X-Request-Response-Epoch": "1791413843739",
+    "X-Response-Time": "11ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3195",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":31300,\"indexContent\":[\"Matt 15:24; Matt 28:20; Mark 1:1; Mark 16:20; Luke 1:1; Luke 3:22-4:3; Luke 9:33-41; Luke 24:53; John 1:25; John 21:25\",{\"docID\":31300,\"osisID\":\"Matt.15.24\",\"indexContent\":2001015024,\"pageID\":70},{\"docID\":31300,\"osisID\":\"Matt.28.20\",\"indexContent\":2001028020,\"pageID\":540},{\"docID\":31300,\"osisID\":\"Mark.1.1\",\"indexContent\":2002001001,\"pageID\":560},{\"docID\":31300,\"osisID\":\"Mark.16.20\",\"indexContent\":2002016020,\"pageID\":1240},{\"docID\":31300,\"osisID\":\"Luke.1.1\",\"indexContent\":2003001001,\"pageID\":1280},{\"docID\":31300,\"osisID\":\"Luke.3.22\",\"indexContent\":2003003022,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.23\",\"indexContent\":2003003023,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.24\",\"indexContent\":2003003024,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.25\",\"indexContent\":2003003025,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.26\",\"indexContent\":2003003026,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.27\",\"indexContent\":2003003027,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.28\",\"indexContent\":2003003028,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.29\",\"indexContent\":2003003029,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.30\",\"indexContent\":2003003030,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.31\",\"indexContent\":2003003031,\"pageID\":1430},{\"docID\":31300,\"osisID\":\"Luke.3.31\",\"indexContent\":2003003031,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.3.32\",\"indexContent\":2003003032,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.3.33\",\"indexContent\":2003003033,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.3.34\",\"indexContent\":2003003034,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.3.35\",\"indexContent\":2003003035,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.3.36\",\"indexContent\":2003003036,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.3.37\",\"indexContent\":2003003037,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.3.38\",\"indexContent\":2003003038,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.4\",\"indexContent\":2003004000,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.4.1\",\"indexContent\":2003004001,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.4.2\",\"indexContent\":2003004002,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.4.3\",\"indexContent\":2003004003,\"pageID\":1440},{\"docID\":31300,\"osisID\":\"Luke.9.33\",\"indexContent\":2003009033,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.9.34\",\"indexContent\":2003009034,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.9.35\",\"indexContent\":2003009035,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.9.36\",\"indexContent\":2003009036,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.9.37\",\"indexContent\":2003009037,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.9.38\",\"indexContent\":2003009038,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.9.39\",\"indexContent\":2003009039,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.9.40\",\"indexContent\":2003009040,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.9.41\",\"indexContent\":2003009041,\"pageID\":1770},{\"docID\":31300,\"osisID\":\"Luke.24.53\",\"indexContent\":2003024053,\"pageID\":2500},{\"docID\":31300,\"osisID\":\"John.1.25\",\"indexContent\":2004001025,\"pageID\":2510},{\"docID\":31300,\"osisID\":\"John.21.25\",\"indexContent\":2004021025,\"pageID\":3360}]}}}",
+  "body_sha256": "3be1cbb106b4f91c85030f8a17a8ce7bb71ee83ada45e5e62599fa8f17c533ac",
+  "retrieved_at": "2026-10-07T22:57:23+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

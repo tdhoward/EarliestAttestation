@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20288",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:20:45 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397245931",
+    "X-Request-Post-Validation-Epoch": "1791397245931",
+    "X-Request-Response-Epoch": "1791397245935",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "737",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20288,\"indexContent\":[\"Luke 5:33-34; Luke 5:36-37; Luke 5:39; Luke 6:1; Luke 6:3-4\",{\"docID\":20288,\"osisID\":\"Luke.5.33\",\"indexContent\":2003005033,\"pageID\":10},{\"docID\":20288,\"osisID\":\"Luke.5.34\",\"indexContent\":2003005034,\"pageID\":10},{\"docID\":20288,\"osisID\":\"Luke.5.36\",\"indexContent\":2003005036,\"pageID\":20},{\"docID\":20288,\"osisID\":\"Luke.5.37\",\"indexContent\":2003005037,\"pageID\":20},{\"docID\":20288,\"osisID\":\"Luke.5.39\",\"indexContent\":2003005039,\"pageID\":30},{\"docID\":20288,\"osisID\":\"Luke.6.1\",\"indexContent\":2003006001,\"pageID\":30},{\"docID\":20288,\"osisID\":\"Luke.6.3\",\"indexContent\":2003006003,\"pageID\":40},{\"docID\":20288,\"osisID\":\"Luke.6.4\",\"indexContent\":2003006004,\"pageID\":40}]}}}",
+  "body_sha256": "07b39f79119cb7534eca56bef53e9d3ad394d99519115645f8230aae7a43a441",
+  "retrieved_at": "2026-10-07T18:20:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

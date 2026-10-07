@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20299",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:22:36 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397356904",
+    "X-Request-Post-Validation-Epoch": "1791397356905",
+    "X-Request-Response-Epoch": "1791397356910",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2640",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20299,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":299,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"France\",\"instID\":67,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliothèque Nationale\",\"place\":\"Paris\",\"logoURL\":\"http://ntmss.info/instlogos/BNF.jpg\",\"url\":\"http://www.bnf.fr/fr/acc/x.accueil.html\"},\"leavesDescription\":1,\"shelfID\":346,\"originYearDescription\":\"X/XI(?)\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Copte 129,10, fol. 199v\",\"contentOverview\":\"J 20,1-7 (Copt. J 21:16-25)\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1099,\"early\":900,\"content\":\"X/XI(?)\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20299/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://egora.uni-muenster.de/intf/ \\\"><img src=\\\"http://www.uni-muenster.de/wwucd/images/allgemein/farbunabhaengig/wwu_logo.gif\\\"><div>Images ©<br/> The holding Institution - images digizited by INTF for research purposes </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20299/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/20299/20299x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20299/20299x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":346,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10,\"noIdx\":true},{\"biblicalContent\":\"John 20:1-7\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20299/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\" http://egora.uni-muenster.de/intf/ \\\"><img src=\\\"http://www.uni-muenster.de/wwucd/images/allgemein/farbunabhaengig/wwu_logo.gif\\\"><div>Images ©<br/> The holding Institution - images digizited by INTF for research purposes </div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20299/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/20299/20299x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20299/20299x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":346,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"John 20:1-7\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"}]},\"gaNum\":299,\"leaves\":{\"leavesCount\":1,\"content\":1},\"lang\":\"g\",\"contentOverview\":\"e: J\",\"lineCount\":{\"lineCountMin\":40,\"content\":40}}}}",
+  "body_sha256": "fe236e0236fc688c4b0df7d490d487d4739d42f04d531067bfcda0bbe9a8f3b1",
+  "retrieved_at": "2026-10-07T18:22:37+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

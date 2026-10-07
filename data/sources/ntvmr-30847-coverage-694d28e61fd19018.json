@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30847",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:25:45 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791408345973",
+    "X-Request-Post-Validation-Epoch": "1791408345974",
+    "X-Request-Response-Epoch": "1791408345987",
+    "X-Response-Time": "14ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "505",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30847,\"indexContent\":[\"Matt 1:1; Matt 28:20; Mark 1:1-2; Mark 16:9\",{\"docID\":30847,\"osisID\":\"Matt.1.1\",\"indexContent\":2001001001,\"pageID\":90},{\"docID\":30847,\"osisID\":\"Matt.28.20\",\"indexContent\":2001028020,\"pageID\":4430},{\"docID\":30847,\"osisID\":\"Mark.1.1\",\"indexContent\":2002001001,\"pageID\":4460},{\"docID\":30847,\"osisID\":\"Mark.1.2\",\"indexContent\":2002001002,\"pageID\":4460},{\"docID\":30847,\"osisID\":\"Mark.16.9\",\"indexContent\":2002016009,\"pageID\":5720}]}}}",
+  "body_sha256": "d7885a5487d9e52435d071045c84e2688a2a6c07bdcaef1f8eabed2bfee3eb3b",
+  "retrieved_at": "2026-10-07T21:25:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

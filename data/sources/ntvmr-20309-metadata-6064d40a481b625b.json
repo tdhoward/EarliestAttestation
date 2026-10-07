@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20309",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:24:22 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397462774",
+    "X-Request-Post-Validation-Epoch": "1791397462775",
+    "X-Request-Response-Epoch": "1791397462780",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2831",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20309,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":309,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":44,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Institut für Altertumskunde\",\"place\":\"Köln\",\"logoURL\":\"http://ntmss.info/instlogos/Koeln.jpg\",\"url\":\"http://www.uni-koeln.de/phil-fak/ifa/\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":356,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Inv. Nr. 806\",\"contentOverview\":\"J 20,22-24; 20,28-30\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"John 20:22-24\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20309/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/Karte/VIII_335.html\\\"><div>Images©<br/>Uni Köln</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20309/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK806ha.jpg\",\"webFriendlyURL\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK806ha.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":356,\"shelfFolioNums\":\"001r\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"John 20:22-24\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20309&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"m.pion\"},{\"biblicalContent\":\"John 20:28-30\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20309/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/Karte/VIII_335.html\\\"><div>Images©<br/>Uni Köln</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20309/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK806fl.jpg\",\"webFriendlyURL\":\"http://www.uni-koeln.de/phil-fak/ifa/NRWakademie/papyrologie/PKoeln/PK806fl.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":356,\"shelfFolioNums\":\"001v\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"John 20:28-30\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20309&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"m.pion\"}]},\"gaNum\":309,\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"lang\":\"g\",\"contentOverview\":\"e: J\",\"lineCount\":{\"lineCountMax\":27,\"lineCountMin\":6,\"content\":\"6 (27)\"}}}}",
+  "body_sha256": "50eabb6f34abf730cc73602f5a9b64d5fa714c8e452c57f08a5c2abd5d7532f2",
+  "retrieved_at": "2026-10-07T18:24:22+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

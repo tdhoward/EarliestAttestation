@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20324",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:27:03 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397623201",
+    "X-Request-Post-Validation-Epoch": "1791397623202",
+    "X-Request-Response-Epoch": "1791397623207",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2740",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20324,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":324,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":434,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Columbia University  Rare Book and Manuscript Library\",\"place\":\"New York, NY\",\"logoURL\":\"https://library.columbia.edu/content/dam/templates/libraryweb/banners/banner_rbml.png\",\"url\":\"https://library.columbia.edu/libraries/rbml.html\"},\"leavesDescription\":1,\"shelfID\":6047,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. 571 (P. Col. 11 293)\",\"contentOverview\":\"e:Mt\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Matt 6:4-6\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20324/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://papyri.info/dclp/65860\\\">CC BY-NC 3.0 Deed<br/> Digital Corpus of Literary Papyri</a>\",\"thumbURL\":\"\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6047,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Matt 6:4-6\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20324&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Matt 6:8-12\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20324/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://papyri.info/dclp/65860\\\">CC BY-NC 3.0 Deed<br/> Digital Corpus of Literary Papyri</a>\",\"thumbURL\":\"\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6047,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Matt 6:8-12\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20324&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":324,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":71},\"lang\":\"grc\",\"contentOverview\":\"e: Mt\",\"lineCount\":{\"lineCountMax\":14,\"lineCountMin\":13,\"content\":\"14, 13\"},\"height\":{\"heightMin\":62}}}}",
+  "body_sha256": "60eada51f41f168b87e847fabd3efbfabf659daf4ac8496612eb30e80f5988ef",
+  "retrieved_at": "2026-10-07T18:27:03+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20239",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:11:57 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396717621",
+    "X-Request-Post-Validation-Epoch": "1791396717622",
+    "X-Request-Response-Epoch": "1791396717627",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2796",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20239,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":239,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":236,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"British Library\",\"place\":\"London\",\"logoURL\":\"https://logowik.com/content/uploads/images/britishlibrary4164.logowik.com.webp\",\"url\":\"http://www.bl.uk/\"},\"leavesDescription\":\"Frg\",\"shelfID\":290,\"originYearDescription\":\"VII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Or. 4717 (16)\",\"contentOverview\":\"L 2,27-30.34 (griech.); 2,24-27 (kopt.)\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":799,\"early\":600,\"content\":\"VII-VIII\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Luke 2:24-27\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20239/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20239/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/20239/20239x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20239/20239x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":290,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Luke 2:24-27\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"gerloff\"},{\"biblicalContent\":\"Luke 2:27-30; Luke 2:34\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20239/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20239/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/full/20239/20239x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20239/20239x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":290,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Luke 2:27-30; Luke 2:34\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"gerloff\"}]},\"gaNum\":239,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"lang\":\"g-k\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMin\":26,\"content\":\"(26)\"}}}}",
+  "body_sha256": "4dc33247e6507253262832ddd21592c51ffbb6b3a68bd2b8d643dc1345410384",
+  "retrieved_at": "2026-10-07T18:11:57+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

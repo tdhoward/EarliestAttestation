@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20302",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:23:08 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397388520",
+    "X-Request-Post-Validation-Epoch": "1791397388520",
+    "X-Request-Response-Epoch": "1791397388525",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2580",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20302,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":302,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":28,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Staatliche Museen zu Berlin \",\"place\":\"Berlin\",\"logoURL\":\"https://www.smb.museum/_assets/039206741bf4587f2033bb29864a8b5a/img/logo.svg\",\"url\":\"https://www.smb.museum/home/\"},\"leavesDescription\":\"Frg\",\"shelfID\":349,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. 21315\",\"contentOverview\":\"J 10,29-30\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"John 10:29-30\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20302/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://berlpap.smb.museum/record/?result=0&Alle=P.+21315\\\"><img src=\\\"http://berlpap.smb.museum/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images©<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20302/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://ww2.smb.museum/berlpap/Original/P_21315_R.jpg\",\"webFriendlyURL\":\"http://ww2.smb.museum/berlpap/Original/P_21315_R.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":349,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"John 10:29-30\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"cat\"},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20302/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://berlpap.smb.museum/record/?result=0&Alle=P.+21315\\\"><img src=\\\"http://berlpap.smb.museum/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images©<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20302/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://ww2.smb.museum/berlpap/Original/P_21315_V.jpg\",\"webFriendlyURL\":\"http://ww2.smb.museum/berlpap/Original/P_21315_V.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":349,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"\",\"pageID\":20,\"noIdx\":true}]},\"gaNum\":302,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"width\":{\"widthMin\":37},\"lang\":\"g\",\"contentOverview\":\"e: J\",\"lineCount\":{\"lineCountMin\":5,\"content\":5},\"height\":{\"heightMin\":75}}}}",
+  "body_sha256": "0ad68a705e3fe24d4970659e1e8b49b4bb0a3f4b38d7dcb213cbd946b05a12b2",
+  "retrieved_at": "2026-10-07T18:23:08+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

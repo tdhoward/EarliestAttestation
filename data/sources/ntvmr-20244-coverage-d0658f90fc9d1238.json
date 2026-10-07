@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20244",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:12:55 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396775975",
+    "X-Request-Post-Validation-Epoch": "1791396775976",
+    "X-Request-Response-Epoch": "1791396775979",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "634",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20244,\"indexContent\":[\"Acts 11:29-30; Acts 12:1-5\",{\"docID\":20244,\"osisID\":\"Acts.11.29\",\"indexContent\":2005011029,\"pageID\":10},{\"docID\":20244,\"osisID\":\"Acts.11.30\",\"indexContent\":2005011030,\"pageID\":10},{\"docID\":20244,\"osisID\":\"Acts.12.1\",\"indexContent\":2005012001,\"pageID\":10},{\"docID\":20244,\"osisID\":\"Acts.12.2\",\"indexContent\":2005012002,\"pageID\":10},{\"docID\":20244,\"osisID\":\"Acts.12.3\",\"indexContent\":2005012003,\"pageID\":20},{\"docID\":20244,\"osisID\":\"Acts.12.4\",\"indexContent\":2005012004,\"pageID\":20},{\"docID\":20244,\"osisID\":\"Acts.12.5\",\"indexContent\":2005012005,\"pageID\":20}]}}}",
+  "body_sha256": "80aeb46ed6356485f9d3cfb628be701131ca736f20d960f038e3139f7fddcedb",
+  "retrieved_at": "2026-10-07T18:12:56+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

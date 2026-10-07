@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20265",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:16:39 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396999073",
+    "X-Request-Post-Validation-Epoch": "1791396999074",
+    "X-Request-Response-Epoch": "1791396999077",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "482",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20265,\"indexContent\":[\"Luke 7:20-21; Luke 7:33-35\",{\"docID\":20265,\"osisID\":\"Luke.7.20\",\"indexContent\":2003007020,\"pageID\":10},{\"docID\":20265,\"osisID\":\"Luke.7.21\",\"indexContent\":2003007021,\"pageID\":10},{\"docID\":20265,\"osisID\":\"Luke.7.33\",\"indexContent\":2003007033,\"pageID\":20},{\"docID\":20265,\"osisID\":\"Luke.7.34\",\"indexContent\":2003007034,\"pageID\":20},{\"docID\":20265,\"osisID\":\"Luke.7.35\",\"indexContent\":2003007035,\"pageID\":20}]}}}",
+  "body_sha256": "41830166441a02304045f67d3a170926d1118e2ac476388b282affcf120fb9d7",
+  "retrieved_at": "2026-10-07T18:16:39+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

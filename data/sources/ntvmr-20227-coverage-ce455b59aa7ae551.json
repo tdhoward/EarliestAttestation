@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20227",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:09:54 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396594636",
+    "X-Request-Post-Validation-Epoch": "1791396594637",
+    "X-Request-Response-Epoch": "1791396594640",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "329",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20227,\"indexContent\":[\"Heb 11:18-19; Heb 11:29\",{\"docID\":20227,\"osisID\":\"Heb.11.18\",\"indexContent\":2019011018,\"pageID\":10},{\"docID\":20227,\"osisID\":\"Heb.11.19\",\"indexContent\":2019011019,\"pageID\":10},{\"docID\":20227,\"osisID\":\"Heb.11.29\",\"indexContent\":2019011029,\"pageID\":20}]}}}",
+  "body_sha256": "5d610261c8e3403af3f8ace1f9c2b7cdae5ba4409e0b550397ced2f8f8c7f7f3",
+  "retrieved_at": "2026-10-07T18:09:54+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

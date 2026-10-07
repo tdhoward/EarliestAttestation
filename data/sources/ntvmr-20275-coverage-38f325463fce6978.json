@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20275",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:18:24 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397104740",
+    "X-Request-Post-Validation-Epoch": "1791397104741",
+    "X-Request-Response-Epoch": "1791397104745",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "407",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20275,\"indexContent\":[\"Matt 5:25-26; Matt 5:29-30\",{\"docID\":20275,\"osisID\":\"Matt.5.25\",\"indexContent\":2001005025,\"pageID\":10},{\"docID\":20275,\"osisID\":\"Matt.5.26\",\"indexContent\":2001005026,\"pageID\":10},{\"docID\":20275,\"osisID\":\"Matt.5.29\",\"indexContent\":2001005029,\"pageID\":10},{\"docID\":20275,\"osisID\":\"Matt.5.30\",\"indexContent\":2001005030,\"pageID\":10}]}}}",
+  "body_sha256": "39bcada36ae938125c736fffc54366fd8efa7d751138939bdcbe2d49a892795f",
+  "retrieved_at": "2026-10-07T18:18:24+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

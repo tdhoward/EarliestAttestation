@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20267",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:16:54 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397014920",
+    "X-Request-Post-Validation-Epoch": "1791397014921",
+    "X-Request-Response-Epoch": "1791397014925",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1885",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20267,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":267,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Spain\",\"instID\":358,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Abadia de Montserrat\",\"place\":\"Montserrat\",\"logoURL\":\"\",\"url\":\"http://www.abadiamontserrat.net/(S(zfrreq55asgfcn45rsrzlvuf))/Cultura/angles/scriptorium.aspx?newsid=2\"},\"leavesDescription\":\"Frg\",\"shelfID\":317,\"originYearDescription\":\"V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Monts.Roca inv. 16\",\"contentOverview\":\"L 8,25-27\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"Luke 8:25-27\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20267/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photos Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20267/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":317,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Luke 8:25-27\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"gerloff\"}},\"gaNum\":267,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"width\":{\"widthMin\":95},\"lang\":\"g\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMin\":10,\"content\":10},\"height\":{\"heightMin\":74}}}}",
+  "body_sha256": "74b3ca15b2b01b35e8d29d880f2028cf2f6dc30c6e0ac2aaa080562b82db75a6",
+  "retrieved_at": "2026-10-07T18:16:55+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30967",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:50:04 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791409804001",
+    "X-Request-Post-Validation-Epoch": "1791409804002",
+    "X-Request-Response-Epoch": "1791409804009",
+    "X-Response-Time": "8ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1612",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30967,\"indexContent\":[\"Luke 7:6; Luke 9:35-41; Luke 24:53; John 1:1; John 7:51-53; John 8:1-5; John 11:16\",{\"docID\":30967,\"osisID\":\"Luke.7.6\",\"indexContent\":2003007006,\"pageID\":20},{\"docID\":30967,\"osisID\":\"Luke.9.35\",\"indexContent\":2003009035,\"pageID\":270},{\"docID\":30967,\"osisID\":\"Luke.9.36\",\"indexContent\":2003009036,\"pageID\":270},{\"docID\":30967,\"osisID\":\"Luke.9.37\",\"indexContent\":2003009037,\"pageID\":270},{\"docID\":30967,\"osisID\":\"Luke.9.38\",\"indexContent\":2003009038,\"pageID\":270},{\"docID\":30967,\"osisID\":\"Luke.9.39\",\"indexContent\":2003009039,\"pageID\":270},{\"docID\":30967,\"osisID\":\"Luke.9.40\",\"indexContent\":2003009040,\"pageID\":270},{\"docID\":30967,\"osisID\":\"Luke.9.41\",\"indexContent\":2003009041,\"pageID\":270},{\"docID\":30967,\"osisID\":\"Luke.24.53\",\"indexContent\":2003024053,\"pageID\":1380},{\"docID\":30967,\"osisID\":\"John.1.1\",\"indexContent\":2004001001,\"pageID\":1400},{\"docID\":30967,\"osisID\":\"John.7.51\",\"indexContent\":2004007051,\"pageID\":1900},{\"docID\":30967,\"osisID\":\"John.7.52\",\"indexContent\":2004007052,\"pageID\":1900},{\"docID\":30967,\"osisID\":\"John.7.53\",\"indexContent\":2004007053,\"pageID\":1900},{\"docID\":30967,\"osisID\":\"John.8.1\",\"indexContent\":2004008001,\"pageID\":1900},{\"docID\":30967,\"osisID\":\"John.8.2\",\"indexContent\":2004008002,\"pageID\":1900},{\"docID\":30967,\"osisID\":\"John.8.3\",\"indexContent\":2004008003,\"pageID\":1900},{\"docID\":30967,\"osisID\":\"John.8.4\",\"indexContent\":2004008004,\"pageID\":1900},{\"docID\":30967,\"osisID\":\"John.8.5\",\"indexContent\":2004008005,\"pageID\":1900},{\"docID\":30967,\"osisID\":\"John.11.16\",\"indexContent\":2004011016,\"pageID\":2150}]}}}",
+  "body_sha256": "0071c877cd22961f4a6cb841f48bb556383e1a0ed581f616bcc41c8e1533fe86",
+  "retrieved_at": "2026-10-07T21:50:04+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

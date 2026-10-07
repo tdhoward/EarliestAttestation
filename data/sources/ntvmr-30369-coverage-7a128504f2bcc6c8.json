@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30369",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 19:46:55 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791402415687",
+    "X-Request-Post-Validation-Epoch": "1791402415688",
+    "X-Request-Response-Epoch": "1791402415692",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "843",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30369,\"indexContent\":[\"Mark 6:25-34\",{\"docID\":30369,\"osisID\":\"Mark.6.25\",\"indexContent\":2002006025,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.26\",\"indexContent\":2002006026,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.27\",\"indexContent\":2002006027,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.28\",\"indexContent\":2002006028,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.29\",\"indexContent\":2002006029,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.30\",\"indexContent\":2002006030,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.31\",\"indexContent\":2002006031,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.32\",\"indexContent\":2002006032,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.33\",\"indexContent\":2002006033,\"pageID\":30},{\"docID\":30369,\"osisID\":\"Mark.6.34\",\"indexContent\":2002006034,\"pageID\":30}]}}}",
+  "body_sha256": "4e947befa08d62d27c7a531788a5afcb160dc9ccb44a3069e938db14d2f15777",
+  "retrieved_at": "2026-10-07T19:46:55+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

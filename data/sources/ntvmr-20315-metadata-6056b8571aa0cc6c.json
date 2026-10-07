@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20315",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:25:26 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397526066",
+    "X-Request-Post-Validation-Epoch": "1791397526067",
+    "X-Request-Response-Epoch": "1791397526072",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1839",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20315,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":315,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":482,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"De Hamel Collection\",\"place\":\"Cambridge\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":362,\"originYearDescription\":\"V/VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"de Hamel MS 387\",\"contentOverview\":\"Mc 2,19.21.25; 3,2\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":300,\"content\":\"IV-V\"},\"leavesDescription\":\"2 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Mark 2:25; Mark 3:1-2\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20315/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_0315\\\"><div>See External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42482/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":362,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Mark 2:25; Mark 3:1-2\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"jeffreymiller\"},{\"biblicalContent\":\"Mark 2:19; Mark 2:21\",\"shelfID\":362,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Mark 2:19; Mark 2:21\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"jeffreymiller\"}]},\"gaNum\":315,\"leaves\":{\"leavesCount\":1,\"content\":\"2 Frg\"},\"lang\":\"g\",\"contentOverview\":\"e: Mc\",\"lineCount\":{\"lineCountMin\":32,\"content\":6}}}}",
+  "body_sha256": "3fe8d925da5a9a069c5bb45bf0194776aac5d956d83c5d2f155d7dab2e97b9ef",
+  "retrieved_at": "2026-10-07T18:25:26+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

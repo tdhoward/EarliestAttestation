@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30885",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:33:27 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791408807283",
+    "X-Request-Post-Validation-Epoch": "1791408807284",
+    "X-Request-Response-Epoch": "1791408807303",
+    "X-Response-Time": "20ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1360",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30885,\"indexContent\":[\"Matt 1:1-3; Matt 19:1-9; Mark 1:1; Mark 1:5; John 11:9-10\",{\"docID\":30885,\"osisID\":\"Matt.1.1\",\"indexContent\":2001001001,\"pageID\":30},{\"docID\":30885,\"osisID\":\"Matt.1.2\",\"indexContent\":2001001002,\"pageID\":30},{\"docID\":30885,\"osisID\":\"Matt.1.3\",\"indexContent\":2001001003,\"pageID\":30},{\"docID\":30885,\"osisID\":\"Matt.19.1\",\"indexContent\":2001019001,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Matt.19.2\",\"indexContent\":2001019002,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Matt.19.3\",\"indexContent\":2001019003,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Matt.19.4\",\"indexContent\":2001019004,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Matt.19.5\",\"indexContent\":2001019005,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Matt.19.6\",\"indexContent\":2001019006,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Matt.19.7\",\"indexContent\":2001019007,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Matt.19.8\",\"indexContent\":2001019008,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Matt.19.9\",\"indexContent\":2001019009,\"pageID\":1660},{\"docID\":30885,\"osisID\":\"Mark.1.1\",\"indexContent\":2002001001,\"pageID\":2970},{\"docID\":30885,\"osisID\":\"Mark.1.5\",\"indexContent\":2002001005,\"pageID\":2970},{\"docID\":30885,\"osisID\":\"John.11.9\",\"indexContent\":2004011009,\"pageID\":8420},{\"docID\":30885,\"osisID\":\"John.11.10\",\"indexContent\":2004011010,\"pageID\":8420}]}}}",
+  "body_sha256": "4e4f5e108939ec4b71ba6b4036010dadee02dc990d349f621aad63978e9e7027",
+  "retrieved_at": "2026-10-07T21:33:27+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30311",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 19:34:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791401691597",
+    "X-Request-Post-Validation-Epoch": "1791401691598",
+    "X-Request-Response-Epoch": "1791401691617",
+    "X-Response-Time": "20ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "674",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30311,\"indexContent\":[\"Matt 12:43-44; Matt 13:19; Matt 19:7; Matt 19:10\",{\"docID\":30311,\"osisID\":\"Matt.12.43\",\"indexContent\":2001012043,\"pageID\":1710},{\"docID\":30311,\"osisID\":\"Matt.12.44\",\"indexContent\":2001012044,\"pageID\":1710},{\"docID\":30311,\"osisID\":\"Matt.12.43\",\"indexContent\":2001012043,\"pageID\":2570},{\"docID\":30311,\"osisID\":\"Matt.12.44\",\"indexContent\":2001012044,\"pageID\":2570},{\"docID\":30311,\"osisID\":\"Matt.13.19\",\"indexContent\":2001013019,\"pageID\":2570},{\"docID\":30311,\"osisID\":\"Matt.19.7\",\"indexContent\":2001019007,\"pageID\":4340},{\"docID\":30311,\"osisID\":\"Matt.19.10\",\"indexContent\":2001019010,\"pageID\":4350}]}}}",
+  "body_sha256": "4ffe2cc3522913504ce37aac06941730f102931fdb70f7fc554908ff8fa92fa6",
+  "retrieved_at": "2026-10-07T19:34:51+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

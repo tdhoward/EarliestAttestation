@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20262",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:16:07 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396967485",
+    "X-Request-Post-Validation-Epoch": "1791396967485",
+    "X-Request-Response-Epoch": "1791396967488",
+    "X-Response-Time": "3ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "243",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20262,\"indexContent\":[\"1Tim 1:15-16\",{\"docID\":20262,\"osisID\":\"1Tim.1.15\",\"indexContent\":2015001015,\"pageID\":10},{\"docID\":20262,\"osisID\":\"1Tim.1.16\",\"indexContent\":2015001016,\"pageID\":10}]}}}",
+  "body_sha256": "8580eadcc7bd3761a025e98676dd7eb439bfce6e5454b65a890a1cf824c3f7f8",
+  "retrieved_at": "2026-10-07T18:16:07+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

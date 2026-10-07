@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30685",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 20:52:32 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791406352936",
+    "X-Request-Post-Validation-Epoch": "1791406352937",
+    "X-Request-Response-Epoch": "1791406352947",
+    "X-Response-Time": "11ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3160",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30685,\"indexContent\":[\"Matt 1:1-25; Matt 2:1-13\",{\"docID\":30685,\"osisID\":\"Matt.1.1\",\"indexContent\":2001001001,\"pageID\":10},{\"docID\":30685,\"osisID\":\"Matt.1.2\",\"indexContent\":2001001002,\"pageID\":10},{\"docID\":30685,\"osisID\":\"Matt.1.3\",\"indexContent\":2001001003,\"pageID\":10},{\"docID\":30685,\"osisID\":\"Matt.1.4\",\"indexContent\":2001001004,\"pageID\":10},{\"docID\":30685,\"osisID\":\"Matt.1.5\",\"indexContent\":2001001005,\"pageID\":10},{\"docID\":30685,\"osisID\":\"Matt.1.6\",\"indexContent\":2001001006,\"pageID\":10},{\"docID\":30685,\"osisID\":\"Matt.1.7\",\"indexContent\":2001001007,\"pageID\":10},{\"docID\":30685,\"osisID\":\"Matt.1.7\",\"indexContent\":2001001007,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.8\",\"indexContent\":2001001008,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.9\",\"indexContent\":2001001009,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.10\",\"indexContent\":2001001010,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.11\",\"indexContent\":2001001011,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.12\",\"indexContent\":2001001012,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.13\",\"indexContent\":2001001013,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.14\",\"indexContent\":2001001014,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.15\",\"indexContent\":2001001015,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.16\",\"indexContent\":2001001016,\"pageID\":20},{\"docID\":30685,\"osisID\":\"Matt.1.16\",\"indexContent\":2001001016,\"pageID\":30},{\"docID\":30685,\"osisID\":\"Matt.1.17\",\"indexContent\":2001001017,\"pageID\":30},{\"docID\":30685,\"osisID\":\"Matt.1.18\",\"indexContent\":2001001018,\"pageID\":30},{\"docID\":30685,\"osisID\":\"Matt.1.19\",\"indexContent\":2001001019,\"pageID\":30},{\"docID\":30685,\"osisID\":\"Matt.1.20\",\"indexContent\":2001001020,\"pageID\":30},{\"docID\":30685,\"osisID\":\"Matt.1.21\",\"indexContent\":2001001021,\"pageID\":30},{\"docID\":30685,\"osisID\":\"Matt.1.22\",\"indexContent\":2001001022,\"pageID\":30},{\"docID\":30685,\"osisID\":\"Matt.1.23\",\"indexContent\":2001001023,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.1.24\",\"indexContent\":2001001024,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.1.25\",\"indexContent\":2001001025,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.2.1\",\"indexContent\":2001002001,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.2.2\",\"indexContent\":2001002002,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.2.3\",\"indexContent\":2001002003,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.2.4\",\"indexContent\":2001002004,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.2.5\",\"indexContent\":2001002005,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.2.6\",\"indexContent\":2001002006,\"pageID\":40},{\"docID\":30685,\"osisID\":\"Matt.2.6\",\"indexContent\":2001002006,\"pageID\":50},{\"docID\":30685,\"osisID\":\"Matt.2.7\",\"indexContent\":2001002007,\"pageID\":50},{\"docID\":30685,\"osisID\":\"Matt.2.8\",\"indexContent\":2001002008,\"pageID\":50},{\"docID\":30685,\"osisID\":\"Matt.2.9\",\"indexContent\":2001002009,\"pageID\":50},{\"docID\":30685,\"osisID\":\"Matt.2.10\",\"indexContent\":2001002010,\"pageID\":50},{\"docID\":30685,\"osisID\":\"Matt.2.11\",\"indexContent\":2001002011,\"pageID\":50},{\"docID\":30685,\"osisID\":\"Matt.2.12\",\"indexContent\":2001002012,\"pageID\":50},{\"docID\":30685,\"osisID\":\"Matt.2.13\",\"indexContent\":2001002013,\"pageID\":50}]}}}",
+  "body_sha256": "89318ff4a7e7e13c5ce5c3b88e366754c356bca68e8a763d257af4d46ac6dd54",
+  "retrieved_at": "2026-10-07T20:52:33+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20315",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:25:31 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397531357",
+    "X-Request-Post-Validation-Epoch": "1791397531358",
+    "X-Request-Response-Epoch": "1791397531361",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "497",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20315,\"indexContent\":[\"Mark 2:25; Mark 3:1-2; Mark 2:19; Mark 2:21\",{\"docID\":20315,\"osisID\":\"Mark.2.25\",\"indexContent\":2002002025,\"pageID\":10},{\"docID\":20315,\"osisID\":\"Mark.3.1\",\"indexContent\":2002003001,\"pageID\":10},{\"docID\":20315,\"osisID\":\"Mark.3.2\",\"indexContent\":2002003002,\"pageID\":10},{\"docID\":20315,\"osisID\":\"Mark.2.19\",\"indexContent\":2002002019,\"pageID\":20},{\"docID\":20315,\"osisID\":\"Mark.2.21\",\"indexContent\":2002002021,\"pageID\":20}]}}}",
+  "body_sha256": "3a119e70b4b33d5fd065f0df628fbd6b03e6fa73621f33dff0484ad4b7d20987",
+  "retrieved_at": "2026-10-07T18:25:31+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

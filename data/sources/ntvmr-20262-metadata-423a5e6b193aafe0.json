@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20262",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:16:02 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396962204",
+    "X-Request-Post-Validation-Epoch": "1791396962204",
+    "X-Request-Response-Epoch": "1791396962209",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1779",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20262,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":262,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":28,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Staatliche Museen zu Berlin \",\"place\":\"Berlin\",\"logoURL\":\"https://www.smb.museum/_assets/039206741bf4587f2033bb29864a8b5a/img/logo.svg\",\"url\":\"https://www.smb.museum/home/\"},\"leavesDescription\":1,\"shelfID\":312,\"originYearDescription\":\"VII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. 13977\",\"contentOverview\":\"1T 1,15-16\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":699,\"early\":600,\"content\":\"VII\"},\"leavesDescription\":1,\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"1Tim 1:15-16\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20262/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://berlpap.smb.museum/record/?result=0&Alle=P.+13977\\\"><img src=\\\"http://berlpap.smb.museum/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images©<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20262/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://smb.museum/berlpap/Original/P_13977_R_4.jpg\",\"webFriendlyURL\":\"http://smb.museum/berlpap/Original/P_13977_R_4.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":312,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"1Tim 1:15-16\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"drubschmid\"}},\"gaNum\":262,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":130},\"lang\":\"g\",\"contentOverview\":\"p: 1T\",\"lineCount\":{\"lineCountMin\":6,\"content\":\"(6)\"},\"height\":{\"heightMin\":95}}}}",
+  "body_sha256": "506edcff88bc2e43973248dc3e1316ad81bc41682e2407c591b683d78678b77c",
+  "retrieved_at": "2026-10-07T18:16:02+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

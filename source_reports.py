@@ -57,6 +57,11 @@ def timestamp(value):
 
 def capture(path, doc_id, stage):
     record = json.loads(path.read_text(encoding="utf-8"))
+    return parse_capture(record, doc_id, stage, capture_path=path.as_posix())
+
+
+def parse_capture(record, doc_id, stage, *, capture_path):
+    """Validate a retained capture, whether standalone or embedded in discovery evidence."""
     endpoint = "metadata/manuscript/get" if stage == "metadata" else "biblicalcontent/get"
     params = {"docID": str(doc_id), "detail": "10" if stage == "metadata" else "long",
               "format": "json"}
@@ -71,7 +76,7 @@ def capture(path, doc_id, stage):
     result = {"endpoint": endpoint, "url": record["source_url"], "params": params,
               "body": body, "body_sha256": record["body_sha256"],
               "retrieved_at": timestamp(required_text(record, "retrieved_at")),
-              "provider": PROVIDER, "capture_path": path.as_posix(),
+              "provider": PROVIDER, "capture_path": capture_path,
               "citation": API_BASE + "/" + endpoint + "/?" + urlencode(params)}
     if record.get("transport_qualification"):
         result["transport_qualification"] = record["transport_qualification"]
@@ -92,6 +97,50 @@ def date_bounds(record):
     if type(low) is not int or type(high) is not int or not 0 < low <= high:
         raise ValueError("A reported date needs a complete positive interval or null bounds")
     return "valid"
+
+
+def metadata_date_claim(document, snapshot, payload, metadata):
+    doc_id = document["doc_id"]
+    return {"witness_id": document.get("witness_id", f"ntvmr:{doc_id}"),
+            "status": metadata["date_status"],
+            "date_min": metadata["date_min"], "date_max": metadata["date_max"],
+            "original_notation": metadata["origin_notation"],
+            "applicability": "catalogue_document", "doc_id": doc_id,
+            **provenance(snapshot, "data.manuscript.originYear",
+                         payload["data"]["manuscript"].get("originYear"),
+                         "Catalogue document estimate; no independently assigned portions.")}
+
+
+def additional_date_claims(report, witnesses):
+    """Validate explicit published date reports for both collection and normalization."""
+    body = required_text(report, "raw_body")
+    snapshot = {"provider": required_text(report, "provider"), "citation": required_text(report, "citation"),
+                "retrieved_at": timestamp(required_text(report, "retrieved_at")), "body_sha256": digest(body)}
+    dates = []
+    for claim in report.get("dates", []):
+        if set(claim) - {"witness_id", "date_min", "date_max", "original_notation", "source_locator", "statement", "qualifications"}:
+            raise ValueError("This bounded contract supports whole-witness date reports only")
+        if claim["witness_id"] not in witnesses:
+            raise ValueError("Additional claims must identify a witness in the declared scope")
+        if required_text(claim, "statement") not in body:
+            raise ValueError("The exact reported statement must be retained in the source snapshot")
+        required_text(claim, "source_locator")
+        required_text(claim, "original_notation")
+        dates.append({**claim, "status": date_bounds(claim), "applicability": "catalogue_document",
+                      **provenance(snapshot, claim["source_locator"], claim["statement"], claim.get("qualifications", ""))})
+    return dates
+
+
+def discovery_date_overrides(record, documents):
+    """Retained metadata can qualify collection even when it is not the primary report."""
+    known = {d["doc_id"]: d for d in documents}
+    dates = []
+    for item in record.get("date_filter_metadata_captures", []):
+        doc = item["doc_id"]
+        snap, payload, metadata = parse_capture(item["capture"], doc, "metadata", capture_path=item["capture_file"])
+        dates.append({**metadata_date_claim(known.get(doc, {"doc_id": doc}), snap, payload, metadata),
+                      "capture_file": item["capture_file"]})
+    return dates
 
 
 def prepare_batch(manifest, root):
@@ -139,14 +188,7 @@ def prepare_batch(manifest, root):
             # GA catalogue membership must be declared from the source scope, not a name guess.
             if document.get("corpus") != "greek_nt_manuscript":
                 raise ValueError("Declare the Greek NT manuscript catalogue scope")
-            dates.append({"witness_id": witness, "snapshot": len(snapshots)-1,
-                          "status": metadata["date_status"],
-                          "date_min": metadata["date_min"], "date_max": metadata["date_max"],
-                          "original_notation": metadata["origin_notation"],
-                          "applicability": "catalogue_document", "doc_id": doc_id,
-                          **provenance(snap, "data.manuscript.originYear",
-                                       payload["data"]["manuscript"].get("originYear"),
-                                       "Catalogue document estimate; no independently assigned portions.")})
+            dates.append({**metadata_date_claim(document, snap, payload, metadata), "snapshot": len(snapshots)-1})
         if document.get("coverage_fixture"):
             if metadata is None:
                 raise ValueError("A contents capture needs metadata establishing the scoped witness")
@@ -205,14 +247,7 @@ def prepare_batch(manifest, root):
             coverage.append({**claim, "snapshot": len(snapshots)-1,
                              **provenance(snap, claim["source_locator"], claim["statement"],
                                           claim.get("qualifications", ""))})
-        for claim in report.get("dates", []):
-            if set(claim) - {"witness_id", "date_min", "date_max", "original_notation", "source_locator", "statement", "qualifications"}:
-                raise ValueError("This bounded contract supports whole-witness date reports only")
-            required_text(claim, "original_notation")
-            dates.append({**claim, "status": date_bounds(claim), "snapshot": len(snapshots)-1,
-                          "applicability": "catalogue_document",
-                          **provenance(snap, claim["source_locator"], claim["statement"],
-                                       claim.get("qualifications", ""))})
+        dates.extend({**claim, "snapshot": len(snapshots)-1} for claim in additional_date_claims(report, witnesses))
     return inventory, snapshots, coverage, dates, documents
 
 
@@ -221,14 +256,14 @@ def import_batch(con, manifest, root=Path(".")):
     discovery = None
     discoveries = []
     for record in manifest.get("discovery_records", []):
-        summary, search_snapshots = prepare_discovery(record, documents)
+        summary, search_snapshots = prepare_discovery(record, documents, dates + discovery_date_overrides(record, documents))
         if any(item["scope_id"] == summary["scope_id"] for item in discoveries):
             raise ValueError("Duplicate discovery scope")
         discoveries.append(summary)
         snapshots.extend(search_snapshots)
     if manifest.get("discovery_fixture"):
         record = json.loads((root / manifest["discovery_fixture"]).read_text(encoding="utf-8"))
-        discovery, search_snapshots = prepare_discovery(record, documents)
+        discovery, search_snapshots = prepare_discovery(record, documents, dates + discovery_date_overrides(record, documents))
         snapshots.extend(search_snapshots)
     con.executescript(SCHEMA)
     batch_id = manifest["batch_id"]

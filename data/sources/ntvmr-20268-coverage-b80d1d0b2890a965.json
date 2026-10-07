@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20268",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:17:10 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397030756",
+    "X-Request-Post-Validation-Epoch": "1791397030757",
+    "X-Request-Response-Epoch": "1791397030760",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "393",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20268,\"indexContent\":[\"John 1:30-33\",{\"docID\":20268,\"osisID\":\"John.1.30\",\"indexContent\":2004001030,\"pageID\":10},{\"docID\":20268,\"osisID\":\"John.1.31\",\"indexContent\":2004001031,\"pageID\":10},{\"docID\":20268,\"osisID\":\"John.1.32\",\"indexContent\":2004001032,\"pageID\":20},{\"docID\":20268,\"osisID\":\"John.1.33\",\"indexContent\":2004001033,\"pageID\":20}]}}}",
+  "body_sha256": "81174da9bfad40f68b569b90ab7cb2a934ddd6b1e5db8c58f568f749bf4c92f2",
+  "retrieved_at": "2026-10-07T18:17:10+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

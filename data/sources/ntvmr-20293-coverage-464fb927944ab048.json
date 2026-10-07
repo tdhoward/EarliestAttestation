@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20293",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:21:38 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397298848",
+    "X-Request-Post-Validation-Epoch": "1791397298849",
+    "X-Request-Response-Epoch": "1791397298853",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1445",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20293,\"indexContent\":[\"Matt 21:27-28; Matt 21:31-32; Matt 26:7-9; Matt 26:4-7; Matt 26:2-4; Matt 26:10-12\",{\"docID\":20293,\"osisID\":\"Matt.21.27\",\"indexContent\":2001021027,\"pageID\":10},{\"docID\":20293,\"osisID\":\"Matt.21.28\",\"indexContent\":2001021028,\"pageID\":10},{\"docID\":20293,\"osisID\":\"Matt.21.31\",\"indexContent\":2001021031,\"pageID\":20},{\"docID\":20293,\"osisID\":\"Matt.21.32\",\"indexContent\":2001021032,\"pageID\":20},{\"docID\":20293,\"osisID\":\"Matt.26.7\",\"indexContent\":2001026007,\"pageID\":30},{\"docID\":20293,\"osisID\":\"Matt.26.8\",\"indexContent\":2001026008,\"pageID\":30},{\"docID\":20293,\"osisID\":\"Matt.26.9\",\"indexContent\":2001026009,\"pageID\":30},{\"docID\":20293,\"osisID\":\"Matt.26.4\",\"indexContent\":2001026004,\"pageID\":40},{\"docID\":20293,\"osisID\":\"Matt.26.5\",\"indexContent\":2001026005,\"pageID\":40},{\"docID\":20293,\"osisID\":\"Matt.26.6\",\"indexContent\":2001026006,\"pageID\":40},{\"docID\":20293,\"osisID\":\"Matt.26.7\",\"indexContent\":2001026007,\"pageID\":40},{\"docID\":20293,\"osisID\":\"Matt.26.2\",\"indexContent\":2001026002,\"pageID\":50},{\"docID\":20293,\"osisID\":\"Matt.26.3\",\"indexContent\":2001026003,\"pageID\":50},{\"docID\":20293,\"osisID\":\"Matt.26.4\",\"indexContent\":2001026004,\"pageID\":50},{\"docID\":20293,\"osisID\":\"Matt.26.10\",\"indexContent\":2001026010,\"pageID\":60},{\"docID\":20293,\"osisID\":\"Matt.26.11\",\"indexContent\":2001026011,\"pageID\":60},{\"docID\":20293,\"osisID\":\"Matt.26.12\",\"indexContent\":2001026012,\"pageID\":60}]}}}",
+  "body_sha256": "0cca0473fb1dc8028decf5a8ea5fd0254b46ec66e6b87fa9fab16c7376cb42e3",
+  "retrieved_at": "2026-10-07T18:21:38+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

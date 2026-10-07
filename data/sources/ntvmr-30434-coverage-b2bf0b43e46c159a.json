@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30434",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 20:00:32 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791403232954",
+    "X-Request-Post-Validation-Epoch": "1791403232955",
+    "X-Request-Response-Epoch": "1791403232974",
+    "X-Response-Time": "20ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1042",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30434,\"indexContent\":[\"Luke 3:23-29; Luke 6:17-19; Luke 6:21\",{\"docID\":30434,\"osisID\":\"Luke.3.23\",\"indexContent\":2003003023,\"pageID\":5080},{\"docID\":30434,\"osisID\":\"Luke.3.24\",\"indexContent\":2003003024,\"pageID\":5080},{\"docID\":30434,\"osisID\":\"Luke.3.25\",\"indexContent\":2003003025,\"pageID\":5080},{\"docID\":30434,\"osisID\":\"Luke.3.26\",\"indexContent\":2003003026,\"pageID\":5080},{\"docID\":30434,\"osisID\":\"Luke.3.27\",\"indexContent\":2003003027,\"pageID\":5080},{\"docID\":30434,\"osisID\":\"Luke.3.28\",\"indexContent\":2003003028,\"pageID\":5080},{\"docID\":30434,\"osisID\":\"Luke.3.29\",\"indexContent\":2003003029,\"pageID\":5080},{\"docID\":30434,\"osisID\":\"Luke.6.17\",\"indexContent\":2003006017,\"pageID\":8140},{\"docID\":30434,\"osisID\":\"Luke.6.17\",\"indexContent\":2003006017,\"pageID\":8150},{\"docID\":30434,\"osisID\":\"Luke.6.18\",\"indexContent\":2003006018,\"pageID\":8150},{\"docID\":30434,\"osisID\":\"Luke.6.19\",\"indexContent\":2003006019,\"pageID\":8150},{\"docID\":30434,\"osisID\":\"Luke.6.21\",\"indexContent\":2003006021,\"pageID\":8470}]}}}",
+  "body_sha256": "9a68da9f153bd5c9cc080046c7397e1f7761ea0c35f968f46334a7c9da54afdf",
+  "retrieved_at": "2026-10-07T20:00:33+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

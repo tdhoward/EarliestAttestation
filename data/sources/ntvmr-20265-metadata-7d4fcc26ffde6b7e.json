@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20265",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:16:33 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396993821",
+    "X-Request-Post-Validation-Epoch": "1791396993822",
+    "X-Request-Response-Epoch": "1791396993827",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3259",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20265,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":265,\"shelfInstances\":{\"shelfInstance\":[{\"institution\":{\"country\":\"Germany\",\"instID\":28,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Staatliche Museen zu Berlin \",\"place\":\"Berlin\",\"logoURL\":\"https://www.smb.museum/_assets/039206741bf4587f2033bb29864a8b5a/img/logo.svg\",\"url\":\"https://www.smb.museum/home/\"},\"leavesDescription\":\"Frg\",\"shelfID\":315,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. 16994\",\"contentOverview\":\"L 7,20-21.33-35\"},{\"institution\":{\"country\":\"Germany\",\"instID\":28,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Staatliche Museen zu Berlin \",\"place\":\"Berlin\",\"logoURL\":\"https://www.smb.museum/_assets/039206741bf4587f2033bb29864a8b5a/img/logo.svg\",\"url\":\"https://www.smb.museum/home/\"},\"leavesDescription\":\"Frg\",\"shelfID\":6913,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. 21290\",\"contentOverview\":\"L 7,20-21.33-35\"}]},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"Luke 7:20-21\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20265/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://berlpap.smb.museum/record/?result=0&Alle=P.+16994\\\"><img src=\\\"http://berlpap.smb.museum/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images©<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20265/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://smb.museum/berlpap/Original/P_21290_V.jpg\",\"webFriendlyURL\":\"http://smb.museum/berlpap/Original/P_21290_V.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":315,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Luke 7:20-21\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"BG\"},{\"biblicalContent\":\"Luke 7:33-35\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20265/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://berlpap.smb.museum/record/?result=0&Alle=P.+16994\\\"><img src=\\\"http://berlpap.smb.museum/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images©<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20265/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://smb.museum/berlpap/Original/P_21290_R.jpg\",\"webFriendlyURL\":\"http://smb.museum/berlpap/Original/P_21290_R.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":315,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Luke 7:33-35\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"BG\"},{\"biblicalContent\":\"\",\"shelfID\":6913,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":6913,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40}]},\"gaNum\":265,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"lang\":\"g\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMin\":10}}}}",
+  "body_sha256": "55d2c09358978b3a73ea6dd85a4ae74ef12cf7f20b852ca4464f61cf14a3fea8",
+  "retrieved_at": "2026-10-07T18:16:33+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

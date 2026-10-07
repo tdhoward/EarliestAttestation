@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "31231",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 22:43:35 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791413015730",
+    "X-Request-Post-Validation-Epoch": "1791413015731",
+    "X-Request-Response-Epoch": "1791413015737",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2377",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":31231,\"indexContent\":[\"Mark 1:34-35; Mark 1:41-44; Mark 2:14-15; Mark 5:1-3; Mark 8:1-6; Mark 9:40-42; Mark 9:44-50\",{\"docID\":31231,\"osisID\":\"Mark.1.34\",\"indexContent\":2002001034,\"pageID\":30},{\"docID\":31231,\"osisID\":\"Mark.1.35\",\"indexContent\":2002001035,\"pageID\":30},{\"docID\":31231,\"osisID\":\"Mark.1.41\",\"indexContent\":2002001041,\"pageID\":60},{\"docID\":31231,\"osisID\":\"Mark.1.42\",\"indexContent\":2002001042,\"pageID\":60},{\"docID\":31231,\"osisID\":\"Mark.1.43\",\"indexContent\":2002001043,\"pageID\":60},{\"docID\":31231,\"osisID\":\"Mark.1.44\",\"indexContent\":2002001044,\"pageID\":60},{\"docID\":31231,\"osisID\":\"Mark.2.14\",\"indexContent\":2002002014,\"pageID\":70},{\"docID\":31231,\"osisID\":\"Mark.2.15\",\"indexContent\":2002002015,\"pageID\":70},{\"docID\":31231,\"osisID\":\"Mark.5.1\",\"indexContent\":2002005001,\"pageID\":510},{\"docID\":31231,\"osisID\":\"Mark.5.2\",\"indexContent\":2002005002,\"pageID\":510},{\"docID\":31231,\"osisID\":\"Mark.5.3\",\"indexContent\":2002005003,\"pageID\":510},{\"docID\":31231,\"osisID\":\"Mark.8.1\",\"indexContent\":2002008001,\"pageID\":1180},{\"docID\":31231,\"osisID\":\"Mark.8.2\",\"indexContent\":2002008002,\"pageID\":1180},{\"docID\":31231,\"osisID\":\"Mark.8.3\",\"indexContent\":2002008003,\"pageID\":1180},{\"docID\":31231,\"osisID\":\"Mark.8.3\",\"indexContent\":2002008003,\"pageID\":1190},{\"docID\":31231,\"osisID\":\"Mark.8.4\",\"indexContent\":2002008004,\"pageID\":1190},{\"docID\":31231,\"osisID\":\"Mark.8.5\",\"indexContent\":2002008005,\"pageID\":1190},{\"docID\":31231,\"osisID\":\"Mark.8.6\",\"indexContent\":2002008006,\"pageID\":1190},{\"docID\":31231,\"osisID\":\"Mark.9.40\",\"indexContent\":2002009040,\"pageID\":1540},{\"docID\":31231,\"osisID\":\"Mark.9.41\",\"indexContent\":2002009041,\"pageID\":1540},{\"docID\":31231,\"osisID\":\"Mark.9.42\",\"indexContent\":2002009042,\"pageID\":1540},{\"docID\":31231,\"osisID\":\"Mark.9.44\",\"indexContent\":2002009044,\"pageID\":1550},{\"docID\":31231,\"osisID\":\"Mark.9.45\",\"indexContent\":2002009045,\"pageID\":1550},{\"docID\":31231,\"osisID\":\"Mark.9.46\",\"indexContent\":2002009046,\"pageID\":1550},{\"docID\":31231,\"osisID\":\"Mark.9.47\",\"indexContent\":2002009047,\"pageID\":1550},{\"docID\":31231,\"osisID\":\"Mark.9.48\",\"indexContent\":2002009048,\"pageID\":1550},{\"docID\":31231,\"osisID\":\"Mark.9.48\",\"indexContent\":2002009048,\"pageID\":1560},{\"docID\":31231,\"osisID\":\"Mark.9.49\",\"indexContent\":2002009049,\"pageID\":1560},{\"docID\":31231,\"osisID\":\"Mark.9.50\",\"indexContent\":2002009050,\"pageID\":1560}]}}}",
+  "body_sha256": "cb951e982cb3b28c76b17c7ca131a0f49a9c537acbf021e68286876778eb9bf4",
+  "retrieved_at": "2026-10-07T22:43:35+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

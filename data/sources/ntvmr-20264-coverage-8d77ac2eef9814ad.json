@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20264",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:16:28 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396988570",
+    "X-Request-Post-Validation-Epoch": "1791396988571",
+    "X-Request-Response-Epoch": "1791396988574",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "407",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20264,\"indexContent\":[\"John 8:19-20; John 8:23-24\",{\"docID\":20264,\"osisID\":\"John.8.19\",\"indexContent\":2004008019,\"pageID\":10},{\"docID\":20264,\"osisID\":\"John.8.20\",\"indexContent\":2004008020,\"pageID\":10},{\"docID\":20264,\"osisID\":\"John.8.23\",\"indexContent\":2004008023,\"pageID\":20},{\"docID\":20264,\"osisID\":\"John.8.24\",\"indexContent\":2004008024,\"pageID\":20}]}}}",
+  "body_sha256": "3afb6408c8b717bba9d84421a2b42049c2b2cc5c58325aff2835386b94c14f78",
+  "retrieved_at": "2026-10-07T18:16:28+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

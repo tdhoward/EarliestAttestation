@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30936",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:43:47 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791409427762",
+    "X-Request-Post-Validation-Epoch": "1791409427763",
+    "X-Request-Response-Epoch": "1791409427769",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1057",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30936,\"indexContent\":[\"Matt 7:13; Matt 19:4-11; Matt 28:20; Mark 1:14; Mark 10:10\",{\"docID\":30936,\"osisID\":\"Matt.7.13\",\"indexContent\":2001007013,\"pageID\":30},{\"docID\":30936,\"osisID\":\"Matt.19.4\",\"indexContent\":2001019004,\"pageID\":530},{\"docID\":30936,\"osisID\":\"Matt.19.5\",\"indexContent\":2001019005,\"pageID\":530},{\"docID\":30936,\"osisID\":\"Matt.19.6\",\"indexContent\":2001019006,\"pageID\":530},{\"docID\":30936,\"osisID\":\"Matt.19.7\",\"indexContent\":2001019007,\"pageID\":530},{\"docID\":30936,\"osisID\":\"Matt.19.8\",\"indexContent\":2001019008,\"pageID\":530},{\"docID\":30936,\"osisID\":\"Matt.19.9\",\"indexContent\":2001019009,\"pageID\":530},{\"docID\":30936,\"osisID\":\"Matt.19.10\",\"indexContent\":2001019010,\"pageID\":530},{\"docID\":30936,\"osisID\":\"Matt.19.11\",\"indexContent\":2001019011,\"pageID\":530},{\"docID\":30936,\"osisID\":\"Matt.28.20\",\"indexContent\":2001028020,\"pageID\":1000},{\"docID\":30936,\"osisID\":\"Mark.1.14\",\"indexContent\":2002001014,\"pageID\":1010},{\"docID\":30936,\"osisID\":\"Mark.10.10\",\"indexContent\":2002010010,\"pageID\":1420}]}}}",
+  "body_sha256": "be28713df8a310dfeece4786db20ff52041de81430a9fe0df2acd9fd351e7468",
+  "retrieved_at": "2026-10-07T21:43:47+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30681",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 20:51:43 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791406303220",
+    "X-Request-Post-Validation-Epoch": "1791406303221",
+    "X-Request-Response-Epoch": "1791406303224",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2150",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30681,\"indexContent\":[\"Mark 15:40-47; Mark 16:1-17\",{\"docID\":30681,\"osisID\":\"Mark.15.40\",\"indexContent\":2002015040,\"pageID\":30},{\"docID\":30681,\"osisID\":\"Mark.15.41\",\"indexContent\":2002015041,\"pageID\":30},{\"docID\":30681,\"osisID\":\"Mark.15.42\",\"indexContent\":2002015042,\"pageID\":30},{\"docID\":30681,\"osisID\":\"Mark.15.43\",\"indexContent\":2002015043,\"pageID\":30},{\"docID\":30681,\"osisID\":\"Mark.15.44\",\"indexContent\":2002015044,\"pageID\":30},{\"docID\":30681,\"osisID\":\"Mark.15.45\",\"indexContent\":2002015045,\"pageID\":30},{\"docID\":30681,\"osisID\":\"Mark.15.46\",\"indexContent\":2002015046,\"pageID\":30},{\"docID\":30681,\"osisID\":\"Mark.15.47\",\"indexContent\":2002015047,\"pageID\":30},{\"docID\":30681,\"osisID\":\"Mark.15.47\",\"indexContent\":2002015047,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.1\",\"indexContent\":2002016001,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.2\",\"indexContent\":2002016002,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.3\",\"indexContent\":2002016003,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.4\",\"indexContent\":2002016004,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.5\",\"indexContent\":2002016005,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.6\",\"indexContent\":2002016006,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.7\",\"indexContent\":2002016007,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.8\",\"indexContent\":2002016008,\"pageID\":40},{\"docID\":30681,\"osisID\":\"Mark.16.8\",\"indexContent\":2002016008,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.9\",\"indexContent\":2002016009,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.10\",\"indexContent\":2002016010,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.11\",\"indexContent\":2002016011,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.12\",\"indexContent\":2002016012,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.13\",\"indexContent\":2002016013,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.14\",\"indexContent\":2002016014,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.15\",\"indexContent\":2002016015,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.16\",\"indexContent\":2002016016,\"pageID\":50},{\"docID\":30681,\"osisID\":\"Mark.16.17\",\"indexContent\":2002016017,\"pageID\":50}]}}}",
+  "body_sha256": "706421eff191467fe4e7ab77a27d3ab9a6582896af5911b0e970add755c3edac",
+  "retrieved_at": "2026-10-07T20:51:43+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

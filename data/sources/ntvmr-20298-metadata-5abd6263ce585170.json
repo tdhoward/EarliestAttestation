@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20298",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:22:26 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397346356",
+    "X-Request-Post-Validation-Epoch": "1791397346357",
+    "X-Request-Response-Epoch": "1791397346361",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1226",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20298,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":298,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Spain\",\"instID\":358,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Abadia de Montserrat\",\"place\":\"Montserrat\",\"logoURL\":\"\",\"url\":\"http://www.abadiamontserrat.net/(S(zfrreq55asgfcn45rsrzlvuf))/Cultura/angles/scriptorium.aspx?newsid=2\"},\"leavesDescription\":\"Frg\",\"shelfID\":345,\"originYearDescription\":\"VIII/IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. Monts.Roca inv. 4\",\"contentOverview\":\"Mt 26,24-29 (sahid. Mt 26,17-21)\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":700,\"content\":\"VIII/IX\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":345,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":345,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":298,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"width\":{\"widthMin\":88},\"lang\":\"g-k\",\"contentOverview\":\"e: Mt\",\"lineCount\":{\"lineCountMin\":19,\"content\":19},\"height\":{\"heightMin\":168}}}}",
+  "body_sha256": "72bf9dd9a72ebce3c76fe46c6505db571ca3967d2a0f7285fce65d2a9bbc5064",
+  "retrieved_at": "2026-10-07T18:22:26+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

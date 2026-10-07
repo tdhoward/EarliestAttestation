@@ -137,13 +137,21 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 
 `collect_catalogue.py` now supports resumable overnight capture across all four
 Greek NT catalogue ranges. Paginated inventories include records without book
-indexing and queue each manuscript's metadata and verse contents once for reuse
+indexing and queue each eligible manuscript's metadata and verse contents once for reuse
 across all 27 books. Launches have a finite time budget, optional cumulative
 request ceiling, at least five-second persistent spacing, and provider-block
 stops; there is no 50-attempt cap. Capture, offline import, and app rebuilding are
 separate commands. Format-2 catalogue scopes coexist with existing book-index
 scopes. No new live collection is implied by implementing or testing this tool.
 See [overnight collection](BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-collection).
+
+Catalogue collection defaults to valid inventory date ranges beginning before
+1000 CE, with unknown dates and retained earlier scholarly alternatives remaining
+eligible. The cutoff is configurable and applies to unfinished jobs on resume;
+captured reports remain preserved. Date exclusions retain source evidence and
+reasons and do not count as pending collection or coverage assertions. The app
+qualifies discovery completion by the declared date scope. Fewer than five
+witnesses per verse is acceptable; complete date alternatives remain unchanged.
 
 ## Next development work
 
@@ -156,8 +164,11 @@ See [overnight collection](BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-coll
    central app data afterward.
    Do not constrain discovery to the witnesses already collected for nearby verses.
    The earliest five are ranked per verse and may span categories and widely
-   separated dates. Continue toward the full planned scope even where five
-   witnesses or early papyrus attestations have already been collected.
+   separated dates. Continue toward the declared date-filtered scope across all
+   four categories even where five witnesses or early papyrus attestations have
+   already been collected. Do not extend beyond the default 1000 CE earliest-date
+   cutoff solely to fill five places; unknown dates and retained earlier estimates
+   remain eligible, and fewer than five witnesses is acceptable.
    Jude within IDs 10000–19999 remains a useful smaller independent scope when
    running a book-index pilot; it does not limit catalogue-wide collection.
 2. Establish provider access expectations before bulk collection. Use the

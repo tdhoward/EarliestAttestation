@@ -126,8 +126,13 @@ One usable scholarly report is enough; unresolved cases do not block collection.
 ### Overnight catalogue capture
 
 `collect_catalogue.py` inventories all four ID ranges with paginated searches,
-including records without book indexing, then captures each manuscript's full
+including records without book indexing, then captures each eligible manuscript's full
 metadata and verse-content reports once for reuse across all 27 books.
+By default, it skips follow-up requests when the inventory's valid date range
+begins at 1000 CE or later. Ranges beginning before 1000 remain eligible in full,
+even if they extend beyond it. Missing, zero, or invalid dates remain eligible
+at lower priority; a retained scholarly estimate beginning before the cutoff
+also keeps a manuscript eligible. Fewer than five witnesses per verse is acceptable.
 It maintains at least five-second spacing across requests, retries, and restarts,
 honors `Retry-After`, and stops the whole collector on a provider access block.
 There is no 50-attempt cap. The default time budget is eight hours per launch;
@@ -140,6 +145,12 @@ python collect_catalogue.py collect --use-local-proxy --hours 8
 `--use-local-proxy` reads the current address documented above. Omit that option
 to use canonical HTTPS. Run the same command on another night to resume the
 default `catalogue` campaign. Ctrl+C preserves committed captures and checkpoints.
+The first resume of an older campaign applies the 1000 CE cutoff to unfinished
+jobs. Use `--earliest-date-before 1200` to change it, or `--no-date-cutoff` to
+disable it. Your chosen setting persists on later resumes when omitted. Widening
+the scope reopens skipped jobs; captured reports and original inventories remain
+preserved. If a collector is already running, stop it with Ctrl+C and rerun the
+command to load the updated behavior.
 Only one collector should run at a time. Inspect progress from another terminal:
 
 ```powershell
@@ -158,7 +169,11 @@ Collection saves source captures under `data/sources/` and temporary queue state
 under `data/.cache/`; it does not rebuild the app overnight. Import preserves
 existing reports and records four catalogue-range discovery scopes covering
 all 27 books. Unusable reports remain captured and unresolved; missing contents
-remain unknown. See [overnight collection](docs/BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-collection)
+remain unknown. Status lists date exclusions and their reasons. Imported discovery
+records retain the cutoff and source evidence; candidate completion applies to
+eligible manuscripts, not the entire inventory. The cutoff limits new collection,
+so already captured later witnesses can still appear in the app.
+See [overnight collection](docs/BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-collection)
 for budgets, recovery, and completion qualifications.
 
 ## Scholarly scope

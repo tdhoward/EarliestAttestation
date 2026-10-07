@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30849",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:26:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791408369968",
+    "X-Request-Post-Validation-Epoch": "1791408369969",
+    "X-Request-Response-Epoch": "1791408369978",
+    "X-Response-Time": "10ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "585",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30849,\"indexContent\":[\"John 7:31; John 7:50-52; John 8:12; John 10:10\",{\"docID\":30849,\"osisID\":\"John.7.31\",\"indexContent\":2004007031,\"pageID\":330},{\"docID\":30849,\"osisID\":\"John.7.50\",\"indexContent\":2004007050,\"pageID\":630},{\"docID\":30849,\"osisID\":\"John.7.51\",\"indexContent\":2004007051,\"pageID\":630},{\"docID\":30849,\"osisID\":\"John.7.52\",\"indexContent\":2004007052,\"pageID\":650},{\"docID\":30849,\"osisID\":\"John.8.12\",\"indexContent\":2004008012,\"pageID\":670},{\"docID\":30849,\"osisID\":\"John.10.10\",\"indexContent\":2004010010,\"pageID\":2870}]}}}",
+  "body_sha256": "b66f4b82126498877e60496e6c49e07a6e08b8552b50a61e75f8359d3e825fca",
+  "retrieved_at": "2026-10-07T21:26:10+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

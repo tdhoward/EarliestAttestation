@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20266",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:16:44 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397004371",
+    "X-Request-Post-Validation-Epoch": "1791397004372",
+    "X-Request-Response-Epoch": "1791397004377",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2578",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20266,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":266,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":28,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Staatliche Museen zu Berlin \",\"place\":\"Berlin\",\"logoURL\":\"https://www.smb.museum/_assets/039206741bf4587f2033bb29864a8b5a/img/logo.svg\",\"url\":\"https://www.smb.museum/home/\"},\"leavesDescription\":1,\"shelfID\":316,\"originYearDescription\":\"VI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"P. 17034\",\"contentOverview\":\"L 20,19-25.30-39\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":599,\"early\":500,\"content\":\"VI\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Luke 20:19-25\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20266/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://berlpap.smb.museum/record/?result=2&Alle=P.+17034\\\"><img src=\\\"http://berlpap.smb.museum/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images©<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20266/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://smb.museum/berlpap/Original/P_17034_V_4.jpg\",\"webFriendlyURL\":\"http://smb.museum/berlpap/Original/P_17034_V_4.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":316,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Luke 20:19-25\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"drubschmid\"},{\"biblicalContent\":\"Luke 20:30-39\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20266/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://berlpap.smb.museum/record/?result=2&Alle=P.+17034\\\"><img src=\\\"http://berlpap.smb.museum/wp-content/themes/berlpap/images/headers/BerlPap_Logo_a_2x.jpg\\\"><div>Images©<br/>BerlPap</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20266/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"http://smb.museum/berlpap/Original/P_17034_R_4.jpg\",\"webFriendlyURL\":\"http://smb.museum/berlpap/Original/P_17034_R_4.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":316,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Luke 20:30-39\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"drubschmid\"}]},\"gaNum\":266,\"leaves\":{\"leavesCount\":1,\"content\":1},\"lang\":\"g\",\"contentOverview\":\"e: L\",\"lineCount\":{\"lineCountMax\":21,\"lineCountMin\":20}}}}",
+  "body_sha256": "6ebecbded605d9d840769a6a8777f04296774376bc8b7d40615257530f921eec",
+  "retrieved_at": "2026-10-07T18:16:44+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

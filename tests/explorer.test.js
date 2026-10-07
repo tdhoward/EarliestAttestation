@@ -509,6 +509,30 @@ test("catalogue inventory scopes apply to every declared book without asserting 
   assert.equal(model.discovery(model.lookup("Heb 1:1")).state, "not_searched");
 });
 
+test("date-filtered discovery distinguishes eligible collection from excluded candidates", () => {
+  const fixture = structuredClone(current);
+  fixture.metadata.discovery.scopes = [{
+    definition: {format_version: 2, scope_type: "catalogue_range", category: "papyri",
+      books: ["Gal"], doc_id_min: 10000, doc_id_max: 19999, earliest_date_before: 1000},
+    search_state: "complete", candidate_collection_state: "complete",
+    candidate_ids: [10046, 10051, 10135], eligible_candidate_ids: [10046],
+    date_excluded_candidate_ids: [10051, 10135], pending_candidate_ids: []
+  }];
+  fixture.observations["Gal.1.9"].discovery = {state: "bounded_search_complete"};
+  const model = createModel(fixture);
+  const assessed = model.discovery(model.lookup("Gal 1:9"));
+  assert.equal(assessed.state, "bounded_search_complete");
+  assert.match(assessed.text, /all 1 eligible search candidates collected/);
+  assert.match(assessed.text, /before 1000 CE/);
+  assert.match(assessed.text, /2 candidates excluded/);
+  assert.match(assessed.text, /unknown dates and retained earlier estimates remain eligible/);
+  assert.match(assessed.text, /fewer than five witnesses per verse is acceptable/);
+  // Collection filtering does not rewrite existing coverage or rankings.
+  const previous = createModel(current);
+  assert.deepEqual(model.cell(model.lookup("Gal 1:9"), "optimistic").events,
+    previous.cell(previous.lookup("Gal 1:9"), "optimistic").events);
+});
+
 test("full NT report expansion navigates sources, endpoints, unknowns, and supplementary filters", () => {
   const expanded = current;
   const model = createModel(expanded);

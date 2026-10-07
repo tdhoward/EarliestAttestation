@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20316",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:25:36 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397536639",
+    "X-Request-Post-Validation-Epoch": "1791397536640",
+    "X-Request-Response-Epoch": "1791397536645",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2322",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20316,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":316,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"USA\",\"instID\":439,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Morgan Library & Museum\",\"place\":\"New York, NY\",\"logoURL\":\"\",\"url\":\"http://www.themorgan.org/home.asp\"},\"leavesDescription\":\"3 Frg\",\"shelfID\":363,\"originYearDescription\":\"VIII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"MS M. 597\",\"contentOverview\":\"Jude 18-25\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":914,\"early\":600,\"content\":\"VII-X\"},\"leavesDescription\":\"3 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20316/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20316/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":363,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"2r\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"Jude 1:18-25\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20316/20/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20316/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":363,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"2v\",\"indexContent\":\"Jude 1:18-25\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=20316&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"klan\"}]},\"gaNum\":316,\"leaves\":{\"leavesCount\":1,\"content\":\"3 Frg\"},\"width\":{\"widthMin\":210},\"lang\":\"g-k\",\"contentOverview\":\"a: Jd\",\"lineCount\":{\"lineCountMax\":24,\"lineCountMin\":18,\"content\":\"18 (frag 1-2) and 5 (frag 3)\"},\"height\":{\"heightMin\":270}}}}",
+  "body_sha256": "f742994ccb9fd3cf57490282b26207cecdcf7ad4e86c1dd9c2f6639e173ab9d7",
+  "retrieved_at": "2026-10-07T18:25:36+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

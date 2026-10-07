@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20239",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:12:02 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396722873",
+    "X-Request-Post-Validation-Epoch": "1791396722874",
+    "X-Request-Response-Epoch": "1791396722877",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "779",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20239,\"indexContent\":[\"Luke 2:24-30; Luke 2:34\",{\"docID\":20239,\"osisID\":\"Luke.2.24\",\"indexContent\":2003002024,\"pageID\":10},{\"docID\":20239,\"osisID\":\"Luke.2.25\",\"indexContent\":2003002025,\"pageID\":10},{\"docID\":20239,\"osisID\":\"Luke.2.26\",\"indexContent\":2003002026,\"pageID\":10},{\"docID\":20239,\"osisID\":\"Luke.2.27\",\"indexContent\":2003002027,\"pageID\":10},{\"docID\":20239,\"osisID\":\"Luke.2.27\",\"indexContent\":2003002027,\"pageID\":20},{\"docID\":20239,\"osisID\":\"Luke.2.28\",\"indexContent\":2003002028,\"pageID\":20},{\"docID\":20239,\"osisID\":\"Luke.2.29\",\"indexContent\":2003002029,\"pageID\":20},{\"docID\":20239,\"osisID\":\"Luke.2.30\",\"indexContent\":2003002030,\"pageID\":20},{\"docID\":20239,\"osisID\":\"Luke.2.34\",\"indexContent\":2003002034,\"pageID\":20}]}}}",
+  "body_sha256": "3a98e0b5deeb9bd22f31fd27b0214589066f040154d65caafc43e4a775758d85",
+  "retrieved_at": "2026-10-07T18:12:02+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

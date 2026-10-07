@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20301",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:23:03 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397383257",
+    "X-Request-Post-Validation-Epoch": "1791397383258",
+    "X-Request-Response-Epoch": "1791397383261",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "467",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20301,\"indexContent\":[\"John 17:1-4\",{\"docID\":20301,\"osisID\":\"John.17.1\",\"indexContent\":2004017001,\"pageID\":10},{\"docID\":20301,\"osisID\":\"John.17.2\",\"indexContent\":2004017002,\"pageID\":10},{\"docID\":20301,\"osisID\":\"John.17.2\",\"indexContent\":2004017002,\"pageID\":20},{\"docID\":20301,\"osisID\":\"John.17.3\",\"indexContent\":2004017003,\"pageID\":20},{\"docID\":20301,\"osisID\":\"John.17.4\",\"indexContent\":2004017004,\"pageID\":20}]}}}",
+  "body_sha256": "26596fefa161153d2a312b3dd6e860fd16dd290954231f814781cfb1c18c26c8",
+  "retrieved_at": "2026-10-07T18:23:03+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

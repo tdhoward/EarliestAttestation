@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20309",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:24:28 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397468048",
+    "X-Request-Post-Validation-Epoch": "1791397468049",
+    "X-Request-Response-Epoch": "1791397468052",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "565",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20309,\"indexContent\":[\"John 20:22-24; John 20:28-30\",{\"docID\":20309,\"osisID\":\"John.20.22\",\"indexContent\":2004020022,\"pageID\":10},{\"docID\":20309,\"osisID\":\"John.20.23\",\"indexContent\":2004020023,\"pageID\":10},{\"docID\":20309,\"osisID\":\"John.20.24\",\"indexContent\":2004020024,\"pageID\":10},{\"docID\":20309,\"osisID\":\"John.20.28\",\"indexContent\":2004020028,\"pageID\":20},{\"docID\":20309,\"osisID\":\"John.20.29\",\"indexContent\":2004020029,\"pageID\":20},{\"docID\":20309,\"osisID\":\"John.20.30\",\"indexContent\":2004020030,\"pageID\":20}]}}}",
+  "body_sha256": "dc3bb73d9ae6acc7e01c78612b3ea512d0b9752fced5d828921d72f4450087bf",
+  "retrieved_at": "2026-10-07T18:24:28+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

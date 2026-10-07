@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20296",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:22:10 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397330478",
+    "X-Request-Post-Validation-Epoch": "1791397330479",
+    "X-Request-Response-Epoch": "1791397330483",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1319",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20296,\"indexContent\":[\"2Cor 7:3-4; 2Cor 7:9-10; 1John 5:3-13\",{\"docID\":20296,\"osisID\":\"2Cor.7.3\",\"indexContent\":2008007003,\"pageID\":10},{\"docID\":20296,\"osisID\":\"2Cor.7.4\",\"indexContent\":2008007004,\"pageID\":10},{\"docID\":20296,\"osisID\":\"2Cor.7.9\",\"indexContent\":2008007009,\"pageID\":20},{\"docID\":20296,\"osisID\":\"2Cor.7.10\",\"indexContent\":2008007010,\"pageID\":20},{\"docID\":20296,\"osisID\":\"1John.5.3\",\"indexContent\":2023005003,\"pageID\":30},{\"docID\":20296,\"osisID\":\"1John.5.4\",\"indexContent\":2023005004,\"pageID\":30},{\"docID\":20296,\"osisID\":\"1John.5.5\",\"indexContent\":2023005005,\"pageID\":30},{\"docID\":20296,\"osisID\":\"1John.5.6\",\"indexContent\":2023005006,\"pageID\":30},{\"docID\":20296,\"osisID\":\"1John.5.7\",\"indexContent\":2023005007,\"pageID\":30},{\"docID\":20296,\"osisID\":\"1John.5.8\",\"indexContent\":2023005008,\"pageID\":30},{\"docID\":20296,\"osisID\":\"1John.5.9\",\"indexContent\":2023005009,\"pageID\":30},{\"docID\":20296,\"osisID\":\"1John.5.9\",\"indexContent\":2023005009,\"pageID\":40},{\"docID\":20296,\"osisID\":\"1John.5.10\",\"indexContent\":2023005010,\"pageID\":40},{\"docID\":20296,\"osisID\":\"1John.5.11\",\"indexContent\":2023005011,\"pageID\":40},{\"docID\":20296,\"osisID\":\"1John.5.12\",\"indexContent\":2023005012,\"pageID\":40},{\"docID\":20296,\"osisID\":\"1John.5.13\",\"indexContent\":2023005013,\"pageID\":40}]}}}",
+  "body_sha256": "b2b40c8df55016689fb38130783f879e8f04050ad9ddd32ac66a33282522c3f0",
+  "retrieved_at": "2026-10-07T18:22:10+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

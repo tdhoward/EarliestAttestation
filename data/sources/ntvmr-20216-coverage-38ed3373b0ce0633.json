@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20216",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:07:58 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396478427",
+    "X-Request-Post-Validation-Epoch": "1791396478428",
+    "X-Request-Response-Epoch": "1791396478431",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "626",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20216,\"indexContent\":[\"John 8:51-53; John 9:5-8\",{\"docID\":20216,\"osisID\":\"John.8.51\",\"indexContent\":2004008051,\"pageID\":10},{\"docID\":20216,\"osisID\":\"John.8.52\",\"indexContent\":2004008052,\"pageID\":10},{\"docID\":20216,\"osisID\":\"John.8.53\",\"indexContent\":2004008053,\"pageID\":10},{\"docID\":20216,\"osisID\":\"John.9.5\",\"indexContent\":2004009005,\"pageID\":20},{\"docID\":20216,\"osisID\":\"John.9.6\",\"indexContent\":2004009006,\"pageID\":20},{\"docID\":20216,\"osisID\":\"John.9.7\",\"indexContent\":2004009007,\"pageID\":20},{\"docID\":20216,\"osisID\":\"John.9.8\",\"indexContent\":2004009008,\"pageID\":20}]}}}",
+  "body_sha256": "9e7f669f69de77932f35f5f909dd9732d1b330600275f02304231289b25b88f3",
+  "retrieved_at": "2026-10-07T18:07:58+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

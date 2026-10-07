@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "31134",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 22:24:03 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791411843642",
+    "X-Request-Post-Validation-Epoch": "1791411843642",
+    "X-Request-Response-Epoch": "1791411843647",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1181",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":31134,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":1134,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Greece\",\"instID\":117,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Philotheou Monastery\",\"place\":\"Athos\",\"logoURL\":\"http://ntmss.info/instlogos/MPhilo.jpg\",\"url\":\"http://www.mountathos.gr/active.aspx?mode=en{de0448bb-8520-4b37-bfe3-85d8bf80826d}View\"},\"leavesDescription\":\"?\",\"shelfID\":1457,\"originYearDescription\":\"XVII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":77,\"contentOverview\":\"e\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1671,\"early\":1671,\"content\":1671},\"leavesDescription\":\"?\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":1457,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":1457,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":1134,\"leaves\":{\"leavesCount\":0,\"content\":\"?\"},\"width\":{\"widthMin\":145},\"lang\":\"g\",\"contentOverview\":\"e\",\"lineCount\":{\"lineCountMin\":18,\"content\":18},\"height\":{\"heightMin\":196}}}}",
+  "body_sha256": "efb263d498de0b638652309102cf2eb43d51279692ad83410d1847371f0b3bbb",
+  "retrieved_at": "2026-10-07T22:24:03+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

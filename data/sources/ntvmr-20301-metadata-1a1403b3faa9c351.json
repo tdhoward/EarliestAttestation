@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20301",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:22:57 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397377974",
+    "X-Request-Post-Validation-Epoch": "1791397377976",
+    "X-Request-Response-Epoch": "1791397377980",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2420",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20301,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":301,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":49,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibelmuseum\",\"place\":\"Münster\",\"logoURL\":\"https://www.uni-muenster.de/imperia/md/images/bibelmuseum/thumbnail_logo_bibelmuseum_rgb.jpeg\",\"url\":\"http://www.uni-muenster.de/Bibelmuseum/\"},\"leavesDescription\":1,\"shelfID\":6611,\"originYearDescription\":\"V\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"s.n\",\"contentOverview\":\"Joh 17,1-4\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":499,\"early\":400,\"content\":\"V\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"John 17:1-2\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20301/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.uni-muenster.de/Bibelmuseum/\\\">Bibelmuseum Muenster</a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20301/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20301/20301x00010Xa_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20301/20301x00010Xa_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6611,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"John 17:1-2\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"overesch\"},{\"biblicalContent\":\"John 17:2-4\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20301/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://www.uni-muenster.de/Bibelmuseum/\\\">Bibelmuseum Muenster</a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20301/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20301/20301x00020Xa_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20301/20301x00020Xa_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6611,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"John 17:2-4\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"overesch\"}]},\"gaNum\":301,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":70},\"lang\":\"g\",\"contentOverview\":\"e: J\",\"lineCount\":{\"lineCountMin\":14,\"content\":14},\"height\":{\"heightMin\":68}}}}",
+  "body_sha256": "85a385a755e61a01ef70124b10d4b94c6ba6add8e991fb6431dcebb9c1902b87",
+  "retrieved_at": "2026-10-07T18:22:58+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

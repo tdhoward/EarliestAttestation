@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20236",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:11:31 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396691312",
+    "X-Request-Post-Validation-Epoch": "1791396691313",
+    "X-Request-Response-Epoch": "1791396691316",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "407",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20236,\"indexContent\":[\"Acts 3:12-13; Acts 3:15-16\",{\"docID\":20236,\"osisID\":\"Acts.3.12\",\"indexContent\":2005003012,\"pageID\":10},{\"docID\":20236,\"osisID\":\"Acts.3.13\",\"indexContent\":2005003013,\"pageID\":10},{\"docID\":20236,\"osisID\":\"Acts.3.15\",\"indexContent\":2005003015,\"pageID\":20},{\"docID\":20236,\"osisID\":\"Acts.3.16\",\"indexContent\":2005003016,\"pageID\":20}]}}}",
+  "body_sha256": "9a3fcf2f9e305f10b521105252fa1af12e125ccc14dcb160115d141e0c26b8bb",
+  "retrieved_at": "2026-10-07T18:11:31+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

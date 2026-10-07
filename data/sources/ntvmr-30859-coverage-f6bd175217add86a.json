@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30859",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:28:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791408489858",
+    "X-Request-Post-Validation-Epoch": "1791408489859",
+    "X-Request-Response-Epoch": "1791408489873",
+    "X-Response-Time": "15ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2704",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30859,\"indexContent\":[\"Luke 12:39-40; Luke 17:7-10; Luke 17:12-13; Luke 17:17-24; Luke 18:10-12; Luke 18:18-20; Luke 18:29-30; Luke 19:13-14; Luke 19:30-34\",{\"docID\":30859,\"osisID\":\"Luke.12.39\",\"indexContent\":2003012039,\"pageID\":150},{\"docID\":30859,\"osisID\":\"Luke.12.40\",\"indexContent\":2003012040,\"pageID\":150},{\"docID\":30859,\"osisID\":\"Luke.17.7\",\"indexContent\":2003017007,\"pageID\":1470},{\"docID\":30859,\"osisID\":\"Luke.17.8\",\"indexContent\":2003017008,\"pageID\":1470},{\"docID\":30859,\"osisID\":\"Luke.17.9\",\"indexContent\":2003017009,\"pageID\":1470},{\"docID\":30859,\"osisID\":\"Luke.17.10\",\"indexContent\":2003017010,\"pageID\":1470},{\"docID\":30859,\"osisID\":\"Luke.17.12\",\"indexContent\":2003017012,\"pageID\":1490},{\"docID\":30859,\"osisID\":\"Luke.17.13\",\"indexContent\":2003017013,\"pageID\":1490},{\"docID\":30859,\"osisID\":\"Luke.17.17\",\"indexContent\":2003017017,\"pageID\":1510},{\"docID\":30859,\"osisID\":\"Luke.17.18\",\"indexContent\":2003017018,\"pageID\":1510},{\"docID\":30859,\"osisID\":\"Luke.17.19\",\"indexContent\":2003017019,\"pageID\":1510},{\"docID\":30859,\"osisID\":\"Luke.17.20\",\"indexContent\":2003017020,\"pageID\":1510},{\"docID\":30859,\"osisID\":\"Luke.17.20\",\"indexContent\":2003017020,\"pageID\":1520},{\"docID\":30859,\"osisID\":\"Luke.17.21\",\"indexContent\":2003017021,\"pageID\":1520},{\"docID\":30859,\"osisID\":\"Luke.17.22\",\"indexContent\":2003017022,\"pageID\":1540},{\"docID\":30859,\"osisID\":\"Luke.17.23\",\"indexContent\":2003017023,\"pageID\":1540},{\"docID\":30859,\"osisID\":\"Luke.17.24\",\"indexContent\":2003017024,\"pageID\":1540},{\"docID\":30859,\"osisID\":\"Luke.18.10\",\"indexContent\":2003018010,\"pageID\":1730},{\"docID\":30859,\"osisID\":\"Luke.18.11\",\"indexContent\":2003018011,\"pageID\":1730},{\"docID\":30859,\"osisID\":\"Luke.18.12\",\"indexContent\":2003018012,\"pageID\":1730},{\"docID\":30859,\"osisID\":\"Luke.18.18\",\"indexContent\":2003018018,\"pageID\":1910},{\"docID\":30859,\"osisID\":\"Luke.18.19\",\"indexContent\":2003018019,\"pageID\":1910},{\"docID\":30859,\"osisID\":\"Luke.18.20\",\"indexContent\":2003018020,\"pageID\":1910},{\"docID\":30859,\"osisID\":\"Luke.18.29\",\"indexContent\":2003018029,\"pageID\":2120},{\"docID\":30859,\"osisID\":\"Luke.18.30\",\"indexContent\":2003018030,\"pageID\":2120},{\"docID\":30859,\"osisID\":\"Luke.19.13\",\"indexContent\":2003019013,\"pageID\":2450},{\"docID\":30859,\"osisID\":\"Luke.19.14\",\"indexContent\":2003019014,\"pageID\":2450},{\"docID\":30859,\"osisID\":\"Luke.19.30\",\"indexContent\":2003019030,\"pageID\":2590},{\"docID\":30859,\"osisID\":\"Luke.19.31\",\"indexContent\":2003019031,\"pageID\":2590},{\"docID\":30859,\"osisID\":\"Luke.19.32\",\"indexContent\":2003019032,\"pageID\":2590},{\"docID\":30859,\"osisID\":\"Luke.19.33\",\"indexContent\":2003019033,\"pageID\":2590},{\"docID\":30859,\"osisID\":\"Luke.19.34\",\"indexContent\":2003019034,\"pageID\":2590}]}}}",
+  "body_sha256": "f506dbef174115a5abe37cd47ad4137652471e75358fe7b52752948b2332c65f",
+  "retrieved_at": "2026-10-07T21:28:09+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

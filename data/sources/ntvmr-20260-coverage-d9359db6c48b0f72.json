@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20260",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:15:46 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396946402",
+    "X-Request-Post-Validation-Epoch": "1791396946403",
+    "X-Request-Response-Epoch": "1791396946407",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "557",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20260,\"indexContent\":[\"John 1:16-18; John 1:30-32\",{\"docID\":20260,\"osisID\":\"John.1.16\",\"indexContent\":2004001016,\"pageID\":10},{\"docID\":20260,\"osisID\":\"John.1.17\",\"indexContent\":2004001017,\"pageID\":10},{\"docID\":20260,\"osisID\":\"John.1.18\",\"indexContent\":2004001018,\"pageID\":10},{\"docID\":20260,\"osisID\":\"John.1.30\",\"indexContent\":2004001030,\"pageID\":20},{\"docID\":20260,\"osisID\":\"John.1.31\",\"indexContent\":2004001031,\"pageID\":20},{\"docID\":20260,\"osisID\":\"John.1.32\",\"indexContent\":2004001032,\"pageID\":20}]}}}",
+  "body_sha256": "63d18be929406ee586069bcae49dfc814b289a8a3c323bd8478446ec0f469fa0",
+  "retrieved_at": "2026-10-07T18:15:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

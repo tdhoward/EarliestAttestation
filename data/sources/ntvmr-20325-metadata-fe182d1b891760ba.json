@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20325",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:27:13 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397633754",
+    "X-Request-Post-Validation-Epoch": "1791397633755",
+    "X-Request-Response-Epoch": "1791397633759",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1137",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20325,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":325,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Canada\",\"instID\":663,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Royal Ontario Museum\",\"place\":\"Toronto\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"1 Frg.\",\"shelfID\":7050,\"originYearDescription\":\"XI-XIII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"acc. no.: 973.24.1161\",\"contentOverview\":\"Rev 21:20-23\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1299,\"early\":1000,\"content\":\"XI-XIII\"},\"leavesDescription\":\"1 Frg.\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":7050,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":7050,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":325,\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg.\"},\"width\":{\"widthMin\":115},\"lang\":\"grc\",\"contentOverview\":\"r\",\"lineCount\":{\"lineCountMax\":14,\"lineCountMin\":13,\"content\":\"13-14\"},\"height\":{\"heightMin\":155}}}}",
+  "body_sha256": "5c0c7be207fb9faf3f0f01eb4554e11a2fdf4a89897a7c78a53f0a7b00b54a4c",
+  "retrieved_at": "2026-10-07T18:27:13+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

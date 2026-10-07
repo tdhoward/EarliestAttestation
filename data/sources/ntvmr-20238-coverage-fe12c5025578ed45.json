@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20238",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:11:52 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396712354",
+    "X-Request-Post-Validation-Epoch": "1791396712355",
+    "X-Request-Response-Epoch": "1791396712358",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "402",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20238,\"indexContent\":[\"John 7:7; John 7:10-12\",{\"docID\":20238,\"osisID\":\"John.7.7\",\"indexContent\":2004007007,\"pageID\":10},{\"docID\":20238,\"osisID\":\"John.7.10\",\"indexContent\":2004007010,\"pageID\":20},{\"docID\":20238,\"osisID\":\"John.7.11\",\"indexContent\":2004007011,\"pageID\":20},{\"docID\":20238,\"osisID\":\"John.7.12\",\"indexContent\":2004007012,\"pageID\":20}]}}}",
+  "body_sha256": "475a2a1a6f79dc101a1327c00c90e244b00c29de97ce4a4ed111427ee9c6ab53",
+  "retrieved_at": "2026-10-07T18:11:52+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

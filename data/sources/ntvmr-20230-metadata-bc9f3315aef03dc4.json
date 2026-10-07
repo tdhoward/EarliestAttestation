@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20230",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:10:21 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396621049",
+    "X-Request-Post-Validation-Epoch": "1791396621050",
+    "X-Request-Response-Epoch": "1791396621054",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2617",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20230,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":230,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":2,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"The Egyptian Museum\",\"place\":\"Cairo\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"Frg\",\"shelfID\":6950,\"originYearDescription\":\"IV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"SR 3796 25/1/55/2 (21)\",\"contentOverview\":\"E 6,11-12 (griech); 6,5-6 (lat.)\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":399,\"early\":300,\"content\":\"IV\"},\"leavesDescription\":\"Frg\",\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"Eph 6:5-6\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20230/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.psi-online.it/documents/psi;13;1306\\\"><div>External Images by<br/>PSI</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20230/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20230/20230x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20230/20230x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Eph 6:5-6\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"stewalchofficial\"},{\"biblicalContent\":\"Eph 6:11-12\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20230/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.psi-online.it/documents/psi;13;1306\\\"><div>External Images by<br/>PSI</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20230/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20230/20230x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20230/20230x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Eph 6:11-12\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"stewalchofficial\"},{\"biblicalContent\":\"\",\"shelfID\":6950,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30,\"noIdx\":true},{\"biblicalContent\":\"\",\"shelfID\":6950,\"shelfFolioNums\":\"\",\"sortOrder\":\"00070\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":70,\"noIdx\":true}]},\"gaNum\":230,\"leaves\":{\"leavesCount\":1,\"content\":\"Frg\"},\"lang\":\"g-l\",\"contentOverview\":\"p: E\",\"lineCount\":{\"lineCountMin\":4,\"content\":4}}}}",
+  "body_sha256": "f7065b76ea5c04e6d734260da6b3129fcd1c20b48dec92c169429ea5629d1197",
+  "retrieved_at": "2026-10-07T18:10:21+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

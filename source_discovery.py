@@ -20,6 +20,31 @@ LIMITATION = ("The book-index query covers only its declared document-ID range a
               "Rankings describe the collected witnesses; exhaustive earliest-witness discovery is not established.")
 
 
+def validate_date_cutoff(cutoff):
+    if cutoff is not None and (type(cutoff) is not int or cutoff <= 0):
+        raise ValueError("The earliest-date cutoff must be a positive CE year or null (no cutoff)")
+
+
+def catalogue_date_decision(row, cutoff, date_claims=()):
+    """Screen explicit numeric ranges; never interpret notation or alter a date claim."""
+    validate_date_cutoff(cutoff)
+    early, late = row.get("origEarly"), row.get("origLate")
+    if cutoff is None:
+        return {"state": "eligible", "reason": "No collection date cutoff."}
+    if type(early) is not int or type(late) is not int or not 0 < early <= late:
+        return {"state": "unknown_date", "reason": "Inventory date bounds are missing or invalid; collect reports."}
+    if early < cutoff:
+        return {"state": "eligible", "reason": f"Inventory origEarly {early} is before {cutoff} CE."}
+    alternatives = [claim for claim in date_claims
+                    if type(claim.get("date_min")) is int and type(claim.get("date_max")) is int
+                    and 0 < claim["date_min"] <= claim["date_max"] and claim["date_min"] < cutoff]
+    if alternatives:
+        return {"state": "eligible", "reason": f"A retained scholarly date estimate begins before {cutoff} CE.",
+                "qualifying_date_reports": [{k: v for k, v in claim.items() if k != "snapshot"} for claim in alternatives]}
+    return {"state": "date_excluded", "reason": f"Inventory origEarly {early} is at or after {cutoff} CE; "
+            "no retained earlier estimate qualifies. This is a collection filter, not a coverage assertion."}
+
+
 def sha(body):
     return hashlib.sha256(body.encode("utf-8")).hexdigest()
 
@@ -27,6 +52,7 @@ def sha(body):
 def range_params(definition):
     catalogue = definition.get("format_version") == 2 and definition.get("scope_type") == "catalogue_range"
     if catalogue:
+        validate_date_cutoff(definition.get("earliest_date_before"))
         books = definition.get("books")
         if not isinstance(books, list) or not books or len(set(books)) != len(books) or any(b not in NT_BOOKS for b in books):
             raise ValueError("Catalogue discovery requires distinct New Testament book codes")
@@ -148,7 +174,7 @@ def validate_search_capture(record, params):
     return rows, count, cursor
 
 
-def prepare_discovery(record, documents):
+def prepare_discovery(record, documents, date_claims=()):
     """Derive completion from retained pages, never from a manifest's optimistic flag."""
     if record is None:
         return {"search_state": "not_searched", "candidate_collection_state": "not_assessed",
@@ -189,7 +215,18 @@ def prepare_discovery(record, documents):
         search_state = run_state
     ready = {d["doc_id"] for d in documents
              if d["metadata_state"] == "success" and d["coverage_state"] in ("success", "empty")}
-    pending = sorted(seen - ready)
+    filtered = definition.get("scope_type") == "catalogue_range" and definition.get("earliest_date_before") is not None
+    excluded = set()
+    if filtered:
+        witnesses = {d["doc_id"]: d.get("witness_id", f"ntvmr:{d['doc_id']}") for d in documents}
+        for candidate in candidates:
+            doc = candidate["doc_id"]
+            witness = witnesses.get(doc, f"ntvmr:{doc}")
+            claims = [claim for claim in date_claims if claim.get("witness_id") == witness]
+            candidate["date_filter"] = catalogue_date_decision(candidate["reported"], definition["earliest_date_before"], claims)
+            if candidate["date_filter"]["state"] == "date_excluded":
+                excluded.add(doc)
+    pending = sorted(seen - ready - excluded)
     summary = {"definition": definition, "scope_id": definition["scope_id"],
                "search_state": search_state,
                "candidate_collection_state": "not_assessed" if not seen and search_state != "complete"
@@ -205,6 +242,12 @@ def prepare_discovery(record, documents):
                "source_snapshots": snapshots,
                "source_hashes": [s["body_sha256"] for s in snapshots],
                "collection_cost": record.get("collection_cost", {}), "run_error": record.get("run_error")}
+    if filtered:
+        summary.update(date_excluded_candidate_ids=sorted(excluded), eligible_candidate_ids=sorted(seen-excluded))
+        summary["limitation"] += (f" Collection excludes inventory date ranges beginning at or after "
+            f"{definition['earliest_date_before']} CE unless a retained scholarly estimate begins earlier. "
+            "Unknown dates remain eligible; complete ranges and captured reports are preserved. "
+            "Candidate collection completion applies only to eligible candidates; fewer than five witnesses per verse is acceptable.")
     return summary, snapshots
 
 
@@ -231,4 +274,7 @@ def verse_discovery(summary, ref):
             "candidate_collection_state": summary["candidate_collection_state"],
             "book_candidate_count": len(summary["candidate_ids"]),
             "pending_candidate_ids": summary["pending_candidate_ids"],
+            **({"earliest_date_before": summary["definition"]["earliest_date_before"],
+                "date_excluded_candidate_ids": summary["date_excluded_candidate_ids"]}
+               if "date_excluded_candidate_ids" in summary else {}),
             "corpus_complete": False, "ranking_scope": "collected_witnesses_only"}

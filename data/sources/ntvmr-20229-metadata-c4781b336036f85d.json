@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "20229",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:10:10 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396610480",
+    "X-Request-Post-Validation-Epoch": "1791396610481",
+    "X-Request-Response-Epoch": "1791396610486",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3877",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":20229,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":229,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":275,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Istituto Papirologico \",\"place\":\"Florence\",\"logoURL\":\"http://ntmss.info/instlogos/IPvitelli.gif\",\"url\":\"https://www.istitutopapirologico.unifi.it\"},\"leavesDescription\":2,\"shelfID\":6458,\"originYearDescription\":\"VIII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"PSI inv. 2462\",\"contentOverview\":\"Ap 18,16-17; 19,4-6\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":799,\"early\":700,\"content\":\"VIII\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"Rev 18:16-17\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20229/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.psi-online.it/documents/psi;13;1296\\\"><div>External Images by<br/>PSI</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20229/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20229/20229x00010XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20229/20229x00010XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6458,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":1,\"indexContent\":\"Rev 18:16-17\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"msigismund\"},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20229/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.psi-online.it/documents/psi;13;1296\\\"><div>External Images by<br/>PSI</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20229/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20229/20229x00020XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20229/20229x00020XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6458,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":2,\"indexContent\":\"\",\"pageID\":20,\"noIdx\":true},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20229/30/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.psi-online.it/documents/psi;13;1296\\\"><div>External Images by<br/>PSI</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20229/30_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20229/20229x00030XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20229/20229x00030XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6458,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":3,\"indexContent\":\"\",\"pageID\":30,\"noIdx\":true},{\"biblicalContent\":\"Rev 19:4-6\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=20229/40/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.psi-online.it/documents/psi;13;1296\\\"><div>External Images by<br/>PSI</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/20229/40_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/20229/20229x00040XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/20229/20229x00040XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6458,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":4,\"indexContent\":\"Rev 19:4-6\",\"indexTier\":3,\"pageID\":40,\"indexedBy\":\"lakmann\"}]},\"gaNum\":229,\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":230},\"lang\":\"g\",\"contentOverview\":\"r\",\"lineCount\":{\"lineCountMin\":16,\"content\":16},\"height\":{\"heightMin\":110}}}}",
+  "body_sha256": "4598dfd22b5a10c0a3be9439bc42a0edeaf234d55a6eded7a7b4cacaae9426c7",
+  "retrieved_at": "2026-10-07T18:10:10+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

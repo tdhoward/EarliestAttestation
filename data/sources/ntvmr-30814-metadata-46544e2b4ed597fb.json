@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "30814",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:19:01 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791407941165",
+    "X-Request-Post-Validation-Epoch": "1791407941166",
+    "X-Request-Response-Epoch": "1791407941170",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1117",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":30814,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":814,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Location Unknown\",\"instID\":484,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Last known: Greece\",\"place\":\"Location Unknown\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"?\",\"shelfID\":1153,\"originYearDescription\":\"XIII\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"(früher: Korfu, Erzbischof Eustathius)\",\"contentOverview\":\"eK\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1299,\"early\":1200,\"content\":\"XIII\"},\"leavesDescription\":\"?\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":1153,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":1153,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":814,\"leaves\":{\"leavesCount\":0,\"content\":\"?\"},\"width\":{\"widthMin\":230},\"lang\":\"g\",\"contentOverview\":\"eK\",\"lineCount\":{\"lineCountMin\":43,\"content\":43},\"height\":{\"heightMin\":313}}}}",
+  "body_sha256": "8ccd4cc80a26bb5692ea98cd6a24b8d15b6a2b1374ca839e754d7c97395d22ab",
+  "retrieved_at": "2026-10-07T21:19:01+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

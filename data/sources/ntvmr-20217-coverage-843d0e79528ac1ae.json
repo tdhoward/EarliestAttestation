@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20217",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:08:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396489010",
+    "X-Request-Post-Validation-Epoch": "1791396489010",
+    "X-Request-Response-Epoch": "1791396489013",
+    "X-Response-Time": "3ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "780",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20217,\"indexContent\":[\"John 11:57; John 12:1-7\",{\"docID\":20217,\"osisID\":\"John.11.57\",\"indexContent\":2004011057,\"pageID\":10},{\"docID\":20217,\"osisID\":\"John.12.1\",\"indexContent\":2004012001,\"pageID\":10},{\"docID\":20217,\"osisID\":\"John.12.2\",\"indexContent\":2004012002,\"pageID\":10},{\"docID\":20217,\"osisID\":\"John.12.3\",\"indexContent\":2004012003,\"pageID\":10},{\"docID\":20217,\"osisID\":\"John.12.3\",\"indexContent\":2004012003,\"pageID\":20},{\"docID\":20217,\"osisID\":\"John.12.4\",\"indexContent\":2004012004,\"pageID\":20},{\"docID\":20217,\"osisID\":\"John.12.5\",\"indexContent\":2004012005,\"pageID\":20},{\"docID\":20217,\"osisID\":\"John.12.6\",\"indexContent\":2004012006,\"pageID\":20},{\"docID\":20217,\"osisID\":\"John.12.7\",\"indexContent\":2004012007,\"pageID\":20}]}}}",
+  "body_sha256": "49956aadbb8c851c5b2bff0a6ff04c965363b210cb578062efe80622685636ca",
+  "retrieved_at": "2026-10-07T18:08:09+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

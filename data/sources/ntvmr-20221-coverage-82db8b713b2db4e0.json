@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20221",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:08:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396531312",
+    "X-Request-Post-Validation-Epoch": "1791396531313",
+    "X-Request-Response-Epoch": "1791396531316",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "638",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20221,\"indexContent\":[\"Rom 5:16-17; Rom 5:19; Rom 5:21; Rom 6:1-3\",{\"docID\":20221,\"osisID\":\"Rom.5.16\",\"indexContent\":2006005016,\"pageID\":10},{\"docID\":20221,\"osisID\":\"Rom.5.17\",\"indexContent\":2006005017,\"pageID\":10},{\"docID\":20221,\"osisID\":\"Rom.5.19\",\"indexContent\":2006005019,\"pageID\":10},{\"docID\":20221,\"osisID\":\"Rom.5.21\",\"indexContent\":2006005021,\"pageID\":20},{\"docID\":20221,\"osisID\":\"Rom.6.1\",\"indexContent\":2006006001,\"pageID\":20},{\"docID\":20221,\"osisID\":\"Rom.6.2\",\"indexContent\":2006006002,\"pageID\":20},{\"docID\":20221,\"osisID\":\"Rom.6.3\",\"indexContent\":2006006003,\"pageID\":20}]}}}",
+  "body_sha256": "398162e45e9e53db0d51da10dde36d12434ca6480337b13f8b369f146577b815",
+  "retrieved_at": "2026-10-07T18:08:51+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

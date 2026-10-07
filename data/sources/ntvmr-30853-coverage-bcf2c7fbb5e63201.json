@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30853",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:26:57 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791408417632",
+    "X-Request-Post-Validation-Epoch": "1791408417633",
+    "X-Request-Response-Epoch": "1791408417647",
+    "X-Response-Time": "15ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "490",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30853,\"indexContent\":[\"Luke 6:29-30; Luke 9:34-36\",{\"docID\":30853,\"osisID\":\"Luke.6.29\",\"indexContent\":2003006029,\"pageID\":130},{\"docID\":30853,\"osisID\":\"Luke.6.30\",\"indexContent\":2003006030,\"pageID\":130},{\"docID\":30853,\"osisID\":\"Luke.9.34\",\"indexContent\":2003009034,\"pageID\":3270},{\"docID\":30853,\"osisID\":\"Luke.9.35\",\"indexContent\":2003009035,\"pageID\":3270},{\"docID\":30853,\"osisID\":\"Luke.9.36\",\"indexContent\":2003009036,\"pageID\":3270}]}}}",
+  "body_sha256": "db526003b09f52fcad645669b8ef07978d6f50dcb30c5f489bc172deaa1cf472",
+  "retrieved_at": "2026-10-07T21:26:57+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

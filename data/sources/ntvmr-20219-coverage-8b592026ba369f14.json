@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20219",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:08:30 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396510170",
+    "X-Request-Post-Validation-Epoch": "1791396510171",
+    "X-Request-Response-Epoch": "1791396510174",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "388",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20219,\"indexContent\":[\"Rom 2:21-23\",{\"docID\":20219,\"osisID\":\"Rom.2.21\",\"indexContent\":2006002021,\"pageID\":10},{\"docID\":20219,\"osisID\":\"Rom.2.22\",\"indexContent\":2006002022,\"pageID\":10},{\"docID\":20219,\"osisID\":\"Rom.2.23\",\"indexContent\":2006002023,\"pageID\":10},{\"docID\":20219,\"osisID\":\"Rom.2.23\",\"indexContent\":2006002023,\"pageID\":20}]}}}",
+  "body_sha256": "cb52332e86fe4a4fee05551c727d3fdf649082136aedab818e85e4c9f7d3b459",
+  "retrieved_at": "2026-10-07T18:08:30+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

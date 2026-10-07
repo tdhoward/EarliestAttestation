@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20218",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:08:19 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396499594",
+    "X-Request-Post-Validation-Epoch": "1791396499594",
+    "X-Request-Response-Epoch": "1791396499597",
+    "X-Response-Time": "3ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "951",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20218,\"indexContent\":[\"John 12:2-6; John 12:9-11; John 12:14-16\",{\"docID\":20218,\"osisID\":\"John.12.2\",\"indexContent\":2004012002,\"pageID\":10},{\"docID\":20218,\"osisID\":\"John.12.3\",\"indexContent\":2004012003,\"pageID\":10},{\"docID\":20218,\"osisID\":\"John.12.4\",\"indexContent\":2004012004,\"pageID\":10},{\"docID\":20218,\"osisID\":\"John.12.5\",\"indexContent\":2004012005,\"pageID\":10},{\"docID\":20218,\"osisID\":\"John.12.6\",\"indexContent\":2004012006,\"pageID\":10},{\"docID\":20218,\"osisID\":\"John.12.9\",\"indexContent\":2004012009,\"pageID\":20},{\"docID\":20218,\"osisID\":\"John.12.10\",\"indexContent\":2004012010,\"pageID\":20},{\"docID\":20218,\"osisID\":\"John.12.11\",\"indexContent\":2004012011,\"pageID\":20},{\"docID\":20218,\"osisID\":\"John.12.14\",\"indexContent\":2004012014,\"pageID\":20},{\"docID\":20218,\"osisID\":\"John.12.15\",\"indexContent\":2004012015,\"pageID\":20},{\"docID\":20218,\"osisID\":\"John.12.16\",\"indexContent\":2004012016,\"pageID\":20}]}}}",
+  "body_sha256": "a5da7f71e49ccfbc9f31417eefafbd5ef35ac36b8f062b9022e148e55e7943fd",
+  "retrieved_at": "2026-10-07T18:08:19+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

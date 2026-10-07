@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30502",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 20:14:43 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791404083297",
+    "X-Request-Post-Validation-Epoch": "1791404083299",
+    "X-Request-Response-Epoch": "1791404083313",
+    "X-Response-Time": "16ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2976",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30502,\"indexContent\":[\"Matt 8:5; Matt 19:4-12; Matt 28:20; Mark 1:1; Mark 16:20; Luke 1:1; Luke 9:29-36; Luke 24:53; John 1:1; John 7:52-53; John 8:1-9; John 21:25\",{\"docID\":30502,\"osisID\":\"Matt.8.5\",\"indexContent\":2001008005,\"pageID\":60},{\"docID\":30502,\"osisID\":\"Matt.19.4\",\"indexContent\":2001019004,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.19.5\",\"indexContent\":2001019005,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.19.6\",\"indexContent\":2001019006,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.19.7\",\"indexContent\":2001019007,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.19.8\",\"indexContent\":2001019008,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.19.9\",\"indexContent\":2001019009,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.19.10\",\"indexContent\":2001019010,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.19.11\",\"indexContent\":2001019011,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.19.12\",\"indexContent\":2001019012,\"pageID\":730},{\"docID\":30502,\"osisID\":\"Matt.28.20\",\"indexContent\":2001028020,\"pageID\":1270},{\"docID\":30502,\"osisID\":\"Mark.1.1\",\"indexContent\":2002001001,\"pageID\":1320},{\"docID\":30502,\"osisID\":\"Mark.16.20\",\"indexContent\":2002016020,\"pageID\":2220},{\"docID\":30502,\"osisID\":\"Luke.1.1\",\"indexContent\":2003001001,\"pageID\":2260},{\"docID\":30502,\"osisID\":\"Luke.9.29\",\"indexContent\":2003009029,\"pageID\":2810},{\"docID\":30502,\"osisID\":\"Luke.9.30\",\"indexContent\":2003009030,\"pageID\":2810},{\"docID\":30502,\"osisID\":\"Luke.9.31\",\"indexContent\":2003009031,\"pageID\":2810},{\"docID\":30502,\"osisID\":\"Luke.9.32\",\"indexContent\":2003009032,\"pageID\":2810},{\"docID\":30502,\"osisID\":\"Luke.9.33\",\"indexContent\":2003009033,\"pageID\":2810},{\"docID\":30502,\"osisID\":\"Luke.9.34\",\"indexContent\":2003009034,\"pageID\":2810},{\"docID\":30502,\"osisID\":\"Luke.9.35\",\"indexContent\":2003009035,\"pageID\":2810},{\"docID\":30502,\"osisID\":\"Luke.9.36\",\"indexContent\":2003009036,\"pageID\":2810},{\"docID\":30502,\"osisID\":\"Luke.24.53\",\"indexContent\":2003024053,\"pageID\":3680},{\"docID\":30502,\"osisID\":\"John.1.1\",\"indexContent\":2004001001,\"pageID\":3720},{\"docID\":30502,\"osisID\":\"John.7.52\",\"indexContent\":2004007052,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.7.53\",\"indexContent\":2004007053,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.1\",\"indexContent\":2004008001,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.2\",\"indexContent\":2004008002,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.3\",\"indexContent\":2004008003,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.4\",\"indexContent\":2004008004,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.5\",\"indexContent\":2004008005,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.6\",\"indexContent\":2004008006,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.7\",\"indexContent\":2004008007,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.8\",\"indexContent\":2004008008,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.8.9\",\"indexContent\":2004008009,\"pageID\":4090},{\"docID\":30502,\"osisID\":\"John.21.25\",\"indexContent\":2004021025,\"pageID\":4740}]}}}",
+  "body_sha256": "5ba39406aad3d2b64275788f41a700fd5fe99f89330bf6a0324b29047a42d077",
+  "retrieved_at": "2026-10-07T20:14:43+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

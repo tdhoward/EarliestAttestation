@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30950",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:46:37 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791409597835",
+    "X-Request-Post-Validation-Epoch": "1791409597836",
+    "X-Request-Response-Epoch": "1791409597841",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1146",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30950,\"indexContent\":[\"Luke 1:29; Luke 2:21; Mark 4:4; Mark 10:46; Mark 11:11; Mark 16:13-20\",{\"docID\":30950,\"osisID\":\"Luke.1.29\",\"indexContent\":2003001029,\"pageID\":40},{\"docID\":30950,\"osisID\":\"Luke.2.21\",\"indexContent\":2003002021,\"pageID\":110},{\"docID\":30950,\"osisID\":\"Mark.4.4\",\"indexContent\":2002004004,\"pageID\":120},{\"docID\":30950,\"osisID\":\"Mark.10.46\",\"indexContent\":2002010046,\"pageID\":550},{\"docID\":30950,\"osisID\":\"Mark.11.11\",\"indexContent\":2002011011,\"pageID\":560},{\"docID\":30950,\"osisID\":\"Mark.16.13\",\"indexContent\":2002016013,\"pageID\":810},{\"docID\":30950,\"osisID\":\"Mark.16.14\",\"indexContent\":2002016014,\"pageID\":810},{\"docID\":30950,\"osisID\":\"Mark.16.15\",\"indexContent\":2002016015,\"pageID\":810},{\"docID\":30950,\"osisID\":\"Mark.16.16\",\"indexContent\":2002016016,\"pageID\":810},{\"docID\":30950,\"osisID\":\"Mark.16.17\",\"indexContent\":2002016017,\"pageID\":810},{\"docID\":30950,\"osisID\":\"Mark.16.18\",\"indexContent\":2002016018,\"pageID\":810},{\"docID\":30950,\"osisID\":\"Mark.16.19\",\"indexContent\":2002016019,\"pageID\":810},{\"docID\":30950,\"osisID\":\"Mark.16.20\",\"indexContent\":2002016020,\"pageID\":810}]}}}",
+  "body_sha256": "619fb606afc65d7c36a347e5bb447c63067c511feb1a4ae2043d94f92bace858",
+  "retrieved_at": "2026-10-07T21:46:37+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

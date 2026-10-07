@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30753",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:06:32 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791407192126",
+    "X-Request-Post-Validation-Epoch": "1791407192127",
+    "X-Request-Response-Epoch": "1791407192130",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1006",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30753,\"indexContent\":[\"Matt 23:11-21\",{\"docID\":30753,\"osisID\":\"Matt.23.11\",\"indexContent\":2001023011,\"pageID\":40},{\"docID\":30753,\"osisID\":\"Matt.23.12\",\"indexContent\":2001023012,\"pageID\":40},{\"docID\":30753,\"osisID\":\"Matt.23.13\",\"indexContent\":2001023013,\"pageID\":40},{\"docID\":30753,\"osisID\":\"Matt.23.14\",\"indexContent\":2001023014,\"pageID\":40},{\"docID\":30753,\"osisID\":\"Matt.23.15\",\"indexContent\":2001023015,\"pageID\":40},{\"docID\":30753,\"osisID\":\"Matt.23.15\",\"indexContent\":2001023015,\"pageID\":50},{\"docID\":30753,\"osisID\":\"Matt.23.16\",\"indexContent\":2001023016,\"pageID\":50},{\"docID\":30753,\"osisID\":\"Matt.23.17\",\"indexContent\":2001023017,\"pageID\":50},{\"docID\":30753,\"osisID\":\"Matt.23.18\",\"indexContent\":2001023018,\"pageID\":50},{\"docID\":30753,\"osisID\":\"Matt.23.19\",\"indexContent\":2001023019,\"pageID\":50},{\"docID\":30753,\"osisID\":\"Matt.23.20\",\"indexContent\":2001023020,\"pageID\":50},{\"docID\":30753,\"osisID\":\"Matt.23.21\",\"indexContent\":2001023021,\"pageID\":50}]}}}",
+  "body_sha256": "851a8374640cb3678565eda1eefbc4849e7ddd6de5c920dcf75022daf3d7da51",
+  "retrieved_at": "2026-10-07T21:06:32+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

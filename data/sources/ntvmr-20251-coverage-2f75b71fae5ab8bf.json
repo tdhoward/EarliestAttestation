@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20251",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:14:11 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396851169",
+    "X-Request-Post-Validation-Epoch": "1791396851170",
+    "X-Request-Response-Epoch": "1791396851173",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "632",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20251,\"indexContent\":[\"3John 1:12-15; Jude 1:3-5\",{\"docID\":20251,\"osisID\":\"3John.1.12\",\"indexContent\":2025001012,\"pageID\":10},{\"docID\":20251,\"osisID\":\"3John.1.13\",\"indexContent\":2025001013,\"pageID\":10},{\"docID\":20251,\"osisID\":\"3John.1.14\",\"indexContent\":2025001014,\"pageID\":10},{\"docID\":20251,\"osisID\":\"3John.1.15\",\"indexContent\":2025001015,\"pageID\":10},{\"docID\":20251,\"osisID\":\"Jude.1.3\",\"indexContent\":2026001003,\"pageID\":20},{\"docID\":20251,\"osisID\":\"Jude.1.4\",\"indexContent\":2026001004,\"pageID\":20},{\"docID\":20251,\"osisID\":\"Jude.1.5\",\"indexContent\":2026001005,\"pageID\":20}]}}}",
+  "body_sha256": "482da7a4531b1ba06d1fd972d1783797e2cf0c179644276e0e88ca5e3feef62e",
+  "retrieved_at": "2026-10-07T18:14:11+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

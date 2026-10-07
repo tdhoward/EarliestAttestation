@@ -105,6 +105,18 @@ years. The existing 256-combination export limit remains explicit per verse;
 overflow does not select or truncate an alternative. The explorer chooses among
 exported combinations on demand without enumerating a corpus-wide product.
 
+Catalogue collection uses the inventory's explicit numeric `origEarly` and
+`origLate` fields only to screen follow-up requests. The default exclusive
+earliest-date cutoff is 1000 CE. Only positive, ordered integer bounds can exclude
+a candidate; missing, zero, or invalid bounds remain eligible. A retained
+scholarly estimate beginning before the cutoff also preserves eligibility.
+The original `orig` notation and both numeric bounds stay in the retained row;
+no notation conversion, endpoint merging, or coverage inference is performed.
+Date-filter decisions retain the cutoff, reason, and source evidence separately
+from coverage claims. The cutoff does not remove captured reports or truncate
+date estimates. Discovery completion is qualified by this collection scope,
+which may yield fewer than five witnesses for a verse.
+
 ## Central data and discovery
 
 `data/collection.json` lists the documents, capture paths, coordinate scope, and

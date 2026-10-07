@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "30984",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:53:28 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791410008733",
+    "X-Request-Post-Validation-Epoch": "1791410008734",
+    "X-Request-Response-Epoch": "1791410008739",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1054",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":30984,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":984,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Location Unknown\",\"instID\":484,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Last known: Greece\",\"place\":\"Location Unknown\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"?\",\"shelfID\":1309,\"originYearDescription\":\"XIV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"(früher: Athos, Esphigmenu, 30)\",\"contentOverview\":\"e\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1399,\"early\":1300,\"content\":\"XIV\"},\"leavesDescription\":\"?\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":1309,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":1309,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":984,\"leaves\":{\"leavesCount\":0,\"content\":\"?\"},\"lang\":\"g\",\"contentOverview\":\"e\",\"lineCount\":{\"lineCountMin\":0,\"content\":\"?\"}}}}",
+  "body_sha256": "de7dbb061b57a5825677adf822db101f7f6934b3e52972211b70f3e968352e4c",
+  "retrieved_at": "2026-10-07T21:53:28+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

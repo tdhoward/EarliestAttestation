@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20253",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:14:32 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396872173",
+    "X-Request-Post-Validation-Epoch": "1791396872174",
+    "X-Request-Response-Epoch": "1791396872177",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "474",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20253,\"indexContent\":[\"Luke 10:19-22\",{\"docID\":20253,\"osisID\":\"Luke.10.19\",\"indexContent\":2003010019,\"pageID\":10},{\"docID\":20253,\"osisID\":\"Luke.10.20\",\"indexContent\":2003010020,\"pageID\":10},{\"docID\":20253,\"osisID\":\"Luke.10.21\",\"indexContent\":2003010021,\"pageID\":10},{\"docID\":20253,\"osisID\":\"Luke.10.21\",\"indexContent\":2003010021,\"pageID\":20},{\"docID\":20253,\"osisID\":\"Luke.10.22\",\"indexContent\":2003010022,\"pageID\":20}]}}}",
+  "body_sha256": "808f0d58c577fd08762d268006aa4807581ee17894d780302cf846b7db653caa",
+  "retrieved_at": "2026-10-07T18:14:32+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

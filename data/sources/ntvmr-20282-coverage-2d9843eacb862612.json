@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20282",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:19:41 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397181330",
+    "X-Request-Post-Validation-Epoch": "1791397181331",
+    "X-Request-Response-Epoch": "1791397181334",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "552",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20282,\"indexContent\":[\"Phil 2:22-24; Phil 3:6-8\",{\"docID\":20282,\"osisID\":\"Phil.2.22\",\"indexContent\":2011002022,\"pageID\":10},{\"docID\":20282,\"osisID\":\"Phil.2.23\",\"indexContent\":2011002023,\"pageID\":10},{\"docID\":20282,\"osisID\":\"Phil.2.24\",\"indexContent\":2011002024,\"pageID\":10},{\"docID\":20282,\"osisID\":\"Phil.3.6\",\"indexContent\":2011003006,\"pageID\":20},{\"docID\":20282,\"osisID\":\"Phil.3.7\",\"indexContent\":2011003007,\"pageID\":20},{\"docID\":20282,\"osisID\":\"Phil.3.8\",\"indexContent\":2011003008,\"pageID\":20}]}}}",
+  "body_sha256": "a4f99905aa2b536714af623350d6e611c6e5fc429cb4af3d732473be0d584aaa",
+  "retrieved_at": "2026-10-07T18:19:41+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

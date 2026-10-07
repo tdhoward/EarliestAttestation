@@ -633,13 +633,18 @@
         scopes.some(item => item.candidate_collection_state !== "complete") ? "candidate_collection_incomplete" : "bounded_search_complete");
       const count = new Set(scopes.flatMap(item => item.candidate_ids)).size;
       const pending = new Set(scopes.flatMap(item => item.pending_candidate_ids)).size;
+      const cutoffs = [...new Set(scopes.map(item => item.definition.earliest_date_before).filter(value => value != null))];
+      const eligible = new Set(scopes.flatMap(item => item.eligible_candidate_ids || item.candidate_ids)).size;
+      const excluded = new Set(scopes.flatMap(item => item.date_excluded_candidate_ids || [])).size;
+      const dateScope = cutoffs.length ? ` Collection date cutoff${cutoffs.length === 1 ? "" : "s"}: ranges must start before ${cutoffs.join(" or ")} CE; unknown dates and retained earlier estimates remain eligible. ${excluded} candidates excluded in these date-filtered scopes. Captured reports are preserved; fewer than five witnesses per verse is acceptable.` : "";
       const catalogue = scopes.some(item => item.definition.scope_type === "catalogue_range");
       const search = catalogue ? "catalogue search" : "book search";
       const pool = catalogue ? "Catalogue membership does not establish verse contents. Unindexed contents remain unknown. Rankings cover collected witnesses only; exhaustive discovery is not established." :
         "Other catalogue ranges and unindexed witnesses remain outside this search. Rankings cover collected witnesses only.";
-      const text = state === "bounded_search_complete" ? `Bounded ${search} complete; all ${count} search candidates collected. ${pool}` :
-        state === "candidate_collection_incomplete" ? `Bounded ${search} complete; ${pending} of ${count} search candidates await metadata or contents collection. ${pool}` :
-        `Bounded ${search} ${(incomplete?.search_state || "incomplete").replaceAll("_", " ")}; ${count} candidates identified so far. ${pool}`;
+      const candidates = cutoffs.length ? `${eligible} eligible search candidates` : `${count} search candidates`;
+      const text = (state === "bounded_search_complete" ? `Bounded ${search} complete; all ${candidates} collected. ${pool}` :
+        state === "candidate_collection_incomplete" ? `Bounded ${search} complete; ${pending} of ${candidates} await metadata or contents collection. ${pool}` :
+        `Bounded ${search} ${(incomplete?.search_state || "incomplete").replaceAll("_", " ")}; ${count} candidates identified so far. ${pool}`) + dateScope;
       return {state, text};
     }
     const model = {data, store, indices, books, choices, selection, minimum, maximum, hasEvents, label, lookup, cell,
@@ -948,6 +953,9 @@
       const scopeLabel = discovery.definition.book || `${discovery.definition.category || "Catalogue"} · ${discovery.definition.books.length} books`;
       appendText(scope, "p", `${scopeLabel}: document IDs ${discovery.definition.doc_id_min}–${discovery.definition.doc_id_max}. Search ${discovery.search_state}; candidate collection ${discovery.candidate_collection_state}.`);
       appendText(scope, "p", `Search candidates: ${discovery.candidate_ids.join(", ") || (discovery.search_state === "complete" ? "none returned" : "not established")}. Awaiting collection: ${discovery.pending_candidate_ids.join(", ") || (discovery.search_state === "complete" ? "none" : "not established")}.`);
+      if (discovery.definition.earliest_date_before != null) {
+        appendText(scope, "p", `Collection cutoff: earliest date before ${discovery.definition.earliest_date_before} CE. Date-excluded candidates: ${(discovery.date_excluded_candidate_ids || []).join(", ") || "none"}. Unknown dates remain eligible.`);
+      }
       appendText(scope, "p", discovery.limitation);
       appendText(scope, "p", `Discovery collection cost: ${JSON.stringify(discovery.collection_cost)}`);
       if (discovery.run_error) appendText(scope, "p", discovery.run_error);

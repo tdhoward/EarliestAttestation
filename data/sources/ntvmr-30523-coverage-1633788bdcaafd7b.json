@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30523",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 20:19:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791404349058",
+    "X-Request-Post-Validation-Epoch": "1791404349059",
+    "X-Request-Response-Epoch": "1791404349073",
+    "X-Response-Time": "15ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "877",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30523,\"indexContent\":[\"John 7:46-52; John 8:12-14\",{\"docID\":30523,\"osisID\":\"John.7.46\",\"indexContent\":2004007046,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.7.47\",\"indexContent\":2004007047,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.7.48\",\"indexContent\":2004007048,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.7.49\",\"indexContent\":2004007049,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.7.50\",\"indexContent\":2004007050,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.7.51\",\"indexContent\":2004007051,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.7.52\",\"indexContent\":2004007052,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.8.12\",\"indexContent\":2004008012,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.8.13\",\"indexContent\":2004008013,\"pageID\":4690},{\"docID\":30523,\"osisID\":\"John.8.14\",\"indexContent\":2004008014,\"pageID\":4690}]}}}",
+  "body_sha256": "9207db002141d2516f58865d1e5230cedce8e513365f1852ea6d37658a8d96a3",
+  "retrieved_at": "2026-10-07T20:19:09+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

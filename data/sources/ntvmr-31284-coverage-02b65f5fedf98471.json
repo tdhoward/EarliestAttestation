@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "31284",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 22:54:12 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791413652355",
+    "X-Request-Post-Validation-Epoch": "1791413652356",
+    "X-Request-Response-Epoch": "1791413652359",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1622",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":31284,\"indexContent\":[\"John 12:35-50; John 13:0-2\",{\"docID\":31284,\"osisID\":\"John.12.35\",\"indexContent\":2004012035,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.36\",\"indexContent\":2004012036,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.37\",\"indexContent\":2004012037,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.38\",\"indexContent\":2004012038,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.39\",\"indexContent\":2004012039,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.40\",\"indexContent\":2004012040,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.41\",\"indexContent\":2004012041,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.42\",\"indexContent\":2004012042,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.43\",\"indexContent\":2004012043,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.44\",\"indexContent\":2004012044,\"pageID\":20},{\"docID\":31284,\"osisID\":\"John.12.44\",\"indexContent\":2004012044,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.12.45\",\"indexContent\":2004012045,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.12.46\",\"indexContent\":2004012046,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.12.47\",\"indexContent\":2004012047,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.12.48\",\"indexContent\":2004012048,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.12.49\",\"indexContent\":2004012049,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.12.50\",\"indexContent\":2004012050,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.13\",\"indexContent\":2004013000,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.13.1\",\"indexContent\":2004013001,\"pageID\":30},{\"docID\":31284,\"osisID\":\"John.13.2\",\"indexContent\":2004013002,\"pageID\":30}]}}}",
+  "body_sha256": "f3e349a55349fc5aa0fff1e455bd107f7e96eba23f56201e002d037c972016c1",
+  "retrieved_at": "2026-10-07T22:54:12+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

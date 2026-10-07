@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20292",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:21:28 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791397288303",
+    "X-Request-Post-Validation-Epoch": "1791397288304",
+    "X-Request-Response-Epoch": "1791397288311",
+    "X-Response-Time": "8ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "699",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20292,\"indexContent\":[\"Mark 6:55-56; Mark 7:1-5\",{\"docID\":20292,\"osisID\":\"Mark.6.55\",\"indexContent\":2002006055,\"pageID\":10},{\"docID\":20292,\"osisID\":\"Mark.6.56\",\"indexContent\":2002006056,\"pageID\":10},{\"docID\":20292,\"osisID\":\"Mark.7.1\",\"indexContent\":2002007001,\"pageID\":10},{\"docID\":20292,\"osisID\":\"Mark.7.2\",\"indexContent\":2002007002,\"pageID\":10},{\"docID\":20292,\"osisID\":\"Mark.7.2\",\"indexContent\":2002007002,\"pageID\":20},{\"docID\":20292,\"osisID\":\"Mark.7.3\",\"indexContent\":2002007003,\"pageID\":20},{\"docID\":20292,\"osisID\":\"Mark.7.4\",\"indexContent\":2002007004,\"pageID\":20},{\"docID\":20292,\"osisID\":\"Mark.7.5\",\"indexContent\":2002007005,\"pageID\":20}]}}}",
+  "body_sha256": "a22df159f4f47abfe78213877c966ce9afd55613c3b630b4934ee5fdb8f5bcff",
+  "retrieved_at": "2026-10-07T18:21:28+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

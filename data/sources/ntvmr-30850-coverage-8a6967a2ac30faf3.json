@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "30850",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 21:26:21 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791408381654",
+    "X-Request-Post-Validation-Epoch": "1791408381655",
+    "X-Request-Response-Epoch": "1791408381674",
+    "X-Response-Time": "20ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1102",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":30850,\"indexContent\":[\"John 1:1-6; John 1:9; John 7:52; John 8:12\",{\"docID\":30850,\"osisID\":\"John.1.1\",\"indexContent\":2004001001,\"pageID\":150},{\"docID\":30850,\"osisID\":\"John.1.1\",\"indexContent\":2004001001,\"pageID\":180},{\"docID\":30850,\"osisID\":\"John.1.1\",\"indexContent\":2004001001,\"pageID\":230},{\"docID\":30850,\"osisID\":\"John.1.2\",\"indexContent\":2004001002,\"pageID\":340},{\"docID\":30850,\"osisID\":\"John.1.3\",\"indexContent\":2004001003,\"pageID\":480},{\"docID\":30850,\"osisID\":\"John.1.3\",\"indexContent\":2004001003,\"pageID\":550},{\"docID\":30850,\"osisID\":\"John.1.4\",\"indexContent\":2004001004,\"pageID\":550},{\"docID\":30850,\"osisID\":\"John.1.4\",\"indexContent\":2004001004,\"pageID\":590},{\"docID\":30850,\"osisID\":\"John.1.5\",\"indexContent\":2004001005,\"pageID\":640},{\"docID\":30850,\"osisID\":\"John.1.6\",\"indexContent\":2004001006,\"pageID\":660},{\"docID\":30850,\"osisID\":\"John.1.9\",\"indexContent\":2004001009,\"pageID\":710},{\"docID\":30850,\"osisID\":\"John.7.52\",\"indexContent\":2004007052,\"pageID\":5580},{\"docID\":30850,\"osisID\":\"John.8.12\",\"indexContent\":2004008012,\"pageID\":5600}]}}}",
+  "body_sha256": "0bc3a109e0070e3b022388ef1b4580cc4de120f8d3d3251e6967b919d8dc204e",
+  "retrieved_at": "2026-10-07T21:26:21+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

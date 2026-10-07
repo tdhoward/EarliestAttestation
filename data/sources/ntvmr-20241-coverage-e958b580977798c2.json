@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20241",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:12:23 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396743859",
+    "X-Request-Post-Validation-Epoch": "1791396743860",
+    "X-Request-Response-Epoch": "1791396743863",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "785",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20241,\"indexContent\":[\"1Tim 3:16; 1Tim 4:1-3; 1Tim 4:8-12\",{\"docID\":20241,\"osisID\":\"1Tim.3.16\",\"indexContent\":2015003016,\"pageID\":10},{\"docID\":20241,\"osisID\":\"1Tim.4.1\",\"indexContent\":2015004001,\"pageID\":10},{\"docID\":20241,\"osisID\":\"1Tim.4.2\",\"indexContent\":2015004002,\"pageID\":10},{\"docID\":20241,\"osisID\":\"1Tim.4.3\",\"indexContent\":2015004003,\"pageID\":10},{\"docID\":20241,\"osisID\":\"1Tim.4.8\",\"indexContent\":2015004008,\"pageID\":20},{\"docID\":20241,\"osisID\":\"1Tim.4.9\",\"indexContent\":2015004009,\"pageID\":20},{\"docID\":20241,\"osisID\":\"1Tim.4.10\",\"indexContent\":2015004010,\"pageID\":20},{\"docID\":20241,\"osisID\":\"1Tim.4.11\",\"indexContent\":2015004011,\"pageID\":20},{\"docID\":20241,\"osisID\":\"1Tim.4.12\",\"indexContent\":2015004012,\"pageID\":20}]}}}",
+  "body_sha256": "c85516e5b76c56f127bdbf71d77d35e8654ac2d6d097edc4f918080c6ade0185",
+  "retrieved_at": "2026-10-07T18:12:23+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

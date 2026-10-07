@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "20261",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 18:15:56 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791396956935",
+    "X-Request-Post-Validation-Epoch": "1791396956936",
+    "X-Request-Response-Epoch": "1791396956939",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1226",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":20261,\"indexContent\":[\"Gal 1:9-12; Gal 1:19-22; Gal 4:25-31\",{\"docID\":20261,\"osisID\":\"Gal.1.9\",\"indexContent\":2009001009,\"pageID\":10},{\"docID\":20261,\"osisID\":\"Gal.1.10\",\"indexContent\":2009001010,\"pageID\":10},{\"docID\":20261,\"osisID\":\"Gal.1.11\",\"indexContent\":2009001011,\"pageID\":10},{\"docID\":20261,\"osisID\":\"Gal.1.12\",\"indexContent\":2009001012,\"pageID\":10},{\"docID\":20261,\"osisID\":\"Gal.1.19\",\"indexContent\":2009001019,\"pageID\":20},{\"docID\":20261,\"osisID\":\"Gal.1.20\",\"indexContent\":2009001020,\"pageID\":20},{\"docID\":20261,\"osisID\":\"Gal.1.21\",\"indexContent\":2009001021,\"pageID\":20},{\"docID\":20261,\"osisID\":\"Gal.1.22\",\"indexContent\":2009001022,\"pageID\":20},{\"docID\":20261,\"osisID\":\"Gal.4.25\",\"indexContent\":2009004025,\"pageID\":30},{\"docID\":20261,\"osisID\":\"Gal.4.26\",\"indexContent\":2009004026,\"pageID\":30},{\"docID\":20261,\"osisID\":\"Gal.4.27\",\"indexContent\":2009004027,\"pageID\":30},{\"docID\":20261,\"osisID\":\"Gal.4.28\",\"indexContent\":2009004028,\"pageID\":40},{\"docID\":20261,\"osisID\":\"Gal.4.29\",\"indexContent\":2009004029,\"pageID\":40},{\"docID\":20261,\"osisID\":\"Gal.4.30\",\"indexContent\":2009004030,\"pageID\":40},{\"docID\":20261,\"osisID\":\"Gal.4.31\",\"indexContent\":2009004031,\"pageID\":40}]}}}",
+  "body_sha256": "cb06f44118f5501c1a539cbf5d45255b47e851a206c38ec066b61ccbbadd9754",
+  "retrieved_at": "2026-10-07T18:15:57+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}
