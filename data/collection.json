@@ -133,6 +133,12 @@
       "corpus": "greek_nt_manuscript",
       "metadata_fixture": "sources/ntvmr-10132-metadata-e76894bb3f86.json",
       "coverage_fixture": "sources/ntvmr-10132-coverage-f3e8fa579e3a.json"
+    },
+    {
+      "doc_id": 10030,
+      "corpus": "greek_nt_manuscript",
+      "metadata_fixture": "sources/ntvmr-10030-metadata-56340e515e44.json",
+      "coverage_fixture": "sources/ntvmr-10030-coverage-210fda8ce6d3.json"
     }
   ],
   "additional_reports": [],

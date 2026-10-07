@@ -461,7 +461,8 @@ test("bounded discovery is independent of coverage, dates, and the rest of the c
   assert.match(model.discovery(model.lookup("Gal 1:9")).text, /Other catalogue ranges and unindexed witnesses/);
   assert.equal(model.discovery(model.lookup("Heb 1:1")).state, "bounded_search_complete");
   assert.equal(model.discovery(model.lookup("Eph 1:1")).state, "bounded_search_complete");
-  assert.equal(model.discovery(model.lookup("2Thess 1:4")).state, "not_searched");
+  assert.equal(model.discovery(model.lookup("2Thess 1:4")).state, "bounded_search_complete");
+  assert.equal(model.discovery(model.lookup("1Thess 4:12")).state, "not_searched");
   assert.equal(model.discovery(model.lookup("Rom 1:1")).state, "not_searched");
   assert.equal(discovered.metadata.discovery.corpus_complete, false);
   const cell = model.cell(model.lookup("Gal 1:9"), "optimistic");
@@ -507,9 +508,33 @@ test("full NT report expansion navigates sources, endpoints, unknowns, and suppl
     assert.deepEqual(pessimistic.events.map(e => e.event_year), [225, 399, 499]);
   }
   const hebrews = model.cell(model.lookup("Heb 1:1"), "optimistic");
-  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, 17);
+  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, 18);
   assert.equal(model.store.observation(hebrews.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10012").state, "present");
   assert.equal(model.minimum, 150); assert.equal(model.maximum, 750);
+});
+
+test("P30 source reports update chart endpoints without expanding adjacent contents or discovery", () => {
+  const model = createModel(current);
+  for (const ref of ["2Thess 1:1", "2Thess 1:2", "1Thess 4:12"]) {
+    for (const [scenario, year] of [["optimistic", 200], ["pessimistic", 299]]) {
+      const cell = model.cell(model.lookup(ref), scenario);
+      const event = cell.events.find(e => e.witness_id === "ntvmr:10030");
+      assert.ok(event);
+      assert.equal(event.event_year, year);
+      const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10030");
+      assert.equal(pair.state, "present");
+      assert.ok(pair.claims.every(id => model.store.claim(id).doc_id === 10030));
+    }
+  }
+  for (const ref of ["1Thess 5:11", "2Thess 1:3"]) {
+    const cell = model.cell(model.lookup(ref), "optimistic");
+    assert.ok(cell.events.every(e => e.witness_id !== "ntvmr:10030"));
+    const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10030");
+    assert.equal(pair.state, "unknown");
+    assert.deepEqual(pair.claims, []);
+  }
+  assert.equal(model.discovery(model.lookup("1Thess 4:12")).state, "not_searched");
+  assert.equal(model.discovery(model.lookup("2Thess 1:1")).state, "bounded_search_complete");
 });
 
 test("complete canonical axis and reference navigation, including tiny books", () => {

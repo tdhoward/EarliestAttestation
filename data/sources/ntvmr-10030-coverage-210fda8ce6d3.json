@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10030",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 02:58:47 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791341927509",
+    "X-Request-Post-Validation-Epoch": "1791341927510",
+    "X-Request-Response-Epoch": "1791341927514",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1963",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10030,\"indexContent\":[\"1Thess 4:12-13; 1Thess 4:16-17; 1Thess 5:3; 1Thess 5:8-10; 1Thess 5:12-18; 1Thess 5:25-28; 1Tim subscriptio; 2Thess 1:1-2\",{\"docID\":10030,\"osisID\":\"1Thess.4.12\",\"indexContent\":2013004012,\"pageID\":10},{\"docID\":10030,\"osisID\":\"1Thess.4.13\",\"indexContent\":2013004013,\"pageID\":10},{\"docID\":10030,\"osisID\":\"1Thess.4.16\",\"indexContent\":2013004016,\"pageID\":20},{\"docID\":10030,\"osisID\":\"1Thess.4.17\",\"indexContent\":2013004017,\"pageID\":20},{\"docID\":10030,\"osisID\":\"1Thess.5.3\",\"indexContent\":2013005003,\"pageID\":30},{\"docID\":10030,\"osisID\":\"1Thess.5.8\",\"indexContent\":2013005008,\"pageID\":40},{\"docID\":10030,\"osisID\":\"1Thess.5.9\",\"indexContent\":2013005009,\"pageID\":40},{\"docID\":10030,\"osisID\":\"1Thess.5.10\",\"indexContent\":2013005010,\"pageID\":40},{\"docID\":10030,\"osisID\":\"1Thess.5.12\",\"indexContent\":2013005012,\"pageID\":50},{\"docID\":10030,\"osisID\":\"1Thess.5.13\",\"indexContent\":2013005013,\"pageID\":50},{\"docID\":10030,\"osisID\":\"1Thess.5.14\",\"indexContent\":2013005014,\"pageID\":50},{\"docID\":10030,\"osisID\":\"1Thess.5.14\",\"indexContent\":2013005014,\"pageID\":60},{\"docID\":10030,\"osisID\":\"1Thess.5.15\",\"indexContent\":2013005015,\"pageID\":60},{\"docID\":10030,\"osisID\":\"1Thess.5.16\",\"indexContent\":2013005016,\"pageID\":60},{\"docID\":10030,\"osisID\":\"1Thess.5.17\",\"indexContent\":2013005017,\"pageID\":60},{\"docID\":10030,\"osisID\":\"1Thess.5.18\",\"indexContent\":2013005018,\"pageID\":60},{\"docID\":10030,\"osisID\":\"1Thess.5.25\",\"indexContent\":2013005025,\"pageID\":70},{\"docID\":10030,\"osisID\":\"1Thess.5.26\",\"indexContent\":2013005026,\"pageID\":70},{\"docID\":10030,\"osisID\":\"1Thess.5.27\",\"indexContent\":2013005027,\"pageID\":70},{\"docID\":10030,\"osisID\":\"1Thess.5.28\",\"indexContent\":2013005028,\"pageID\":70},{\"docID\":10030,\"osisID\":\"2Thess\",\"indexContent\":2014000000,\"pageID\":80},{\"docID\":10030,\"osisID\":\"2Thess.1.1\",\"indexContent\":2014001001,\"pageID\":80},{\"docID\":10030,\"osisID\":\"2Thess.1.2\",\"indexContent\":2014001002,\"pageID\":80}]}}}",
+  "body_sha256": "46222c78db51198292ce2c21c1658a614f80ee2cb18902ac0228d55b41b8a9ff",
+  "retrieved_at": "2026-10-07T02:58:47+00:00"
+}

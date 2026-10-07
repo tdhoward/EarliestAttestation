@@ -25,15 +25,15 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(read_json(DATA / "attestations.json")["format_version"], 3)
         self.assertEqual(len(data["coordinates"]), 7957)
         self.assertEqual(data["metadata"]["counts"]["verse_count"], 7941)
-        self.assertEqual(data["metadata"]["counts"]["witness_count"], 17)
+        self.assertEqual(data["metadata"]["counts"]["witness_count"], 18)
         self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"],
-                         {"present": 16640, "unknown": 118357, "absent": 0, "contested": 0})
+                         {"present": 16661, "unknown": 126277, "absent": 0, "contested": 0})
         self.assertEqual(data["metadata"]["counts"]["by_discovery_state"],
-                         {"bounded_search_complete": 607, "not_searched": 7334})
+                         {"bounded_search_complete": 654, "not_searched": 7287})
         self.assertEqual(data["metadata"]["counts"]["graphable_coordinates"], 7928)
         self.assertEqual(data["metadata"]["counts"]["mapping_gaps"], 13)
         self.assertEqual(len({ref.split('.')[0] for ref in data["observations"]}), 27)
-        self.assertEqual(data["metadata"]["collection_cost"]["reused_response_count"], 37)
+        self.assertEqual(data["metadata"]["collection_cost"]["reused_response_count"], 40)
         self.assertEqual(data["metadata"]["collection_cost"]["replay_network_requests"], 0)
 
     def test_every_presence_and_date_retains_its_actual_source_field(self):
@@ -168,8 +168,11 @@ class CollectionTests(unittest.TestCase):
         data = build_data(config)
         self.assertEqual(len(data["observations"]), 7957)
         self.assertEqual(data["observations"]["Rom.16.24"]["editorial_status"], "omitted")
-        self.assertEqual([p["state"] for p in data["observations"]["Rom.16.24"]["reported_coverage"]],
-                         ["unknown"] * 15 + ["present", "present"])
+        pairs = data["observations"]["Rom.16.24"]["reported_coverage"]
+        self.assertEqual({p["witness_id"] for p in pairs if p["state"] == "present"},
+                         {"ntvmr:20001", "ntvmr:20002"})
+        self.assertTrue(all(p["state"] == "unknown" for p in pairs
+                            if p["witness_id"] not in ("ntvmr:20001", "ntvmr:20002")))
         for books in ([], ["Gal", "Gal"], ["Unknown"]):
             with self.assertRaisesRegex(ValueError, "distinct book codes"):
                 prepare_collection({**config, "books": books})
@@ -239,8 +242,61 @@ class CollectionTests(unittest.TestCase):
             pair = next(p for p in data["observations"][ref]["reported_coverage"] if p["witness_id"] == "ntvmr:10049")
             self.assertEqual(pair["state"], "present" if ref == "Eph.4.16" else "unknown")
         self.assertEqual(data["observations"]["Eph.1.1"]["discovery"]["state"], "bounded_search_complete")
-        self.assertEqual(data["observations"]["2Thess.1.4"]["discovery"]["state"], "not_searched")
         self.assertFalse(data["metadata"]["discovery"]["corpus_complete"])
+
+    def test_2thessalonians_discovery_reuses_p92_and_preserves_sparse_p30_reports(self):
+        data = self.data
+        scope = next(s for s in data["metadata"]["discovery"]["scopes"] if s["definition"]["book"] == "2Thess")
+        self.assertEqual(scope["candidate_ids"], [10030, 10092])
+        self.assertEqual(scope["collected_candidate_ids"], scope["candidate_ids"])
+        self.assertEqual(scope["pending_candidate_ids"], [])
+        self.assertEqual(scope["search_state"], "complete")
+        self.assertEqual(scope["collection_cost"]["request_attempts"], 6)
+        self.assertEqual(scope["collection_cost"]["http_responses_recorded"], 3)
+        self.assertEqual(scope["collection_cost"]["reused_seed_document_responses"], 34)
+        self.assertEqual(scope["collection_cost"]["collection_errors"], [])
+        self.assertLessEqual(scope["collection_cost"]["request_attempts"], scope["definition"]["request_budget"])
+        date = next(d for d in data["dates"].values() if d["doc_id"] == 10030)
+        self.assertEqual(date["reported"], {"early": 200, "late": 299, "content": "E II - A III"})
+        self.assertEqual((date["date_min"], date["date_max"]), (200, 299))
+        present = {}
+        for ref, row in data["observations"].items():
+            pair = next(p for p in row["reported_coverage"] if p["witness_id"] == "ntvmr:10030")
+            if pair["state"] == "present":
+                present.setdefault(ref.split(".")[0], []).append(ref)
+        self.assertEqual(len(present["1Thess"]), 19)
+        self.assertEqual(present["2Thess"], ["2Thess.1.1", "2Thess.1.2"])
+        self.assertEqual(set(present), {"1Thess", "2Thess"})
+        for ref in ("1Thess.5.10", "1Thess.5.11", "1Thess.5.12", "2Thess.1.3"):
+            pair = next(p for p in data["observations"][ref]["reported_coverage"] if p["witness_id"] == "ntvmr:10030")
+            self.assertEqual(pair["state"], "present" if ref in ("1Thess.5.10", "1Thess.5.12") else "unknown")
+        self.assertEqual(data["observations"]["2Thess.1.1"]["discovery"]["state"], "bounded_search_complete")
+        self.assertEqual(data["observations"]["1Thess.4.12"]["discovery"]["state"], "not_searched")
+        self.assertFalse(scope["corpus_complete"])
+
+    def test_2thessalonians_addition_preserves_prior_claims_dates_and_coverage(self):
+        config = read_json(DATA / "collection.json")
+        config["documents"] = [d for d in config["documents"] if d["doc_id"] != 10030]
+        records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] != "2Thess"]
+        with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
+            before = build_data(config, discovery_records=records)
+        for table in ("claims", "dates"):
+            for key, value in before[table].items():
+                self.assertEqual(self.data[table][key], value)
+        added_present = 0
+        for ref, old in before["observations"].items():
+            new = self.data["observations"][ref]
+            prior_pairs = [p for p in new["reported_coverage"] if p["witness_id"] != "ntvmr:10030"]
+            self.assertEqual(prior_pairs, old["reported_coverage"])
+            added = next(p for p in new["reported_coverage"] if p["witness_id"] == "ntvmr:10030")
+            added_present += added["state"] == "present"
+            if added["state"] == "unknown":
+                self.assertEqual(new["dating_alternatives"], old["dating_alternatives"])
+                self.assertEqual(new["ranking_state"], old["ranking_state"])
+            if not ref.startswith("2Thess."):
+                self.assertEqual(new["discovery"], old["discovery"])
+        self.assertEqual(added_present, 21)
+        self.assertEqual(before["observations"]["2Thess.1.4"]["discovery"]["state"], "not_searched")
 
 
 if __name__ == "__main__":

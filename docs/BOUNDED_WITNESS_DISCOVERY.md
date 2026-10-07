@@ -71,8 +71,8 @@ earlier candidates. Missing contents entries remain unknown, never inferred abse
 
 ## Current source scope
 
-The central discovery register contains completed Galatians, Hebrews, and
-Ephesians searches for IDs 10000–19999. The Galatians search ran
+The central discovery register contains completed Galatians, Hebrews, Ephesians,
+and 2 Thessalonians searches for IDs 10000–19999. The Galatians search ran
 without name, date, or language search filters. It returned P46, P51, and P135;
 all have metadata and long contents captures. GA 01 and GA 02 are additional
 collected witnesses outside that range.
@@ -101,5 +101,14 @@ presence pairs and four 2 Thessalonians presence pairs. P49's report includes
 Ephesians 4:29 and 4:31 but no exact 4:30 entry; that witness/verse pair remains
 unknown. No neighboring-verse expansion or absence inference was made.
 
-Only the Galatians, Hebrews, and Ephesians scopes are complete. Other books,
-including 2 Thessalonians despite the reused report, remain unsearched.
+The independent 2 Thessalonians search returned P30 and P92. It reused P92's
+metadata and contents and captured both reports for P30. Three successful proxy
+requests followed three sandbox-denied attempts without a provider response,
+using six of the fixed 25-attempt budget. P30 adds two 2 Thessalonians presence
+pairs and 19 in 1 Thessalonians. Its complete catalogue date estimate is
+200–299 CE (`E II - A III`). Exact entries report 1 Thessalonians 5:10 and 5:12
+without 5:11; that pair remains unknown. Every prior source claim, date estimate,
+and coverage state is preserved.
+
+Only the Galatians, Hebrews, Ephesians, and 2 Thessalonians scopes are complete.
+Other books, including 1 Thessalonians despite the reused report, remain unsearched.
