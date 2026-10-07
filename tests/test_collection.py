@@ -3,13 +3,14 @@
 from copy import deepcopy
 from pathlib import Path
 import shutil
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
 
 from build_collection import DATA, ROOT, build_data, prepare_collection, read_json, refresh, write_json
 from source_reports import capture
-from report_explorer import expand_explorer_data
+from report_explorer import expand_explorer_data, pack_explorer_data
 
 
 class CollectionTests(unittest.TestCase):
@@ -21,7 +22,7 @@ class CollectionTests(unittest.TestCase):
     def test_current_file_combines_all_collected_books_and_witnesses(self):
         data = self.data
         self.assertEqual(data, expand_explorer_data(read_json(DATA / "attestations.json")))
-        self.assertEqual(read_json(DATA / "attestations.json")["format_version"], 2)
+        self.assertEqual(read_json(DATA / "attestations.json")["format_version"], 3)
         self.assertEqual(len(data["coordinates"]), 7957)
         self.assertEqual(data["metadata"]["counts"]["verse_count"], 7941)
         self.assertEqual(data["metadata"]["counts"]["witness_count"], 17)
@@ -80,6 +81,23 @@ class CollectionTests(unittest.TestCase):
             self.assertTrue(date["citation"].startswith("https://ntvmr.uni-muenster.de/"))
             self.assertNotIn("TLS", date["qualifications"])
 
+    def test_node_restores_production_data_against_the_independent_fresh_build(self):
+        script = """
+          const assert = require('node:assert/strict');
+          const {readFileSync} = require('node:fs');
+          const {expandData} = require('./web/attestation-explorer/explorer.js');
+          const expected = JSON.parse(readFileSync(process.argv[1], 'utf8'));
+          const packed = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+          assert.equal(packed.format_version, 3);
+          assert.deepStrictEqual(expandData(packed), expected);
+        """
+        with tempfile.TemporaryDirectory() as tmp:
+            expected = Path(tmp) / "normalized.json"
+            write_json(expected, self.data, compact=True)
+            result = subprocess.run(["node", "-e", script, str(expected), str(DATA / "attestations.json")],
+                                    cwd=ROOT, capture_output=True, text=True, timeout=60)
+            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
     def test_updates_replace_one_data_file_without_changing_app_or_losing_books(self):
         assets = {p: p.read_bytes() for p in (ROOT / "web/attestation-explorer").iterdir() if p.is_file()}
         with tempfile.TemporaryDirectory() as tmp:
@@ -98,6 +116,9 @@ class CollectionTests(unittest.TestCase):
                 updated = refresh(directory)
                 self.assertEqual(updated, self.data)
                 body = (directory / "attestations.json").read_bytes()
+                self.assertEqual(read_json(directory / "attestations.json"), pack_explorer_data(updated))
+                self.assertEqual(refresh(directory), updated)
+                self.assertEqual((directory / "attestations.json").read_bytes(), body)
                 self.assertEqual(refresh(directory, check=True), updated)
                 self.assertEqual((directory / "attestations.json").read_bytes(), body)
                 self.assertEqual(set(p.name for p in directory.iterdir()),
@@ -107,7 +128,22 @@ class CollectionTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "out of date"):
                     refresh(directory, check=True)
                 self.assertEqual((directory / "attestations.json").read_bytes(), body)
+                config["books"] = ["Unknown"]
+                write_json(directory / "collection.json", config)
+                with self.assertRaisesRegex(ValueError, "distinct book codes"):
+                    refresh(directory)
+                self.assertEqual((directory / "attestations.json").read_bytes(), body)
         self.assertTrue(all(p.read_bytes() == body for p, body in assets.items()))
+
+    def test_failed_atomic_replacement_preserves_previous_file_and_cleans_temporary(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "attestations.json"
+            output.write_bytes(b"previous data\n")
+            with patch.object(Path, "replace", side_effect=OSError("Synthetic replacement failure")):
+                with self.assertRaisesRegex(OSError, "replacement failure"):
+                    write_json(output, {"format_version": 3}, compact=True)
+            self.assertEqual(output.read_bytes(), b"previous data\n")
+            self.assertEqual(list(Path(tmp).iterdir()), [output])
 
     def test_multiple_discovery_scopes_do_not_erase_each_other_or_expand_contents(self):
         config = read_json(DATA / "collection.json")

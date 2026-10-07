@@ -28,7 +28,7 @@ The fixture includes:
 `explorer-empty.v1.json` is the separate empty-export expected case: its axis
 remains navigable, while observations, claims, and dates are empty.
 
-The matching `*.v2.json` files are frozen compatibility snapshots of the current
+The matching `*.v2.json` files are frozen compatibility snapshots of the previous
 transfer layout. Keep them when introducing newer writers; do not regenerate
 them with a future packer. Both Python and Node test these files against the
 version 1 expected data. `app.test.js` uses the same fixture for loading tests,
@@ -39,9 +39,10 @@ never test fixtures or product inputs.
 
 The `*.phase1.json` files exercise the private `format_version: "3-phase1"`
 candidate codec. They share ranking templates and observation contexts, with
-dense version 2 coverage records and version 2 claim records. Numeric version 3
-is reserved for the complete planned schema; the production writer still emits
-version 2. Python checks these snapshots against `pack_explorer_data_phase1()`
+dense version 2 coverage records and version 2 claim records. The production
+writer now emits the complete numeric version 3 schema; these private candidates
+retain their original layouts. Python checks these snapshots against
+`pack_explorer_data_phase1()`
 and the independent version 1 oracle, and passes fresh packing to Node as well.
 Node uses them for exact decoding, fetch/file loading, chart states, alternative
 selection, mutation isolation, and malformed-reference tests.
@@ -60,8 +61,8 @@ loading, chart states, alternatives, malformed tuples/references, and mutation
 isolation. Additional Python cases alter each compact-eligibility condition and
 send the resulting literal fallbacks directly to Node, including Unicode, nulls,
 extra/missing fields, noncanonical locators/IDs, and safe-integer boundaries.
-The production writer and current data remain version 2; numeric version 3 is
-still reserved for the complete schema.
+These intermediate snapshots retain their private marker; production now uses
+the complete numeric version 3 schema.
 
 The `*.phase3.json` snapshots use private `format_version: "3-phase3"`, adding
 ordered coverage defaults and sparse exceptions alongside dense fallback. The
@@ -81,5 +82,15 @@ claims, both unknown reasons, contested/absent states, present defaults, missing
 observations, and complete alternatives remain covered. Node checks exact
 decoding, chart/selection equivalence, fetch/file loading, malformed defaults and
 ordered overrides, and mutation isolation. Python also checks modal ties,
-type-sensitive witness grouping, and default-table cost accounting. Production
-remains version 2; numeric version 3 rollout belongs to Phase 4.
+type-sensitive witness grouping, and default-table cost accounting. The Phase 4
+rollout writes the same complete schema using numeric version 3.
+
+The `*.v3.json` snapshots contain the complete production browser transfer schema.
+The normalized and empty snapshots restore to their independent version 1 oracles;
+the sparse snapshot restores to the same codec-free synthetic extension above.
+Python checks the writer against these snapshots and sends fresh production
+packing to Node. Both languages check all fields and malformed references; Node
+also checks chart equivalence, alternative selection, independent mutable
+expansion, fetch/file loading, and failed-load retry. Version 2 fixtures remain
+frozen and readable. A full-collection integration test compares Node expansion
+of the current production file with independently built normalized Python data.

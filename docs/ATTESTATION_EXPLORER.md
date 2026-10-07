@@ -39,20 +39,29 @@ failure leaves the previous app data intact.
 - Discovery is assessed independently by book and catalogue range. More graphed
   verses or a completed bounded query does not establish exhaustive discovery.
 
-`report_explorer.py` compacts normalized graph data into shared claim/date tables
-and per-verse observations. The version 2 JSON transfer format additionally
-stores identical coverage and discovery records once and splits each claim into
-a shared provenance context plus its remaining exact fields. References are
-zero-based indices into `coverage_records`, `discovery_records`, and
-`claim_contexts`. The loader rejects invalid indices and conflicting claim
-fields, then restores the version 1 normalized structure for the chart model.
-This retains every unknown pair, qualification, reported object, citation, date
-alternative, and precomputed event. Previous version 1 files remain readable.
-Observations are independent after expansion, despite shared transfer records.
+`report_explorer.py` writes the lossless version 3 JSON transfer format. It stores
+shared claim provenance, coverage contexts, discovery records, ranking templates,
+and observation contexts once, with zero-based table indices. Eligible index
+claims use reversible tagged tuples; other claims retain complete literal details.
+Coverage uses ordered exact defaults and sparse exceptions where they save space,
+with dense fallback for other observations. A coordinate without an observation
+stays uncollected. See [the format contract](DATA_SIZE_OPTIMIZATION.md#code-ownership-and-intended-design)
+for tuple positions, tags, and tables.
 
-The current 17-witness transfer file is 12.5 MB, compared with 39.6 MB expanded.
-The browser uses the computed events without reinterpreting sources. Raw reports
-stay in the central source directory; collection updates change only the data.
+Both decoders retain version 1 and 2 support. The loader rejects malformed tuples,
+invalid indices, dangling claim references, and conflicting claim fields, then
+restores the version 1 normalized structure for the chart model. This retains every
+unknown pair, qualification, reported object, citation, complete date alternative,
+and precomputed event. Expanded version 3 observations and their nested values
+are independently mutable, despite shared transfer records.
+
+The current 17-witness file is **2,007,743 bytes** (about 2.01 MB), compared with
+12,476,223 bytes in version 2 and 39,599,390 bytes normalized, including final
+newlines. This is an **83.91%** reduction from version 2. The browser still eagerly
+expands the file; runtime memory sharing and HTTP compression are pending phases
+5 and 6. Browser memory remains unmeasured. The browser uses the computed events
+without reinterpreting sources. Raw reports stay in the central source directory;
+collection updates change only the data.
 
 ## Verification
 

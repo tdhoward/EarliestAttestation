@@ -30,9 +30,11 @@ const copy = () => structuredClone(data);
 
 test("retained versions and candidate codecs decode exactly to the independent fictional oracle", () => {
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1, phase2, phase3} = transferFixture(name);
+    const {normalized, packed, version3, phase1, phase2, phase3} = transferFixture(name);
     assert.deepEqual(expandData(normalized), normalized);
     assert.deepEqual(expandData(packed), normalized);
+    assert.equal(version3.format_version, 3);
+    assert.deepEqual(expandData(version3), normalized);
     assert.deepEqual(expandData(phase1), normalized);
     assert.deepEqual(expandData(phase2), normalized);
     assert.deepEqual(expandData(phase3), normalized);
@@ -282,9 +284,70 @@ test("Phase 3 sparse chart cells, count bands and alternative selections match t
   assert.equal(candidate.maximum, expected.maximum);
 });
 
+test("production version 3 preserves sparse chart behavior and independent mutable expansion", () => {
+  const {normalized, version3} = sparseFixture();
+  const expected = createModel(normalized), model = createModel(version3);
+  for (const selected of ["1", "2"]) {
+    expected.selection.set("fictional:a", selected);
+    model.selection.set("fictional:a", selected);
+    for (let i = 0; i < normalized.coordinates.length; i++) {
+      for (const side of ["optimistic", "pessimistic"]) {
+        assert.deepEqual(model.cell(i, side), expected.cell(i, side));
+        assert.deepEqual(segments(model.cell(i, side).events, model.maximum),
+          segments(expected.cell(i, side).events, expected.maximum));
+      }
+      assert.deepEqual(model.discovery(i), expected.discovery(i));
+    }
+  }
+  const restored = expandData(version3);
+  restored.observations["Gal.1.1"].reported_coverage[0].claims.push("changed");
+  restored.observations["Gal.1.1"].dating_alternatives.combinations[0].scenarios.optimistic[0].coverage_claim_ids.push(999);
+  restored.claims["101"].reported.indexContent = "changed";
+  restored.metadata.filters.include_omitted = true;
+  assert.deepEqual(restored.observations["Gal.2.1"], normalized.observations["Gal.2.1"]);
+  assert.deepEqual(expandData(version3), normalized);
+  assert.equal(model.minimum, expected.minimum);
+  assert.equal(model.maximum, expected.maximum);
+});
+
+test("production version 3 rejects missing tables, invalid references and conflicting provenance", () => {
+  const {version3} = sparseFixture();
+  for (const name of ["claim_contexts", "coverage_contexts", "coverage_records", "discovery_records",
+    "ranking_templates", "observation_contexts", "coverage_defaults"]) {
+    const missing = structuredClone(version3);
+    delete missing[name];
+    assert.throws(() => expandData(missing), /Missing collection record tables/);
+    for (const index of [-1, version3[name].length, 0.5, "0", true, null]) {
+      const broken = structuredClone(version3);
+      if (name === "claim_contexts") broken.claims["101"][1] = index;
+      else if (name === "coverage_contexts") broken.coverage_records[0][0] = index;
+      else if (name === "coverage_records") broken.coverage_defaults[0][0] = index;
+      else if (name === "coverage_defaults") broken.observations["Gal.1.1"][1][1] = index;
+      else if (name === "observation_contexts") broken.observations["Gal.1.1"][0] = index;
+      else broken.observation_contexts[0][name === "discovery_records" ? "discovery" : "dating_alternatives"] = index;
+      assert.throws(() => expandData(broken), /Invalid .* reference/);
+    }
+  }
+  for (const mutate of [
+    data => {data.claims["101"][0] = "unknown";},
+    data => {data.claims["101"][2][3] = 2 ** 53;},
+    data => {data.claim_contexts[data.claims["102"][1]].source_ref = "conflict";},
+    data => {data.coverage_records.push([0, ["missing"]]);},
+    data => {data.coverage_contexts[0].claims = [];},
+    data => {data.observation_contexts[0].reported_coverage = [];},
+    data => {data.ranking_templates[0].combinations[0].scenarios.optimistic[0].coverage_claim_ids = ["literal", [999999]];},
+    data => {data.observations["Gal.1.1"][1][2] = [[0, 0], [0, 0]];},
+    data => {data.coverage_defaults.push([-1]);}
+  ]) {
+    const broken = structuredClone(version3);
+    mutate(broken);
+    assert.throws(() => expandData(broken), /Invalid|Dangling|overrides|contains/);
+  }
+});
+
 test("the fictional oracle preserves coverage assertions, claim order, unknown reasons, and omitted observations", () => {
-  const {normalized, packed, phase1, phase2, phase3} = transferFixture();
-  for (const input of [normalized, packed, phase1, phase2, phase3]) {
+  const {normalized, packed, version3, phase1, phase2, phase3} = transferFixture();
+  for (const input of [normalized, packed, version3, phase1, phase2, phase3]) {
     const model = createModel(input);
     const first = model.cell(model.lookup("Gal 1:1"), "optimistic");
     const second = model.cell(model.lookup("Gal 1:2"), "optimistic");
@@ -314,8 +377,8 @@ test("the fictional oracle preserves coverage assertions, claim order, unknown r
 });
 
 test("the fictional oracle keeps complete alternatives, ties, unavailable selections, and independent overflow state", () => {
-  const {normalized, packed, phase1, phase2, phase3} = transferFixture();
-  for (const input of [normalized, packed, phase1, phase2, phase3]) {
+  const {normalized, packed, version3, phase1, phase2, phase3} = transferFixture();
+  for (const input of [normalized, packed, version3, phase1, phase2, phase3]) {
     const model = createModel(input), first = model.lookup("Gal 1:1"), second = model.lookup("Gal 1:2");
     assert.deepEqual(model.choices.get("fictional:a").map(date => [date.date_min, date.date_max]),
       [[200, 250], [300, 399]]);
@@ -350,8 +413,8 @@ test("the fictional oracle keeps complete alternatives, ties, unavailable select
 });
 
 test("the shared empty oracle keeps a navigable axis without creating observations", () => {
-  const {normalized, packed, phase1, phase2, phase3} = transferFixture("explorer-empty");
-  for (const input of [normalized, packed, phase1, phase2, phase3]) {
+  const {normalized, packed, version3, phase1, phase2, phase3} = transferFixture("explorer-empty");
+  for (const input of [normalized, packed, version3, phase1, phase2, phase3]) {
     const model = createModel(input);
     assert.equal(model.hasEvents, false);
     assert.equal(model.minimum, 0); assert.equal(model.maximum, 500);

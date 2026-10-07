@@ -42,44 +42,33 @@ The run used seven successful proxy requests and three sandbox-denied attempts,
 within its declared 25-attempt budget. Every prior claim, date alternative, and
 witness/verse state survived the addition unchanged.
 
-The current JSON is approximately 12.5 MB (11.9 MiB). Lossless version 2 storage
-shares repeated coverage, discovery, and claim provenance records, reducing the
-17-witness expanded payload from 39.6 MB by 68.5%. The browser restores the same
-normalized data before charting; earlier version 1 files remain supported.
-An offline Node check parsed the file in 105 ms, expanded it in 126 ms, constructed
-the chart model in 20 ms, and evaluated the full axis in 10 ms on this workstation.
-The expanded result matched the complete pre-packing dataset. These are local
-measurements, not browser or network benchmarks. Browser memory usage remains
-unmeasured; restored unknown pairs still scale with witnesses and coordinates.
+The current JSON is **2,007,743 bytes** (about 2.01 MB), down **83.91%** from
+12,476,223 bytes in version 2. The lossless version 3 transfer shares claim and
+coverage contexts, discovery records, ranking templates, and observation metadata;
+coverage uses exact defaults with sparse exceptions or dense fallback. The
+17-witness normalized payload remains 39,599,390 bytes. All sizes include final
+newlines. The browser still restores the complete normalized data before charting;
+versions 1 and 2 remain supported through fetch and the file picker. Restored
+coverage still scales with witnesses and coordinates; browser memory is unmeasured.
 
-Phases 0–3 of the [data size optimization guide](DATA_SIZE_OPTIMIZATION.md)
-are complete. The offline current build exactly matches its normalized expansion;
-full-size work-session baselines stay in ignored cache storage. Shared fictional
-version 1 expected fixtures and frozen version 2 snapshots now check Python and
-Node decoding, source fields, coverage states, complete date choices, ties,
-mapping gaps, filters, missing observations, and empty exports. Python-to-Node
-packing is compared directly with the independent normalized fixture. Phase 1's
-private `"3-phase1"` candidate shares rankings and observation metadata while
-retaining dense version 2 coverage and claim records. It measures 6,391,574 bytes
-(48.77% below current version 2), with 28 ranking templates and 37 observation
-contexts. Python and Node restore every field exactly to the fresh build and
-Phase 0 baseline; both scenarios match across all 7,957 chart coordinates.
-Phase 2's private `"3-phase2"` candidate also compacts eligible index claims and
-shares complete coverage contexts, preserving literal claims and dense coverage.
-It measures 2,179,689 bytes (82.53% below production and 65.90% below Phase 1),
-with 51 coverage contexts. Python and Node restore every field exactly to the
-fresh offline build and Phase 0 baseline; both chart scenarios match across all
-7,957 coordinates. Phase 3's private `"3-phase3"` candidate adds exact defaults
-grouped by ordered witness identities and sparse exceptions only where serialized
-group costs justify them. Dense fallback preserves empty and incompatible
-vectors and expensive exceptions. It measures 2,007,752 bytes (83.91% below
-production and 7.89% below Phase 2), with one default, 7,928 sparse observations,
-and 13 dense observations. Python and Node restore every field exactly to the
-fresh offline build and Phase 0 baseline; both scenarios match across all 7,957
-coordinates. All 28 focused Python explorer tests and 29 Node tests pass.
-The production writer and dataset remain on version 2, with matching candidate
-decoders available in the app. Work stopped at Phase 3 at the owner's request;
-phases 4–6, including writer rollout and runtime sharing, are pending.
+Phases 0–4 of the [data size optimization guide](DATA_SIZE_OPTIMIZATION.md) are
+complete. The production writer and dataset now use numeric version 3, while
+private Phase 1/2/3 candidates remain available for offline compatibility checks.
+The complete current output restores every field exactly in Python and Node,
+matching the fresh offline build and the Phase 0 normalized baseline. Both chart
+scenarios match across all 7,957 coordinates, including observations, events,
+count bands, discovery, and scale bounds. Two fresh builds produce identical
+bytes. Full-size work-session comparisons stay in ignored cache storage.
+
+Shared fictional version 1 oracles and version 2/3 snapshots check both languages,
+source fields, coverage states, complete date choices, ties, mapping gaps, filters,
+missing observations, empty exports, and dense/sparse coverage. Rollout checks
+cover deterministic refresh, current/stale `--check`, failures preserving previous
+data, unchanged app assets, fixture-based collector output, and malformed loading
+with retry. Work stops at Phase 4 at the owner's request. Runtime memory sharing
+(Phase 5) and HTTP compression (Phase 6) remain pending; neither was implemented
+or measured in this rollout. Both build `--check` commands, all 134 Python tests,
+and all 32 Node tests passed offline.
 
 The data builder validates raw hashes, provenance, mappings, identity, complete
 date intervals, and derived results in a fresh temporary SQLite database. Builds
@@ -105,10 +94,10 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 4. Keep collection efficient and the app usable as the dataset grows. Measure
    witnesses, usable reports, graphable coordinates, unresolved records, request
    cost, and browser data size. Prefer concrete bottlenecks over new infrastructure.
-   When authorized, continue at Phase 4 of the
+   When authorized, continue at Phase 5 of the
    [data size and memory optimization guide](DATA_SIZE_OPTIMIZATION.md) for
-   transfer-format, runtime-sharing, and compression work with focused offline
-   checks. Phases 0–3 are complete; the current work authorization stops at Phase 3.
+   runtime sharing, followed by deployment compression where supported. Phases
+   0–4 are complete; the current work authorization stops at Phase 4.
 
 ## Acceptance
 

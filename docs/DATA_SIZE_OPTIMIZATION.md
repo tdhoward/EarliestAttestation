@@ -1,12 +1,13 @@
 # App data size and memory optimization guide
 
-Status: Phases 0–3 completed on 2026-10-06; phases 4–6 remain planned.
-The correctness oracle and Phase 1/2/3 candidate codecs are in place. The production
-writer and current data remain on version 2; the app has matching candidate
-decoders while its loading and runtime behavior remain unchanged. Work stopped
-at Phase 3 at the owner's request. This guide is based on offline work on
-2026-10-06. Complete later phases in order when authorized, with the focused
-checks below before moving on. Phase 6 depends on the deployment environment.
+Status: Phases 0–4 completed on 2026-10-06; phases 5–6 remain planned.
+The production writer and current data now use the complete numeric version 3
+schema. Python and JavaScript restore every field exactly, with version 1 and 2
+compatibility retained. The app still eagerly expands its data; runtime memory
+sharing and HTTP compression remain pending. Work stops at Phase 4 at the owner's
+request. This guide is based on offline work on 2026-10-06. Complete later phases
+in order when authorized, with the focused checks below before moving on.
+Phase 6 depends on the deployment environment.
 
 ## Objective and constraints
 
@@ -89,20 +90,19 @@ the fully compacted prototype compressed to 294,185 bytes.
 | `tests/app.test.js`, `tests/explorer.test.js` | Cross-language decoding, loader paths, runtime behavior, and chart equivalence |
 | `README.md`, `docs/ATTESTATION_EXPLORER.md`, `docs/DEVELOPMENT_PLAN.md` | Update implemented behavior and measured results at rollout |
 
-Introduce browser transfer `format_version: 3`. This is independent of the
-existing scholarly graph export's version 3. Python and JavaScript expansion
+The production browser transfer uses `format_version: 3`. This is independent
+of the existing scholarly graph export's version 3. Python and JavaScript expansion
 must continue to accept browser versions 1 and 2 and return normalized version 1.
 Keep those expansion functions as exact, independently mutable compatibility
 views even after the runtime gains an immutable shared store.
 
-Implement a version 3 candidate packer alongside the current writer until phase
-4. Define the final schema before switching the writer; do not publish several
-incompatible layouts under version 3 during the intermediate phases.
+Phases 1–3 retained private candidates alongside the version 2 writer until the
+Phase 4 rollout. Numeric version 3 now uses the complete schema below; the
+intermediate layouts were never published as production version 3.
 
 The retained Phase 1 candidate is `pack_explorer_data_phase1()` and uses the
 private string marker `format_version: "3-phase1"`. Python expansion and the
-JavaScript decoder accept it for offline checks and fixture loading. Numeric
-version 3 stays reserved for the complete schema below. The candidate retains
+JavaScript decoder accept it for offline checks and fixture loading. It retains
 version 2 claim tuples and coverage objects, adds ranking/observation tables,
 and uses only dense coverage encodings. The Phase 2 candidate is
 `pack_explorer_data_phase2()` with `format_version: "3-phase2"`; it adds the
@@ -110,8 +110,8 @@ documented tagged claim tuples and shared coverage contexts while retaining
 dense coverage. The Phase 3 candidate is `pack_explorer_data_phase3()` with
 `format_version: "3-phase3"`; it adds exact coverage defaults and sparse
 exceptions, retaining dense fallback. Both decoders accept all three candidates.
-Numeric version 3 remains reserved for the complete production writer's Phase 4
-rollout; these private candidates are not production format contracts.
+`pack_explorer_data()` now emits this complete layout with numeric version 3;
+these private candidate markers are not production format contracts.
 
 Use this layout as the implementation contract. Tuple positions and tags are
 part of the format, documented beside both codecs; do not emit schema descriptions
@@ -376,8 +376,8 @@ date applicability, omitted observations, deterministic ties, typed identities,
 group costs, malformed data, mutation isolation, fetch/file loading, and
 alternative selection. The production writer, current data file, collection
 inputs, and source captures were unchanged. No compression or runtime-memory
-measurement was performed. Work stops at Phase 3 at the owner's request;
-phases 4–6, including writer rollout, remain planned.
+measurement was performed in Phase 3. Phase 4's production rollout is recorded
+below; phases 5–6 remain planned.
 
 The completed scope was:
 
@@ -407,6 +407,42 @@ default containing a present record, and an unknown pair containing a claim.
 Rerun exact full-collection restoration and measure the incremental saving.
 
 ## Phase 4: switch the builder and verify the complete pipeline
+
+Completed on 2026-10-06. `pack_explorer_data()` now writes numeric version 3 using
+the complete Phase 3 schema. `refresh()` and the collector's fixture-based offline
+write path use that same packer. Python and JavaScript retain version 1/2 decoder
+paths and the private candidates. Small numeric version 3 fixtures cover the
+independent fictional oracle, empty export, and synthetic sparse extension.
+Atomic compact output and disposable normalization databases are unchanged.
+
+The rebuilt production JSON is **2,007,743 bytes**, including its final newline,
+versus the **12,476,223-byte** version 2 baseline: **10,468,480 bytes / 83.91%**
+saved. It retains 51 coverage contexts, 16,674 coverage records, 28 ranking
+templates, 37 observation contexts, one coverage default, 7,928 sparse observations,
+and 13 dense observations. It is 7,743 bytes above the 2 MB aim; the complete
+documented schema and exact fidelity are preserved without a production size cap.
+
+Two fresh offline builds produced identical bytes. Python expansion matched the
+complete fresh `build_data()` output and Phase 0 normalized baseline with JSON
+types and array order checked. Node decoded Python's production output against
+the independently serialized fresh normalized result, and also restored the
+retained version 2 baseline exactly. Both chart scenarios matched across all
+7,957 coordinates, including complete cells/observations, events, count-band
+segments, discovery, and scale bounds. Full-size comparison files and measurements
+stay in ignored `data/.cache/size-optimization-phase4-2026-10-06/`.
+
+Verification includes all 30 focused Python explorer tests, 8 offline discovery
+tests, and 32 `npm test` tests. Rollout tests cover fetch/file loading of versions
+1/2/3, malformed version 3 failure and retry, exact restoration, mutation isolation,
+deterministic refresh, current/stale `--check` without writes, failed validation
+preserving the previous file, failed atomic replacement cleanup, and app assets
+surviving refresh. All 134 Python tests and both build `--check` commands passed;
+the complete offline checks are recorded at handoff below.
+Collection registers, source captures, and reference inputs are unchanged.
+No compression or runtime-memory measurement was performed in Phase 4; phases
+5–6 remain pending, and work stops here at the owner's request.
+
+The completed scope was:
 
 1. Switch `pack_explorer_data()` to the complete version 3 writer. Keep both
    older decoder paths and their small fixtures. Ensure `refresh()` and the
@@ -529,6 +565,14 @@ probe localhost for this phase. Live response-header checks require an available
 authorized deployment verification context.
 
 ## Completion and handoff
+
+Phase 4 handoff on 2026-10-06: `python build_collection.py --check`,
+`python build_na28_inventory.py --check`, all **134 Python tests**, all **32 Node
+tests**, and `git diff --check` passed. Exact full-collection Python/Node decoding
+and both chart scenarios also passed as described above. Current data uses numeric
+version 3; phases 5–6 are pending. Compression and runtime-memory measurements
+were outside this rollout. Verification used retained local inputs and fictional
+fixtures, without starting a server or making live source requests.
 
 Run focused tests after each phase. At the writer rollout and after the runtime
 refactor, run the complete offline checks once the relevant focused checks pass:

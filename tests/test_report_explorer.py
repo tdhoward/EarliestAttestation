@@ -72,11 +72,25 @@ class CompatibilityOracleTests(unittest.TestCase):
     def test_retained_versions_match_the_independent_normalized_oracle(self):
         for name in ("explorer-normalized", "explorer-empty"):
             expected = read_json(FIXTURES / f"{name}.v1.json")
-            for version in (1, 2):
+            for version in (1, 2, 3):
                 with self.subTest(fixture=name, version=version):
                     retained = read_json(FIXTURES / f"{name}.v{version}.json")
                     self.assertEqual(retained["format_version"], version)
                     self.assert_json_equal(expand_explorer_data(retained), expected)
+
+    def test_production_version3_snapshots_match_fresh_packing_and_independent_oracles(self):
+        for name in ("explorer-normalized", "explorer-empty", "explorer-sparse"):
+            expected = sparse_fixture() if name == "explorer-sparse" else read_json(FIXTURES / f"{name}.v1.json")
+            with self.subTest(fixture=name):
+                packed = pack_explorer_data(expected)
+                self.assertEqual(packed["format_version"], 3)
+                self.assert_json_equal(packed, read_json(FIXTURES / f"{name}.v3.json"))
+                self.assert_json_equal(expand_explorer_data(packed), expected)
+                candidate = pack_explorer_data_phase3(expected)
+                self.assert_json_equal(packed, {**candidate, "format_version": 3})
+                if name == "explorer-sparse":
+                    size = lambda value: len(json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+                    self.assertLess(size(packed), size(expected) * 0.4)
 
     def test_current_packer_preserves_the_oracle_and_is_deterministic(self):
         for name in ("explorer-normalized", "explorer-empty"):
@@ -557,7 +571,12 @@ class Phase3CodecTests(unittest.TestCase):
         self.assert_json_equal(expand_explorer_data(packed), expected)
 
     def test_phase3_rejects_malformed_defaults_and_overrides(self):
-        original = pack_explorer_data_phase3(sparse_fixture())
+        self.check_malformed_sparse(pack_explorer_data_phase3(sparse_fixture()))
+
+    def test_production_version3_rejects_malformed_defaults_and_overrides(self):
+        self.check_malformed_sparse(pack_explorer_data(sparse_fixture()))
+
+    def check_malformed_sparse(self, original):
         missing = copy.deepcopy(original)
         del missing["coverage_defaults"]
         with self.assertRaisesRegex(ValueError, "Missing .* record tables"):
@@ -628,6 +647,7 @@ class ExplorerTests(unittest.TestCase):
     def test_transfer_format_is_lossless_and_reduces_repeated_records(self):
         data = build_explorer_data(self.graph)
         packed = pack_explorer_data(data)
+        self.assertEqual(packed["format_version"], 3)
         self.assertEqual(expand_explorer_data(packed), data)
         self.assertEqual(expand_explorer_data(data), data)
         self.assertEqual(pack_explorer_data(expand_explorer_data(packed)), packed)
@@ -647,17 +667,26 @@ class ExplorerTests(unittest.TestCase):
                             for other_ref, other in restored["observations"].items() if other_ref != ref))
 
     def test_invalid_transfer_references_fail_instead_of_losing_evidence(self):
-        packed = pack_explorer_data(build_explorer_data(self.graph))
+        packed = pack_explorer_data(sparse_fixture())
         ref = next(iter(packed["observations"]))
-        for name in ("coverage_records", "discovery_records", "claim_contexts"):
-            for index in (-1, len(packed[name]), "0", True):
+        for name in ("coverage_records", "discovery_records", "claim_contexts", "coverage_contexts",
+                     "observation_contexts", "ranking_templates", "coverage_defaults"):
+            for index in (-1, len(packed[name]), 0.5, "0", True, None):
                 broken = copy.deepcopy(packed)
                 if name == "coverage_records":
-                    broken["observations"][ref]["reported_coverage"][0] = index
+                    broken["coverage_defaults"][0][0] = index
+                elif name == "coverage_defaults":
+                    broken["observations"][ref][1][1] = index
+                elif name == "coverage_contexts":
+                    broken["coverage_records"][0][0] = index
+                elif name == "observation_contexts":
+                    broken["observations"][ref][0] = index
                 elif name == "discovery_records":
-                    broken["observations"][ref]["discovery"] = index
+                    broken["observation_contexts"][0]["discovery"] = index
+                elif name == "ranking_templates":
+                    broken["observation_contexts"][0]["dating_alternatives"] = index
                 else:
-                    next(iter(broken["claims"].values()))[0] = index
+                    next(iter(broken["claims"].values()))[1] = index
                 with self.assertRaisesRegex(ValueError, "Invalid .* reference"):
                     expand_explorer_data(broken)
 

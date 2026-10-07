@@ -6,8 +6,8 @@ const {transferFixture, sparseFixture} = require("./explorer-fixtures.js");
 
 test("shared transfer records preserve exact claims, all coverage states, discovery and complete alternatives", async () => {
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1, phase2, phase3} = transferFixture(name);
-    for (const input of [normalized, packed, phase1, phase2, phase3]) {
+    const {normalized, packed, version3, phase1, phase2, phase3} = transferFixture(name);
+    for (const input of [normalized, packed, version3, phase1, phase2, phase3]) {
       assert.deepEqual(await loadData(async () => ({ok: true, json: async () => input})), normalized);
     }
     if (name === "explorer-empty") continue;
@@ -88,7 +88,7 @@ test("a failed request offers retry and a local JSON fallback, then mounts the l
   assert.equal(mounted[1].local, true);
 });
 
-test("the file picker loads retained versions and candidate codecs against the shared oracle", async () => {
+test("the file picker loads versions 1, 2, 3 and candidate codecs against the shared oracle", async () => {
   const node = () => ({hidden: true, listeners: {}, addEventListener(type, fn) {this.listeners[type] = fn;}});
   const nodes = {status: node(), retry: node(), "file-label": node(), file: node()};
   const loader = node(), root = node();
@@ -100,8 +100,8 @@ test("the file picker loads retained versions and candidate codecs against the s
   }};
   await start(doc, explorer, async () => {throw new Error("Offline fixture loading");});
   for (const name of ["explorer-normalized", "explorer-empty"]) {
-    const {normalized, packed, phase1, phase2, phase3} = transferFixture(name);
-    for (const input of [normalized, packed, phase1, phase2, phase3]) {
+    const {normalized, packed, version3, phase1, phase2, phase3} = transferFixture(name);
+    for (const input of [normalized, packed, version3, phase1, phase2, phase3]) {
       nodes.file.files = [{text: async () => JSON.stringify(input)}];
       await nodes.file.listeners.change();
       assert.deepEqual(mounted.at(-1), normalized);
@@ -109,19 +109,24 @@ test("the file picker loads retained versions and candidate codecs against the s
       assert.equal(loader.hidden, true);
     }
   }
-  const {normalized: sparseExpected, phase3: sparse} = sparseFixture();
-  assert.deepEqual(await loadData(async () => ({ok: true, json: async () => sparse})), sparseExpected);
-  nodes.file.files = [{text: async () => JSON.stringify(sparse)}];
-  await nodes.file.listeners.change();
-  assert.deepEqual(mounted.at(-1), sparseExpected);
-  const {normalized, packed, phase2} = transferFixture();
+  const {normalized: sparseExpected, phase3: sparse, version3: sparse3} = sparseFixture();
+  for (const input of [sparse, sparse3]) {
+    assert.deepEqual(await loadData(async () => ({ok: true, json: async () => input})), sparseExpected);
+    nodes.file.files = [{text: async () => JSON.stringify(input)}];
+    await nodes.file.listeners.change();
+    assert.deepEqual(mounted.at(-1), sparseExpected);
+  }
+  const {normalized, packed, version3, phase2} = transferFixture();
   packed.observations["Gal.1.1"].reported_coverage[0] = -1;
   phase2.coverage_records[0][0] = -1;
   sparse.observations["Gal.1.1"][1][2] = [[0, 0], [0, 0]];
-  for (const broken of [packed, phase2, sparse]) {
+  version3.claims["101"][1] = -1;
+  sparse3.observations["Gal.1.1"][1][2] = [[0, 0], [0, 0]];
+  const successfulLoads = mounted.length;
+  for (const broken of [packed, phase2, sparse, version3, sparse3]) {
     nodes.file.files = [{text: async () => JSON.stringify(broken)}];
     await nodes.file.listeners.change();
-    assert.equal(mounted.length, 11);
+    assert.equal(mounted.length, successfulLoads);
     assert.equal(root.hidden, true);
     assert.equal(nodes.retry.hidden, false);
   }
@@ -129,4 +134,26 @@ test("the file picker loads retained versions and candidate codecs against the s
   await nodes.file.listeners.change();
   assert.deepEqual(mounted.at(-1), normalized);
   assert.equal(root.hidden, false);
+});
+
+test("a malformed version 3 fetch can be retried with corrected data", async () => {
+  const node = () => ({hidden: true, listeners: {}, addEventListener(type, fn) {this.listeners[type] = fn;}});
+  const nodes = {status: node(), retry: node(), "file-label": node(), file: node()};
+  const loader = node(), root = node();
+  loader.querySelector = selector => nodes[selector.match(/"(.*?)"/)[1]];
+  const doc = {getElementById: id => id === "collection-loader" ? loader : root};
+  const {normalized, version3} = sparseFixture(), broken = structuredClone(version3), mounted = [];
+  broken.coverage_defaults[0][0] = -1;
+  let response = broken;
+  await start(doc, {createModel, mount(element, data) {
+    assert.equal(element, root); mounted.push(data); return {destroy() {}};
+  }}, async () => ({ok: true, json: async () => response}));
+  assert.equal(root.hidden, true);
+  assert.equal(nodes.retry.hidden, false);
+  assert.equal(mounted.length, 0);
+  response = version3;
+  await nodes.retry.listeners.click();
+  assert.deepEqual(mounted, [normalized]);
+  assert.equal(root.hidden, false);
+  assert.equal(loader.hidden, true);
 });

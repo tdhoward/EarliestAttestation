@@ -24,9 +24,9 @@
       throw new Error("Unsupported collection data");
     }
     if (data.format_version === 1) return data;
-    // Private candidates; numeric version 3 remains reserved for the
-    // complete transfer schema. The collection writer still emits version 2.
-    const phase3 = data.format_version === "3-phase3";
+    // Numeric version 3 is the complete production schema. Retained private
+    // candidate markers remain readable for offline compatibility checks.
+    const phase3 = data.format_version === 3 || data.format_version === "3-phase3";
     const phase2 = data.format_version === "3-phase2" || phase3;
     const sharedObservations = data.format_version === "3-phase1" || phase2;
     if (data.format_version !== 2 && !sharedObservations) throw new Error("Unsupported collection data");

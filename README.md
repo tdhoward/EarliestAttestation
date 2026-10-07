@@ -56,10 +56,14 @@ Galatians, Hebrews, and Ephesians have completed bounded indexed searches for ID
 Scholarly citations use canonical NTVMR URLs. The owner-supplied local API proxy
 is an access route, and TLS verification is not a collection prerequisite.
 
-The current app data file is approximately 12.5 MB. Its version 2 transfer format
-stores repeated coverage, discovery, and claim provenance records once. The app
-restores every field before displaying the collection and also accepts previous
-version 1 files through the local file picker.
+The current app data file is **2,007,743 bytes** (about 2.01 MB), down **83.91%**
+from the 12,476,223-byte version 2 file. Its lossless version 3 transfer format
+shares rankings, observation metadata, coverage contexts, discovery, and claim
+provenance; coverage uses exact defaults with sparse exceptions or dense fallback.
+The app restores every field before displaying the collection and also accepts
+previous version 1 and 2 files through fetch and the local file picker. Runtime
+memory sharing and HTTP compression remain planned in
+[the optimization guide](docs/DATA_SIZE_OPTIMIZATION.md).
 
 ## Collect more data
 

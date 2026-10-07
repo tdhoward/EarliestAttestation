@@ -24,8 +24,8 @@ CLAIM_CONTEXT_FIELDS = frozenset((
     "source_response_id", "source_sha256", "witness_id",
 ))
 
-# Private intermediate codec, never written by the collection builder. Numeric
-# version 3 is reserved for the complete schema in DATA_SIZE_OPTIMIZATION.md.
+# Private intermediate codecs retained for offline compatibility checks.
+# Numeric version 3 is the complete production browser transfer schema.
 PHASE1_FORMAT_VERSION = "3-phase1"
 PHASE2_FORMAT_VERSION = "3-phase2"
 PHASE3_FORMAT_VERSION = "3-phase3"
@@ -104,12 +104,18 @@ def build_explorer_data(graph, inventory=None):
 
 
 def pack_explorer_data(data):
-    """Store repeated records once in the version 2 browser transfer format.
+    """Write the complete version 3 browser transfer format.
 
     Normalized observations remain version 1 in Python and in the chart model.
     This lossless storage step neither removes unknown pairs nor computes claims,
-    dates, discovery states, or rankings.
+    dates, discovery states, or rankings. The Phase 3 schema's tagged claims,
+    shared contexts/rankings, and dense/sparse coverage are now production.
     """
+    return {**pack_explorer_data_phase3(data), "format_version": 3}
+
+
+def _pack_explorer_data_v2(data):
+    """Retain the original dense layout as an intermediate for the codecs."""
     if data.get("format_version") != 1:
         raise ValueError("Expected normalized version 1 explorer data")
     tables = {name: [] for name in ("claim_contexts", "coverage_records", "discovery_records")}
@@ -185,7 +191,7 @@ def _validate_event_ids(identifiers, claim_ids):
 
 
 def pack_explorer_data_phase1(data):
-    """Build the offline Phase 1 candidate alongside the unchanged v2 writer.
+    """Build the retained private Phase 1 representation.
 
     Claims and coverage records retain v2 shapes. New observations are
     [contextIndex, ["dense", coverageRecordIndices]]. Contexts contain every
@@ -193,7 +199,7 @@ def pack_explorer_data_phase1(data):
     Ranking event coverage_claim_ids become ["pair"] or ["literal", ids].
     These tuple positions/tags also appear beside the JavaScript decoder.
     """
-    packed = deepcopy(pack_explorer_data(data))
+    packed = deepcopy(_pack_explorer_data_v2(data))
     tables = {name: [] for name in ("ranking_templates", "observation_contexts")}
     indices = {name: {} for name in tables}
     claim_ids = {_json_key(claim["claim_id"]) for claim in data["claims"].values()
@@ -259,7 +265,7 @@ def pack_explorer_data_phase2(data):
     Claims: ["ntvmr_index_v1", contextIndex, [indexContent, osisID, pageID,
     locatorIndex]] or ["literal", contextIndex, completeDetails]. Coverage:
     [coverageContextIndex, orderedClaimIdStrings]; contexts retain every other
-    field. Numeric version 3 and the production writer remain unchanged.
+    field. This private marker is retained for offline compatibility checks.
     """
     packed = pack_explorer_data_phase1(data)
     claims = {}
@@ -287,7 +293,7 @@ def pack_explorer_data_phase2(data):
 
 
 def pack_explorer_data_phase3(data):
-    """Offline candidate with exact coverage defaults, alongside the v2 writer.
+    """Build exact coverage defaults using the complete version 3 schema.
 
     Coverage is ["dense", indices] or ["sparse", defaultsIndex, overrides],
     where overrides are increasing [position, coverageRecordIndex] pairs.
@@ -342,7 +348,7 @@ def expand_explorer_data(data):
     """Restore the transfer format exactly; also accept previous version 1 files."""
     if data.get("format_version") == 1:
         return data
-    phase3 = data.get("format_version") == PHASE3_FORMAT_VERSION
+    phase3 = data.get("format_version") in (3, PHASE3_FORMAT_VERSION)
     phase2 = data.get("format_version") == PHASE2_FORMAT_VERSION or phase3
     shared_observations = data.get("format_version") == PHASE1_FORMAT_VERSION or phase2
     if data.get("format_version") != 2 and not shared_observations:
