@@ -465,6 +465,7 @@ test("bounded discovery is independent of coverage, dates, and the rest of the c
   assert.equal(model.discovery(model.lookup("2Thess 1:4")).state, "bounded_search_complete");
   assert.equal(model.discovery(model.lookup("1Thess 4:12")).state, "bounded_search_complete");
   assert.equal(model.discovery(model.lookup("Phil 3:9")).state, "bounded_search_complete");
+  assert.equal(model.discovery(model.lookup("Col 1:1")).state, "bounded_search_complete");
   assert.equal(model.discovery(model.lookup("Rom 1:1")).state, "not_searched");
   assert.equal(discovered.metadata.discovery.corpus_complete, false);
   const cell = model.cell(model.lookup("Gal 1:9"), "optimistic");
@@ -613,7 +614,48 @@ test("P16 reports retain exact chart endpoints and leave neighboring entries unk
       assert.deepEqual(pair.claims, []);
       assert.equal(model.discovery(model.lookup(ref)).state, "bounded_search_complete");
     }
-    assert.equal(model.discovery(model.lookup("Col 1:1")).state, "not_searched");
+    assert.equal(model.discovery(model.lookup("Col 1:1")).state, "bounded_search_complete");
+  }
+});
+
+test("Colossians discovery keeps reused reports, chart endpoints, and missing entries distinct", () => {
+  for (const input of [current, packedCurrent]) {
+    const model = createModel(input);
+    for (const [witness, refs, early, late] of [
+      ["ntvmr:10046", ["Col 1:2", "Col 1:5"], 200, 225],
+      ["ntvmr:10061", ["Col 1:7", "Col 1:9"], 700, 725]
+    ]) {
+      for (const ref of refs) {
+        for (const [scenario, year] of [["optimistic", early], ["pessimistic", late]]) {
+          const cell = model.cell(model.lookup(ref), scenario);
+          const events = cell.events.filter(e => e.witness_id === witness);
+          assert.equal(events.length, 1);
+          assert.equal(events[0].event_year, year);
+          const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === witness);
+          assert.equal(pair.state, "present");
+          assert.ok(pair.claims.length);
+          for (const id of pair.claims) {
+            const claim = model.store.claim(id);
+            assert.equal(claim.reported.osisID, cell.ref);
+            assert.match(claim.citation, /^https:\/\/ntvmr\.uni-muenster\.de\//);
+          }
+        }
+      }
+    }
+    for (const [witness, refs] of [
+      ["ntvmr:10046", ["Col 1:3", "Col 1:4"]],
+      ["ntvmr:10061", ["Col 1:8", "Col 1:14"]]
+    ]) {
+      for (const ref of refs) {
+        const cell = model.cell(model.lookup(ref), "optimistic");
+        const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === witness);
+        assert.equal(pair.state, "unknown");
+        assert.deepEqual(pair.claims, []);
+        assert.ok(cell.events.every(e => e.witness_id !== witness));
+        assert.equal(model.discovery(model.lookup(ref)).state, "bounded_search_complete");
+      }
+    }
+    assert.equal(model.discovery(model.lookup("Phlm 1:1")).state, "not_searched");
   }
 });
 

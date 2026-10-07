@@ -19,8 +19,10 @@ class CollectionTests(unittest.TestCase):
         with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
             cls.data = build_data()
             config = read_json(DATA / "collection.json")
+            records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] != "Col"]
+            cls.before_col = build_data(config, discovery_records=records)
             config["documents"] = [d for d in config["documents"] if d["doc_id"] != 10016]
-            records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] != "Phil"]
+            records = [r for r in records if r["definition"]["book"] != "Phil"]
             cls.before_phil = build_data(config, discovery_records=records)
             config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10061, 10065)]
             records = [r for r in records if r["definition"]["book"] != "1Thess"]
@@ -36,11 +38,11 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"],
                          {"present": 16749, "unknown": 150012, "absent": 0, "contested": 0})
         self.assertEqual(data["metadata"]["counts"]["by_discovery_state"],
-                         {"bounded_search_complete": 847, "not_searched": 7094})
+                         {"bounded_search_complete": 942, "not_searched": 6999})
         self.assertEqual(data["metadata"]["counts"]["graphable_coordinates"], 7928)
         self.assertEqual(data["metadata"]["counts"]["mapping_gaps"], 13)
         self.assertEqual(len({ref.split('.')[0] for ref in data["observations"]}), 27)
-        self.assertEqual(data["metadata"]["collection_cost"]["reused_response_count"], 48)
+        self.assertEqual(data["metadata"]["collection_cost"]["reused_response_count"], 49)
         self.assertEqual(data["metadata"]["collection_cost"]["replay_network_requests"], 0)
 
     def test_every_presence_and_date_retains_its_actual_source_field(self):
@@ -285,7 +287,7 @@ class CollectionTests(unittest.TestCase):
         after = self.before_1thess
         config = read_json(DATA / "collection.json")
         config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10016, 10030, 10061, 10065)]
-        records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] not in ("Phil", "1Thess", "2Thess")]
+        records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] not in ("Col", "Phil", "1Thess", "2Thess")]
         with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
             before = build_data(config, discovery_records=records)
         for table in ("claims", "dates"):
@@ -372,7 +374,7 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(before["observations"]["1Thess.1.1"]["discovery"]["state"], "not_searched")
 
     def test_philippians_discovery_reuses_p46_p61_and_copies_p16_fields_exactly(self):
-        data = self.data
+        data = self.before_col
         scope = next(s for s in data["metadata"]["discovery"]["scopes"] if s["definition"]["book"] == "Phil")
         self.assertEqual(scope["candidate_ids"], [10016, 10046, 10061])
         self.assertEqual(scope["collected_candidate_ids"], scope["candidate_ids"])
@@ -406,7 +408,7 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(data["observations"]["Col.1.1"]["discovery"]["state"], "not_searched")
 
     def test_philippians_addition_preserves_prior_claims_dates_coverage_and_discovery(self):
-        before, after = self.before_phil, self.data
+        before, after = self.before_phil, self.before_col
         for table in ("claims", "dates"):
             for key, value in before[table].items():
                 self.assertEqual(after[table][key], value)
@@ -439,6 +441,39 @@ class CollectionTests(unittest.TestCase):
                 self.assertEqual(new["discovery"], old["discovery"])
         self.assertEqual(added_present, 15)
         self.assertEqual(before["observations"]["Phil.3.9"]["discovery"]["state"], "not_searched")
+
+    def test_colossians_discovery_reuses_reports_without_changing_contents_dates_or_rankings(self):
+        before, after = self.before_col, self.data
+        scope = next(s for s in after["metadata"]["discovery"]["scopes"] if s["definition"]["book"] == "Col")
+        self.assertEqual(scope["candidate_ids"], [10046, 10061])
+        self.assertEqual(scope["collected_candidate_ids"], scope["candidate_ids"])
+        self.assertEqual(scope["pending_candidate_ids"], [])
+        self.assertEqual(scope["search_state"], "complete")
+        self.assertEqual(scope["candidate_collection_state"], "complete")
+        self.assertFalse(scope["corpus_complete"])
+        self.assertEqual(scope["collection_cost"]["request_attempts"], 4)
+        self.assertEqual(scope["collection_cost"]["http_responses_recorded"], 1)
+        self.assertEqual(scope["collection_cost"]["reused_seed_document_responses"], 42)
+        self.assertEqual(scope["collection_cost"]["collection_errors"], [])
+        self.assertLessEqual(scope["collection_cost"]["request_attempts"], scope["definition"]["request_budget"])
+        self.assertEqual(scope["definition"]["transport_base_url"], "<local proxy>/community/vmr/api")
+        self.assertEqual(len(scope["sources"]), 1)
+        source = scope["sources"][0]
+        self.assertEqual(source["params"], {"docID": "10000-19999", "indexContent": "Col",
+                                           "detail": "document", "format": "json", "limit": "200"})
+        self.assertTrue(source["citation"].startswith("https://ntvmr.uni-muenster.de/"))
+        for table in ("claims", "dates", "documents", "coordinates", "coordinate_inventory"):
+            self.assertEqual(after[table], before[table])
+        self.assertEqual(after["sources"][:-1], before["sources"])
+        self.assertEqual(after["metadata"]["discovery"]["scopes"][:-1], before["metadata"]["discovery"]["scopes"])
+        self.assertEqual(after["metadata"]["counts"]["witness_verse_pairs"], before["metadata"]["counts"]["witness_verse_pairs"])
+        for ref, old in before["observations"].items():
+            new = deepcopy(after["observations"][ref])
+            if ref.startswith("Col."):
+                self.assertEqual(old["discovery"]["state"], "not_searched")
+                self.assertEqual(new["discovery"]["state"], "bounded_search_complete")
+                new["discovery"] = old["discovery"]
+            self.assertEqual(new, old, ref)
 
 
 if __name__ == "__main__":

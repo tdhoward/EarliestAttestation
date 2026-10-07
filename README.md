@@ -51,12 +51,14 @@ The current collection reuses 21 witnesses' retained reports across all
 witness/verse pairs, and 150,012 unknown pairs. Thirteen default coordinates have
 no exact match in the retained contents reports and remain unknown. Unknown
 includes missing reports for fragmentary witnesses; it does not mean absence.
-Galatians, Hebrews, Ephesians, Philippians, 1 Thessalonians, and 2 Thessalonians
-have completed bounded indexed searches for IDs 10000–19999; discovery across the
-wider catalogue remains incomplete. The Philippians search reused P46 and P61, collected P16,
-and added 15 presence pairs with three successful requests (six attempts including
-sandbox denials), within a 25-attempt budget. The collection retains 48 usable
-reports; app data occupies 2,055,907 bytes.
+Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians, and
+2 Thessalonians have completed bounded indexed searches for IDs 10000–19999;
+discovery across the
+wider catalogue remains incomplete. The Colossians search independently returned
+P46 and P61 and reused both witnesses' metadata and contents. One successful
+request (four attempts including sandbox denials) completed that scope within a
+25-attempt budget, preserving all existing coverage and date results. The
+collection retains 49 usable reports; app data occupies 2,060,609 bytes.
 Scholarly citations use canonical NTVMR URLs. The owner-supplied local API proxy
 is an access route, and TLS verification is not a collection prerequisite.
 

@@ -72,7 +72,8 @@ earlier candidates. Missing contents entries remain unknown, never inferred abse
 ## Current source scope
 
 The central discovery register contains completed Galatians, Hebrews, Ephesians,
-Philippians, 1 Thessalonians, and 2 Thessalonians searches for IDs 10000–19999.
+Philippians, Colossians, 1 Thessalonians, and 2 Thessalonians searches for IDs
+10000–19999.
 The Galatians search ran without name, date, or language search filters. It returned P46, P51, and P135;
 all have metadata and long contents captures. GA 01 and GA 02 are additional
 collected witnesses outside that range.
@@ -130,10 +131,21 @@ the metadata reports indexing tier 3 for both pages. Adjacent missing entries,
 including 3:9, 3:18, 4:1, and 4:9, remain unknown. Its numeric date bounds 200–399 CE
 and original notation `IV` are copied independently and retained exactly; no
 notation conversion or reconciliation is performed. All prior claims, date
-alternatives, coverage states, and other scopes survive unchanged. The central
-collection now retains 48 usable reports for 21 witnesses and six searches, with
-no pending candidates. App data is 2,055,907 bytes, growing by 12,317 bytes.
+alternatives, coverage states, and other scopes survive unchanged. The
+Philippians addition increased app data by 12,317 bytes.
 
-Only the Galatians, Hebrews, Ephesians, Philippians, 1 Thessalonians, and
-2 Thessalonians scopes are complete. Other books remain unsearched despite reused
-contents. Colossians within the same ID range is the next suggested bounded scope.
+The independent Colossians search returned P46 and P61. Both witnesses' metadata
+and long contents were already retained, so only the book-index query was needed.
+One successful proxy request followed three sandbox-denied attempts without a
+provider response, using four of the fixed 25-attempt budget. No document reports
+were refreshed. All earlier claims, complete date estimates, coverage states,
+rankings, and discovery scopes survived unchanged. The 95 Colossians coordinates
+gain bounded discovery completion; missing contents entries remain unknown.
+The collection retains 49 usable reports for 21 witnesses and seven searches,
+with no pending candidates. App data is 2,060,609 bytes, growing by 4,702 bytes
+for this search and its provenance.
+
+Only the Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
+and 2 Thessalonians scopes are complete. Other books remain unsearched despite
+reused contents. Philemon within the same ID range is the next suggested bounded
+scope, reusing P61's retained reports.

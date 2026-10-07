@@ -122,9 +122,10 @@ labels distinguish usable reports from completeness of the witness search. See
 The current collection reuses 21 witnesses' captured reports across all 27
 books. Only exact reported OSIS matches supply presence; thirteen default
 coordinates remain unresolved. This reuse establishes no new discovery
-completion. Independent Galatians, Hebrews, Ephesians, Philippians, 1 Thessalonians,
-and 2 Thessalonians searches are complete only within their declared ID range. The
-Hebrews pilot collected nine new witnesses; Ephesians added P49, P92, and P132 while reusing P46;
+completion. Independent Galatians, Hebrews, Ephesians, Philippians, Colossians,
+1 Thessalonians, and 2 Thessalonians searches are complete only within their
+declared ID range. The Hebrews pilot collected nine new witnesses; Ephesians
+added P49, P92, and P132 while reusing P46;
 2 Thessalonians added P30 while reusing P92; 1 Thessalonians added P61 and P65
 while reusing P30 and P46. The latter search used five successful requests and
 preserved all prior claims, date estimates, and coverage states. P61's other-book
@@ -134,6 +135,15 @@ six attempts including sandbox denials within its 25-attempt budget. Its 15 exac
 contents entries supply presence; missing entries stay unknown. Numeric date
 fields 200–399 and notation `IV` are retained exactly, without conversion or
 reconciliation. Existing claims, dates, coverage states, and other scopes survive.
+
+The independent Colossians search returned P46 and P61 and reused both witnesses'
+retained metadata and long contents. One successful search request and three
+sandbox-denied attempts fit its 25-attempt budget. This adds only search provenance
+and bounded discovery completion for Colossians; all claims, dates, coverage
+states, rankings, and earlier scopes remain unchanged. The collection retains
+49 usable responses for 21 witnesses and seven completed scopes, with no pending
+candidates. Wider catalogue discovery remains incomplete.
+
 These collections used the owner's local API proxy. Canonical NTVMR URLs supply
 all scholarly citations;
 permanent captures replace proxy origins with `<local proxy>` and preserve raw

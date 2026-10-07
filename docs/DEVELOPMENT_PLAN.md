@@ -24,8 +24,9 @@ pairs, and no absent or contested pairs. Thirteen coordinates have no exact
 reported match and remain unknown. Sixteen supplementary omitted coordinates,
 including Romans 16:24, remain in the underlying reference scope.
 
-Galatians, Hebrews, Ephesians, Philippians, 1 Thessalonians, and 2 Thessalonians
-have completed independent indexed searches within IDs 10000–19999; the other
+Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians, and
+2 Thessalonians have completed independent indexed searches within IDs
+10000–19999; the other
 books and catalogue ranges do not gain discovery completion merely through
 document reuse. Multiple bounded scopes can coexist in the central
 discovery register. All rankings describe collected witnesses only.
@@ -68,9 +69,18 @@ from exact reported entries for Philippians 3:10–17 and 4:2–8, with indexing
 Its catalogue fields retain numeric bounds 200–399 CE and notation `IV` exactly,
 without converting or reconciling them. Missing entries remain unknown. Every
 prior claim, date alternative, coverage state, and other discovery scope survived.
-The collection retains 48 usable responses, with no pending candidates in its
-six completed scopes. The app data is 2,055,907 bytes, an increase of 12,317 bytes
-for this addition; no new storage or mapping infrastructure was needed.
+That addition increased app data by 12,317 bytes; no new storage or mapping
+infrastructure was needed.
+
+The independent Colossians search returned P46 and P61 and reused both witnesses'
+metadata and long contents. It used one successful proxy request and three
+sandbox-denied attempts with no provider response, within its 25-attempt budget.
+All prior claims, complete date alternatives, coverage states, and rankings
+remain unchanged. Only the 95 Colossians coordinates gain bounded discovery
+completion; other scopes remain unchanged and wider catalogue discovery remains
+incomplete. The collection retains 49 usable responses for 21 witnesses, with no
+pending candidates in seven completed scopes. App data is 2,060,609 bytes,
+growing by 4,702 bytes for the search provenance and discovery state.
 
 The app uses a lossless version 3 JSON format with shared records and exact
 sparse coverage. It validates and retains read-only data for charting, resolving
@@ -92,8 +102,8 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 1. Broaden bounded independent witness discovery. Declare a book/range and request
    budget; reuse each document's metadata and contents; update the central register.
    Do not constrain discovery to the witnesses already collected for nearby verses.
-   A useful next scope is Colossians within IDs 10000–19999, reusing P46 and
-   P61's retained reports while searching for candidates independently.
+   A useful next scope is Philemon within IDs 10000–19999, reusing P61's retained
+   reports while searching for candidates independently.
 2. Establish provider access expectations before bulk collection. Use the
    owner-supplied local proxy when direct access is unavailable; cite canonical
    NTVMR endpoints. Preserve blocked states, honor limits, and do not change
