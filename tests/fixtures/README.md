@@ -1,7 +1,7 @@
 # Explorer compatibility oracle
 
 `explorer-normalized.v1.json` is the independently specified expected data for
-the storage optimization work. Every witness, source assertion, date, and
+the storage codecs and runtime store. Every witness, source assertion, date, and
 qualification in it is fictional. It contains no manuscript transcription or
 examination. Python packs this file and Node compares its expansion directly
 with this expected file, rather than only comparing two codec outputs.
@@ -82,8 +82,8 @@ claims, both unknown reasons, contested/absent states, present defaults, missing
 observations, and complete alternatives remain covered. Node checks exact
 decoding, chart/selection equivalence, fetch/file loading, malformed defaults and
 ordered overrides, and mutation isolation. Python also checks modal ties,
-type-sensitive witness grouping, and default-table cost accounting. The Phase 4
-rollout writes the same complete schema using numeric version 3.
+type-sensitive witness grouping, and default-table cost accounting. The production
+writer uses the same complete schema with numeric version 3.
 
 The `*.v3.json` snapshots contain the complete production browser transfer schema.
 The normalized and empty snapshots restore to their independent version 1 oracles;
@@ -95,7 +95,7 @@ expansion, fetch/file loading, and failed-load retry. Version 2 fixtures remain
 frozen and readable. A full-collection integration test compares Node expansion
 of the current production file with independently built normalized Python data.
 
-Phase 5 reuses these same independent oracles for the read-only runtime store,
+The read-only runtime store uses these same independent oracles,
 without introducing another dataset. Selected observations, claims, dates,
 coverage totals, and chart fields match the normalized values across all supported
 versions. Fresh Python packing and fallback cases go to both the Node expander

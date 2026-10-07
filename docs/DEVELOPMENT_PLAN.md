@@ -42,50 +42,13 @@ The run used seven successful proxy requests and three sandbox-denied attempts,
 within its declared 25-attempt budget. Every prior claim, date alternative, and
 witness/verse state survived the addition unchanged.
 
-The current JSON is **2,007,743 bytes** (about 2.01 MB), down **83.91%** from
-12,476,223 bytes in version 2. The lossless version 3 transfer shares claim and
-coverage contexts, discovery records, ranking templates, and observation metadata;
-coverage uses exact defaults with sparse exceptions or dense fallback. The
-17-witness normalized payload remains 39,599,390 bytes. All sizes include final
-newlines. The browser validates and retains shared read-only tables for charting,
-resolving full observations only for selection and source details. Versions 1 and
-2 remain supported through fetch and the file picker; the full-expansion API
-retains independently mutable normalized data. Browser memory is unmeasured.
-
-Phases 0–5 of the [data size optimization guide](DATA_SIZE_OPTIMIZATION.md) are
-complete. The production writer and dataset now use numeric version 3, while
-private Phase 1/2/3 candidates remain available for offline compatibility checks.
-The complete current output restores every field exactly in Python and Node,
-matching the fresh offline build and the Phase 0 normalized baseline. Both chart
-scenarios match across all 7,957 coordinates, including observations, events,
-count bands, discovery, and scale bounds. Two fresh builds produce identical
-bytes. Full-size work-session comparisons stay in ignored cache storage.
-
-Shared fictional version 1 oracles and version 2/3 snapshots check both languages,
-source fields, coverage states, complete date choices, ties, mapping gaps, filters,
-missing observations, empty exports, and dense/sparse coverage. Rollout checks
-cover deterministic refresh, current/stale `--check`, failures preserving previous
-data, unchanged app assets, fixture-based collector output, and malformed loading
-with retry. Phase 5 validates unused table records and claim/date references before
-mounting, evaluates the chart without decoding coverage pairs, shares precomputed
-read-only events, and caches at most one complete observation. Loading reuses the
-validated model. All selected observations and source fields match the independent
-normalized baseline exactly; both chart scenarios match the previous model across
-all 7,957 coordinates. Offline DOM tests preserve displayed source text across
-versions 1/2/3.
-
-Five isolated Node processes per path, with the same input, warm-up and explicit
-GC procedure, measured median retained heap after 2,000 selections at **16.72 MB**
-for shared runtime data versus **66.99 MB** for full expansion on the same revision:
-a **75.04%** reduction. The guide records parse/model/chart/selection measurements
-and practical limits; these are not browser or peak-memory benchmarks. Phase 6's
-offline audit and hosting handoff are complete: gzip level 6 yields **318,653
-bytes** and level 9 yields **305,645 bytes**, with exact byte restoration and
-deterministic output. No app deployment configuration exists in the repository.
-HTTP compression activation and live header verification remain pending at the
-eventual host; the guide documents the required URL, headers, and negotiation.
-Both build `--check` commands, all **134 Python tests**, all **37 Node tests**,
-and the final focused runtime checks passed offline.
+The app uses a lossless version 3 JSON format with shared records and exact
+sparse coverage. It validates and retains read-only data for charting, resolving
+complete observations for selection and source details. Older version 1/2 files
+remain supported. See [the explorer documentation](ATTESTATION_EXPLORER.md) for
+loading and runtime behavior; the storage contract lives in `report_explorer.py`.
+Offline tests cover exact Python/JavaScript restoration, source fidelity,
+coverage states, date alternatives, chart behavior, and deterministic updates.
 
 The data builder validates raw hashes, provenance, mappings, identity, complete
 date intervals, and derived results in a fresh temporary SQLite database. Builds
@@ -111,12 +74,6 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 4. Keep collection efficient and the app usable as the dataset grows. Measure
    witnesses, usable reports, graphable coordinates, unresolved records, request
    cost, and browser data size. Prefer concrete bottlenecks over new infrastructure.
-   Phases 0–5 of the [data size and memory optimization guide](DATA_SIZE_OPTIMIZATION.md)
-   are complete, along with Phase 6's offline compression audit and hosting
-   handoff. When a deployment is available, enable JSON compression at its host
-   or proxy and verify response headers and exact decoded bytes. Keep the
-   canonical JSON and existing local loading; no app or local-server change is
-   needed for this deployment task.
 
 ## Acceptance
 

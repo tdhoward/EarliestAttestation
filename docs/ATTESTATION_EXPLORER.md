@@ -45,8 +45,11 @@ and observation contexts once, with zero-based table indices. Eligible index
 claims use reversible tagged tuples; other claims retain complete literal details.
 Coverage uses ordered exact defaults and sparse exceptions where they save space,
 with dense fallback for other observations. A coordinate without an observation
-stays uncollected. See [the format contract](DATA_SIZE_OPTIMIZATION.md#code-ownership-and-intended-design)
-for tuple positions, tags, and tables.
+stays uncollected. The module documentation in
+[`report_explorer.py`](../report_explorer.py) defines the storage contract,
+including tuple positions, tags, preservation rules, and compatibility. Matching
+runtime and decoder comments live in
+[`explorer.js`](../web/attestation-explorer/explorer.js).
 
 Both decoders retain version 1 and 2 support. Fetch and the file picker return a
 validated, read-only store, checking the complete reference graph, including unused
@@ -69,34 +72,9 @@ and applicable contested flag; it no longer contains a full observation.
 `createModel()` and `mount()` accept an existing validated store or model so loading
 does not construct the model twice.
 
-The current 17-witness file is **2,007,743 bytes** (about 2.01 MB), compared with
-12,476,223 bytes in version 2 and 39,599,390 bytes normalized, including final
-newlines. This is an **83.91%** reduction from version 2. Phase 5 retains shared data
-in the running app; five isolated Node runs per path measured median retained heap
-after repeated selection at **16.72 MB**, compared with **66.99 MB** for full
-expansion on the same revision. See the [measurement method and results](DATA_SIZE_OPTIMIZATION.md#phase-5-retain-shared-data-in-the-running-app).
-Phase 6's offline audit measured **305,645 bytes** with gzip level 9 and verified
-exact byte restoration. Deployment activation remains pending because no hosting
-configuration exists in the repository; browser memory remains unmeasured.
-The browser uses the computed events
-without reinterpreting sources. Raw reports stay in the central source directory;
-collection updates change only the data.
-
-## Hosting compression
-
-Enable gzip or Brotli for JSON through the deployment host or proxy while keeping
-`data/attestations.json` at the same relative URL with `Content-Type: application/json`.
-Compressed responses need the matching `Content-Encoding: gzip` or `br`; negotiated
-responses need `Vary: Accept-Encoding`. Uncompressed responses omit
-`Content-Encoding`. Verify actual response headers and exact decompressed JSON
-bytes when an authorized deployment is available. See the
-[hosting contract and offline measurement command](DATA_SIZE_OPTIMIZATION.md#phase-6-transport-compression-where-deployment-supports-it).
-
-The browser continues to use `response.json()` and the JSON file picker.
-`data/attestations.json` remains ordinary JSON; compression belongs to delivery
-at the host. The existing `npm start` command uses Python's simple static server
-and does not enable HTTP compression. Offline gzip measurements do not establish
-that any deployment serves compressed data.
+The browser uses the computed events without reinterpreting sources. Raw reports
+stay in the central source directory; collection updates change only the data.
+`data/attestations.json` remains ordinary JSON for fetch and local file loading.
 
 ## Verification
 

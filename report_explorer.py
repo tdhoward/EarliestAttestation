@@ -2,6 +2,47 @@
 
 Only coordinate metadata is read from the full inventory. Coverage, dates and
 rankings always come from the supplied scholarly-report export.
+
+Browser storage contract (format_version: 3)
+--------------------------------------------
+This version is independent of the scholarly graph export's format version.
+build_explorer_data() returns normalized version 1; pack_explorer_data() changes
+only its representation. Coordinates, coordinate_inventory, metadata, documents,
+sources, and dates retain their values. The packed tables use zero-based indices:
+
+* claim_contexts: shared provenance fields selected by CLAIM_CONTEXT_FIELDS.
+  claims[string_id] is ["literal", context_index, complete_details] or
+  ["ntvmr_index_v1", context_index, [indexContent, osisID, pageID, locator_index]].
+  _compact_index_values() requires exact duplicate fields, canonical IDs/locators,
+  and safe reconstructed integers; all other claim shapes use literal storage.
+* coverage_contexts: every pair field except claims. coverage_records contains
+  [context_index, ordered_string_claim_ids], preserving states, unknown reasons,
+  witness identities, and all applicable date assessments.
+* discovery_records: complete shared discovery objects.
+* ranking_templates: complete dating-alternative objects, without recomputing
+  ranks or merging intervals. Event coverage_claim_ids uses ["pair"] only when
+  the unique matching witness pair's present claims recover the exact ordered,
+  typed ID list; otherwise ["literal", original_ids] preserves it verbatim.
+* observation_contexts: every observation field except reported_coverage, with
+  discovery and dating_alternatives replaced by their respective table indices.
+* observations[ref]: [context_index, coverage_encoding]. Dense coverage is
+  ["dense", record_indices]; sparse is ["sparse", defaults_index, overrides],
+  where coverage_defaults holds ordered record-index vectors and overrides is
+  an increasing list of [position, record_index] replacements. The sparse packer
+  documents witness grouping, modal defaults, deterministic ties, and total cost.
+
+Tables follow first encounter order and intern complete JSON values, keeping
+booleans distinct from numbers. Preserve array order, nulls, missing/extra fields,
+and string lookup IDs versus numeric event IDs. Use literal/dense fallback whenever
+compaction cannot restore the original value. Defaults are storage values, not
+scholarly assertions; decode only stored observation keys, never missing rows.
+
+expand_explorer_data() and JavaScript expandData() restore independently mutable
+version 1 values and also accept versions 1/2 and retained private codec markers.
+The browser's createDataStore() instead validates and freezes packed tables,
+shares chart events, and resolves full observations only for selection. Keep both
+implementations aligned; tests compare them with independent fictional oracles
+and the fresh normalized collection, including exact provenance and date choices.
 """
 
 from __future__ import annotations
@@ -106,10 +147,10 @@ def build_explorer_data(graph, inventory=None):
 def pack_explorer_data(data):
     """Write the complete version 3 browser transfer format.
 
-    Normalized observations remain version 1 in Python and in the chart model.
+    Normalized observations use version 1; the browser retains shared packed data.
     This lossless storage step neither removes unknown pairs nor computes claims,
-    dates, discovery states, or rankings. The Phase 3 schema's tagged claims,
-    shared contexts/rankings, and dense/sparse coverage are now production.
+    dates, discovery states, or rankings. See the module storage contract for
+    tagged claims, shared contexts/rankings, and dense/sparse coverage.
     """
     return {**pack_explorer_data_phase3(data), "format_version": 3}
 

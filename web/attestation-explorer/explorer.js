@@ -35,9 +35,26 @@
   const jsonKey = value => JSON.stringify(orderedJSON(value));
   const stores = new WeakSet(), models = new WeakSet();
 
+  // Browser format 3 mirrors the storage contract in report_explorer.py:
+  // claims[id] = ["literal", contextIndex, details] or ["ntvmr_index_v1",
+  //   contextIndex, [indexContent, osisID, pageID, locatorIndex]].
+  // coverage_records[i] = [coverageContextIndex, orderedStringClaimIds].
+  // observations[ref] = [observationContextIndex, coverageEncoding], where
+  // coverageEncoding is ["dense", recordIndices] or
+  // ["sparse", defaultsIndex, increasing [position, recordIndex] overrides].
+  // Observation contexts refer to discovery_records and ranking_templates;
+  // event claim IDs are ["pair"] (the unique witness pair's ordered present
+  // claim IDs) or ["literal", originalIds]. Indices are zero-based. Shared
+  // defaults create no observations or assertions; absent rows stay absent.
+  // Preserve provenance, complete date alternatives, array order, JSON types,
+  // and null/missing/extra fields. Versions 1/2 and private candidate markers
+  // have compatibility paths; numeric 3 is the production browser schema.
+  // expandData() provides independent mutable copies for explicit consumers.
   // The runtime takes ownership of the parsed JSON and freezes it. Validation
   // follows references in place, including unused tables; it never expands the
-  // witness/verse matrix. Only observation() materializes a normalized row.
+  // witness/verse matrix. Only observation() materializes a normalized row,
+  // caching at most one verse. Claims cache by unique ID; chart events omit
+  // claim lists and remain shared/read-only. Date selection lives in the model.
   function createDataStore(raw) {
     if (stores.has(raw)) return raw;
     if (!isRecord(raw) || !Array.isArray(raw.coordinates) || !isRecord(raw.observations)) {
