@@ -17,17 +17,17 @@ complete date alternatives and count any reported portion once per witness.
 
 ## Current implementation
 
-The current register reuses retained reports for 20 witnesses across all 27
+The current register reuses retained reports for 21 witnesses across all 27
 books. Default data contains 7,941 reference coordinates,
-7,928 graphable coordinates, 16,734 present witness/verse pairs, 142,086 unknown
+7,928 graphable coordinates, 16,749 present witness/verse pairs, 150,012 unknown
 pairs, and no absent or contested pairs. Thirteen coordinates have no exact
 reported match and remain unknown. Sixteen supplementary omitted coordinates,
 including Romans 16:24, remain in the underlying reference scope.
 
-Galatians, Hebrews, Ephesians, 1 Thessalonians, and 2 Thessalonians have completed
-independent indexed searches within IDs 10000–19999; the other books and catalogue
-ranges do not gain discovery completion merely
-through document reuse. Multiple bounded scopes can coexist in the central
+Galatians, Hebrews, Ephesians, Philippians, 1 Thessalonians, and 2 Thessalonians
+have completed independent indexed searches within IDs 10000–19999; the other
+books and catalogue ranges do not gain discovery completion merely through
+document reuse. Multiple bounded scopes can coexist in the central
 discovery register. All rankings describe collected witnesses only.
 
 The Hebrews pilot found ten candidates and collected nine new witnesses while
@@ -58,9 +58,18 @@ Philippians, Colossians, Titus, and Philemon. P61 also explicitly reports the
 supplementary Romans 16:24 coordinate. Complete catalogue dates remain 700–725 CE
 (`VIII (A)`) for P61 and 200–299 CE (`III`) for P65. Existing claims, date
 alternatives, coverage states, and other discovery scopes survived unchanged.
-Those six other books remain unsearched despite the reused contents.
-The collection retains 45 usable responses, with no pending candidates in its
-five completed scopes. The app data is 2,043,590 bytes, an increase of 23,882 bytes
+Those other-book reports did not establish independent discovery completion.
+
+The independent Philippians search returned P16, P46, and P61. It reused P46
+and P61 and collected P16's metadata and long contents with three successful
+requests. Three earlier sandbox-denied attempts received no provider response;
+all six attempts fit the declared 25-attempt budget. P16 adds 15 presence pairs
+from exact reported entries for Philippians 3:10–17 and 4:2–8, with indexing tier 3.
+Its catalogue fields retain numeric bounds 200–399 CE and notation `IV` exactly,
+without converting or reconciling them. Missing entries remain unknown. Every
+prior claim, date alternative, coverage state, and other discovery scope survived.
+The collection retains 48 usable responses, with no pending candidates in its
+six completed scopes. The app data is 2,055,907 bytes, an increase of 12,317 bytes
 for this addition; no new storage or mapping infrastructure was needed.
 
 The app uses a lossless version 3 JSON format with shared records and exact
@@ -83,7 +92,7 @@ scholarly-report path; its judgments are never admitted as scholarly assertions.
 1. Broaden bounded independent witness discovery. Declare a book/range and request
    budget; reuse each document's metadata and contents; update the central register.
    Do not constrain discovery to the witnesses already collected for nearby verses.
-   A useful next scope is Philippians within IDs 10000–19999, reusing P46 and
+   A useful next scope is Colossians within IDs 10000–19999, reusing P46 and
    P61's retained reports while searching for candidates independently.
 2. Establish provider access expectations before bulk collection. Use the
    owner-supplied local proxy when direct access is unavailable; cite canonical

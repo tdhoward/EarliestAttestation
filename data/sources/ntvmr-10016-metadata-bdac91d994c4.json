@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "10016",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 03:38:16 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791344296897",
+    "X-Request-Post-Validation-Epoch": "1791344296898",
+    "X-Request-Response-Epoch": "1791344296911",
+    "X-Response-Time": "14ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3359",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":10016,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"P16\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":607,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliotheca Alexandrina Antiquities Museum\",\"place\":\"Alexandria\",\"logoURL\":\"\",\"url\":\"http://antiquities.bibalex.org/collection/MuseumDatabase.aspx\"},\"leavesDescription\":\"1 Frg\",\"shelfID\":6608,\"originYearDescription\":\"III/IV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"BAAM 0544\",\"contentOverview\":\"Ph 3,10-17; 4,2-8\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":399,\"early\":200,\"content\":\"IV\"},\"leavesDescription\":\"1 Frg\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"Phil 3:10-17\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10016/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photo Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P16\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10016/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6608,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Phil 3:10-17\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10016&pageID=10&format=xhtml\"}},\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Phil 4:2-8\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=10016/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Photo Digitized by<br/>INTF for Research Purposes</div></a>\\n<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_P16\\\"><div>External Images by<br/>CSNTM</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/10016/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":6608,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Phil 4:2-8\",\"transcriptions\":{\"transcription\":{\"uri\":\"http://localhost:8080/community/vmr/api/transcript/get/?docid=10016&pageID=20&format=xhtml\"}},\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"ECM\"}]},\"gaNum\":\"P16\",\"leaves\":{\"leavesCount\":1,\"content\":\"1 Frg\"},\"width\":{\"widthMin\":160},\"lang\":\"g\",\"contentOverview\":\"p: Ph\",\"lineCount\":{\"lineCountMax\":39,\"lineCountMin\":19,\"content\":\"20r, 19v (38-39)\"},\"height\":{\"heightMin\":290}}}}",
+  "body_sha256": "29ff02d24455f609e22db8d5afc513bfef31a3b7750a8d317d163efb922c23ef",
+  "retrieved_at": "2026-10-07T03:38:16+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "source_url": "<local proxy>/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "10016",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Wed, 07 Oct 2026 03:38:22 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791344302105",
+    "X-Request-Post-Validation-Epoch": "1791344302106",
+    "X-Request-Response-Epoch": "1791344302110",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1223",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":10016,\"indexContent\":[\"Phil 3:10-17; Phil 4:2-8\",{\"docID\":10016,\"osisID\":\"Phil.3.10\",\"indexContent\":2011003010,\"pageID\":10},{\"docID\":10016,\"osisID\":\"Phil.3.11\",\"indexContent\":2011003011,\"pageID\":10},{\"docID\":10016,\"osisID\":\"Phil.3.12\",\"indexContent\":2011003012,\"pageID\":10},{\"docID\":10016,\"osisID\":\"Phil.3.13\",\"indexContent\":2011003013,\"pageID\":10},{\"docID\":10016,\"osisID\":\"Phil.3.14\",\"indexContent\":2011003014,\"pageID\":10},{\"docID\":10016,\"osisID\":\"Phil.3.15\",\"indexContent\":2011003015,\"pageID\":10},{\"docID\":10016,\"osisID\":\"Phil.3.16\",\"indexContent\":2011003016,\"pageID\":10},{\"docID\":10016,\"osisID\":\"Phil.3.17\",\"indexContent\":2011003017,\"pageID\":10},{\"docID\":10016,\"osisID\":\"Phil.4.2\",\"indexContent\":2011004002,\"pageID\":20},{\"docID\":10016,\"osisID\":\"Phil.4.3\",\"indexContent\":2011004003,\"pageID\":20},{\"docID\":10016,\"osisID\":\"Phil.4.4\",\"indexContent\":2011004004,\"pageID\":20},{\"docID\":10016,\"osisID\":\"Phil.4.5\",\"indexContent\":2011004005,\"pageID\":20},{\"docID\":10016,\"osisID\":\"Phil.4.6\",\"indexContent\":2011004006,\"pageID\":20},{\"docID\":10016,\"osisID\":\"Phil.4.7\",\"indexContent\":2011004007,\"pageID\":20},{\"docID\":10016,\"osisID\":\"Phil.4.8\",\"indexContent\":2011004008,\"pageID\":20}]}}}",
+  "body_sha256": "fd5f56928e3191086ae6dbb9c798b2f2eef24bd4f0a22a82a9009cf541fbae26",
+  "retrieved_at": "2026-10-07T03:38:22+00:00"
+}

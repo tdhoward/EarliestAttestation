@@ -464,6 +464,7 @@ test("bounded discovery is independent of coverage, dates, and the rest of the c
   assert.equal(model.discovery(model.lookup("Eph 1:1")).state, "bounded_search_complete");
   assert.equal(model.discovery(model.lookup("2Thess 1:4")).state, "bounded_search_complete");
   assert.equal(model.discovery(model.lookup("1Thess 4:12")).state, "bounded_search_complete");
+  assert.equal(model.discovery(model.lookup("Phil 3:9")).state, "bounded_search_complete");
   assert.equal(model.discovery(model.lookup("Rom 1:1")).state, "not_searched");
   assert.equal(discovered.metadata.discovery.corpus_complete, false);
   const cell = model.cell(model.lookup("Gal 1:9"), "optimistic");
@@ -511,7 +512,7 @@ test("full NT report expansion navigates sources, endpoints, unknowns, and suppl
   assert.deepEqual(model.cell(model.lookup("1Cor 1:1"), "optimistic").events.map(e => e.event_year), [200, 300, 400, 700]);
   assert.deepEqual(model.cell(model.lookup("1Cor 1:1"), "pessimistic").events.map(e => e.event_year), [225, 399, 499, 725]);
   const hebrews = model.cell(model.lookup("Heb 1:1"), "optimistic");
-  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, 20);
+  assert.equal(model.store.observation(hebrews.ref).reported_coverage.length, 21);
   assert.equal(model.store.observation(hebrews.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10012").state, "present");
   assert.equal(model.minimum, 150); assert.equal(model.maximum, 750);
 });
@@ -579,8 +580,40 @@ test("P61 and P65 retain chart endpoints and source gaps across independently se
     }
     assert.equal(model.discovery(model.lookup("1Thess 1:3")).state, "bounded_search_complete");
     assert.equal(model.discovery(model.lookup("Titus 3:1")).state, "not_searched");
-    assert.equal(model.discovery(model.lookup("Phil 3:5")).state, "not_searched");
+    assert.equal(model.discovery(model.lookup("Phil 3:5")).state, "bounded_search_complete");
     assert.equal(model.cell(model.lookup("Rom 16:24"), "optimistic").state, "filtered");
+  }
+});
+
+test("P16 reports retain exact chart endpoints and leave neighboring entries unknown", () => {
+  for (const input of [current, packedCurrent]) {
+    const model = createModel(input);
+    for (const ref of ["Phil 3:10", "Phil 3:17", "Phil 4:2", "Phil 4:8"]) {
+      for (const [scenario, year] of [["optimistic", 200], ["pessimistic", 399]]) {
+        const cell = model.cell(model.lookup(ref), scenario);
+        const events = cell.events.filter(e => e.witness_id === "ntvmr:10016");
+        assert.equal(events.length, 1);
+        assert.equal(events[0].event_year, year);
+        const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10016");
+        assert.equal(pair.state, "present");
+        assert.ok(pair.claims.length);
+        for (const id of pair.claims) {
+          const claim = model.store.claim(id);
+          assert.equal(claim.reported.osisID, cell.ref);
+          assert.equal(claim.reported_indexing_tier, 3);
+          assert.match(claim.citation, /^https:\/\/ntvmr\.uni-muenster\.de\//);
+        }
+      }
+    }
+    for (const ref of ["Phil 3:9", "Phil 3:18", "Phil 4:1", "Phil 4:9"]) {
+      const cell = model.cell(model.lookup(ref), "optimistic");
+      assert.ok(cell.events.every(e => e.witness_id !== "ntvmr:10016"));
+      const pair = model.store.observation(cell.ref).reported_coverage.find(p => p.witness_id === "ntvmr:10016");
+      assert.equal(pair.state, "unknown");
+      assert.deepEqual(pair.claims, []);
+      assert.equal(model.discovery(model.lookup(ref)).state, "bounded_search_complete");
+    }
+    assert.equal(model.discovery(model.lookup("Col 1:1")).state, "not_searched");
   }
 });
 

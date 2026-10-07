@@ -119,17 +119,23 @@ contents assertions. Per-verse discovery states and the app's **earliest collect
 labels distinguish usable reports from completeness of the witness search. See
 [the discovery guide](BOUNDED_WITNESS_DISCOVERY.md).
 
-The current collection reuses 20 witnesses' captured reports across all 27
+The current collection reuses 21 witnesses' captured reports across all 27
 books. Only exact reported OSIS matches supply presence; thirteen default
 coordinates remain unresolved. This reuse establishes no new discovery
-completion. Independent Galatians, Hebrews, Ephesians, 1 Thessalonians, and
-2 Thessalonians searches are complete only within their declared ID range. The
+completion. Independent Galatians, Hebrews, Ephesians, Philippians, 1 Thessalonians,
+and 2 Thessalonians searches are complete only within their declared ID range. The
 Hebrews pilot collected nine new witnesses; Ephesians added P49, P92, and P132 while reusing P46;
 2 Thessalonians added P30 while reusing P92; 1 Thessalonians added P61 and P65
 while reusing P30 and P46. The latter search used five successful requests and
 preserved all prior claims, date estimates, and coverage states. P61's other-book
-reports create no additional discovery completion. These collections used the
-owner's local API proxy. Canonical NTVMR URLs supply all scholarly citations;
+reports create no additional discovery completion. The independent Philippians
+search added P16 while reusing P46 and P61, with three successful requests and
+six attempts including sandbox denials within its 25-attempt budget. Its 15 exact
+contents entries supply presence; missing entries stay unknown. Numeric date
+fields 200–399 and notation `IV` are retained exactly, without conversion or
+reconciliation. Existing claims, dates, coverage states, and other scopes survive.
+These collections used the owner's local API proxy. Canonical NTVMR URLs supply
+all scholarly citations;
 permanent captures replace proxy origins with `<local proxy>` and preserve raw
 response bodies, hashes, paths, parameters, and retrieval dates. Actual transport
 addresses remain in ignored local definitions and request caches; see
