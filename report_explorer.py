@@ -388,7 +388,7 @@ def pack_explorer_data_phase3(data):
 
 def expand_explorer_data(data):
     """Restore the transfer format exactly; also accept previous version 1 files."""
-    if data.get("format_version") == 4:
+    if data.get("format_version") in (4, 5):
         from browser_format import unpack_browser_data
         data = unpack_browser_data(data)
     if data.get("format_version") == 1:

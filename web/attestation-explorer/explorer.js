@@ -57,7 +57,7 @@
   // claim lists and remain shared/read-only. Date selection lives in the model.
   function createDataStore(raw) {
     if (stores.has(raw)) return raw;
-    if (raw?.format_version === 4) {
+    if ([4, 5].includes(raw?.format_version)) {
       const codec = typeof module !== "undefined" && module.exports ? require("./collection-format.js") : global.AttestationFormat;
       const store = codec.createStore(raw, {copyJSON, freezeJSON});
       stores.add(store);
@@ -351,7 +351,7 @@
   }
 
   function expandData(data) {
-    if (data?.format_version === 4) return createDataStore(data).expandData();
+    if ([4, 5].includes(data?.format_version)) return createDataStore(data).expandData();
     const isRecord = value => value && typeof value === "object" && !Array.isArray(value);
     if (!isRecord(data) || !Array.isArray(data.coordinates) || !isRecord(data.observations)) {
       throw new Error("Unsupported collection data");
@@ -629,29 +629,29 @@
     function discovery(index) {
       const ref = data.coordinates[index][0], meta = data.metadata.discovery;
       const reported = store.summary(ref)?.discovery;
-      const book = ref.split(".")[0];
+      const book = ref.split(".")[0], compact = data.metadata.discovery_summary?.[book];
       const scopes = (meta?.scopes || [meta]).filter(item => item?.definition?.book === book ||
         item?.definition?.books?.includes(book));
-      if (!scopes.length) {
+      if (!compact && !scopes.length) {
         return {state: "not_searched", text: "Witness discovery has not been assessed for this verse. Rankings cover collected witnesses only."};
       }
       const incomplete = scopes.find(item => item.search_state !== "complete");
-      const state = reported?.state || (incomplete ? "search_incomplete" :
+      const state = reported?.state || compact?.state || (incomplete ? "search_incomplete" :
         scopes.some(item => item.candidate_collection_state !== "complete") ? "candidate_collection_incomplete" : "bounded_search_complete");
-      const count = new Set(scopes.flatMap(item => item.candidate_ids)).size;
-      const pending = new Set(scopes.flatMap(item => item.pending_candidate_ids)).size;
-      const cutoffs = [...new Set(scopes.map(item => item.definition.earliest_date_before).filter(value => value != null))];
-      const eligible = new Set(scopes.flatMap(item => item.eligible_candidate_ids || item.candidate_ids)).size;
-      const excluded = new Set(scopes.flatMap(item => item.date_excluded_candidate_ids || [])).size;
+      const count = compact?.candidate_count ?? new Set(scopes.flatMap(item => item.candidate_ids)).size;
+      const pending = compact?.pending_count ?? new Set(scopes.flatMap(item => item.pending_candidate_ids)).size;
+      const cutoffs = compact?.cutoffs ?? [...new Set(scopes.map(item => item.definition.earliest_date_before).filter(value => value != null))];
+      const eligible = compact?.eligible_count ?? new Set(scopes.flatMap(item => item.eligible_candidate_ids || item.candidate_ids)).size;
+      const excluded = compact?.excluded_count ?? new Set(scopes.flatMap(item => item.date_excluded_candidate_ids || [])).size;
       const dateScope = cutoffs.length ? ` Collection date cutoff${cutoffs.length === 1 ? "" : "s"}: ranges must start before ${cutoffs.join(" or ")} CE; unknown dates and retained earlier estimates remain eligible. ${excluded} candidates excluded in these date-filtered scopes. Captured reports are preserved; fewer than five witnesses per verse is acceptable.` : "";
-      const catalogue = scopes.some(item => item.definition.scope_type === "catalogue_range");
+      const catalogue = compact?.catalogue ?? scopes.some(item => item.definition.scope_type === "catalogue_range");
       const search = catalogue ? "catalogue search" : "book search";
       const pool = catalogue ? "Catalogue membership does not establish verse contents. Unindexed contents remain unknown. Rankings cover collected witnesses only; exhaustive discovery is not established." :
         "Other catalogue ranges and unindexed witnesses remain outside this search. Rankings cover collected witnesses only.";
       const candidates = cutoffs.length ? `${eligible} eligible search candidates` : `${count} search candidates`;
       const text = (state === "bounded_search_complete" ? `Bounded ${search} complete; all ${candidates} collected. ${pool}` :
         state === "candidate_collection_incomplete" ? `Bounded ${search} complete; ${pending} of ${candidates} await metadata or contents collection. ${pool}` :
-        `Bounded ${search} ${(incomplete?.search_state || "incomplete").replaceAll("_", " ")}; ${count} candidates identified so far. ${pool}`) + dateScope;
+        `Bounded ${search} ${(compact?.search_state || incomplete?.search_state || "incomplete").replaceAll("_", " ")}; ${count} candidates identified so far. ${pool}`) + dateScope;
       return {state, text};
     }
     const model = {data, store, indices, books, choices, selection, minimum, maximum, hasEvents, label, lookup, cell,
@@ -952,7 +952,7 @@
     if (!model.choices.size) appendText(el("date-choices"), "p", "No usable numeric date intervals in this export.");
     const scope = el("scope"), meta = data.metadata;
     const discoveries = (meta.discovery?.scopes || [meta.discovery]).filter(item => item?.definition);
-    el("discovery-tag").textContent = discoveries.length ? "COLLECTED WITNESSES · BOUNDED DISCOVERY" :
+    el("discovery-tag").textContent = discoveries.length || Object.keys(meta.discovery_summary || {}).length ? "COLLECTED WITNESSES · BOUNDED DISCOVERY" :
       "COLLECTED WITNESSES · DISCOVERY NOT ASSESSED";
     appendText(scope, "p", meta.collection_scope);
     appendText(scope, "h3", "Witness discovery");
@@ -968,11 +968,15 @@
       if (discovery.run_error) appendText(scope, "p", discovery.run_error);
       for (const source of discovery.sources || []) link(scope, source.citation, `Search source · ${source.retrieved_at.slice(0, 10)} ↗`);
     }
-    if (!discoveries.length) appendText(scope, "p", "No candidate discovery run is attached to this dataset. Verse reports and graphable counts do not establish completeness of the witness pool.");
+    for (const book of model.books.filter(book => meta.discovery_summary?.[book.code])) {
+      appendText(scope, "h4", book.name);
+      appendText(scope, "p", model.discovery(book.first).text);
+    }
+    if (!discoveries.length && !Object.keys(meta.discovery_summary || {}).length) appendText(scope, "p", "No candidate discovery run is attached to this dataset. Verse reports and graphable counts do not establish completeness of the witness pool.");
     appendText(scope, "p", `${meta.counts.graphable_coordinates} graphable coordinates · ${meta.counts.mapping_gaps} mapping gaps. Witness/verse pairs: ${Object.entries(meta.counts.witness_verse_pairs).map(([key, value]) => `${value} ${key}`).join(" · ")}.`);
     appendText(scope, "p", `Filters: omitted ${meta.filters.include_omitted ? "included" : "excluded"}; bracketed ${meta.filters.include_bracketed ? "included" : "excluded"}. Filtered coordinates retain their horizontal positions.`);
     appendText(scope, "p", meta.inventory_scope);
-    appendText(scope, "p", `Collection cost: ${JSON.stringify(meta.collection_cost)}`);
+    if (meta.collection_cost) appendText(scope, "p", `Collection cost: ${JSON.stringify(meta.collection_cost)}`);
     appendText(scope, "p", `Axis inventory: ${data.coordinate_inventory.inventory_id}. ${data.coordinate_inventory.scope}`);
     link(scope, data.coordinate_inventory.source_citation);
     appendText(scope, "p", `Reported-coordinate source: ${meta.inventory_source_citation}`);

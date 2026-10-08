@@ -41,8 +41,9 @@ class CollectionTests(unittest.TestCase):
 
     def test_current_file_combines_all_collected_books_and_witnesses(self):
         data = self.data
-        self.assertEqual(project_browser_data(data), expand_explorer_data(read_json(PILOT_DATA)))
+        self.assertEqual(project_browser_data(data), project_browser_data(expand_explorer_data(read_json(PILOT_DATA))))
         self.assertEqual(read_json(PILOT_DATA)["format_version"], 4)
+        self.assertEqual(pack_browser_data(data), pack_browser_data(read_json(PILOT_DATA)))
         self.assertEqual(len(data["coordinates"]), 7957)
         self.assertEqual(data["metadata"]["counts"]["verse_count"], 7941)
         self.assertEqual(data["metadata"]["counts"]["witness_count"], 25)
@@ -108,13 +109,15 @@ class CollectionTests(unittest.TestCase):
           const {expandData} = require('./web/attestation-explorer/explorer.js');
           const expected = JSON.parse(readFileSync(process.argv[1], 'utf8'));
           const packed = JSON.parse(readFileSync(process.argv[2], 'utf8'));
-          assert.equal(packed.format_version, 4);
+          assert.equal(packed.format_version, 5);
           assert.deepStrictEqual(expandData(packed), expected);
         """
         with tempfile.TemporaryDirectory() as tmp:
             expected = Path(tmp) / "normalized.json"
             write_json(expected, project_browser_data(self.data), compact=True)
-            result = subprocess.run(["node", "-e", script, str(expected), str(PILOT_DATA)],
+            packed = Path(tmp) / "packed.json"
+            write_json(packed, pack_browser_data(self.data), compact=True)
+            result = subprocess.run(["node", "-e", script, str(expected), str(packed)],
                                     cwd=ROOT, capture_output=True, text=True, timeout=60)
             self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 

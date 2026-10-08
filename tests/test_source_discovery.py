@@ -205,11 +205,11 @@ class DiscoveryTests(unittest.TestCase):
         self.assertNotIn("dateMax", calls[0][1])
         self.assertEqual([p["docID"] for _, p in calls[1:]], ["10051", "10051"])
         packed = json.loads((self.root / "attestations.json").read_text(encoding="utf-8"))
-        self.assertEqual(packed["format_version"], 4)
+        self.assertEqual(packed["format_version"], 5)
         data = expand_explorer_data(packed)
         self.assertEqual(data, expand_explorer_data(pack_browser_data(data)))
-        self.assertEqual(data["metadata"]["discovery"]["candidate_ids"], [10046, 10051])
-        self.assertEqual(data["metadata"]["discovery"]["pending_candidate_ids"], [])
+        self.assertEqual(data["metadata"]["discovery_summary"]["Gal"]["candidate_count"], 2)
+        self.assertEqual(data["metadata"]["discovery_summary"]["Gal"]["pending_count"], 0)
         self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"]["present"], 2)
         self.assertEqual(data["observations"]["Gal.1.1"]["discovery"]["state"], "bounded_search_complete")
         self.assertFalse(list(self.root.glob("*.html")))
@@ -228,11 +228,13 @@ class DiscoveryTests(unittest.TestCase):
             self.assertEqual(collect_main([*args, "--offline"]), 0)
         self.assertEqual(len(calls), 3)
         replayed = json.loads((self.root / "attestations.json").read_text(encoding="utf-8"))
-        self.assertEqual(replayed["format_version"], 4)
+        self.assertEqual(replayed["format_version"], 5)
         self.assertEqual(expand_explorer_data(replayed), expand_explorer_data(pack_browser_data(expand_explorer_data(replayed))))
         for claim in [*data["claims"].values(), *data["dates"].values()]:
             self.assertTrue(claim["citation"].startswith("https://ntvmr.uni-muenster.de/"))
-        self.assertTrue(data["metadata"]["discovery"]["sources"][0]["citation"].startswith("https://ntvmr.uni-muenster.de/"))
+        # Search source provenance remains in the central discovery register.
+        report, _ = prepare_discovery(record, [])
+        self.assertTrue(report["source_snapshots"][0]["citation"].startswith("https://ntvmr.uni-muenster.de/"))
 
     def test_metadata_only_candidate_resumes_contents_into_existing_collection(self):
         seed = self.manifest()
@@ -297,7 +299,7 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(record["collection_cost"]["request_attempts"], 2)
         self.assertIn("Prior document access block", record["collection_cost"]["collection_errors"][0])
         data = expand_explorer_data(json.loads((self.root / "attestations.json").read_text()))
-        self.assertEqual(data["metadata"]["discovery"]["pending_candidate_ids"], [10051, 10052])
+        self.assertEqual(data["metadata"]["discovery_summary"]["Gal"]["pending_count"], 2)
         self.assertEqual(data["observations"]["Gal.1.1"]["discovery"]["state"], "candidate_collection_incomplete")
         self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"]["present"], 1)
         with closing(connect(self.root / ".cache" / "collection.sqlite")) as con:

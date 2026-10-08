@@ -22,17 +22,21 @@ all 27 books. The current app data has 7,941 graphable coordinates, 2,250,193
 reported-present witness/verse pairs and 16,419,098 unknown pairs. Discovery and
 candidate-collection states remain those recorded by the retained searches.
 
-The browser uses version 4 JSON, produced by both collection writers through
+The browser uses version 5 JSON, produced by both collection writers through
 `browser_format.py`. Claims use numeric columns and shared coordinate references;
 providers and ranking events are interned. Exact coverage links use compact
-numeric sequences. The browser file excludes unused identity, transport and
-collection-audit bookkeeping, while the central registers and captures keep the
-full source evidence. The current file is 44,236,579 bytes. Dates, claims,
-coverage states and rankings survive the projection unchanged.
+numeric sequences and contextual claim-ID differences. Ordinary coordinate status
+is a default; discovery uses per-book summaries; date selection stores only
+constraints for competing choices. Full source evidence remains in the registers
+and captures. The current file is 21,246,486 bytes. All content claims, complete
+date records, coverage states, rankings and displayed discovery summaries survive
+the projection unchanged.
 
 The runtime validates compact columns without expanding the witness/verse matrix,
-shares chart events, and resolves selected source details on demand. Versions
-1–3 remain readable. See [the explorer documentation](ATTESTATION_EXPLORER.md)
+uses the narrowest safe typed arrays, shares chart events, and resolves selected
+source details on demand. An offline Node/V8 model measurement retained about
+122 MB of heap plus array buffers, down from 320 MB; browser overhead is additional.
+Versions 1–4 remain readable. See [the explorer documentation](ATTESTATION_EXPLORER.md)
 for the format and runtime contract. Offline tests use bounded fictional and
 25-witness pilot fixtures, independent of future production collection growth.
 
