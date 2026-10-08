@@ -1,0 +1,814 @@
+{
+  "collection": {
+    "format_version": 1,
+    "coordinate_inventory": "reference/na28.json",
+    "books": [
+      "Matt",
+      "Mark",
+      "Luke",
+      "John",
+      "Acts",
+      "Rom",
+      "1Cor",
+      "2Cor",
+      "Gal",
+      "Eph",
+      "Phil",
+      "Col",
+      "1Thess",
+      "2Thess",
+      "1Tim",
+      "2Tim",
+      "Titus",
+      "Phlm",
+      "Heb",
+      "Jas",
+      "1Pet",
+      "2Pet",
+      "1John",
+      "2John",
+      "3John",
+      "Jude",
+      "Rev"
+    ],
+    "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+    "documents": [
+      {
+        "doc_id": 10046,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10046-metadata.json",
+        "coverage_fixture": "sources/ntvmr-10046-contents.json"
+      },
+      {
+        "doc_id": 20001,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-20001-metadata.json",
+        "coverage_fixture": "sources/ntvmr-20001-contents.json"
+      },
+      {
+        "doc_id": 20002,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-20002-metadata.json",
+        "coverage_fixture": "sources/ntvmr-20002-contents.json"
+      },
+      {
+        "doc_id": 10051,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10051-metadata.json",
+        "coverage_fixture": "sources/ntvmr-10051-contents.json"
+      },
+      {
+        "doc_id": 10135,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10135-metadata.json",
+        "coverage_fixture": "sources/ntvmr-10135-contents.json"
+      },
+      {
+        "doc_id": 10012,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10012-metadata-db2f95d65411.json",
+        "coverage_fixture": "sources/ntvmr-10012-coverage-f09f9ed58e63.json"
+      },
+      {
+        "doc_id": 10013,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10013-metadata-1b3b2aa6a57c.json",
+        "coverage_fixture": "sources/ntvmr-10013-coverage-b7fb4857405c.json"
+      },
+      {
+        "doc_id": 10017,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10017-metadata-0c1d0dc703cb.json",
+        "coverage_fixture": "sources/ntvmr-10017-coverage-853076e725a7.json"
+      },
+      {
+        "doc_id": 10079,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10079-metadata-098d009035df.json",
+        "coverage_fixture": "sources/ntvmr-10079-coverage-b9fad3185b7e.json"
+      },
+      {
+        "doc_id": 10089,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10089-metadata-8c0589353555.json",
+        "coverage_fixture": "sources/ntvmr-10089-coverage-41b8bade55c0.json"
+      },
+      {
+        "doc_id": 10114,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10114-metadata-9771b303f7d9.json",
+        "coverage_fixture": "sources/ntvmr-10114-coverage-c836fea3e50e.json"
+      },
+      {
+        "doc_id": 10116,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10116-metadata-17d8162d706f.json",
+        "coverage_fixture": "sources/ntvmr-10116-coverage-f125ca5563bf.json"
+      },
+      {
+        "doc_id": 10126,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10126-metadata-1070e1d5f1ab.json",
+        "coverage_fixture": "sources/ntvmr-10126-coverage-d145085c7a98.json"
+      },
+      {
+        "doc_id": 10130,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10130-metadata-49e7273386e4.json",
+        "coverage_fixture": "sources/ntvmr-10130-coverage-628dc533065a.json"
+      },
+      {
+        "doc_id": 10049,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10049-metadata-7e45007f9127.json",
+        "coverage_fixture": "sources/ntvmr-10049-coverage-2232003ab142.json"
+      },
+      {
+        "doc_id": 10092,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10092-metadata-047c321962da.json",
+        "coverage_fixture": "sources/ntvmr-10092-coverage-d1b24434ace7.json"
+      },
+      {
+        "doc_id": 10132,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10132-metadata-e76894bb3f86.json",
+        "coverage_fixture": "sources/ntvmr-10132-coverage-f3e8fa579e3a.json"
+      },
+      {
+        "doc_id": 10030,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10030-metadata-56340e515e44.json",
+        "coverage_fixture": "sources/ntvmr-10030-coverage-210fda8ce6d3.json"
+      },
+      {
+        "doc_id": 10061,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10061-metadata-9a1631dd0068.json",
+        "coverage_fixture": "sources/ntvmr-10061-coverage-b8d8a8fb473b.json"
+      },
+      {
+        "doc_id": 10065,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10065-metadata-34db98a979a1.json",
+        "coverage_fixture": "sources/ntvmr-10065-coverage-99acf53e5625.json"
+      },
+      {
+        "doc_id": 10016,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10016-metadata-bdac91d994c4.json",
+        "coverage_fixture": "sources/ntvmr-10016-coverage-4ed3daa086ab.json"
+      },
+      {
+        "doc_id": 10087,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10087-metadata-7915f8ad24bf.json",
+        "coverage_fixture": "sources/ntvmr-10087-coverage-4ac17d88d36b.json"
+      },
+      {
+        "doc_id": 10139,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10139-metadata-6aebe4162838.json",
+        "coverage_fixture": "sources/ntvmr-10139-coverage-6d3032188b77.json"
+      },
+      {
+        "doc_id": 10032,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10032-metadata-ad1b54d7b5ee.json",
+        "coverage_fixture": "sources/ntvmr-10032-coverage-7a81028829dd.json"
+      },
+      {
+        "doc_id": 10133,
+        "corpus": "greek_nt_manuscript",
+        "metadata_fixture": "sources/ntvmr-10133-metadata-2154c8c28ba2.json",
+        "coverage_fixture": "sources/ntvmr-10133-coverage-3c3bdecf20c0.json"
+      }
+    ],
+    "additional_reports": [],
+    "include_omitted": false,
+    "include_bracketed": true,
+    "discovery": "discovery.json"
+  },
+  "discovery": [
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "galatians-docids-10000-19999-v4",
+        "book": "Gal",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/en_US/intfblog/-/blogs/1695852; catalogue membership and Greek language are checked from explicit document metadata before contents import.",
+        "access_expectations": "Three-attempt completion batch for the already captured Galatians book/range search. Reuse the terminal search and P51 metadata, then collect P51 contents and P135 metadata/contents once. The initial twelve-attempt pilot is preserved separately. No broader discovery or source refresh is authorized by this batch. Keep one worker, fixed project identity, five-second spacing, Retry-After, and blocked-state stops. Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed.",
+        "request_budget": 3,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 180,
+        "transport_base_url": "<local proxy>/community/vmr/api",
+        "prior_pilot_attempts": 12,
+        "transport_qualification": "Retrieved through the previously configured project HTTP relay. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Relay upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "Gal",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Tue, 06 Oct 2026 20:13:00 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791317580077",
+            "X-Request-Post-Validation-Epoch": "1791317580078",
+            "X-Request-Response-Epoch": "1791317580088",
+            "X-Response-Time": "11ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "516",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":17,\"manuscript\":[{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":425,\"gaNum\":\"P51\",\"orig\":\"V (A)\",\"docID\":10051,\"groupID\":\"\",\"primaryName\":\"P51\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":400},{\"origLate\":499,\"gaNum\":\"P135\",\"orig\":\"IV/V\",\"docID\":10135,\"groupID\":\"\",\"primaryName\":\"P135\",\"lang\":\"grc\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":301}],\"count\":3}}}",
+          "body_sha256": "c95222cf486091b62a6758346501bf45ac33f2d79f36b5492f1fd6ece7ab239f",
+          "retrieved_at": "2026-10-06T20:13:00+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 3,
+        "http_responses_recorded": 3,
+        "reused_seed_document_responses": 6,
+        "request_budget": 3,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "hebrews-docids-10000-19999",
+        "book": "Heb",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/en_US/intfblog/-/blogs/1695852; catalogue membership and Greek language are checked from explicit document metadata before contents import.",
+        "access_expectations": "Complete the finite independent Hebrews book-index pilot through the local HTTP proxy explicitly supplied by the owner on 2026-10-06 after canonical HTTPS could not be reached. The initial six attempts received no provider response; this is a transport change authorized by the owner, not a response to a provider access block. Retain that initial cost as prior_pilot_attempts and cap this batch at the remaining 19 attempts, including continuation pages and retries. Use the documented default page limit, no name/date/language search filters, one worker, the fixed EarliestAttestation identity, at least five seconds between requests, Retry-After, and blocked-state stops. Reuse registered metadata and long contents reports. No published numerical provider quota has been established; this project budget does not authorize bulk access. No source refresh, images, transcriptions, or other book/range searches are included. Keep canonical citations and proxy transport placeholders separate. Proxy upstream TLS verification is not established by these captures.",
+        "request_budget": 19,
+        "prior_pilot_attempts": 6,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 240,
+        "transport_base_url": "<local proxy>/community/vmr/api",
+        "transport_qualification": "Retrieved through the local HTTP proxy explicitly supplied by the project owner. Canonical NTVMR endpoint and proxy transport placeholder are retained separately. Proxy upstream TLS verification is not established by this capture; no verified end-to-end HTTPS transport is claimed."
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "Heb",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Tue, 06 Oct 2026 23:03:13 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791327793766",
+            "X-Request-Post-Validation-Epoch": "1791327793767",
+            "X-Request-Response-Epoch": "1791327793777",
+            "X-Response-Time": "11ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "1506",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":60,\"manuscript\":[{\"origLate\":299,\"gaNum\":\"P12\",\"orig\":\"E III\",\"docID\":10012,\"groupID\":\"\",\"primaryName\":\"P12\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":275},{\"origLate\":399,\"gaNum\":\"P13\",\"orig\":\"III/IV\",\"docID\":10013,\"groupID\":\"\",\"primaryName\":\"P13\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":399,\"gaNum\":\"P17\",\"orig\":\"IV\",\"docID\":10017,\"groupID\":\"\",\"primaryName\":\"P17\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300},{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":699,\"gaNum\":\"P79\",\"orig\":\"VII\",\"docID\":10079,\"groupID\":\"\",\"primaryName\":\"P79\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":600},{\"origLate\":399,\"gaNum\":\"P89\",\"orig\":\"IV\",\"docID\":10089,\"groupID\":\"\",\"primaryName\":\"P89\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300},{\"origLate\":299,\"gaNum\":\"P114\",\"orig\":\"III\",\"docID\":10114,\"groupID\":\"\",\"primaryName\":\"P114\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":699,\"gaNum\":\"P116\",\"orig\":\"VI/VII\",\"docID\":10116,\"groupID\":\"\",\"primaryName\":\"P116\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":500},{\"origLate\":399,\"gaNum\":\"P126\",\"orig\":\"IV\",\"docID\":10126,\"groupID\":\"\",\"primaryName\":\"P126\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300},{\"origLate\":400,\"gaNum\":\"P130\",\"orig\":\"III/IV\",\"docID\":10130,\"groupID\":\"\",\"primaryName\":\"P130\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200}],\"count\":10}}}",
+          "body_sha256": "c9b194107f79eb138bec31dfb0609e855132b99cc01f5fcae7db75a116f51e58",
+          "retrieved_at": "2026-10-06T23:03:13+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 19,
+        "http_responses_recorded": 19,
+        "reused_seed_document_responses": 10,
+        "request_budget": 19,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "ephesians-docids-10000-19999",
+        "book": "Eph",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent Ephesians book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "Eph",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Tue, 06 Oct 2026 23:26:46 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791329206547",
+            "X-Request-Post-Validation-Epoch": "1791329206549",
+            "X-Request-Response-Epoch": "1791329206560",
+            "X-Response-Time": "13ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "663",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":19,\"manuscript\":[{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":299,\"gaNum\":\"P49\",\"orig\":\"III (E)\",\"docID\":10049,\"groupID\":\"\",\"primaryName\":\"P49\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":275},{\"origLate\":399,\"gaNum\":\"P92\",\"orig\":\"III/IV\",\"docID\":10092,\"groupID\":\"\",\"primaryName\":\"P92\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":399,\"gaNum\":\"P132\",\"orig\":\"III/IV\",\"docID\":10132,\"groupID\":\"\",\"primaryName\":\"P132\",\"lang\":\"grc\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200}],\"count\":4}}}",
+          "body_sha256": "eed270a00140bc2b609460e26bd685031ad1d0fcc1c95b6fd8c83f3b8a0958d3",
+          "retrieved_at": "2026-10-06T23:26:46+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 10,
+        "http_responses_recorded": 7,
+        "reused_seed_document_responses": 28,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "2thessalonians-docids-10000-19999",
+        "book": "2Thess",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent 2 Thessalonians book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "2Thess",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Wed, 07 Oct 2026 02:58:37 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791341917747",
+            "X-Request-Post-Validation-Epoch": "1791341917748",
+            "X-Request-Response-Epoch": "1791341917760",
+            "X-Response-Time": "13ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "376",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":3,\"manuscript\":[{\"origLate\":299,\"gaNum\":\"P30\",\"orig\":\"E II - A III\",\"docID\":10030,\"groupID\":\"\",\"primaryName\":\"P30\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":399,\"gaNum\":\"P92\",\"orig\":\"III/IV\",\"docID\":10092,\"groupID\":\"\",\"primaryName\":\"P92\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200}],\"count\":2}}}",
+          "body_sha256": "556189afb3e0e3e25a2698daf06035a8ae0bf2ca5476bfa91bc58a059e4f63af",
+          "retrieved_at": "2026-10-07T02:58:37+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 6,
+        "http_responses_recorded": 3,
+        "reused_seed_document_responses": 34,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "1thessalonians-docids-10000-19999",
+        "book": "1Thess",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent 1 Thessalonians book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "1Thess",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Wed, 07 Oct 2026 03:08:23 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791342503692",
+            "X-Request-Post-Validation-Epoch": "1791342503693",
+            "X-Request-Response-Epoch": "1791342503704",
+            "X-Response-Time": "12ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "663",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":14,\"manuscript\":[{\"origLate\":299,\"gaNum\":\"P30\",\"orig\":\"E II - A III\",\"docID\":10030,\"groupID\":\"\",\"primaryName\":\"P30\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":725,\"gaNum\":\"P61\",\"orig\":\"VIII (A)\",\"docID\":10061,\"groupID\":\"\",\"primaryName\":\"P61\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":700},{\"origLate\":299,\"gaNum\":\"P65\",\"orig\":\"III\",\"docID\":10065,\"groupID\":\"\",\"primaryName\":\"P65\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200}],\"count\":4}}}",
+          "body_sha256": "c225849916751a0169c1d2b74b15a18e5b2cd62a9e30872e7f125ffc409e810e",
+          "retrieved_at": "2026-10-07T03:08:23+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 5,
+        "http_responses_recorded": 5,
+        "reused_seed_document_responses": 36,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "philippians-docids-10000-19999",
+        "book": "Phil",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent Philippians book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "Phil",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Wed, 07 Oct 2026 03:38:12 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791344292421",
+            "X-Request-Post-Validation-Epoch": "1791344292422",
+            "X-Request-Response-Epoch": "1791344292433",
+            "X-Response-Time": "12ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "513",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":13,\"manuscript\":[{\"origLate\":399,\"gaNum\":\"P16\",\"orig\":\"IV\",\"docID\":10016,\"groupID\":\"\",\"primaryName\":\"P16\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":725,\"gaNum\":\"P61\",\"orig\":\"VIII (A)\",\"docID\":10061,\"groupID\":\"\",\"primaryName\":\"P61\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":700}],\"count\":3}}}",
+          "body_sha256": "4f0ba20be291e5bcd87f4e1512ac48ba3d333d3aa009bbf232a64f9dbec1a232",
+          "retrieved_at": "2026-10-07T03:38:12+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 6,
+        "http_responses_recorded": 3,
+        "reused_seed_document_responses": 40,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "colossians-docids-10000-19999",
+        "book": "Col",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent Colossians book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "Col",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Wed, 07 Oct 2026 03:50:54 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791345054860",
+            "X-Request-Post-Validation-Epoch": "1791345054862",
+            "X-Request-Response-Epoch": "1791345054872",
+            "X-Response-Time": "12ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "374",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":12,\"manuscript\":[{\"origLate\":225,\"gaNum\":\"P46\",\"orig\":\"III (A)\",\"docID\":10046,\"groupID\":\"\",\"primaryName\":\"P46\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":725,\"gaNum\":\"P61\",\"orig\":\"VIII (A)\",\"docID\":10061,\"groupID\":\"\",\"primaryName\":\"P61\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":700}],\"count\":2}}}",
+          "body_sha256": "be55e91ef00977b8afd6f7d34ddabe5835c4db1daea5dd8243905d14c4811f35",
+          "retrieved_at": "2026-10-07T03:50:54+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 4,
+        "http_responses_recorded": 1,
+        "reused_seed_document_responses": 42,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "philemon-docids-10000-19999",
+        "book": "Phlm",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent Philemon book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "Phlm",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Wed, 07 Oct 2026 03:59:15 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791345555948",
+            "X-Request-Post-Validation-Epoch": "1791345555949",
+            "X-Request-Response-Epoch": "1791345556021",
+            "X-Response-Time": "73ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "510",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":5,\"manuscript\":[{\"origLate\":725,\"gaNum\":\"P61\",\"orig\":\"VIII (A)\",\"docID\":10061,\"groupID\":\"\",\"primaryName\":\"P61\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":700},{\"origLate\":299,\"gaNum\":\"P87\",\"orig\":\"III\",\"docID\":10087,\"groupID\":\"\",\"primaryName\":\"P87\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":399,\"gaNum\":\"P139\",\"orig\":\"IV\",\"docID\":10139,\"groupID\":\"\",\"primaryName\":\"P139\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":300}],\"count\":3}}}",
+          "body_sha256": "aae1f48ead9f25ad41f629affbe88d961bdfdb67edb542b2d598ee0aa55f41fb",
+          "retrieved_at": "2026-10-07T03:59:16+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 5,
+        "http_responses_recorded": 5,
+        "reused_seed_document_responses": 42,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "titus-docids-10000-19999",
+        "book": "Titus",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent Titus book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "Titus",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Wed, 07 Oct 2026 04:06:59 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791346019797",
+            "X-Request-Post-Validation-Epoch": "1791346019798",
+            "X-Request-Response-Epoch": "1791346019808",
+            "X-Response-Time": "11ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "373",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":5,\"manuscript\":[{\"origLate\":225,\"gaNum\":\"P32\",\"orig\":\"III (A)\",\"docID\":10032,\"groupID\":\"\",\"primaryName\":\"P32\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},{\"origLate\":725,\"gaNum\":\"P61\",\"orig\":\"VIII (A)\",\"docID\":10061,\"groupID\":\"\",\"primaryName\":\"P61\",\"lang\":\"g\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":700}],\"count\":2}}}",
+          "body_sha256": "856769835aa9f858e266a2c268fcfc3d7c186ee99e0a76bf2c7bb4a1f3b6c039",
+          "retrieved_at": "2026-10-07T04:06:59+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 3,
+        "http_responses_recorded": 3,
+        "reused_seed_document_responses": 46,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "2timothy-docids-10000-19999",
+        "book": "2Tim",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent 2 Timothy book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "2Tim",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Wed, 07 Oct 2026 04:13:56 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791346436325",
+            "X-Request-Post-Validation-Epoch": "1791346436326",
+            "X-Request-Response-Epoch": "1791346436336",
+            "X-Response-Time": "11ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "69",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":0,\"count\":0}}}",
+          "body_sha256": "95eeb1e39c5edfd3a988cd4d5175b8e385057b709714cb7da61fc70a4a5f7f4a",
+          "retrieved_at": "2026-10-07T04:13:56+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 1,
+        "http_responses_recorded": 1,
+        "reused_seed_document_responses": 48,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    },
+    {
+      "format_version": 1,
+      "definition": {
+        "format_version": 1,
+        "scope_id": "1timothy-docids-10000-19999",
+        "book": "1Tim",
+        "doc_id_min": 10000,
+        "doc_id_max": 19999,
+        "page_limit": 200,
+        "catalogue_citation": "INTF, Liste (Greek) and Manuscript Catalogue (all), https://ntvmr.uni-muenster.de/de/intfblog/-/blogs/liste-greek-and-manuscript-catalogue-all-; source-defined Gregory-Aland catalogue witnesses only.",
+        "access_expectations": "Finite independent 1 Timothy book-index collection using the owner-supplied local API proxy and documented NTVMR endpoints. No published numerical provider quota has been established; this bounded pilot does not authorize bulk access. At most 25 total attempts including continuation pages and retries, one worker, fixed EarliestAttestation identity, at least five-second spacing, Retry-After, and provider-block stops. Reuse every registered metadata and long contents capture. No name, date, or language search filters; no source refresh, images, transcriptions, or other book/range searches. Preserve canonical citations and the proxy placeholder separately.",
+        "request_budget": 25,
+        "minimum_interval_seconds": 5,
+        "maximum_run_seconds": 300,
+        "transport_base_url": "<local proxy>/community/vmr/api"
+      },
+      "run_state": "complete",
+      "run_error": null,
+      "search_captures": [
+        {
+          "source_url": "<local proxy>/community/vmr/api/metadata/liste/search/",
+          "params": {
+            "detail": "document",
+            "docID": "10000-19999",
+            "format": "json",
+            "indexContent": "1Tim",
+            "limit": "200"
+          },
+          "http_status": 200,
+          "headers": {
+            "Date": "Wed, 07 Oct 2026 04:14:44 GMT",
+            "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+            "X-Request-Received-Epoch": "1791346484331",
+            "X-Request-Post-Validation-Epoch": "1791346484333",
+            "X-Request-Response-Epoch": "1791346484343",
+            "X-Response-Time": "12ms",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Content-Length": "226",
+            "Connection": "close"
+          },
+          "raw_body": "{\"status\":\"success\",\"data\":{\"manuscripts\":{\"pagecount\":2,\"manuscript\":{\"origLate\":299,\"gaNum\":\"P133\",\"orig\":\"III\",\"docID\":10133,\"groupID\":\"\",\"primaryName\":\"P133\",\"lang\":\"grc\",\"userID\":\"\",\"v11n\":\"\",\"origEarly\":200},\"count\":1}}}",
+          "body_sha256": "a7e27eaac76bb0676bdae0407fa346d545e03ff902f7085e935992e4f82aa091",
+          "retrieved_at": "2026-10-07T04:14:44+00:00"
+        }
+      ],
+      "collection_cost": {
+        "request_attempts": 3,
+        "http_responses_recorded": 3,
+        "reused_seed_document_responses": 48,
+        "request_budget": 25,
+        "collection_errors": []
+      }
+    }
+  ]
+}

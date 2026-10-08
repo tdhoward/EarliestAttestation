@@ -1,108 +1,29 @@
-# Explorer compatibility oracle
+# Explorer regression fixtures
 
-`explorer-normalized.v1.json` is the independently specified expected data for
-the storage codecs and runtime store. Every witness, source assertion, date, and
-qualification in it is fictional. It contains no manuscript transcription or
-examination. Python packs this file and Node compares its expansion directly
-with this expected file, rather than only comparing two codec outputs.
+`explorer-normalized.v1.json` is an independently specified fictional oracle.
+It covers duplicate reports, present/absent/unknown/contested states, missing and
+filtered observations, tied dates, complete alternative intervals, combination
+overflow, subset event claim lists, qualifications, Unicode, and JSON types.
+`explorer-empty.v1.json` covers an empty collection with a navigable axis.
 
-The fixture includes:
+The matching v2/v3 and phase1/phase2/phase3 files are frozen compatibility
+snapshots. Do not regenerate them with a newer writer. The sparse variants extend
+the fictional oracle with repeated observations, reordered and duplicate witness
+identities, different date applicability, dense fallback and sparse overrides.
+`sparse_fixture()` in Python and `sparseFixture()` in JavaScript independently
+construct the expected normalized values without using a codec.
 
-- Galatians 1:1 and 1:2 with the same observation metadata and complete ranking
-  alternatives, but different ordered claim IDs; multiple claims per witness;
-  explicit absence, contested reports, and unknowns with and without claims.
-- Two complete intervals for `fictional:a`, a tied interval for `fictional:g`,
-  and an unrankable date for `fictional:f`.
-- Galatians 1:3 with only the first date combination available and an event
-  whose claim list is a proper subset of its coverage pair's claim list.
-- Galatians 1:4 with combination overflow and independently different
-  `ranking_state` and `dating_alternatives.state` values.
-- Galatians 1:5 with unresolved mapping and the distinct
-  `unresolved_reference_mapping` unknown reason; ordinary missing reports use
-  `no_explicit_mapped_report`.
-- Galatians 1:6 with a filtered, bracketed observation, and Galatians 1:7 with
-  a coordinate but no observation.
-- Ordered arrays, numeric event IDs versus string lookup IDs, Unicode, quoted
-  source text, nulls, missing fields, extra fields, and boolean/number values.
+Version 4 tests pack these oracles with the production writer and compare both
+Python and JavaScript decoders with the projected expected records. Tests check
+source fields, dates, coverage totals, rankings, alternative selection, numeric
+sequence encodings, malformed references, mutation isolation and lazy decoding.
 
-`explorer-empty.v1.json` is the separate empty-export expected case: its axis
-remains navigable, while observations, claims, and dates are empty.
+`collection-pilot.json` fixes the register and discovery inputs for the original
+25-witness pilot. It references retained captures in `data/sources/`.
+`explorer-pilot.v4.json` is its bounded browser fixture, rebuilt and compared with
+those inputs by collection tests. These fixtures keep historical regression cases
+stable as the production corpus grows. Browser tests must not expand and clone
+the user's multi-million-claim `data/attestations.json`.
 
-The matching `*.v2.json` files are frozen compatibility snapshots of the previous
-transfer layout. Keep them when introducing newer writers; do not regenerate
-them with a future packer. Both Python and Node test these files against the
-version 1 expected data. `app.test.js` uses the same fixture for loading tests,
-and `explorer.test.js` uses it for chart and selection assertions.
-
-Full collection baselines are work-session artifacts in ignored `data/.cache/`,
-never test fixtures or product inputs.
-
-The `*.phase1.json` files exercise the private `format_version: "3-phase1"`
-candidate codec. They share ranking templates and observation contexts, with
-dense version 2 coverage records and version 2 claim records. The production
-writer now emits the complete numeric version 3 schema; these private candidates
-retain their original layouts. Python checks these snapshots against
-`pack_explorer_data_phase1()`
-and the independent version 1 oracle, and passes fresh packing to Node as well.
-Node uses them for exact decoding, fetch/file loading, chart states, alternative
-selection, mutation isolation, and malformed-reference tests.
-
-Galatians 1:1 and 1:2 share the same context and template but recover their own
-ordered numeric claim IDs through `["pair"]`. Galatians 1:3's subset is retained
-as `["literal", [301]]`. Python also supplies reordered, missing/duplicate-pair,
-boolean-versus-number, and string-versus-number fallback cases directly to Node.
-
-The `*.phase2.json` snapshots use private `format_version: "3-phase2"` and
-retain the same independent version 1 expected data. Claims use tagged compact
-index tuples or complete literal details; coverage records share contexts and
-retain ordered claim-ID lists. Coverage remains dense. Python verifies fresh
-packing against the snapshots and passes it to Node; Node checks exact decoding,
-loading, chart states, alternatives, malformed tuples/references, and mutation
-isolation. Additional Python cases alter each compact-eligibility condition and
-send the resulting literal fallbacks directly to Node, including Unicode, nulls,
-extra/missing fields, noncanonical locators/IDs, and safe-integer boundaries.
-These intermediate snapshots retain their private marker; production now uses
-the complete numeric version 3 schema.
-
-The `*.phase3.json` snapshots use private `format_version: "3-phase3"`, adding
-ordered coverage defaults and sparse exceptions alongside dense fallback. The
-normalized and empty snapshots still expand to the same independent version 1
-files. `explorer-sparse.phase3.json` expands to a synthetic extension of that
-fictional oracle, constructed without codecs by `sparse_fixture()` in the Python
-tests and `sparseFixture()` in `explorer-fixtures.js`. Both constructions repeat
-the original values for storage tests; they do not collect or infer reports.
-Python checks fresh packing against all snapshots and sends fresh packing and
-the independent expected values to Node.
-
-The sparse extension repeats the first observation twelve times in chapter 2,
-then eight times with its first two witnesses swapped in chapter 3. Chapter 4
-adds empty coverage, duplicate and missing witness identities, a witness subset,
-an expensive exception list, and changed date applicability. Original unknown
-claims, both unknown reasons, contested/absent states, present defaults, missing
-observations, and complete alternatives remain covered. Node checks exact
-decoding, chart/selection equivalence, fetch/file loading, malformed defaults and
-ordered overrides, and mutation isolation. Python also checks modal ties,
-type-sensitive witness grouping, and default-table cost accounting. The production
-writer uses the same complete schema with numeric version 3.
-
-The `*.v3.json` snapshots contain the complete production browser transfer schema.
-The normalized and empty snapshots restore to their independent version 1 oracles;
-the sparse snapshot restores to the same codec-free synthetic extension above.
-Python checks the writer against these snapshots and sends fresh production
-packing to Node. Both languages check all fields and malformed references; Node
-also checks chart equivalence, alternative selection, independent mutable
-expansion, fetch/file loading, and failed-load retry. Version 2 fixtures remain
-frozen and readable. A full-collection integration test compares Node expansion
-of the current production file with independently built normalized Python data.
-
-The read-only runtime store uses these same independent oracles,
-without introducing another dataset. Selected observations, claims, dates,
-coverage totals, and chart fields match the normalized values across all supported
-versions. Fresh Python packing and fallback cases go to both the Node expander
-and store. Malformed-input cases cover unused records as well as referenced
-tables, including dangling dates. Structural diagnostics verify that full-axis
-chart evaluation decodes no observations or coverage pairs, chart events are
-shared and read-only, and repeated selection retains at most one observation.
-Full-expansion mutation-isolation checks remain separate. A minimal offline DOM
-fixture exercises the actual renderer's selection and source text across versions
-1/2/3, without a browser or server.
+Full-current-collection audits and temporary measurements belong in ignored
+`data/.cache/`. Test fixtures are not alternate product datasets.

@@ -9,7 +9,8 @@ from pathlib import Path
 import tempfile
 
 from controlled_ntvmr import connect, encoded, validate_inventory
-from report_explorer import build_explorer_data, pack_explorer_data
+from report_explorer import build_explorer_data
+from browser_format import pack_browser_data
 from source_reports import CONTRACT, build_report_exports, digest, import_batch, prepare_batch
 
 
@@ -129,7 +130,7 @@ def build_data(collection=None, data_dir=DATA, *, discovery_records=None):
 
 def refresh(data_dir=DATA, *, check=False):
     result = build_data(data_dir=data_dir)
-    packed = pack_explorer_data(result)
+    packed = pack_browser_data(result)
     output = data_dir / "attestations.json"
     if check:
         if not output.exists() or read_json(output) != packed:

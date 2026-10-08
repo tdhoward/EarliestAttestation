@@ -57,6 +57,12 @@
   // claim lists and remain shared/read-only. Date selection lives in the model.
   function createDataStore(raw) {
     if (stores.has(raw)) return raw;
+    if (raw?.format_version === 4) {
+      const codec = typeof module !== "undefined" && module.exports ? require("./collection-format.js") : global.AttestationFormat;
+      const store = codec.createStore(raw, {copyJSON, freezeJSON});
+      stores.add(store);
+      return store;
+    }
     if (!isRecord(raw) || !Array.isArray(raw.coordinates) || !isRecord(raw.observations)) {
       throw new Error("Unsupported collection data");
     }
@@ -345,6 +351,7 @@
   }
 
   function expandData(data) {
+    if (data?.format_version === 4) return createDataStore(data).expandData();
     const isRecord = value => value && typeof value === "object" && !Array.isArray(value);
     if (!isRecord(data) || !Array.isArray(data.coordinates) || !isRecord(data.observations)) {
       throw new Error("Unsupported collection data");

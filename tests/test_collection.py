@@ -8,39 +8,41 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from build_collection import DATA, ROOT, build_data, prepare_collection, read_json, refresh, write_json
+from build_collection import DATA, ROOT, prepare_collection, read_json, refresh, write_json
 from source_reports import capture
-from report_explorer import expand_explorer_data, pack_explorer_data
+from report_explorer import expand_explorer_data
+from browser_format import pack_browser_data, project_browser_data
+from collection_fixture import pilot_collection, pilot_discovery, build_pilot, PILOT_DATA
 
 
 class CollectionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
-            cls.data = build_data()
-            config = read_json(DATA / "collection.json")
+            cls.data = build_pilot()
+            config = pilot_collection()
             config["documents"] = [d for d in config["documents"] if d["doc_id"] != 10133]
-            records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] not in ("1Tim", "2Tim")]
-            cls.before_timothy = build_data(config, discovery_records=records)
+            records = [r for r in pilot_discovery() if r["definition"]["book"] not in ("1Tim", "2Tim")]
+            cls.before_timothy = build_pilot(config, discovery_records=records)
             config["documents"] = [d for d in config["documents"] if d["doc_id"] != 10032]
             records = [r for r in records if r["definition"]["book"] != "Titus"]
-            cls.before_titus = build_data(config, discovery_records=records)
+            cls.before_titus = build_pilot(config, discovery_records=records)
             config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10087, 10139)]
             records = [r for r in records if r["definition"]["book"] != "Phlm"]
-            cls.before_phlm = build_data(config, discovery_records=records)
+            cls.before_phlm = build_pilot(config, discovery_records=records)
             records = [r for r in records if r["definition"]["book"] != "Col"]
-            cls.before_col = build_data(config, discovery_records=records)
+            cls.before_col = build_pilot(config, discovery_records=records)
             config["documents"] = [d for d in config["documents"] if d["doc_id"] != 10016]
             records = [r for r in records if r["definition"]["book"] != "Phil"]
-            cls.before_phil = build_data(config, discovery_records=records)
+            cls.before_phil = build_pilot(config, discovery_records=records)
             config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10061, 10065)]
             records = [r for r in records if r["definition"]["book"] != "1Thess"]
-            cls.before_1thess = build_data(config, discovery_records=records)
+            cls.before_1thess = build_pilot(config, discovery_records=records)
 
     def test_current_file_combines_all_collected_books_and_witnesses(self):
         data = self.data
-        self.assertEqual(data, expand_explorer_data(read_json(DATA / "attestations.json")))
-        self.assertEqual(read_json(DATA / "attestations.json")["format_version"], 3)
+        self.assertEqual(project_browser_data(data), expand_explorer_data(read_json(PILOT_DATA)))
+        self.assertEqual(read_json(PILOT_DATA)["format_version"], 4)
         self.assertEqual(len(data["coordinates"]), 7957)
         self.assertEqual(data["metadata"]["counts"]["verse_count"], 7941)
         self.assertEqual(data["metadata"]["counts"]["witness_count"], 25)
@@ -57,7 +59,7 @@ class CollectionTests(unittest.TestCase):
     def test_every_presence_and_date_retains_its_actual_source_field(self):
         data = self.data
         raw, metadata, entries, tiers = {}, {}, {}, {}
-        for doc in read_json(DATA / "collection.json")["documents"]:
+        for doc in pilot_collection()["documents"]:
             witness = f"ntvmr:{doc['doc_id']}"
             _, payload, _ = capture(DATA / doc["metadata_fixture"], doc["doc_id"], "metadata")
             metadata[witness] = payload["data"]["manuscript"].get("originYear")
@@ -106,13 +108,13 @@ class CollectionTests(unittest.TestCase):
           const {expandData} = require('./web/attestation-explorer/explorer.js');
           const expected = JSON.parse(readFileSync(process.argv[1], 'utf8'));
           const packed = JSON.parse(readFileSync(process.argv[2], 'utf8'));
-          assert.equal(packed.format_version, 3);
+          assert.equal(packed.format_version, 4);
           assert.deepStrictEqual(expandData(packed), expected);
         """
         with tempfile.TemporaryDirectory() as tmp:
             expected = Path(tmp) / "normalized.json"
-            write_json(expected, self.data, compact=True)
-            result = subprocess.run(["node", "-e", script, str(expected), str(DATA / "attestations.json")],
+            write_json(expected, project_browser_data(self.data), compact=True)
+            result = subprocess.run(["node", "-e", script, str(expected), str(PILOT_DATA)],
                                     cwd=ROOT, capture_output=True, text=True, timeout=60)
             self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 
@@ -120,10 +122,15 @@ class CollectionTests(unittest.TestCase):
         assets = {p: p.read_bytes() for p in (ROOT / "web/attestation-explorer").iterdir() if p.is_file()}
         with tempfile.TemporaryDirectory() as tmp:
             directory = Path(tmp)
-            for name in ("sources", "reference"):
+            for name in ("reference",):
                 shutil.copytree(DATA / name, directory / name)
-            shutil.copyfile(DATA / "discovery.json", directory / "discovery.json")
-            config = read_json(DATA / "collection.json")
+            write_json(directory / "discovery.json", pilot_discovery())
+            for document in pilot_collection()["documents"]:
+                for field in ("metadata_fixture", "coverage_fixture"):
+                    relative = document[field]
+                    (directory / relative).parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(DATA / relative, directory / relative)
+            config = pilot_collection()
             smaller = deepcopy(config)
             smaller["documents"] = config["documents"][:3]
             write_json(directory / "collection.json", smaller)
@@ -134,7 +141,7 @@ class CollectionTests(unittest.TestCase):
                 updated = refresh(directory)
                 self.assertEqual(updated, self.data)
                 body = (directory / "attestations.json").read_bytes()
-                self.assertEqual(read_json(directory / "attestations.json"), pack_explorer_data(updated))
+                self.assertEqual(read_json(directory / "attestations.json"), pack_browser_data(updated))
                 self.assertEqual(refresh(directory), updated)
                 self.assertEqual((directory / "attestations.json").read_bytes(), body)
                 self.assertEqual(refresh(directory, check=True), updated)
@@ -164,26 +171,26 @@ class CollectionTests(unittest.TestCase):
             self.assertEqual(list(Path(tmp).iterdir()), [output])
 
     def test_multiple_discovery_scopes_do_not_erase_each_other_or_expand_contents(self):
-        config = read_json(DATA / "collection.json")
-        records = read_json(DATA / "discovery.json")
+        config = pilot_collection()
+        records = pilot_discovery()
         synthetic = deepcopy(records[0])
         synthetic.update(search_captures=[], run_state="pending", run_error="Synthetic offline case")
         synthetic["definition"].update(scope_id="synthetic-hebrews", book="Heb")
-        data = build_data(config, discovery_records=[*records, synthetic])
+        data = build_pilot(config, discovery_records=[*records, synthetic])
         self.assertEqual(data["observations"]["Gal.1.1"]["discovery"]["state"], "bounded_search_complete")
         self.assertEqual(data["observations"]["Heb.1.1"]["discovery"]["state"], "search_incomplete")
         self.assertEqual(data["observations"]["Rom.1.1"]["discovery"]["state"], "not_searched")
         self.assertEqual(data["claims"], self.data["claims"])
         self.assertEqual(len(data["metadata"]["discovery"]["scopes"]), len(records) + 1)
         synthetic["definition"].update(scope_id="synthetic-other-range", book="Gal", doc_id_min=20000, doc_id_max=29999)
-        data = build_data(config, discovery_records=[*records, synthetic])
+        data = build_pilot(config, discovery_records=[*records, synthetic])
         self.assertEqual(data["observations"]["Gal.1.1"]["discovery"]["state"], "search_incomplete")
         self.assertFalse(data["metadata"]["discovery"]["corpus_complete"])
 
     def test_reference_mapping_and_supplementary_data_remain_separate_from_filters(self):
-        config = read_json(DATA / "collection.json")
+        config = pilot_collection()
         config["include_omitted"] = True
-        data = build_data(config)
+        data = build_pilot(config)
         self.assertEqual(len(data["observations"]), 7957)
         self.assertEqual(data["observations"]["Rom.16.24"]["editorial_status"], "omitted")
         pairs = data["observations"]["Rom.16.24"]["reported_coverage"]
@@ -199,10 +206,10 @@ class CollectionTests(unittest.TestCase):
             prepare_collection(config)
 
     def test_full_book_scope_reuses_reports_without_changing_prior_results(self):
-        config = read_json(DATA / "collection.json")
+        config = pilot_collection()
         config["books"] = ["Rom", "1Cor", "2Cor", "Gal", "Eph", "Phil", "Col", "1Thess", "Heb"]
         with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
-            previous_scope = build_data(config)
+            previous_scope = build_pilot(config)
         self.assertEqual(previous_scope["metadata"]["counts"]["verse_count"], 2020)
         for ref, row in previous_scope["observations"].items():
             self.assertEqual(row, self.data["observations"][ref])
@@ -294,11 +301,11 @@ class CollectionTests(unittest.TestCase):
 
     def test_2thessalonians_addition_preserves_prior_claims_dates_and_coverage(self):
         after = self.before_1thess
-        config = read_json(DATA / "collection.json")
+        config = pilot_collection()
         config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10016, 10030, 10032, 10061, 10065, 10087, 10133, 10139)]
-        records = [r for r in read_json(DATA / "discovery.json") if r["definition"]["book"] not in ("Col", "Phil", "1Thess", "2Thess", "Phlm", "Titus", "1Tim", "2Tim")]
+        records = [r for r in pilot_discovery() if r["definition"]["book"] not in ("Col", "Phil", "1Thess", "2Thess", "Phlm", "Titus", "1Tim", "2Tim")]
         with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
-            before = build_data(config, discovery_records=records)
+            before = build_pilot(config, discovery_records=records)
         for table in ("claims", "dates"):
             for key, value in before[table].items():
                 self.assertEqual(after[table][key], value)

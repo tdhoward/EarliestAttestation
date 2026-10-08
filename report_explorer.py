@@ -3,9 +3,10 @@
 Only coordinate metadata is read from the full inventory. Coverage, dates and
 rankings always come from the supplied scholarly-report export.
 
-Browser storage contract (format_version: 3)
+Compatibility/intermediate storage contract (format_version: 3)
 --------------------------------------------
-This version is independent of the scholarly graph export's format version.
+Production writers use browser_format.pack_browser_data() for version 4.
+This retained intermediate is independent of the scholarly graph export's version.
 build_explorer_data() returns normalized version 1; pack_explorer_data() changes
 only its representation. Coordinates, coordinate_inventory, metadata, documents,
 sources, and dates retain their values. The packed tables use zero-based indices:
@@ -145,7 +146,7 @@ def build_explorer_data(graph, inventory=None):
 
 
 def pack_explorer_data(data):
-    """Write the complete version 3 browser transfer format.
+    """Write the retained version 3 intermediate/compatibility format.
 
     Normalized observations use version 1; the browser retains shared packed data.
     This lossless storage step neither removes unknown pairs nor computes claims,
@@ -387,6 +388,9 @@ def pack_explorer_data_phase3(data):
 
 def expand_explorer_data(data):
     """Restore the transfer format exactly; also accept previous version 1 files."""
+    if data.get("format_version") == 4:
+        from browser_format import unpack_browser_data
+        data = unpack_browser_data(data)
     if data.get("format_version") == 1:
         return data
     phase3 = data.get("format_version") in (3, PHASE3_FORMAT_VERSION)

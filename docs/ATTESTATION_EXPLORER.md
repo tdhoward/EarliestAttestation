@@ -39,42 +39,59 @@ failure leaves the previous app data intact.
 - Discovery is assessed independently by book and catalogue range. More graphed
   verses or a completed bounded query does not establish exhaustive discovery.
 
-`report_explorer.py` writes the lossless version 3 JSON transfer format. It stores
-shared claim provenance, coverage contexts, discovery records, ranking templates,
-and observation contexts once, with zero-based table indices. Eligible index
-claims use reversible tagged tuples; other claims retain complete literal details.
-Coverage uses ordered exact defaults and sparse exceptions where they save space,
-with dense fallback for other observations. A coordinate without an observation
-stays uncollected. The module documentation in
-[`report_explorer.py`](../report_explorer.py) defines the storage contract,
-including tuple positions, tags, preservation rules, and compatibility. Matching
-runtime and decoder comments live in
-[`explorer.js`](../web/attestation-explorer/explorer.js).
+## Browser format
 
-Both decoders retain version 1 and 2 support. Fetch and the file picker return a
-validated, read-only store, checking the complete reference graph, including unused
-tables, without expanding the coverage matrix. The chart uses shared precomputed
-events, retaining their order, ranks, years, witnesses, and assessment choices.
-Event claim lists are resolved only in the selected full observation. Every unknown
-pair, qualification, reported object, citation, and complete date alternative survives.
-The explicit `expandData()` API still restores independently mutable version 1
-data for all supported inputs.
+Both `build_collection.py` and `collect_source_discovery.py` call
+`browser_format.pack_browser_data()` to write version 4. The source register,
+reference inventory, discovery register and captured reports remain the collection
+of record. The app file is a derived view, with these unused fields omitted:
 
-`createDataStore(raw)` takes ownership of parsed JSON and deeply freezes its records.
-Its `hasObservation(ref)`, `summary(ref)`, `chartAlternatives(ref)`, `claim(id)`,
-`date(id)`, and `observation(ref)` accessors separate drawing from source details.
-The store retains at most one resolved observation and caches claims by unique ID.
-Date-choice state stays in the model's separate selection map. `model.data` contains
-ordinary collection metadata, coordinates, documents, and sources, excluding
-encoded tables and the observation/claim/date lookups; use `model.store` for those
-records. `cell()` returns the coordinate reference, state, shared chart events,
-and applicable contested flag; it no longer contains a full observation.
-`createModel()` and `mount()` accept an existing validated store or model so loading
-does not construct the model twice.
+- Documents retain only witness IDs and display labels; identity reports,
+  hashes and capture status remain in the source collection.
+- Source snapshots retain response IDs, canonical links and query parameters,
+  retrieval dates and hashes for the app's citation panel. Local transport URLs,
+  endpoint bookkeeping and capture paths are omitted when a canonical URL exists.
+- Metadata omits batch/build identifiers and detailed discovery candidate records;
+  displayed scope definitions, candidate lists, qualifications and states remain.
 
-The browser uses the computed events without reinterpreting sources. Raw reports
-stay in the central source directory; collection updates change only the data.
-`data/attestations.json` remains ordinary JSON for fetch and local file loading.
+All content claims, exact reported fields, qualifications, citations, retrieval
+information, complete date alternatives, coverage pairs, discovery states and
+ranking events are retained. Shared provider names are referenced by ID. Standard
+NTVMR index claims use numeric columns for claim ID, context ID, reference ID,
+page ID and locator index. References link coordinate IDs to the exact reported
+content code. Other claim shapes retain literal records. Repeated ranking events
+are stored once and linked by numeric IDs.
+
+Coverage uses context IDs, claim counts and ordered claim IDs, plus exact dense
+vectors or sparse overrides for each stored coordinate. Numeric sequences use
+plain arrays, arithmetic runs, or cumulative deltas, whichever is smaller. These
+encodings restore existing integers exactly; they do not infer verse ranges or
+assertions. Missing observations remain uncollected.
+
+The detailed storage contract is in [browser_format.py](../browser_format.py),
+with the runtime reader in
+[collection-format.js](../web/attestation-explorer/collection-format.js).
+The older lossless v3 packer in `report_explorer.py` remains an intermediate and
+compatibility API; it is not the production file writer.
+
+## Runtime
+
+Fetch and the local file picker accept versions 1–4. The version 4 store validates
+all tables and references, decodes numeric columns into private typed arrays,
+and caches coverage totals once. Drawing does not expand the witness/verse matrix
+or millions of claims. Chart events and display records are read-only. Selected
+observations are resolved on demand, with at most one full observation and 4,096
+standard index claims cached. Date-choice state lives in the model.
+
+`createDataStore(raw)` exposes `hasObservation(ref)`, `summary(ref)`,
+`chartAlternatives(ref)`, `claim(id)`, `date(id)`, and `observation(ref)`.
+`model.data` contains coordinates, display documents, source snapshots and ordinary
+metadata. `createModel()` and `mount()` accept an existing store or model.
+
+The explicit `expandData()` and Python `expand_explorer_data()` APIs restore a
+mutable normalized view. For version 4 this is the browser projection described
+above, not the omitted collection bookkeeping. Full expansion is for bounded
+consumers and tests; the app never requests it on load.
 
 ## Verification
 

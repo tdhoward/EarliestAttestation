@@ -1,4 +1,6 @@
 const {test} = require("node:test");
+const {readFileSync} = require("node:fs");
+const {join} = require("node:path");
 const assert = require("node:assert/strict");
 const {DATA_URL, loadData, start} = require("../web/attestation-explorer/app.js");
 const {expandData, createModel} = require("../web/attestation-explorer/explorer.js");
@@ -127,6 +129,13 @@ test("the file picker loads versions 1, 2, 3 and candidate codecs against the sh
     await nodes.file.listeners.change();
     assertStore(mounted.at(-1), sparseExpected);
   }
+  const production = JSON.parse(readFileSync(join(__dirname, "fixtures/explorer-pilot.v4.json"), "utf8"));
+  const fetched = await loadData(async () => ({ok: true, json: async () => production}));
+  nodes.file.files = [{text: async () => JSON.stringify(production)}];
+  await nodes.file.listeners.change();
+  assert.equal(mounted.at(-1).formatVersion, 4);
+  assert.deepEqual(mounted.at(-1).observation("1Tim.4.3"), fetched.observation("1Tim.4.3"));
+  assert.equal(root.hidden, false);
   const {normalized, packed, version3, phase2} = transferFixture();
   packed.observations["Gal.1.1"].reported_coverage[0] = -1;
   phase2.coverage_records[0][0] = -1;

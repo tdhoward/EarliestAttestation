@@ -6,7 +6,8 @@ const {join} = require("node:path");
 const {expandData, createDataStore, createModel, hitIndex, segments, mount} = require("../web/attestation-explorer/explorer.js");
 const {transferFixture, sparseFixture} = require("./explorer-fixtures.js");
 const {explorerDOM} = require("./explorer-dom-fixture.js");
-const packedCurrent = JSON.parse(readFileSync(join(__dirname, "../data/attestations.json"), "utf8"));
+// Fixed pilot fixture: never expand the user's multi-million-claim collection in unit tests.
+const packedCurrent = JSON.parse(readFileSync(join(__dirname, "fixtures/explorer-pilot.v4.json"), "utf8"));
 const current = expandData(packedCurrent);
 // A smaller synthetic view keeps the three-witness model cases independent of collection growth.
 const data = structuredClone(current);

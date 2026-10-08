@@ -13,7 +13,8 @@ from controlled_ntvmr import AccessBlocked, Client, ContractError, RunStopped, c
 from source_discovery import (captured_chain, collect_book_range, prepare_discovery,
                               range_params, sha, verse_discovery)
 from source_reports import build_report_exports, import_batch
-from report_explorer import build_explorer_data, expand_explorer_data, pack_explorer_data
+from report_explorer import build_explorer_data, expand_explorer_data
+from browser_format import pack_browser_data
 from collect_source_discovery import main as collect_main, https_proxy_transport
 
 
@@ -204,9 +205,9 @@ class DiscoveryTests(unittest.TestCase):
         self.assertNotIn("dateMax", calls[0][1])
         self.assertEqual([p["docID"] for _, p in calls[1:]], ["10051", "10051"])
         packed = json.loads((self.root / "attestations.json").read_text(encoding="utf-8"))
-        self.assertEqual(packed["format_version"], 3)
+        self.assertEqual(packed["format_version"], 4)
         data = expand_explorer_data(packed)
-        self.assertEqual(packed, pack_explorer_data(data))
+        self.assertEqual(data, expand_explorer_data(pack_browser_data(data)))
         self.assertEqual(data["metadata"]["discovery"]["candidate_ids"], [10046, 10051])
         self.assertEqual(data["metadata"]["discovery"]["pending_candidate_ids"], [])
         self.assertEqual(data["metadata"]["counts"]["witness_verse_pairs"]["present"], 2)
@@ -227,8 +228,8 @@ class DiscoveryTests(unittest.TestCase):
             self.assertEqual(collect_main([*args, "--offline"]), 0)
         self.assertEqual(len(calls), 3)
         replayed = json.loads((self.root / "attestations.json").read_text(encoding="utf-8"))
-        self.assertEqual(replayed["format_version"], 3)
-        self.assertEqual(replayed, pack_explorer_data(expand_explorer_data(replayed)))
+        self.assertEqual(replayed["format_version"], 4)
+        self.assertEqual(expand_explorer_data(replayed), expand_explorer_data(pack_browser_data(expand_explorer_data(replayed))))
         for claim in [*data["claims"].values(), *data["dates"].values()]:
             self.assertTrue(claim["citation"].startswith("https://ntvmr.uni-muenster.de/"))
         self.assertTrue(data["metadata"]["discovery"]["sources"][0]["citation"].startswith("https://ntvmr.uni-muenster.de/"))

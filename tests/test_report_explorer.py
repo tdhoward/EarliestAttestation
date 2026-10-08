@@ -12,6 +12,7 @@ from report_explorer import (build_explorer_data, pack_explorer_data, pack_explo
 from build_collection import DATA, prepare_collection, read_json
 from controlled_ntvmr import connect
 from source_reports import import_batch, build_report_exports
+from collection_fixture import pilot_collection, pilot_discovery
 from contextlib import closing
 import tempfile
 
@@ -630,7 +631,7 @@ class Phase3CodecTests(unittest.TestCase):
 class ExplorerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        manifest, _ = prepare_collection(read_json(DATA / "collection.json"))
+        manifest, _ = prepare_collection(pilot_collection(), discovery_records=pilot_discovery())
         with tempfile.TemporaryDirectory() as tmp, closing(connect(Path(tmp) / "test.sqlite")) as con:
             import_batch(con, manifest, DATA)
             _, cls.graph = build_report_exports(con, "collection")

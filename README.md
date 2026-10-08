@@ -47,30 +47,22 @@ rankings in a temporary database, and replaces `data/attestations.json`. Refresh
 the browser to see the result. It creates no HTML, book-specific export, persistent
 replay database, or numbered revision file. `npm run data` is equivalent.
 
-The current collection reuses 25 witnesses' retained reports across all
-27 books, with 7,928 default graphable verses, 16,783 reported-present
-witness/verse pairs, and 181,742 unknown pairs. Thirteen default coordinates have
-no exact match in the retained contents reports and remain unknown. Unknown
-includes missing reports for fragmentary witnesses; it does not mean absence.
-Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
-2 Thessalonians, 1 Timothy, 2 Timothy, Titus, and Philemon have completed bounded
-indexed searches for IDs 10000–19999 (papyri); discovery across the wider catalogue
-remains incomplete. The latest two searches used four successful requests in
-separate 25-attempt budgets. The 2 Timothy index returned no candidates in that
-range, without establishing absence. The 1 Timothy search collected P133's
-metadata and contents, adding 12 presence pairs with the complete catalogue date
-200–299 CE (`III`). Both page reports for 1 Timothy 4:3 remain inspectable while
-the witness counts once. Earlier claims, complete dates, coverage states, and
-discovery scopes are preserved. The collection retains 61 usable reports;
-app data occupies 2,099,555 bytes.
-Scholarly citations use canonical NTVMR URLs. The owner-supplied local API proxy
-is an access route, and TLS verification is not a collection prerequisite.
+The collection contains 2,351 witnesses and 4,026 retained responses across all
+27 books. It reports 2,250,193 present witness/verse pairs and 16,419,098 unknown
+pairs across 7,941 graphable coordinates. Missing reports remain unknown.
+Scholarly citations use canonical NTVMR URLs; the local proxy is an access route.
 
-The app stores lossless version 3 JSON using shared records and exact sparse
-coverage. It retains read-only data for charting and resolves complete observations
-for the selected verse. Version 1/2 files remain supported through fetch and the
-local file picker. See [the explorer documentation](docs/ATTESTATION_EXPLORER.md)
-for storage, loading, and runtime behavior.
+The build writes version 4 browser JSON with shared providers, references and
+ranking events, numeric claim columns, and compact coverage links. It omits
+unused identity and collection-audit fields from the browser file; the source
+register and captures retain the full evidence. The current file is 44,236,579
+bytes, reduced from 272,446,767 bytes without changing claims, dates, coverage,
+or rankings. Both collection writers produce this format on future updates.
+
+The app reads compact columns directly and resolves full records only when
+needed. Version 1/2/3 files remain supported through fetch and the local file
+picker. See [the explorer documentation](docs/ATTESTATION_EXPLORER.md) for the
+storage contract, loading, and runtime behavior.
 
 ## Collect more data
 
