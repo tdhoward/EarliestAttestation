@@ -47,22 +47,26 @@ rankings in a temporary database, and replaces `data/attestations.json`. Refresh
 the browser to see the result. It creates no HTML, book-specific export, persistent
 replay database, or numbered revision file. `npm run data` is equivalent.
 
-The collection contains 2,351 witnesses and 4,026 retained responses across all
-27 books. It reports 2,250,193 present witness/verse pairs and 16,419,098 unknown
-pairs across 7,941 graphable coordinates. Missing reports remain unknown.
+All 27 books share the central collection. The four declared catalogue inventories
+and eligible report capture have finished; discovery completeness remains scoped
+to those ranges and source snapshot. Missing contents stay unknown. Current
+counts and discovery summaries are stored in `data/attestations.json` and
+summarized in [the development plan](docs/DEVELOPMENT_PLAN.md#current-implementation).
 Scholarly citations use canonical NTVMR URLs; the local proxy is an access route.
 
-The build writes version 4 browser JSON with shared providers, references and
-ranking events, numeric claim columns, and compact coverage links. It omits
-unused identity and collection-audit fields from the browser file; the source
-register and captures retain the full evidence. The current file is 44,236,579
-bytes, reduced from 272,446,767 bytes without changing claims, dates, coverage,
-or rankings. Both collection writers produce this format on future updates.
+Both collection writers produce version 5 browser JSON with shared providers and
+references, numeric claim columns, compact coverage links, and per-book discovery
+summaries. Full source evidence remains in the registers and captures. The app
+reads compact columns directly and resolves selected records on demand; versions
+1–4 remain supported through fetch and the local file picker. See
+[the explorer documentation](docs/ATTESTATION_EXPLORER.md) for storage, loading,
+and runtime behavior.
 
-The app reads compact columns directly and resolves full records only when
-needed. Version 1/2/3 files remain supported through fetch and the local file
-picker. See [the explorer documentation](docs/ATTESTATION_EXPLORER.md) for the
-storage contract, loading, and runtime behavior.
+Saved-response import accepts the observed empty contents, integer date notation,
+multilingual Greek language codes, and mixed-book reports described in
+[the source contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md#retained-catalogue-variants).
+Re-import and app rebuilding are offline. Unsupported reports remain retained
+with visible qualifications or import errors.
 
 ## Collect more data
 
@@ -72,13 +76,14 @@ the central registers, and refreshes the app data. It does not generate charts.
 See [bounded discovery](docs/BOUNDED_WITNESS_DISCOVERY.md) for the definition
 format, limits, and resume behavior.
 
-The planned discovery target is all 27 books across all four NTVMR manuscript
-categories: papyri, majuscules, minuscules, and lectionaries. Expand through
-budgeted catalogue inventories or book/category searches and reuse retained reports.
-Categories do not determine chronological rank: a much later witness can still
-be among a verse's earliest five collected witnesses. Finding five witnesses or
-completing a papyrus-only search does not complete that broader target. See the
-[planned catalogue scope](docs/BOUNDED_WITNESS_DISCOVERY.md#planned-catalogue-scope)
+The declared discovery target includes all 27 books across papyri, majuscules,
+minuscules, and lectionaries. Inventories for all four ID ranges are retained.
+Future updates use budgeted catalogue inventories or independent book/category
+searches and reuse existing reports. Categories do not determine chronological
+rank, and completing a declared snapshot does not establish exhaustive discovery.
+The default collection cutoff admits ranges beginning before 1000 CE and unknown
+dates; fewer than five witnesses per verse is acceptable. See the
+[catalogue scope](docs/BOUNDED_WITNESS_DISCOVERY.md#planned-catalogue-scope)
 for ID ranges and completion qualifications.
 
 When direct NTVMR access is unavailable, use the owner's local API proxy.

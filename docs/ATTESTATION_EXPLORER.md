@@ -59,6 +59,8 @@ of record. The app file is a derived view, with these unused fields omitted:
   Counts are unions across overlapping scopes, not sums. Full scope definitions,
   candidate IDs, search citations and captures remain in `data/discovery.json`.
   Per-observation discovery records retain state and ranking-scope qualifications.
+  Empty catalogue reports can complete eligible collection while their verse
+  contents remain unknown. Completion does not establish exhaustive coverage.
 
 All content claims, exact reported fields, qualifications, citations, retrieval
 information, complete date alternatives, coverage pairs, discovery states and
@@ -82,7 +84,7 @@ Larger safe integers use the other forms. Coverage claim IDs can use differences
 from the previous stored ID with the same exact coverage context, which compresses
 interleaved witness reports well. These encodings restore existing integers exactly;
 they do not infer verse ranges or assertions. Missing observations remain uncollected.
-The 7,941 observation entries are needed: each connects a collected coordinate to
+Each observation entry connects a collected coordinate to
 its ranking/discovery context and its exact coverage vector or sparse overrides.
 
 The detailed storage contract is in [browser_format.py](../browser_format.py),
@@ -112,15 +114,12 @@ mutable normalized view. For version 5 this is the browser projection described
 above, not the omitted collection bookkeeping. Full expansion is for bounded
 consumers and tests; the app never requests it on load.
 
-The current 2,351-witness collection occupies 21,246,486 bytes (previously
-44,236,579). The largest reduction is coverage linkage: 21.90 MB to 6.84 MB.
-Observations occupy 3.67 MB (previously 5.28 MB); ranking templates 0.61 MB
-(previously 5.45 MB). An offline Node/V8 measurement after creating the model,
-evaluating the full chart and collecting garbage retained about 122 MB of heap
-plus array buffers, versus 320 MB before. Typed buffers account for 76.65 MB,
-versus 219.38 MB before. These measurements exclude DOM/browser overhead and
-are not a browser process-memory guarantee. Source records and chart results
-were compared against the previous file without expanding the full coverage matrix.
+Current collection size and offline Node/V8 model memory are recorded in
+[the development plan](DEVELOPMENT_PLAN.md#current-implementation). Measurement
+creates the model, evaluates both endpoint charts over the full axis, then
+collects garbage. Heap plus array buffers excludes DOM/browser overhead and is
+not a browser process-memory guarantee. Source-record comparisons and chart
+checks avoid expanding the full witness/verse matrix.
 
 ## Verification
 

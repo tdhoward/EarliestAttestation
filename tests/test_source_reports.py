@@ -11,7 +11,7 @@ from controlled_ntvmr import connect, rank_candidates
 from export_attestation import main as export_main
 from report_explorer import build_explorer_data
 from source_reports import (CONTRACT, build_report_exports, coverage_state, digest,
-                            import_batch)
+                            import_batch, prepare_batch)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -69,6 +69,57 @@ class ReportTests(unittest.TestCase):
     def export(self):
         import_batch(self.con, self.manifest, self.root)
         return build_report_exports(self.con, self.manifest["batch_id"])
+
+    def test_empty_string_report_retains_sources_and_leaves_every_verse_unknown(self):
+        self.capture("contents-10046.json", 10046, "coverage", {"indexContents": {
+            "docID": 10046, "indexContent": ""}})
+        dataset, graph = self.export()
+        self.assertEqual(graph["counts"]["witness_verse_pairs"],
+                         {"present": 0, "absent": 0, "unknown": 3, "contested": 0})
+        self.assertEqual(dataset["source_claims"], [])
+        self.assertEqual(dataset["documents"][0]["coverage_state"], "empty")
+        self.assertEqual(self.con.execute("SELECT count(*) FROM source_response").fetchone()[0], 2)
+        body = self.con.execute("SELECT body FROM source_response WHERE endpoint='biblicalcontent/get'").fetchone()[0]
+        self.assertEqual(json.loads(body)["data"]["indexContents"]["indexContent"], "")
+        self.assertFalse(any(combo["scenarios"]["optimistic"] for row in graph["verses"]
+                             for combo in row["dating_alternatives"]["combinations"]))
+
+    def test_multilingual_metadata_and_mixed_contents_preserve_exact_claims_and_dates(self):
+        self.capture("meta-10046.json", 10046, "metadata", {"manuscript": {
+            "docID": 10046, "gaNum": "Synthetic 10046", "lang": "g-l",
+            "originYear": {"early": 100, "late": 300, "content": 200}}})
+        entries = [
+            {"docID": 10046, "pageID": 10, "osisID": "Gen", "indexContent": 1001000000},
+            {"docID": 10046, "pageID": 10, "osisID": "Gen.1.1"},
+            {"docID": 10046, "pageID": 20, "osisID": "Gal.1.1"},
+            {"docID": 10046, "pageID": 30, "osisID": "3Macc", "indexContent": 1023000000}]
+        self.capture("contents-10046.json", 10046, "coverage", {"indexContents": {
+            "docID": 10046, "indexContent": ["Summary supplies no adjacent coverage", *entries]}})
+        dataset, graph = self.export()
+        self.assertEqual(graph["counts"]["witness_verse_pairs"],
+                         {"present": 1, "absent": 0, "unknown": 2, "contested": 0})
+        claim, = dataset["source_claims"]
+        self.assertEqual(claim["reported"], entries[2])
+        self.assertEqual(claim["source_locator"], "data.indexContents.indexContent[3]")
+        self.assertEqual(dataset["documents"][0]["reported_language"], "g-l")
+        date, = dataset["date_assessments"]
+        self.assertEqual(date["reported"], {"early": 100, "late": 300, "content": 200})
+        self.assertIs(type(date["original_notation"]), int)
+        events = graph["verses"][0]["dating_alternatives"]["combinations"][0]["scenarios"]
+        self.assertEqual((events["optimistic"][0]["event_year"], events["pessimistic"][0]["event_year"]), (100, 300))
+
+    def test_observed_multilingual_codes_are_retained_but_other_languages_stay_unsupported(self):
+        for language in ("g-k", "g-l", "g-arb", "g-arm", "g-l-arb", "g-sl", "g-t", "lat", "g-unknown"):
+            with self.subTest(language=language):
+                self.capture("meta-10046.json", 10046, "metadata", {"manuscript": {
+                    "docID": 10046, "gaNum": "Synthetic 10046", "lang": language,
+                    "originYear": {"early": 100, "late": 300, "content": "Synthetic estimate"}}})
+                if language in ("lat", "g-unknown"):
+                    with self.assertRaisesRegex(ValueError, "Greek language"):
+                        prepare_batch(self.manifest, self.root)
+                else:
+                    _, _, _, _, documents = prepare_batch(self.manifest, self.root)
+                    self.assertEqual(documents[0]["reported_language"], language)
 
     def test_direct_reports_duplicates_and_missing_entries(self):
         dataset, graph = self.export()

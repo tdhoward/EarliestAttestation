@@ -33,9 +33,9 @@ Neither finding five witnesses nor finding early papyri completes the planned
 discovery target. Discover candidates independently in all four categories and
 rank collected witnesses using their scholarly contents and complete date reports.
 
-This is planned scope, not completed coverage. Current discovery flags evaluate
-only scopes registered in `data/discovery.json`; they do not automatically
-require all four categories. Record each searched book/range independently and
+The current register includes inventories for all four categories. Discovery
+flags evaluate only scopes registered in `data/discovery.json`; they do not
+automatically require unregistered scopes or later snapshots. Record each searched book/range independently and
 retain its qualifications when reporting completion. Catalogue inventories can
 include witnesses without book indexing, whose contents remain unknown until a
 usable report is available. Completing the planned searches does not establish
@@ -219,125 +219,37 @@ earlier candidates. Missing contents entries remain unknown, never inferred abse
 
 ## Current source scope
 
-The central discovery register contains completed Galatians, Hebrews, Ephesians,
-Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy, 2 Timothy,
-Titus, and Philemon searches for IDs 10000–19999.
-The Galatians search ran without name, date, or language search filters. It returned P46, P51, and P135;
-all have metadata and long contents captures. GA 01 and GA 02 are additional
-collected witnesses outside that range.
+The central register retains four completed catalogue inventories for IDs
+10000–19999, 20000–29999, 30000–39999, and 40000–49999, applicable to all 27 books.
+The captured inventory contains 6,199 distinct candidates. Capture finished after
+5,123 campaign request attempts, with no failed request jobs or provider block.
+These are completion claims for the declared ranges and source snapshot;
+`corpus_complete` remains false.
 
-P51 supplies 14 Galatians presence pairs and P135 supplies 17, all with the
-provider's indexing tier 3. Their exact catalogue date bounds are respectively
-400–425 CE (`V (A)`) and 301–499 CE (`IV/V`). The record retains source fields,
-citations, retrieval times, hashes, and request cost. Successful collection used
-an existing HTTP relay. Their citations identify the canonical NTVMR endpoints.
-Broader catalogue discovery is still incomplete.
+Saved responses are imported offline, including empty-string contents containers,
+integer date notation, observed multilingual Greek catalogue codes, and mixed-book
+contents. See [the retained variants](NTVMR_SOURCE_REPORT_CONTRACT.md#retained-catalogue-variants)
+for exact fields and captures. Empty reports complete report collection without
+creating verse presence or absence. Other-book entries remain in raw captures;
+only explicit NT verse entries enter active claims.
 
-The completed Hebrews search for IDs 10000–19999 returned P12, P13, P17, P46,
-P79, P89, P114, P116, P126, and P130. It reused P46 and captured metadata and long
-contents for the nine new witnesses. Those reports add 163 presence pairs.
-The pilot used 19 successful requests through the owner-supplied proxy, after
-six direct attempts received no source response, within a total budget of 25.
+The eleven earlier papyrus book-index searches remain retained for Galatians,
+Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Thessalonians,
+1 Timothy, 2 Timothy, Titus, and Philemon. Catalogue inventories add independent
+range-wide discovery; reusing contents by itself creates no search completion.
 
-All 27 books now reuse explicit contents fields from the existing document
-captures. That offline expansion creates no additional search completion.
+The current eligible, excluded, and pending counts are reported independently in
+`data/attestations.json` under `metadata.discovery_summary`, and in
+[the development plan](DEVELOPMENT_PLAN.md#current-implementation). The default
+cutoff excludes valid inventory ranges beginning at or after 1000 CE unless a
+retained earlier scholarly estimate qualifies. Unknown dates stay eligible.
+Previously captured later reports are preserved; fewer than five witnesses per
+verse is acceptable.
 
-The Ephesians search returned P46, P49, P92, and P132. It reused P46's metadata
-and contents and captured both reports for each new candidate. It used seven
-successful proxy requests and three sandbox-denied attempts with no provider
-response, within a fixed 25-attempt budget. The new reports add 41 Ephesians
-presence pairs and four 2 Thessalonians presence pairs. P49's report includes
-Ephesians 4:29 and 4:31 but no exact 4:30 entry; that witness/verse pair remains
-unknown. No neighboring-verse expansion or absence inference was made.
-
-The independent 2 Thessalonians search returned P30 and P92. It reused P92's
-metadata and contents and captured both reports for P30. Three successful proxy
-requests followed three sandbox-denied attempts without a provider response,
-using six of the fixed 25-attempt budget. P30 adds two 2 Thessalonians presence
-pairs and 19 in 1 Thessalonians. Its complete catalogue date estimate is
-200–299 CE (`E II - A III`). Exact entries report 1 Thessalonians 5:10 and 5:12
-without 5:11; that pair remains unknown. Every prior source claim, date estimate,
-and coverage state is preserved.
-
-The independent 1 Thessalonians search returned P30, P46, P61, and P65. Reusing
-P30 and P46 left only P61 and P65's metadata and long contents to collect: five
-successful requests, including the search, within the declared 25-attempt budget.
-P61 adds 56 default presence pairs across seven books; P65 adds 17 in
-1 Thessalonians. P61's reported Romans 16:24 entry stays supplementary and is
-excluded by the default omitted-coordinate filter. Their complete catalogue
-dates are 700–725 CE (`VIII (A)`) and 200–299 CE (`III`), respectively. Exact
-P65 entries include 1 Thessalonians 2:1 and 2:6 without entries for 2:2–5;
-those missing pairs remain unknown. All earlier claims, dates, and coverage
-states survived unchanged.
-
-The independent Philippians search returned P16, P46, and P61. Reusing P46 and
-P61 left only P16's metadata and long contents to collect: three successful proxy
-requests, including the search, after three sandbox-denied attempts without a
-provider response. All six attempts remain within the fixed 25-attempt budget.
-P16 adds 15 presence pairs from exact entries for Philippians 3:10–17 and 4:2–8;
-the metadata reports indexing tier 3 for both pages. Adjacent missing entries,
-including 3:9, 3:18, 4:1, and 4:9, remain unknown. Its numeric date bounds 200–399 CE
-and original notation `IV` are copied independently and retained exactly; no
-notation conversion or reconciliation is performed. All prior claims, date
-alternatives, coverage states, and other scopes survive unchanged. The
-Philippians addition increased app data by 12,317 bytes.
-
-The independent Colossians search returned P46 and P61. Both witnesses' metadata
-and long contents were already retained, so only the book-index query was needed.
-One successful proxy request followed three sandbox-denied attempts without a
-provider response, using four of the fixed 25-attempt budget. No document reports
-were refreshed. All earlier claims, complete date estimates, coverage states,
-rankings, and discovery scopes survived unchanged. The 95 Colossians coordinates
-gain bounded discovery completion; missing contents entries remain unknown.
-That search retained 49 usable reports for 21 witnesses and seven searches,
-with no pending candidates. App data was 2,060,609 bytes, growing by 4,702 bytes
-for this search and its provenance.
-
-The independent Philemon search returned P61, P87, and P139. P61's metadata and
-long contents were reused, leaving five successful requests for the search and
-the two new witnesses' reports, within a declared 25-attempt budget. Exact
-reported entries add five presence pairs for P87 (1:13–15, 24–25) and six for
-P139 (1:6–8, 18–20), with indexing tier 3. Their complete catalogue date estimates
-are 200–299 CE (`III`) and 300–399 CE (`IV`). Missing entries, including P87 1:16
-and P139 1:9, remain unknown. Prior claims, complete dates, coverage states, and
-other discovery scopes survived unchanged. Only the 25 Philemon coordinates
-gain bounded discovery completion. That addition brought the collection to 54 usable reports for
-23 witnesses and eight searches, with no pending candidates. App data was
-2,076,312 bytes, growing by 15,703 bytes for this addition.
-
-The independent Titus search returned P32 and P61. P61's metadata and long
-contents were reused, leaving three successful proxy requests for the search
-and P32's two reports, within the declared 25-attempt budget. Exact reported
-entries add 11 presence pairs for Titus 1:11–15 and 2:3–8, with indexing tier 3.
-P32's complete catalogue date estimate remains 200–225 CE (`III (A)`). Missing
-entries, including 1:10, 1:16, 2:2, and 2:9, remain unknown. Prior claims,
-complete dates, coverage states, rankings outside the added coverage, and other
-discovery scopes survived unchanged. Only the 46 Titus coordinates gain bounded
-discovery completion. That addition brought the collection to 57 usable reports
-for 24 witnesses and nine searches, with no pending candidates. App data was
-2,085,991 bytes, growing by 9,679 bytes for this addition.
-
-The independent 2 Timothy search returned no indexed candidates in
-IDs 10000–19999. One successful proxy request completed its declared scope and
-the discovery state of its 83 coordinates; it added no coverage claims or date
-estimates. The empty result is retained with its exact response and provenance.
-It does not assert absence, rule out unindexed witnesses, or complete other ranges.
-
-The independent 1 Timothy search returned P133. Its metadata and long contents
-were collected with three successful proxy requests, including the search,
-within a separate 25-attempt budget. Thirteen exact entries add 12 presence
-pairs for 1 Timothy 3:13–16 and 4:1–8, with indexing tier 3 and complete catalogue
-date 200–299 CE (`III`). Both reported page entries for 4:3 are preserved; the
-overlap counts once per witness/verse and creates one chart event per date
-scenario. Missing entries, including 3:12 and 4:9, remain unknown. Prior claims,
-dates, coverage states, rankings outside the added coverage, and other scopes
-survived unchanged. Only the 113 1 Timothy coordinates gain bounded completion.
-
-The collection now retains 61 usable reports for 25 witnesses and eleven
-completed scopes, with no pending candidates. The two Timothy searches used
-four successful requests and increased app data by 13,564 bytes to 2,099,555 bytes.
-Only the Galatians, Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians,
-2 Thessalonians, 1 Timothy, 2 Timothy, Titus, and Philemon scopes are complete.
-Other books remain unsearched despite reused contents. Jude within the same ID
-range is the next suggested bounded scope; reuse any retained reports for
-independently returned candidates.
+One captured metadata report,
+[document 31133](../data/sources/ntvmr-31133-metadata-58763816e1bf70c8.json),
+is labelled `lat` by the source and remains outside the supported Greek language
+contract. Its 1300–1399 CE inventory range is date-excluded from the current
+collection scope. Its raw metadata and contents captures, import errors, and
+source evidence remain retained; no Greek contents, absence, or identity is
+inferred from this record.

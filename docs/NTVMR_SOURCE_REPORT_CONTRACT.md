@@ -17,9 +17,9 @@ spacing. No manuscript response, image, or transcription was requested.
 | Input | Meaning admitted by this contract | Limit |
 | --- | --- | --- |
 | `biblicalcontent/get`, `detail=long` | Documentation says this expands the page's verse range into individual entries. A validated `data.indexContents.indexContent[n]` object with `osisID`, `docID`, and `pageID` supplies a reported verse-range presence. | It reports catalogue indexing, not independently verified physical contents or full preservation. The exact object is retained. |
-| Summary strings, book/chapter entries | Retained in raw snapshots. | Never expanded into verses. Missing entries never assert absence. |
+| Summary strings, book/chapter entries | Retained in raw snapshots. The observed empty-string `indexContent` container is accepted as an empty report. | Never expanded into verses. Empty or missing entries never assert absence. |
 | `metadata/manuscript/get`, `detail=10` | Detailed catalogue information for the requested document. Observed fields `docID`, `gaNum`, `primaryName`, and `lang` identify its record. | Greek NT manuscript catalogue membership is declared in the manifest's bounded source scope; the wider NTVMR catalogue also includes other material. No exhaustive discovery is claimed. |
-| `data.manuscript.originYear` | Observed `early`, `late`, and `content` fields supply the catalogue's complete numeric estimate and original notation. | Preserve the supplied object and bounds. No century conversion, consensus inference, endpoint merging, or independently assigned writing portions. Zero/missing bounds stay unknown; malformed intervals stay invalid. |
+| `data.manuscript.originYear` | Observed `early`, `late`, and `content` fields supply the catalogue's complete numeric estimate and original notation. `content` can be a string or integer. | Preserve the supplied object, notation type, and bounds. Notation never supplies missing bounds. No century conversion, consensus inference, endpoint merging, or independently assigned writing portions. Zero/missing bounds stay unknown; malformed intervals stay invalid. |
 | Metadata page `indexTier` | Provider-supplied indexing qualification, retained with the metadata hash. | The help identifies tier 4+ as AI indexing awaiting confirmation. Such entries are retained as unknown. Missing tier information is disclosed, without inventing a physical-verification requirement. |
 | `liste/search` matches | Discovery candidates only in this path. | Search results and omissions are not imported as positive/negative coverage claims. |
 
@@ -61,6 +61,49 @@ unmapped coordinates. Changed or multi-reference mappings are rejected pending
 a supported contract. The collection builder copies publisher reference coordinates from
 `data/reference/na28.json` and maps only exact references in explicit collected reports.
 Unmatched coordinates remain unresolved.
+
+## Retained catalogue variants
+
+Offline checks of saved metadata and `detail=long` contents reports establish
+the following additional shapes. Their captures retain canonical endpoint URLs,
+query parameters, retrieval timestamps, raw bodies, and hashes. No manuscript
+images or transcription text are involved.
+
+- [P14's contents report](../data/sources/ntvmr-10014-coverage-bc9c68a3cc012ec7.json)
+  supplies exactly `{"docID":10014,"indexContent":""}`. This is a usable empty
+  catalogue report, with no verse assertions. It completes report collection;
+  every missing witness/verse entry remains unknown. Nonempty strings, null,
+  and malformed containers are still rejected rather than expanded.
+- Greek GA catalogue records also supply the exact multilingual language codes
+  `g-k`, `g-l`, `g-arb`, `g-arm`, `g-l-arb`, `g-sl`, and `g-t`, alongside the
+  existing `g`, `grc`, and `grc_lat`.
+  Examples are [P2](../data/sources/ntvmr-10002-metadata-f573cb15b23703d2.json),
+  [GA 05](../data/sources/ntvmr-20005-metadata-8c79f99942fd35f2.json), and
+  [GA 0136](../data/sources/ntvmr-20136-metadata-eda097cbb67e1a1f.json).
+  Further examples are
+  [GA 256](../data/sources/ntvmr-30256-metadata-7a3ec21aa17e8472.json),
+  [GA 460](../data/sources/ntvmr-30460-metadata-03b26afabb603ba4.json),
+  [GA 525](../data/sources/ntvmr-30525-metadata-21fa7ef5f2e9eed7.json), and
+  [GA 1325](../data/sources/ntvmr-31325-metadata-68580eadb067363a.json).
+  Import accepts this finite set in the declared Greek NT catalogue scope and
+  retains the exact language field. Other language codes and missing GA identity
+  remain unsupported; multilingual metadata does not identify writing layers.
+- [GA 461's metadata](../data/sources/ntvmr-30461-metadata-a25a99b698fef284.json)
+  reports `{"late":835,"early":835,"content":835}`. Both endpoints and the
+  integer notation are copied exactly. Boolean, floating-point, list, and object
+  notation fields remain unsupported. No notation-to-date conversion occurs.
+- [GA 028's contents report](../data/sources/ntvmr-20028-coverage-1ea439c15b36f482.json)
+  mixes explicit NT entries with entries labelled `Num`. Other retained reports
+  include `Gen`, `Exod`, `Deut`, `Ps`, and `3Macc` book markers, including
+  [GA 700's mixed report](../data/sources/ntvmr-30700-coverage-cdc680ab8342ebb0.json).
+  Import validates record
+  identity, reference syntax, and page IDs before projecting exact NT verse
+  entries. Other-book entries and all book/chapter markers remain in raw captures
+  without entering active NT claims. Unsupported mappings are not reinterpreted.
+
+These rules address saved-response parsing and scoped extraction. Server request
+failures, provider blocks, malformed reports, and missing scholarly assertions
+remain separate states. Re-import reuses captures without redownloading them.
 
 ## Storage, disagreement, and dates
 
@@ -131,38 +174,22 @@ contents assertions. Per-verse discovery states and the app's **earliest collect
 labels distinguish usable reports from completeness of the witness search. See
 [the discovery guide](BOUNDED_WITNESS_DISCOVERY.md).
 
-The current collection reuses 23 witnesses' captured reports across all 27
-books. Only exact reported OSIS matches supply presence; thirteen default
-coordinates remain unresolved. This reuse establishes no new discovery
-completion. Independent Galatians, Hebrews, Ephesians, Philippians, Colossians,
-1 Thessalonians, 2 Thessalonians, and Philemon searches are complete only within their
-declared ID range. The Hebrews pilot collected nine new witnesses; Ephesians
-added P49, P92, and P132 while reusing P46;
-2 Thessalonians added P30 while reusing P92; 1 Thessalonians added P61 and P65
-while reusing P30 and P46. The latter search used five successful requests and
-preserved all prior claims, date estimates, and coverage states. P61's other-book
-reports create no additional discovery completion. The independent Philippians
-search added P16 while reusing P46 and P61, with three successful requests and
-six attempts including sandbox denials within its 25-attempt budget. Its 15 exact
-contents entries supply presence; missing entries stay unknown. Numeric date
-fields 200–399 and notation `IV` are retained exactly, without conversion or
-reconciliation. Existing claims, dates, coverage states, and other scopes survive.
+The central register covers all 27 books and retains completed inventories for
+all four declared catalogue ranges, alongside eleven earlier papyrus book-index
+searches. Capture completion is separate from usable report import, exact verse
+assertions, and date rankability. Empty reports are usable with unknown coverage;
+unsupported metadata stays captured and unresolved.
 
-The independent Colossians search returned P46 and P61 and reused both witnesses'
-retained metadata and long contents. One successful search request and three
-sandbox-denied attempts fit its 25-attempt budget. This adds only search provenance
-and bounded discovery completion for Colossians; all claims, dates, coverage
-states, rankings, and earlier scopes remain unchanged.
+[Document 31133's metadata](../data/sources/ntvmr-31133-metadata-58763816e1bf70c8.json)
+is labelled `lat` by the source, outside the supported Greek language contract.
+Its 1300–1399 CE inventory range is excluded by the current date scope; its raw
+metadata and contents captures and import errors remain retained. This is not a
+server request failure or a verse absence assertion.
 
-The independent Philemon search returned P61, P87, and P139, reused P61, and
-collected metadata and long contents for both new witnesses with five successful
-proxy requests within its 25-attempt budget. P87's five exact entries and P139's
-six supply 11 presence pairs with indexing tier 3; missing entries remain unknown.
-Their complete date estimates are copied as 200–299 CE (`III`) and 300–399 CE
-(`IV`), without interpretation. All prior claims, dates, coverage states, and
-other discovery scopes survived unchanged. The collection retains 54 usable
-responses for 23 witnesses and eight completed scopes, with no pending candidates.
-Wider catalogue discovery remains incomplete.
+See [the development plan](DEVELOPMENT_PLAN.md#current-implementation) for current
+collection counts and [bounded discovery](BOUNDED_WITNESS_DISCOVERY.md#current-source-scope)
+for scope qualifications. No manuscript examination or independent corroboration
+of each witness is required.
 
 These collections used the owner's local API proxy. Canonical NTVMR URLs supply
 all scholarly citations;

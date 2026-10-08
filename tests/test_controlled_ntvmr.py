@@ -107,6 +107,51 @@ class CollectorTests(unittest.TestCase):
             with self.assertRaises(ContractError):
                 parse_metadata(bad, 10052)
 
+    def test_integer_date_notation_preserves_type_without_determining_bounds(self):
+        payload = json.loads(json.dumps(METADATA))
+        origin = payload["data"]["manuscript"]["originYear"]
+        origin.update(early=125, late=175, content=150)
+        parsed = parse_metadata(payload, 10052)
+        self.assertEqual(parsed["origin_notation"], 150)
+        self.assertIs(type(parsed["origin_notation"]), int)
+        self.assertEqual(json.loads(parsed["origin_date_json"]), origin)
+        self.assertEqual((parsed["date_min"], parsed["date_max"]), (125, 175))
+        origin.update(early=0, late=0)
+        self.assertEqual(parse_metadata(payload, 10052)["date_status"], "unknown")
+        for notation in (True, 150.5, [], {}):
+            with self.subTest(notation=notation), self.assertRaises(ContractError):
+                origin["content"] = notation
+                parse_metadata(payload, 10052)
+
+    def test_empty_string_contents_is_an_empty_report_not_an_absence(self):
+        payload = {"status": "success", "data": {"indexContents": {
+            "docID": 10052, "indexContent": ""}}}
+        self.assertEqual(parse_coverage(payload, 10052), [])
+        for entries in (None, {}, "John 1:1-5", False):
+            with self.subTest(entries=entries), self.assertRaises(ContractError):
+                payload["data"]["indexContents"]["indexContent"] = entries
+                parse_coverage(payload, 10052)
+        payload["data"]["indexContents"].update(docID=10053, indexContent="")
+        with self.assertRaises(ContractError):
+            parse_coverage(payload, 10052)
+
+    def test_mixed_contents_keeps_exact_nt_entries_and_validates_other_book_rows(self):
+        payload = {"status": "success", "data": {"indexContents": {
+            "docID": 10052, "indexContent": [
+                {"docID": 10052, "osisID": "Gen", "indexContent": 1001000000, "pageID": 10},
+                {"docID": 10052, "osisID": "Gen.1.1", "pageID": 10},
+                {"docID": 10052, "osisID": "John.1.1", "pageID": 20},
+                {"docID": 10052, "osisID": "3Macc", "indexContent": 1023000000, "pageID": 30}]}}}
+        self.assertEqual(parse_coverage(payload, 10052), [("Gen.1.1", 10), ("John.1.1", 20)])
+        self.assertEqual(parse_coverage(payload, 10052, books=("John",)), [("John.1.1", 20)])
+        outside = payload["data"]["indexContents"]["indexContent"][1]
+        for field, value in (("docID", 10053), ("pageID", 0), ("osisID", "Gen.1.0")):
+            previous = outside[field]
+            with self.subTest(field=field), self.assertRaises(ContractError):
+                outside[field] = value
+                parse_coverage(payload, 10052, books=("John",))
+            outside[field] = previous
+
     def test_metadata_snapshot_refresh_failure_and_offline_replay(self):
         first, _, _ = self.client([(200, json.dumps(METADATA), {})], run_id="metadata")
         self.assertEqual(collect_stage(first, 10052, "metadata"), "success")

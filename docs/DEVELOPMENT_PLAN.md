@@ -17,10 +17,26 @@ complete date alternatives and count any reported portion once per witness.
 
 ## Current implementation
 
-The central register contains 2,351 witnesses and 4,026 retained responses across
-all 27 books. The current app data has 7,941 graphable coordinates, 2,250,193
-reported-present witness/verse pairs and 16,419,098 unknown pairs. Discovery and
-candidate-collection states remain those recorded by the retained searches.
+The central register contains 2,584 witnesses and 5,167 registered metadata and
+contents reports across all 27 books. The app projects 4,475 source snapshots
+referenced by displayed evidence. Its 7,941 graphable coordinates have 2,565,074
+reported-present witness/verse pairs and 17,954,470 unknown pairs, with no reported
+absences or source disagreements in the current collection.
+
+The retained catalogue campaign completed all four inventories and capture after
+5,123 request attempts. Its 6,199 distinct candidates include 1,323 eligible and
+4,876 date-excluded candidates under the declared earliest-date-before-1000 CE
+scope. Offline import resolved all 705 previously pending eligible candidates;
+none remain pending. All 27 books record completion of this bounded scope. The
+11 earlier book-search records are preserved. This is completion of the declared
+snapshot, not exhaustive manuscript-corpus discovery.
+
+The importer accepts the retained empty-string contents reports, integer date
+notations, explicit multilingual Greek catalogue codes, and mixed-book reports.
+Empty contents remain unknown; only explicit NT verse entries establish presence.
+Raw reports and exact date endpoints remain unchanged. The Latin-coded catalogue
+record 31133 remains unimported with its raw responses retained; its reported
+1300–1399 date already excludes it from the current discovery scope.
 
 The browser uses version 5 JSON, produced by both collection writers through
 `browser_format.py`. Claims use numeric columns and shared coordinate references;
@@ -28,14 +44,16 @@ providers and ranking events are interned. Exact coverage links use compact
 numeric sequences and contextual claim-ID differences. Ordinary coordinate status
 is a default; discovery uses per-book summaries; date selection stores only
 constraints for competing choices. Full source evidence remains in the registers
-and captures. The current file is 21,246,486 bytes. All content claims, complete
+and captures. The current file is 23,951,851 bytes. All content claims, complete
 date records, coverage states, rankings and displayed discovery summaries survive
 the projection unchanged.
 
 The runtime validates compact columns without expanding the witness/verse matrix,
 uses the narrowest safe typed arrays, shares chart events, and resolves selected
-source details on demand. An offline Node/V8 model measurement retained about
-122 MB of heap plus array buffers, down from 320 MB; browser overhead is additional.
+source details on demand. An offline Node/V8 measurement of the rebuilt model
+retained 116,908,803 bytes (about 117 MB) of heap plus array buffers; browser and
+DOM overhead are additional. Production checks cover all 15,914 book/verse chart
+cells in both date modes without expanding the witness/verse coverage matrix.
 Versions 1–4 remain readable. See [the explorer documentation](ATTESTATION_EXPLORER.md)
 for the format and runtime contract. Offline tests use bounded fictional and
 25-witness pilot fixtures, independent of future production collection growth.
@@ -53,7 +71,7 @@ across all 27 books. Launches have a finite time budget, optional cumulative
 request ceiling, at least five-second persistent spacing, and provider-block
 stops; there is no 50-attempt cap. Capture, offline import, and app rebuilding are
 separate commands. Format-2 catalogue scopes coexist with existing book-index
-scopes. No new live collection is implied by implementing or testing this tool.
+scopes. The current rebuild reused captured responses and made no live requests.
 See [overnight collection](BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-collection).
 
 Catalogue collection defaults to valid inventory date ranges beginning before
@@ -66,32 +84,28 @@ witnesses per verse is acceptable; complete date alternatives remain unchanged.
 
 ## Next development work
 
-1. Broaden bounded independent witness discovery to all 27 books across papyri,
-   majuscules, minuscules, and lectionaries. The
-   [planned catalogue scope](BOUNDED_WITNESS_DISCOVERY.md#planned-catalogue-scope)
-   defines the four ID ranges. Use the overnight catalogue collector with a
-   declared time budget and optional request ceiling, or independent book/range
-   pilots. Reuse retained reports, import captures offline, and refresh the
-   central app data afterward.
-   Do not constrain discovery to the witnesses already collected for nearby verses.
-   The earliest five are ranked per verse and may span categories and widely
-   separated dates. Continue toward the declared date-filtered scope across all
-   four categories even where five witnesses or early papyrus attestations have
-   already been collected. Do not extend beyond the default 1000 CE earliest-date
-   cutoff solely to fill five places; unknown dates and retained earlier estimates
-   remain eligible, and fewer than five witnesses is acceptable.
-   Jude within IDs 10000–19999 remains a useful smaller independent scope when
-   running a book-index pilot; it does not limit catalogue-wide collection.
-2. Establish provider access expectations before bulk collection. Use the
-   owner-supplied local proxy when direct access is unavailable; cite canonical
-   NTVMR endpoints. Preserve blocked states, honor limits, and do not change
-   routes or identities to bypass a provider block.
+1. Add explicit scholarly reports when they usefully supply missing contents,
+   qualifications, or complete competing date estimates. Reuse existing captures
+   first. One usable scholarly report is sufficient; unknown contents and fewer
+   than five witnesses remain acceptable. The current saved-response variants are
+   supported, and the declared catalogue campaign has completed capture. Keep
+   unsupported or ambiguous fields visible rather than guessing their meaning.
+2. Run further live discovery only with a declared need and finite scope, budget,
+   provider access expectations, and pacing. The current snapshot includes all
+   four catalogue ranges for all 27 books; it does not establish exhaustive
+   manuscript-corpus discovery. Future inventories or book/range searches must be
+   recorded independently. Use the owner-supplied local proxy when direct access
+   is unavailable, retain canonical citations, and honor provider blocks. Preserve
+   the default 1000 CE earliest-date scope unless a different scope is explicitly
+   declared; do not extend it solely to fill five ranking places.
 3. Extend supported mappings and source-reported date applicability only when
-   required by collected data. Keep ambiguous mappings and claims visible; do not
-   infer them from manuscript examination.
+   required by collected reports. The current coordinate mappings have no gaps.
+   Portion-specific dates remain planned; record portions, hands, joins, and
+   applicability only as explicitly reported by sources.
 4. Keep collection efficient and the app usable as the dataset grows. Measure
    witnesses, usable reports, graphable coordinates, unresolved records, request
-   cost, and browser data size. Prefer concrete bottlenecks over new infrastructure.
+   cost, browser data size, and retained runtime memory. Preserve bounded offline
+   regression fixtures. Prefer concrete bottlenecks over new infrastructure.
 
 ## Acceptance
 

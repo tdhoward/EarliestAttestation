@@ -28,6 +28,9 @@ NT_BOOKS = ("Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor",
             "Titus", "Phlm", "Heb", "Jas", "1Pet", "2Pet", "1John", "2John",
             "3John", "Jude", "Rev")
 BOOK_ORDER = {book: position for position, book in enumerate(NT_BOOKS, 1)}
+# Additional book markers observed in retained catalogue contents reports.
+# Markers remain source metadata and never establish verse presence.
+CONTENTS_BOOK_MARKERS = frozenset(NT_BOOKS) | {"Gen", "Exod", "Num", "Deut", "Ps", "3Macc"}
 SCHEMA = """
 PRAGMA foreign_keys=ON;
 PRAGMA user_version=12;
@@ -277,7 +280,7 @@ class JobFailure(RuntimeError):
     pass
 
 
-def parse_coverage(payload, doc_id):
+def parse_coverage(payload, doc_id, *, books=None):
     if not isinstance(payload, dict) or payload.get("status") != "success":
         raise ContractError("Coverage response lacks success status")
     data = payload.get("data")
@@ -285,6 +288,8 @@ def parse_coverage(payload, doc_id):
     if not isinstance(contents, dict) or contents.get("docID") != doc_id:
         raise ContractError("Coverage response has missing or wrong docID")
     entries = contents.get("indexContent")
+    if entries == "":
+        return []  # Captured empty report shape; no presence or absence assertion.
     if not isinstance(entries, list):
         raise ContractError("Coverage indexContent is not a list")
     result = []
@@ -294,7 +299,7 @@ def parse_coverage(payload, doc_id):
         if not isinstance(entry, dict) or entry.get("docID") != doc_id:
             raise ContractError("Malformed coverage entry")
         ref, page = entry.get("osisID"), entry.get("pageID")
-        book_marker = (isinstance(ref, str) and ref in BOOK_ORDER and
+        book_marker = (isinstance(ref, str) and ref in CONTENTS_BOOK_MARKERS and
                        type(entry.get("indexContent")) is int and
                        entry["indexContent"] % 1000000 == 0)
         if not isinstance(ref, str) or not (OSIS.fullmatch(ref) or
@@ -306,6 +311,8 @@ def parse_coverage(payload, doc_id):
         if book_marker or OSIS_CHAPTER.fullmatch(ref):
             # Book and chapter markers remain in the raw response; never infer verses.
             continue
+        if books is not None and ref.split(".")[0] not in books:
+            continue  # Preserve other books in the raw response, outside this scope.
         result.append((ref, page))
     return list(dict.fromkeys(result))
 
@@ -327,8 +334,8 @@ def parse_metadata(payload, doc_id):
         raise ContractError("Metadata manuscript has no language string")
     origin = manuscript.get("originYear")
     notation = origin.get("content") if isinstance(origin, dict) else None
-    if notation is not None and not isinstance(notation, str):
-        raise ContractError("Metadata originYear content is not a string")
+    if notation is not None and type(notation) not in (str, int):
+        raise ContractError("Metadata originYear content is not a string or integer")
     early = origin.get("early") if isinstance(origin, dict) else None
     late = origin.get("late") if isinstance(origin, dict) else None
     if origin is None or (early in (None, 0) and late in (None, 0)):

@@ -19,7 +19,8 @@ from controlled_ntvmr import (API_BASE, NT_BOOKS, AccessBlocked, Client, Contrac
                               JobFailure, RunStopped, encoded, now, transport)
 from source_discovery import (catalogue_date_decision, prepare_discovery, range_params, response_capture,
                               sha, validate_date_cutoff, validate_search_capture)
-from source_reports import additional_date_claims, capture, discovery_date_overrides, metadata_date_claim
+from source_reports import (GREEK_LANGUAGE_CODES, additional_date_claims, capture,
+                            discovery_date_overrides, metadata_date_claim)
 
 
 CATEGORIES = (("papyri", 10000, 19999), ("majuscules", 20000, 29999),
@@ -542,7 +543,7 @@ def import_captures(con, data_dir, run_id):
                 if stage == "coverage" and not item.get("metadata_fixture"):
                     raise ValueError("Contents await usable Greek NT metadata")
                 _, _, parsed = capture(data_path(data_dir, row[0]), doc, stage)
-                if stage == "metadata" and (parsed["source_lang"] not in ("g", "grc", "grc_lat")
+                if stage == "metadata" and (parsed["source_lang"] not in GREEK_LANGUAGE_CODES
                                              or not parsed["ga_num"]):
                     raise ValueError("Metadata is outside the supported Greek GA catalogue contract")
                 item[f"{stage}_fixture"] = row[0]

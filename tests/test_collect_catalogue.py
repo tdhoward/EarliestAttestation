@@ -292,6 +292,48 @@ class CatalogueTests(unittest.TestCase):
         data = build_data(data_dir=self.root)
         self.assertTrue(all(d["citation"].startswith(API_BASE) for d in data["dates"].values()))
 
+    def test_saved_response_variants_import_offline_and_complete_eligible_discovery(self):
+        languages = {10001: "g-k", 10002: "g-l", 10003: "g-arb"}
+
+        def handler(url, params):
+            value = self.handler(list(languages))(url, params)
+            if url.endswith("/metadata/manuscript/get/"):
+                doc = int(params["docID"])
+                value["data"]["manuscript"].update(lang=languages[doc],
+                    originYear={"early": 200, "late": 399, "content": 250})
+            elif url.endswith("/biblicalcontent/get/"):
+                doc = int(params["docID"])
+                contents = value["data"]["indexContents"]
+                if doc == 10001:
+                    contents["indexContent"] = ""
+                else:
+                    contents["indexContent"].insert(0, {"docID": doc, "pageID": 1,
+                        "osisID": "Gen", "indexContent": 1001000000})
+                    contents["indexContent"].insert(1, {"docID": doc, "pageID": 1, "osisID": "Gen.1.1"})
+            return value
+
+        self.assertEqual(self.run_collect(handler)["state"], "complete")
+        attempts = len(self.calls)
+        captures = {p: p.read_bytes() for p in (self.root / "sources").glob("*.json")}
+        with patch("collect_catalogue.transport", side_effect=AssertionError("No live requests")):
+            imported = import_captures(self.con, self.root, "fictional")
+            data = build_data(data_dir=self.root)
+            repeated = import_captures(self.con, self.root, "fictional")
+        self.assertEqual(imported["documents_added"], 3)
+        self.assertEqual(imported["import_errors"], [])
+        self.assertEqual(repeated["report_fields_added"], 0)
+        self.assertEqual(repeated["import_errors"], [])
+        self.assertEqual(len(self.calls), attempts)
+        self.assertTrue(all(p.read_bytes() == body for p, body in captures.items()))
+        self.assertEqual(data["metadata"]["discovery"]["scopes"][0]["pending_candidate_ids"], [])
+        self.assertEqual(data["observations"]["Gal.1.1"]["discovery"]["state"], "bounded_search_complete")
+        pairs = data["observations"]["Gal.1.1"]["reported_coverage"]
+        self.assertEqual({p["witness_id"]: p["state"] for p in pairs},
+                         {"ntvmr:10001": "unknown", "ntvmr:10002": "present", "ntvmr:10003": "present"})
+        self.assertTrue(all(claim["source_ref"].split(".")[0] in NT_BOOKS for claim in data["claims"].values()))
+        self.assertTrue(all(type(date["original_notation"]) is int and date["original_notation"] == 250
+                            and (date["date_min"], date["date_max"]) == (200, 399) for date in data["dates"].values()))
+
     def test_unusable_reports_stay_captured_and_unknown_without_blocking_other_witnesses(self):
         def handler(url, params):
             value = self.handler([10001, 10002])(url, params)

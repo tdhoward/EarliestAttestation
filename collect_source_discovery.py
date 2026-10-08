@@ -15,7 +15,7 @@ from controlled_ntvmr import (API_BASE, Client, ContractError, JobFailure, RunSt
                               collect_stage, connect, encoded, import_search_fixture)
 from source_discovery import (captured_chain, collect_book_range, prepare_discovery,
                               range_params, response_capture, sha)
-from source_reports import capture, prepare_batch
+from source_reports import GREEK_LANGUAGE_CODES, capture, prepare_batch
 from browser_format import pack_browser_data
 
 
@@ -118,7 +118,7 @@ def collect(data_dir, definition, run_id, *, offline=False, https_proxy=None, ba
                     target = data_dir / "sources" / f"ntvmr-{doc_id}-{stage}-{sha(encoded(saved))[:12]}.json"
                     write_json(target, saved)
                     _, _, parsed = capture(target, doc_id, stage)
-                    if stage == "metadata" and (parsed["source_lang"] not in ("g", "grc", "grc_lat") or not parsed["ga_num"]):
+                    if stage == "metadata" and (parsed["source_lang"] not in GREEK_LANGUAGE_CODES or not parsed["ga_num"]):
                         errors.append(f"Candidate {doc_id} outside supported Greek GA contract; uncollected")
                         break
                     item[f"{stage}_fixture"] = target.relative_to(data_dir).as_posix()

@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 from urllib.parse import urlencode
 
-from controlled_ntvmr import (API_BASE, encoded, edition_inventory_report,
+from controlled_ntvmr import (API_BASE, NT_BOOKS, encoded, edition_inventory_report,
                               import_edition_inventory, inventory_ref_parts,
                               parse_coverage, parse_metadata, rank_candidates,
                               validate_inventory)
@@ -21,6 +21,9 @@ from source_discovery import prepare_discovery, verse_discovery
 
 CONTRACT = "ntvmr-source-reports-v1"
 PROVIDER = "INTF / New Testament Virtual Manuscript Room (NTVMR)"
+# Exact Greek and multilingual catalogue codes observed in retained GA reports.
+GREEK_LANGUAGE_CODES = frozenset(("g", "grc", "grc_lat", "g-k", "g-l", "g-arb",
+                                  "g-arm", "g-l-arb", "g-sl", "g-t"))
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS scholarly_report_batch (
  batch_id TEXT PRIMARY KEY, manifest_sha256 TEXT NOT NULL,
@@ -72,7 +75,7 @@ def parse_capture(record, doc_id, stage, *, capture_path):
         raise ValueError(f"Invalid {stage} capture for {doc_id}")
     payload = json.loads(body)
     parsed = (parse_metadata(payload, doc_id) if stage == "metadata"
-              else parse_coverage(payload, doc_id))
+              else parse_coverage(payload, doc_id, books=NT_BOOKS))
     result = {"endpoint": endpoint, "url": record["source_url"], "params": params,
               "body": body, "body_sha256": record["body_sha256"],
               "retrieved_at": timestamp(required_text(record, "retrieved_at")),
@@ -183,7 +186,7 @@ def prepare_batch(manifest, root):
                         identity=provenance(snap, "data.manuscript.{docID,gaNum,primaryName,lang}",
                             {k: payload["data"]["manuscript"].get(k)
                              for k in ("docID", "gaNum", "primaryName", "lang")}))
-            if metadata["source_lang"] not in ("g", "grc", "grc_lat"):
+            if metadata["source_lang"] not in GREEK_LANGUAGE_CODES:
                 raise ValueError("This bounded contract supports only reported Greek language codes")
             # GA catalogue membership must be declared from the source scope, not a name guess.
             if document.get("corpus") != "greek_nt_manuscript":
