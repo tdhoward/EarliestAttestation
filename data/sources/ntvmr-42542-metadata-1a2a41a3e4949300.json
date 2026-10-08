@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42542",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:43:30 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423810397",
+    "X-Request-Post-Validation-Epoch": "1791423810398",
+    "X-Request-Response-Epoch": "1791423810405",
+    "X-Response-Time": "8ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2085",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42542,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"L2542\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":6,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Saint Catherine's Monastery\",\"place\":\"Sinai\",\"logoURL\":\"http://ntmss.info/instlogos/Katharinenkloster.jpg\",\"url\":\"http://www.sinaimonastery.com/\"},\"leavesDescription\":4,\"shelfID\":6930,\"originYearDescription\":\"IX/X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Chest 1 no. 37 (Weitzmann box 49 no. 38)\",\"contentOverview\":\"lsk\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":800,\"content\":\"IX/X\"},\"leavesDescription\":4,\"pages\":{\"count\":10,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":50},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00070\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":70},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00080\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":80},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00090\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":90},{\"biblicalContent\":\"\",\"shelfID\":6930,\"shelfFolioNums\":\"\",\"sortOrder\":\"00100\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":100}]},\"gaNum\":\"L2542\",\"leaves\":{\"leavesCount\":4,\"content\":4},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":24,\"content\":24}}}}",
+  "body_sha256": "90ff088fa218c8d0fb0b71a4b5cbe072f1a5719e585b975d2727ca7a4caf1c2b",
+  "retrieved_at": "2026-10-08T01:43:30+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

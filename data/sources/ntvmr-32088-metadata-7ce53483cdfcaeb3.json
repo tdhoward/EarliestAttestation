@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32088",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:47:43 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791424063971",
+    "X-Request-Post-Validation-Epoch": "1791424063972",
+    "X-Request-Response-Epoch": "1791424063978",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2010",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32088,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":2088,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Greece\",\"instID\":214,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Public Historical Library\",\"place\":\"Zakynthos\",\"logoURL\":\"\",\"url\":\"http://vivl-zakynth.zak.sch.gr/\"},\"leavesDescription\":\"\",\"shelfID\":6329,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Katrames 24 (zerstört?)\",\"contentOverview\":\"\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":-1,\"early\":-100,\"content\":\"?\"},\"leavesDescription\":\"?\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=32088/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/32088/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6329,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=32088/20/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/32088/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6329,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":2088,\"leaves\":{\"leavesCount\":0,\"content\":\"?\"},\"lang\":\"g\",\"contentOverview\":\"a\",\"lineCount\":{\"lineCountMin\":0,\"content\":\"?\"}}}}",
+  "body_sha256": "b3231aaeb83e9e4ae8e6e6757daf5f008c0cc67337905c23dcfb8a19e14f9c72",
+  "retrieved_at": "2026-10-08T01:47:44+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

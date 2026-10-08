@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32958",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:10:30 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418230659",
+    "X-Request-Post-Validation-Epoch": "1791418230660",
+    "X-Request-Response-Epoch": "1791418230666",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1736",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32958,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":2958,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Vatican City\",\"instID\":460,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Apostolica Vaticana\",\"place\":\"Città del Vaticano\",\"logoURL\":\"http://ntmss.info/instlogos/Vaticano.jpg\",\"url\":\"http://www.vaticanlibrary.va/\"},\"leavesDescription\":3,\"shelfID\":6574,\"originYearDescription\":\"X-XI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Vat. gr. 788B, fol. 2r, 6v, 3r\",\"contentOverview\":\"e: MtJ\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1025,\"early\":976,\"content\":\"X-XI\"},\"leavesDescription\":7,\"pages\":{\"count\":7,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6574,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6574,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":6574,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":6574,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40},{\"biblicalContent\":\"\",\"shelfID\":6574,\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":50},{\"biblicalContent\":\"\",\"shelfID\":6574,\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60},{\"biblicalContent\":\"\",\"shelfID\":6574,\"shelfFolioNums\":\"\",\"sortOrder\":\"00070\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":70}]},\"gaNum\":2958,\"leaves\":{\"leavesCount\":7,\"content\":7},\"lang\":\"grc\",\"contentOverview\":\"e: MtJ\",\"lineCount\":{\"lineCountMin\":0,\"content\":\"?\"}}}}",
+  "body_sha256": "b18154c02d74920964916be2e8603f7c48063c79813da55af4fe68734c0f500b",
+  "retrieved_at": "2026-10-08T00:10:30+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

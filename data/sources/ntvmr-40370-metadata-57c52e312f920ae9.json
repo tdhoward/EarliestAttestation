@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "40370",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:25:49 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419149695",
+    "X-Request-Post-Validation-Epoch": "1791419149696",
+    "X-Request-Response-Epoch": "1791419149701",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2591",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":40370,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L370\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"France\",\"instID\":67,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliothèque Nationale\",\"place\":\"Paris\",\"logoURL\":\"http://ntmss.info/instlogos/BNF.jpg\",\"url\":\"http://www.bnf.fr/fr/acc/x.accueil.html\"},\"leavesDescription\":7,\"shelfID\":3460,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Suppl. Gr. 1092, fol. 12-18\",\"contentOverview\":\"U-l P\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":7,\"pages\":{\"count\":14,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":50},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00070\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":70},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00080\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":80},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00090\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":90},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00100\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":100},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00110\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":110},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00120\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":120},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00130\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":130},{\"biblicalContent\":\"\",\"shelfID\":3460,\"shelfFolioNums\":\"\",\"sortOrder\":\"00140\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":140}]},\"gaNum\":\"L370\",\"leaves\":{\"leavesCount\":7,\"content\":7},\"width\":{\"widthMin\":206},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":19,\"content\":19},\"height\":{\"heightMin\":284}}}}",
+  "body_sha256": "1387a5fa2b3fe8b4309f4968e2def1c5212f5f8dea3e928964c60c45ea9e1cd6",
+  "retrieved_at": "2026-10-08T00:25:49+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

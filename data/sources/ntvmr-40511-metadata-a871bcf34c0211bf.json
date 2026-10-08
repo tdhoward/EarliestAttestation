@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "40511",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:28:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419331654",
+    "X-Request-Post-Validation-Epoch": "1791419331655",
+    "X-Request-Response-Epoch": "1791419331660",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3466",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":40511,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L511\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":274,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Riccardiana\",\"place\":\"Florence\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":1,\"shelfID\":3595,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"69, fol. 110\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":1,\"pages\":{\"count\":3,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40511/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40511/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":3595,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40511/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40511/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":3595,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40511/30/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>&#x2028;&#x2028;&nbsp;&#x2028;&#x2028;<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40511/30_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30}]},\"gaNum\":\"L511\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":140},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":24,\"content\":24},\"height\":{\"heightMin\":220}}}}",
+  "body_sha256": "5be2ad87b62671ba684e64d071341cf819cc9c6cb66befe32e50593ad24776bb",
+  "retrieved_at": "2026-10-08T00:28:51+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

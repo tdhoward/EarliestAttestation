@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "42212",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:34:41 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423281905",
+    "X-Request-Post-Validation-Epoch": "1791423281905",
+    "X-Request-Response-Epoch": "1791423281910",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1961",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":42212,\"indexContent\":[\"Heb 11:37-40; John 12:24-26; Heb 2:14-18; Heb 2:11; Heb 2:13-14; Heb 2:11-13\",{\"docID\":42212,\"osisID\":\"Heb.11.37\",\"indexContent\":2019011037,\"pageID\":10},{\"docID\":42212,\"osisID\":\"Heb.11.38\",\"indexContent\":2019011038,\"pageID\":10},{\"docID\":42212,\"osisID\":\"Heb.11.38\",\"indexContent\":2019011038,\"pageID\":20},{\"docID\":42212,\"osisID\":\"Heb.11.39\",\"indexContent\":2019011039,\"pageID\":20},{\"docID\":42212,\"osisID\":\"Heb.11.39\",\"indexContent\":2019011039,\"pageID\":30},{\"docID\":42212,\"osisID\":\"Heb.11.40\",\"indexContent\":2019011040,\"pageID\":30},{\"docID\":42212,\"osisID\":\"John.12.24\",\"indexContent\":2004012024,\"pageID\":70},{\"docID\":42212,\"osisID\":\"John.12.25\",\"indexContent\":2004012025,\"pageID\":70},{\"docID\":42212,\"osisID\":\"John.12.25\",\"indexContent\":2004012025,\"pageID\":80},{\"docID\":42212,\"osisID\":\"John.12.26\",\"indexContent\":2004012026,\"pageID\":80},{\"docID\":42212,\"osisID\":\"Heb.2.14\",\"indexContent\":2019002014,\"pageID\":110},{\"docID\":42212,\"osisID\":\"Heb.2.15\",\"indexContent\":2019002015,\"pageID\":110},{\"docID\":42212,\"osisID\":\"Heb.2.15\",\"indexContent\":2019002015,\"pageID\":120},{\"docID\":42212,\"osisID\":\"Heb.2.16\",\"indexContent\":2019002016,\"pageID\":120},{\"docID\":42212,\"osisID\":\"Heb.2.17\",\"indexContent\":2019002017,\"pageID\":120},{\"docID\":42212,\"osisID\":\"Heb.2.17\",\"indexContent\":2019002017,\"pageID\":130},{\"docID\":42212,\"osisID\":\"Heb.2.18\",\"indexContent\":2019002018,\"pageID\":130},{\"docID\":42212,\"osisID\":\"Heb.2.18\",\"indexContent\":2019002018,\"pageID\":140},{\"docID\":42212,\"osisID\":\"Heb.2.11\",\"indexContent\":2019002011,\"pageID\":180},{\"docID\":42212,\"osisID\":\"Heb.2.13\",\"indexContent\":2019002013,\"pageID\":210},{\"docID\":42212,\"osisID\":\"Heb.2.14\",\"indexContent\":2019002014,\"pageID\":210},{\"docID\":42212,\"osisID\":\"Heb.2.11\",\"indexContent\":2019002011,\"pageID\":220},{\"docID\":42212,\"osisID\":\"Heb.2.12\",\"indexContent\":2019002012,\"pageID\":220},{\"docID\":42212,\"osisID\":\"Heb.2.13\",\"indexContent\":2019002013,\"pageID\":220}]}}}",
+  "body_sha256": "bb3a684c75bdfcd52cc77445f8e79786a829f852193a0f01567abf7d62c69a3d",
+  "retrieved_at": "2026-10-08T01:34:42+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

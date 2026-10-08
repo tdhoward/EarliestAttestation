@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "33016",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:11:44 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418304651",
+    "X-Request-Post-Validation-Epoch": "1791418304652",
+    "X-Request-Response-Epoch": "1791418304658",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2099",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":33016,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":3016,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Germany\",\"instID\":656,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Deutsches Buch- und Schriftmuseum der Deutschen Nationalbibliothek\",\"place\":\"Leipzig\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":270,\"shelfID\":6937,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Klemmsammlung I,101 (Olim Eing. 1973/532)\",\"contentOverview\":\"e\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":270,\"pages\":{\"count\":10,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":50},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00070\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":70},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00080\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":80},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00090\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":90},{\"biblicalContent\":\"\",\"shelfID\":6937,\"shelfFolioNums\":\"\",\"sortOrder\":\"00100\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":100}]},\"gaNum\":3016,\"leaves\":{\"leavesCount\":270,\"content\":270},\"width\":{\"widthMin\":150},\"lang\":\"grc\",\"contentOverview\":\"e\",\"lineCount\":{\"lineCountMin\":23,\"content\":23},\"height\":{\"heightMin\":220}}}}",
+  "body_sha256": "981048e991dcc0ee902f9fbcf0d3ec77c6753246ff9dae880f4045ffebe9e2a3",
+  "retrieved_at": "2026-10-08T00:11:44+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

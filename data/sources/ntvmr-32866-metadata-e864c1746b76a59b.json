@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32866",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 02:00:48 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791424848051",
+    "X-Request-Post-Validation-Epoch": "1791424848052",
+    "X-Request-Response-Epoch": "1791424848057",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "322",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32866,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":2866,\"shelfInstances\":\"\",\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":0,\"early\":0},\"leavesDescription\":\"\",\"pages\":{\"count\":0},\"gaNum\":2866,\"leaves\":{\"leavesCount\":0},\"lang\":\"grc\",\"contentOverview\":\"\"}}}",
+  "body_sha256": "859e7851cae3c40d9bd335e4e2e79c0d20fa26373570145c574f87b11cd53f2d",
+  "retrieved_at": "2026-10-08T02:00:48+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

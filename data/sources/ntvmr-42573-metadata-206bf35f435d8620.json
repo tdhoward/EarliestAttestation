@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42573",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:44:54 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423894862",
+    "X-Request-Post-Validation-Epoch": "1791423894863",
+    "X-Request-Response-Epoch": "1791423894868",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1284",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42573,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2573\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"France\",\"instID\":67,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliothèque Nationale\",\"place\":\"Paris\",\"logoURL\":\"http://ntmss.info/instlogos/BNF.jpg\",\"url\":\"http://www.bnf.fr/fr/acc/x.accueil.html\"},\"leavesDescription\":1,\"shelfID\":7118,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Coislin 366 (Vorsatzbl.)\",\"contentOverview\":\"U-l\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"John 19:25-28\",\"shelfID\":7118,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"John 19:25-28\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Luke 23:41-44\",\"shelfID\":7118,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Luke 23:41-44\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"L2573\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":145},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":18,\"content\":18},\"height\":{\"heightMin\":217}}}}",
+  "body_sha256": "3d31b52b25b3d8f3c44d1ab26aea7b7126ce97454e23bc14cfca746772f5ce46",
+  "retrieved_at": "2026-10-08T01:44:54+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

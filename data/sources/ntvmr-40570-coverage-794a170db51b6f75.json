@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "40570",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:32:04 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419524311",
+    "X-Request-Post-Validation-Epoch": "1791419524312",
+    "X-Request-Response-Epoch": "1791419524321",
+    "X-Response-Time": "10ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "872",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":40570,\"indexContent\":[\"Matt 13:52-54; John 8:3-9\",{\"docID\":40570,\"osisID\":\"Matt.13.52\",\"indexContent\":2001013052,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"Matt.13.53\",\"indexContent\":2001013053,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"Matt.13.54\",\"indexContent\":2001013054,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"John.8.3\",\"indexContent\":2004008003,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"John.8.4\",\"indexContent\":2004008004,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"John.8.5\",\"indexContent\":2004008005,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"John.8.6\",\"indexContent\":2004008006,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"John.8.7\",\"indexContent\":2004008007,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"John.8.8\",\"indexContent\":2004008008,\"pageID\":2600},{\"docID\":40570,\"osisID\":\"John.8.9\",\"indexContent\":2004008009,\"pageID\":2600}]}}}",
+  "body_sha256": "3e8e8a424b167b1074695e07d75190bb045b4ea5839aaf213b959cbf5af02bcd",
+  "retrieved_at": "2026-10-08T00:32:04+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

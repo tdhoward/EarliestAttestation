@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42124",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:32:16 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423136192",
+    "X-Request-Post-Validation-Epoch": "1791423136193",
+    "X-Request-Response-Epoch": "1791423136197",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2146",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42124,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2124\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Vatican City\",\"instID\":460,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Apostolica Vaticana\",\"place\":\"Città del Vaticano\",\"logoURL\":\"http://ntmss.info/instlogos/Vaticano.jpg\",\"url\":\"http://www.vaticanlibrary.va/\"},\"leavesDescription\":1,\"shelfID\":5074,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Borg. gr. 19, fol. 69\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=42124/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42124/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":5074,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=42124/20/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42124/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":5074,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L2124\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":200},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMax\":31,\"lineCountMin\":29,\"content\":\"29-31\"},\"height\":{\"heightMin\":250}}}}",
+  "body_sha256": "2f1228d63dd79ac1d8123287ee6e6b97b320b2386380c8fa2644e65f7b762211",
+  "retrieved_at": "2026-10-08T01:32:16+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

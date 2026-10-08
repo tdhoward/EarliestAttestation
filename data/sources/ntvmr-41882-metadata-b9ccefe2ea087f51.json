@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "41882",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 02:22:27 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791426147363",
+    "X-Request-Post-Validation-Epoch": "1791426147364",
+    "X-Request-Response-Epoch": "1791426147369",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3275",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":41882,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":\"L1882\",\"shelfInstances\":\"\",\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":0,\"early\":0},\"leavesDescription\":\"\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":[{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41882/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>\\n\\n&nbsp;\\n\\n<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41882/10_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10},{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41882/10/30\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"http://digilib.nationallibrary.bg:8082/show-sr/?id=148\\\">External Images by<br/>National Library Cyril and Methodius</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41882/10_49_30.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":30}]},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":[{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41882/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://ntvmr.uni-muenster.de/liste\\\"><div>Images ©<br/>The Holding Institution</div></a>\\n\\n&nbsp;\\n\\n<a target=\\\"_blank\\\" href=\\\"http://egora.uni-muenster.de/intf/\\\"><div>Microfilm Digitized by<br/>INTF for Research Purposes</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41882/20_49_10.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":10},{\"shelfID\":0,\"accessLevel\":1,\"userName\":\"\",\"uri\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"protectLevel\":0,\"instID\":49,\"shelfNumberPartID\":\"\",\"protected\":true,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41882/20/30\",\"attribution\":\"<div><a target=\\\"_blank\\\" href=\\\"http://digilib.nationallibrary.bg:8082/show-sr/?id=148\\\">External Images by<br/>National Library Cyril and Methodius</a></div>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41882/20_49_30.jpg\",\"webFriendlyURL\":\"https://ntvmr.uni-muenster.de/community/images/protected1.png\",\"surrID\":30}]},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L1882\",\"leaves\":{\"leavesCount\":0},\"lang\":\"grc\",\"contentOverview\":\"\"}}}",
+  "body_sha256": "d8fe00e66be49f0b853d4472e66f833c39d48cfc735808e53665bf43ce4f56e8",
+  "retrieved_at": "2026-10-08T02:22:27+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

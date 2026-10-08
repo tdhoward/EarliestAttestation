@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "41836",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:26:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422769224",
+    "X-Request-Post-Validation-Epoch": "1791422769225",
+    "X-Request-Response-Epoch": "1791422769230",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1663",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":41836,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L1836\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"France\",\"instID\":67,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliothèque Nationale\",\"place\":\"Paris\",\"logoURL\":\"http://ntmss.info/instlogos/BNF.jpg\",\"url\":\"http://www.bnf.fr/fr/acc/x.accueil.html\"},\"leavesDescription\":3,\"shelfID\":4800,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Coislin Grec 211, fol. 1.351. 352\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":3,\"pages\":{\"count\":6,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":4800,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":4800,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":4800,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":4800,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40},{\"biblicalContent\":\"\",\"shelfID\":4800,\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":50},{\"biblicalContent\":\"\",\"shelfID\":4800,\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60}]},\"gaNum\":\"L1836\",\"leaves\":{\"leavesCount\":3,\"content\":3},\"width\":{\"widthMin\":185},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMax\":22,\"lineCountMin\":19,\"content\":\"19-22\"},\"height\":{\"heightMin\":245}}}}",
+  "body_sha256": "8dea7bc393419b57e11e7a52ad0716f75fbed2e8191889c14a70eb2216fd9324",
+  "retrieved_at": "2026-10-08T01:26:09+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

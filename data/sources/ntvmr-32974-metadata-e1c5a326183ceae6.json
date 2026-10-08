@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32974",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:11:02 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418262489",
+    "X-Request-Post-Validation-Epoch": "1791418262489",
+    "X-Request-Response-Epoch": "1791418262494",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "968",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32974,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":2974,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Greece\",\"instID\":118,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Protaton (Karyes)\",\"place\":\"Athos\",\"logoURL\":\"\",\"url\":\"https://orthodoxwiki.org/Karyes_(Athos)\"},\"leavesDescription\":285,\"shelfID\":6645,\"originYearDescription\":\"XIV-XV\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"83, fol. 1-285\",\"contentOverview\":\"e\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1099,\"early\":900,\"content\":\"X-XI\"},\"leavesDescription\":285,\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"\",\"shelfID\":6645,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10}},\"gaNum\":2974,\"leaves\":{\"leavesCount\":285,\"content\":285},\"lang\":\"grc\",\"contentOverview\":\"e\",\"lineCount\":{\"lineCountMin\":20,\"content\":20},\"height\":{\"heightMin\":180}}}}",
+  "body_sha256": "0ca76be0ebe1c9b897c08597fff86f7d1857a0445e4b0c8f2538a5cfba61fc07",
+  "retrieved_at": "2026-10-08T00:11:02+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

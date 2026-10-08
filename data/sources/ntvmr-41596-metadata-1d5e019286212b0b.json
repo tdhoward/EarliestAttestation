@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "41596",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:21:50 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422510248",
+    "X-Request-Post-Validation-Epoch": "1791422510249",
+    "X-Request-Response-Epoch": "1791422510254",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2649",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":41596,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"L1596\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Romania\",\"instID\":569,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"National Library\",\"place\":\"Bucarest\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":1,\"shelfID\":6470,\"originYearDescription\":\"X-XI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Dept. of Special Collections, 28529\",\"contentOverview\":\"Lk 22:1-19\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1099,\"early\":900,\"content\":\"X/XI\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41596/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digitool.bibnat.ro:1801/view/action/nmets.do?DOCCHOICE=252038.xml&dvs=1579182938310~746&locale=de_DE&search_terms=&adjacency=&VIEWER_URL=/view/action/nmets.do?&DELIVERY_RULE_ID=4&usePid1=true&usePid2=true\\\"><div> Images©<br/>Biblioteca Naţională a României \\n</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41596/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/41596/41596x00001XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/41596/41596x00001XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6470,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41596/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://digitool.bibnat.ro:1801/view/action/nmets.do?DOCCHOICE=252038.xml&dvs=1579182938310~746&locale=de_DE&search_terms=&adjacency=&VIEWER_URL=/view/action/nmets.do?&DELIVERY_RULE_ID=4&usePid1=true&usePid2=true\\\"><div> Images©<br/>Biblioteca Naţională a României \\n</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41596/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/41596/41596x00002XX_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/41596/41596x00002XX_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":6470,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L1596\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":150},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":23,\"content\":23},\"height\":{\"heightMin\":222}}}}",
+  "body_sha256": "9718c5d1d75e82093768b25cda95f19f16e213f98d5d76308135c1ccc95e7db4",
+  "retrieved_at": "2026-10-08T01:21:50+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

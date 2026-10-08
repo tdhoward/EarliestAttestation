@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "40525",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:29:19 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419359320",
+    "X-Request-Post-Validation-Epoch": "1791419359321",
+    "X-Request-Response-Epoch": "1791419359325",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1443",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":40525,\"indexContent\":[\"John 19:34-37; Mark 15:43-44; Matt 27:54; Luke 23:32-34; Matt 27:49-54\",{\"docID\":40525,\"osisID\":\"John.19.34\",\"indexContent\":2004019034,\"pageID\":20},{\"docID\":40525,\"osisID\":\"John.19.35\",\"indexContent\":2004019035,\"pageID\":20},{\"docID\":40525,\"osisID\":\"John.19.36\",\"indexContent\":2004019036,\"pageID\":20},{\"docID\":40525,\"osisID\":\"Mark.15.43\",\"indexContent\":2002015043,\"pageID\":30},{\"docID\":40525,\"osisID\":\"Mark.15.44\",\"indexContent\":2002015044,\"pageID\":30},{\"docID\":40525,\"osisID\":\"John.19.36\",\"indexContent\":2004019036,\"pageID\":30},{\"docID\":40525,\"osisID\":\"John.19.37\",\"indexContent\":2004019037,\"pageID\":30},{\"docID\":40525,\"osisID\":\"Matt.27.54\",\"indexContent\":2001027054,\"pageID\":40},{\"docID\":40525,\"osisID\":\"Luke.23.32\",\"indexContent\":2003023032,\"pageID\":40},{\"docID\":40525,\"osisID\":\"Luke.23.33\",\"indexContent\":2003023033,\"pageID\":40},{\"docID\":40525,\"osisID\":\"Luke.23.34\",\"indexContent\":2003023034,\"pageID\":40},{\"docID\":40525,\"osisID\":\"Matt.27.49\",\"indexContent\":2001027049,\"pageID\":50},{\"docID\":40525,\"osisID\":\"Matt.27.50\",\"indexContent\":2001027050,\"pageID\":50},{\"docID\":40525,\"osisID\":\"Matt.27.51\",\"indexContent\":2001027051,\"pageID\":50},{\"docID\":40525,\"osisID\":\"Matt.27.52\",\"indexContent\":2001027052,\"pageID\":50},{\"docID\":40525,\"osisID\":\"Matt.27.53\",\"indexContent\":2001027053,\"pageID\":50},{\"docID\":40525,\"osisID\":\"Matt.27.54\",\"indexContent\":2001027054,\"pageID\":50}]}}}",
+  "body_sha256": "24e2b029a1cc2a7965010686e50fcb5d318683daa11a4707307008ed18a4e94a",
+  "retrieved_at": "2026-10-08T00:29:19+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32928",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:09:02 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418142979",
+    "X-Request-Post-Validation-Epoch": "1791418142980",
+    "X-Request-Response-Epoch": "1791418142985",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1592",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32928,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":2928,\"shelfInstances\":\"\",\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1050,\"early\":950},\"leavesDescription\":\"\",\"pages\":{\"count\":10,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":50},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00070\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":70},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00080\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":80},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00090\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":90},{\"biblicalContent\":\"\",\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00100\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":100}]},\"gaNum\":2928,\"leaves\":{\"leavesCount\":0},\"width\":{\"widthMin\":128},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":24},\"height\":{\"heightMin\":165}}}}",
+  "body_sha256": "ea3028c2985f91fb76b25b4c9fb87900193ac567671c40f8ef5339a03ba0d14a",
+  "retrieved_at": "2026-10-08T00:09:03+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

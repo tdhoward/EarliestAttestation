@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "40247",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:20:35 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418835873",
+    "X-Request-Post-Validation-Epoch": "1791418835874",
+    "X-Request-Response-Epoch": "1791418835877",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "629",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":40247,\"indexContent\":[\"Matt 8:12-13; Matt 8:8-12\",{\"docID\":40247,\"osisID\":\"Matt.8.12\",\"indexContent\":2001008012,\"pageID\":10},{\"docID\":40247,\"osisID\":\"Matt.8.13\",\"indexContent\":2001008013,\"pageID\":10},{\"docID\":40247,\"osisID\":\"Matt.8.8\",\"indexContent\":2001008008,\"pageID\":20},{\"docID\":40247,\"osisID\":\"Matt.8.9\",\"indexContent\":2001008009,\"pageID\":20},{\"docID\":40247,\"osisID\":\"Matt.8.10\",\"indexContent\":2001008010,\"pageID\":20},{\"docID\":40247,\"osisID\":\"Matt.8.11\",\"indexContent\":2001008011,\"pageID\":20},{\"docID\":40247,\"osisID\":\"Matt.8.12\",\"indexContent\":2001008012,\"pageID\":20}]}}}",
+  "body_sha256": "472ed5988426fa42fb953c2a760a1c254d305c17238caba60dfce1b7ed4afe51",
+  "retrieved_at": "2026-10-08T00:20:35+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

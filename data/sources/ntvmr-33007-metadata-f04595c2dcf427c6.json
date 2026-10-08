@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "33007",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:11:23 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418283580",
+    "X-Request-Post-Validation-Epoch": "1791418283581",
+    "X-Request-Response-Epoch": "1791418283585",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1160",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":33007,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":3007,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":272,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Medicea Laurenziana\",\"place\":\"Florence\",\"logoURL\":\"http://ntmss.info/instlogos/Laurenziana.gif\",\"url\":\"http://www.bml.firenze.sbn.it/\"},\"leavesDescription\":2,\"shelfID\":6746,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Pluteo VI.19, fol. 173-174\",\"contentOverview\":\"rK\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":2,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6746,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6746,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":3007,\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":210},\"lang\":\"grc\",\"contentOverview\":\"rK\",\"lineCount\":{\"lineCountMin\":31,\"content\":31},\"height\":{\"heightMin\":305}}}}",
+  "body_sha256": "9dd6cb8d6978d68fde823e8d8f61160f3c6b1fda62f245f13efd01d26e219653",
+  "retrieved_at": "2026-10-08T00:11:23+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

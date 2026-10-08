@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "41945",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:28:50 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422930124",
+    "X-Request-Post-Validation-Epoch": "1791422930125",
+    "X-Request-Response-Epoch": "1791422930131",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3313",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":41945,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L1945\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":307,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Nazionale Marciana\",\"place\":\"Venice\",\"logoURL\":\"http://ntmss.info/instlogos/marciana.jpg\",\"url\":\"http://marciana.venezia.sbn.it/catalogazione.php?sst=40\"},\"leavesDescription\":2,\"shelfID\":4902,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Gr. I,66 (12057)\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41945/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41945/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":4902,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41945/20/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41945/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":4902,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41945/30/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41945/30_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":4902,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41945/40/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/41945/40_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":4902,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40}]},\"gaNum\":\"L1945\",\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":250},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":20,\"content\":20},\"height\":{\"heightMin\":330}}}}",
+  "body_sha256": "4989ce17e6d3e2306af41ecb29cf0447d153efd001a0e74c68d7d6ab582773f9",
+  "retrieved_at": "2026-10-08T01:28:50+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

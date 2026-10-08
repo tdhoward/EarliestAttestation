@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "40292",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:22:15 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418935945",
+    "X-Request-Post-Validation-Epoch": "1791418935946",
+    "X-Request-Response-Epoch": "1791418935957",
+    "X-Response-Time": "12ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "401",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":40292,\"indexContent\":[\"Luke 9:33-36\",{\"docID\":40292,\"osisID\":\"Luke.9.33\",\"indexContent\":2003009033,\"pageID\":5440},{\"docID\":40292,\"osisID\":\"Luke.9.34\",\"indexContent\":2003009034,\"pageID\":5440},{\"docID\":40292,\"osisID\":\"Luke.9.35\",\"indexContent\":2003009035,\"pageID\":5440},{\"docID\":40292,\"osisID\":\"Luke.9.36\",\"indexContent\":2003009036,\"pageID\":5440}]}}}",
+  "body_sha256": "24f5bed43ee951940f7550bb58a2ccbd3e3137a5e6f97dfae4b5379e60165458",
+  "retrieved_at": "2026-10-08T00:22:16+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

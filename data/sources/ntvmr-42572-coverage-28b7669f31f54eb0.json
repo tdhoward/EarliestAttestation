@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "42572",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:44:49 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423889587",
+    "X-Request-Post-Validation-Epoch": "1791423889588",
+    "X-Request-Response-Epoch": "1791423889591",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2419",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":42572,\"indexContent\":[\"Matt 27:29-32; Mark 15:16-24; Mark 15:26-32; Matt 27:33-42\",{\"docID\":42572,\"osisID\":\"Matt.27.29\",\"indexContent\":2001027029,\"pageID\":10},{\"docID\":42572,\"osisID\":\"Matt.27.30\",\"indexContent\":2001027030,\"pageID\":10},{\"docID\":42572,\"osisID\":\"Matt.27.31\",\"indexContent\":2001027031,\"pageID\":10},{\"docID\":42572,\"osisID\":\"Matt.27.32\",\"indexContent\":2001027032,\"pageID\":10},{\"docID\":42572,\"osisID\":\"Mark.15.16\",\"indexContent\":2002015016,\"pageID\":10},{\"docID\":42572,\"osisID\":\"Mark.15.17\",\"indexContent\":2002015017,\"pageID\":10},{\"docID\":42572,\"osisID\":\"Mark.15.18\",\"indexContent\":2002015018,\"pageID\":20},{\"docID\":42572,\"osisID\":\"Mark.15.19\",\"indexContent\":2002015019,\"pageID\":20},{\"docID\":42572,\"osisID\":\"Mark.15.20\",\"indexContent\":2002015020,\"pageID\":20},{\"docID\":42572,\"osisID\":\"Mark.15.21\",\"indexContent\":2002015021,\"pageID\":20},{\"docID\":42572,\"osisID\":\"Mark.15.22\",\"indexContent\":2002015022,\"pageID\":20},{\"docID\":42572,\"osisID\":\"Mark.15.23\",\"indexContent\":2002015023,\"pageID\":20},{\"docID\":42572,\"osisID\":\"Mark.15.24\",\"indexContent\":2002015024,\"pageID\":20},{\"docID\":42572,\"osisID\":\"Matt.27.33\",\"indexContent\":2001027033,\"pageID\":30},{\"docID\":42572,\"osisID\":\"Mark.15.26\",\"indexContent\":2002015026,\"pageID\":30},{\"docID\":42572,\"osisID\":\"Mark.15.27\",\"indexContent\":2002015027,\"pageID\":30},{\"docID\":42572,\"osisID\":\"Mark.15.28\",\"indexContent\":2002015028,\"pageID\":30},{\"docID\":42572,\"osisID\":\"Mark.15.29\",\"indexContent\":2002015029,\"pageID\":30},{\"docID\":42572,\"osisID\":\"Mark.15.30\",\"indexContent\":2002015030,\"pageID\":30},{\"docID\":42572,\"osisID\":\"Mark.15.31\",\"indexContent\":2002015031,\"pageID\":30},{\"docID\":42572,\"osisID\":\"Mark.15.32\",\"indexContent\":2002015032,\"pageID\":30},{\"docID\":42572,\"osisID\":\"Matt.27.34\",\"indexContent\":2001027034,\"pageID\":40},{\"docID\":42572,\"osisID\":\"Matt.27.35\",\"indexContent\":2001027035,\"pageID\":40},{\"docID\":42572,\"osisID\":\"Matt.27.36\",\"indexContent\":2001027036,\"pageID\":40},{\"docID\":42572,\"osisID\":\"Matt.27.37\",\"indexContent\":2001027037,\"pageID\":40},{\"docID\":42572,\"osisID\":\"Matt.27.38\",\"indexContent\":2001027038,\"pageID\":40},{\"docID\":42572,\"osisID\":\"Matt.27.39\",\"indexContent\":2001027039,\"pageID\":40},{\"docID\":42572,\"osisID\":\"Matt.27.40\",\"indexContent\":2001027040,\"pageID\":40},{\"docID\":42572,\"osisID\":\"Matt.27.41\",\"indexContent\":2001027041,\"pageID\":40},{\"docID\":42572,\"osisID\":\"Matt.27.42\",\"indexContent\":2001027042,\"pageID\":40}]}}}",
+  "body_sha256": "f46a23980371c84f40d59718e95ce6b478c8f375724f1fdfcf40ab6d85a31061",
+  "retrieved_at": "2026-10-08T01:44:49+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

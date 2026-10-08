@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42494",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:42:05 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423725911",
+    "X-Request-Post-Validation-Epoch": "1791423725911",
+    "X-Request-Response-Epoch": "1791423725916",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1199",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42494,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2494\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Armenia\",\"instID\":12,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Matenadaran\",\"place\":\"Yerevan\",\"logoURL\":\"https://matenadaran.am/wp-content/uploads/2021/03/cropped-Logo-1.jpg\",\"url\":\"https://matenadaran.am/en/matenadaran/home/\"},\"leavesDescription\":1,\"shelfID\":6481,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"M 7650 (Nachsatzbl.)\",\"contentOverview\":\"l\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6481,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6481,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L2494\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":150},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMax\":25,\"lineCountMin\":24,\"content\":\"24-25\"},\"height\":{\"heightMin\":210}}}}",
+  "body_sha256": "353993ba02db9b7c4c5d84bbe61cb1536ec75dd7540432f1aaeccd62caf1e582",
+  "retrieved_at": "2026-10-08T01:42:06+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

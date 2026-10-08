@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "33003",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:11:13 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418273038",
+    "X-Request-Post-Validation-Epoch": "1791418273039",
+    "X-Request-Response-Epoch": "1791418273044",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1090",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":33003,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":3003,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Russia\",\"instID\":342,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Library of the Russian Academy of Science\",\"place\":\"St. Petersburg\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":3,\"shelfID\":6742,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"RAIK 15 (lower text)\",\"contentOverview\":\"e:Mc\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":3,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6742,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6742,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":3003,\"leaves\":{\"leavesCount\":3,\"content\":3},\"width\":{\"widthMin\":80},\"lang\":\"grc\",\"contentOverview\":\"e: Mc\",\"lineCount\":{\"lineCountMin\":16},\"height\":{\"heightMin\":103}}}}",
+  "body_sha256": "15151b8007ce09aa0c0db7cf17afc3b1cfa351c7bbf24799aaddab43752585ed",
+  "retrieved_at": "2026-10-08T00:11:13+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

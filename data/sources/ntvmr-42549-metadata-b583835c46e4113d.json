@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42549",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:44:23 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423863196",
+    "X-Request-Post-Validation-Epoch": "1791423863197",
+    "X-Request-Response-Epoch": "1791423863206",
+    "X-Response-Time": "10ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1034",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42549,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2549\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Russia\",\"instID\":340,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"State Historical Museum\",\"place\":\"Moscow\",\"logoURL\":\"http://ntmss.info/instlogos/Logo_Staatl.Hist.Mus.Moskau.jpg\",\"url\":\"https://en.shm.ru\"},\"leavesDescription\":1,\"shelfID\":6957,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Mus. sobr. 3414/2\",\"contentOverview\":\"l\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":1,\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"\",\"shelfID\":6957,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10}},\"gaNum\":\"L2549\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":197},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":19,\"content\":\"ca. 19\"},\"height\":{\"heightMin\":262}}}}",
+  "body_sha256": "2232a6acabda42fc68499ac893a2bea4d11ab4c80d30f0ac737db9c4d30d1e68",
+  "retrieved_at": "2026-10-08T01:44:23+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

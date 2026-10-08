@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "41903",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:27:57 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422877436",
+    "X-Request-Post-Validation-Epoch": "1791422877437",
+    "X-Request-Response-Epoch": "1791422877442",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1789",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":41903,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L1903\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Greece\",\"instID\":120,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Vatopedi Monastery\",\"place\":\"Athos\",\"logoURL\":\"http://ntmss.info/instlogos/Vatopediu.jpg\",\"url\":\"http://www.monastiria.gr/mount-athos-vatopedi-monastery/?lang=en\"},\"leavesDescription\":1,\"shelfID\":4862,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"1219, fol. 57\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41903/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_Lect_1903\\\"><div>External Images by<br/>CSNTM\\n</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42482/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":4862,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":4862,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L1903\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":130},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":28,\"content\":28},\"height\":{\"heightMin\":220}}}}",
+  "body_sha256": "733c57fd91c9dfccce1eab6c029b079709ee78f810649570586b1ff9d5a5eb59",
+  "retrieved_at": "2026-10-08T01:27:57+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

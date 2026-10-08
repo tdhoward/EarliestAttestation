@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "40484",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:28:18 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419298837",
+    "X-Request-Post-Validation-Epoch": "1791419298838",
+    "X-Request-Response-Epoch": "1791419298843",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1168",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":40484,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L484\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Italy\",\"instID\":279,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Biblioteca Statale del Monumento Nazionale\",\"place\":\"Grottaferrata\",\"logoURL\":\"http://ntmss.info/instlogos/Grottaferrata.jpg\",\"url\":\"http://www.abbaziagreca.it/index.asp\"},\"leavesDescription\":1,\"shelfID\":3568,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Γ. γ. 3\",\"contentOverview\":\"lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":3568,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":3568,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L484\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":165},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":21,\"content\":21},\"height\":{\"heightMin\":230}}}}",
+  "body_sha256": "eb7fa72812b45a0c689d0c32a3a59f432f7ebf7b671fc387154740cac3587665",
+  "retrieved_at": "2026-10-08T00:28:18+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "41604",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:22:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422571492",
+    "X-Request-Post-Validation-Epoch": "1791422571493",
+    "X-Request-Response-Epoch": "1791422571496",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "399",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":41604,\"indexContent\":[\"Matt 7:28; Matt 8:7-9\",{\"docID\":41604,\"osisID\":\"Matt.7.28\",\"indexContent\":2001007028,\"pageID\":10},{\"docID\":41604,\"osisID\":\"Matt.8.7\",\"indexContent\":2001008007,\"pageID\":20},{\"docID\":41604,\"osisID\":\"Matt.8.8\",\"indexContent\":2001008008,\"pageID\":20},{\"docID\":41604,\"osisID\":\"Matt.8.9\",\"indexContent\":2001008009,\"pageID\":20}]}}}",
+  "body_sha256": "587f686acb23c0887b3cac86674a4a6f658bfe32db07c78704bf3db1a34dcd62",
+  "retrieved_at": "2026-10-08T01:22:51+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

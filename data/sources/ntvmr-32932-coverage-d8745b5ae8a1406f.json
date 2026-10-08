@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "32932",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:09:29 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418169604",
+    "X-Request-Post-Validation-Epoch": "1791418169605",
+    "X-Request-Response-Epoch": "1791418169608",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1158",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":32932,\"indexContent\":[\"John 10:18-31\",{\"docID\":32932,\"osisID\":\"John.10.18\",\"indexContent\":2004010018,\"pageID\":10},{\"docID\":32932,\"osisID\":\"John.10.19\",\"indexContent\":2004010019,\"pageID\":10},{\"docID\":32932,\"osisID\":\"John.10.20\",\"indexContent\":2004010020,\"pageID\":10},{\"docID\":32932,\"osisID\":\"John.10.21\",\"indexContent\":2004010021,\"pageID\":10},{\"docID\":32932,\"osisID\":\"John.10.22\",\"indexContent\":2004010022,\"pageID\":10},{\"docID\":32932,\"osisID\":\"John.10.23\",\"indexContent\":2004010023,\"pageID\":10},{\"docID\":32932,\"osisID\":\"John.10.24\",\"indexContent\":2004010024,\"pageID\":10},{\"docID\":32932,\"osisID\":\"John.10.25\",\"indexContent\":2004010025,\"pageID\":20},{\"docID\":32932,\"osisID\":\"John.10.26\",\"indexContent\":2004010026,\"pageID\":20},{\"docID\":32932,\"osisID\":\"John.10.27\",\"indexContent\":2004010027,\"pageID\":20},{\"docID\":32932,\"osisID\":\"John.10.28\",\"indexContent\":2004010028,\"pageID\":20},{\"docID\":32932,\"osisID\":\"John.10.29\",\"indexContent\":2004010029,\"pageID\":20},{\"docID\":32932,\"osisID\":\"John.10.30\",\"indexContent\":2004010030,\"pageID\":20},{\"docID\":32932,\"osisID\":\"John.10.31\",\"indexContent\":2004010031,\"pageID\":20}]}}}",
+  "body_sha256": "ed930526bd8d4abeca450fa62265a9f84df5efa5181cf23973aef9e9c2bc8bbd",
+  "retrieved_at": "2026-10-08T00:09:29+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

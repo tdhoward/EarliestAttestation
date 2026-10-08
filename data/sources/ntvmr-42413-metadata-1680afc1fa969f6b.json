@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42413",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:39:48 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423588520",
+    "X-Request-Post-Validation-Epoch": "1791423588521",
+    "X-Request-Response-Epoch": "1791423588528",
+    "X-Response-Time": "8ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1348",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42413,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2413\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Location unknown\",\"instID\":542,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Auctioned/Sold\",\"place\":\"Location unknown\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":1,\"shelfID\":6964,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"(früher: The Schøyen Collection, MS 2858)\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":1,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6964,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6964,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":6964,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":6964,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40}]},\"gaNum\":\"L2413\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":190},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":24,\"content\":24},\"height\":{\"heightMin\":330}}}}",
+  "body_sha256": "15e351a1776a9acc8620ee7560e9d7bbdf7cdc24dc3a3afdaae5c75c2326bbf5",
+  "retrieved_at": "2026-10-08T01:39:48+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

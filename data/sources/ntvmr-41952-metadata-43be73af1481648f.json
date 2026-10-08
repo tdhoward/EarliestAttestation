@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "41952",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:29:00 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422940630",
+    "X-Request-Post-Validation-Epoch": "1791422940631",
+    "X-Request-Response-Epoch": "1791422940637",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1211",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":41952,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L1952\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":249,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bodleian Library\",\"place\":\"Oxford\",\"logoURL\":\"https://iiif.bodleian.ox.ac.uk/iiif/image/f27e28db-0b08-4f16-9bdf-3565f591fb71/full/255,/0/default.jpg\",\"url\":\"http://www.bodleian.ox.ac.uk/\"},\"leavesDescription\":1,\"shelfID\":4908,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Ms. Auct. F. 6. 25*\",\"contentOverview\":\"U-laP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":4908,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":4908,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L1952\",\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":200},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":29,\"content\":29},\"height\":{\"heightMin\":270}}}}",
+  "body_sha256": "abb890052ee51c35f1d422c1e44917cbdf9b49e600cb0443ca3624514a5df4d4",
+  "retrieved_at": "2026-10-08T01:29:00+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "41867",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:27:03 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422823228",
+    "X-Request-Post-Validation-Epoch": "1791422823229",
+    "X-Request-Response-Epoch": "1791422823234",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1335",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":41867,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L1867\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Ukraine\",\"instID\":388,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Odesa National Scientific Library \",\"place\":\"Odesa\",\"logoURL\":\"\",\"url\":\"https://odnb.odessa.ua/en/\"},\"leavesDescription\":2,\"shelfID\":4830,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":552.2,\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":4830,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":4830,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":4830,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":4830,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40}]},\"gaNum\":\"L1867\",\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":230},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":23,\"content\":23},\"height\":{\"heightMin\":330}}}}",
+  "body_sha256": "2634ebd032f0da1a776cabe8ebb60a42ffa1efaef973c39fa8ffa775e9d37b0b",
+  "retrieved_at": "2026-10-08T01:27:03+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

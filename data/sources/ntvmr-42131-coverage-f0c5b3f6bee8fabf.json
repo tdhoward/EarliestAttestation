@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "42131",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:32:54 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423174733",
+    "X-Request-Post-Validation-Epoch": "1791423174734",
+    "X-Request-Response-Epoch": "1791423174737",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1232",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":42131,\"indexContent\":[\"Luke 17:5-10; Luke 19:1-9\",{\"docID\":42131,\"osisID\":\"Luke.17.5\",\"indexContent\":2003017005,\"pageID\":10},{\"docID\":42131,\"osisID\":\"Luke.17.6\",\"indexContent\":2003017006,\"pageID\":10},{\"docID\":42131,\"osisID\":\"Luke.17.7\",\"indexContent\":2003017007,\"pageID\":10},{\"docID\":42131,\"osisID\":\"Luke.17.8\",\"indexContent\":2003017008,\"pageID\":10},{\"docID\":42131,\"osisID\":\"Luke.17.9\",\"indexContent\":2003017009,\"pageID\":10},{\"docID\":42131,\"osisID\":\"Luke.17.10\",\"indexContent\":2003017010,\"pageID\":10},{\"docID\":42131,\"osisID\":\"Luke.19.1\",\"indexContent\":2003019001,\"pageID\":20},{\"docID\":42131,\"osisID\":\"Luke.19.2\",\"indexContent\":2003019002,\"pageID\":20},{\"docID\":42131,\"osisID\":\"Luke.19.3\",\"indexContent\":2003019003,\"pageID\":20},{\"docID\":42131,\"osisID\":\"Luke.19.4\",\"indexContent\":2003019004,\"pageID\":20},{\"docID\":42131,\"osisID\":\"Luke.19.5\",\"indexContent\":2003019005,\"pageID\":20},{\"docID\":42131,\"osisID\":\"Luke.19.6\",\"indexContent\":2003019006,\"pageID\":20},{\"docID\":42131,\"osisID\":\"Luke.19.7\",\"indexContent\":2003019007,\"pageID\":20},{\"docID\":42131,\"osisID\":\"Luke.19.8\",\"indexContent\":2003019008,\"pageID\":20},{\"docID\":42131,\"osisID\":\"Luke.19.9\",\"indexContent\":2003019009,\"pageID\":20}]}}}",
+  "body_sha256": "9a315de0b1d1ab025d836e3b038e615df4fdca6b7ae85624115f61097ed17d61",
+  "retrieved_at": "2026-10-08T01:32:54+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "40946",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:38:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419931033",
+    "X-Request-Post-Validation-Epoch": "1791419931034",
+    "X-Request-Response-Epoch": "1791419931039",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2550",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":40946,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L946\",\"shelfInstances\":{\"shelfInstance\":[{\"institution\":{\"country\":\"Egypt\",\"instID\":6,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Saint Catherine's Monastery\",\"place\":\"Sinai\",\"logoURL\":\"http://ntmss.info/instlogos/Katharinenkloster.jpg\",\"url\":\"http://www.sinaimonastery.com/\"},\"leavesDescription\":3,\"shelfID\":5812,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"ΝF Sp MG 26\",\"contentOverview\":\"lP\"},{\"institution\":{\"country\":\"Germany\",\"instID\":27,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Staatsbibliothek zu Berlin\",\"place\":\"Berlin\",\"logoURL\":\"http://ntmss.info/instlogos/Logo_StaatsbibliothekBerlin.jpg\",\"url\":\"http://staatsbibliothek-berlin.de/\"},\"leavesDescription\":2,\"shelfID\":5811,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Graec. 1° 29\",\"contentOverview\":\"lP\"}]},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":5,\"pages\":{\"count\":10,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":5811,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":5811,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":5811,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":5811,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40},{\"biblicalContent\":\"\",\"shelfID\":5812,\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":50},{\"biblicalContent\":\"\",\"shelfID\":5812,\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60},{\"biblicalContent\":\"\",\"shelfID\":5812,\"shelfFolioNums\":\"\",\"sortOrder\":\"00070\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":70},{\"biblicalContent\":\"\",\"shelfID\":5812,\"shelfFolioNums\":\"\",\"sortOrder\":\"00080\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":80},{\"biblicalContent\":\"\",\"shelfID\":5812,\"shelfFolioNums\":\"\",\"sortOrder\":\"00090\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":90},{\"biblicalContent\":\"\",\"shelfID\":5812,\"shelfFolioNums\":\"\",\"sortOrder\":\"00100\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":100}]},\"gaNum\":\"L946\",\"leaves\":{\"leavesCount\":5,\"content\":5},\"width\":{\"widthMin\":205},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":22,\"content\":22},\"height\":{\"heightMin\":283}}}}",
+  "body_sha256": "f24c74d2661b7f7bc04579da5df00866d5e0df1fdb8a8322486097aae2929cd7",
+  "retrieved_at": "2026-10-08T00:38:51+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

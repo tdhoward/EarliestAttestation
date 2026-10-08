@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "49997",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 02:38:17 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791427097588",
+    "X-Request-Post-Validation-Epoch": "1791427097589",
+    "X-Request-Response-Epoch": "1791427097595",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "921",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":49997,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":\"l 102a\",\"shelfInstances\":\"\",\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":-1,\"early\":-100},\"leavesDescription\":\"\",\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=49997/10/10\",\"attribution\":\"\",\"thumbURL\":\"http://intf.uni-muenster.de/vmr/NTVMR/thumb/49997/10001x001.gif\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/10001/10001x001.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/10001/10001x001.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"001r\",\"indexContent\":\"\",\"pageID\":10}},\"gaNum\":\"l 102a\",\"leaves\":{\"leavesCount\":0},\"lang\":\"grc\",\"contentOverview\":\"\"}}}",
+  "body_sha256": "3bae1276a033b2926002bca276512aa26f0021563ad3d7e350772a0cab65f9ff",
+  "retrieved_at": "2026-10-08T02:38:17+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

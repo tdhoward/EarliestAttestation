@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32938",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:09:46 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418186226",
+    "X-Request-Post-Validation-Epoch": "1791418186227",
+    "X-Request-Response-Epoch": "1791418186231",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "462",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32938,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":2938,\"shelfInstances\":\"\",\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1099,\"early\":900,\"content\":\"X-XI\"},\"leavesDescription\":1,\"pages\":{\"count\":0},\"gaNum\":2938,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":159},\"lang\":\"grc\",\"contentOverview\":\"Jh 2:14-24\",\"lineCount\":{\"lineCountMin\":19,\"content\":19},\"height\":{\"heightMin\":209}}}}",
+  "body_sha256": "0999cfedb448db2773ce97db6bb59af57b2e4a3ff7af8c14b9b53bd6465d4c48",
+  "retrieved_at": "2026-10-08T00:09:46+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

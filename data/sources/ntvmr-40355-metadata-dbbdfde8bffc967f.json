@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "40355",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 02:09:04 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791425344104",
+    "X-Request-Post-Validation-Epoch": "1791425344104",
+    "X-Request-Response-Epoch": "1791425344110",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3987",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":40355,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":\"L355\",\"shelfInstances\":\"\",\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":0,\"early\":0},\"leavesDescription\":\"\",\"pages\":{\"count\":6,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40355/10/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40355/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/40355/40355x00010Xa_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/40355/40355x00010Xa_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40355/20/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40355/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/40355/40355x00020Xa_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/40355/40355x00020Xa_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40355/30/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40355/30_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/40355/40355x00030Xa_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/40355/40355x00030Xa_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"Luke 13:17; Luke 13:19-24\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40355/40/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40355/40_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/40355/40355x00040Xa_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/40355/40355x00040Xa_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"19r\",\"indexContent\":\"Luke 13:17; Luke 13:19-24\",\"indexTier\":3,\"pageID\":40,\"indexedBy\":\"jjmccollum\"},{\"biblicalContent\":\"Luke 13:24-29\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40355/50/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40355/50_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/40355/40355x00050Xa_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/40355/40355x00050Xa_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"19v\",\"indexContent\":\"Luke 13:24-29\",\"indexTier\":3,\"pageID\":50,\"indexedBy\":\"jjmccollum\"},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40355/60/10\",\"attribution\":\"\",\"thumbURL\":\"https://ntmss.info/images/thumbs/40355/60_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/40355/40355x00060Xa_INTF.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/40355/40355x00060Xa_INTF.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":\"\",\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60}]},\"gaNum\":\"L355\",\"leaves\":{\"leavesCount\":0},\"lang\":\"grc\",\"contentOverview\":\"\"}}}",
+  "body_sha256": "2fa8999a2bde174630c2f1bb3cd6778899e252c1b5fa44d051137d219ea649bc",
+  "retrieved_at": "2026-10-08T02:09:04+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

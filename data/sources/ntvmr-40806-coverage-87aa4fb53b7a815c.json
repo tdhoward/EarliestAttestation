@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "40806",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:35:53 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419753975",
+    "X-Request-Post-Validation-Epoch": "1791419753976",
+    "X-Request-Response-Epoch": "1791419753986",
+    "X-Response-Time": "11ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3055",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":40806,\"indexContent\":[\"John 11:8-42\",{\"docID\":40806,\"osisID\":\"John.11.8\",\"indexContent\":2004011008,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.9\",\"indexContent\":2004011009,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.10\",\"indexContent\":2004011010,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.11\",\"indexContent\":2004011011,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.12\",\"indexContent\":2004011012,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.13\",\"indexContent\":2004011013,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.14\",\"indexContent\":2004011014,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.15\",\"indexContent\":2004011015,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.16\",\"indexContent\":2004011016,\"pageID\":2050},{\"docID\":40806,\"osisID\":\"John.11.16\",\"indexContent\":2004011016,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.17\",\"indexContent\":2004011017,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.18\",\"indexContent\":2004011018,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.19\",\"indexContent\":2004011019,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.20\",\"indexContent\":2004011020,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.21\",\"indexContent\":2004011021,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.22\",\"indexContent\":2004011022,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.23\",\"indexContent\":2004011023,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.24\",\"indexContent\":2004011024,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.25\",\"indexContent\":2004011025,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.26\",\"indexContent\":2004011026,\"pageID\":2060},{\"docID\":40806,\"osisID\":\"John.11.26\",\"indexContent\":2004011026,\"pageID\":2070},{\"docID\":40806,\"osisID\":\"John.11.27\",\"indexContent\":2004011027,\"pageID\":2070},{\"docID\":40806,\"osisID\":\"John.11.28\",\"indexContent\":2004011028,\"pageID\":2070},{\"docID\":40806,\"osisID\":\"John.11.29\",\"indexContent\":2004011029,\"pageID\":2070},{\"docID\":40806,\"osisID\":\"John.11.30\",\"indexContent\":2004011030,\"pageID\":2070},{\"docID\":40806,\"osisID\":\"John.11.31\",\"indexContent\":2004011031,\"pageID\":2070},{\"docID\":40806,\"osisID\":\"John.11.32\",\"indexContent\":2004011032,\"pageID\":2070},{\"docID\":40806,\"osisID\":\"John.11.33\",\"indexContent\":2004011033,\"pageID\":2070},{\"docID\":40806,\"osisID\":\"John.11.33\",\"indexContent\":2004011033,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.34\",\"indexContent\":2004011034,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.35\",\"indexContent\":2004011035,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.36\",\"indexContent\":2004011036,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.37\",\"indexContent\":2004011037,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.38\",\"indexContent\":2004011038,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.39\",\"indexContent\":2004011039,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.40\",\"indexContent\":2004011040,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.41\",\"indexContent\":2004011041,\"pageID\":2080},{\"docID\":40806,\"osisID\":\"John.11.42\",\"indexContent\":2004011042,\"pageID\":2080}]}}}",
+  "body_sha256": "cafcb6811d766a3204ca6987e4cb7aa00acab88f9adc14ccb4f7d50d818883fd",
+  "retrieved_at": "2026-10-08T00:35:54+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

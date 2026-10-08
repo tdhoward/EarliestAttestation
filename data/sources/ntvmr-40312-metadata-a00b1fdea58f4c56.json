@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "40312",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:23:16 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418996341",
+    "X-Request-Post-Validation-Epoch": "1791418996341",
+    "X-Request-Response-Epoch": "1791418996346",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3022",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":40312,\"columns\":{\"columnsMin\":0,\"content\":\"?\"},\"groupID\":\"\",\"primaryName\":\"L312\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":6,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Saint Catherine's Monastery\",\"place\":\"Sinai\",\"logoURL\":\"http://ntmss.info/instlogos/Katharinenkloster.jpg\",\"url\":\"http://www.sinaimonastery.com/\"},\"leavesDescription\":2,\"shelfID\":3407,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"?\",\"contentOverview\":\"U-l P\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40312/10/10\",\"attribution\":\"\",\"thumbURL\":\"\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":3407,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40312/20/10\",\"attribution\":\"\",\"thumbURL\":\"\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":3407,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40312/30/10\",\"attribution\":\"\",\"thumbURL\":\"\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":3407,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40312/40/10\",\"attribution\":\"\",\"thumbURL\":\"\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":3407,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40}]},\"gaNum\":\"L312\",\"leaves\":{\"leavesCount\":2,\"content\":2},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":0,\"content\":\"?\"}}}}",
+  "body_sha256": "121db9a9fbe4a0dab6e003cb93988c6c7e25a584d2e8a1cb6096fb0b6e5abf66",
+  "retrieved_at": "2026-10-08T00:23:16+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

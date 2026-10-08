@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32966",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:10:51 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791418251942",
+    "X-Request-Post-Validation-Epoch": "1791418251943",
+    "X-Request-Response-Epoch": "1791418251947",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1155",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32966,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":2966,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Ukraine\",\"instID\":386,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Vernadsky National Library \",\"place\":\"Kyiv\",\"logoURL\":\"http://ntmss.info/instlogos/Kiev_Vernadskij2.jpg\",\"url\":\"http://www.nbuv.gov.ua/\"},\"leavesDescription\":2,\"shelfID\":6585,\"originYearDescription\":\"X-XI\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Φ. I (Лм), 137/1, fol. 161-162\",\"contentOverview\":\"R\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":1099,\"early\":900,\"content\":\"X-XI\"},\"leavesDescription\":2,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6585,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6585,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":2966,\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":230},\"lang\":\"grc\",\"contentOverview\":\"pK:R\",\"lineCount\":{\"lineCountMin\":35},\"height\":{\"heightMin\":282}}}}",
+  "body_sha256": "439cf9930e1cd13006fb3377482d28d31daad6820949af3c92d476003eacb8a6",
+  "retrieved_at": "2026-10-08T00:10:51+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

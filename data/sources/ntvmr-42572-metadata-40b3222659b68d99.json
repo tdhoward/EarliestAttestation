@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42572",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:44:44 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423884299",
+    "X-Request-Post-Validation-Epoch": "1791423884301",
+    "X-Request-Response-Epoch": "1791423884306",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1710",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42572,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2572\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"France\",\"instID\":67,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliothèque Nationale\",\"place\":\"Paris\",\"logoURL\":\"http://ntmss.info/instlogos/BNF.jpg\",\"url\":\"http://www.bnf.fr/fr/acc/x.accueil.html\"},\"leavesDescription\":2,\"shelfID\":7117,\"originYearDescription\":\"IX/X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Coislin 215 (Nachsatzbll.)\",\"contentOverview\":\"U-l\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":800,\"content\":\"IX/X\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"Matt 27:29-32; Mark 15:16-17\",\"shelfID\":7117,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"1r\",\"indexContent\":\"Matt 27:29-32; Mark 15:16-17\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Mark 15:18-24\",\"shelfID\":7117,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"1v\",\"indexContent\":\"Mark 15:18-24\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Mark 15:26-32; Matt 27:33\",\"shelfID\":7117,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"2r\",\"indexContent\":\"Mark 15:26-32; Matt 27:33\",\"indexTier\":3,\"pageID\":30,\"indexedBy\":\"lakmann\"},{\"biblicalContent\":\"Matt 27:34-42\",\"shelfID\":7117,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"2v\",\"indexContent\":\"Matt 27:34-42\",\"indexTier\":3,\"pageID\":40,\"indexedBy\":\"lakmann\"}]},\"gaNum\":\"L2572\",\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":135},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":18,\"content\":18},\"height\":{\"heightMin\":210}}}}",
+  "body_sha256": "fa35379ade1368271d2399ddd8ad1e4b070f89e0b19a4552e50b1c5946ff7e56",
+  "retrieved_at": "2026-10-08T01:44:44+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

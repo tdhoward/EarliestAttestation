@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "41082",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:41:12 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791420072721",
+    "X-Request-Post-Validation-Epoch": "1791420072722",
+    "X-Request-Response-Epoch": "1791420072732",
+    "X-Response-Time": "11ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "566",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":41082,\"indexContent\":[\"Matt 17:1; Luke 9:32-36\",{\"docID\":41082,\"osisID\":\"Matt.17.1\",\"indexContent\":2001017001,\"pageID\":2850},{\"docID\":41082,\"osisID\":\"Luke.9.32\",\"indexContent\":2003009032,\"pageID\":2850},{\"docID\":41082,\"osisID\":\"Luke.9.33\",\"indexContent\":2003009033,\"pageID\":2850},{\"docID\":41082,\"osisID\":\"Luke.9.34\",\"indexContent\":2003009034,\"pageID\":2850},{\"docID\":41082,\"osisID\":\"Luke.9.35\",\"indexContent\":2003009035,\"pageID\":2850},{\"docID\":41082,\"osisID\":\"Luke.9.36\",\"indexContent\":2003009036,\"pageID\":2850}]}}}",
+  "body_sha256": "f4055ae20416319d7868617cfbd5012a98530b4d1b0beda22e2b1a96a1836849",
+  "retrieved_at": "2026-10-08T00:41:12+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

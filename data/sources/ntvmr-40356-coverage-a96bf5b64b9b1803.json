@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "40356",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:24:37 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419077420",
+    "X-Request-Post-Validation-Epoch": "1791419077421",
+    "X-Request-Response-Epoch": "1791419077424",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1889",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":40356,\"indexContent\":[\"Luke 6:21-23; Matt 24:42-47; Matt 13:45-50; Matt 7:12-14; Mark 7:24-27\",{\"docID\":40356,\"osisID\":\"Matt.24.42\",\"indexContent\":2001024042,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Matt.24.43\",\"indexContent\":2001024043,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Matt.24.44\",\"indexContent\":2001024044,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Matt.24.45\",\"indexContent\":2001024045,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Matt.24.46\",\"indexContent\":2001024046,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Matt.24.47\",\"indexContent\":2001024047,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Luke.6.21\",\"indexContent\":2003006021,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Luke.6.22\",\"indexContent\":2003006022,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Luke.6.23\",\"indexContent\":2003006023,\"pageID\":10},{\"docID\":40356,\"osisID\":\"Matt.13.45\",\"indexContent\":2001013045,\"pageID\":20},{\"docID\":40356,\"osisID\":\"Matt.13.46\",\"indexContent\":2001013046,\"pageID\":20},{\"docID\":40356,\"osisID\":\"Matt.13.47\",\"indexContent\":2001013047,\"pageID\":20},{\"docID\":40356,\"osisID\":\"Matt.13.48\",\"indexContent\":2001013048,\"pageID\":20},{\"docID\":40356,\"osisID\":\"Matt.13.49\",\"indexContent\":2001013049,\"pageID\":20},{\"docID\":40356,\"osisID\":\"Matt.13.50\",\"indexContent\":2001013050,\"pageID\":20},{\"docID\":40356,\"osisID\":\"Matt.24.47\",\"indexContent\":2001024047,\"pageID\":20},{\"docID\":40356,\"osisID\":\"Matt.7.12\",\"indexContent\":2001007012,\"pageID\":30},{\"docID\":40356,\"osisID\":\"Matt.7.13\",\"indexContent\":2001007013,\"pageID\":30},{\"docID\":40356,\"osisID\":\"Matt.7.14\",\"indexContent\":2001007014,\"pageID\":30},{\"docID\":40356,\"osisID\":\"Mark.7.24\",\"indexContent\":2002007024,\"pageID\":40},{\"docID\":40356,\"osisID\":\"Mark.7.25\",\"indexContent\":2002007025,\"pageID\":40},{\"docID\":40356,\"osisID\":\"Mark.7.26\",\"indexContent\":2002007026,\"pageID\":40},{\"docID\":40356,\"osisID\":\"Mark.7.27\",\"indexContent\":2002007027,\"pageID\":40}]}}}",
+  "body_sha256": "330bc57814b9f96320a507ebfe90eb230ac3e9906f90389431dd976886ec2d80",
+  "retrieved_at": "2026-10-08T00:24:37+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

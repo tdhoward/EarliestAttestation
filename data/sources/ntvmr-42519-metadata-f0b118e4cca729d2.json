@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42519",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:42:48 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423768120",
+    "X-Request-Post-Validation-Epoch": "1791423768121",
+    "X-Request-Response-Epoch": "1791423768125",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "980",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42519,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2519\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Egypt\",\"instID\":1,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Greek Orthodox Patriarchate of Alexandria\",\"place\":\"Alexandria\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":2,\"shelfID\":6684,\"originYearDescription\":\"IX/X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"92, fol. 443-444 (Nachsatzbll.)\",\"contentOverview\":\"U-l\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":800,\"content\":\"IX/X\"},\"leavesDescription\":2,\"pages\":{\"count\":1,\"page\":{\"biblicalContent\":\"\",\"shelfID\":6684,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10}},\"gaNum\":\"L2519\",\"leaves\":{\"leavesCount\":0,\"content\":2},\"width\":{\"widthMin\":220},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":22},\"height\":{\"heightMin\":290}}}}",
+  "body_sha256": "8ebde331a8c6078c8da24b0cfc381898bc5cf3c92dbcb31d4980a34e632bd8c5",
+  "retrieved_at": "2026-10-08T01:42:48+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

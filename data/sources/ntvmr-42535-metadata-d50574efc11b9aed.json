@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42535",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:43:19 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423799805",
+    "X-Request-Post-Validation-Epoch": "1791423799806",
+    "X-Request-Response-Epoch": "1791423799812",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1174",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42535,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2535\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Greece\",\"instID\":113,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Great Lavra Monastery\",\"place\":\"Athos\",\"logoURL\":\"http://ntmss.info/instlogos/Lavra.jpg\",\"url\":\"https://www.mountathos.org/en-US/Home-en.aspx\"},\"leavesDescription\":\"2 Frg.\",\"shelfID\":6890,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"B' 70 (Vorsatzbll.)\",\"contentOverview\":\"\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":\"2 Frg.\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6890,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6890,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L2535\",\"leaves\":{\"leavesCount\":0,\"content\":\"2 Frg.\"},\"width\":{\"widthMin\":160},\"lang\":\"grc\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":23,\"content\":23},\"height\":{\"heightMin\":235}}}}",
+  "body_sha256": "d8b8fe9e05707fc561b7fbba61d607ceb00e71c8452846a7109dc2befc8902d0",
+  "retrieved_at": "2026-10-08T01:43:19+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

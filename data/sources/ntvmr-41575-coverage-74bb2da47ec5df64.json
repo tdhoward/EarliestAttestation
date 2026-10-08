@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "41575",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:21:44 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422504952",
+    "X-Request-Post-Validation-Epoch": "1791422504953",
+    "X-Request-Response-Epoch": "1791422504957",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2720",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":41575,\"indexContent\":[\"1Pet 2:7-8; 1Cor 1:22-29; Titus 2:15-3:7; Acts 2:1-5; 1Pet 2:21-25; 1Pet 5:1-5\",{\"docID\":41575,\"osisID\":\"1Pet.2.7\",\"indexContent\":2021002007,\"pageID\":30},{\"docID\":41575,\"osisID\":\"1Pet.2.8\",\"indexContent\":2021002008,\"pageID\":30},{\"docID\":41575,\"osisID\":\"1Cor.1.22\",\"indexContent\":2007001022,\"pageID\":40},{\"docID\":41575,\"osisID\":\"1Cor.1.23\",\"indexContent\":2007001023,\"pageID\":40},{\"docID\":41575,\"osisID\":\"1Cor.1.24\",\"indexContent\":2007001024,\"pageID\":40},{\"docID\":41575,\"osisID\":\"1Cor.1.25\",\"indexContent\":2007001025,\"pageID\":40},{\"docID\":41575,\"osisID\":\"1Cor.1.26\",\"indexContent\":2007001026,\"pageID\":40},{\"docID\":41575,\"osisID\":\"1Cor.1.27\",\"indexContent\":2007001027,\"pageID\":40},{\"docID\":41575,\"osisID\":\"1Cor.1.28\",\"indexContent\":2007001028,\"pageID\":40},{\"docID\":41575,\"osisID\":\"1Cor.1.29\",\"indexContent\":2007001029,\"pageID\":40},{\"docID\":41575,\"osisID\":\"Titus.2.15\",\"indexContent\":2017002015,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Titus.3\",\"indexContent\":2017003000,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Titus.3.1\",\"indexContent\":2017003001,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Titus.3.2\",\"indexContent\":2017003002,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Titus.3.3\",\"indexContent\":2017003003,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Titus.3.4\",\"indexContent\":2017003004,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Titus.3.5\",\"indexContent\":2017003005,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Titus.3.6\",\"indexContent\":2017003006,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Titus.3.7\",\"indexContent\":2017003007,\"pageID\":100},{\"docID\":41575,\"osisID\":\"Acts.2.1\",\"indexContent\":2005002001,\"pageID\":120},{\"docID\":41575,\"osisID\":\"Acts.2.2\",\"indexContent\":2005002002,\"pageID\":120},{\"docID\":41575,\"osisID\":\"Acts.2.3\",\"indexContent\":2005002003,\"pageID\":120},{\"docID\":41575,\"osisID\":\"Acts.2.4\",\"indexContent\":2005002004,\"pageID\":120},{\"docID\":41575,\"osisID\":\"Acts.2.5\",\"indexContent\":2005002005,\"pageID\":120},{\"docID\":41575,\"osisID\":\"1Pet.2.21\",\"indexContent\":2021002021,\"pageID\":130},{\"docID\":41575,\"osisID\":\"1Pet.2.22\",\"indexContent\":2021002022,\"pageID\":130},{\"docID\":41575,\"osisID\":\"1Pet.2.23\",\"indexContent\":2021002023,\"pageID\":130},{\"docID\":41575,\"osisID\":\"1Pet.2.24\",\"indexContent\":2021002024,\"pageID\":130},{\"docID\":41575,\"osisID\":\"1Pet.2.25\",\"indexContent\":2021002025,\"pageID\":130},{\"docID\":41575,\"osisID\":\"1Pet.5.1\",\"indexContent\":2021005001,\"pageID\":140},{\"docID\":41575,\"osisID\":\"1Pet.5.2\",\"indexContent\":2021005002,\"pageID\":140},{\"docID\":41575,\"osisID\":\"1Pet.5.3\",\"indexContent\":2021005003,\"pageID\":140},{\"docID\":41575,\"osisID\":\"1Pet.5.4\",\"indexContent\":2021005004,\"pageID\":140},{\"docID\":41575,\"osisID\":\"1Pet.5.5\",\"indexContent\":2021005005,\"pageID\":140}]}}}",
+  "body_sha256": "6dc1a480a376dcbf3ea440d05818a29f43edf82b45e90de146a937d5798b644b",
+  "retrieved_at": "2026-10-08T01:21:45+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

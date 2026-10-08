@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "41395",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:48:17 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791420497596",
+    "X-Request-Post-Validation-Epoch": "1791420497597",
+    "X-Request-Response-Epoch": "1791420497600",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "702",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":41395,\"indexContent\":[\"John 19:14-20\",{\"docID\":41395,\"osisID\":\"John.19.14\",\"indexContent\":2004019014,\"pageID\":10},{\"docID\":41395,\"osisID\":\"John.19.15\",\"indexContent\":2004019015,\"pageID\":10},{\"docID\":41395,\"osisID\":\"John.19.16\",\"indexContent\":2004019016,\"pageID\":10},{\"docID\":41395,\"osisID\":\"John.19.17\",\"indexContent\":2004019017,\"pageID\":10},{\"docID\":41395,\"osisID\":\"John.19.17\",\"indexContent\":2004019017,\"pageID\":20},{\"docID\":41395,\"osisID\":\"John.19.18\",\"indexContent\":2004019018,\"pageID\":20},{\"docID\":41395,\"osisID\":\"John.19.19\",\"indexContent\":2004019019,\"pageID\":20},{\"docID\":41395,\"osisID\":\"John.19.20\",\"indexContent\":2004019020,\"pageID\":20}]}}}",
+  "body_sha256": "a3d24f14ccf30f495a0a9b6423f969fa960f3aebcf18969335a4c891920e179a",
+  "retrieved_at": "2026-10-08T00:48:17+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

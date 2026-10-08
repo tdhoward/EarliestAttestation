@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32319",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:53:12 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791424392831",
+    "X-Request-Post-Validation-Epoch": "1791424392832",
+    "X-Request-Response-Epoch": "1791424392862",
+    "X-Response-Time": "31ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1068",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32319,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":2319,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Location unknown\",\"instID\":561,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Last known: Germany\",\"place\":\"Location unknown\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"\",\"shelfID\":6494,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"(früher: München, Rosenthal, gr. 52230 + 52231)\",\"contentOverview\":\"\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":-1,\"early\":-100,\"content\":\"?\"},\"leavesDescription\":\"?\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6494,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6494,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":2319,\"leaves\":{\"leavesCount\":0,\"content\":\"?\"},\"lang\":\"g\",\"contentOverview\":\"e:LJ\",\"lineCount\":{\"lineCountMin\":0,\"content\":\"?\"}}}}",
+  "body_sha256": "bfa6c5fbe33ed8563da516fd3afb8f0e466423f48a0e6c9413e5d1cbac2971c2",
+  "retrieved_at": "2026-10-08T01:53:12+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

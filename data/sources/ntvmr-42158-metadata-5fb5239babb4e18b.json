@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42158",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:33:31 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423211668",
+    "X-Request-Post-Validation-Epoch": "1791423211669",
+    "X-Request-Response-Epoch": "1791423211675",
+    "X-Response-Time": "7ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3723",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42158,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2158\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Greece\",\"instID\":209,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Central Public Library\",\"place\":\"Veria\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":12,\"shelfID\":5107,\"originYearDescription\":\"VIII/IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"KB 1, fol. 146-157\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":700,\"content\":\"VIII/IX\"},\"leavesDescription\":12,\"pages\":{\"count\":24,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00050\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":50},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00060\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":60},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00070\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":70},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00080\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":80},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00090\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":90},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00100\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":100},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00110\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":110},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00120\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":120},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00130\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":130},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00140\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":140},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00150\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":150},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00160\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":160},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00170\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":170},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00180\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":180},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00190\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":190},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00200\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":200},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00210\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":210},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00220\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":220},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00230\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":230},{\"biblicalContent\":\"\",\"shelfID\":5107,\"shelfFolioNums\":\"\",\"sortOrder\":\"00240\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":240}]},\"gaNum\":\"L2158\",\"leaves\":{\"leavesCount\":12,\"content\":12},\"width\":{\"widthMin\":225},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":19,\"content\":19},\"height\":{\"heightMin\":320}}}}",
+  "body_sha256": "02e1022b75b6bfde6acb62a85327eff5f34ecd32dbdb5520d7561beef51a11c7",
+  "retrieved_at": "2026-10-08T01:33:31+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

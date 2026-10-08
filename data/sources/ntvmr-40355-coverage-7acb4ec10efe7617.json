@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "40355",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 02:09:09 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791425349388",
+    "X-Request-Post-Validation-Epoch": "1791425349389",
+    "X-Request-Response-Epoch": "1791425349392",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1094",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":40355,\"indexContent\":[\"Luke 13:17; Luke 13:19-29\",{\"docID\":40355,\"osisID\":\"Luke.13.17\",\"indexContent\":2003013017,\"pageID\":40},{\"docID\":40355,\"osisID\":\"Luke.13.19\",\"indexContent\":2003013019,\"pageID\":40},{\"docID\":40355,\"osisID\":\"Luke.13.20\",\"indexContent\":2003013020,\"pageID\":40},{\"docID\":40355,\"osisID\":\"Luke.13.21\",\"indexContent\":2003013021,\"pageID\":40},{\"docID\":40355,\"osisID\":\"Luke.13.22\",\"indexContent\":2003013022,\"pageID\":40},{\"docID\":40355,\"osisID\":\"Luke.13.23\",\"indexContent\":2003013023,\"pageID\":40},{\"docID\":40355,\"osisID\":\"Luke.13.24\",\"indexContent\":2003013024,\"pageID\":40},{\"docID\":40355,\"osisID\":\"Luke.13.24\",\"indexContent\":2003013024,\"pageID\":50},{\"docID\":40355,\"osisID\":\"Luke.13.25\",\"indexContent\":2003013025,\"pageID\":50},{\"docID\":40355,\"osisID\":\"Luke.13.26\",\"indexContent\":2003013026,\"pageID\":50},{\"docID\":40355,\"osisID\":\"Luke.13.27\",\"indexContent\":2003013027,\"pageID\":50},{\"docID\":40355,\"osisID\":\"Luke.13.28\",\"indexContent\":2003013028,\"pageID\":50},{\"docID\":40355,\"osisID\":\"Luke.13.29\",\"indexContent\":2003013029,\"pageID\":50}]}}}",
+  "body_sha256": "849397bd8a169cd02cb2c333b83ae8c41105487278dc5af0a00503f689555eb5",
+  "retrieved_at": "2026-10-08T02:09:09+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

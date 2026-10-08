@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "42465",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:41:28 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423688679",
+    "X-Request-Post-Validation-Epoch": "1791423688680",
+    "X-Request-Response-Epoch": "1791423688683",
+    "X-Response-Time": "4ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1074",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":42465,\"indexContent\":[\"Luke 4:31-36; Luke 5:1-6\",{\"docID\":42465,\"osisID\":\"Luke.4.31\",\"indexContent\":2003004031,\"pageID\":30},{\"docID\":42465,\"osisID\":\"Luke.4.32\",\"indexContent\":2003004032,\"pageID\":30},{\"docID\":42465,\"osisID\":\"Luke.4.33\",\"indexContent\":2003004033,\"pageID\":30},{\"docID\":42465,\"osisID\":\"Luke.4.34\",\"indexContent\":2003004034,\"pageID\":30},{\"docID\":42465,\"osisID\":\"Luke.4.35\",\"indexContent\":2003004035,\"pageID\":30},{\"docID\":42465,\"osisID\":\"Luke.4.35\",\"indexContent\":2003004035,\"pageID\":40},{\"docID\":42465,\"osisID\":\"Luke.4.36\",\"indexContent\":2003004036,\"pageID\":40},{\"docID\":42465,\"osisID\":\"Luke.5.1\",\"indexContent\":2003005001,\"pageID\":40},{\"docID\":42465,\"osisID\":\"Luke.5.2\",\"indexContent\":2003005002,\"pageID\":40},{\"docID\":42465,\"osisID\":\"Luke.5.3\",\"indexContent\":2003005003,\"pageID\":40},{\"docID\":42465,\"osisID\":\"Luke.5.4\",\"indexContent\":2003005004,\"pageID\":40},{\"docID\":42465,\"osisID\":\"Luke.5.5\",\"indexContent\":2003005005,\"pageID\":40},{\"docID\":42465,\"osisID\":\"Luke.5.6\",\"indexContent\":2003005006,\"pageID\":40}]}}}",
+  "body_sha256": "b4c87dbd76b23f3c532375a93ec4ae7c688fab3af2e761c4c155c22398114f96",
+  "retrieved_at": "2026-10-08T01:41:28+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

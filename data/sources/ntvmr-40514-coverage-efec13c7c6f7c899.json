@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/",
+  "params": {
+    "detail": "long",
+    "docID": "40514",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:29:08 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419348744",
+    "X-Request-Post-Validation-Epoch": "1791419348745",
+    "X-Request-Response-Epoch": "1791419348756",
+    "X-Response-Time": "12ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "711",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"indexContents\":{\"docID\":40514,\"indexContent\":[\"Mark 6:13; John 8:3-9\",{\"docID\":40514,\"osisID\":\"Mark.6.13\",\"indexContent\":2002006013,\"pageID\":5180},{\"docID\":40514,\"osisID\":\"John.8.3\",\"indexContent\":2004008003,\"pageID\":5180},{\"docID\":40514,\"osisID\":\"John.8.4\",\"indexContent\":2004008004,\"pageID\":5180},{\"docID\":40514,\"osisID\":\"John.8.5\",\"indexContent\":2004008005,\"pageID\":5180},{\"docID\":40514,\"osisID\":\"John.8.6\",\"indexContent\":2004008006,\"pageID\":5180},{\"docID\":40514,\"osisID\":\"John.8.7\",\"indexContent\":2004008007,\"pageID\":5180},{\"docID\":40514,\"osisID\":\"John.8.8\",\"indexContent\":2004008008,\"pageID\":5180},{\"docID\":40514,\"osisID\":\"John.8.9\",\"indexContent\":2004008009,\"pageID\":5180}]}}}",
+  "body_sha256": "ef1c87643ff72b199bde432a6c75b1286564f5ed66302e37d61d453a0d46c1f5",
+  "retrieved_at": "2026-10-08T00:29:08+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/biblicalcontent/get/"
+}

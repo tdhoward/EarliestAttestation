@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "40771",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 02:10:29 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791425429122",
+    "X-Request-Post-Validation-Epoch": "1791425429123",
+    "X-Request-Response-Epoch": "1791425429128",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1865",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":40771,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":\"L771\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Turkey\",\"instID\":375,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Ecumenical Patriarchate\",\"place\":\"Istanbul\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"?\",\"shelfID\":3848,\"originYearDescription\":\"?\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Triados 2\",\"contentOverview\":\"l\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":-1,\"early\":-100,\"content\":\"?\"},\"leavesDescription\":\"?\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40771/10/10\",\"attribution\":\"\",\"thumbURL\":\"\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":3848,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40771/20/10\",\"attribution\":\"\",\"thumbURL\":\"\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":3848,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":\"L771\",\"leaves\":{\"leavesCount\":0,\"content\":\"?\"},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":0,\"content\":\"?\"}}}}",
+  "body_sha256": "359113cfda13456cde8fd87207bd55e91502a01a59b8e06bf0422b7d4817becb",
+  "retrieved_at": "2026-10-08T02:10:29+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

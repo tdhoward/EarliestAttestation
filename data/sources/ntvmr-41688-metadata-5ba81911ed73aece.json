@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "41688",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:24:55 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791422695620",
+    "X-Request-Post-Validation-Epoch": "1791422695621",
+    "X-Request-Response-Epoch": "1791422695626",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "2227",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":41688,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L1688\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Greece\",\"instID\":87,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"National Historical Museum\",\"place\":\"Athens\",\"logoURL\":\"http://www.nhmuseum.gr/layout/logo_en.png\",\"url\":\"http://www.nhmuseum.gr\"},\"leavesDescription\":2,\"shelfID\":4660,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":264,\"contentOverview\":\"lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"Matt 27:41-48\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=41688/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.csntm.org/manuscript/View/GA_Lect_1688\\\"><div>External Images by<br/>CSNTM\\n</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42482/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":4660,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"Matt 27:41-48\",\"indexTier\":3,\"pageID\":10,\"indexedBy\":\"snhelton\"},{\"biblicalContent\":\"Matt 27:49-54\",\"shelfID\":4660,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"Matt 27:49-54\",\"indexTier\":3,\"pageID\":20,\"indexedBy\":\"snhelton\"},{\"biblicalContent\":\"Mark 15:11-15\",\"shelfID\":4660,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"Mark 15:11-15\",\"indexTier\":3,\"pageID\":30,\"indexedBy\":\"snhelton\"},{\"biblicalContent\":\"Mark 15:1-9\",\"shelfID\":4660,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"Mark 15:1-9\",\"indexTier\":3,\"pageID\":40,\"indexedBy\":\"snhelton\"}]},\"gaNum\":\"L1688\",\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":172},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":22,\"content\":22},\"height\":{\"heightMin\":215}}}}",
+  "body_sha256": "e7fec668ec41bbf89c92a73d7c2179d91d635e94442f9bc50817831b56077316",
+  "retrieved_at": "2026-10-08T01:24:55+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

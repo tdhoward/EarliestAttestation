@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "40454",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:26:48 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791419208000",
+    "X-Request-Post-Validation-Epoch": "1791419208001",
+    "X-Request-Response-Epoch": "1791419208006",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1995",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":40454,\"columns\":{\"columnsMin\":1,\"content\":1},\"groupID\":\"\",\"primaryName\":\"L454\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Ireland\",\"instID\":260,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Trinity College\",\"place\":\"Dublin\",\"logoURL\":\"\",\"url\":\"https://www.trin.cam.ac.uk/library/home/\"},\"leavesDescription\":2,\"shelfID\":3544,\"originYearDescription\":\"IX\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"MS 31 fol. IV\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":899,\"early\":800,\"content\":\"IX\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=40454/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"https://digitalcollections.tcd.ie/home/index.php?DRIS_ID=MS31_001\\\"><div>See External Images by<br/>Trinity College, Dublin</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42482/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/SEE_ETERNAL_IMAGES/See_External_Images.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":3544,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":3544,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"shelfID\":3544,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"shelfID\":3544,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40}]},\"gaNum\":\"L454\",\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":185},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":22,\"content\":22},\"height\":{\"heightMin\":220}}}}",
+  "body_sha256": "1c61cb397556464f3539a11e75c5f21a1d70bc3284aaeef66fdd7f4b4937f914",
+  "retrieved_at": "2026-10-08T00:26:48+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

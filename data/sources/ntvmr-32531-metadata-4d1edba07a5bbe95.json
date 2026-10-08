@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32531",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 00:05:22 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791417922617",
+    "X-Request-Post-Validation-Epoch": "1791417922617",
+    "X-Request-Response-Epoch": "1791417922622",
+    "X-Response-Time": "5ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1158",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32531,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":2531,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"United Kingdom\",\"instID\":228,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Cambridge University Library\",\"place\":\"Cambridge\",\"logoURL\":\"http://ntmss.info/instlogos/cambridge2.jpg\",\"url\":\"http://www.lib.cam.ac.uk/\"},\"leavesDescription\":1,\"shelfID\":2742,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Ms. Dd. 3.50, fol. b\",\"contentOverview\":\"eP: J\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":1,\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":2742,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":2742,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":2531,\"leaves\":{\"leavesCount\":1,\"content\":1},\"width\":{\"widthMin\":185},\"lang\":\"g\",\"contentOverview\":\"e:J\",\"lineCount\":{\"lineCountMin\":26,\"content\":26},\"height\":{\"heightMin\":268}}}}",
+  "body_sha256": "64733170656f6b495d2dce351dc0ee43947a6343c3031421864ab10cc0901b50",
+  "retrieved_at": "2026-10-08T00:05:22+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "42311",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:36:56 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791423416228",
+    "X-Request-Post-Validation-Epoch": "1791423416229",
+    "X-Request-Response-Epoch": "1791423416234",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "3783",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":42311,\"columns\":{\"columnsMin\":2,\"content\":2},\"groupID\":\"\",\"primaryName\":\"L2311\",\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"France\",\"instID\":67,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Bibliothèque Nationale\",\"place\":\"Paris\",\"logoURL\":\"http://ntmss.info/instlogos/BNF.jpg\",\"url\":\"http://www.bnf.fr/fr/acc/x.accueil.html\"},\"leavesDescription\":2,\"shelfID\":5260,\"originYearDescription\":\"X\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"Suppl. Gr. 1092, fol. 2.3\",\"contentOverview\":\"U-lP\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":999,\"early\":900,\"content\":\"X\"},\"leavesDescription\":2,\"pages\":{\"count\":4,\"page\":[{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=42311/10/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.bible-orient-museum.ch/\\n\\\"><div>Images©<br/>Fribourg, Bible + Orient Museum</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42311/10_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":5260,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=42311/20/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.bible-orient-museum.ch/\\n\\\"><div>Images©<br/>Fribourg, Bible + Orient Museum</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42311/20_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":5260,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=42311/30/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.bible-orient-museum.ch/\\n\\\"><div>Images©<br/>Fribourg, Bible + Orient Museum</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42311/30_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":5260,\"shelfFolioNums\":\"\",\"sortOrder\":\"00030\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":30},{\"biblicalContent\":\"\",\"images\":{\"image\":{\"instID\":49,\"shelfID\":0,\"shelfNumberPartID\":\"\",\"accessLevel\":0,\"viewURL\":\"https://ntvmr.uni-muenster.de/community/modules/papyri/?site=VMR&image=42311/40/10\",\"attribution\":\"<a target=\\\"_blank\\\" href=\\\"http://www.bible-orient-museum.ch/\\n\\\"><div>Images©<br/>Fribourg, Bible + Orient Museum</div></a>\",\"thumbURL\":\"https://ntmss.info/images/thumbs/42311/40_49_10.jpg\",\"userName\":\"\",\"uri\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"webFriendlyURL\":\"https://ntmss.info/images/webfriendly/STELLVERTRETER/Stellvertreter.jpg\",\"surrID\":10,\"protectLevel\":0}},\"shelfID\":5260,\"shelfFolioNums\":\"\",\"sortOrder\":\"00040\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":40}]},\"gaNum\":\"L2311\",\"leaves\":{\"leavesCount\":2,\"content\":2},\"width\":{\"widthMin\":200},\"lang\":\"g\",\"contentOverview\":\"\",\"lineCount\":{\"lineCountMin\":22},\"height\":{\"heightMin\":280}}}}",
+  "body_sha256": "cfaef840eade0f9aa1d22b75fb341d4e0e22d38bbc2975d24648b4db9ec8ebf6",
+  "retrieved_at": "2026-10-08T01:36:56+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}

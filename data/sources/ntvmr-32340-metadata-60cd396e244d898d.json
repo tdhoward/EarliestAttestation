@@ -1,0 +1,27 @@
+{
+  "source_url": "https://ntvmr.uni-muenster.de/community/vmr/api/metadata/manuscript/get/",
+  "params": {
+    "detail": "10",
+    "docID": "32340",
+    "format": "json"
+  },
+  "http_status": 200,
+  "headers": {
+    "Date": "Thu, 08 Oct 2026 01:54:58 GMT",
+    "Server": "Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_fcgid/2.3.9 mod_jk/1.2.41",
+    "X-Request-Received-Epoch": "1791424498988",
+    "X-Request-Post-Validation-Epoch": "1791424498989",
+    "X-Request-Response-Epoch": "1791424498994",
+    "X-Response-Time": "6ms",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1103",
+    "Connection": "close"
+  },
+  "raw_body": "{\"status\":\"success\",\"data\":{\"manuscript\":{\"docID\":32340,\"columns\":{\"columnsMin\":0,\"content\":0},\"groupID\":\"\",\"primaryName\":2340,\"shelfInstances\":{\"shelfInstance\":{\"institution\":{\"country\":\"Location unknown\",\"instID\":575,\"nameCustom\":\"\",\"geoLocator\":\"\",\"name\":\"Last known: Turkey\",\"place\":\"Location unknown\",\"logoURL\":\"\",\"url\":\"\"},\"leavesDescription\":\"\",\"shelfID\":6511,\"originYearDescription\":\"\",\"pages\":{\"count\":0},\"manuscripts\":{\"count\":0},\"formerGANumber\":\"\",\"leavesCount\":0,\"shelfNumber\":\"(früher: Trapezunt, Georgiu, s. n.)\",\"contentOverview\":\"\"}},\"userID\":\"\",\"v11n\":\"\",\"originYear\":{\"late\":-1,\"early\":-100,\"content\":\"?\"},\"leavesDescription\":\"?\",\"pages\":{\"count\":2,\"page\":[{\"biblicalContent\":\"\",\"shelfID\":6511,\"shelfFolioNums\":\"\",\"sortOrder\":\"00010\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":10},{\"biblicalContent\":\"\",\"shelfID\":6511,\"shelfFolioNums\":\"\",\"sortOrder\":\"00020\",\"folio\":\"\",\"indexContent\":\"\",\"pageID\":20}]},\"gaNum\":2340,\"leaves\":{\"leavesCount\":0,\"content\":\"?\"},\"width\":{\"widthMin\":130},\"lang\":\"g\",\"contentOverview\":\"e\",\"lineCount\":{\"lineCountMin\":0,\"content\":\"?\"},\"height\":{\"heightMin\":175}}}}",
+  "body_sha256": "0042a44e4009d023f0b8b7273d4eaf85070167eba028fa705fc38f9a00aa1d6c",
+  "retrieved_at": "2026-10-08T01:54:59+00:00",
+  "transport_url": "<local proxy>/community/vmr/api/metadata/manuscript/get/"
+}
