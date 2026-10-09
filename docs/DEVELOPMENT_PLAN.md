@@ -20,8 +20,10 @@ complete date alternatives and count any reported portion once per witness.
 The central register contains 2,584 witnesses and 5,167 registered metadata and
 contents reports across all 27 books. The app projects 4,475 source snapshots
 referenced by displayed evidence. Its 7,941 graphable coordinates have 2,565,074
-reported-present witness/verse pairs and 17,954,470 unknown pairs, with no reported
-absences or source disagreements in the current collection.
+reported-present witness/verse pairs and 17,954,470 unknown pairs, with no registered
+reported absences or source disagreements. These are current export counts, not
+independent content validation. The [source corroboration plan](SOURCE_CORROBORATION_PLAN.md#purpose-and-present-limitation)
+records a known discrepancy for John 7:53–8:11 that is not yet reflected in the app.
 
 The retained catalogue campaign completed all four inventories and capture after
 5,123 request attempts. Its 6,199 distinct candidates include 1,323 eligible and
@@ -84,12 +86,14 @@ witnesses per verse is acceptable; complete date alternatives remain unchanged.
 
 ## Next development work
 
-1. Add explicit scholarly reports when they usefully supply missing contents,
-   qualifications, or complete competing date estimates. Reuse existing captures
-   first. One usable scholarly report is sufficient; unknown contents and fewer
-   than five witnesses remain acceptable. The current saved-response variants are
-   supported, and the declared catalogue campaign has completed capture. Keep
-   unsupported or ambiguous fields visible rather than guessing their meaning.
+1. Follow the agreed [source corroboration plan](SOURCE_CORROBORATION_PLAN.md).
+   Clarify the NTVMR index contract, capture explicit reports for the known
+   Pericope Adulterae discrepancy, implement a separate register of scoped checks,
+   and make discrepancies affect the app's evidence, coverage, and rankings.
+   Evaluate additional sources through a bounded pilot before broader collection.
+   Reuse captures first. One usable scholarly report remains sufficient; unknown
+   contents and fewer than five witnesses remain acceptable. Preserve complete
+   competing dates and keep ambiguous fields visible without guessing their meaning.
 2. Run further live discovery only with a declared need and finite scope, budget,
    provider access expectations, and pacing. The current snapshot includes all
    four catalogue ranges for all 27 books; it does not establish exhaustive

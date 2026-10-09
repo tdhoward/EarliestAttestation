@@ -4,6 +4,21 @@ The central collection uses `ntvmr-source-reports-v1`. `build_collection.py` nor
 captured reports in a temporary SQLite database, verifies source and claim integrity,
 and updates `data/attestations.json` for the single explorer app. No HTML is generated.
 
+## Known limitation and planned review
+
+The rules below describe the current importer. Its admission of expanded NTVMR
+page-index entries as presence claims needs review: the saved reports include
+John 7:53–8:11 for P66, P75, and Vaticanus despite explicit published omission
+reports. Whether NTVMR intends such ranges to exclude internal textual omissions
+has not been established. Do not treat an indexing error or a deliberately coarse
+indexing convention as the confirmed explanation.
+
+The agreed [source corroboration plan](SOURCE_CORROBORATION_PLAN.md) sets out the
+evidence, contract review, additional reports, separate checking register, and app
+changes. Those changes are planned; this notice does not change normalization or
+correct the current dataset. Ambiguous index semantics must remain distinct from
+genuine incompatible scholarly content assertions.
+
 ## Field meanings and limits
 
 The official [contents endpoint documentation](https://ntvmr.uni-muenster.de/community/vmr/api/biblicalcontent/get/)

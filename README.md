@@ -194,6 +194,21 @@ bracketed passages have an independent collection filter. Edition status does no
 determine manuscript contents. See [the source contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md),
 [coordinate inventory](docs/NA28_INVENTORY.md), and [working rules](AGENTS.md).
 
+## Planned source corroboration
+
+Follow the [source corroboration plan](docs/SOURCE_CORROBORATION_PLAN.md) for the
+agreed next work: capture additional scholarly reports, track exactly which
+manuscripts and verse ranges have been checked, and expose discrepancies in the
+existing app. The planned checking register stays outside `attestations.json`;
+the build will project the relevant evidence and coverage consequences for display.
+
+The current NTVMR import counts index entries for John 7:53–8:11 in P66, P75,
+and Vaticanus as present despite published omission reports. Whether these are
+indexing errors or a limitation of the page-range convention remains unresolved.
+The plan records the evidence and the work needed; the collection has not yet
+been corrected. One usable scholarly report remains sufficient, and partial
+checks will not be labelled whole-manuscript validation.
+
 ## Development
 
 ```powershell
