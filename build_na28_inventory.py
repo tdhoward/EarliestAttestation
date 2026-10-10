@@ -8,7 +8,7 @@ import copy
 import json
 from pathlib import Path
 
-from controlled_ntvmr import NT_BOOKS, validate_inventory
+from pipeline.controlled_ntvmr import NT_BOOKS, validate_inventory
 
 
 ROOT = Path(__file__).resolve().parent

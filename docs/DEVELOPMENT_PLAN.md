@@ -17,102 +17,77 @@ complete date alternatives and count any reported portion once per witness.
 
 ## Current implementation
 
-The central register contains 2,584 witnesses and 5,167 registered metadata and
-contents reports across all 27 books. The app projects 4,475 source snapshots
-referenced by displayed evidence. Its 7,941 graphable coordinates have 2,565,074
-reported-present witness/verse pairs and 17,954,470 unknown pairs, with no registered
-reported absences or source disagreements. These are current export counts, not
-independent content validation. The [source corroboration plan](SOURCE_CORROBORATION_PLAN.md#purpose-and-present-limitation)
-records a known discrepancy for John 7:53–8:11 that is not yet reflected in the app.
+The central collection and single app are implemented. The current export has
+2,584 witnesses, 5,167 registered metadata/contents reports, and 4,479 source
+snapshots associated with active evidence. Its 7,941 graphable coordinates have
+2,565,038 reported-present witness/verse pairs, 17,954,458 unknown pairs, and
+48 reported absences, with no contested pairs. These are export counts, not
+independent content validation. The registers and `data/attestations.json` hold
+the current machine-readable state.
 
-The retained catalogue campaign completed all four inventories and capture after
-5,123 request attempts. Its 6,199 distinct candidates include 1,323 eligible and
-4,876 date-excluded candidates under the declared earliest-date-before-1000 CE
-scope. Offline import resolved all 705 previously pending eligible candidates;
-none remain pending. All 27 books record completion of this bounded scope. The
-11 earlier book-search records are preserved. This is completion of the declared
-snapshot, not exhaustive manuscript-corpus discovery.
+- **Discovery:** all four retained catalogue inventories and eligible capture/import
+  are complete within the declared earliest-date-before-1000 CE scope. This does
+  not establish exhaustive corpus discovery. See
+  [current source scope](BOUNDED_WITNESS_DISCOVERY.md#current-source-scope).
+- **Corroboration:** the bounded omission sample and selected first-five extraction
+  review have reached their agreed stopping point. Independent comparisons remain
+  deferred where unavailable. See the
+  [findings and reopening conditions](SOURCE_CORROBORATION_PLAN.md#next-actions-and-verification);
+  [SOURCE_CHECKS.md](SOURCE_CHECKS.md) owns the schema and checking commands.
+- **App and build:** both writers produce compact version-5 JSON; the app also
+  reads versions 1–4. Builds validate provenance and rankings offline in a fresh,
+  disposable database, stream records, enforce a default 2 GiB OS memory limit,
+  and replace the app data atomically. See the
+  [explorer contract](ATTESTATION_EXPLORER.md) for formats, runtime, verification,
+  and measured resource use.
 
-The importer accepts the retained empty-string contents reports, integer date
-notations, explicit multilingual Greek catalogue codes, and mixed-book reports.
-Empty contents remain unknown; only explicit NT verse entries establish presence.
-Raw reports and exact date endpoints remain unchanged. The Latin-coded catalogue
-record 31133 remains unimported with its raw responses retained; its reported
-1300–1399 date already excludes it from the current discovery scope.
-
-The browser uses version 5 JSON, produced by both collection writers through
-`browser_format.py`. Claims use numeric columns and shared coordinate references;
-providers and ranking events are interned. Exact coverage links use compact
-numeric sequences and contextual claim-ID differences. Ordinary coordinate status
-is a default; discovery uses per-book summaries; date selection stores only
-constraints for competing choices. Full source evidence remains in the registers
-and captures. The current file is 23,951,851 bytes. All content claims, complete
-date records, coverage states, rankings and displayed discovery summaries survive
-the projection unchanged.
-
-The runtime validates compact columns without expanding the witness/verse matrix,
-uses the narrowest safe typed arrays, shares chart events, and resolves selected
-source details on demand. An offline Node/V8 measurement of the rebuilt model
-retained 116,908,803 bytes (about 117 MB) of heap plus array buffers; browser and
-DOM overhead are additional. Production checks cover all 15,914 book/verse chart
-cells in both date modes without expanding the witness/verse coverage matrix.
-Versions 1–4 remain readable. See [the explorer documentation](ATTESTATION_EXPLORER.md)
-for the format and runtime contract. Offline tests use bounded fictional and
-25-witness pilot fixtures, independent of future production collection growth.
-
-The builder validates raw hashes, provenance, mappings, identity, complete date
-intervals and derived results in a fresh temporary SQLite database. Builds are
-offline and atomically replace the current JSON file. The request collector
-retains budget/resume checkpoints in ignored cache storage. Older review-table
-code remains outside the app's scholarly-report path.
-
-`collect_catalogue.py` now supports resumable overnight capture across all four
-Greek NT catalogue ranges. Paginated inventories include records without book
-indexing and queue each eligible manuscript's metadata and verse contents once for reuse
-across all 27 books. Launches have a finite time budget, optional cumulative
-request ceiling, at least five-second persistent spacing, and provider-block
-stops; there is no 50-attempt cap. Capture, offline import, and app rebuilding are
-separate commands. Format-2 catalogue scopes coexist with existing book-index
-scopes. The current rebuild reused captured responses and made no live requests.
-See [overnight collection](BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-collection).
-
-Catalogue collection defaults to valid inventory date ranges beginning before
-1000 CE, with unknown dates and retained earlier scholarly alternatives remaining
-eligible. The cutoff is configurable and applies to unfinished jobs on resume;
-captured reports remain preserved. Date exclusions retain source evidence and
-reasons and do not count as pending collection or coverage assertions. The app
-qualifies discovery completion by the declared date scope. Fewer than five
-witnesses per verse is acceptable; complete date alternatives remain unchanged.
+The [repository guide](README.md) maps commands, shared implementation, and data
+ownership. Keep detailed behavior and findings in their primary documents rather
+than copying them into this plan.
 
 ## Next development work
 
-1. Follow the agreed [source corroboration plan](SOURCE_CORROBORATION_PLAN.md).
-   Clarify the NTVMR index contract, capture explicit reports for the known
-   Pericope Adulterae discrepancy, implement a separate register of scoped checks,
-   and make discrepancies affect the app's evidence, coverage, and rankings.
-   Evaluate additional sources through a bounded pilot before broader collection.
-   Reuse captures first. One usable scholarly report remains sufficient; unknown
-   contents and fewer than five witnesses remain acceptable. Preserve complete
-   competing dates and keep ambiguous fields visible without guessing their meaning.
-2. Run further live discovery only with a declared need and finite scope, budget,
-   provider access expectations, and pacing. The current snapshot includes all
-   four catalogue ranges for all 27 books; it does not establish exhaustive
-   manuscript-corpus discovery. Future inventories or book/range searches must be
-   recorded independently. Use the owner-supplied local proxy when direct access
-   is unavailable, retain canonical citations, and honor provider blocks. Preserve
-   the default 1000 CE earliest-date scope unless a different scope is explicitly
-   declared; do not extend it solely to fill five ranking places.
-3. Extend supported mappings and source-reported date applicability only when
-   required by collected reports. The current coordinate mappings have no gaps.
-   Portion-specific dates remain planned; record portions, hands, joins, and
-   applicability only as explicitly reported by sources.
-4. Keep collection efficient and the app usable as the dataset grows. Measure
-   witnesses, usable reports, graphable coordinates, unresolved records, request
-   cost, browser data size, and retained runtime memory. Preserve bounded offline
-   regression fixtures. Prefer concrete bottlenecks over new infrastructure.
+The current [scoped source review](SOURCE_CORROBORATION_PLAN.md#next-actions-and-verification)
+has reached its agreed stop condition. There is no remaining unreviewed first-five
+queue. Deferred independent comparisons remain visible; they do not require a
+broader acquisition campaign. Further work is conditional on changed evidence or
+rankings:
+
+1. Recheck affected selected scopes when their source evidence, extraction,
+   admission, or method changes, following
+   [step 2](SOURCE_CORROBORATION_PLAN.md#step-2-check-only-claims-affecting-the-first-five).
+   Both date modes and retained complete date alternatives participate. Check only
+   the relevant presence claims and dates; selection for one verse does not
+   authorize reviewing a witness's unrelated contents. One usable source is sufficient.
+2. After a correction, update affected rankings and rerun compact queue selection
+   to include promoted replacements. Empty, unreviewed selection entries are
+   refreshed; completed outcomes and their evidence remain. Unavailable rankings
+   stay explicit. Stop when selected claims have scoped outcomes; unresolved
+   cases may remain deferred and fewer than five usable witnesses is acceptable.
+3. Retain the bounded sample conclusion and current John treatment. Additional
+   general omission sampling, provider contact, and broader source pilots remain
+   deferred. No provider explanation or universal index rule was established.
+4. Use focused offline validation during this work. Target selection and scoped
+   checks do not need a production rebuild. Rebuild when registered claims or
+   output behavior change, under the existing memory ceiling; avoid full-matrix
+   expansion and repeated builds just to report progress.
+
+Broader source pilots, new general-purpose collectors, and investigation of
+lower-ranked witnesses are deferred. Existing discovery tools, captures, source
+checks, and bounded tests remain available; the current snapshot and date cutoff
+are unchanged. Any live requests needed for the sample or selected claims must
+have a declared finite scope, budget, pacing, and provider access expectations.
+Honor blocks and use the documented local proxy when applicable. No expansion of
+the 1000 CE earliest-date scope or portion-specific date implementation is needed
+for this work.
 
 ## Acceptance
 
+- The omission sample has a bounded, cited conclusion; any localized explanation
+  stays distinct from a provider-confirmed correction or universal index rule.
+- The John cases have consistent evidence, coverage, counts, and rankings.
+- Further checks cover only first-five claims and promoted replacements across
+  both date modes and retained alternatives, with unresolved outcomes recorded.
 - New collection appears in the existing app after refreshing its data file.
 - Existing books, witnesses, citations, qualifications, and date alternatives
   survive additions without duplicate witness counts or inferred adjacent coverage.

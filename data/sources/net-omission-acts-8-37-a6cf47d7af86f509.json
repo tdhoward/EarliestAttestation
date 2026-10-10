@@ -1,0 +1,29 @@
+{
+  "report_id": "net-omission-acts-8-37",
+  "provider": "NET Bible / Biblical Studies Press",
+  "title": "NET Bible textual note for Acts.8.37",
+  "citation": "NET Bible, Acts.8.37, textual note 1. https://classic.net.bible.org/verse.php?book=Act&chapter=8&verse=37",
+  "source_url": "https://classic.net.bible.org/verse.php?book=Act&chapter=8&verse=37",
+  "retrieved_at": "2026-10-09T22:52:37.566514+00:00",
+  "raw_body": "Verse 37 is lacking in {Ì45,74 א A B C 33 614 vg syp,h co}.",
+  "body_sha256": "a6cf47d7af86f509751b0eee9506ef1e8d35fdabca350398f7be3f3b45b40b44",
+  "material_kind": "scholarly_excerpts",
+  "capture_method": "web-rendered-excerpt",
+  "capture_note": "Short verbatim prose assertion retained from the successful web tool response on 2026-10-09; whitespace normalized and superscript sigla flattened as rendered. Original HTTP bytes were unavailable. A separate direct download of the Matthew page returned HTTP 403; direct requests stopped without retries. No manuscript text, images, or apparatus were examined.",
+  "upstream_sources": [],
+  "coverage": [
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "Acts.8.37",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Acts.8.37, NET textual note 1",
+      "statement_span": [
+        0,
+        59
+      ],
+      "qualifications": "Explicit scholarly prose omission assertion, extracted only for Vaticanus (B, GA 03) and this exact verse. Other named witnesses and explanations of textual origin are outside this control sample. Rendered sigla are preserved; no writing layers or dates are inferred."
+    }
+  ],
+  "dates": []
+}

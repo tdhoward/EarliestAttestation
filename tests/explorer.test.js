@@ -1086,3 +1086,25 @@ test("mounted selection and source details render identical safe text across ver
   }
   assert.deepEqual(snapshots[1], snapshots[0]); assert.deepEqual(snapshots[2], snapshots[0]);
 });
+
+test("source details show scoped index admission evidence as safe text and a source link", () => {
+  const {normalized} = transferFixture();
+  normalized.metadata.counts = {verse_count: 6, witness_count: 7, graphable_coordinates: 3,
+    mapping_gaps: 1, witness_verse_pairs: {present: 3, unknown: 2, absent: 1, contested: 1}};
+  const statement = 'Fictional omission assertion <script>retained as text</script>.';
+  normalized.claims["101"].index_limitation = {evidence: [{
+    source_url: "https://example.org/scoped-omission", retrieved_at: "2026-10-09T12:00:00Z",
+    source_locator: "Fictional published table row", statement
+  }]};
+  const dom = explorerDOM(), app = mount(dom.root, createModel(normalized));
+  const details = dom.nodes.get("source-details");
+  details.open = true; details.dispatch("toggle");
+  const contents = dom.text(dom.nodes.get("claims"));
+  assert.ok(contents.includes(statement));
+  assert.ok(contents.includes("Fictional published table row"));
+  assert.ok(contents.includes("Index limitation evidence ↗"));
+  const links = item => [...(item.tag === "a" ? [item.href] : []), ...item.children.flatMap(links)];
+  assert.ok(links(dom.nodes.get("claims")).includes("https://example.org/scoped-omission"));
+  assert.equal(dom.nodes.get("claims").children.some(item => item.tag === "script"), false);
+  app.destroy();
+});

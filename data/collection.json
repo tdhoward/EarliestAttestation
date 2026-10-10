@@ -480,7 +480,37 @@
       "doc_id": 10066,
       "corpus": "greek_nt_manuscript",
       "metadata_fixture": "sources/ntvmr-10066-metadata-591ac6c6de89106b.json",
-      "coverage_fixture": "sources/ntvmr-10066-coverage-e433796731d28a9a.json"
+      "coverage_fixture": "sources/ntvmr-10066-coverage-e433796731d28a9a.json",
+      "index_limitations": [
+        {
+          "limitation_id": "john-pa-range-admission",
+          "verses": [
+            "John.7.53",
+            "John.8.1",
+            "John.8.2",
+            "John.8.3",
+            "John.8.4",
+            "John.8.5",
+            "John.8.6",
+            "John.8.7",
+            "John.8.8",
+            "John.8.9",
+            "John.8.10",
+            "John.8.11"
+          ],
+          "metadata_sha256": "3eaece43cc8b5373f2870bc0277201e348676a10312eb50e2c176d51cd75bfc9",
+          "coverage_sha256": "54aacc67105d1c9372755d0f7efce47aecd066fd19490dfc6f8f38d459696ca2",
+          "reason": "The saved expanded page range includes an explicit published omission. The three-case control sample supplied no internal exclusions and no provider clarification; this exact index contribution cannot establish verse presence. Unrelated index entries remain admitted.",
+          "evidence": [
+            {
+              "capture_file": "sources/wallace-john-pa-f2077311ebf42d87.json",
+              "body_sha256": "f2077311ebf42d875a4d21aee946bb84e13df702904a1e57c510b7c6d47aeb49",
+              "source_locator": "Lecture section 1; retained excerpt line 1",
+              "statement": "this passage is missing"
+            }
+          ]
+        }
+      ]
     },
     {
       "doc_id": 10067,
@@ -534,7 +564,37 @@
       "doc_id": 10075,
       "corpus": "greek_nt_manuscript",
       "metadata_fixture": "sources/ntvmr-10075-metadata-f23780f58cf31e65.json",
-      "coverage_fixture": "sources/ntvmr-10075-coverage-36d8c48c2796fa2e.json"
+      "coverage_fixture": "sources/ntvmr-10075-coverage-36d8c48c2796fa2e.json",
+      "index_limitations": [
+        {
+          "limitation_id": "john-pa-range-admission",
+          "verses": [
+            "John.7.53",
+            "John.8.1",
+            "John.8.2",
+            "John.8.3",
+            "John.8.4",
+            "John.8.5",
+            "John.8.6",
+            "John.8.7",
+            "John.8.8",
+            "John.8.9",
+            "John.8.10",
+            "John.8.11"
+          ],
+          "metadata_sha256": "37f95cfd89187ab1dfc9b01b0f9eafc4198bda89d0401c395d63f3c2744e9e8c",
+          "coverage_sha256": "f50f0cb10e4e4e8929c57db36ec9d94c2e6f0043bef44239af651418290e1a75",
+          "reason": "The saved expanded page range includes an explicit published omission. The three-case control sample supplied no internal exclusions and no provider clarification; this exact index contribution cannot establish verse presence. Unrelated index entries remain admitted.",
+          "evidence": [
+            {
+              "capture_file": "sources/wallace-john-pa-f2077311ebf42d87.json",
+              "body_sha256": "f2077311ebf42d875a4d21aee946bb84e13df702904a1e57c510b7c6d47aeb49",
+              "source_locator": "Lecture section 1; retained excerpt line 1",
+              "statement": "this passage is missing"
+            }
+          ]
+        }
+      ]
     },
     {
       "doc_id": 10076,
@@ -852,7 +912,88 @@
       "doc_id": 20003,
       "corpus": "greek_nt_manuscript",
       "metadata_fixture": "sources/ntvmr-20003-metadata-93125714bc733b74.json",
-      "coverage_fixture": "sources/ntvmr-20003-coverage-a097c548ce73a934.json"
+      "coverage_fixture": "sources/ntvmr-20003-coverage-a097c548ce73a934.json",
+      "index_limitations": [
+        {
+          "limitation_id": "john-pa-range-admission",
+          "verses": [
+            "John.7.53",
+            "John.8.1",
+            "John.8.2",
+            "John.8.3",
+            "John.8.4",
+            "John.8.5",
+            "John.8.6",
+            "John.8.7",
+            "John.8.8",
+            "John.8.9",
+            "John.8.10",
+            "John.8.11"
+          ],
+          "metadata_sha256": "4d919f172737b6aead63610dc3a4351283669b6b95bd4c91b18948bb2cbefcac",
+          "coverage_sha256": "d1bc36a06d1d7edbabdbe8cdaa79e98455352bee4f57d7a48b557a80b21dab92",
+          "reason": "The saved expanded page range includes an explicit published omission. The three-case control sample supplied no internal exclusions and no provider clarification; this exact index contribution cannot establish verse presence. Unrelated index entries remain admitted.",
+          "evidence": [
+            {
+              "capture_file": "sources/wallace-john-pa-f2077311ebf42d87.json",
+              "body_sha256": "f2077311ebf42d875a4d21aee946bb84e13df702904a1e57c510b7c6d47aeb49",
+              "source_locator": "Lecture section 1; retained excerpt line 3",
+              "statement": "It is also missing in aleph and B"
+            }
+          ]
+        },
+        {
+          "limitation_id": "internal-omission-matt.17.21",
+          "verses": [
+            "Matt.17.21"
+          ],
+          "metadata_sha256": "4d919f172737b6aead63610dc3a4351283669b6b95bd4c91b18948bb2cbefcac",
+          "coverage_sha256": "d1bc36a06d1d7edbabdbe8cdaa79e98455352bee4f57d7a48b557a80b21dab92",
+          "reason": "The saved expanded page range includes an explicit published omission. The three-case control sample supplied no internal exclusions and no provider clarification; this exact index contribution cannot establish verse presence. Unrelated index entries remain admitted.",
+          "evidence": [
+            {
+              "capture_file": "sources/net-omission-matt-17-21-4705cb5b1cce3e9d.json",
+              "body_sha256": "4705cb5b1cce3e9d37cf8e2e9fe1bab72a20a9eb7541641604151013aa15cc2f",
+              "source_locator": "Matt.17.21, NET textual note 1",
+              "statement": "Many important mss (א* B Θ 0281 33 579 892* pc e ff1 sys,c sa) do not include 17:21"
+            }
+          ]
+        },
+        {
+          "limitation_id": "internal-omission-mark.15.28",
+          "verses": [
+            "Mark.15.28"
+          ],
+          "metadata_sha256": "4d919f172737b6aead63610dc3a4351283669b6b95bd4c91b18948bb2cbefcac",
+          "coverage_sha256": "d1bc36a06d1d7edbabdbe8cdaa79e98455352bee4f57d7a48b557a80b21dab92",
+          "reason": "The saved expanded page range includes an explicit published omission. The three-case control sample supplied no internal exclusions and no provider clarification; this exact index contribution cannot establish verse presence. Unrelated index entries remain admitted.",
+          "evidence": [
+            {
+              "capture_file": "sources/net-omission-mark-15-28-7d6ecab96fd9948e.json",
+              "body_sha256": "7d6ecab96fd9948ec18a95850b1ef2b6f3f7b7bb81b0d795edde5834d4633bbd",
+              "source_locator": "Mark.15.28, NET textual note 1",
+              "statement": "but is lacking in important Alexandrian and Western mss and some others (א A B C D Ψ pc)."
+            }
+          ]
+        },
+        {
+          "limitation_id": "internal-omission-acts.8.37",
+          "verses": [
+            "Acts.8.37"
+          ],
+          "metadata_sha256": "4d919f172737b6aead63610dc3a4351283669b6b95bd4c91b18948bb2cbefcac",
+          "coverage_sha256": "d1bc36a06d1d7edbabdbe8cdaa79e98455352bee4f57d7a48b557a80b21dab92",
+          "reason": "The saved expanded page range includes an explicit published omission. The three-case control sample supplied no internal exclusions and no provider clarification; this exact index contribution cannot establish verse presence. Unrelated index entries remain admitted.",
+          "evidence": [
+            {
+              "capture_file": "sources/net-omission-acts-8-37-a6cf47d7af86f509.json",
+              "body_sha256": "a6cf47d7af86f509751b0eee9506ef1e8d35fdabca350398f7be3f3b45b40b44",
+              "source_locator": "Acts.8.37, NET textual note 1",
+              "statement": "Verse 37 is lacking in {Ì45,74 א A B C 33 614 vg syp,h co}."
+            }
+          ]
+        }
+      ]
     },
     {
       "doc_id": 20004,
@@ -15536,8 +15677,30 @@
       "coverage_fixture": "sources/ntvmr-31325-coverage-74685cdcbb7155af.json"
     }
   ],
-  "additional_reports": [],
+  "additional_reports": [
+    {
+      "capture_file": "sources/wallace-john-pa-f2077311ebf42d87.json",
+      "admission": "active"
+    },
+    {
+      "capture_file": "sources/houghton-john-pa-a12b86ef2108d68c.json",
+      "admission": "pending_contract_review"
+    },
+    {
+      "capture_file": "sources/net-omission-matt-17-21-4705cb5b1cce3e9d.json",
+      "admission": "active"
+    },
+    {
+      "capture_file": "sources/net-omission-mark-15-28-7d6ecab96fd9948e.json",
+      "admission": "active"
+    },
+    {
+      "capture_file": "sources/net-omission-acts-8-37-a6cf47d7af86f509.json",
+      "admission": "active"
+    }
+  ],
   "include_omitted": false,
   "include_bracketed": true,
-  "discovery": "discovery.json"
+  "discovery": "discovery.json",
+  "source_checks": "source_checks.json"
 }

@@ -9,16 +9,16 @@ import unittest
 from unittest.mock import patch
 
 from build_collection import DATA, ROOT, prepare_collection, read_json, refresh, write_json
-from source_reports import capture
-from report_explorer import expand_explorer_data
-from browser_format import pack_browser_data, project_browser_data
+from pipeline.source_reports import capture
+from pipeline.report_explorer import expand_explorer_data
+from pipeline.browser_format import pack_browser_data, project_browser_data
 from collection_fixture import pilot_collection, pilot_discovery, build_pilot, PILOT_DATA
 
 
 class CollectionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
+        with patch("pipeline.controlled_ntvmr.transport", side_effect=AssertionError("No network")):
             cls.data = build_pilot()
             config = pilot_collection()
             config["documents"] = [d for d in config["documents"] if d["doc_id"] != 10133]
@@ -137,20 +137,21 @@ class CollectionTests(unittest.TestCase):
             smaller = deepcopy(config)
             smaller["documents"] = config["documents"][:3]
             write_json(directory / "collection.json", smaller)
-            with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
+            with patch("pipeline.controlled_ntvmr.transport", side_effect=AssertionError("No network")):
                 previous = refresh(directory)
                 self.assertEqual(previous["metadata"]["counts"]["witness_verse_pairs"]["present"], 16401)
                 write_json(directory / "collection.json", config)
                 updated = refresh(directory)
-                self.assertEqual(updated, self.data)
+                self.assertEqual(expand_explorer_data(updated), project_browser_data(self.data))
                 body = (directory / "attestations.json").read_bytes()
-                self.assertEqual(read_json(directory / "attestations.json"), pack_browser_data(updated))
+                self.assertEqual(read_json(directory / "attestations.json"), updated)
                 self.assertEqual(refresh(directory), updated)
                 self.assertEqual((directory / "attestations.json").read_bytes(), body)
                 self.assertEqual(refresh(directory, check=True), updated)
                 self.assertEqual((directory / "attestations.json").read_bytes(), body)
                 self.assertEqual(set(p.name for p in directory.iterdir()),
-                                 {"collection.json", "discovery.json", "attestations.json", "sources", "reference"})
+                                 {"collection.json", "discovery.json", "attestations.json", "sources", "reference", ".cache"})
+                self.assertEqual(list((directory / ".cache").iterdir()), [])
                 config["books"] = ["Gal"]
                 write_json(directory / "collection.json", config)
                 with self.assertRaisesRegex(ValueError, "out of date"):
@@ -211,7 +212,7 @@ class CollectionTests(unittest.TestCase):
     def test_full_book_scope_reuses_reports_without_changing_prior_results(self):
         config = pilot_collection()
         config["books"] = ["Rom", "1Cor", "2Cor", "Gal", "Eph", "Phil", "Col", "1Thess", "Heb"]
-        with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
+        with patch("pipeline.controlled_ntvmr.transport", side_effect=AssertionError("No network")):
             previous_scope = build_pilot(config)
         self.assertEqual(previous_scope["metadata"]["counts"]["verse_count"], 2020)
         for ref, row in previous_scope["observations"].items():
@@ -307,7 +308,7 @@ class CollectionTests(unittest.TestCase):
         config = pilot_collection()
         config["documents"] = [d for d in config["documents"] if d["doc_id"] not in (10016, 10030, 10032, 10061, 10065, 10087, 10133, 10139)]
         records = [r for r in pilot_discovery() if r["definition"]["book"] not in ("Col", "Phil", "1Thess", "2Thess", "Phlm", "Titus", "1Tim", "2Tim")]
-        with patch("controlled_ntvmr.transport", side_effect=AssertionError("No network")):
+        with patch("pipeline.controlled_ntvmr.transport", side_effect=AssertionError("No network")):
             before = build_pilot(config, discovery_records=records)
         for table in ("claims", "dates"):
             for key, value in before[table].items():

@@ -7,7 +7,15 @@ The app therefore ranks up to five **earliest collected witnesses per verse**,
 including in the book view, and displays discovery status separately from
 reported contents and date rankability.
 
-## Planned catalogue scope
+The current [source corroboration work](SOURCE_CORROBORATION_PLAN.md) uses retained
+captures for a small internal-omission sample and review of first-five claims.
+Broader collection is deferred. The workflow below documents existing discovery
+capabilities and completion semantics; it does not require another catalogue
+campaign or corroboration of every discovered manuscript.
+
+## Catalogue scope
+
+The declared snapshot below is complete. Broader collection remains deferred.
 
 The discovery target is all 27 New Testament books across all four NTVMR Greek
 NT manuscript categories, using budgeted catalogue inventories or independent
@@ -29,9 +37,11 @@ A verse's fifth earliest collected witness may date much later than its first,
 and the five may span categories. The default catalogue collection scope keeps
 date ranges beginning before 1000 CE, unknown dates, and known earlier scholarly
 alternatives. Fewer than five witnesses per verse is acceptable within this scope.
-Neither finding five witnesses nor finding early papyri completes the planned
-discovery target. Discover candidates independently in all four categories and
-rank collected witnesses using their scholarly contents and complete date reports.
+Finding five witnesses or early papyri alone does not establish discovery
+completeness. When discovery is undertaken, candidates are sought independently
+in all four categories and ranked using scholarly contents and complete date
+reports. That discovery scope is distinct from the current first-five review
+limit; it does not require further live searches now.
 
 The current register includes inventories for all four categories. Discovery
 flags evaluate only scopes registered in `data/discovery.json`; they do not
@@ -78,7 +88,7 @@ Canonical HTTPS is the default. Optional `--https-proxy` uses a configured CONNE
 proxy. The owner-supplied local API proxy uses
 `--base-url "<local proxy>/community/vmr/api"` and must be recorded in the
 ignored request definition. Substitute the address documented once in
-[README](../README.md#collect-more-data) before running. Scholarly citations always
+[README](../README.md#local-api-proxy) before running. Scholarly citations always
 use canonical NTVMR endpoints; TLS verification is not a collection prerequisite.
 Permanent records replace the proxy origin with `<local proxy>` while preserving
 raw response bodies, hashes, paths, parameters, and retrieval dates. Actual request
@@ -221,7 +231,9 @@ earlier candidates. Missing contents entries remain unknown, never inferred abse
 
 The central register retains four completed catalogue inventories for IDs
 10000–19999, 20000–29999, 30000–39999, and 40000–49999, applicable to all 27 books.
-The captured inventory contains 6,199 distinct candidates. Capture finished after
+The captured inventory contains 6,199 distinct candidates: 1,323 eligible and
+4,876 date-excluded. Offline import resolved all 705 previously pending eligible
+candidates; none remain pending. All 27 books record completion of this scope. Capture finished after
 5,123 campaign request attempts, with no failed request jobs or provider block.
 These are completion claims for the declared ranges and source snapshot;
 `corpus_complete` remains false.
@@ -239,8 +251,7 @@ Hebrews, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Thessalonians,
 range-wide discovery; reusing contents by itself creates no search completion.
 
 The current eligible, excluded, and pending counts are reported independently in
-`data/attestations.json` under `metadata.discovery_summary`, and in
-[the development plan](DEVELOPMENT_PLAN.md#current-implementation). The default
+`data/attestations.json` under `metadata.discovery_summary`. The default
 cutoff excludes valid inventory ranges beginning at or after 1000 CE unless a
 retained earlier scholarly estimate qualifies. Unknown dates stay eligible.
 Previously captured later reports are preserved; fewer than five witnesses per

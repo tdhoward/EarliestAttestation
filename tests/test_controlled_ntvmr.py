@@ -8,7 +8,7 @@ import unittest
 from audit_reviewed import (audit_database as audit_reviewed_database, load_benchmark,
                             load_date_source, load_source_controls)
 
-from controlled_ntvmr import (
+from pipeline.controlled_ntvmr import (
     AccessBlocked, Client, ContractError, RunStopped, collect_stage, connect,
     catalogue_params, catalogue_report, collect_catalogue_scope, collect_search,
     discovery_report, export_p52, import_language_probe, import_p52,

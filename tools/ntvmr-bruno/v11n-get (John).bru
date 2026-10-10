@@ -1,0 +1,26 @@
+meta {
+  name: v11n/get (John, exploratory KJV)
+  type: http
+  seq: 1
+  tags: [
+    smoke
+    ntvmr
+  ]
+}
+
+get {
+  url: {{BASE_URL}}/metadata/v11n/get/?v11nid=KJV&detail=chapter&subset=John
+  body: none
+  auth: none
+}
+
+params:query {
+  v11nid: KJV
+  detail: chapter
+  subset: John
+}
+
+headers {
+  Accept: application/xml
+  User-Agent: EarliestAttestation/0.2 (research collector; project repository)
+}

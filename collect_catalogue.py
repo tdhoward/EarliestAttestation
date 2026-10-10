@@ -13,13 +13,13 @@ import sqlite3
 import time
 from urllib.parse import urlsplit
 
-from build_collection import DATA, ROOT, data_path, read_json, write_json
+from build_collection import DATA, ROOT, data_path, load_additional_reports, read_json, write_json
 from collect_source_discovery import https_proxy_transport, retained_transport
-from controlled_ntvmr import (API_BASE, NT_BOOKS, AccessBlocked, Client, ContractError,
+from pipeline.controlled_ntvmr import (API_BASE, NT_BOOKS, AccessBlocked, Client, ContractError,
                               JobFailure, RunStopped, encoded, now, transport)
-from source_discovery import (catalogue_date_decision, prepare_discovery, range_params, response_capture,
+from pipeline.source_discovery import (catalogue_date_decision, prepare_discovery, range_params, response_capture,
                               sha, validate_date_cutoff, validate_search_capture)
-from source_reports import (GREEK_LANGUAGE_CODES, additional_date_claims, capture,
+from pipeline.source_reports import (GREEK_LANGUAGE_CODES, additional_date_claims, capture,
                             discovery_date_overrides, metadata_date_claim)
 
 
@@ -323,8 +323,10 @@ def retained_dates(con, data_dir, collection):
         dates.append({**metadata_date_claim(documents.get(doc, {"doc_id": doc}), snap, payload, metadata),
                       "capture_file": path})
     witnesses = {d.get("witness_id", f"ntvmr:{doc}") for doc, d in documents.items()}
-    for report in collection.get("additional_reports", []):
-        dates.extend(additional_date_claims(report, witnesses))
+    for report in load_additional_reports(collection, data_dir):
+        claims = additional_date_claims(report, witnesses)
+        if report.get("admission", "active") == "active":
+            dates.extend(claims)
     discovery_path = data_path(data_dir, collection.get("discovery", "discovery.json"))
     if discovery_path.exists():
         for record in read_json(discovery_path):
@@ -571,8 +573,10 @@ def import_captures(con, data_dir, run_id):
             coverage_state = "success" if entries else "empty"
         ready.append({"doc_id": item["doc_id"], "witness_id": item.get("witness_id", f"ntvmr:{item['doc_id']}"),
                       "metadata_state": metadata_state, "coverage_state": coverage_state})
-    for report in collection.get("additional_reports", []):
-        date_claims.extend(additional_date_claims(report, {d["witness_id"] for d in ready}))
+    for report in load_additional_reports(collection, data_dir):
+        claims = additional_date_claims(report, {d["witness_id"] for d in ready})
+        if report.get("admission", "active") == "active":
+            date_claims.extend(claims)
     known_dates = retained_dates(con, data_dir, collection)
     attempts = [json.loads(row[0]) for row in con.execute("SELECT params_json FROM request_attempt WHERE run_id=?", (run_id,))]
     for category, low, high in CATEGORIES:

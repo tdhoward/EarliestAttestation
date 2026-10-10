@@ -7,10 +7,10 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from browser_format import (pack_browser_data, pack_integers, project_browser_data,
+from pipeline.browser_format import (pack_browser_data, pack_integers, project_browser_data,
                             unpack_browser_data, unpack_integers)
 from build_collection import refresh
-from report_explorer import expand_explorer_data, pack_explorer_data
+from pipeline.report_explorer import expand_explorer_data, pack_explorer_data
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures"

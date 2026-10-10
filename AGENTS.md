@@ -50,6 +50,15 @@ app under `web/attestation-explorer/`. The app loads `data/attestations.json`;
 Collection updates must not regenerate HTML or create book-specific datasets,
 charts, numbered revision files, replay databases, or milestone reports.
 
+The current investigation follows the narrowed
+[source corroboration plan](docs/SOURCE_CORROBORATION_PLAN.md), agreed 2026-10-09:
+first check a small sample of NTVMR internal-omission indexing, then review only
+claims affecting the first five collected witnesses per verse across both date
+modes and retained date alternatives. Check replacements that enter those five
+after corrections. The control sample may include other witnesses; broader
+corroboration and source-collection pilots are deferred. A passage-specific issue
+does not establish that unrelated NTVMR reports are faulty.
+
 Keep scholarly source provenance (claims, citations, captures, dates, qualifications)
 with the collection. Git handles software revision history. Temporary experiments,
 backups, and databases belong in ignored `data/.cache/` and are not product inputs.

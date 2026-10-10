@@ -20,9 +20,42 @@ malformed load displays a retry option; it never appears as an empty collection.
 
 `python build_collection.py` rebuilds only the current data file from
 `data/collection.json`, source captures, discovery records, and the coordinate
-inventory. The normalization database exists only in a temporary directory and
-is removed when the build finishes. Output replacement is atomic. A validation
-failure leaves the previous app data intact.
+inventory. Temporary records and the normalization database live under ignored
+`data/.cache/` and are removed when the build finishes or fails. Output replacement
+is atomic. A validation or memory allocation failure leaves the previous app data
+intact.
+
+The production path spools extracted claims, hashes them incrementally, and packs
+one verse's coverage at a time. It retains compact tables and integer vectors,
+without retaining the full witness/verse object matrix or copying it through
+historical export formats. Both production writers use `build_browser_data()`;
+`refresh()` returns its packed version-5 data. Normalized `build_data()` and full
+expansion helpers are for bounded fixtures (at most 1,000,000 pairs).
+The final integer encoder uses native numeric buffers, compares candidate JSON
+sizes without serializing them, and releases consumed tables before the next
+stage. A memory regression test covers a million irregular integers in a
+160 MiB process budget, including exact round-trip verification.
+
+`python build_collection.py --check` runs the same build and compares the packed
+result with the current file. The default memory ceiling is 2048 MiB, configurable
+with `--memory-limit-mb`; failure to install the OS limit stops the build.
+Windows limits committed process memory; Unix limits virtual address space.
+The command reports peak committed bytes on Windows and lifetime peak resident
+bytes on Unix. These are build-process measurements, separate from browser usage.
+Documentation edits and the current scoped source checks do not require this
+full build. First-five review targets can be selected from the existing compact
+rankings across both date modes and retained alternatives with
+`python source_checks.py --first-five`; `--queue-first-five` appends uncovered
+scopes to the checking register. See the [source corroboration work](SOURCE_CORROBORATION_PLAN.md). Rebuild
+when registered claims or output behavior change, not merely to select targets
+or measure checking progress.
+
+Scoped index limitations retain the exact raw entry with unknown admission,
+an explanation, and links to the retained scholarly assertion. Explicit published
+omissions determine coverage for the corrected John cases, while compatible
+presence reports for Bezae count once. These details appear in the existing source
+drawer and agree with the counts and first-five rankings. Full check history and
+pending work remain in the checking register.
 
 ## Controls and meaning
 
@@ -42,7 +75,7 @@ failure leaves the previous app data intact.
 ## Browser format
 
 Both `build_collection.py` and `collect_source_discovery.py` call
-`browser_format.pack_browser_data()` to write version 5. The source register,
+`pipeline.browser_format.pack_browser_data()` to write version 5. The source register,
 reference inventory, discovery register and captured reports remain the collection
 of record. The app file is a derived view, with these unused fields omitted:
 
@@ -87,10 +120,10 @@ they do not infer verse ranges or assertions. Missing observations remain uncoll
 Each observation entry connects a collected coordinate to
 its ranking/discovery context and its exact coverage vector or sparse overrides.
 
-The detailed storage contract is in [browser_format.py](../browser_format.py),
+The detailed storage contract is in [browser_format.py](../pipeline/browser_format.py),
 with the runtime reader in
 [collection-format.js](../web/attestation-explorer/collection-format.js).
-The older lossless v3 packer in `report_explorer.py` remains an intermediate and
+The older lossless v3 packer in `pipeline/report_explorer.py` remains an intermediate and
 compatibility API; it is not the production file writer.
 
 ## Runtime
@@ -114,12 +147,21 @@ mutable normalized view. For version 5 this is the browser projection described
 above, not the omitted collection bookkeeping. Full expansion is for bounded
 consumers and tests; the app never requests it on load.
 
-Current collection size and offline Node/V8 model memory are recorded in
-[the development plan](DEVELOPMENT_PLAN.md#current-implementation). Measurement
-creates the model, evaluates both endpoint charts over the full axis, then
-collects garbage. Heap plus array buffers excludes DOM/browser overhead and is
-not a browser process-memory guarantee. Source-record comparisons and chart
-checks avoid expanding the full witness/verse matrix.
+## Measured resource use
+
+The current version-5 file is 24,032,638 bytes. An offline Node/V8 measurement
+retained 116,797,123 bytes (about 117 MB) of heap plus array buffers after creating
+the model, evaluating both endpoint charts across the full axis, and collecting
+garbage. DOM/browser overhead is additional; this is not a browser process-memory
+guarantee. Source-record comparisons and chart checks avoid expanding the full
+witness/verse matrix. Production checks cover all 15,914 book/verse chart cells.
+
+The scoped-correction production build measured on 2026-10-09 took 1,115.83 seconds
+and peaked at 2,115,858,432 bytes (2,017.8 MiB) of Windows committed process memory,
+under the 2,048 MiB ceiling. It made zero network requests and removed temporary
+records and its database. Complete dates, the coordinate axis, and rankings outside
+the twelve corrected John verses matched the preceding data. These measurements
+apply to that snapshot; the ceiling remains enforced as the collection grows.
 
 ## Verification
 

@@ -7,10 +7,10 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from controlled_ntvmr import connect, rank_candidates
+from pipeline.controlled_ntvmr import connect, rank_candidates
 from export_attestation import main as export_main
-from report_explorer import build_explorer_data
-from source_reports import (CONTRACT, build_report_exports, coverage_state, digest,
+from pipeline.report_explorer import build_explorer_data
+from pipeline.source_reports import (CONTRACT, build_report_exports, coverage_state, digest,
                             import_batch, prepare_batch)
 
 
@@ -68,7 +68,14 @@ class ReportTests(unittest.TestCase):
 
     def export(self):
         import_batch(self.con, self.manifest, self.root)
-        return build_report_exports(self.con, self.manifest["batch_id"])
+        dataset, graph = build_report_exports(self.con, self.manifest["batch_id"])
+        rows = []
+        streamed_dataset, streamed_graph = build_report_exports(
+            self.con, self.manifest["batch_id"], consume_verse=rows.append)
+        self.assertIsNone(streamed_dataset)
+        self.assertEqual(streamed_graph["verses"], [])
+        self.assertEqual({**streamed_graph, "verses": rows}, graph)
+        return dataset, graph
 
     def test_empty_string_report_retains_sources_and_leaves_every_verse_unknown(self):
         self.capture("contents-10046.json", 10046, "coverage", {"indexContents": {
@@ -252,6 +259,41 @@ class ReportTests(unittest.TestCase):
         self.assertEqual([r["witness_id"] for r in rank_candidates(candidates, "optimistic")[:5]], list("01234"))
         self.assertEqual([r["witness_id"] for r in rank_candidates(candidates, "pessimistic")[:5]], list("65432"))
         self.assertEqual(rank_candidates(candidates, "optimistic"), rank_candidates(list(reversed(candidates)), "optimistic"))
+
+    def test_scoped_index_limitation_admits_absence_and_promotes_replacements(self):
+        for i in range(6):
+            self.add_document(10047+i, ["Gal.1.1"], 200+i, 400+i)
+        self.report(coverage=[{"witness_id": "ntvmr:10046", "source_ref": "Gal.1.1", "assertion": "absent",
+                              "source_locator": "Fictional omission report", "statement": "Verse one is absent."}])
+        report = self.manifest["additional_reports"][-1]
+        report.update(source_url="https://example.org/omission", body_sha256=digest(report["raw_body"]))
+        self.write("omission.json", report)
+        doc = self.manifest["documents"][0]
+        doc["index_limitations"] = [{"limitation_id": "fictional-range-ambiguity", "verses": ["Gal.1.1"],
+            "metadata_sha256": json.loads((self.root / doc["metadata_fixture"]).read_text())["body_sha256"],
+            "coverage_sha256": json.loads((self.root / doc["coverage_fixture"]).read_text())["body_sha256"],
+            "reason": "Fictional exact index contribution is ambiguous.", "evidence": [
+                {"capture_file": "omission.json", "body_sha256": report["body_sha256"],
+                 "source_locator": "Fictional omission report", "statement": "Verse one is absent."}]}]
+        dataset, graph = self.export()
+        pair = next(p for p in graph["verses"][0]["reported_coverage"] if p["witness_id"] == "ntvmr:10046")
+        self.assertEqual(pair["state"], "absent")
+        self.assertEqual({c["assertion"] for c in pair["claims"]}, {"unknown", "absent"})
+        self.assertTrue(all(c["reported"]["osisID"] == "Gal.1.1" for c in pair["claims"] if "index_limitation" in c))
+        neighbor = next(p for p in graph["verses"][1]["reported_coverage"] if p["witness_id"] == "ntvmr:10046")
+        self.assertEqual(neighbor["state"], "present")
+        for side in ("optimistic", "pessimistic"):
+            events = graph["verses"][0]["dating_alternatives"]["combinations"][0]["scenarios"][side]
+            self.assertEqual([e["witness_id"] for e in events], [f"ntvmr:{d}" for d in range(10047, 10052)])
+        self.assertEqual(graph["counts"]["witness_verse_pairs"]["contested"], 0)
+        from pipeline.browser_format import pack_browser_data, unpack_browser_data
+        from pipeline.report_explorer import expand_explorer_data
+        restored = expand_explorer_data(unpack_browser_data(pack_browser_data(build_explorer_data(graph))))
+        claim = next(c for c in restored["claims"].values() if "index_limitation" in c)
+        self.assertEqual(claim["index_limitation"]["evidence"][0]["source_url"], "https://example.org/omission")
+        doc["index_limitations"][0]["coverage_sha256"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "source changed"):
+            prepare_batch(self.manifest, self.root)
 
     def test_alias_join_requires_attribution_and_counts_once(self):
         self.add_document(10047, ["Gal.1.1"], 200, 250)

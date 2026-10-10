@@ -11,7 +11,7 @@ from pathlib import Path
 import sqlite3
 import sys
 
-from controlled_ntvmr import (coverage_review_report, encoded, inventory_ref_parts,
+from pipeline.controlled_ntvmr import (coverage_review_report, encoded, inventory_ref_parts,
                               parse_search, physical_absence_report, rank_candidates,
                               ranking_input, ranking_report)
 

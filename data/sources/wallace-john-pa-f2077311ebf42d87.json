@@ -1,0 +1,738 @@
+{
+  "report_id": "wallace-john-pa",
+  "provider": "Daniel B. Wallace / BiblicalTraining",
+  "title": "Some Famous Textual Problems John 7:53-8:11",
+  "citation": "Daniel B. Wallace, Textual Criticism, lesson 33, section 1 (External Evidence), BiblicalTraining. https://www.biblicaltraining.org/learn/institute/nt605-textual-criticism/nt605-33-some-famous-textual-problems-john-7-53-8-11",
+  "source_url": "https://www.biblicaltraining.org/learn/institute/nt605-textual-criticism/nt605-33-some-famous-textual-problems-john-7-53-8-11",
+  "retrieved_at": "2026-10-09T01:28:10.795405+00:00",
+  "http_status": 200,
+  "raw_body": "this passage is missing\nJohn: P66 and P 75.\nIt is also missing in aleph and B\nCodex D that has it",
+  "body_sha256": "f2077311ebf42d875a4d21aee946bb84e13df702904a1e57c510b7c6d47aeb49",
+  "original_body_sha256": "47cf64cf1ef8d8e78b7249e0363a96011148dd9cf61e76be3b50d2912451d101",
+  "material_kind": "scholarly_excerpts",
+  "capture_note": "Separate short verbatim excerpts, with intervening text omitted; whitespace normalized. Original response hash retained; full material held only in ignored local research cache.",
+  "upstream_sources": [],
+  "coverage": [
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.7.53",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.1",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.2",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.3",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.4",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.5",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.6",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.7",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.8",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.9",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.10",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10066",
+      "source_ref": "John.8.11",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P66, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.7.53",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.1",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.2",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.3",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.4",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.5",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.6",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.7",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.8",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.9",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.10",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:10075",
+      "source_ref": "John.8.11",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 1",
+      "statement_span": [
+        0,
+        23
+      ],
+      "qualifications": "Published passage-level assertion for P75, applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.7.53",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.1",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.2",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.3",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.4",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.5",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.6",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.7",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.8",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.9",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.10",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20001",
+      "source_ref": "John.8.11",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Sinaiticus (aleph), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.7.53",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.1",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.2",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.3",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.4",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.5",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.6",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.7",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.8",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.9",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.10",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "John.8.11",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 3",
+      "statement_span": [
+        44,
+        77
+      ],
+      "qualifications": "Published passage-level assertion for Vaticanus (B), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The lecture uses conventional manuscript sigla; no inference from an absent catalogue index entry. No dates or writing layers are checked."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.7.53",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.1",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.2",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.3",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.4",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.5",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.6",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.7",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.8",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.9",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.10",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    },
+    {
+      "witness_id": "ntvmr:20005",
+      "source_ref": "John.8.11",
+      "assertion": "present",
+      "extent": "unspecified",
+      "source_locator": "Lecture section 1; retained excerpt line 4",
+      "statement_span": [
+        78,
+        97
+      ],
+      "qualifications": "Published passage-level assertion for Bezae (Gospels Codex D), applied only to the twelve verses explicitly identified in the lecture opening as John 7:53-8:11. The Gospels Codex D is distinguished from the Pauline Codex D in the preceding paragraph; Houghton preprint section 1.A reports Bezae as GA 05 or D. No manuscript examination."
+    }
+  ],
+  "dates": []
+}

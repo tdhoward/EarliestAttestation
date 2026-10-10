@@ -11,9 +11,9 @@ from unittest.mock import patch
 
 from build_collection import build_data, read_json, write_json
 from collect_catalogue import (CATEGORIES, collect, import_captures, main, queue_connection,
-                               scope_definition, single_worker, summary)
-from controlled_ntvmr import API_BASE, NT_BOOKS, AccessBlocked
-from source_discovery import prepare_discovery, range_params, sha, verse_discovery
+                               retained_dates, scope_definition, single_worker, summary)
+from pipeline.controlled_ntvmr import API_BASE, NT_BOOKS, AccessBlocked
+from pipeline.source_discovery import prepare_discovery, range_params, sha, verse_discovery
 
 
 def page(ids, *, cursor=None, count=None, dates=None):
@@ -481,6 +481,27 @@ class CatalogueTests(unittest.TestCase):
         self.assertTrue(all(c["date_filter"]["qualifying_date_reports"] for c in scope["candidates"]))
         alternatives = {(d["date_min"], d["date_max"]) for d in data["dates"].values() if d["witness_id"] == "fictional:joined"}
         self.assertEqual(alternatives, {(1100, 1199), (900, 1050)})
+
+    def test_referenced_publication_dates_respect_admission_in_screening_and_import(self):
+        self.seed_metadata(10001, 1100, 1199)
+        body = "Fictional complete date range 900-1050."
+        report = {"provider": "Fictional scholar", "citation": "https://example.test/dating",
+                  "retrieved_at": "2026-10-08T12:00:00Z", "raw_body": body, "body_sha256": sha(body),
+                  "dates": [{"witness_id": "ntvmr:10001", "date_min": 900, "date_max": 1050,
+                             "original_notation": "Fictional 900-1050", "source_locator": "Fictional date row",
+                             "statement": body}]}
+        write_json(self.root / "publication.json", report)
+        collection = read_json(self.root / "collection.json")
+        collection["additional_reports"] = [{"capture_file": "publication.json", "admission": "pending_contract_review"}]
+        self.assertEqual([(d["date_min"], d["date_max"]) for d in retained_dates(self.con, self.root, collection)[10001]],
+                         [(1100, 1199)])
+        collection["additional_reports"][0]["admission"] = "active"
+        write_json(self.root / "collection.json", collection)
+        dates = {10001: (1100, 1199)}
+        self.assertFalse(self.run_collect(self.handler(dates, dates=dates))["date_exclusions"])
+        self.assertFalse(import_captures(self.con, self.root, "fictional")["import_errors"])
+        data = build_data(data_dir=self.root)
+        self.assertEqual({(d["date_min"], d["date_max"]) for d in data["dates"].values()}, {(1100, 1199), (900, 1050)})
 
     def test_nonprimary_captured_earlier_estimate_is_retained_as_filter_evidence(self):
         dates = {10001: (1100, 1199)}

@@ -4,20 +4,32 @@ The central collection uses `ntvmr-source-reports-v1`. `build_collection.py` nor
 captured reports in a temporary SQLite database, verifies source and claim integrity,
 and updates `data/attestations.json` for the single explorer app. No HTML is generated.
 
-## Known limitation and planned review
+## Scoped index admission
 
-The rules below describe the current importer. Its admission of expanded NTVMR
-page-index entries as presence claims needs review: the saved reports include
-John 7:53–8:11 for P66, P75, and Vaticanus despite explicit published omission
-reports. Whether NTVMR intends such ranges to exclude internal textual omissions
-has not been established. Do not treat an indexing error or a deliberately coarse
-indexing convention as the confirmed explanation.
+The saved reports include John 7:53–8:11 for P66, P75, and Vaticanus despite
+explicit published omissions. The [three-case control sample](SOURCE_CORROBORATION_PLAN.md#completed-omission-sample-2026-10-09)
+also found expanded entries for Vaticanus at Matthew 17:21, Mark 15:28, and
+Acts 8:37, where NET Bible explicitly reports omission. All controls use tier-3
+pages and the same saved fields as John. None demonstrated an internal exclusion;
+neither a universal convention nor a provider-confirmed local error is established.
 
-The agreed [source corroboration plan](SOURCE_CORROBORATION_PLAN.md) sets out the
-evidence, contract review, additional reports, separate checking register, and app
-changes. Those changes are planned; this notice does not change normalization or
-correct the current dataset. Ambiguous index semantics must remain distinct from
-genuine incompatible scholarly content assertions.
+The register's per-document `index_limitations` lists only these contradicted
+exact verse scopes. Each limitation pins metadata and contents hashes, a reason,
+and retained scholarly evidence with hash, locator, and exact statement. Changed
+captures, invalid scopes, overlapping limitations, or invalid evidence stop the
+build for review. The importer retains the original entry and indexing tier but
+admits its contribution as `unknown`, with the limitation and evidence links.
+This is an extraction qualification, not an invented source assertion of absence
+or scholarly disagreement. Otherwise usable index entries remain admitted.
+
+Wallace's explicit John passage report is active: four witnesses report absence,
+and Bezae reports presence. Sinaiticus's missing index remains unknown; Bezae's
+compatible reports count once. The three NET omission reports are also active,
+subject to the unchanged edition filter. Houghton's report remains contextual.
+The checking register preserves the original five comparisons and current
+rechecks; all remain `insufficient_detail` about independent index semantics.
+Further investigation is limited to first-five claims and promoted replacements,
+across both date modes and retained complete alternatives.
 
 ## Field meanings and limits
 
@@ -136,6 +148,10 @@ and whole-witness date estimates, including their source text. Every supplied
 statement must occur verbatim in the retained snapshot. Extraction of an explicit
 absence statement is permitted; inference from an omitted entry is not. This
 interface does not interpret manuscript text, an apparatus, or an image.
+The central collection also accepts `capture_file` references to these reports.
+`pending_contract_review` reports are validated and available to scoped checks,
+but do not contribute ordinary coverage, date assessments, or rankings. The
+default `active` admission preserves existing behavior.
 
 For each mapped witness/verse pair:
 
@@ -211,7 +227,7 @@ all scholarly citations;
 permanent captures replace proxy origins with `<local proxy>` and preserve raw
 response bodies, hashes, paths, parameters, and retrieval dates. Actual transport
 addresses remain in ignored local definitions and request caches; see
-[README](../README.md#collect-more-data). Per the owner's
+[README](../README.md#local-api-proxy). Per the owner's
 2026-10-06 clarification, TLS verification is not a collection prerequisite and
 transport notes are not scholarly contents or date qualifications.
 

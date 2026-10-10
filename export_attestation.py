@@ -11,7 +11,7 @@ from pathlib import Path
 import sqlite3
 from urllib.parse import urlencode
 
-from controlled_ntvmr import (coverage_review_report, dating_alternatives_report,
+from pipeline.controlled_ntvmr import (coverage_review_report, dating_alternatives_report,
                               edition_inventory_report, physical_absence_report,
                               latest_candidate_reviews, latest_witness_assignments,
                               ranking_report)
@@ -167,7 +167,7 @@ def main(argv=None):
         options = {"include_omitted": args.include_omitted,
                    "include_bracketed": not args.exclude_bracketed}
         if args.report_batch:
-            from source_reports import build_report_exports
+            from pipeline.source_reports import build_report_exports
             dataset, graph = build_report_exports(con, args.report_batch, **options)
         else:
             dataset, graph = build_exports(con, args.inventory, args.policy, **options)

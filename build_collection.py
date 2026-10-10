@@ -7,11 +7,16 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import tempfile
+import sys
+import time
+import sqlite3
 
-from controlled_ntvmr import connect, encoded, validate_inventory
-from report_explorer import build_explorer_data
-from browser_format import pack_browser_data
-from source_reports import CONTRACT, build_report_exports, digest, import_batch, prepare_batch
+from pipeline.controlled_ntvmr import connect, encoded, validate_inventory
+from pipeline.report_explorer import build_explorer_data, ExplorerPacker
+from pipeline.browser_format import pack_browser_data
+from pipeline.source_reports import CONTRACT, build_report_exports, digest, import_batch, prepare_batch
+from pipeline.build_storage import check_expansion, record_store
+from pipeline.build_memory import DEFAULT_MEMORY_LIMIT_MB, memory_budget
 
 
 ROOT = Path(__file__).resolve().parent
@@ -46,6 +51,26 @@ def data_path(data_dir, relative):
     return path
 
 
+def load_additional_reports(collection, data_dir):
+    reports = []
+    for entry in collection.get("additional_reports", []):
+        if "capture_file" in entry:
+            if set(entry) - {"capture_file", "admission"}:
+                raise ValueError("A referenced additional report cannot override captured evidence")
+            report = read_json(data_path(data_dir, entry["capture_file"]))
+            if (not isinstance(report.get("raw_body"), str)
+                    or report.get("body_sha256") != digest(report["raw_body"])):
+                raise ValueError("Referenced additional-report capture hash does not match retained material")
+            report = {**report, "capture_file": entry["capture_file"],
+                      "admission": entry.get("admission", "active")}
+        else:
+            report = deepcopy(entry)
+        if report.get("admission", "active") not in ("active", "pending_contract_review"):
+            raise ValueError("Unsupported additional-report admission state")
+        reports.append(report)
+    return reports
+
+
 def prepare_collection(collection, data_dir=DATA, *, discovery_records=None):
     """Derive reference mappings in memory; never write a book-specific manifest."""
     if collection.get("format_version") != 1:
@@ -78,11 +103,13 @@ def prepare_collection(collection, data_dir=DATA, *, discovery_records=None):
         "scope": (f"Collected scholarly reports for {', '.join(books)}. Rankings compare collected witnesses only. "
                   "Discovery coverage is recorded separately for each declared book and catalogue range."),
         "inventory": inventory, "catalogue_citation": collection.get("catalogue_citation"),
-        "documents": documents, "additional_reports": deepcopy(collection.get("additional_reports", [])),
+        "documents": documents, "additional_reports": load_additional_reports(collection, data_dir),
         "discovery_records": discovery_records,
     }
-    _, snapshots, claims, _, _ = prepare_batch(manifest, data_dir)
-    observed = {claim["source_ref"] for claim in claims}
+    with record_store(data_dir) as factory:
+        _, snapshots, claims, _, _ = prepare_batch(manifest, data_dir, record_factory=factory)
+        observed = {claim["source_ref"] for claim in claims}
+        source_hashes = [s["body_sha256"] for s in snapshots]
     for coordinate in inventory["verses"]:
         ref = coordinate["osis_ref"]
         if ref in observed:
@@ -97,56 +124,128 @@ def prepare_collection(collection, data_dir=DATA, *, discovery_records=None):
     manifest["coordinate_derivation"] = {
         "publisher_inventory_sha256": digest(encoded(publisher)),
         "rule": "Copy reference/editorial metadata; map exact OSIS matches in explicit reports only.",
-        "source_hashes": [s["body_sha256"] for s in snapshots],
+        "source_hashes": source_hashes,
     }
+    if collection.get("source_checks"):
+        from source_checks import prepare_checks
+        prepare_checks(read_json(data_path(data_dir, collection["source_checks"])), manifest, data_dir)
     return manifest, publisher
 
 
-def build_data(collection=None, data_dir=DATA, *, discovery_records=None):
+def build_data(collection=None, data_dir=DATA, *, discovery_records=None, packed=False, progress=None):
+    """Normalized data for bounded callers; packed=True streams production rows."""
     collection = read_json(data_dir / "collection.json") if collection is None else collection
+    if not packed:
+        inventory = read_json(data_path(data_dir, collection["coordinate_inventory"]))
+        coordinate_count = sum(v["osis_ref"].split(".")[0] in collection["books"] for v in inventory["verses"])
+        check_expansion(len(collection["documents"]), coordinate_count)
+    if progress:
+        progress("Validating retained reports and reference mappings")
     manifest, publisher = prepare_collection(collection, data_dir, discovery_records=discovery_records)
     # The normalization database is a disposable build intermediate, never another collection.
-    with tempfile.TemporaryDirectory(prefix="attestation-") as temporary:
+    cache = data_dir / ".cache"
+    cache.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="attestation-", dir=cache) as temporary:
         with closing(connect(Path(temporary) / "normalize.sqlite")) as con:
+            if progress:
+                progress("Importing reports into the temporary normalization database")
             batch = import_batch(con, manifest, data_dir)
+            packer = ExplorerPacker() if packed else None
+            def consume(verse):
+                graph = {"format_version": 3, "kind": "graph_input", "evidence_policy": "scholarly_reports_only",
+                         "counts": {"verse_count": 1}, "verses": [verse], "documents": [], "sources": []}
+                packer.add(build_explorer_data(graph, {**publisher, "verses": [verse]}))
+                if progress and len(packer.observations) % 1000 == 0:
+                    progress(f"Packed coverage for {len(packer.observations):,} verses")
+            if progress:
+                progress("Validating normalized evidence and packing coverage")
             _, graph = build_report_exports(con, batch,
                 include_omitted=collection.get("include_omitted", False),
-                include_bracketed=collection.get("include_bracketed", True))
+                include_bracketed=collection.get("include_bracketed", True),
+                consume_verse=consume if packed else None)
             if con.execute("PRAGMA foreign_key_check").fetchall() or con.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
                 raise ValueError("Collection integrity check failed")
-    result = build_explorer_data(graph, publisher)
+    if packed:
+        if progress:
+            progress("Compressing shared coverage vectors")
+        base = build_explorer_data({**graph, "counts": {**graph["counts"], "verse_count": 0}}, publisher)
+        base["metadata"]["counts"] = graph["counts"]
+        result = packer.finish(base)
+    else:
+        result = build_explorer_data(graph, publisher)
     # Link each document's raw source in the same central directory.
     captures = {}
     for document in collection["documents"]:
         for field in ("metadata_fixture", "coverage_fixture"):
             if document.get(field):
                 capture = read_json(data_path(data_dir, document[field]))
-                captures[capture["body_sha256"]] = document[field]
+                captures[(capture["body_sha256"], capture["retrieved_at"], capture["source_url"])] = document[field]
+    for report in manifest["additional_reports"]:
+        if report.get("capture_file") and report.get("admission", "active") == "active":
+            captures[(digest(report["raw_body"]), report["retrieved_at"], report["citation"])] = report["capture_file"]
     for source in result["sources"]:
-        if source["body_sha256"] in captures:
-            source["capture_file"] = captures[source["body_sha256"]]
+        key = (source["body_sha256"], source["retrieved_at"], source["url"])
+        if key in captures:
+            source["capture_file"] = captures[key]
+    if packed and progress:
+        progress("Encoding the browser transfer columns")
     return result
 
 
-def refresh(data_dir=DATA, *, check=False):
-    result = build_data(data_dir=data_dir)
-    packed = pack_browser_data(result)
-    output = data_dir / "attestations.json"
-    if check:
-        if not output.exists() or read_json(output) != packed:
-            raise ValueError("Explorer data is out of date; run python build_collection.py")
-    else:
-        write_json(output, packed, compact=True)
+def build_browser_data(collection=None, data_dir=DATA, *, discovery_records=None,
+                       memory_limit_mb=DEFAULT_MEMORY_LIMIT_MB, stats=None):
+    """Build the browser projection without any complete expanded coverage matrix."""
+    with memory_budget(memory_limit_mb) as usage:
+        result = _build_browser_data(collection, data_dir, discovery_records=discovery_records)
+    if stats is not None:
+        stats.update(usage)
     return result
+
+
+def _build_browser_data(collection=None, data_dir=DATA, *, discovery_records=None, progress=None):
+    # Call only inside a budget: refresh keeps the limit through comparison/write.
+    return pack_browser_data(build_data(collection, data_dir, discovery_records=discovery_records,
+                                        packed=True, progress=progress), consume=True, progress=progress)
+
+
+def refresh(data_dir=DATA, *, check=False, memory_limit_mb=DEFAULT_MEMORY_LIMIT_MB, stats=None, progress=None):
+    with memory_budget(memory_limit_mb) as usage:
+        packed = _build_browser_data(data_dir=data_dir, progress=progress)
+        output = data_dir / "attestations.json"
+        if progress:
+            progress("Comparing current browser data" if check else "Writing current browser data")
+        if check:
+            if not output.exists() or read_json(output) != packed:
+                raise ValueError("Explorer data is out of date; run python build_collection.py")
+        else:
+            write_json(output, packed, compact=True)
+    if stats is not None:
+        stats.update(usage)
+    return packed
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=DATA)
     parser.add_argument("--check", action="store_true", help="Verify the current data without writing")
+    parser.add_argument("--memory-limit-mb", type=int, default=DEFAULT_MEMORY_LIMIT_MB,
+                        help="OS memory ceiling in MiB (default: 2048); stop if exceeded")
     args = parser.parse_args(argv)
-    data = refresh(args.data_dir.resolve(), check=args.check)
-    print(json.dumps({**data["metadata"]["counts"], "network_requests": 0,
+    if args.memory_limit_mb <= 0:
+        parser.error("--memory-limit-mb must be positive")
+    stats, started = {}, time.monotonic()
+    last_stage = ["Initializing"]
+    def progress(message):
+        last_stage[0] = message
+        print(message, file=sys.stderr, flush=True)
+    try:
+        data = refresh(args.data_dir.resolve(), check=args.check, memory_limit_mb=args.memory_limit_mb, stats=stats, progress=progress)
+    except (MemoryError, sqlite3.Error, OSError, ValueError) as error:
+        message = str(error) or "memory allocation failed"
+        print(f"Build stopped during {last_stage[0].lower()}: {message}. Memory ceiling: {args.memory_limit_mb} MiB. "
+              "The previous data file is preserved.", file=sys.stderr)
+        return 1
+    print(json.dumps({**data["metadata"]["counts"], **stats, "elapsed_seconds": round(time.monotonic() - started, 2), "network_requests": 0,
                       "data_file": str(args.data_dir / "attestations.json"),
                       "data_bytes": (args.data_dir / "attestations.json").stat().st_size,
                       "checked": args.check}, sort_keys=True))

@@ -6,12 +6,12 @@ from pathlib import Path
 import subprocess
 import unittest
 
-from report_explorer import (build_explorer_data, pack_explorer_data, pack_explorer_data_phase1,
+from pipeline.report_explorer import (build_explorer_data, pack_explorer_data, pack_explorer_data_phase1,
                              pack_explorer_data_phase2, pack_explorer_data_phase3, expand_explorer_data,
                              PHASE1_FORMAT_VERSION, PHASE2_FORMAT_VERSION, PHASE3_FORMAT_VERSION)
 from build_collection import DATA, prepare_collection, read_json
-from controlled_ntvmr import connect
-from source_reports import import_batch, build_report_exports
+from pipeline.controlled_ntvmr import connect
+from pipeline.source_reports import import_batch, build_report_exports
 from collection_fixture import pilot_collection, pilot_discovery
 from contextlib import closing
 import tempfile

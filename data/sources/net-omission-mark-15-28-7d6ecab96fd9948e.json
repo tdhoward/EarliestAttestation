@@ -1,0 +1,29 @@
+{
+  "report_id": "net-omission-mark-15-28",
+  "provider": "NET Bible / Biblical Studies Press",
+  "title": "NET Bible textual note for Mark.15.28",
+  "citation": "NET Bible, Mark.15.28, textual note 1. https://classic.net.bible.org/verse.php?book=Mar&chapter=15&verse=28",
+  "source_url": "https://classic.net.bible.org/verse.php?book=Mar&chapter=15&verse=28",
+  "retrieved_at": "2026-10-09T22:52:37.566514+00:00",
+  "raw_body": "but is lacking in important Alexandrian and Western mss and some others (א A B C D Ψ pc).",
+  "body_sha256": "7d6ecab96fd9948ec18a95850b1ef2b6f3f7b7bb81b0d795edde5834d4633bbd",
+  "material_kind": "scholarly_excerpts",
+  "capture_method": "web-rendered-excerpt",
+  "capture_note": "Short verbatim prose assertion retained from the successful web tool response on 2026-10-09; whitespace normalized and superscript sigla flattened as rendered. Original HTTP bytes were unavailable. A separate direct download of the Matthew page returned HTTP 403; direct requests stopped without retries. No manuscript text, images, or apparatus were examined.",
+  "upstream_sources": [],
+  "coverage": [
+    {
+      "witness_id": "ntvmr:20003",
+      "source_ref": "Mark.15.28",
+      "assertion": "absent",
+      "extent": "unspecified",
+      "source_locator": "Mark.15.28, NET textual note 1",
+      "statement_span": [
+        0,
+        89
+      ],
+      "qualifications": "Explicit scholarly prose omission assertion, extracted only for Vaticanus (B, GA 03) and this exact verse. Other named witnesses and explanations of textual origin are outside this control sample. Rendered sigla are preserved; no writing layers or dates are inferred."
+    }
+  ],
+  "dates": []
+}

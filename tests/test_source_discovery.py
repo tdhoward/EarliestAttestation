@@ -9,12 +9,12 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from controlled_ntvmr import AccessBlocked, Client, ContractError, RunStopped, connect
-from source_discovery import (captured_chain, collect_book_range, prepare_discovery,
+from pipeline.controlled_ntvmr import AccessBlocked, Client, ContractError, RunStopped, connect
+from pipeline.source_discovery import (captured_chain, collect_book_range, prepare_discovery,
                               range_params, sha, verse_discovery)
-from source_reports import build_report_exports, import_batch
-from report_explorer import build_explorer_data, expand_explorer_data
-from browser_format import pack_browser_data
+from pipeline.source_reports import build_report_exports, import_batch
+from pipeline.report_explorer import build_explorer_data, expand_explorer_data
+from pipeline.browser_format import pack_browser_data
 from collect_source_discovery import main as collect_main, https_proxy_transport
 
 

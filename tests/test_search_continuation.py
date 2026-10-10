@@ -8,7 +8,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from controlled_ntvmr import (
+from pipeline.controlled_ntvmr import (
     API_BASE, AccessBlocked, Client, ContractError, RunStopped, catalogue_report,
     collect_catalogue_scope, collect_search, connect, discovery_report,
     import_search_fixture, main, parse_search, search_continuation,

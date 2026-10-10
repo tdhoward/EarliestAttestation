@@ -1,0 +1,22 @@
+{
+  "report_id": "houghton-john-pa",
+  "provider": "H. A. G. Houghton / University of Birmingham",
+  "title": "The Text of the Gospel and Letters of John",
+  "citation": "H. A. G. Houghton (2018), The Text of the Gospel and Letters of John, in J. Lieu and M. C. de Boer (eds.), The Oxford Handbook of Johannine Studies, pp. 5-22; preprint sections 1.A and 2.F. https://pure-oai.bham.ac.uk/ws/portalfiles/portal/29525014/Houghton_OHJS_preprint.pdf",
+  "source_url": "https://pure-oai.bham.ac.uk/ws/portalfiles/portal/29525014/Houghton_OHJS_preprint.pdf",
+  "retrieved_at": "2026-10-09T01:28:16.397124+00:00",
+  "http_status": 200,
+  "raw_body": "It is missing from all Greek manuscripts prior to Codex Bezae\nCodex Bezae (GA 05 or D)",
+  "body_sha256": "a12b86ef2108d68c143ce2a4196b19fdd8d255e215fc902203f7f31978507e1c",
+  "original_body_sha256": "84161550938ffc1734a9d22fc2885dbea193c550191115c072001575b73abd34",
+  "material_kind": "scholarly_excerpts",
+  "capture_note": "Separate short verbatim excerpts, with intervening text omitted; whitespace normalized. Original response hash retained; full material held only in ignored local research cache. Section 2.F is contextual discussion, not expanded into individual omission claims or a numeric date estimate. Section 1.A supplies the Bezae identifier cross-reference.",
+  "upstream_sources": [
+    {
+      "citation": "Becker 1963",
+      "relationship": "Cited in section 2.F; not independently consulted."
+    }
+  ],
+  "coverage": [],
+  "dates": []
+}

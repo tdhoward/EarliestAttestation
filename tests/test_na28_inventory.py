@@ -7,7 +7,7 @@ import unittest
 
 from build_collection import read_json
 from build_na28_inventory import OUTPUT, PASSAGE_REVIEW, REVIEW, SOURCE, build
-from controlled_ntvmr import connect, import_edition_inventory
+from pipeline.controlled_ntvmr import connect, import_edition_inventory
 
 
 class Na28InventoryTests(unittest.TestCase):

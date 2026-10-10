@@ -20,21 +20,29 @@ claims, complete date alternatives, unknown and contested states, and discovery
 scope remain inspectable. Rankings describe up to five **earliest collected
 witnesses per verse**, including when viewing a whole book.
 
+## Find your way around
+
+- [Repository guide](docs/README.md): documentation, commands, shared modules,
+  and data ownership.
+- [Development plan](docs/DEVELOPMENT_PLAN.md#next-development-work): current
+  priorities and conditions for reopening work.
+- [Source corroboration plan](docs/SOURCE_CORROBORATION_PLAN.md): agreed scope,
+  retained findings, and the completed first-five review.
+- [Explorer guide](docs/ATTESTATION_EXPLORER.md): controls, data format, and runtime.
+
 ## One collection, one app
 
 | Location | Purpose |
 | --- | --- |
-| `data/collection.json` | Current document register, books, explicit additional reports, and filters |
-| `data/sources/` | Scholarly source captures, including raw responses and retrieval metadata |
-| `data/discovery.json` | Current independent bounded discovery scopes and search captures |
-| `data/reference/` | Cited verse coordinates and API field contracts |
-| `data/attestations.json` | Current derived data read by the app |
-| `web/attestation-explorer/` | The single maintained HTML/JS/CSS app |
-| `data/.cache/` | Ignored temporary databases, local scratch, and backups; never app inputs |
-
-The source register and captures are the collection's inputs. The browser data
-file is a reproducible view of those inputs. Tests have their own small regression
-fixtures; they do not supply an alternate production collection.
+| `data/collection.json` | Central source register, scholarly claims, and filters |
+| `data/sources/`, `data/reference/` | Cited captures, coordinates, and API contracts |
+| `data/discovery.json`, `data/source_checks.json` | Discovery scopes and scoped evidence checks |
+| `data/attestations.json` | Derived data read by the app |
+| `web/attestation-explorer/` | The maintained HTML/JS/CSS app |
+| `pipeline/` | Shared Python implementation used by root command-line scripts |
+| `tests/` | Offline regression tests and bounded fixtures |
+| `tools/` | Manual API requests and the original legacy collector |
+| `data/.cache/` | Ignored scratch, temporary databases, backups, and collection checkpoints |
 
 After changing collected reports or scope, refresh the data:
 
@@ -42,136 +50,50 @@ After changing collected reports or scope, refresh the data:
 python build_collection.py
 ```
 
-This offline command validates captures, derives exact reference mappings, computes
-rankings in a temporary database, and replaces `data/attestations.json`. Refresh
-the browser to see the result. It creates no HTML, book-specific export, persistent
-replay database, or numbered revision file. `npm run data` is equivalent.
+This offline command validates the registered captures, derives coverage and
+rankings in a temporary database, and atomically replaces `data/attestations.json`.
+`npm run data` is equivalent. Refresh the browser to see the result. Collection
+updates do not generate HTML or additional datasets. See the
+[build and memory contract](docs/ATTESTATION_EXPLORER.md#open-and-update).
 
-All 27 books share the central collection. The four declared catalogue inventories
-and eligible report capture have finished; discovery completeness remains scoped
-to those ranges and source snapshot. Missing contents stay unknown. Current
-counts and discovery summaries are stored in `data/attestations.json` and
-summarized in [the development plan](docs/DEVELOPMENT_PLAN.md#current-implementation).
-Scholarly citations use canonical NTVMR URLs; the local proxy is an access route.
+## Source review and collection
 
-Both collection writers produce version 5 browser JSON with shared providers and
-references, numeric claim columns, compact coverage links, and per-book discovery
-summaries. Full source evidence remains in the registers and captures. The app
-reads compact columns directly and resolves selected records on demand; versions
-1–4 remain supported through fetch and the local file picker. See
-[the explorer documentation](docs/ATTESTATION_EXPLORER.md) for storage, loading,
-and runtime behavior.
+The bounded omission sample and first-five extraction review have reached the
+agreed stopping point. Independent comparisons remain deferred where unavailable;
+one usable scholarly report is sufficient. See the
+[current findings and reopening conditions](docs/SOURCE_CORROBORATION_PLAN.md#next-actions-and-verification).
 
-Saved-response import accepts the observed empty contents, integer date notation,
-multilingual Greek language codes, and mixed-book reports described in
-[the source contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md#retained-catalogue-variants).
-Re-import and app rebuilding are offline. Unsupported reports remain retained
-with visible qualifications or import errors.
+Inspect or validate checks offline:
 
-## Collect more data
+```powershell
+python source_checks.py --details
+python source_checks.py --check
+```
 
-`collect_source_discovery.py` conducts a declared, budgeted book/range search,
-reuses existing document captures, saves new reports to `data/sources/`, updates
-the central registers, and refreshes the app data. It does not generate charts.
-See [bounded discovery](docs/BOUNDED_WITNESS_DISCOVERY.md) for the definition
-format, limits, and resume behavior.
+The [source-check guide](docs/SOURCE_CHECKS.md) documents pending work, first-five
+selection, queue refresh, and evidence rules. Deferred follow-up is distinct from
+unreviewed work and does not authorize broader collection.
 
-The declared discovery target includes all 27 books across papyri, majuscules,
-minuscules, and lectionaries. Inventories for all four ID ranges are retained.
-Future updates use budgeted catalogue inventories or independent book/category
-searches and reuse existing reports. Categories do not determine chronological
-rank, and completing a declared snapshot does not establish exhaustive discovery.
-The default collection cutoff admits ranges beginning before 1000 CE and unknown
-dates; fewer than five witnesses per verse is acceptable. See the
-[catalogue scope](docs/BOUNDED_WITNESS_DISCOVERY.md#planned-catalogue-scope)
-for ID ranges and completion qualifications.
+### Collect more data
+
+All four declared catalogue inventories and eligible report capture are complete
+for the retained snapshot. Broader collection remains deferred. The
+[discovery guide](docs/BOUNDED_WITNESS_DISCOVERY.md) is the primary reference for
+capture/import commands, date scope, budgets, pacing, blocked states, and recovery.
+It documents both overnight catalogue capture and smaller book/range searches.
+
+### Local API proxy
 
 When direct NTVMR access is unavailable, use the owner's local API proxy.
 The current address is `http://192.168.0.119:8889`; this is the only concrete
-local proxy address kept in tracked files. All other references use
-`<local proxy>`. If the address changes, update this one reference.
+local proxy address kept in tracked files. `collect_catalogue.py collect --use-local-proxy`
+reads this setting. If the address changes, update this one reference.
 
-Replace `https://ntvmr.uni-muenster.de` with `<local proxy>`, keeping the
-endpoint path and query parameters. For the collector, declare
-`"transport_base_url": "<local proxy>/community/vmr/api"` in the request
-definition and pass the same base URL. Substitute the current address for
-`<local proxy>` in the ignored `data/.cache/` definition and command before running:
-
-```powershell
-python collect_source_discovery.py --definition data/.cache/discovery-request.json --run-id declared-run --base-url "<local proxy>/community/vmr/api"
-```
-
-The proxy is an access route. Cite and link the canonical
-`https://ntvmr.uni-muenster.de` sources; proxy URLs are not scholarly citations.
-TLS verification and transport qualifications are not required for collection.
-Permanent captures, discovery records, fixtures, and generated app data use
-`<local proxy>` in transport URLs; the collector replaces the configured proxy
-origin when saving them. Raw response bodies, hashes, retrieval dates, endpoint
-paths, and parameters remain intact. Actual addresses belong only in local
-commands and ignored `data/.cache/` definitions and request caches. Do not
-hard-code them in scripts or copy them into other tracked files.
-
-Keep the declared request budget, spacing, resume checkpoints, and provider-block
-stops when using the proxy. A run's definition stays fixed; a transport change
-uses a new run ID and carries prior attempts into the total budget.
-
-Reuse each manuscript's metadata and contents locally, while discovering
-candidates independently of previously selected witnesses. A report for one
-verse does not prove that the candidate pool is sufficient for adjacent verses.
-One usable scholarly report is enough; unresolved cases do not block collection.
-
-### Overnight catalogue capture
-
-`collect_catalogue.py` inventories all four ID ranges with paginated searches,
-including records without book indexing, then captures each eligible manuscript's full
-metadata and verse-content reports once for reuse across all 27 books.
-By default, it skips follow-up requests when the inventory's valid date range
-begins at 1000 CE or later. Ranges beginning before 1000 remain eligible in full,
-even if they extend beyond it. Missing, zero, or invalid dates remain eligible
-at lower priority; a retained scholarly estimate beginning before the cutoff
-also keeps a manuscript eligible. Fewer than five witnesses per verse is acceptable.
-It maintains at least five-second spacing across requests, retries, and restarts,
-honors `Retry-After`, and stops the whole collector on a provider access block.
-There is no 50-attempt cap. The default time budget is eight hours per launch;
-an optional `--max-requests` sets a cumulative campaign request ceiling.
-
-```powershell
-python collect_catalogue.py collect --use-local-proxy --hours 8
-```
-
-`--use-local-proxy` reads the current address documented above. Omit that option
-to use canonical HTTPS. Run the same command on another night to resume the
-default `catalogue` campaign. Ctrl+C preserves committed captures and checkpoints.
-The first resume of an older campaign applies the 1000 CE cutoff to unfinished
-jobs. Use `--earliest-date-before 1200` to change it, or `--no-date-cutoff` to
-disable it. Your chosen setting persists on later resumes when omitted. Widening
-the scope reopens skipped jobs; captured reports and original inventories remain
-preserved. If a collector is already running, stop it with Ctrl+C and rerun the
-command to load the updated behavior.
-Only one collector should run at a time. Inspect progress from another terminal:
-
-```powershell
-python collect_catalogue.py status
-```
-
-After collection stops, validate and import the captured reports, then rebuild
-the app data. Both commands below are offline:
-
-```powershell
-python collect_catalogue.py import
-python build_collection.py
-```
-
-Collection saves source captures under `data/sources/` and temporary queue state
-under `data/.cache/`; it does not rebuild the app overnight. Import preserves
-existing reports and records four catalogue-range discovery scopes covering
-all 27 books. Unusable reports remain captured and unresolved; missing contents
-remain unknown. Status lists date exclusions and their reasons. Imported discovery
-records retain the cutoff and source evidence; candidate completion applies to
-eligible manuscripts, not the entire inventory. The cutoff limits new collection,
-so already captured later witnesses can still appear in the app.
-See [overnight collection](docs/BOUNDED_WITNESS_DISCOVERY.md#overnight-catalogue-collection)
-for budgets, recovery, and completion qualifications.
+Replace `https://ntvmr.uni-muenster.de` with `<local proxy>` while preserving
+endpoint paths and query parameters. Cite canonical NTVMR URLs. Permanent
+captures use the placeholder; actual transport addresses belong in local commands
+and ignored `data/.cache/` definitions and request caches. See the
+[transport and access rules](docs/BOUNDED_WITNESS_DISCOVERY.md#central-collection-workflow).
 
 ## Scholarly scope
 
@@ -194,31 +116,21 @@ bracketed passages have an independent collection filter. Edition status does no
 determine manuscript contents. See [the source contract](docs/NTVMR_SOURCE_REPORT_CONTRACT.md),
 [coordinate inventory](docs/NA28_INVENTORY.md), and [working rules](AGENTS.md).
 
-## Planned source corroboration
-
-Follow the [source corroboration plan](docs/SOURCE_CORROBORATION_PLAN.md) for the
-agreed next work: capture additional scholarly reports, track exactly which
-manuscripts and verse ranges have been checked, and expose discrepancies in the
-existing app. The planned checking register stays outside `attestations.json`;
-the build will project the relevant evidence and coverage consequences for display.
-
-The current NTVMR import counts index entries for John 7:53–8:11 in P66, P75,
-and Vaticanus as present despite published omission reports. Whether these are
-indexing errors or a limitation of the page-range convention remains unresolved.
-The plan records the evidence and the work needed; the collection has not yet
-been corrected. One usable scholarly report remains sufficient, and partial
-checks will not be labelled whole-manuscript validation.
-
 ## Development
 
+Run commands from the repository root. The maintained Python code uses the
+standard library; the app and Node tests need no npm package installation.
+
 ```powershell
-python build_collection.py --check
-python build_na28_inventory.py --check
-python -m unittest discover -s tests -v
+python -m unittest discover -s tests
 npm test
 ```
 
-Checks are offline. Do not start servers or make live source requests as routine
-verification. The [development plan](docs/DEVELOPMENT_PLAN.md#next-development-work)
-describes current priorities. Software revision history belongs in Git; the
-working project maintains current data and a single app.
+Use `python source_checks.py --check` for evidence validation and
+`python build_na28_inventory.py --check` for coordinate validation when relevant.
+`python build_collection.py --check` is a full offline rebuild and comparison
+under the default 2 GiB memory ceiling. Use it for collection/export changes when
+full verification is warranted; documentation edits and target selection do not
+need a production rebuild.
+
+Do not start servers or make live source requests as routine verification.

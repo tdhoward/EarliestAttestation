@@ -1,21 +1,27 @@
 # Source corroboration plan
 
-Agreed direction: 2026-10-08. Status: planned; the checking register, additional
-source collectors, and discrepancy workflow below are not yet implemented.
-This is the shared working plan, updated in place as work proceeds. Follow
-[AGENTS.md](../AGENTS.md) and the [development plan](DEVELOPMENT_PLAN.md).
+Agreed scope: 2026-10-09. First check a few examples of NTVMR representing internal
+verse omissions; then limit further investigation to claims affecting the first
+five collected witnesses per verse. Broader source pilots, new general-purpose
+collectors, and collection-wide corroboration are outside the current work.
+Follow [AGENTS.md](../AGENTS.md) and the [development plan](DEVELOPMENT_PLAN.md).
+
+**Current status:** the scoped review is complete; independent comparisons remain
+deferred where unavailable. See [next actions and verification](#next-actions-and-verification)
+for outcomes and the conditions that reopen affected checks. Steps 1 and 2 below
+record the agreed method, not an instruction to restart collection.
 
 ## Purpose and present limitation
 
-Improve the accuracy of reported manuscript contents and dates by adding usable
-scholarly sources, recording exactly what has been checked, and exposing
-disagreements in the existing explorer. One usable scholarly report remains
-sufficient. Corroboration is not a prerequisite for every witness or a claim that
-we have independently established a manuscript's physical contents.
+Determine whether the John 7:53–8:11 indexing issue can reasonably be treated as a
+local correction, and focus further checking on the evidence used by the app's
+first-five rankings. One usable scholarly report remains sufficient. A problem
+with a particular passage does not establish that other NTVMR contents reports
+are faulty.
 
-The Pericope Adulterae investigation found that the saved NTVMR index includes all
-twelve verses of John 7:53–8:11 for P66, P75, and Vaticanus. The current importer
-converts those entries into ordinary presence claims. Relevant saved page ranges:
+The saved NTVMR index includes all twelve verses of John 7:53–8:11 for P66, P75,
+and Vaticanus. Those exact entries now remain as unknown index contributions;
+Wallace's explicit omission report supplies coverage. Relevant saved page ranges:
 
 | Witness | NTVMR page ID | Indexed range in captured metadata |
 | --- | --- | --- |
@@ -25,196 +31,232 @@ converts those entries into ordinary presence claims. Relevant saved page ranges
 
 The [retained endpoint documentation](../data/reference/contracts/biblicalcontent_get_.json)
 describes `detail=long` as expanding page ranges into individual entries.
-[Daniel Wallace's published discussion](https://www.biblicaltraining.org/learn/institute/nt605-textual-criticism/nt605-33-some-famous-textual-problems-john-7-53-8-11)
-explicitly reports omission in P66, P75, Sinaiticus, and Vaticanus.
-[H. A. G. Houghton's discussion, section 2.F](https://pure-oai.bham.ac.uk/ws/portalfiles/portal/29525014/Houghton_OHJS_preprint.pdf)
-provides further scholarly context and identifies Bezae as the earliest surviving
-Greek witness containing the passage. These publications are leads for capture
-and faithful extraction; links in this plan do not register production claims.
+[Retained Wallace excerpts](../data/sources/wallace-john-pa-f2077311ebf42d87.json)
+report omission in P66, P75, Sinaiticus, and Vaticanus, and presence in Bezae.
+[Retained Houghton excerpts](../data/sources/houghton-john-pa-a12b86ef2108d68c.json)
+supply context and Bezae's identifier cross-reference. Citations, exact statements,
+qualifications, and retrieval metadata stay with those captures.
 
-We have not established whether NTVMR intends its page ranges to account for
-internal textual omissions. These could be incorrect index entries, a limitation
-of the indexing convention, or both. Do not describe either explanation as
-confirmed. The three forum links supplied during discussion could not be retrieved
-and have not established a provider explanation or correction:
-[2319157](https://ntvmr.uni-muenster.de/forum/-/message_boards/message/2319157),
-[2378155](https://ntvmr.uni-muenster.de/forum/-/message_boards/message/2378155),
-[2378979](https://ntvmr.uni-muenster.de/forum/-/message_boards/message/2378979).
+The [checking register](SOURCE_CHECKS.md)
+preserves the five original passage comparisons and five current rechecks. These
+known cases are separate from first-five target selection. The comparisons remain
+`insufficient_detail`, because the index cannot independently establish the
+reported omissions or confirm Bezae's presence. Wallace's explicit assertions
+are now active; Houghton remains contextual. No provider explanation has been
+established. Chasing forum leads is not a prerequisite for this treatment.
 
-## Evidence rules
+The initial acquisition made three requests (two publications and the first forum
+lead), within a five-request/180-second limit with five-second spacing. The forum
+returned HTTP 403; requests stopped, and the other two leads were unattempted.
+Full publication downloads stay in the ignored research cache; retained excerpts,
+hashes, and extracted assertions are in `data/sources/`. The saved contents reports
+have twelve scoped entries each for P66, P75, Vaticanus, and Bezae, and none for
+Sinaiticus. Missing Sinaiticus entries do not corroborate absence.
 
-- Use explicit scholarly catalogue fields and published assertions with documented
-  meanings. An API is optional: organized web pages, XML, JSON, tables, and
-  downloadable publications are acceptable sources.
-- Capture source material and extract its assertions. Never determine contents,
-  dates, identity, damage, hands, or corrections from manuscript images, Greek
-  transcription text, an apparatus, or empty transcription elements.
-- Record the source's exact scope. A report about one passage does not validate
-  the rest of a manuscript. A broad book/chapter range does not establish every
-  intervening verse unless the source's documented meaning supports that use.
-- Any reported surviving portion counts once. Missing entries and incomplete
-  source coverage establish neither absence nor disagreement.
-- Distinguish actual incompatible content assertions from ambiguous indexing or
-  extraction/mapping problems. Agent interpretations never become scholarly claims.
-- Preserve complete competing date intervals and qualifications with equal
-  standing. Overlap does not make two estimates identical; difference does not
-  establish that one is erroneous. Never average, intersect, or merge endpoints.
-- Retain source attribution and known upstream dependencies. Two sites repeating
-  the same catalogue are two access points, not necessarily independent evidence.
+## Completed omission sample: 2026-10-09
 
-## Storage and checking register
+The declared three-case sample used Vaticanus (NTVMR 20003) in each case, the same
+saved metadata and `detail=long` fields as the John comparison, and tier-3 pages.
+NET Bible's published prose notes explicitly name B among witnesses omitting
+each exact verse. Only those assertions were extracted; no manuscript text,
+apparatus, image, or explanation of textual origin was analyzed.
 
-Keep one central collection and one app. The proposed additional register is
-`data/source_checks.json`, covering content and date comparisons. Do not create
-book-specific datasets, milestone reports, or a second manuscript truth store.
+| Exact scope | Retained scholarly assertion | Saved page ID and range | Expanded entry |
+| --- | --- | --- | --- |
+| Matthew 17:21 | [NET note](../data/sources/net-omission-matt-17-21-4705cb5b1cce3e9d.json) | 270: Matthew 17:9–27; 18:1–6 | `Matt.17.21` included |
+| Mark 15:28 | [NET note](../data/sources/net-omission-mark-15-28-7d6ecab96fd9948e.json) | 710: Mark 15:14–42 | `Mark.15.28` included |
+| Acts 8:37 | [NET note](../data/sources/net-omission-acts-8-37-a6cf47d7af86f509.json) | 1630: Acts 8:26–40; 9:1–11 | `Acts.8.37` included |
 
-| Location | Planned responsibility |
-| --- | --- |
-| `data/sources/` | Captured source responses/pages or publications and their retrieval metadata |
-| `data/reference/` | Captured field documentation and source contracts where needed |
-| `data/collection.json` | Canonical witness identities and registered scholarly claims, using or extending `additional_reports` |
-| `data/source_checks.json` | Work queue, exact comparison scope, evidence references, outcomes, and follow-up state |
-| `data/attestations.json` | Derived app evidence, coverage consequences, and compact discrepancy/check summaries |
-| `data/.cache/` | Ignored request checkpoints, experiments, and temporary build databases |
+The register pins exact expanded entries, metadata page fields, source hashes,
+citations, excerpt locators, retrieval dates, and qualifications. All three
+controls record `insufficient_detail`: none supplied an internal index exclusion.
+The bounded conclusion is inconclusive about NTVMR's general convention and does
+not support calling John a confirmed local error. It does demonstrate that these
+three comparable expanded entries cannot independently establish verse presence
+against an explicit published omission. This does not invalidate unrelated entries.
 
-Finalize a versioned register schema during implementation. Each check should
-record a stable ID; canonical witness/document IDs; content or date comparison
-kind; exact verse scope or date applicability; NTVMR and comparison-source capture
-IDs/hashes; source locators and claim IDs; comparison method/version; checked date;
-outcome and explanation; and follow-up status with supporting evidence.
+Research was limited to NET Bible notes, eight page requests and ten minutes,
+with five-second spacing. One three-query search and three successful web page
+opens supplied the notes. A separate direct download returned HTTP 403; requests
+stopped without retries. Short rendered excerpts are retained with their hashes;
+original HTTP bytes were unavailable. No live NTVMR requests were made.
 
-Each capture retains provider/author, title and citation, canonical URL, retrieval
-timestamp, raw material and hash where available, exact field or statement,
-qualifications, and any known upstream source. Large captures are referenced, not
-duplicated into every check. Extraction locators must make the assertion easy to
-find in the saved source. Handle aliases/joins only through cited identity reports.
+The documented treatment is limited to the three contradicted John ranges for
+P66, P75, and Vaticanus and the three exact control verses for Vaticanus. Their
+raw index entries remain visible with unknown admission and evidence links.
+Explicit Wallace reports establish absence for P66, P75, Sinaiticus, and
+Vaticanus in the twelve John verses and presence for Bezae. Sinaiticus's missing
+index entries never supply absence. Bezae's compatible index and publication
+reports count one witness. All date estimates and other index entries remain
+unchanged. The three control coordinates remain subject to the existing edition
+filter; their registered omission assertions do not change that filter.
 
-Keep comparison outcomes separate from manuscript coverage:
+## Step 1: Check how NTVMR represents internal omissions
 
-| Check outcome | Meaning |
-| --- | --- |
-| Not yet checked | No completed comparison for this witness, scope, and source |
-| Agreement | Comparable explicit content assertions agree within the recorded scope, or complete date estimates agree |
-| Disagreement | Comparable explicit content assertions conflict, or complete date estimates differ; identify which kind |
-| Insufficient detail | A comparison was attempted, but ambiguity, missing assertions, unsupported mapping, or insufficient scope prevents a conclusion |
+Use a small sample, initially three to five cases, where an explicit scholarly
+publication reports that a particular manuscript omits specific verses within
+a passage. This control sample may include witnesses outside the first five.
 
-Track access failures separately from evidence outcomes. Distinguish open,
-deferred, and resolved follow-up from the comparison result. A resolution needs
-an attributable correction, clarification, or repaired extraction; it must not
-erase the original captures or disagreement. A newer source snapshot or changed
-extraction rule marks affected checks as needing recheck. Earlier agreement must
-not silently apply to new evidence. Software revision history remains in Git.
+1. Reuse saved scholarly reports, catalogue metadata, verse-content responses,
+   and endpoint documentation. Select named witnesses and exact verse scopes.
+   If additional requests are needed, declare sources, time/request budgets,
+   and pacing before starting; honor provider blocks.
+2. Compare the reported omissions with breaks in NTVMR's saved page ranges and
+   their expanded verse entries. Prefer the same indexing fields, comparable
+   indexing tiers, and where possible the same manuscripts as the John case.
+   Record the exact fields, captures, and qualifications that make each example
+   comparable.
+3. Distinguish the published omission assertion from the observed index gap.
+   A gap alone establishes neither manuscript absence nor the reason for it.
+   Do not determine omissions from images, Greek transcriptions, apparatuses,
+   physical damage, or neighboring verse contents.
+4. Stop after the declared sample and budget. Record usable examples and
+   inconclusive cases; failure to find a suitable control does not establish a
+   universal indexing limitation or trigger a collection-wide investigation.
 
-Do not use an unqualified manuscript-wide "validated" checkbox. Summaries should
-say, for example, "John 7:53–8:11 checked against source X," and distinguish full
-declared-scope checks from partial ones. Date checking does not imply content
-checking. Discovery completion does not imply either.
+Comparable examples would establish that NTVMR can represent internal exclusions
+and support a localized indexing error as the working explanation for the John
+entries. They would not prove uniform practice throughout NTVMR or constitute a
+provider-confirmed correction. Keep that inference separate from scholarly
+content assertions. Provider clarification is useful when available, but is not
+required before documenting a practical, passage-specific treatment.
 
-## App behavior
+Apply the findings to the five retained John cases, preserving each one's actual
+report state. If NTVMR cannot supply reliable verse presence for this passage,
+document that limitation and use usable explicit scholarly reports for the
+affected witness/verse pairs. Keep otherwise usable NTVMR reports in use. A
+general importer change requires evidence of a general problem; the known case
+does not by itself justify withdrawing unrelated NTVMR coverage.
 
-Full checking records stay outside `attestations.json`. The normal offline build
-should project only the details needed by the app into that file, preserving its
-single-file loading path. Registered scholarly assertions determine coverage;
-checking records reference those assertions rather than supplying uncited overrides.
+## Step 2: Check only claims affecting the first five
 
-For each affected verse, show the manuscript, the NTVMR claim/index entry, the
-other source's statement, exact scope, citations/capture links, and follow-up state.
-Also provide a way to find open discrepancies and inspect checking progress.
+The review scope is the union of witnesses appearing among the first five
+collected witnesses for any verse, across both lower- and upper-date-endpoint
+modes and all retained complete date alternatives. It is not five manuscripts
+for the whole New Testament.
 
-- Incompatible explicit presence/absence reports are `contested`, visible, and
-  excluded from ordinary presence counts and rankings while unresolved.
-- An ambiguous NTVMR index remains visible as an interpretation issue, without
-  being promoted to an opposing scholarly assertion. Its unsupported contribution
-  is `unknown`; an independently usable report may still establish presence or
-  explicit absence. Explain the issue in the app even when it is not `contested`.
-- Different complete date estimates remain visible alternatives under the existing
-  date-scenario behavior, not a content conflict or an averaged replacement date.
-- Missing comparison data leaves the checking status incomplete; it does not
-  negate an otherwise usable scholarly report. Continue unrelated collection.
+- Select targets from the existing compact rankings in `data/attestations.json`,
+  linked back to the central register and captures. Deduplicate canonical
+  witnesses and witness/verse checks across verses and scenarios. Target selection
+  does not require a full collection rebuild or a witness/verse object matrix.
+- Review only the verse-presence claims and date reports that place those
+  witnesses in the first five. Selection for one verse does not authorize a
+  review of all that manuscript's contents. Preserve each competing date range
+  in full; do not choose a preferred scholar or merge endpoints.
+- After a correction, update the affected rankings. If another witness enters
+  the first five, check the relevant claims for that replacement. Apply the
+  same rule across both date modes and alternatives.
+- Where rankings are unavailable, including date-combination overflow, record
+  the limitation rather than silently selecting an alternative or expanding a
+  corpus-wide combination set.
+- Stop when the current first-five claims and any promoted replacements have
+  recorded scoped outcomes. Unresolved cases can remain visible and deferred;
+  missing corroboration does not negate an otherwise usable report. Fewer than
+  five usable witnesses is acceptable. Do not investigate lower-ranked witnesses
+  merely to broaden coverage.
 
-A discrepancy notice must agree with coverage and rankings. Do not display an
-unresolved conflict only as a footnote while counting that pair as ordinary
-presence. No application change described here has yet corrected the current data.
+Use additional scholarly sources only as needed for these selected claims.
+There is no current general source-discovery pilot or requirement to corroborate
+every captured manuscript. Further broad collection remains deferred.
 
-## Candidate sources and evaluation
+## Evidence, storage, and app consequences
 
-This shortlist records the initial investigation, not a ranking of source
-accuracy. Verify field meanings, availability, reuse conditions, and provenance
-before building a collector. A downloadable dataset can be as useful as an API.
+Retain the existing central collection, source captures, checking register, and
+app. The [checking schema](SOURCE_CHECKS.md) documents the implemented evidence
+links, comparison outcomes, follow-up, and recheck detection; no replacement
+register or new tracking system is needed.
 
-| Candidate | Initial assessment and next check |
-| --- | --- |
-| [CSNTM](https://www.csntm.org/2026/02/16/how-to-read-and-understand-a-manuscript-record-in-the-csntm-database/) | Prioritize evaluation of explicit contents descriptions and reported dates. No documented public metadata API was located. Determine whether available descriptions distinguish omissions and whether they reuse NTVMR or another catalogue. |
-| [Papyri.info / DCLP / APIS](https://github.com/papyri/idp.data) | Public XML data makes a bounded metadata pilot practical. Establish relevant manuscript coverage and usable explicit assertions; do not analyze transcription bodies. [DCLP documentation](https://github.com/papyri/site-docs/blob/master/dclp.md) identifies LDAB as its initial metadata source. |
-| [Trismegistos / LDAB](https://www.trismegistos.org/dataservices/texrelations/documentation/) | The documented matcher links identifiers across projects. Use it for source discovery and identity cross-references; it does not itself provide verse-presence assertions. |
-| [IRHT / Arca](https://www.irht.cnrs.fr/fr/ressources/autre/arca-api) and [Biblissima](https://doc.biblissima.fr/api/api-mediawiki/) | Potential catalogue enrichment and identity links through documented APIs. No comprehensive NT verse-content service has been established. |
-| [IGNTP / ITSEE](https://itseeweb.cal.bham.ac.uk/iohannes/download.html) and [CNTR](https://github.com/Center-for-New-Testament-Restoration/transcriptions) | Available transcription/apparatus downloads are not direct coverage inputs under our scope. Use separately published explicit scholarly reports if available. |
-| Published catalogues and scholarly discussions | Capture explicit statements for known discrepancies, including the Pericope Adulterae. Retain page/section locators; neither automated prose extraction nor source reputation alone establishes a claim's scope. |
+- `data/sources/` and `data/reference/` retain source material and field contracts,
+  with citations, retrieval dates, hashes, exact locators, and qualifications.
+  Keep known upstream dependencies; repeated access points need not be independent
+  evidence.
+- `data/collection.json` holds identities and scholarly claims.
+  `data/source_checks.json` holds only scoped comparisons and follow-up.
+  Keep the five existing John checks and their evidence. New checks are limited
+  to the small omission sample and relevant first-five claims.
+- `data/attestations.json` remains the single derived app input. Project only
+  relevant discrepancy details and evidence links when implementing the correction.
+  A collection-wide progress dashboard is not part of this work.
+- Preserve original claims and captures when revising extraction or admission.
+  Recheck affected in-scope comparisons after source or extraction changes; do not
+  inherit stale agreement or reopen unrelated collection-wide review.
 
-No resource has yet been demonstrated to quickly vet the verse contents of most
-relevant witnesses. Evaluate that possibility through a pilot rather than treating
-broad catalogue overlap or downloadable transcriptions as completed validation.
+Registered scholarly assertions determine coverage. Any reported surviving portion
+counts once per witness/verse. Missing entries are unknown; absence requires an
+explicit scholarly report. An ambiguous index contribution is unknown, and an
+independently usable report may establish presence or absence. Actual incompatible
+explicit content reports are contested and excluded from ordinary presence counts
+and rankings while unresolved. Keep both sources visible. A working explanation
+about indexing must not become an invented scholarly assertion or disagreement.
 
-## Ordered work and shared checkpoints
+The app's evidence and counts must agree for the affected cases. Preserve complete
+competing dates as alternatives, without turning different dates into a content
+conflict. Human review checks faithful extraction, citation, and usability; it
+does not require manuscript examination or scholarly certification.
 
-All steps below are pending. Update these checkboxes and current findings in place.
+## Next actions and verification
 
-1. [ ] **Clarify the NTVMR contract and record the known case.** Reuse retained
-   metadata, contents, and help captures. Seek documentation or a published provider
-   clarification about internal omissions; do not assume a forum report proves a
-   correction. Capture the explicit scholarly reports for John 7:53–8:11. Include
-   P66, P75, Vaticanus, Sinaiticus, and Bezae with their actual report states; a
-   missing index entry alone is not an absence assertion. Record unresolved field
-   meaning without blocking the remaining work. Checkpoint: review the evidence
-   and the proposed classification before changing the general import contract.
-2. [ ] **Implement the register and evidence links.** Define its schema and scope
-   rules, connect checks to canonical witnesses/captures/claims, and support
-   resumable work and rechecking. Preserve complete date alternatives. Checkpoint:
-   review a small set of records that makes clear what was and was not checked.
-3. [ ] **Connect discrepancies to the existing app.** Update the source contract,
-   normalization, export, and explorer together. Add visible discrepancy details
-   and progress summaries, with correct coverage/count consequences. Checkpoint:
-   review the Pericope Adulterae example and both date modes in the resulting app;
-   the owner starts the local server when needed.
-4. [ ] **Run a bounded source pilot.** Start with CSNTM and Papyri.info metadata plus
-   explicit publications. Declare witness IDs, passages, sources, time/request
-   budgets, and pacing before live work. Include ordinary contents, fragmentary
-   reports, published omissions, and competing date estimates; sample the relevant
-   catalogue categories without treating the sample as comprehensive. Measure
-   usable exact claims, scoped agreements/disagreements, unresolved cases, requests,
-   extraction effort, and known shared upstream sources. Checkpoint: decide which
-   sources and extraction contracts merit broader collection.
-5. [ ] **Expand useful sources and maintain checks.** Work through the relevant
-   central witness pool using the durable queue. Reuse captures, respect provider
-   limits/blocks, and keep each live run finite. Report full versus partial checking
-   coverage and outstanding discrepancies. Recheck affected scopes after source
-   updates. Preserve the existing date scope unless explicitly changed; do not
-   expand it merely to fill ranking places.
+- [x] Record the small internal-omission sample and its bounded conclusion.
+- [x] Apply a documented treatment to John 7:53–8:11 and correct the affected
+  evidence, counts, and rankings in the existing app.
+- [x] Select the first-five scopes after correction and record the current John
+  first-five outcomes, including promoted replacements.
+- [x] Review the remaining selected checks from retained evidence, record
+  unavailable independent comparisons as deferred, and stop at the scope above.
 
-At checkpoints, human review checks extraction, citations, usability, and source
-priorities; it does not require manuscript examination or scholarly certification.
-Routine reversible work can continue within the agreed scope. Contacting providers
-or posting reports requires the owner's explicit instruction; research and record
-preparation do not authorize sending messages.
+The CLI now selects deduplicated first-five scopes directly from compact ranking
+tables and can append uncovered scopes to the existing checking register. Both
+endpoint modes and every exported date combination participate. Unavailable
+rankings are disclosed rather than filled in. Rerun selection after corrections
+to queue promoted replacement claims without reopening unrelated manuscript
+contents. Selection alone does not complete a check; the current selected scopes
+now have reviewed evidence and recorded outcomes.
 
-## Acceptance and verification
+The corrected selection includes 198 witnesses and 39,776 witness/verse pairs.
+Sixteen edition-filtered coordinates have unavailable rankings. Current John
+rankings promote GA 032, GA 07, and GA 047; their exact passage claims and the
+current five's complete catalogue dates have scoped outcomes. The saved publication
+excerpts have no explicit assertions for GA 029, GA 032, GA 07, or GA 047 and no
+comparable complete dates for the current five, so those
+outcomes remain `insufficient_detail` with deferred follow-up. One usable catalogue
+report remains sufficient.
 
-- Every check identifies the exact witness, scope, sources, snapshots, and outcome;
-  progress cannot mistake a partial check for whole-manuscript validation.
-- Original evidence survives extraction fixes, source updates, and resolutions;
-  later snapshots do not inherit stale agreement silently.
-- The known Pericope Adulterae cases no longer contribute unsupported ordinary
-  presence. The displayed result follows explicit reports and the documented
-  contract, without inferred absence or manufactured scholarly disagreement.
-- Actual content conflicts affect counts/rankings; ambiguous fields and missing
-  comparisons stay distinct. Other witnesses remain usable. Any reported portion
-  counts once; aliases, repeated pages, and repeated sources do not multiply it.
-- Competing dates retain their full intervals, original notation, qualifications,
-  and source attribution. Contents checks do not certify dates or vice versa.
-- Bounded offline fixtures verify extraction, mapping, provenance, disagreement
-  classification, deduplication, rechecking, date alternatives, and app output.
-  No test asks us to determine what a manuscript physically contains.
-- Use appropriate existing offline Python/Node checks and collection validation
-  when implementation changes warrant them. No local server or live collection
-  is part of routine verification. Keep one central collection, one current app
-  data file, and one explorer.
+On 2026-10-10, offline extraction review completed the remaining 391 checks:
+198 exact content scopes and 193 complete catalogue-document date scopes. The
+content checks traced 42,513 tier-3 entries for the remaining 39,716 selected
+witness/verse pairs to the retained document, page, OSIS field, indexing metadata,
+and admission qualifications. Every selected coordinate had an admitted
+reported-presence claim. The date checks preserved complete intervals, notation
+types, provenance, and qualifications and matched the compact ranking reports.
+Earlier John outcomes and all source claims remain unchanged.
+
+None of these remaining scopes has a comparable explicit assertion in the five
+registered publication captures. Their outcomes are therefore `insufficient_detail`
+with deferred follow-up, not independently corroborated agreement. Each check
+pins the relevant catalogue captures, stable scoped claim IDs, and retained
+endpoint documentation. This establishes faithful extraction under the current
+contract; it does not establish manuscript contents or resolve index semantics.
+
+All 198 selected witnesses, 39,776 witness/verse pairs, and 198 complete date
+reports now have scoped outcomes, including the previously checked John claims
+and promoted replacements. The register has 408 current outcomes and five
+superseded comparisons, with no unreviewed or stale checks. Refreshing selection
+adds no work; the sixteen unavailable rankings remain explicit. The current
+stop condition is reached. Reopen only affected checks when evidence, extraction,
+or admission changes, or when a correction promotes new first-five claims.
+Independent comparison remains deferred; no live requests or collection rebuild
+were needed for this review.
+
+Use focused offline checks for the selected evidence and any changed behavior.
+Documentation edits, target selection, and scoped comparisons do not require a
+production rebuild. Rebuild the app data when registered claims or output behavior
+change, retaining the enforced memory budget and compact representation. Do not
+repeat full builds merely to measure checking progress. No live collection or
+local server is part of routine verification.
+
+Remove obsolete exploratory scripts, duplicate inspection output, and old run
+logs when no longer needed. Preserve original evidence, useful checking tools,
+bounded regression fixtures, and collection checkpoints. Software revision
+history belongs in Git; temporary work belongs in ignored `data/.cache/`.
+Contacting providers or posting reports still requires the owner's explicit
+instruction.

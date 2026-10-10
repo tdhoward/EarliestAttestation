@@ -10,13 +10,13 @@ from urllib.error import HTTPError
 from urllib.parse import urlencode, urlsplit
 from urllib.request import ProxyHandler, Request, build_opener
 
-from build_collection import DATA, build_data, data_path, prepare_collection, read_json, write_json
-from controlled_ntvmr import (API_BASE, Client, ContractError, JobFailure, RunStopped,
+from build_collection import DATA, build_browser_data, data_path, prepare_collection, read_json, write_json
+from pipeline.build_storage import record_store
+from pipeline.controlled_ntvmr import (API_BASE, Client, ContractError, JobFailure, RunStopped,
                               collect_stage, connect, encoded, import_search_fixture)
-from source_discovery import (captured_chain, collect_book_range, prepare_discovery,
+from pipeline.source_discovery import (captured_chain, collect_book_range, prepare_discovery,
                               range_params, response_capture, sha)
-from source_reports import GREEK_LANGUAGE_CODES, capture, prepare_batch
-from browser_format import pack_browser_data
+from pipeline.source_reports import GREEK_LANGUAGE_CODES, capture, prepare_batch
 
 
 def retained_transport(value, *proxy_urls):
@@ -148,15 +148,16 @@ def collect(data_dir, definition, run_id, *, offline=False, https_proxy=None, ba
     if definition["book"] not in config["books"]:
         config["books"].append(definition["book"])
     manifest, _ = prepare_collection(config, data_dir, discovery_records=records)
-    ready = prepare_batch(manifest, data_dir)[4]
+    with record_store(data_dir) as factory:
+        ready = prepare_batch(manifest, data_dir, record_factory=factory)[4]
     for scope in records:
         prepare_discovery(scope, ready)
-    app_data = build_data(config, data_dir, discovery_records=records)
+    app_data = build_browser_data(config, data_dir, discovery_records=records)
     if read_json(config_path) != original or (read_json(discovery_path) if discovery_path.exists() else []) != original_records:
         raise ValueError("Collection changed during discovery; captures are retained in data/sources for recovery")
     write_json(discovery_path, records)
     write_json(config_path, config)
-    write_json(data_dir / "attestations.json", pack_browser_data(app_data), compact=True)
+    write_json(data_dir / "attestations.json", app_data, compact=True)
     summary, _ = prepare_discovery(record, ready)
     return summary
 

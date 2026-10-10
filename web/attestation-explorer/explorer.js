@@ -830,6 +830,13 @@
       link(section, record.citation);
       appendText(section, "p", `Retrieved ${record.retrieved_at} · Field: ${record.source_locator}`);
       appendText(section, "p", record.qualifications || "No additional qualifications supplied.");
+      if (record.index_limitation) {
+        for (const evidence of record.index_limitation.evidence) {
+          link(section, evidence.source_url, "Index limitation evidence ↗");
+          appendText(section, "p", `${evidence.source_locator} · retrieved ${evidence.retrieved_at}`);
+          appendText(section, "p", evidence.statement);
+        }
+      }
       appendText(section, "p", `Response ${record.source_response_id} · ${kind === "date" ? "Assessment " + record.assessment_id : "Claim " + record.claim_id}`);
       appendText(section, "code", `SHA-256 ${record.source_sha256}`);
       appendText(section, "pre", JSON.stringify(record.reported, null, 2));
